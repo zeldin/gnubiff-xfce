@@ -14,6 +14,8 @@ Version 2.1.2
         "NEWS"
    - Bugfix: Respect folding in mail header
    - Bugfix: Better handling of certain header lines
+   - Bugfixes/Cleanup: Parsing of content type header field
+   - Bugfix: Handling of quoted strings (IMAP4)
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

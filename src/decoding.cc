@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -73,6 +73,59 @@ Decoding::decode_body (std::vector<std::string> &mail, std::string encoding)
 		return true;
 	}
 
+	return true;
+}
+
+/**
+ *  Get a quoted string that is a substring of the string {\em line}. The
+ *  quoted string has to be enclosed by the {\em quoted} character. If
+ *  there should be no test for this character at the beginning {\em
+ *  test_start} has to be false, if it is okay that the quoted string does
+ *  not end with the {\em quoted} character but with the end of {\em
+ *  line}. The position {\em pos} points to the first character of the
+ *  quoted string. If the quoted string can be successfully obtained it is
+ *  returned in {\em str} (with all quoted pairs "\x" substituted by "x"
+ *  for any character 'x') and {\em pos} is the position of the next
+ *  character of {\em line} after the quoted string. If {\em line} ends with
+ *  the quoted string {\em pos} will point outside of {\em line}!
+ *  
+ *  @param  line       String in which the quoted string is contained
+ *  @param  str        Here the obtained string is returned
+ *  @param  pos        Position of the first character of the quoted string.
+ *                     When returning {\em pos} is the position of the next
+ *                     character after the quoted string. If false is returned
+ *                     it is the position in which the error occurred.
+ *  @param  quoted     Character that encloses the quoted string (default 
+ *                     is '"')
+ *  @param  test_start Shall the first character be tested for being the
+ *                     {\em quoted} character (default is true)?
+ *  @param  end_ok     Is it okay for the quoted string to end with the end of
+ *                     {\em line} and not with {\em quoted} (default is false)?
+ *  @return            Boolean indicating success
+ */
+gboolean 
+Decoding::get_quotedstring (std::string line, std::string &str, guint &pos,
+							gchar quoted, gboolean test_start, gboolean end_ok)
+{
+	guint len = line.size ();
+	str = std::string ("");
+	if (pos >= len)
+		return false;
+
+	if ((test_start) && (line[pos++] != quoted))
+		return false;
+
+	while ((pos < len) && (line[pos] != quoted)) {
+		if ((line[pos] == '\\') && (pos+1 == len))
+			return false;
+		if (line[pos] == '\\')
+			pos++;
+		str += line[pos++];
+	}
+
+	if (pos == len)
+		return end_ok;
+	pos++;
 	return true;
 }
 
@@ -368,6 +421,22 @@ Decoding::utf8_to_imaputf7(const gchar *str, gssize len)
 	}
 
 	return g_strdup(result.c_str());
+}
+
+/**
+ *  Convert all upper case characters in an ASCII string to lower case
+ *  characters.  Non-ASCII characters are left unchanged.
+ *
+ *  @param  str String to be converted
+ *  @retrun     Converted string
+ */
+std::string 
+Decoding::ascii_strdown (const std::string &str)
+{
+	gchar *tmp = g_ascii_strdown (str.c_str(), -1);
+	std::string result = std::string (tmp);
+	g_free (tmp);
+	return result;
 }
 
 /**

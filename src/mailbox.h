@@ -78,6 +78,9 @@ protected:
 
 	void option_changed (Option *option);
 	void option_update (Option *option);
+	gboolean parse_contenttype (std::string line, std::string &type,
+								std::string &subtype,
+								std::map<std::string, std::string> &map);
 
 	/// Mail headers of mails that have not been read yet
 	std::map<std::string, Header> unread_;
@@ -148,7 +151,8 @@ public:
 	void start_checking (void);
 	void mail_displayed (void);
 	void parse (std::vector<std::string> &mail,		// parse a mail
-				std::string uid = std::string(""));
+				std::string uid = std::string(""),
+				class PartInfo *partinfo = NULL);
 
 	// ========================================================================
 	//  access
@@ -248,6 +252,31 @@ public:
 	guint hiddens (void)								{return hidden_.size();}
 	/// Access function to Mailbox::seen_
 	std::set<std::string> &seen (void)					{return seen_;}
+};
+
+/**
+ * Information about one part of a (possible) multi-part mail. If the mail
+ * consists only of one part the information is valid for the whole mail.
+ */
+class PartInfo
+{
+ public:
+	/** Part identifier as needed for the IMAP command FETCH (see
+	 *  RFC 3501 6:4:5). This is the part of the mail that will be displayed
+	 *  by gnubiff (if possible). */
+	std::string part_;
+	/// MIME type
+	std::string type_;
+	/// MIME subtype
+	std::string subtype_;
+	/** Encoding of this part. Currently supported encodings are 7bit, 8bit
+	 *  and quoted-printable. Encodings yet to be supported are binary and
+	 *  base64. */
+	std::string encoding_;
+	/// Parameters as pairs (attribute, value)
+	std::map<std::string, std::string> parameters_;
+	/// Size of this part in bytes
+	gint size_;
 };
 
 #endif

@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -320,7 +320,7 @@ Imap4::fetch_mails (void) throw (imap_err)
 		// Decode and parse mail
 		if (partinfo.part_ != "")
 			decode_body (mail, partinfo.encoding_);
-		parse (mail, mailid);
+		parse (mail, mailid, &partinfo);
 	}
 }
 
@@ -464,20 +464,15 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	std::string line;
 
 	// Do we have to get any plain text?
-	if (partinfo.part_=="") {
+	if (partinfo.part_ == "") {
 		mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
+		partinfo.type_ = "text";
+		partinfo.subtype_ = "plain";
 		return;
 	}
 	else if (partinfo.size_ == 0) {
 		mail.push_back(std::string(""));
 		return;
-	}
-
-	// Insert character set into header
-	if (partinfo.charset_ != "") {
-		line = "Content-type: " + partinfo.mimetype_ + "; charset=";
-		line+= partinfo.charset_;
-		mail.insert (mail.begin(), line);
 	}
 
 	// Note: We are only interested in the first lines, there
@@ -573,9 +568,9 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 	PartInfo partinfo;
 	parse_bodystructure(response, partinfo);
 #ifdef DEBUG
-	g_print("** Message: [%d] Part=%s size=%d, encoding=%s, charset=%s\n",
-			uin(), partinfo.part_.c_str(), partinfo.size_,
-			partinfo.encoding_.c_str(),	partinfo.charset_.c_str());
+	g_message ("[%d] Part=%s size=%d, encoding=%s\n", uin(),
+			   partinfo.part_.c_str(), partinfo.size_,
+			   partinfo.encoding_.c_str());
 #endif
 
 	// Getting the acknowledgment
@@ -1057,31 +1052,32 @@ guint
 Imap4::isfinished_fetchbodystructure (std::string line, guint nestlevel)
 									  throw (imap_err)
 {
-	gint len=line.size(), pos=0;
+	guint len = line.size(), pos = 0;
 
 	while (pos<len)	{
-		gchar c=line[pos++];
+		gchar c = line[pos++];
 
-		// String (FIXME: '"' inside of strings?)
-		if (c=='"')	{
+		// String
+		if (c == '"')	{
 			// Read whole string
-			while ((pos<len) && (line[pos++]!='"'));
+			std::string tmp;
 			// We don't allow line breaks inside of strings. Is this a problem?
-			if (pos>=len) throw imap_command_err();
+			if (!get_quotedstring (line, tmp, pos, '"', false))
+				throw imap_command_err();
 			continue;
 		}
 
 		// Nested "( ... )" block begins
-		if (c=='(') {
+		if (c == '(') {
 			nestlevel++;
 			continue;
 		}
 
 		// Nested "( ... )" block ends
-		if (c==')')	{
+		if (c == ')')	{
 			nestlevel--;
 			// Back at toplevel we expect to be at the end of the line
-			if ((nestlevel == 0) && (pos!=len-1) && (line[pos]!='\r'))
+			if ((nestlevel == 0) && (pos != len-1) && (line[pos] != '\r'))
 				throw imap_command_err();
 			if (nestlevel == 0) return 0;
 			continue;
@@ -1117,7 +1113,7 @@ gboolean
 Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 							gboolean toplevel)
 {
-	gint len=structure.size(),pos=0,block=1,nestlevel=0,startpos=0;
+	guint len=structure.size(),pos=0,block=1,nestlevel=0,startpos=0;
 	gboolean multipart=false;
 
 	// Multipart? -> Parse recursively
@@ -1125,36 +1121,30 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 		multipart=true;
 
 	// Length is in the 7th block:-(
-	while (pos<len)
-	{
+	while (pos<len) {
 		gchar c=structure.at(pos++);
 
-		// String (FIXME: '"' inside of strings?)
-		if (c=='"')
-		{
+		// String
+		if (c == '"') {
 			// When in multipart only the last entry is allowed to be a string
 			if ((multipart) && (nestlevel==0))
 				return false;
 			// Get the string
-			gint oldpos=pos;
-			while ((pos<len) && (structure.at(pos++)!='"'));
-			if ((nestlevel==0) && (!multipart))
-			{
-				std::string value=structure.substr(oldpos,pos-oldpos-1);
-				gchar *lowercase=g_utf8_strdown(value.c_str(),-1);
-				value=std::string(lowercase);
-				g_free(lowercase);
-				switch (block)
-				{
+			std::string value;
+			if (!get_quotedstring (structure, value, pos, '"', false))
+				return false;
+			value = ascii_strdown (value);
+			if ((nestlevel == 0) && (!multipart)) {
+				switch (block) {
 					case 1: // MIME type
-						if (value!="text")
+						if (value != "text")
 							return false;
-						partinfo.mimetype_=value;
+						partinfo.type_ = value;
 						break;
-					case 2: // MIME type
-						if (value!="plain")
+					case 2: // MIME subtype
+						if (value != "plain")
 							return false;
-						partinfo.mimetype_+="/"+value;
+						partinfo.subtype_ = value;
 						break;
 					case 6:	// Encoding
 						partinfo.encoding_=value;
@@ -1165,20 +1155,18 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 		}
 
 		// Next block
-		if (c==' ')
-		{
-			if (nestlevel==0)
+		if (c==' ')	{
+			if (nestlevel == 0)
 				block++;
 			if ((block>7) && (!multipart))
 				return false;
-			while ((pos<len) && (structure.at(pos)==' '))
+			while ((pos < len) && (structure.at(pos) == ' '))
 				pos++;
 			continue;
 		}
 
 		// Nested "( ... )" block begins
-		if (c=='(')
-		{
+		if (c == '(') {
 			if (nestlevel==0)
 				startpos=pos-1;
 			nestlevel++;
@@ -1186,36 +1174,36 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 		}
 
 		// Nested "( ... )" block ends
-		if (c==')')
-		{
+		if (c == ')') {
 			nestlevel--;
-			if (nestlevel<0)
+			if (nestlevel < 0)
 				return false;
 			// Content of block
-			std::string content=structure.substr(startpos+1,pos-startpos-2);
+			std::string content=structure.substr (startpos+1, pos-startpos-2);
 			// One part of a multipart message?
-			if ((nestlevel==0) && (multipart))
+			if ((nestlevel == 0) && (multipart))
 			{
-				if (!parse_bodystructure(content,partinfo,false))
+				if (!parse_bodystructure (content, partinfo, false))
 					continue;
 				std::stringstream ss;
 				ss << block;
 				if (toplevel)
-					partinfo.part_=ss.str();
+					partinfo.part_ = ss.str();
 				else
-					partinfo.part_=ss.str()+std::string(".")+partinfo.part_;
+					partinfo.part_ = ss.str()+std::string(".")+partinfo.part_;
 				return true;
 			}
 			// List of parameter/value pairs? (3rd block)
-			if ((nestlevel==0) && (!multipart) && (block==3))
-				if (!parse_bodystructure_parameters(content,partinfo))
+			if ((nestlevel==0) && (!multipart) && (block==3)) {
+				
+				if (!parse_bodystructure_parameters (content, partinfo))
 					return false;
+			}
 			continue;
 		}
 
 		// Alphanumerical character
-		if (g_ascii_isalnum(c))
-		{
+		if (g_ascii_isalnum(c))	{
 			if ((multipart) && (nestlevel==0))
 				return false;
 			if (!multipart)
@@ -1226,9 +1214,9 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 			if ((block==7) && (nestlevel==0) && (!multipart))
 			{
 				std::stringstream ss;
-				ss << structure.substr(startpos,pos-startpos).c_str();
+				ss << structure.substr (startpos, pos-startpos).c_str();
 				ss >> partinfo.size_;
-				partinfo.part_=std::string("1");
+				partinfo.part_ = std::string ("1");
 				return true;
 			}
 			continue;
@@ -1260,8 +1248,8 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 gboolean 
 Imap4::parse_bodystructure_parameters (std::string list, PartInfo &partinfo)
 {
-	gint len=list.size(),pos=0,stringcnt=1;
-	std::string parameter;
+	guint len=list.size(), pos=0, stringcnt=1;
+	std::string parameter, value;
 
 	while (pos<len)
 	{
@@ -1276,24 +1264,19 @@ Imap4::parse_bodystructure_parameters (std::string list, PartInfo &partinfo)
 			continue;
 		}
 
-		// String (FIXME: '"' inside of strings?)
-		if (c=='"')
-		{
-			gint startpos=pos;
-			while ((pos<len) && (list.at(pos++)!='"'));
-			std::string value=list.substr(startpos,pos-startpos-1);
-			if (stringcnt%2)
-			{
+		// String
+		if (c=='"')	{
+			if (!get_quotedstring (list, value, pos, '"', false))
+				return false;
+
+			if (stringcnt%2) {
 				// Parameter: convert to lower case
-				gchar *lowercase=g_utf8_strdown(value.c_str(),-1);
-				parameter=std::string(lowercase);
-				g_free(lowercase);
+				parameter = ascii_strdown (value);
 				continue;
 			}
 
-			// Look for parameters we need
-			if (parameter=="charset")
-				partinfo.charset_=value;
+			// Insert parameter and its value into map
+			partinfo.parameters_[parameter] = value;
 			continue;
 		}
 

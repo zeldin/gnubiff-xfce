@@ -41,6 +41,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include "decoding.h"
 
 const guint OPTGRP_NONE	= 0;
 const guint OPTGRP_ALL	= (guint)-1;
@@ -81,7 +82,7 @@ enum OptionType {OPTTYPE_NONE = 0, OPTTYPE_UINT, OPTTYPE_STRING, OPTTYPE_BOOL};
 enum OptionGUI {OPTGUI_NONE = 0, OPTGUI_TOGGLE, OPTGUI_SPIN, OPTGUI_ENTRY,
 				OPTGUI_FONT, OPTGUI_RADIO};
 
-class Option {
+class Option : public Decoding {
 public:
 	Option ();
 	Option (std::string name, guint group, std::string help,

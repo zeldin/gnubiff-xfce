@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -521,11 +521,14 @@ Mailbox::lookup_local (Mailbox &oldmailbox)
 //  sender/date/subject, to convert strings if necessary and to store the mail in
 //  unread array (depending if it's spam or if it is internally marked as seen)
 // ================================================================================
-void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
+void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
+					 PartInfo *partinfo)
 {
 	Header h;
 	gboolean status = true; // set to false if mail should not be stored
 	guint len = mail.size ();
+	std::string type, subtype; // MIME type
+	std::map<std::string, std::string> paras; // content type parameters
 
 	for (guint i=0; i < len; i++) {
 		// Beginning of body? (header and body are separated by an empty line)
@@ -588,35 +591,55 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 		}
 
 		// Content Type
-		if ((line.find ("Content-Type:") == 0) && h.charset().empty()) {
-			// Charset
-			guint pos = line_down.find ("charset=");
-			if (pos != std::string::npos) {
-	  			// +8 is size of "charset="+1
-				std::string charset = line_down.substr (pos + 8);
-				// First we remove any leading '"'
-				if ((charset.size() > 0) && (charset[0] == '\"'))
-					charset = charset.substr(1);
-
-				// Then we wait for the end of charset
-				for (guint j = 0; j < charset.size(); j++) {
-					if ((charset[j+1] == ';')  || (charset[j+1] == '\"') ||
-						(charset[j+1] == '\n') || (charset[j+1] == '\t') ||
-						(charset[j+1] == ' ')  || (charset[j+1] == '\0')) {
-						h.charset (charset.substr (0, j+1));
-						break;
-					}
-				}
+		if (line.find ("Content-Type:") == 0) {
+			if (!parse_contenttype (line, type, subtype, paras)) {
+				h.add_to_body (_("[Cannot parse content type header line]"));
+#ifdef DEBUG
+				g_message ("[%d] Cannot parse content type header line: %s",
+						   uin(), line.c_str());
+#endif
+				continue;
 			}
+
+#ifdef DEBUG
+			std::string dbg="[%d] Parsed content type header line: mimetype=";
+			dbg += type + "/" + subtype;
+			std::map<std::string, std::string>::iterator it = paras.begin ();
+			while (it != paras.end()) {
+				dbg += std::string(" (") + it->first.c_str() + " = "
+				  		+ it->second.c_str() + ")";
+				it++;
+			}
+			g_message (dbg.c_str(), uin());
+#endif
+			continue;
 		}
+
 		// Status
-		else if ((line.find ("Status: R") == 0) && (uid.size()>0))
+	    if ((line.find ("Status: R") == 0) && (uid.size()>0))
 			status = false;
 		else if (line.find ("X-Mozilla-Status: 0001") == 0)
 			status = false;
 		else if (line_down.find ("x-spam-flag: yes") == 0)
 			status = false;
 	}
+
+	// If some information was retrieved before insert it now
+	if (partinfo) {
+		// Content type parameters
+		if (partinfo->parameters_.size() > 0)
+			paras = partinfo->parameters_;
+
+		// MIME type and subtype
+		if (partinfo->type_.size() > 0)
+			type = partinfo->type_;
+		if (partinfo->subtype_.size() > 0)
+			subtype = partinfo->subtype_;
+	}
+
+	// Charset
+	if (h.charset().empty() && (paras.find("charset") != paras.end()))
+		h.charset (paras["charset"]);
 
 	// Store mail depending on status
 	if (status)
@@ -641,6 +664,127 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 					   h.mailid().c_str ());
 #endif
 		}
+}
+
+/** 
+ *  Parses the "Content-Type:" line in a mail header. Only if true is
+ *  returned {\em type}, {\em subtype} and {\em map} will have defined
+ *  values. The parameters will be added to the map {\em map}, this map
+ *  will not be cleared before. As attributes are always case insensitive
+ *  they will be normalized to be in lower case. See also RFC 2045 5.1. for
+ *  the syntax of the content type header field.
+ *
+ *  @param  line    Line from the mail header (folding already removed)
+ *  @param  type    Here the type of the mail's content type will be returned
+ *  @param  subtype Here the subtype of the mail's content type will be
+ *                  returned
+ *  @param  map     Here the parameters will be returned as pairs (attribute,
+ *                  value).
+ *  @return         Boolean indicating success.
+ */
+gboolean 
+Mailbox::parse_contenttype (std::string line, std::string &type,
+							std::string &subtype,
+							std::map<std::string, std::string> &map)
+{
+	// Non alphanumeric characters allowed in tokens
+	const static std::string token_ok = "!#$%&'*+-._`{|}~";
+
+	// Test, if we really have a content type line
+	if (line.find ("Content-Type:") != 0)
+		return false;
+	line = line.substr (13);
+
+	// Initialize
+	type = "";
+	subtype = "";
+
+	guint len = line.size(), pos = 0;
+	// Ignore whitespace
+	while ((pos < len) && ((line[pos] == ' ') || (line[pos] == '\t')))
+		pos++;
+
+	// Get type
+	while ((pos < len) && ((g_ascii_isalnum(line[pos]))
+						   || (token_ok.find(line[pos]) != std::string::npos)))
+		type += line[pos++];
+	if (type.size() == 0)
+		return false;
+	type = ascii_strdown (type);
+
+	// Separator '/' between type and subtype
+	if ((pos >= len) || (line[pos++] != '/'))
+		return false;
+
+	// Get subtype
+	while ((pos < len) && ((g_ascii_isalnum(line[pos]))
+						   || (token_ok.find(line[pos]) != std::string::npos)))
+		subtype += line[pos++];
+	if (subtype.size() == 0)
+		return false;
+	subtype = ascii_strdown (subtype);
+
+	// Get parameters
+	while (true) {
+		// Ignore whitespace
+		while ((pos < len) && ((line[pos] == ' ') || (line[pos] == '\t')))
+			pos++;
+
+		// End of line?
+		if (pos >= len)
+			break;
+
+		// There must be a ';' now
+		if (line[pos++] != ';')
+			return false;
+
+		// Ignore whitespace
+		while ((pos < len) && ((line[pos] == ' ') || (line[pos] == '\t')))
+			pos++;
+
+		// Get attribute
+		std::string attr;
+		while ((pos < len) && ((token_ok.find(line[pos]) != std::string::npos)
+							   || (g_ascii_isalnum(line[pos]))))
+			attr += line[pos++];
+		if (attr.size() == 0)
+			return false;
+		attr = ascii_strdown (attr);
+
+		// Ignore whitespace
+		while ((pos < len) && ((line[pos] == ' ') || (line[pos] == '\t')))
+			pos++;
+
+		// Separator '=' between attribute and value
+		if ((pos >= len) || (line[pos++] != '='))
+			return false;
+
+		// Ignore whitespace
+		while ((pos < len) && ((line[pos] == ' ') || (line[pos] == '\t')))
+			pos++;
+
+		// Get value; can be token or quoted string
+		if (pos >= len)
+			return false;
+		std::string value;
+		// Quoted string
+		if (line[pos] == '"') {
+			if (!get_quotedstring (line, value, pos))
+				return false;
+		}
+		// Token
+		else
+			while ((pos<len) && ((token_ok.find(line[pos])!=std::string::npos)
+								 || (g_ascii_isalnum(line[pos]))))
+				value += line[pos++];
+		if (value.size() == 0)
+			return false;
+
+		// Insert pair (attribute, value) into map
+		map[attr] = value;
+	}
+
+	return true;
 }
 
 /**

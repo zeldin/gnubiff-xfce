@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -46,7 +46,11 @@
 class Decoding
 {
 protected:
-	gboolean decode_body (std::vector<std::string> &, std::string);
+	// Mail body and header
+	gboolean decode_body (std::vector<std::string> &mail,std::string encoding);
+	gboolean get_quotedstring (std::string line, std::string &str, guint &pos,
+							   gchar quoted = '"', gboolean test_start = true,
+							   gboolean end_ok = false);
 
 	// Encodings
 	std::string decode_base64 (const std::string &);
@@ -55,7 +59,9 @@ protected:
 	std::vector<std::string> decode_quotedprintable (const std::vector<std::string> &, guint pos=0);
 
 	// Converting
-	gchar* utf8_to_imaputf7(const gchar *, gssize);
+	gchar* utf8_to_imaputf7 (const gchar *, gssize);
+	std::string ascii_strdown (const std::string &str);
+
 public:
 	// Password
 	static std::string encrypt_password (const std::string &password,
