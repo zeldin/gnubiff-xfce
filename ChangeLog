@@ -37,7 +37,7 @@ Version 2.1.1
    - Bugfix: Corrected tests for responses to IDLE, SEARCH NOT SEEN and
         FETCH header commands (IMAP4)
    - Cleanup of SEARCH NOT SEEN, CAPABILITY, FETCH header, LOGIN, SELECT, FETCH
-        bodystructure and FETCH BODY commands (IMAP4)
+        bodystructurei, LOGOUT and FETCH BODY commands (IMAP4)
    - Bugfix: Segfaulting in SSL when writing to a closed socket
    - Cleanup of code for obtaining the password for distant mailboxes
    - Cleanup of code for checking for new mails (IMAP4)
@@ -51,6 +51,8 @@ Version 2.1.1
    - Bugfix: Server's response to the "FETCH (BODYSTRUCTURE)" command may be
         multiline (IMAP4)
    - Bugfix: Accept mail lines beginning with "* BYE" (IMAP4)
+   - Bugfix: Send the LOGOUT command if we have to terminate a connection
+        untimely (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier

@@ -103,9 +103,8 @@ Imap4::start (void)
 	if (!g_mutex_trylock (monitor_mutex_))
 		return;
 
-	try	{
+	try {
 		fetch ();
-		send ("LOGOUT");
 	}
 	catch (imap_err& err) {
 		// Catch all errors that are un-recoverable and result in
@@ -116,10 +115,10 @@ Imap4::start (void)
 		status_ = MAILBOX_ERROR;
 		unread_.clear();
 		seen_.clear();
+		socket_->close ();
 	}
 
 	idled_ = false;
-	socket_->close ();
 	update_applet();
 
 	g_mutex_unlock (monitor_mutex_);
@@ -131,7 +130,8 @@ Imap4::start (void)
  * Connect to the mailbox, get unread mails and update mailbox status.
  * If the password for the mailbox isn't already known, it is obtained (if
  * possible). If the mailbox supports the "IDLE" command this function starts
- * idling once the mailbox status is known.
+ * idling once the mailbox status is known. When leaving this function gnubiff
+ * will logout from the server.
  *
  * @exception imap_command_err
  *                     This exception is thrown when we get an unexpected
@@ -161,6 +161,9 @@ Imap4::fetch (void) throw (imap_err)
 		idled_ = true;
 		idle();
 	}
+
+	// LOGOUT
+	command_logout();
 }
 
 /**
@@ -320,17 +323,6 @@ Imap4::fetch_mails (void) throw (imap_err)
 
 	unread_ = new_unread_;
 	seen_ = new_seen_;
-}
-
-/**
- * Cleanup, then close the connection to the IMAP server.
- */
-void 
-Imap4::close (void)
-{
-	// Closing connection
-	send ("LOGOUT");
-	socket_->close ();
 }
 
 /**
@@ -765,6 +757,23 @@ Imap4::command_login (void) throw (imap_err)
 }
 
 /**
+ * Sending the IMAP command "LOGOUT" to the server. If this succeeds the
+ * connection to the IMAP server is closed.
+ *
+ * @exception imap_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+void 
+Imap4::command_logout (void) throw (imap_err)
+{
+	// Sending the command
+	if (!send("LOGOUT")) throw imap_socket_err();
+	// Closing the socket
+	socket_->close ();
+}
+
+
+/**
  * Sending the IMAP command "SELECT" to the server. The user chosen folder on
  * the server is selected.
  *
@@ -888,6 +897,8 @@ Imap4::waitforack (gint cnt) throw (imap_err)
 	if (line.find (tag() + "OK") != 0) {
 		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"),
 				   uin_, address_.c_str(), port_);
+		// We still have a connection to the server so we can logout
+		command_logout();
 		throw imap_command_err();
 	}
 }
