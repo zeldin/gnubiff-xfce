@@ -122,10 +122,10 @@ Properties::create (void)
 
 	// Type menu
 	GtkActionEntry type_entries[] = {
-		{ "Autodetect", GTK_STOCK_DIALOG_QUESTION, "Autodetect",     0, "Autodetect type",   G_CALLBACK(PROPERTIES_on_type_changed)},
-		{ "File",       GTK_STOCK_HOME,            "File or Folder", 0, "File, Mh, Maildir", G_CALLBACK(PROPERTIES_on_type_changed)},
-		{ "Pop",        GTK_STOCK_NETWORK,         "Pop",            0, "Pop3 or Apop",      G_CALLBACK(PROPERTIES_on_type_changed)},
-		{ "Imap",       GTK_STOCK_NETWORK,         "Imap",           0, "Imap4",             G_CALLBACK(PROPERTIES_on_type_changed)}
+		{ "Autodetect", GTK_STOCK_DIALOG_QUESTION, _("Autodetect"),     0, "Autodetect type",   G_CALLBACK(PROPERTIES_on_type_changed)},
+		{ "File",       GTK_STOCK_HOME,            _("File or Folder"), 0, "File, Mh, Maildir", G_CALLBACK(PROPERTIES_on_type_changed)},
+		{ "Pop",        GTK_STOCK_NETWORK,         "Pop",               0, "Pop3 or Apop",      G_CALLBACK(PROPERTIES_on_type_changed)},
+		{ "Imap",       GTK_STOCK_NETWORK,         "Imap",              0, "Imap4",             G_CALLBACK(PROPERTIES_on_type_changed)}
 	};
 	static const char *type_ui_description =
 		"<ui>"
@@ -149,15 +149,15 @@ Properties::create (void)
 
 	// Authentication menu
 	GtkActionEntry auth_entries[] = {
-		{ "Autodetect",		GTK_STOCK_DIALOG_QUESTION, "Autodetect",
+		{ "Autodetect",		GTK_STOCK_DIALOG_QUESTION, _("Autodetect"),
 		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)},
-		{ "UserPass",		GTK_STOCK_DIALOG_WARNING, "User/Pass",
+		{ "UserPass",		GTK_STOCK_DIALOG_WARNING, _("User/Pass"),
 		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)},
-		{ "Apop",			GTK_STOCK_DIALOG_AUTHENTICATION, "Encrypted User/Pass (apop)",
+		{ "Apop",			GTK_STOCK_DIALOG_AUTHENTICATION, _("Encrypted User/Pass (apop)"),
 		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)},
 		{ "SSL",			GTK_STOCK_DIALOG_AUTHENTICATION, "SSL",
 		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)},
-		{ "Certificate",	GTK_STOCK_DIALOG_AUTHENTICATION, "SSL with certificate",
+		{ "Certificate",	GTK_STOCK_DIALOG_AUTHENTICATION, _("SSL with certificate"),
 		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)}
 	};
 	static const char *auth_ui_description =

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-22 19:16+0100\n"
-"PO-Revision-Date: 2004-12-08 22:50+0100\n"
+"POT-Creation-Date: 2004-12-23 17:45+0100\n"
+"PO-Revision-Date: 2004-12-23 16:20+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -75,15 +75,15 @@ msgstr "Briefkasten %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Kann Thread nicht erzeugen: %s"
 
-#: src/mailbox.cc:472
+#: src/mailbox.cc:487
 msgid "<no sender>"
 msgstr "<Kein Absender>"
 
-#: src/mailbox.cc:482
+#: src/mailbox.cc:497
 msgid "<no subject>"
 msgstr "<Kein Betreff>"
 
-#: src/mailbox.cc:492
+#: src/mailbox.cc:507
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
@@ -123,7 +123,7 @@ msgstr "[%d] Bekomme keine Bestätigung von »%s« auf Port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kann Ordner »%s« auf dem Server »%s« nicht auswählen"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:521
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Diese Nachricht besitzt keinen Klartext-Abschnitt (\"text/plain\")]"
 
@@ -142,12 +142,12 @@ msgstr "Kann neues Mail-Verzeichnis nicht öffnen (»%s«)."
 msgid "Cannot open %s."
 msgstr "Kann »%s« nicht öffnen."
 
-#: src/apop.cc:88 src/pop3.cc:86
+#: src/apop.cc:92 src/pop3.cc:90
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Leeres Passwort"
 
-#: src/apop.cc:128
+#: src/apop.cc:132
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -156,7 +156,7 @@ msgstr ""
 "[%d] Der POP-Server scheint das APOP-Protokoll nicht zu akzeptieren (kein "
 "Zeitstempel bereitgestellt)"
 
-#: src/apop.cc:152
+#: src/apop.cc:156
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -269,6 +269,26 @@ msgid ""
 msgstr ""
 "Entweder ist das Zertifikat unvollständig, oder die Gegenseite gibt vor, »%"
 "s« zu sein, vermutlich um Ihr Passwort zu bekommen"
+
+#: src/ui-properties.cc:125 src/ui-properties.cc:152
+msgid "Autodetect"
+msgstr "Automatische Erkennung"
+
+#: src/ui-properties.cc:126
+msgid "File or Folder"
+msgstr "Datei oder Ordner"
+
+#: src/ui-properties.cc:154
+msgid "User/Pass"
+msgstr "Benutzer & Passwort"
+
+#: src/ui-properties.cc:156
+msgid "Encrypted User/Pass (apop)"
+msgstr "Benutzer & Passwort verschlüsselt (apop)"
+
+#: src/ui-properties.cc:160
+msgid "SSL with certificate"
+msgstr "SSL mit Zertifikat"
 
 #: src/ui-properties.cc:316
 msgid "Browse for a file or folder"
@@ -653,7 +673,7 @@ msgstr "Verz_ögerung:"
 
 #: ui/properties.glade.h:11
 msgid "Mailbox folder"
-msgstr "Order auf dem Server"
+msgstr "Ordner auf dem Server"
 
 #: ui/properties.glade.h:12
 msgid "Mailbox properties"

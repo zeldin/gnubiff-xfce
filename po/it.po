@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-22 19:16+0100\n"
+"POT-Creation-Date: 2004-12-23 17:45+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -73,15 +73,15 @@ msgstr "casella di posta %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossibile creare il thread: %s\n"
 
-#: src/mailbox.cc:472
+#: src/mailbox.cc:487
 msgid "<no sender>"
 msgstr "<nessun mittente>"
 
-#: src/mailbox.cc:482
+#: src/mailbox.cc:497
 msgid "<no subject>"
 msgstr "<nessun oggetto>"
 
-#: src/mailbox.cc:492
+#: src/mailbox.cc:507
 msgid "<no date>"
 msgstr "<nessuna data>"
 
@@ -121,7 +121,7 @@ msgstr "[%d] Impossibile prendere il riconoscimento da %s alla porta %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossibile connettersi a %s alla porta %d"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:521
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -140,12 +140,12 @@ msgstr "Non riesco ad aprire la directory per la nuova posta (%s)"
 msgid "Cannot open %s."
 msgstr "Non riesco ad aprire %s."
 
-#: src/apop.cc:88 src/pop3.cc:86
+#: src/apop.cc:92 src/pop3.cc:90
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Password vuota"
 
-#: src/apop.cc:128
+#: src/apop.cc:132
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -154,7 +154,7 @@ msgstr ""
 "[%d] Il tuo server pop non sembra accettare il protocollo apop (nessuna "
 "datazione è stata fornita)"
 
-#: src/apop.cc:152
+#: src/apop.cc:156
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -270,6 +270,28 @@ msgid ""
 msgstr ""
 "O il certificato del sito è incompleto oppure sei connesso a un sito "
 "pretendendo di essere %s, con la possibilità di ottenere la tua password"
+
+#: src/ui-properties.cc:125 src/ui-properties.cc:152
+msgid "Autodetect"
+msgstr ""
+
+#: src/ui-properties.cc:126
+#, fuzzy
+msgid "File or Folder"
+msgstr "_File o cartella"
+
+#: src/ui-properties.cc:154
+msgid "User/Pass"
+msgstr ""
+
+#: src/ui-properties.cc:156
+msgid "Encrypted User/Pass (apop)"
+msgstr ""
+
+#: src/ui-properties.cc:160
+#, fuzzy
+msgid "SSL with certificate"
+msgstr "Scegli il file per il certificato"
 
 #: src/ui-properties.cc:316
 #, fuzzy
@@ -1275,9 +1297,6 @@ msgstr "contenuto del messaggio"
 #~ msgid "_Details"
 #~ msgstr "Dettagi"
 
-#~ msgid "Browse for the certificate"
-#~ msgstr "Scegli il file per il certificato"
-
 #~ msgid "Folder to check on the IMAP4 server"
 #~ msgstr "Cartella da controllare sul server IMAP4"
 
@@ -1307,9 +1326,6 @@ msgstr "contenuto del messaggio"
 
 #~ msgid "Use SSL encryption"
 #~ msgstr "Usa la crittografia SSL"
-
-#~ msgid "_File or folder"
-#~ msgstr "_File o cartella"
 
 #~ msgid "_Hostname:"
 #~ msgstr "_Hostname:"

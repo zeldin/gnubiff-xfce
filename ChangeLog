@@ -10,6 +10,8 @@ Version 2.1.1
    - bugfix: password automatic finding, misplaced mutex lock
  * Robert Sowada
    - Small changes
+   - Marked strings for internationalization (type & authentication menu)
+   - Updated po files, German translation
 	
 Version 2.1.0
  * Nicolas Rougier

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-22 19:16+0100\n"
+"POT-Creation-Date: 2004-12-23 17:45+0100\n"
 "PO-Revision-Date: 2004-12-16 23:42+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -81,15 +81,15 @@ msgstr "Buzón %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] No se puede crear hilo: %s"
 
-#: src/mailbox.cc:472
+#: src/mailbox.cc:487
 msgid "<no sender>"
 msgstr "<sin remitente>"
 
-#: src/mailbox.cc:482
+#: src/mailbox.cc:497
 msgid "<no subject>"
 msgstr "<sin asunto>"
 
-#: src/mailbox.cc:492
+#: src/mailbox.cc:507
 msgid "<no date>"
 msgstr "<sin fecha>"
 
@@ -129,7 +129,7 @@ msgstr "[%d]No se puede obtener confirmación  desde %s en el puerto %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] No se puede seleccionar carpeta %s en el servidor %s"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:521
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Este correo no tiene parte \"text/plain\"]"
 
@@ -148,12 +148,12 @@ msgstr "No se puede abrir el directorio del correo nuevo (%s)"
 msgid "Cannot open %s."
 msgstr "No se puede abrir %s."
 
-#: src/apop.cc:88 src/pop3.cc:86
+#: src/apop.cc:92 src/pop3.cc:90
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Contraseña vacía"
 
-#: src/apop.cc:128
+#: src/apop.cc:132
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -162,7 +162,7 @@ msgstr ""
 "[%d] Su servidor pop no parece aceptar el protocolo apop (no se propocionó "
 "una fecha)"
 
-#: src/apop.cc:152
+#: src/apop.cc:156
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -274,6 +274,28 @@ msgid ""
 msgstr ""
 "El certificado del sitio es incompleto o está conectado a un sitio simulando "
 "ser %s, intentando obtener la contraseña"
+
+#: src/ui-properties.cc:125 src/ui-properties.cc:152
+msgid "Autodetect"
+msgstr ""
+
+#: src/ui-properties.cc:126
+#, fuzzy
+msgid "File or Folder"
+msgstr "Carpeta de buzones"
+
+#: src/ui-properties.cc:154
+msgid "User/Pass"
+msgstr ""
+
+#: src/ui-properties.cc:156
+msgid "Encrypted User/Pass (apop)"
+msgstr ""
+
+#: src/ui-properties.cc:160
+#, fuzzy
+msgid "SSL with certificate"
+msgstr "_Certificado:"
 
 #: src/ui-properties.cc:316
 msgid "Browse for a file or folder"

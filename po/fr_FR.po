@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-22 19:16+0100\n"
+"POT-Creation-Date: 2004-12-23 17:45+0100\n"
 "PO-Revision-Date: 2004-12-22 18:56+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -80,15 +80,15 @@ msgstr "Boîte aux lettres %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossible de créer le thread: %s"
 
-#: src/mailbox.cc:472
+#: src/mailbox.cc:487
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: src/mailbox.cc:482
+#: src/mailbox.cc:497
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: src/mailbox.cc:492
+#: src/mailbox.cc:507
 msgid "<no date>"
 msgstr "<Pas de date>"
 
@@ -128,7 +128,7 @@ msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:521
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
@@ -147,12 +147,12 @@ msgstr "Inpossible d'ouvrir le répertoire (%s)"
 msgid "Cannot open %s."
 msgstr "Impossible d'ouvrir %s"
 
-#: src/apop.cc:88 src/pop3.cc:86
+#: src/apop.cc:92 src/pop3.cc:90
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Mot de passe vide"
 
-#: src/apop.cc:128
+#: src/apop.cc:132
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -160,7 +160,7 @@ msgid ""
 msgstr ""
 "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
-#: src/apop.cc:152
+#: src/apop.cc:156
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -274,6 +274,28 @@ msgstr ""
 "Soit le certificat est incomplet ou bien vous êtes connecté à un site "
 "prétendant être %s vraisemblablement pour essayer d'obtenir votre mot de "
 "passe"
+
+#: src/ui-properties.cc:125 src/ui-properties.cc:152
+msgid "Autodetect"
+msgstr ""
+
+#: src/ui-properties.cc:126
+#, fuzzy
+msgid "File or Folder"
+msgstr "Répertoire de boîtes aux lettres"
+
+#: src/ui-properties.cc:154
+msgid "User/Pass"
+msgstr ""
+
+#: src/ui-properties.cc:156
+msgid "Encrypted User/Pass (apop)"
+msgstr ""
+
+#: src/ui-properties.cc:160
+#, fuzzy
+msgid "SSL with certificate"
+msgstr "Cer_tificat:"
 
 #: src/ui-properties.cc:316
 msgid "Browse for a file or folder"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-22 19:16+0100\n"
+"POT-Creation-Date: 2004-12-23 17:45+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -76,17 +76,17 @@ msgstr "Postvak"
 msgid "[%d] Unable to create thread: %s"
 msgstr "Kon thread niet aanmaken: %s\n"
 
-#: src/mailbox.cc:472
+#: src/mailbox.cc:487
 #, fuzzy
 msgid "<no sender>"
 msgstr "<geen verzender gevonden>"
 
-#: src/mailbox.cc:482
+#: src/mailbox.cc:497
 #, fuzzy
 msgid "<no subject>"
 msgstr "<geen onderwerp gevonden>"
 
-#: src/mailbox.cc:492
+#: src/mailbox.cc:507
 #, fuzzy
 msgid "<no date>"
 msgstr "<geen datum gevonden>"
@@ -127,7 +127,7 @@ msgstr "Kan geen bevestiging opvragen van %s op poort %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:521
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -146,19 +146,19 @@ msgstr "Kan nieuwe e-mail map niet openen (%s)"
 msgid "Cannot open %s."
 msgstr "Kan %s niet openen."
 
-#: src/apop.cc:88 src/pop3.cc:86
+#: src/apop.cc:92 src/pop3.cc:90
 #, c-format
 msgid "[%d] Empty password"
 msgstr ""
 
-#: src/apop.cc:128
+#: src/apop.cc:132
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
 msgstr ""
 
-#: src/apop.cc:152
+#: src/apop.cc:156
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -269,6 +269,28 @@ msgid ""
 "Either site's certificate is incomplete or you're connected to a site "
 "pretending to be %s, possibly to obtain your password"
 msgstr ""
+
+#: src/ui-properties.cc:125 src/ui-properties.cc:152
+msgid "Autodetect"
+msgstr ""
+
+#: src/ui-properties.cc:126
+#, fuzzy
+msgid "File or Folder"
+msgstr "Postvak"
+
+#: src/ui-properties.cc:154
+msgid "User/Pass"
+msgstr ""
+
+#: src/ui-properties.cc:156
+msgid "Encrypted User/Pass (apop)"
+msgstr ""
+
+#: src/ui-properties.cc:160
+#, fuzzy
+msgid "SSL with certificate"
+msgstr "Bladeren voor een certificaatbestand"
 
 #: src/ui-properties.cc:316
 #, fuzzy
@@ -1231,10 +1253,6 @@ msgstr "postinhoud"
 
 #~ msgid "xemacs "
 #~ msgstr "xemacs "
-
-#, fuzzy
-#~ msgid "Browse for the certificate"
-#~ msgstr "Bladeren voor een certificaatbestand"
 
 #, fuzzy
 #~ msgid "Folder:"
