@@ -40,6 +40,7 @@ Version 2.1.2
    - Bugfix: Displaying error messages instead of mail body
    - Bugfix: Illegal parameters to callback function while parsing config file
    - Bugfix: Testing return value when creating XML parser
+   - Bugfix: Testing popup() for being NULL pointer in "src/applet.cc"
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 
