@@ -766,7 +766,7 @@ Preferences::expert_update_option (const gchar *name, Options *options,
 	Option *option = NULL;
 
 	// Get option
-	if (options)
+	if ((options) && (name))
 		option = options->find_option (name);
 	if (!option)
 		return;
@@ -825,8 +825,10 @@ Preferences::expert_search (void)
 		gchar *name, *value;
 		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COL_EXP_GROUPNAME,
 							&name, COL_EXP_VALUE, &value, -1);
+
 		// Look for string
-		if ((std::string(name).find(search) == std::string::npos)
+		if ((name) && (value)
+			&& (std::string(name).find(search) == std::string::npos)
 			&& (!value_search
 				|| (std::string(value).find(search) == std::string::npos)))
 			valid = gtk_list_store_remove (store, &iter);
@@ -911,6 +913,8 @@ Preferences::expert_get_option (class Options *&options, class Option *&option,
 	gchar *name = NULL;
 	gtk_tree_model_get (GTK_TREE_MODEL(store), &treeiter, COL_EXP_ID, &id,
 						COL_EXP_NAME, &name, -1);
+	if (!name)
+		return false;
 
 	// Get option
 	if (id < 0)
