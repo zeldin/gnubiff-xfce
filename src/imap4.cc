@@ -617,11 +617,14 @@ Imap4::fetch_header (void)
 			if (!socket_->write (line)) idling = false;
 		
 			// Either we got a OK or a BYE
+			cnt=preventDoS_additionalLines_;
 			do {
 				if (!socket_->read (line)) break;
 				// Do we lost lock ?
 				if (line.find ("* BYE") == 0) break;
-			} while (line.find (tag()+"OK") != 0);
+			} while ((line.find (tag()+"OK") != 0) && (cnt--));
+			if (!cnt)
+				break;
 		}
 		else {
 			// Closing connection

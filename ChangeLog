@@ -83,6 +83,7 @@ Version 2.1.0
    - Bugfix: Setting file permissions of scripts in configure script
      (fixes bug #1083485)
    - Marked strings for translation (GNOME menu entries)
+   - Bugfix: DoS attacks in IDLE command (IMAP4)
 
 Version 2.0.3
   * Roland Stigge:
