@@ -1,48 +1,42 @@
-## Process this file with automake to produce Makefile.in
-
-gnubiffdir = $(datadir)/gnubiff
 INCLUDES = \
-	$(GNUBIFF_DEP_CFLAGS)				\
-	$(GNOME_PANEL_DEP_CFLAGS)			\
+	$(GNUBIFF_DEP_CFLAGS)						\
+	$(GNOME_PANEL_DEP_CFLAGS)					\
 	-DGNUBIFF_LOCALEDIR=\""$(datadir)/locale"\"	\
-	-DGNUBIFF_DATADIR=\""$(gnubiffdir)"\"		\
+	-DGNUBIFF_DATADIR=\""$(pkgdatadir)"\"		\
 	-DGNUBIFF_ICONDIR=\""$(datadir)/pixmaps"\"	\
-	-DREAL_DATADIR=\""$(datadir)"\"			\
-	-DG_DISABLE_DEPRECATED				\
-	-DGDK_DISABLE_DEPRECATED			\
-	-DGTK_DISABLE_DEPRECATED			\
-	-DGDK_PIXBUF_DISABLE_DEPRECATED			\
-	-DGNOME_DISABLE_DEPRECATED			\
-	-DGNOME_VFS_DISABLE_DEPRECATED			\
-	-DLIBGLADE_DISABLE_DEPRECATED			\
-	-D_GNU_SOURCE					\
-	-Wall						\
-	-I/usr/include/kerberos/			\
-	-I/usr/include/kerberosIV/
+	-DREAL_DATADIR=\""$(datadir)"\"				\
+	-D_GNU_SOURCE								\
+	-Wall -ansi -pedantic
 
 bin_PROGRAMS = gnubiff
 
-gnome_sources = \
-	AppletGNOME.cc AppletGNOME.h
+gnome_sources =  \
+	ui-applet-gnome.cc 		ui-applet-gnome.h
 
 common_sources = \
-	gnubiff.cc					\
-	AppletGTK.cc AppletGTK.h	\
-	GUI.cc GUI.h				\
-	gtk_image_animation.cc gtk_image_animation.h \
-	Biff.cc Biff.h				\
-	Setup.cc Setup.h			\
-	Applet.cc Applet.h			\
-	Popup.cc Popup.h			\
-	Mailbox.cc Mailbox.h		\
-	File.cc File.h				\
-	Mh.cc Mh.h					\
-	Maildir.cc Maildir.h		\
-	Imap4.cc Imap4.h			\
-	Pop.cc Pop.h				\
-	Pop3.cc Pop3.h				\
-	Apop.cc Apop.h
-
+	gnubiff.cc										\
+	biff.cc					biff.h					\
+							nls.h					\
+	\
+	mailbox.cc				mailbox.h				\
+	socket.cc				socket.h				\
+	file.cc					file.h					\
+	imap4.cc				imap4.h					\
+	maildir.cc				maildir.h				\
+	mh.cc					mh.h					\
+	pop.cc					pop.h					\
+	apop.cc					apop.h					\
+	pop3.cc					pop3.h					\
+	\
+	gui.cc					gui.h					\
+	ui-applet.cc			ui-applet.h				\
+	ui-applet-gtk.cc 		ui-applet-gtk.h			\
+	ui-preferences.cc 		ui-preferences.h		\
+	ui-authentication.cc	ui-authentication.h		\
+	ui-certificate.cc		ui-certificate.h		\
+	ui-properties.cc		ui-properties.h			\
+	gtk_image_animation.cc	gtk_image_animation.h 	\
+	ui-popup.cc				ui-popup.h
 
 if USE_GNOME
 gnubiff_SOURCES = \
@@ -55,12 +49,6 @@ endif
 
 
 gnubiff_LDADD = $(INTLLIBS) $(GNUBIFF_DEP_LIBS) $(GNOME_PANEL_DEP_LIBS)
-
-gnubiff_DATA = \
-	Setup.glade		\
-	AppletGTK.glade		\
-	AppletGNOME.glade	\
-	Popup.glade
 
 
 serverdir       = $(libdir)/bonobo/servers
@@ -79,10 +67,6 @@ endif
 @INTLTOOL_SERVER_RULE@
 
 EXTRA_DIST = \
-	AppletGTK.glade					\
-	AppletGNOME.glade				\
-	Setup.glade						\
-	Popup.glade						\
 	GNOME_gnubiffApplet.server.in	\
 	GNOME_gnubiffApplet.xml			\
 	gnubiff.schemas					\

@@ -1,7 +1,7 @@
-This is gnubiff.info, produced by makeinfo version 4.6 from
+This is gnubiff.info, produced by makeinfo version 4.7 from
 gnubiff.texi.
 
-This manual is for gnubiff version 1.4.0 Copyright (C) 2000-2004
+   This manual is for gnubiff version 2.0.0 Copyright (C) 2000-2004
 Nicolas Rougier.
 
      Permission is granted to copy, distribute and/or modify this
@@ -10,14 +10,14 @@ Nicolas Rougier.
      Foundation; with no Invariant Sections, no Front-Cover Texts, and
      no Back-Cover Texts.  A copy of the license is included in the
      section entitled "GNU Free Documentation License".
-   
+
 
 File: gnubiff.info,  Node: Top,  Next: Copying,  Up: (dir)
 
 gnubiff
 *******
 
-This manual is for gnubiff version 1.4.0 Copyright (C) 2000-2004
+This manual is for gnubiff version 2.0.0 Copyright (C) 2000-2004
 Nicolas Rougier.
 
      Permission is granted to copy, distribute and/or modify this
@@ -26,7 +26,7 @@ Nicolas Rougier.
      Foundation; with no Invariant Sections, no Front-Cover Texts, and
      no Back-Cover Texts.  A copy of the license is included in the
      section entitled "GNU Free Documentation License".
-   
+
 * Menu:
 
 * Copying::            Your rights
@@ -41,8 +41,8 @@ Nicolas Rougier.
 
 File: gnubiff.info,  Node: Installation,  Next: Start gnubiff,  Prev: About gnubiff,  Up: Top
 
-Installation
-************
+1 Installation
+**************
 
 
 
@@ -70,7 +70,7 @@ GNU GENERAL PUBLIC LICENSE
 
      Copyright (C) 1989, 1991 Free Software Foundation, Inc.
      59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
-     
+
      Everyone is permitted to copy and distribute verbatim copies
      of this license document, but changing it is not allowed.
 
@@ -332,7 +332,6 @@ modification follow.
      and reuse of software generally.
 
                                 NO WARRANTY
-
  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO
      WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE
      LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
@@ -356,7 +355,6 @@ modification follow.
      ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
                       END OF TERMS AND CONDITIONS
-
 Appendix: How to Apply These Terms to Your New Programs
 =======================================================
 
@@ -372,17 +370,17 @@ the "copyright" line and a pointer to where the full notice is found.
 
      ONE LINE TO GIVE THE PROGRAM'S NAME AND A BRIEF IDEA OF WHAT IT DOES.
      Copyright (C) YYYY  NAME OF AUTHOR
-     
+
      This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation; either version 2 of the License, or
      (at your option) any later version.
-     
+
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
-     
+
      You should have received a copy of the GNU General Public License
      along with this program; if not, write to the Free Software
      Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -410,7 +408,7 @@ if necessary.  Here is a sample; alter the names:
 
      Yoyodyne, Inc., hereby disclaims all copyright interest in the program
      `Gnomovision' (which makes passes at compilers) written by James Hacker.
-     
+
      SIGNATURE OF TY COON, 1 April 1989
      Ty Coon, President of Vice
 
@@ -423,8 +421,8 @@ GNU Library General Public License instead of this License.
 
 File: gnubiff.info,  Node: About gnubiff,  Next: Installation,  Prev: Copying,  Up: Top
 
-About gnubiff
-*************
+2 About gnubiff
+***************
 
 
 
@@ -446,8 +444,8 @@ Homepage: http://gnubiff.sourceforge.net/
 
 File: gnubiff.info,  Node: Start gnubiff,  Next: Using gnubiff,  Prev: Installation,  Up: Top
 
-Start gnubiff
-*************
+3 Start gnubiff
+***************
 
 
 
@@ -455,8 +453,8 @@ Depending if you have compiled gnubff with or without GNOME libraries,
 you'll be able to start gnubiff from command line or from the GNOME
 panel.
 
-How to start gnubiff in GTK mode when compiled without GNOME
-============================================================
+3.1 How to start gnubiff in GTK mode when compiled without GNOME
+================================================================
 
 `gnubiff [-c|--config file] [-n|--noconfigure] [--version]'
 
@@ -472,8 +470,8 @@ How to start gnubiff in GTK mode when compiled without GNOME
 
 
 
-How to start gnubiff in GTK mode when compiled with GNOME
-=========================================================
+3.2 How to start gnubiff in GTK mode when compiled with GNOME
+=============================================================
 
 `gnubiff --gtk --[-c|--config file] [-n|--noconfigure] [--version]'
 or `gnubiff -g --[-c|--config file] [-n|--noconfigure] [--version]'
@@ -490,8 +488,8 @@ or `gnubiff -g --[-c|--config file] [-n|--noconfigure] [--version]'
 
 
 
-How to start gnubiff in GNOME mode
-==================================
+3.3 How to start gnubiff in GNOME mode
+======================================
 
 After installation, you should be able to select gnubiff in the Internet
 menu of the GNOME panel. Be careful that after installation, panel has
@@ -503,8 +501,8 @@ gnubiff doesn't appear in GNOME panel menu, please contact the author.
 
 File: gnubiff.info,  Node: Using gnubiff,  Next: Files,  Prev: Start gnubiff,  Up: Top
 
-Using gnubiff
-*************
+4 Using gnubiff
+***************
 
 
 
@@ -530,8 +528,8 @@ gnubiff has several mouse shortcuts:
 
 File: gnubiff.info,  Node: Files,  Next: Animation format,  Prev: Using gnubiff,  Up: Top
 
-Files
-*****
+5 Files
+*******
 
 
 
@@ -540,8 +538,8 @@ gnubiff loads ans saves parameters in default file "~/.gnubiffrc".
 
 File: gnubiff.info,  Node: Animation format,  Next: Contributors,  Prev: Files,  Up: Top
 
-Animation format
-****************
+6 Animation format
+******************
 
 
 
@@ -553,8 +551,8 @@ cannot decide what is the size of a frame based on image size and so
 you have to provide this size with the name of the image. The convention
 is that frame size is given between parenthesis.
 For example, "anim(64x64).png" means that frame size is 64 by 64 pixels
-and then image should be 64 pixels width and n*64 pixels heigth where n
-is the number of frame.
+and then image should be n*64 pixels wide and 64 pixels tall (where n
+is the number of frame).
 
 To convert a gif animation to this format just type:
 `convert +append animation.gif animation(64x64).png'
@@ -562,8 +560,8 @@ To convert a gif animation to this format just type:
 
 File: gnubiff.info,  Node: Contributors,  Prev: Animation format,  Up: Top
 
-Contributors
-************
+7 Contributors
+**************
 
 
 
@@ -573,11 +571,15 @@ Any omissions in this list are accidental.  Feel free to contact authors
 if you have been left out or some of your contributions are not listed.
 Please keep this list in alphabetical order.
 
+   * Jean-Yves Lefort
+
    * Calum Mackay
 
    * Robert Sowada
 
    * Grzegorz Gotawski
+
+   * Dries Verachtert
 
    * Paul Kuliniewicz
 
@@ -641,13 +643,13 @@ Please keep this list in alphabetical order.
 
 Tag Table:
 Node: Top561
-Node: Installation1518
-Node: Copying1928
-Node: About gnubiff21125
-Node: Start gnubiff22039
-Node: Using gnubiff23739
-Node: Files24446
-Node: Animation format24622
-Node: Contributors25503
+Node: Installation1515
+Node: Copying1929
+Node: About gnubiff21099
+Node: Start gnubiff22017
+Node: Using gnubiff23745
+Node: Files24456
+Node: Animation format24636
+Node: Contributors25520
 
 End Tag Table

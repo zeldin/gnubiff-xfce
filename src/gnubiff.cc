@@ -1,39 +1,56 @@
-/* gnubiff -- a mail notification program
- * Copyright (c) 2000-2004 Nicolas Rougier
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this program; if not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- * This file is part of gnubiff.
- */
+// ========================================================================
+// gnubiff -- a mail notification program
+// Copyright (c) 2000-2004 Nicolas Rougier
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License as
+// published by the Free Software Foundation; either version 2 of the
+// License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+// 02111-1307, USA.
+// ========================================================================
+//
+// File          : $RCSfile$
+// Revision      : $Revision$
+// Revision date : $Date$
+// Author(s)     : Nicolas Rougier
+// Short         : 
+//
+// This file is part of gnubiff.
+//
+// -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
+// ========================================================================
+
 #ifdef HAVE_CONFIG_H
-#  include <../config.h>
+#  include <config.h>
 #endif
 #include <gtk/gtk.h>
 #include <popt.h>
-#include "Biff.h"
 
 #ifdef USE_GNOME
 #  include <gnome.h>
 #  include <panel-applet.h>
-#  include <panel-applet-gconf.h>
 #endif
+
+#include "biff.h"
+#include "ui-preferences.h"
+#include "ui-applet.h"
+#include "nls.h"
+
 
 
 int main (int argc, char **argv);
 int mainGTK (int argc, char **argv);
 int mainGNOME (int argc, char **argv);
+
 
 int main (int argc, char **argv) {
 #ifdef USE_GNOME
@@ -42,6 +59,7 @@ int main (int argc, char **argv) {
 	mainGTK (argc, argv);
 #endif  
 }
+
 
 int mainGTK (int argc, char **argv) {
 	poptContext poptcon;
@@ -96,11 +114,11 @@ int mainGTK (int argc, char **argv) {
 	if (no_configure) {
 		biff->applet()->update();
 		biff->applet()->show();
-		if (biff->_state == STATE_RUNNING)
-			biff->applet()->watch_now();
+		if (biff->check_mode_ == AUTOMATIC_CHECK)
+			biff->applet()->watch_on (3);
 	}
 	else
-		biff->setup()->show();
+		biff->preferences()->show();
 
 	// GTK main loop
 	gdk_threads_enter();
@@ -114,40 +132,15 @@ int mainGTK (int argc, char **argv) {
 
 #ifdef USE_GNOME
 static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid, gpointer data) {
-
 	if (!strcmp (iid, "OAFIID:GNOME_gnubiffApplet")) {
-#ifdef DEBUG
-		g_message ("Creating Biff structure");
-#endif
 		Biff *biff = new Biff (GNOME_MODE);
-
-#ifdef DEBUG
-		g_message ("Docking applet");
-#endif
-		biff->applet()->dock ((GtkWidget *) applet);
-
-#ifdef DEBUG
-		g_message ("Load configuration file");
-#endif
 		biff->load();
-
-#ifdef DEBUG
-		g_message ("Update setup panel");
-#endif
-		biff->setup()->update();
-
-#ifdef DEBUG
-		g_message ("Show applet");
-#endif
+		biff->applet()->dock ((GtkWidget *) applet);
+		biff->preferences()->synchronize();
 		biff->applet()->show ();
-
-#ifdef DEBUG
-		g_message ("Update applet");
-#endif
 		biff->applet()->update ();
-
-		if (biff->_state == STATE_RUNNING)
-			biff->applet()->watch_now ();
+		if (biff->check_mode_ == AUTOMATIC_CHECK)
+			biff->applet()->watch_on (3);
 	}
 	return TRUE;
 }
@@ -168,16 +161,16 @@ int mainGNOME (int argc, char **argv) {
 	gdk_threads_init ();
 
 	// Look for a possible --gtk option
-	for (gint i=0; i<argc; i++)
+	for (gint i=0; i<argc; i++) {
 		if ((std::string(argv[i]) == "--gtk") || (std::string(argv[i]) == "-g")) {
 			mainGTK (argc, argv);
 			exit (0);
 		}
-		else if (std::string(argv[i]) == "--version") {
+		else if ((std::string(argv[i]) == "--version") || (std::string(argv[i]) == "-v")) {
 			g_print ("gnubiff version "PACKAGE_VERSION"\n");
 			exit (0);
 		}
-		else if (std::string(argv[i]) == "--help") {
+		else if ((std::string(argv[i]) == "--help") || (std::string(argv[i]) == "-h")) {
 			g_print (_("\nThis version of gnubiff has been compiled with GNOME support\n"));
 			g_print (_("If you want to use the GTK version, type gnubiff --gtk\n"));
 			g_print (_(" then use -c file to specify an alternate configuration file\n"));
@@ -186,7 +179,7 @@ int mainGNOME (int argc, char **argv) {
 			g_print (_("Have a nice day\n"));
 			exit (0);
 		}
-
+	}
 	g_warning (_("\nThis version of gnubiff has been compiled with GNOME support"));
 	g_print   (_("If you want to use the GTK version, type gnubiff --gtk\n"));
 	g_print   (_("Now I will hang forever...\n"));

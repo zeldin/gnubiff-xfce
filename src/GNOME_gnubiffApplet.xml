@@ -5,7 +5,7 @@
                    pixtype="stock" pixname="gtk-properties"/>
          <menuitem name="Item 2" verb="MailApp" _label="Start mail application"
                    pixtype="stock" pixname="gnome-stock-mail"/>
-         <menuitem name="Item 3" verb="MailRead" _label="Mark mails as read"
+         <menuitem name="Item 3" verb="MailRead" _label="Mark email as read"
                    pixtype="stock" pixname="gnome-stock-mail-rpl"/>
          <menuitem name="Item 4" verb="About" _label="About..."
                    pixtype="stock" pixname="gnome-stock-about"/>

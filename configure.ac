@@ -34,13 +34,14 @@
 # - The third number is the patch number and it usually will only
 #    refer to releases fixing bugs
 #
-# Current version is 1.4.0
+# Current version is 2.0.2
 
 AC_PREREQ(2.53)
-AC_INIT(gnubiff, 1.4.0, rougier@loria.fr)
-AM_INIT_AUTOMAKE
+AC_INIT(gnubiff, 2.0.2, rougier@loria.fr)
+AC_CONFIG_AUX_DIR(config)
+AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_SRCDIR([src/gnubiff.cc])
-AC_CONFIG_HEADERS(config.h)
+AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
 
 ######################################################################
@@ -52,15 +53,14 @@ AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-AC_PROG_LIBTOOL
 
 ######################################################################
 #                         Checks for libraries                       #
 ######################################################################
 AC_HAVE_LIBRARY(popt)
 AC_HAVE_LIBRARY(ssl)
-AC_HAVE_LIBRARY(crypto, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions),
-                [AC_HAVE_LIBRARY(k5crypto, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions))])
+AC_CHECK_LIB(crypto, MD5_Init, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions),
+                [AC_CHECK_LIB(ssl, MD5_init, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions))])
 GTK_REQUIRED="gtk+-2.0 >= 2.4"
 GDK_PIXBUF_REQUIRED="gdk-pixbuf-2.0 >= 2.4"
 GMODULE_REQUIRED="gmodule-2.0 >= 2.4"
@@ -112,7 +112,7 @@ GETTEXT_PACKAGE=gnubiff
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE",
                    [The prefix for our gettext translation domains.])
-ALL_LINGUAS="fr_FR fr_CA de nl ro es sv it"
+ALL_LINGUAS="fr fr_FR fr_CA de nl ro es sv it"
 AC_PROG_INTLTOOL
 AM_GLIB_GNU_GETTEXT
 
@@ -187,8 +187,9 @@ AC_CONFIG_FILES([
 Makefile
 src/Makefile
 po/Makefile.in
-pixmaps/Makefile
-sounds/Makefile
+ui/Makefile
+art/Makefile
+sound/Makefile
 doc/Makefile
 man1/Makefile
 ])

@@ -5,7 +5,7 @@
 @c %**end of header
 
 @copying
-This manual is for gnubiff version 1.4.0 Copyright @copyright{}
+This manual is for gnubiff version 2.0.0 Copyright @copyright{}
 2000-2004 Nicolas Rougier.
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -187,8 +187,8 @@ cannot decide what is the size of a frame based on image size and so
 you have to provide this size with the name of the image. The convention
 is that frame size is given between parenthesis.@* 
 For example, "anim(64x64).png" means that frame size is 64 by 64
-pixels and then image should be 64 pixels width and n*64 pixels heigth
-where n is the number of frame.
+pixels and then image should be n*64 pixels wide and 64 pixels tall
+(where n is the number of frame).
 @sp 1
 @noindent To convert a gif animation to this format just type:@*
 @command{convert +append animation.gif animation(64x64).png}
@@ -206,9 +206,11 @@ if you have been left out or some of your contributions are not listed.
 Please keep this list in alphabetical order.
 
 @itemize @bullet
+@item Jean-Yves Lefort
 @item Calum Mackay
 @item Robert Sowada
 @item Grzegorz Gotawski
+@item Dries Verachtert
 @item Paul Kuliniewicz
 @item Adam Benjamin
 @item Theodore Tegos

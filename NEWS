@@ -4,30 +4,65 @@ Copyright (C) 2000-2004, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to Nicolas.Rougier@loria.fr.
 
+Version 2.0.2
+ * Some cosmetic fixes
+ * Bug fix in IMAP4 protocol
+ * Bug fix in APOP+SSL protocol handling
+ * Bug fix in seen mail handling being reset after error
+ * Bug fix in image choosing for preferences panel
+ * Bug fix when panel is vertically oriented
+ * Bug fix in applet or biff font to be always bold
+
+
+Version 2.0.1
+ * Small bug that prevented gnbuiff to be compiled in GNOME mode
+
+
+Version 2.0.0
+ * gnubiff now officially part of the GNU project
+ * Complete redesign of interface inspired by MailNotification
+   by Jean-Yves Lefort.
+ * Automatic detection of mailbox format
+ * New option to tell gnbuiff to never send passwords in clear
+ * Better handling of SSL certificate
+ * Various small bugfixes
+ * Security fix in possible buffer overflow (pop3.c)
+ * Security fix in pop3 (infinite uidl list would block gnubiff and
+   ultimately crashes it)
+ * Bugfix in geometry handling (was not saved properly)
+ * Bugfix in pop3 protocol to really get only most recent headers
+ * Bugfix in apop protocol which was really broken
+ * Bugfix in imap4 to handle server panic
+ * Bugfix in utf8 translation
+ * Added hidden files in gtk_file_chooser's
+
 
 Version 1.4.0
  * gnubiff now requires glib/gdk/gtk/libglade 2.4
  * Use of file chooser instead of file selector	
- * PNG animation support
+ * PNG simple animation support
  * Preview added when selecting images
  * Image/animation resizing with panel for GNOME version
  * Read mails are saved in configuration file
  * User can now choose text to be displayed when new mail and when no mail
- * New possibility to choose command to play sound
+ * Possibility to choose command to play sound
+ * Possibility to choose popup background color (to make it flashy)
+ * Possibility to hide image or/and text when no mail and when new mail
+ * File protocol has been improved to speedup things
  * Security fix: table used for password encryption is now configurable
    using the --with-password-string making your .gnubiffrc dependent on
    your gnubiff executable (far more secure than previously but still
    very unsecure).
- * Possibility to choose popup background color (to make it flashy)
- * Possibility to hide image or/and text when no mail and when new mail
  * Configure script has been changed to auto-detect gnome
  * Bug fix for automatic check at startup
  * Bug fix in IMAP4 protocol with user/password/folder fields
- * Bug fix in maildir with the static mtime field
+ * Bug fix in maildir protocol with the static mtime field
+ * Bug fix in file protocol with the static mtime field
  * Bug fix with mail read and popup preview
  * Bug fix with multi mailboxes and polltime
  * Bug fix in creating a default configuration file from void
- * Bug fix when no mailcox defined in confiration file
+ * Bug fix when no mailbox defined in confiration file
+ * Bug fix with gethostbyname which is no thread safe on some platform
  * --enable-debug option added to configure
 
 	

@@ -1,41 +1,72 @@
-/* gnubiff -- a mail notification program
- * Copyright (c) 2000-2004 Nicolas Rougier
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this software; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
- *
- * This file is part of gnubiff.
- */
+// ========================================================================
+// gnubiff -- a mail notification program
+// Copyright (c) 2000-2004 Nicolas Rougier
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License as
+// published by the Free Software Foundation; either version 2 of the
+// License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+// 02111-1307, USA.
+// ========================================================================
+//
+// File          : $RCSfile$
+// Revision      : $Revision$
+// Revision date : $Date$
+// Author(s)     : Nicolas Rougier
+// Short         : 
+//
+// This file is part of gnubiff.
+//
+// -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
+// ========================================================================
+
 #include <sstream>
 #include "gtk_image_animation.h"
 
 
-// ===================================================================
-// = Callbacks "C" binding ===========================================
-// ===================================================================
+/**
+ * "C" binding
+ **/
 extern "C" {
 	gboolean GTK_IMAGE_ANIMATION_timeout (gpointer data)
-	{ return ((GtkImageAnimation *) data)->timeout (); }
-	gboolean GTK_IMAGE_ANIMATION_on_delete (GtkWidget *widget,  GdkEvent *event, gpointer data)
-	{ return ((GtkImageAnimation *) data)->on_delete (); }
-	gboolean GTK_IMAGE_ANIMATION_on_destroy (GtkWidget *widget,  GdkEvent *event, gpointer data)
-	{ return ((GtkImageAnimation *) data)->on_destroy (); }
-	void GTK_IMAGE_ANIMATION_on_hide (GtkWidget *widget,  gpointer data)
-	{ ((GtkImageAnimation *) data)->on_hide (); }
-	void GTK_IMAGE_ANIMATION_on_show (GtkWidget *widget,  gpointer data)
-	{ ((GtkImageAnimation *) data)->on_show (); }
+	{
+		return ((GtkImageAnimation *) data)->timeout ();
+	}
+
+	gboolean GTK_IMAGE_ANIMATION_on_delete (GtkWidget *widget,
+											GdkEvent *event,
+											gpointer data)
+	{
+		return ((GtkImageAnimation *) data)->on_delete ();
+	}
+
+	gboolean GTK_IMAGE_ANIMATION_on_destroy (GtkWidget *widget,
+											 GdkEvent *event,
+											 gpointer data)
+	{
+		return ((GtkImageAnimation *) data)->on_destroy ();
+	}
+
+	void GTK_IMAGE_ANIMATION_on_hide (GtkWidget *widget,
+									  gpointer data)
+	{
+		((GtkImageAnimation *) data)->on_hide ();
+	}
+
+	void GTK_IMAGE_ANIMATION_on_show (GtkWidget *widget,
+									  gpointer data)
+	{
+		((GtkImageAnimation *) data)->on_show ();
+	}
 }
 
 
@@ -44,7 +75,8 @@ extern "C" {
 // -------------------------------------------------------------------
 //
 // ===================================================================
-GtkImageAnimation::GtkImageAnimation (GtkImage *image) {
+GtkImageAnimation::GtkImageAnimation (GtkImage *image)
+{
 	_image = image;
 	_animation = 0;
 	_original_pixbuf = 0;
@@ -65,12 +97,8 @@ GtkImageAnimation::GtkImageAnimation (GtkImage *image) {
 }
 
 
-// ===================================================================
-//  Destructor
-// -------------------------------------------------------------------
-//
-// ===================================================================
-GtkImageAnimation::~GtkImageAnimation (void) {
+GtkImageAnimation::~GtkImageAnimation (void)
+{
 	g_mutex_lock (_object_mutex);
 	if (_timetag)
 		g_source_remove (_timetag);
@@ -87,12 +115,9 @@ GtkImageAnimation::~GtkImageAnimation (void) {
 }
 
 
-// ===================================================================
-//  timeout
-// -------------------------------------------------------------------
-//
-// ===================================================================
-gboolean GtkImageAnimation::timeout (void) {
+gboolean
+GtkImageAnimation::timeout (void)
+{
 	gdk_threads_enter();
 	if (!GTK_IS_IMAGE(_image)) {
 		gdk_threads_leave();
@@ -132,7 +157,9 @@ gboolean GtkImageAnimation::timeout (void) {
 //  with a timeout callback. That's it !
 // 
 // ===================================================================
-gboolean GtkImageAnimation::open (std::string filename) {
+gboolean
+GtkImageAnimation::open (std::string filename)
+{
 	g_mutex_lock (_object_mutex);
 	// Stop animation
 	stop ();
@@ -219,13 +246,11 @@ gboolean GtkImageAnimation::open (std::string filename) {
 	return true;
 }
 
-
-// ===================================================================
-//  Animation start/stop
-// -------------------------------------------------------------------
-//
-// ===================================================================
-void GtkImageAnimation::resize (guint width, guint height, gboolean locked) {
+void
+GtkImageAnimation::resize (guint width,
+						   guint height,
+						   gboolean locked)
+{
 	// Do we have something to resize ?
 	if (!_original_pixbuf)
 		return;
@@ -275,28 +300,26 @@ void GtkImageAnimation::resize (guint width, guint height, gboolean locked) {
 		g_mutex_unlock (_object_mutex);
 }
 
-// ===================================================================
-//  Animation start/stop
-// -------------------------------------------------------------------
-//
-// ===================================================================
-void GtkImageAnimation::start (void) {
+void
+GtkImageAnimation::start (void)
+{
 	if ((_frame.size() > 0) && (_timetag == 0) && (GTK_IS_IMAGE(_image)))
 		_timetag = g_timeout_add (_speed, GTK_IMAGE_ANIMATION_timeout, this);
 }
-void GtkImageAnimation::stop (void) {
+
+void
+GtkImageAnimation::stop (void)
+{
 	if (_timetag)
 		g_source_remove (_timetag);
 	_timetag = 0;
 }
 
 
-// ===================================================================
-//  Callbacks
-// -------------------------------------------------------------------
-//
-// ===================================================================
-gboolean GtkImageAnimation::is_animation (void) {
+
+gboolean
+GtkImageAnimation::is_animation (void)
+{
 	// If there is no '(' in name, we consider to have a static image
 	if (_filename.find('(') == std::string::npos)
 		return false;
@@ -333,22 +356,29 @@ gboolean GtkImageAnimation::is_animation (void) {
 	return true;
 }
 
-// ===================================================================
-//  Callbacks
-// -------------------------------------------------------------------
-//
-// ===================================================================
-gboolean GtkImageAnimation::on_delete (void) {
+
+gboolean
+GtkImageAnimation::on_delete (void)
+{
 	stop();
 	return true;
 }
-gboolean GtkImageAnimation::on_destroy (void) {
+
+gboolean
+GtkImageAnimation::on_destroy (void)
+{
 	stop();
 	return true;
 }
-void GtkImageAnimation::on_hide (void) {
+
+void
+GtkImageAnimation::on_hide (void)
+{
 	stop();
 }
-void GtkImageAnimation::on_show (void) {
+
+void
+GtkImageAnimation::on_show (void)
+{
 	start();
 }

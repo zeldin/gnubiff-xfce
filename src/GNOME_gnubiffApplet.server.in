@@ -25,7 +25,7 @@
         <oaf_attribute name="name" type="string" value="gnubiff"/>
         <oaf_attribute name="description" type="string" value="Mail notification program"/>
         <oaf_attribute name="panel:category" type="string" value="Internet"/>
-        <oaf_attribute name="panel:icon" type="string" value="gnubiff_icon.png"/>
+        <oaf_attribute name="panel:icon" type="string" value="gnubiff.png"/>
  
 </oaf_server>
  
