@@ -41,7 +41,7 @@ Version 2.1.1
    - Bugfix: Segfaulting in SSL when writing to a closed socket
    - Cleanup of code for obtaining the password for distant mailboxes
    - Cleanup of code for checking for new mails (IMAP4)
-   - Bugfix: Signal SIGCHLD interrupts socket reads (thanks to Byron
+   - Bugfix: Signal SIGCHLD interrupts socket reads and writes (thanks to Byron
         Foster for providing patches)
    - Bugfix: Some error handling was only done when debugging was activated
    - Bugfix: CAPABILITY command (IMAP4)
