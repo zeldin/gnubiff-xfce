@@ -466,7 +466,7 @@ Biff::save (void)
 		std::stringstream seen;
 		for (std::set<guint>::iterator j = mailbox_[i]->hidden().begin();
 			 j != mailbox_[i]->hidden().end(); j++)
-			seen << *j;
+			seen << *j << " ";
 		save_para("seen",seen.str());
 		save_endblock();
 	}
