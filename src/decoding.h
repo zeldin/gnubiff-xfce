@@ -39,10 +39,14 @@
 #include <string>
 #include <vector>
 
+/**
+ * This class is intended to provide functions needed for decoding and
+ * converting encodings used in mails. 
+ */
 class Decoding
 {
 protected:
-	gboolean decode_body (std::vector<std::string> &,std::string);
+	gboolean decode_body (std::vector<std::string> &, std::string);
 
 	// Encodings
 	std::string decode_base64 (const std::string &);

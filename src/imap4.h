@@ -43,13 +43,17 @@
 class Imap4 : public Mailbox {
 
  protected:
-	class Socket *				socket_;		// socket to talk to server
-	std::vector<int>			saved_;			// saved uidl's
-	gboolean					idleable_;		// does server support the IDLE capability?
-	gboolean					idled_;			// Is the server currently idled
-
-	std::string					tag_;			// Tag created for the last sent IMAP command
-	guint						tagcounter_;	// Counter for creating the next tag
+	/// Socket to talk to server
+	class Socket *				socket_;
+	/// Does the server support the IDLE capability?
+	gboolean					idleable_;
+	/// Is the server currently idled?
+	gboolean					idled_;
+	/// Tag created for the last sent IMAP command.
+	std::string					tag_;
+	/** Counter for creating the tag of the next IMAP command to be sent to
+	 *  the server. */
+	guint						tagcounter_;
  public:
 	// ========================================================================
 	//  base
@@ -60,22 +64,13 @@ class Imap4 : public Mailbox {
 	~Imap4 (void);
 
 	// ========================================================================
-	//  main
-	// ========================================================================
-
-	virtual void threaded_start (guint delay = 0);
-	void start (void);
-	void fetch (void);
-	void connect (void);
-	void fetch_mails (void);
-
-	// ========================================================================
 	//  exceptions
 	// ========================================================================
 
-	/// General exception for IMAP mailbox
+	/// General exception for IMAP mailbox. 
 	class imap_err : public std::exception {};
-	/// Exception for a socket connection failure (usually when reading or writing)
+	/** Exception for a socket connection failure. Usually this is thrown when
+	 *  reading or writing. */
 	class imap_socket_err : public imap_err {};
 	/** Exception for a problem with a IMAP command. This exception may be
 	 *  thrown in the following situations:
@@ -86,7 +81,7 @@ class Imap4 : public Mailbox {
 	 *     \item The command is not responded by OK
 	 *  \end{itemize} */
 	class imap_command_err : public imap_err {};
-	/// This exception is thrown when a DoS attack is suspected.
+	/// This exception is thrown when a DoS attack is suspected. 
 	class imap_dos_err : public imap_err {};
 	/** This exception is thrown when login isn't possible. This can happen in
 	 *  the following situations:
@@ -96,6 +91,16 @@ class Imap4 : public Mailbox {
 	 *     \item The user doesn't provide a password
 	 *  \end{itemize} */
 	class imap_nologin_err : public imap_err {};
+
+	// ========================================================================
+	//  main
+	// ========================================================================
+
+	virtual void threaded_start (guint delay = 0);
+	void start (void);
+	void fetch (void) throw (imap_err);
+	void connect (void) throw (imap_err);
+	void fetch_mails (void) throw (imap_err);
 	
  private:
 	// ========================================================================

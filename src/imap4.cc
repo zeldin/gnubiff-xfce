@@ -116,7 +116,6 @@ Imap4::start (void)
 		status_ = MAILBOX_ERROR;
 		unread_.clear();
 		seen_.clear();
-		saved_.clear();
 	}
 
 	idled_ = false;
@@ -135,17 +134,18 @@ Imap4::start (void)
  * idling once the mailbox status is known.
  *
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_nologin_err
  *                     The server doesn't want us to login or the user doesn't
  *                     provide a password.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 void 
-Imap4::fetch (void)
+Imap4::fetch (void) throw (imap_err)
 {
 	// Is there a password? Can we obtain it?
 	if (!biff_->password(this)) throw imap_nologin_err();
@@ -189,17 +189,18 @@ Imap4::update_applet(void)
  * capabilities and selects the user chosen folder on the server.
  *
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_nologin_err
  *                     The server doesn't want us to login or the user doesn't
  *                     provide a password.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 void 
-Imap4::connect (void)
+Imap4::connect (void) throw (imap_err)
 {
 	// Check standard port
 	if (!use_other_port_)
@@ -273,14 +274,15 @@ Imap4::connect (void)
  * mailbox.
  *
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 void 
-Imap4::fetch_mails (void)
+Imap4::fetch_mails (void) throw (imap_err)
 {
 	// Status will be restored in the end if no problem occured
 	status_ = MAILBOX_CHECK;
@@ -337,11 +339,12 @@ Imap4::close (void)
  * terminates for some reason.
  *
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 void 
 Imap4::idle (void) throw (imap_err)
@@ -394,7 +397,7 @@ Imap4::idle (void) throw (imap_err)
  * 
  * @return         Returns the last line received from the IMAP server.
  * @exception imap_socket_err
- *                 If a network error occurs
+ *                 This exception is thrown if a network error occurs.
  */
 std::string 
 Imap4::idle_renew_loop() throw (imap_err)
@@ -454,11 +457,12 @@ Imap4::idle_renew_loop() throw (imap_err)
  * \end{itemize}
  * 
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 void 
 Imap4::command_capability (void) throw (imap_err)
@@ -501,11 +505,12 @@ Imap4::command_capability (void) throw (imap_err)
  * @param     mail     C++ vector of C++ strings containing the header lines of
  *                     the mail (inclusive the separating empty line).
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 void 
 Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
@@ -599,11 +604,12 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
  * @return             Partinfo structure with information of the relevant
  *                     part of the mail.
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 class PartInfo 
 Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
@@ -655,11 +661,12 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
  *                     mail
  * @return             C++ vector of C++ strings containing the header lines
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 std::vector<std::string> 
 Imap4::command_fetchheader (guint msn) throw (imap_err)
@@ -723,11 +730,12 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
  * Sending the IMAP command "LOGIN" to the server.
  *
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 void 
 Imap4::command_login (void) throw (imap_err)
@@ -754,11 +762,12 @@ Imap4::command_login (void) throw (imap_err)
  * the server is selected.
  *
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 void 
 Imap4::command_select (void) throw (imap_err)
@@ -792,11 +801,12 @@ Imap4::command_select (void) throw (imap_err)
  * @return             C++ vector of integers for the message sequence numbers
  *                     of unread messages.
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 std::vector<int> 
 Imap4::command_searchnotseen (void) throw (imap_err)
@@ -848,11 +858,12 @@ Imap4::command_searchnotseen (void) throw (imap_err)
  *                     server. This value is needed to help deciding whether
  *                     we are DoS attacked. The default value is 0.
  * @exception imap_command_err
- *                     If we get an unexpected server's response
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
  * @exception imap_dos_err
- *                     If an DoS attack is suspected.
+ *                     This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     If a network error occurs
+ *                     This exception is thrown if a network error occurs.
  */
 void 
 Imap4::command_waitforack (gint cnt) throw (imap_err)
