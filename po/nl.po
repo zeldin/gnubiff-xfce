@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-07 17:24+0100\n"
+"POT-Creation-Date: 2004-12-07 19:04+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -304,7 +304,7 @@ msgstr "fout!"
 msgid "Error"
 msgstr "fout!"
 
-#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade.h:6
+#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade.h:5
 #, fuzzy
 msgid "Mark mailboxes read"
 msgstr "Berichten als gelezen markeren"
@@ -319,46 +319,42 @@ msgid "Run command"
 msgstr "Opdracht voor geluid"
 
 #: ui/applet-gtk.glade.h:1
-msgid "00/00"
-msgstr "00/00"
-
-#: ui/applet-gtk.glade.h:2
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
 "<small>(C) 2000-2004 Nicolas Rougier, Nederlandse vertaling (C) 2004 Elros "
 "Cyriatan</small>"
 
-#: ui/applet-gtk.glade.h:3
+#: ui/applet-gtk.glade.h:2
 msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
 msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
 
-#: ui/applet-gtk.glade.h:4
+#: ui/applet-gtk.glade.h:3
 msgid "About"
 msgstr "Info"
 
-#: ui/applet-gtk.glade.h:5
+#: ui/applet-gtk.glade.h:4
 msgid "About gnubiff"
 msgstr "Over gnubiff"
 
-#: ui/applet-gtk.glade.h:7
+#: ui/applet-gtk.glade.h:6
 msgid "Ok"
 msgstr "OK"
 
-#: ui/applet-gtk.glade.h:8
+#: ui/applet-gtk.glade.h:7
 #, fuzzy
 msgid "Start command"
 msgstr "Opdracht voor geluid"
 
-#: ui/applet-gtk.glade.h:9
+#: ui/applet-gtk.glade.h:8
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
 
-#: ui/applet-gtk.glade.h:10
+#: ui/applet-gtk.glade.h:9
 msgid "gnubiff"
 msgstr "gnubiff"
 
-#: ui/applet-gtk.glade.h:11
+#: ui/applet-gtk.glade.h:10
 msgid "tooltip"
 msgstr "werktip"
 
@@ -868,6 +864,9 @@ msgstr "postinhoud"
 #, fuzzy
 msgid "subject"
 msgstr "<geen onderwerp gevonden>"
+
+#~ msgid "00/00"
+#~ msgstr "00/00"
 
 #, fuzzy
 #~ msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"

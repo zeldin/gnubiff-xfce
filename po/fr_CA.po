@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-07 17:24+0100\n"
+"POT-Creation-Date: 2004-12-07 19:04+0100\n"
 "PO-Revision-Date: 2004-12-05 11:12+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -303,7 +303,7 @@ msgstr "* erreur *"
 msgid "Error"
 msgstr "Erreur"
 
-#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade.h:6
+#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade.h:5
 msgid "Mark mailboxes read"
 msgstr "Marquer le courrier comme étant lu"
 
@@ -316,43 +316,39 @@ msgid "Run command"
 msgstr "Exécuter la commande"
 
 #: ui/applet-gtk.glade.h:1
-msgid "00/00"
-msgstr "00/00"
-
-#: ui/applet-gtk.glade.h:2
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
 msgstr "<small>(C) 2000-2004 Nicolas Rougier</small>"
 
-#: ui/applet-gtk.glade.h:3
+#: ui/applet-gtk.glade.h:2
 msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
 msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
 
-#: ui/applet-gtk.glade.h:4
+#: ui/applet-gtk.glade.h:3
 msgid "About"
 msgstr "A propos"
 
-#: ui/applet-gtk.glade.h:5
+#: ui/applet-gtk.glade.h:4
 msgid "About gnubiff"
 msgstr "A propos de gnubiff"
 
-#: ui/applet-gtk.glade.h:7
+#: ui/applet-gtk.glade.h:6
 msgid "Ok"
 msgstr "Ok"
 
-#: ui/applet-gtk.glade.h:8
+#: ui/applet-gtk.glade.h:7
 msgid "Start command"
 msgstr "Exécuter la commande"
 
-#: ui/applet-gtk.glade.h:9
+#: ui/applet-gtk.glade.h:8
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
-#: ui/applet-gtk.glade.h:10
+#: ui/applet-gtk.glade.h:9
 msgid "gnubiff"
 msgstr "gnubiff"
 
-#: ui/applet-gtk.glade.h:11
+#: ui/applet-gtk.glade.h:10
 msgid "tooltip"
 msgstr "truc"
 
@@ -822,6 +818,9 @@ msgstr "mail content"
 #: ui/popup.glade.h:9
 msgid "subject"
 msgstr "Sujet"
+
+#~ msgid "00/00"
+#~ msgstr "00/00"
 
 #~ msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
 #~ msgstr "Copyright (c) 2000-2004 Nicolas Rougier\n"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-07 17:24+0100\n"
+"POT-Creation-Date: 2004-12-07 19:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -282,7 +282,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade.h:6
+#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade.h:5
 msgid "Mark mailboxes read"
 msgstr ""
 
@@ -295,43 +295,39 @@ msgid "Run command"
 msgstr ""
 
 #: ui/applet-gtk.glade.h:1
-msgid "00/00"
-msgstr ""
-
-#: ui/applet-gtk.glade.h:2
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
 
-#: ui/applet-gtk.glade.h:3
+#: ui/applet-gtk.glade.h:2
 msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
 msgstr ""
 
-#: ui/applet-gtk.glade.h:4
+#: ui/applet-gtk.glade.h:3
 msgid "About"
 msgstr ""
 
-#: ui/applet-gtk.glade.h:5
+#: ui/applet-gtk.glade.h:4
 msgid "About gnubiff"
 msgstr ""
 
-#: ui/applet-gtk.glade.h:7
+#: ui/applet-gtk.glade.h:6
 msgid "Ok"
 msgstr ""
 
-#: ui/applet-gtk.glade.h:8
+#: ui/applet-gtk.glade.h:7
 msgid "Start command"
 msgstr ""
 
-#: ui/applet-gtk.glade.h:9
+#: ui/applet-gtk.glade.h:8
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
 
-#: ui/applet-gtk.glade.h:10
+#: ui/applet-gtk.glade.h:9
 msgid "gnubiff"
 msgstr ""
 
-#: ui/applet-gtk.glade.h:11
+#: ui/applet-gtk.glade.h:10
 msgid "tooltip"
 msgstr ""
 
