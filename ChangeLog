@@ -67,6 +67,7 @@ Version 2.1.0
    - Updated "text" "plain" fix of Nicolas to make it safe for future
      extensions
    - Get encoding and character set of "text" "plain" part (IMAP4)
+   - Updated intltool utilities to version 0.32.1
 	
 Version 2.0.3
   * Roland Stigge:
