@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-08 13:35+0100\n"
-"PO-Revision-Date: 2005-03-08 13:45+0100\n"
+"POT-Creation-Date: 2005-03-09 17:15+0100\n"
+"PO-Revision-Date: 2005-03-09 17:15+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -64,20 +64,28 @@ msgstr "Debugging-Optionen:"
 msgid "Configuration file (%s) not found !"
 msgstr "Konnte Konfigurationsdatei »%s« nicht finden!"
 
-#: ../src/biff.cc:388
+#: ../src/biff.cc:167
+msgid ""
+"You just encountered a strange error. Please send a bug report to \"gnubiff-"
+"bugs@lists.sourceforge.net\"."
+msgstr ""
+"Es ist gerade ein ungewöhnlicher Fehler aufgetreten. Bitte senden Sie einen "
+"Fehlerbericht an »gnubiff-bugs@lists.sourceforge.net«."
+
+#: ../src/biff.cc:400
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Konfigurationsdatei aus alter Gnubiff-Version »%s« geladen."
 
-#: ../src/biff.cc:390
+#: ../src/biff.cc:402
 msgid "Trying to convert all options."
 msgstr "Versuche alle Optionen zu konvertieren."
 
-#: ../src/biff.cc:416
+#: ../src/biff.cc:428
 msgid "Successfully converted all options."
 msgstr "Erfolgreich alle Optionen konvertiert."
 
-#: ../src/biff.cc:419
+#: ../src/biff.cc:431
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -86,21 +94,29 @@ msgstr ""
 "Erfolgreich einige Optionen konvertiert. Die folgenden Optionen müssen "
 "manuell aktualisiert werden: %s."
 
-#: ../src/biff.cc:566
+#: ../src/biff.cc:578
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kann die Konfigurationsdatei »%s« nicht öffnen!"
 
-#: ../src/biff.cc:592
+#: ../src/biff.cc:594
+msgid "Cannot create XML parser for config file"
+msgstr "Kann keinen XML-Parser für die Konfigurationsdatei erzeugen!"
+
+#: ../src/biff.cc:611
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Keine Briefkastendefinition in der Konfigurationsdatei »%s« gefunden!"
 
-#: ../src/biff.cc:620
-msgid "Illegal parameter format in config file"
-msgstr "Illegales Parameterformat in der Konfigurationsdatei"
+#: ../src/biff.cc:645
+msgid "Unknown error while parsing config file"
+msgstr "Unbekannter Fehler beim Parsen der Konfigurationsdatei!"
 
-#: ../src/biff.cc:643
+#: ../src/biff.cc:659
+msgid "Illegal parameter format in config file"
+msgstr "Illegales Parameterformat in der Konfigurationsdatei!"
+
+#: ../src/biff.cc:682
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Kein Protokoll für Briefkasten %d angegeben"
@@ -115,37 +131,38 @@ msgstr "[%d] Kann Thread nicht erzeugen: %s"
 msgid "mailbox %d"
 msgstr "Briefkasten %d"
 
-#: ../src/mailbox.cc:564
-msgid "<no sender>"
-msgstr "<Kein Absender>"
-
-#: ../src/mailbox.cc:575
-msgid "<no subject>"
-msgstr "<Kein Betreff>"
-
-#: ../src/mailbox.cc:586
+#. Insert default values
+#: ../src/mailbox.cc:541
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
-#: ../src/mailbox.cc:594
+#: ../src/mailbox.cc:542
+msgid "<no sender>"
+msgstr "<Kein Absender>"
+
+#: ../src/mailbox.cc:543
+msgid "<no subject>"
+msgstr "<Kein Betreff>"
+
+#: ../src/mailbox.cc:587
 msgid "[Cannot parse content type header line]"
 msgstr "[Kann die Kopfzeile mit dem Inhaltstyp nicht parsen]"
 
-#: ../src/mailbox.cc:628
+#: ../src/mailbox.cc:607
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Kann die Kopfzeile mit der Kodierung nicht parsen]"
 
-#: ../src/mailbox.cc:676
+#: ../src/mailbox.cc:655
 msgid "[Malformed multipart message]"
 msgstr "[Missgebildete Multipart-Nachricht]"
 
-#: ../src/mailbox.cc:684
+#: ../src/mailbox.cc:663
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Kann den ersten Teil der Multipart-Nachricht nicht finden]"
 
-#: ../src/mailbox.cc:730
+#: ../src/mailbox.cc:709
 #, c-format
-msgid "[This message has no supported content type: \"%s/%s\"]"
+msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Diese Nachricht besitzt keinen unterstützten Inhaltstyp: »%s/%s«]"
 
 #. Otherwise: Ignore it and print error message

@@ -706,7 +706,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 			h.add_to_body ("\n...");
 	}
 	else {
-		gchar *tmp = g_strdup_printf (_("[This message has a not supported "
+		gchar *tmp = g_strdup_printf (_("[This message has an unsupported "
 										"content type: \"%s/%s\"]"),
 									  partinfo.type_.c_str(),
 									  partinfo.subtype_.c_str());
