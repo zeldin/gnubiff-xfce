@@ -83,6 +83,12 @@ public:
 	virtual int connect (void) = 0;
 	void fetch_status (void);
 	void fetch_header (void);
+
+ protected:
+	gint readline (std::string &, gboolean print=true, gboolean check=true,
+				   gboolean checkline=true) throw (pop_err);
+	gint sendline (std::string, gboolean print=true, gboolean check=true)
+				   throw (pop_err);
 };
 
 #endif

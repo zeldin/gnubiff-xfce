@@ -96,10 +96,9 @@ public:
 				std::string certificate = "",
 				guint timeout = 5);
 	gint close (void);
-	gint write (std::string line,
-				gboolean debug = true);
+	gint write (std::string line, gboolean print = true);
 	gint read  (std::string &line,
-				gboolean debug = true,
+				gboolean print = true,
 				gboolean check = true);
   
 	/**

@@ -112,24 +112,21 @@ Pop3::connect (void)
 	}
 
 	std::string line;
-	if (!socket_->read (line)) return 0;
+	readline (line); // +OK response
 
 	// LOGIN : username
-	line = "USER " + username_ + std::string ("\r\n");
-	if (!socket_->write (line)) return 0;
-	if (!socket_->read (line)) return 0;
+	sendline ("USER " + username_);
+	readline (line); // +OK response
 
 	// LOGIN : password
-	line = "PASS " + password_ + std::string ("\r\n");
-
-	// Just in case send someone me the output: password won't be displayed
-	std::string line_no_password = "PASS (hidden)\r\n";
 #ifdef DEBUG
-	g_print ("** Message: [%d] SEND(%s:%d): %s", uin_, address_.c_str(), port_, line_no_password.c_str());
+	// Just in case someone sends me the output: password won't be displayed
+	std::string line_no_password = "PASS (hidden)\r\n";
+	g_message ("[%d] SEND(%s:%d): %s", uin_, address_.c_str(), port_,
+			   line_no_password.c_str());
 #endif
-
-	if (!socket_->write (line,false)) return 0;
-	if (!socket_->read (line)) return 0;
+	sendline ("PASS " + password_, false);
+	readline (line); // +OK response
 
 	return 1;
 }

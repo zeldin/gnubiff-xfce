@@ -110,7 +110,7 @@ Apop::connect (void)
 	// Does server supports apop protocol ?
 	//  if so, answer should be something like:
 	//  +OK POP3 server ready <1896.697170952@dbc.mtview.ca.us>
-	if (!socket_->read (line)) return 0;
+	readline (line);
 	if (line.find ("<") == std::string::npos) {
 		g_warning (_("[%d] Your pop server does not seem to accept apop protocol (no timestamp provided)"), uin_);
 		socket_->status (SOCKET_STATUS_ERROR);
@@ -136,14 +136,13 @@ Apop::connect (void)
 		sprintf (&hex_response[i*2], "%02x", response[i]);
 	hex_response[32] = '\0';
 #else
-	g_message (_("[%d] Problem with crypto that should have been detected at configure time"), uin_);
+	g_warning (_("[%d] Problem with crypto that should have been detected at configure time"), uin_);
 	return 0;
 #endif
 
 	// LOGIN
-	line = "APOP " + username_ + std::string(" ") + std::string (hex_response) + std::string ("\r\n");
-	if (!socket_->write (line)) return 0;
-	if (!socket_->read (line)) return 0;
+	sendline ("APOP " + username_ + " " + std::string (hex_response));
+	readline (line); // +OK response
 
 	return 1;
 }

@@ -65,6 +65,10 @@ Version 2.1.1
    - Bugfix: Printing debug messages for sent lines (IMAP4 & POP3)
    - Feature: Allow the user to forbid idling (no GUI support ATM; IMAP4)
    - Added exception handling to POP3
+   - Bugfix/Cleanup: Error handling when reading and sending (POP3)
+   - Cleanup: Got rid of protocol specific code in class Socket
+   - Bugfix: Corrected tests regarding socket status
+   - Bugfix: Allow mail lines to begin with "-ERR" (POP3)
 
 Version 2.1.0
  * Nicolas Rougier

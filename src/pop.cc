@@ -37,7 +37,7 @@
 #include "ui-popup.h"
 #include "pop.h"
 #include "socket.h"
-
+#include "nls.h"
 
 // ========================================================================
 //  base
@@ -125,9 +125,8 @@ Pop::fetch_status (void)
 	if (!connect())	return;
 
 	// Get total number of messages into total
-	line = "STAT\r\n";
-	if (!socket_->write (line))	return;
-	if (!socket_->read (line)) return;
+	sendline ("STAT");
+	readline (line);
 
 	guint total;
 	sscanf (line.c_str()+4, "%ud\n", &total);
@@ -153,12 +152,8 @@ Pop::fetch_status (void)
 	for (guint i=0; i< n; i++) {
 		std::stringstream s;
 		s << (i+start);
-		line = "UIDL " + s.str() + std::string("\r\n");
-		if (!socket_->write (line)) return;
-		if (!socket_->read (line, false)) return;
-#ifdef DEBUG
-		g_print ("** Message: [%d] RECV(%s:%d): %s\n", uin_, address_.c_str(), port_, line.c_str());
-#endif
+		sendline ("UIDL " + s.str());
+		readline (line);
 		sscanf (line.c_str()+4, "%ud %70s\n", &dummy, (char *) &uidl);
 		buffer.push_back (uidl);
 	}
@@ -172,10 +167,9 @@ Pop::fetch_status (void)
 		status_ = MAILBOX_OLD;
 	saved_ = buffer;
 
-	// LOGOUT
-	line = "QUIT\r\n";
-	if (!socket_->write (line)) return;
-	if (!socket_->read (line)) return;
+	// QUIT
+	sendline ("QUIT");
+	readline (line, true, true, false);
 
 	socket_->close();
 }
@@ -195,9 +189,9 @@ Pop::fetch_header (void)
 	if (!connect()) return;
 
 	// STAT
-	line = "STAT\r\n";
-	if (!socket_->write (line)) return;
-	if (!socket_->read (line)) return;
+	sendline ("STAT");
+	readline (line);
+
 	guint total;
 	sscanf (line.c_str()+4, "%ud", &total);
 
@@ -224,15 +218,16 @@ Pop::fetch_header (void)
 		s << (i+start) << " " << bodyLinesToBeRead_;
 		mail.clear();
 		// Get header and first lines of mail (see constant bodyLinesToBeRead_)
-		line = "TOP " + s.str() + "\r\n";
-		if (!socket_->write (line)) return;
+		sendline ("TOP " + s.str());
+		readline (line, false); // + OK response to TOP
 #ifdef DEBUG
-		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, address_.c_str(), port_);
+		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
+				 address_.c_str(), port_);
 #endif
-		if (!socket_->read (line, false)) return;
-		gint cnt = preventDoS_headerLines_+bodyLinesToBeRead_+1;
+
+		gint cnt = preventDoS_headerLines_ + bodyLinesToBeRead_ + 1;
 		do {
-			if (!socket_->read (line, false)) return;
+			readline (line, false, true, false);
 			if (line.size() > 1) {
 				mail.push_back (line.substr(0, line.size()-1));
 #ifdef DEBUG
@@ -241,9 +236,8 @@ Pop::fetch_header (void)
 			}
 			else
 				mail.push_back ("");
-		} while ((line != ".\r") && (0 < cnt--));
-		if (cnt <= 0)
-			return;
+		} while ((line != ".\r") && (cnt--));
+		if (cnt < 0) throw pop_dos_err();
 #ifdef DEBUG
 		g_print("\n");
 #endif
@@ -251,10 +245,10 @@ Pop::fetch_header (void)
 		parse (mail, MAIL_UNREAD);
 	}
 	
+	// QUIT
+	sendline ("QUIT");
+	readline (line, true, true, false);
 
-	// LOGOUT
-	line = "QUIT\r\n";
-	if (!socket_->write (line)) return;
 	socket_->close();
 
 	// Restore status
@@ -266,4 +260,94 @@ Pop::fetch_header (void)
 
 	unread_ = new_unread_;
 	seen_ = new_seen_;
+}
+
+/**
+ * Send a line to the POP server.
+ * The given {\em line} is postfixed with "\r\n" and then written to
+ * the socket of the mailbox.
+ *
+ * If {\em check} is true the return value of the call to Socket::write() is
+ * checked and an pop_socket_err exception is thrown if it was not successful.
+ * So this function always returns SOCKET_STATUS_OK if {\em check} is true,
+ * otherwise (if {\em check} is false) error handling is left to the caller of
+ * this function.
+ *
+ * @param line     line to be sent
+ * @param print    Shall the sent command be printed in debug mode?
+ *                 The default is true.
+ * @param check    Shall the return value of the Socket::write() command be
+ *                 checked? The default is true.
+ * @return         Return value of the Socket::write() command, this is always
+ *                 SOCKET_STATUS_OK if {\em check} is true.
+ * @exception pop_socket_err
+ *                 This exception is thrown if a network error occurs.
+ */
+gint 
+Pop::sendline (std::string line, gboolean print, gboolean check)
+			   throw (pop_err)
+{
+	gint status=socket_->write (line + "\r\n", print);
+	if ((status!=SOCKET_STATUS_OK) && check) throw pop_socket_err();
+	return status;
+}
+
+/**
+ * Read one line from the server. If {\em check} is true the return value of
+ * the call to Socket::read() is checked and a pop_socket_err exception is
+ * thrown if it was not successful. So this function always returns
+ * SOCKET_STATUS_OK if {\em check} is true, otherwise (if {\em check} is
+ * false) error handling is left to the caller of this function.
+ *
+ * If {\em checkline} is true then the read line is checked for an negative
+ * response ("-ERR"). If such a response is found an error message is printed,
+ * the "QUIT" command is sent (see remark below) and a pop_command_err
+ * exception is thrown.
+ *
+ * Remark: The parameter {\em checkline} must be false if reading the response
+ * to the "QUIT" command.
+ *
+ * @param line      String that contains the read line if the call was
+ *                  successful (i.e. the return value is SOCKET_STATUS_OK),
+ *                  the value is undetermined otherwise
+ * @param print     Shall the read line be printed in debug mode?
+ *                  The default is true.
+ * @param check     Shall the return value of the Socket::read() command be
+ *                  checked? The default is true.
+ * @param checkline Shall {\em line} be checked for an error response?
+ *                  The default is true.
+ * @return          Return value of the Socket::read() command, this is always
+ *                  SOCKET_STATUS_OK if {\em check} is true.
+ * @exception pop_command_err
+ *                  This exception is thrown if {\em line} contains a negative
+ *                  untagged response and {\em check} and {\em checkline} are
+ *                  true.
+ * @exception pop_socket_err
+ *                  This exception is thrown if a network error occurs.
+ */
+gint 
+Pop::readline (std::string &line, gboolean print, gboolean check,
+			   gboolean checkline) throw (pop_err)
+{
+	// Read line
+	gint status=socket_->read(line, print, check);
+	if (check && (status!=SOCKET_STATUS_OK)) throw pop_socket_err();
+
+	// Only "+OK" and "-ERR" are valid responses (see RFC 1939 3.)
+	if (!checkline)
+		return status;
+	if (line.find ("-ERR") == 0) {
+		g_warning (_("[%d] Error message from POP3 server:%s"), uin_,
+					 line.substr(4,line.size()-4).c_str());
+		// We are still able to QUIT
+		sendline ("QUIT");
+		readline (line, true, true, false);
+		throw pop_command_err();
+	}
+	if (line.find ("+OK") != 0) {
+		g_warning (_("[%d] Did not get a positive response from POP3 server"),
+				   uin_);
+		throw pop_command_err();
+	}
+	return status;
 }

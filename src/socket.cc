@@ -287,10 +287,8 @@ Socket::close (void)
 	return 1;
 }
 
-
 gint
-Socket::write (std::string line,
-			   gboolean debug)
+Socket::write (std::string line, gboolean print)
 {
 	// Do not allow writing to a closed, or invalid socket. This causes
 	// SEGV in SSL.
@@ -318,23 +316,20 @@ Socket::write (std::string line,
 	}
 
 #ifdef DEBUG
-	if (debug)
+	if (print)
 		g_message ("[%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
 #endif
 
-	if ((debug) && (!status_)) {
+	if ((print) && (status_ != SOCKET_STATUS_OK)) {
 		g_warning (_("[%d] Unable to write to %s on port %d"), uin_, hostname_.c_str(), port_);
 		close();
-		mailbox_->status (MAILBOX_ERROR);
 	}
 
 	return status_;
 }
 
-gint
-Socket::read (std::string &line,
-			  gboolean debug,
-			  gboolean check)
+gint 
+Socket::read (std::string &line, gboolean print, gboolean check)
 {
 	// Do not allow writing to a closed, or invalid socket. This causes
 	// SEGV in SSL.
@@ -379,7 +374,7 @@ Socket::read (std::string &line,
 		return status_;
 
 #ifdef DEBUG
-	if (debug)
+	if (print)
 		if (status_ == SOCKET_TIMEOUT)
 			g_message ("[%d] RECV TIMEOUT(%s:%d)", uin_, hostname_.c_str(), port_);
 		else if (status_ == SOCKET_STATUS_OK)
@@ -390,21 +385,8 @@ Socket::read (std::string &line,
 	if (status_ == SOCKET_STATUS_ERROR) {
 		g_warning (_("[%d] Unable to read from %s on port %d"), uin_, hostname_.c_str(), port_);
 		close();
-		mailbox_->status (MAILBOX_ERROR);
 	}
 
-	// NOTE: It would be my take that there should not be mailbox specific
-	// handling in the socket processing.	 -Byron
-	
-	// Check pop
-	if ((mailbox_->protocol() == PROTOCOL_APOP) || (mailbox_->protocol() == PROTOCOL_POP3)) {
-		 if (line.find ("-ERR") == 0) {
-			 close();
-			 status_ = SOCKET_STATUS_ERROR;
-			 mailbox_->status (MAILBOX_ERROR);
-		 }
-	}
-	
 	return status_;
 }
 
