@@ -406,7 +406,7 @@ Socket::read (std::string &line,
  *
  * @param  timeout   Time in seconds for timeout duration.
  */
-void
+void 
 Socket::set_read_timeout(gint timeout)
 {
 	struct timeval tv;
