@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 11:16+0100\n"
+"POT-Creation-Date: 2005-03-04 14:10+0100\n"
 "PO-Revision-Date: 2005-01-17 22:04+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -82,27 +82,27 @@ msgstr "[%d] Kan inte skapa tråd: %s"
 msgid "mailbox %d"
 msgstr "Brevlåda %d"
 
-#: ../src/mailbox.cc:558
+#: ../src/mailbox.cc:560
 msgid "<no sender>"
 msgstr "<ingen avsändare>"
 
-#: ../src/mailbox.cc:569
+#: ../src/mailbox.cc:571
 msgid "<no subject>"
 msgstr "<inget ämne>"
 
-#: ../src/mailbox.cc:580
+#: ../src/mailbox.cc:582
 msgid "<no date>"
 msgstr "<Inget datum>"
 
-#: ../src/mailbox.cc:587
+#: ../src/mailbox.cc:590
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:621
+#: ../src/mailbox.cc:624
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:684
+#: ../src/mailbox.cc:670
 #, c-format
 msgid "[This mail hasn't a supported content type: \"%s/%s\"]"
 msgstr ""
@@ -654,8 +654,8 @@ msgid "Text to display"
 msgstr "Text att visa"
 
 #: ../ui/preferences.glade.h:41
-#, no-c-format
-msgid "Text to display (%d is the number of new mail)"
+#, fuzzy, no-c-format
+msgid "Text to display (%d is the number of new messages)"
 msgstr "Text som skall visas (%d är antalet nya meddelanden)"
 
 #: ../ui/preferences.glade.h:42

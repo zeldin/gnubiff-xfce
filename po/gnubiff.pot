@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 11:16+0100\n"
+"POT-Creation-Date: 2005-03-04 14:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,27 +83,27 @@ msgstr ""
 msgid "mailbox %d"
 msgstr ""
 
-#: ../src/mailbox.cc:558
+#: ../src/mailbox.cc:560
 msgid "<no sender>"
 msgstr ""
 
-#: ../src/mailbox.cc:569
+#: ../src/mailbox.cc:571
 msgid "<no subject>"
 msgstr ""
 
-#: ../src/mailbox.cc:580
+#: ../src/mailbox.cc:582
 msgid "<no date>"
 msgstr ""
 
-#: ../src/mailbox.cc:587
+#: ../src/mailbox.cc:590
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:621
+#: ../src/mailbox.cc:624
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:684
+#: ../src/mailbox.cc:670
 #, c-format
 msgid "[This mail hasn't a supported content type: \"%s/%s\"]"
 msgstr ""
@@ -625,7 +625,7 @@ msgstr ""
 
 #: ../ui/preferences.glade.h:41
 #, no-c-format
-msgid "Text to display (%d is the number of new mail)"
+msgid "Text to display (%d is the number of new messages)"
 msgstr ""
 
 #: ../ui/preferences.glade.h:42
