@@ -20,10 +20,11 @@ Version 2.1.3
         still present multiple times in the code; added this to TODO file;
         thanks to David Mosberger for reporting this bug
    - Added David Mosberger to contributors
-   - Bugfix: Corrected string length types in "src/decoding.cc" and
-        "src/decoding.h" (64bit systems)
+   - Bugfix: Corrected string length types in "src/decoding.*" and
+        "src/support.*" (64bit systems)
    - Bugfix: Crash in image selecting dialogs (thanks to David Mosberger for
         reporting this bug)
+   - Feature: More information in unknown_internal_error() provided
 
 Version 2.1.2		2005-03-26 17:28
  * Robert Sowada

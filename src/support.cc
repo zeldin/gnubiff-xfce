@@ -96,13 +96,13 @@ gb_substitute(std::string format, std::string chars,
 	std::string::size_type len = format.length();
 	std::string result("");
 
-	while ((pos<len) && (pos=format.find("%",prevpos)) != std::string::npos)
+	while ((pos < len) && (pos=format.find("%",prevpos)) != std::string::npos)
     {
 		if (prevpos < pos)
 			result.append (format, prevpos, pos-prevpos);
 		prevpos = pos+2;
 		// '%' at end of string
-		if (pos+1==len)
+		if (pos+1 == len)
 			return result;
 
 		// '%%'
@@ -132,7 +132,7 @@ gb_substitute(std::string format, std::string chars,
  *  @param func  Name of the function in which the error is
  */
 void 
-unknown_internal_error_(const gchar *file, guint line, const gchar *func)
+unknown_internal_error_ (const gchar *file, guint line, const gchar *func)
 {
 	std::stringstream ss;
 	utsname uts;
@@ -157,6 +157,9 @@ unknown_internal_error_(const gchar *file, guint line, const gchar *func)
 	ss << "\n";
 	ss << "system      : " << uts.sysname << " " << uts.release << " ";
 	ss <<                     uts.version << " " << uts.machine << "\n";
+	ss << "sizeof      : " << "gint=" << sizeof (gint) << " ";
+	ss <<                     "gsize=" << sizeof (gsize) << " ";
+	ss <<                     "s:s:s_t="<<sizeof(std::string::size_type)<<"\n";
 	ss << "glib        : " << glib_major_version << "." << glib_minor_version;
 	ss <<                     "." << glib_micro_version << " (dyn),  ";
 	ss <<                     GLIB_MAJOR_VERSION << "." << GLIB_MINOR_VERSION;
