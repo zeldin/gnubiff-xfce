@@ -381,16 +381,9 @@ Properties::on_apply (GtkWidget *widget)
 
 	// Third case: type is set to imap
 	else if (selected_type_ == TYPE_IMAP) {
-		if (!mailbox_->use_other_port()) {
-			if ((selected_auth_ == AUTH_SSL) || (selected_auth_ == AUTH_CERTIFICATE))
-				mailbox_->port (993);
-			else
-				mailbox_->port (143);
-		}
-		else
-			mailbox_->port (mailbox_->other_port());
 		// Protocol was not imap4 or mailbox was unknown, we change mailbox
-		if ((mailbox_->protocol() != PROTOCOL_IMAP4) || (mailbox_->status() == MAILBOX_UNKNOWN)) {
+		if ((mailbox_->protocol() != PROTOCOL_IMAP4)
+			|| (mailbox_->status() == MAILBOX_UNKNOWN)) {
 			Mailbox *mailbox = new Imap4 (*mailbox_);
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
@@ -399,20 +392,14 @@ Properties::on_apply (GtkWidget *widget)
 
 	// Fourth case: type is set to pop
 	else if (selected_type_ == TYPE_POP) {
-		if (!mailbox_->use_other_port()) {
-			if ((selected_auth_ == AUTH_SSL) || (selected_auth_ == AUTH_CERTIFICATE))
-				mailbox_->port (995);
-			else
-				mailbox_->port (110);
-		}
-		else
-			mailbox_->port (mailbox_->other_port());
-
-		if (((mailbox_->protocol() != PROTOCOL_APOP)|| (mailbox_->status() == MAILBOX_UNKNOWN)) && (selected_auth_ == AUTH_APOP)) {
+		if (((mailbox_->protocol() != PROTOCOL_APOP)
+			 || (mailbox_->status() == MAILBOX_UNKNOWN))
+			&& (selected_auth_ == AUTH_APOP)) {
 			Mailbox *mailbox = new Apop (*mailbox_);
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
-		else if ((mailbox_->protocol() != PROTOCOL_POP3) || (mailbox_->status() == MAILBOX_UNKNOWN)) {
+		else if ((mailbox_->protocol() != PROTOCOL_POP3)
+				 || (mailbox_->status() == MAILBOX_UNKNOWN)) {
 			Mailbox *mailbox = new Pop3 (*mailbox_);
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
