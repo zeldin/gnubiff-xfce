@@ -188,13 +188,13 @@ Applet::update (gboolean no_popup)
 		if (!unread && (biff_->value_bool ("use_popup") || force_popup_))
 			biff_->popup()->hide();
 
+		// Test if the popup is visible. If it is visible we also have to
+		// update when mails are read
 		gboolean vis = GTK_WIDGET_VISIBLE (biff_->popup()->get ("dialog"));
 
-		// Otherwise update and display the popup
-		// Note: Must not test for new mail when popup is shown
-		// because it also needs updating when some messages were read
-		if (unread && ((biff_->value_bool ("use_popup")) || (force_popup_))
-			&& (newmail || vis)) {
+		// Update and display the popup
+		if (unread && ((biff_->value_bool ("use_popup")) || force_popup_)
+			&& (newmail || vis || force_popup_)) {
 			biff_->popup()->update();
 			biff_->popup()->show();
 		}
