@@ -481,7 +481,7 @@ Mailbox::lookup (void)
  *                     be determined.
  */
 Mailbox * 
-Mailbox::lookup_local(Mailbox &oldmailbox)
+Mailbox::lookup_local (Mailbox &oldmailbox)
 {
 	Mailbox *mailbox=NULL;
 	const gchar *address=oldmailbox.address().c_str();

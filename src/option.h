@@ -68,6 +68,10 @@ const guint OPTFLG_CHANGE = 32;
 const guint OPTFLG_UPDATE = 64;
 /// The option is a space separated list of strings (string)
 const guint OPTFLG_STRINGLIST = 128;
+/** The option will not be shown in the expert dialog. This flag should only be
+ *  used for internal options that cannot be changed. Options that may be of
+ *  information interest for the user should not be flagged.*/
+const guint OPTFLG_NOSHOW = 256;
 
 /// Option cannot be changed by the user
 const guint OPTFLG_USER_NO_CHANGE = OPTFLG_FIXED | OPTFLG_AUTO;
@@ -198,9 +202,13 @@ public:
 private:
 	static const gchar *ids_[3];
 	static const guint ints_[3];
-	/// GUI elements that are sensitive to this boolean
+	/* GUI widgets that are sensitive to this boolean. If the
+	 * negated boolean should be taken into account the widget's name should
+	 * be prefixed by a '!' */
 	std::set<std::string> gui_sensitive_;
-	/// GUI elements that are shown/hidden depending on this boolean
+	/* GUI widgets that are shown/hidden depending on this boolean. If the
+	 * negated boolean should be taken into account the widget's name should
+	 * be prefixed by a '!' */
 	std::set<std::string> gui_show_;
 };
 

@@ -326,9 +326,23 @@ Biff::option_changed (Option *option)
 		((Option_String *)option)->get_vector (vec, ':');
 		if (vec.size() < 3)
 			return;
-		value ("popup_size_sender", std::min<guint> (vec[0], 255));
-		value ("popup_size_subject", std::min<guint> (vec[1], 255));
-		value ("popup_size_date", std::min<guint> (vec[2], 255));
+		value ("popup_size_sender", std::min<guint> (vec[0], 255), false);
+		value ("popup_size_subject", std::min<guint> (vec[1], 255), false);
+		value ("popup_size_date", std::min<guint> (vec[2], 255), false);
+		return;
+	}
+
+	// POPUP_SIZE_SENDER, POPUP_SIZE_SUBJECT, POPUP_SIZE_DATE
+	if ((option->name() == "popup_size_sender")
+		|| (option->name() == "popup_size_subject")
+		|| (option->name() == "popup_size_date")) {
+		// Remark: Do not depend on these options, depend on "popup_format"
+		// instead!
+		std::stringstream ss;
+		ss << value_uint ("popup_size_sender") << ":";
+		ss << value_uint ("popup_size_subject") << ":";
+		ss << value_uint ("popup_size_date");
+		value ("popup_format", ss.str());
 		return;
 	}
 

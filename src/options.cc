@@ -385,6 +385,12 @@ Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 	if (whattodo & OPTSGUI_SET)
 		option->set_gui (widgets);
 
+	if ((whattodo & OPTSGUI_SENSITIVE) && (whattodo & OPTSGUI_SHOW)) {
+		update_gui (OPTSGUI_SENSITIVE, option, xml, filename);
+		update_gui (OPTSGUI_SHOW, option, xml, filename);
+		whattodo=(OptionsGUI) (whattodo & ~(OPTSGUI_SENSITIVE | OPTSGUI_SHOW));
+	}
+
 	if (whattodo & (OPTSGUI_SENSITIVE | OPTSGUI_SHOW)) {
 		if (option->type() == OPTTYPE_BOOL) {
 			// Obtain value for setting sensitive
@@ -395,21 +401,28 @@ Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 				ok = ((Option_Bool *)option)->value ();
 			// Get widgets to be set sensitive/shown/hidden
 			std::set<std::string> gs;
-			if (whattodo == 2)
+			if (whattodo & OPTSGUI_SENSITIVE)
 				((Option_Bool *)option)->gui_sensitive (gs);
 			else
 				((Option_Bool *)option)->gui_show (gs);
 			// Change widgets
 			std::set<std::string>::iterator it = gs.begin ();
 			while (it != gs.end ()) {
-				GtkWidget *other = get_widget (it->c_str(), xml, file);
+				gboolean wid_ok = ok;
+				std::string name = *it;
+				// Check if boolean from widget shall be negated
+				if (it->at(0) == '!') {
+					wid_ok = !ok;
+					name = name.substr (1);
+				}
+				GtkWidget *other = get_widget (name.c_str(), xml, file);
 				it++;
 				if (!other)
 					continue;
 				if (whattodo & OPTSGUI_SENSITIVE)
-					gtk_widget_set_sensitive (other, ok);
+					gtk_widget_set_sensitive (other, wid_ok);
 				if (whattodo & OPTSGUI_SHOW)
-					ok ? gtk_widget_show (other) : gtk_widget_hide (other);
+					wid_ok ? gtk_widget_show (other) : gtk_widget_hide (other);
 			}
 		}
 	}

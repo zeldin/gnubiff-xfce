@@ -214,6 +214,14 @@ Gnubiff_Options::add_options_general (void)
 		"Shall options be displayed in the expert dialog that cannot be "
 		"changed?",
 								 true));
+	// EXPERT_SHOW_NOSHOW
+	add_option (new Option_Bool ("expert_show_noshow", OPTGRP_GENERAL,
+		"Shall options be displayed in the expert dialog that are flagged "
+		"for not to be shown? Usually there should be no need to view these "
+		"options as they are only needed for internal use and can only be "
+		"changed by setting other options. Viewing them may be of interest "
+		"when debugging.",
+								 false));
 	// EXPERT_SEARCH_VALUES
 	add_option (new Option_Bool ("expert_search_values", OPTGRP_GENERAL,
 		"When searching for options that contain a given string, examine "
@@ -239,13 +247,13 @@ Gnubiff_Options::add_options_information (void)
 								"applet_decoration_check", NULL};
 	add_option (new Option_Bool ("gtk_mode", OPTGRP_INFORMATION,
 		"Is gnubiff in GTK mode?",
-								 true, OPTFLG_NOSAVE | OPTFLG_AUTO,
-								 OPTGUI_NONE, "", s1));
+								 true, OPTFLG_NOSAVE | OPTFLG_AUTO
+								 | OPTFLG_NOSHOW, OPTGUI_NONE, "", s1));
 	// PROTOCOL
 	add_option (new Option_UInt ("protocol", OPTGRP_INFORMATION,
-		"For internal use only.",
+		"For internal use only when loading config file.",
 								 PROTOCOL_NONE, OPTFLG_ID_INT_STRICT 
-								 | OPTFLG_FIXED | OPTFLG_NOSAVE,
+								 |OPTFLG_FIXED | OPTFLG_NOSAVE | OPTFLG_NOSHOW,
 								 protocol_int, protocol_gchar));
 	// UI_MODE
 	const static guint i2[] = {GTK_MODE, GNOME_MODE, 0};
@@ -480,21 +488,21 @@ Gnubiff_Options::add_options_popup (void)
 		"and date when displayed in the popup?",
 								 true, OPTFLG_NONE, OPTGUI_TOGGLE,
 								 "popup_format_check", s7));
-	// POPUP_SENDER_SIZE
+	// POPUP_SIZE_SENDER
 	add_option (new Option_UInt ("popup_size_sender", OPTGRP_POPUP,
 		"Maximum size of the sender when displayed in the popup (in "
 		"characters).",
-								 50, OPTFLG_AUTO | OPTFLG_NOSAVE));
-	// POPUP_SUBJECT_SIZE
+								 50, OPTFLG_NOSAVE | OPTFLG_CHANGE));
+	// POPUP_SIZE_SUBJECT
 	add_option (new Option_UInt ("popup_size_subject", OPTGRP_POPUP,
 		"Maximum size of the subject when displayed in the popup (in "
 		"characters).",
-								 50, OPTFLG_AUTO | OPTFLG_NOSAVE));
-	// POPUP_DATE_SIZE
+								 50, OPTFLG_NOSAVE | OPTFLG_CHANGE));
+	// POPUP_SIZE_DATE
 	add_option (new Option_UInt ("popup_size_date", OPTGRP_POPUP,
 		"Maximum size of the date when displayed in the popup (in "
 		"characters).",
-								 50, OPTFLG_AUTO | OPTFLG_NOSAVE));
+								 50, OPTFLG_NOSAVE | OPTFLG_CHANGE));
 	// POPUP_FORMAT
 	add_option (new Option_String ("popup_format", OPTGRP_POPUP,
 		"Length restrictions to the length of the sender, subject and date "

@@ -85,6 +85,8 @@ Option::flags_string (std::string sep)
 		result += "option is automatically updated each time it is read" + sep;
 	if (flags_ & OPTFLG_STRINGLIST)
 		result += "option is a list" + sep;
+	if (flags_ & OPTFLG_NOSHOW)
+		result += "option is not to be shown" + sep;
 	return result.substr (0, result.size()-2);
 }
 
