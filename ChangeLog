@@ -46,7 +46,8 @@ Version 2.0.3
    - Bugfix: Deleting of mailboxes when detecting mailbox format
    - Bugfix: Updating when connection for mailbox detection fails
    - Bugfix: Using <return> in password entry
-   
+* Nicolas Rougier:
+   - Updated french translations
 
 Version 2.0.2
  * Some cosmetic fixes
