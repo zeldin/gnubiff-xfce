@@ -558,12 +558,8 @@ void Mailbox::parse (std::vector<std::string> &mail, int status)
 			// and maybe it has been gnubifficaly marked as "seen".
 			//
 			guint mailid = g_str_hash (h.sender.c_str()) ^ g_str_hash (h.subject.c_str()) ^ g_str_hash (h.date.c_str());
-			guint j;
-			for (j=0; j<hidden_.size(); j++)
-				if (hidden_[j] == mailid)
-					break;
-			if (j >= hidden_.size())
-				new_unread_.push_back(h);
-			new_seen_.push_back (mailid);
+			if (hidden_.find (mailid) == hidden_.end ())
+				new_unread_.push_back (h);
+			new_seen_.insert (mailid);
 		}
 }

@@ -36,6 +36,7 @@
 #   include <config.h>
 #endif
 #include <glib.h>
+#include <set>
 #include <string>
 #include "biff.h"
 #include "decoding.h"
@@ -153,9 +154,15 @@ protected:
 
 	std::vector<header>			unread_;			// collected unread mail
 	std::vector<header>			new_unread_;		// collected unread mail (tmp buffer)
-	std::vector<guint>			hidden_;			// mails that won't be displayed
-	std::vector<guint>			seen_;				// mails already seen   
-	std::vector<guint>			new_seen_;			// mails already seen (tmp buffer)
+	/// Set of gnubiff mail ids of those mails that won't be displayed
+	std::set<guint>				hidden_;
+	/** Set of gnubiff mail ids of those mails that have already been seen by
+	 *  gnubiff during the last update */
+	std::set<guint>				seen_;
+	/** Set of gnubiff mail ids of those mails that have already been seen by
+	 *  gnubiff during the present update. These ids will be transfered to
+	 *  Mailbox::seen_ once the update is completed successfully. */
+	std::set<guint>				new_seen_;
 	template<class T> static gboolean contains_new (std::vector<T> newlist, std::vector<T> oldlist); // Comparing newlist to oldlist for new elements
 
 public:
@@ -276,8 +283,9 @@ public:
 		g_mutex_unlock (mutex_);
 		return s;
 	}
-	std::vector<guint> &hidden (void)					{return hidden_;}
-	guint &hidden (int i)								{return hidden_[i];}
+	/// Access function to Mailbox::hidden_
+	std::set<guint> &hidden (void)						{return hidden_;}
+	/// Number of mails that won't be displayed
 	guint hiddens (void)								{return hidden_.size();}
 };
 

@@ -74,10 +74,11 @@ Version 2.1.1
    - Bugfix/Cleanup of QUIT, STAT, UIDL and TOP commands (POP3)
    - Bugfix: Mail lines beginning with '.' (POP3, was fixed in 2.0.x)
    - fetch_mails() instead of fetch_status() and fetch_header (POP3 & IMAP4).
-     So we now have only one connection per update. This helps users whose
-     servers enforce a limit on connections per time interval.
+        So we now have only one connection per update. This helps users whose
+        servers enforce a limit on connections per time interval.
    - Bugfix: Error handling when getting timestamp (APOP)
-   - substituted std::vector by std::set for saved uids (POP3)
+   - substituted std::vector by std::set for saved uids (POP3), hidden mailids,
+        seen mailids and new seen mailids
 
 Version 2.1.0
  * Nicolas Rougier
