@@ -263,7 +263,7 @@ Socket::read (std::string &line,
 			  gboolean check)
 {
 	char buffer;
-	int status;
+	int status=0;
 	line = "";
 	status_ = -1;
 
@@ -278,9 +278,11 @@ Socket::read (std::string &line,
 	}
 #endif
 	if (status_ == -1) {
-		while (((status = ::read (sd_, &buffer, 1)) > 0) && (buffer != '\n'))
+		guint cnt=0; // see RFC 2821 4.5.3.1
+		while ((cnt++<1004) && ((status = ::read (sd_, &buffer, 1)) > 0)
+				 && (buffer != '\n'))
 			line += buffer;
-		if (status > 0)
+		if ((status > 0) && (cnt<=1004))
 			status_ = SOCKET_STATUS_OK;
 		else
 			status_ = SOCKET_STATUS_ERROR;

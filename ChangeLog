@@ -32,6 +32,7 @@ Version 2.0.2
    - Bugfixes in handling of sound filename
    - Bugfixes in string handling
    - Bugfix in "new mail" and "no mail" tooltips
+   - Security Bugfix: DoS attacks by sending unterminated lines anticipated
 
 
 Version 2.0.1
