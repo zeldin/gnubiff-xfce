@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 00:36+0100\n"
+"POT-Creation-Date: 2004-12-05 11:05+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -244,7 +244,7 @@ msgstr ""
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:493 ui/preferences.glade.h:47
+#: src/ui-preferences.cc:493 ui/preferences.glade.h:51
 msgid "_Stop"
 msgstr ""
 
@@ -401,192 +401,291 @@ msgid "<b>When no mail</b>"
 msgstr "Mailbox"
 
 #: ui/preferences.glade.h:8
-#, fuzzy
-msgid "Applet geometry"
-msgstr "Geometrie "
-
-#: ui/preferences.glade.h:9
-#, fuzzy
-msgid "Applet or Biff"
-msgstr "Applet"
-
-#: ui/preferences.glade.h:10
-msgid "B_rowse..."
+msgid ""
+"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
+" <small>Released under the aegis of GNU\n"
+" Copyright (c) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
 
 #: ui/preferences.glade.h:11
 #, fuzzy
+msgid "Applet geometry"
+msgstr "Geometrie "
+
+#: ui/preferences.glade.h:12
+#, fuzzy
+msgid "Applet or Biff"
+msgstr "Applet"
+
+#: ui/preferences.glade.h:13
+msgid "B_rowse..."
+msgstr ""
+
+#: ui/preferences.glade.h:14
+#, fuzzy
 msgid "Browse for an image file"
 msgstr "Rãsfoire(browse) dupã fiºier"
 
-#: ui/preferences.glade.h:12
+#: ui/preferences.glade.h:15
+msgid "Credits"
+msgstr "Credite"
+
+#: ui/preferences.glade.h:16
 msgid "Image filename"
 msgstr ""
 
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:17
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Mailbox"
 
-#: ui/preferences.glade.h:14
+#: ui/preferences.glade.h:18
 #, fuzzy
-msgid "Maximum number of header to display"
+msgid "Maximum number of headers to display"
 msgstr ""
 "Titlul mailboxului care va fi afiºat în panelul gnome ºi fereastra de popup"
 
-#: ui/preferences.glade.h:15 ui/popup.glade.h:4
+#: ui/preferences.glade.h:19 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Popup"
 
-#: ui/preferences.glade.h:16
+#: ui/preferences.glade.h:20
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Geometrie "
 
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:21
 #, fuzzy
 msgid "Show _image:"
 msgstr "Afiºeazã titlu"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:22
 #, fuzzy
 msgid "Show _text:"
 msgstr "Afiºeazã titlu"
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:23
 #, fuzzy
 msgid "Show i_mage:"
 msgstr "Afiºeazã titlu"
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:24
 #, fuzzy
 msgid "Show t_ext:"
 msgstr "Afiºeazã titlu"
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:25
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:27
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:28
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Sunet de cântat când a venit mail nou"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:29
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:26
-msgid "The font to use to display information"
-msgstr ""
-
-#: ui/preferences.glade.h:27
-#, fuzzy
-msgid "Time to display popup window"
-msgstr "Duratã de afiºare a popup-ului (secunde):"
-
-#: ui/preferences.glade.h:28
-msgid "Use _decoration"
-msgstr ""
-
-#: ui/preferences.glade.h:29
-#, fuzzy
-msgid "Use _geometry:"
-msgstr "Geometrie "
-
 #: ui/preferences.glade.h:30
-msgid "When _double-clicked:"
+msgid "The font to use to display information"
 msgstr ""
 
 #: ui/preferences.glade.h:31
 #, fuzzy
-msgid "When _new mail:"
-msgstr "Sunete când vine mail nou"
+msgid "Time to display popup window"
+msgstr "Duratã de afiºare a popup-ului (secunde):"
 
 #: ui/preferences.glade.h:32
-msgid "Wheter to display a text"
+msgid "Use _decoration"
 msgstr ""
 
 #: ui/preferences.glade.h:33
-msgid "Wheter to display an image"
-msgstr ""
+#, fuzzy
+msgid "Use _geometry:"
+msgstr "Geometrie "
 
 #: ui/preferences.glade.h:34
-#, fuzzy
-msgid "Wheter to display the popup window"
-msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
+msgid "When _double-clicked:"
+msgstr ""
 
 #: ui/preferences.glade.h:35
-msgid "Wheter to restrict number of displayed headers"
-msgstr ""
+#, fuzzy
+msgid "When _new mail:"
+msgstr "Sunete când vine mail nou"
 
 #: ui/preferences.glade.h:36
-msgid "Wheter to show an image "
-msgstr ""
+#, fuzzy
+msgid "Whether to display a text"
+msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
 #: ui/preferences.glade.h:37
-msgid "Wheter to use format for header"
-msgstr ""
+#, fuzzy
+msgid "Whether to display an image"
+msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
 #: ui/preferences.glade.h:38
 #, fuzzy
-msgid "Wheter to use geometry"
-msgstr "Geometrie "
+msgid "Whether to display the popup window"
+msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
 #: ui/preferences.glade.h:39
-msgid "Wheter to use window manager decoration"
+msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
 #: ui/preferences.glade.h:40
+msgid "Whether to show an image "
+msgstr ""
+
+#: ui/preferences.glade.h:41
+#, fuzzy
+msgid "Whether to use format for header"
+msgstr "Geometrie "
+
+#: ui/preferences.glade.h:42
+#, fuzzy
+msgid "Whether to use geometry"
+msgstr "Geometrie "
+
+#: ui/preferences.glade.h:43
+msgid "Whether to use window manager decoration"
+msgstr ""
+
+#: ui/preferences.glade.h:44
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:41 ui/properties.glade.h:23
+#: ui/preferences.glade.h:45 ui/properties.glade.h:23
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:46
 #, fuzzy
 msgid "_Display for"
 msgstr "Afiºeazã data în headere sau nu"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "_Font:"
 msgstr "Fonturi "
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:48
 #, fuzzy
 msgid "_Format:"
 msgstr "De la"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:49
 msgid "_Restrict collected mail  to"
 msgstr ""
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:50
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:52
+#, fuzzy
+msgid ""
+"gnubiff has originally been written by Nicolas Rougier.\n"
+"Many people have further contributed to gnubiff by\n"
+"  * reporting problems\n"
+"  * suggesting various improvements\n"
+"  * submitting actual code.\n"
+"\n"
+"Here is a list of these people in no particular order:\n"
+"  - Robert Sowada\n"
+"  - Roland Stigge\n"
+"  - Jean-Yves Lefort\n"
+"  - Calum Mackay\n"
+"  - Paul Kuliniewicz\n"
+"  - Erik Sittman\n"
+"  - Dries Verachtert\n"
+"  - Grzegorz Gotawski\n"
+"  - Adam Benjamin\n"
+"  - Theodore Tegos\n"
+"  - Achim Settelmeier\n"
+"  - Barry Skidmore\n"
+"  - Jason Lowdermilk\n"
+"  - Marc-jano Knopp\n"
+"  - Suzan Wassman\n"
+"  - Philippe Berger\n"
+"  - Earl A. Killian\n"
+"  - Christian Probst\n"
+"  - Hans-Ulrich Schaefer\n"
+"  - Josh Parsons\n"
+"  - Michael Moellney\n"
+"  - Dennis Bjorklund\n"
+"  - Craig  Agricola\n"
+"  - Bernhard Valenti\n"
+"  - Josh Berdine\n"
+"  - Michel Leunen\n"
+"  - Greg Fenton\n"
+"  - Cai Yu\n"
+"  - Chris Snell\n"
+"  - Reid Rivenburgh\n"
+"  - Neil Muller\n"
+"  - Sascha Ludecke\n"
+"  - Richard Torkar\n"
+"  - Pete Phillips\n"
+"  - Blaise Tarr\n"
+"\n"
+"And of course, there are also translators:\n"
+"  - Roland Stigge, Robert Sowada (de)\n"
+"  - Nicolas Lichtmaier (es)\n"
+"  - Elros Cyriatan (nl)\n"
+"  - Michel Robitaille (fr)\n"
+"  - Eugen Hoanca (ro)\n"
+"  - David Smeringe (sv)\n"
+msgstr ""
+"gbiff a fost original scris de  Nicolas Rougier.\n"
+"Mulþi oameni au avut contribuþie ulterioarã la gbiff prin\n"
+"    raportarea problemelor\n"
+"    sugerarea îmbunãtãþirilor variate\n"
+"    trimiterea codului actual.\n"
+"\n"
+"Urmeazã o listã cu aceºti oameni fãrã a fi într-o anumitã ordine:\n"
+"  - Jason Lowdermilk\n"
+"  - Marc-jano Knopp\n"
+"  - Suzan Wassman\n"
+"  - Philippe Berger\n"
+"  - Earl A. Killian\n"
+"  - Chistian Probst\n"
+"  - Hans-Ulrich Schaefer\n"
+"  - Josh Parsons\n"
+"  - Michael Moellney\n"
+"  - Dennis Bjorklund\n"
+"  - Craig  Agricola\n"
+"  - Bernhard Valenti\n"
+"  - Josh Berdine\n"
+"  - Michel Leunen\n"
+"  - Greg Fenton\n"
+"  - Cai Yu\n"
+"  - Chris Snell\n"
+"  - Reid Rivenburgh\n"
+"  - Neil Muller\n"
+"  - Sascha Ludecke\n"
+"  - Richard Torkar\n"
+"  - Pete Phillips\n"
+"  - Blaise Tarr\n"
+
+#: ui/preferences.glade.h:103
 msgid "gnubiff preferences"
 msgstr ""
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:104
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:105
 #, fuzzy
 msgid "mail(s)"
 msgstr "Nici un mail"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:106
 msgid "second(s)"
 msgstr ""
 
@@ -908,9 +1007,6 @@ msgstr "Subiect"
 #~ msgid "Browse for a soundfile"
 #~ msgstr "Rãsfoire(browse) dupã fiºier"
 
-#~ msgid "Credits"
-#~ msgstr "Credite"
-
 #, fuzzy
 #~ msgid "Display popup window for poptime seconds"
 #~ msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
@@ -996,97 +1092,6 @@ msgstr "Subiect"
 #, fuzzy
 #~ msgid "_Volume:"
 #~ msgstr "Volum:"
-
-#, fuzzy
-#~ msgid ""
-#~ "gnubiff has originally been written by Nicolas Rougier.\n"
-#~ "Many people have further contributed to gnubiff by\n"
-#~ "  * reporting problems\n"
-#~ "  * suggesting various improvements\n"
-#~ "  * submitting actual code.\n"
-#~ "\n"
-#~ "Here is a list of these people in no particular order:\n"
-#~ "  - Robert Sowada\n"
-#~ "  - Roland Stigge\n"
-#~ "  - Jean-Yves Lefort\n"
-#~ "  - Calum Mackay\n"
-#~ "  - Paul Kuliniewicz\n"
-#~ "  - Erik Sittman\n"
-#~ "  - Dries Verachtert\n"
-#~ "  - Grzegorz Gotawski\n"
-#~ "  - Adam Benjamin\n"
-#~ "  - Theodore Tegos\n"
-#~ "  - Achim Settelmeier\n"
-#~ "  - Barry Skidmore\n"
-#~ "  - Jason Lowdermilk\n"
-#~ "  - Marc-jano Knopp\n"
-#~ "  - Suzan Wassman\n"
-#~ "  - Philippe Berger\n"
-#~ "  - Earl A. Killian\n"
-#~ "  - Christian Probst\n"
-#~ "  - Hans-Ulrich Schaefer\n"
-#~ "  - Josh Parsons\n"
-#~ "  - Michael Moellney\n"
-#~ "  - Dennis Bjorklund\n"
-#~ "  - Craig  Agricola\n"
-#~ "  - Bernhard Valenti\n"
-#~ "  - Josh Berdine\n"
-#~ "  - Michel Leunen\n"
-#~ "  - Greg Fenton\n"
-#~ "  - Cai Yu\n"
-#~ "  - Chris Snell\n"
-#~ "  - Reid Rivenburgh\n"
-#~ "  - Neil Muller\n"
-#~ "  - Sascha Ludecke\n"
-#~ "  - Richard Torkar\n"
-#~ "  - Pete Phillips\n"
-#~ "  - Blaise Tarr\n"
-#~ "\n"
-#~ "And of course, there are also translators:\n"
-#~ "  - Roland Stigge, Robert Sowada (de)\n"
-#~ "  - Nicolas Lichtmaier (es)\n"
-#~ "  - Elros Cyriatan (nl)\n"
-#~ "  - Michel Robitaille (fr)\n"
-#~ "  - Eugen Hoanca (ro)\n"
-#~ "  - David Smeringe (sv)\n"
-#~ "\n"
-#~ "\n"
-#~ "If you like this software, you can send me a post-card to:\n"
-#~ "    Nicolas Rougier\n"
-#~ "    Campus Scientifique, B.P. 239\n"
-#~ "    F-54506 Vandoeuvre-Les-Nancy Cedex\n"
-#~ "    FRANCE"
-#~ msgstr ""
-#~ "gbiff a fost original scris de  Nicolas Rougier.\n"
-#~ "Mulþi oameni au avut contribuþie ulterioarã la gbiff prin\n"
-#~ "    raportarea problemelor\n"
-#~ "    sugerarea îmbunãtãþirilor variate\n"
-#~ "    trimiterea codului actual.\n"
-#~ "\n"
-#~ "Urmeazã o listã cu aceºti oameni fãrã a fi într-o anumitã ordine:\n"
-#~ "  - Jason Lowdermilk\n"
-#~ "  - Marc-jano Knopp\n"
-#~ "  - Suzan Wassman\n"
-#~ "  - Philippe Berger\n"
-#~ "  - Earl A. Killian\n"
-#~ "  - Chistian Probst\n"
-#~ "  - Hans-Ulrich Schaefer\n"
-#~ "  - Josh Parsons\n"
-#~ "  - Michael Moellney\n"
-#~ "  - Dennis Bjorklund\n"
-#~ "  - Craig  Agricola\n"
-#~ "  - Bernhard Valenti\n"
-#~ "  - Josh Berdine\n"
-#~ "  - Michel Leunen\n"
-#~ "  - Greg Fenton\n"
-#~ "  - Cai Yu\n"
-#~ "  - Chris Snell\n"
-#~ "  - Reid Rivenburgh\n"
-#~ "  - Neil Muller\n"
-#~ "  - Sascha Ludecke\n"
-#~ "  - Richard Torkar\n"
-#~ "  - Pete Phillips\n"
-#~ "  - Blaise Tarr\n"
 
 #, fuzzy
 #~ msgid "mozilla -mail"

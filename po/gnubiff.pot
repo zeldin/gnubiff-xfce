@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 00:36+0100\n"
+"POT-Creation-Date: 2004-12-05 11:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -237,7 +237,7 @@ msgstr ""
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:493 ui/preferences.glade.h:47
+#: src/ui-preferences.cc:493 ui/preferences.glade.h:51
 msgid "_Stop"
 msgstr ""
 
@@ -380,171 +380,236 @@ msgid "<b>When no mail</b>"
 msgstr ""
 
 #: ui/preferences.glade.h:8
-msgid "Applet geometry"
-msgstr ""
-
-#: ui/preferences.glade.h:9
-msgid "Applet or Biff"
-msgstr ""
-
-#: ui/preferences.glade.h:10
-msgid "B_rowse..."
+msgid ""
+"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
+" <small>Released under the aegis of GNU\n"
+" Copyright (c) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
 
 #: ui/preferences.glade.h:11
-msgid "Browse for an image file"
+msgid "Applet geometry"
 msgstr ""
 
 #: ui/preferences.glade.h:12
-msgid "Image filename"
+msgid "Applet or Biff"
 msgstr ""
 
 #: ui/preferences.glade.h:13
-msgid "Mailboxes"
+msgid "B_rowse..."
 msgstr ""
 
 #: ui/preferences.glade.h:14
-msgid "Maximum number of header to display"
+msgid "Browse for an image file"
 msgstr ""
 
-#: ui/preferences.glade.h:15 ui/popup.glade.h:4
-msgid "Popup"
+#: ui/preferences.glade.h:15
+msgid "Credits"
 msgstr ""
 
 #: ui/preferences.glade.h:16
-msgid "Popup geometry"
+msgid "Image filename"
 msgstr ""
 
 #: ui/preferences.glade.h:17
-msgid "Show _image:"
+msgid "Mailboxes"
 msgstr ""
 
 #: ui/preferences.glade.h:18
-msgid "Show _text:"
+msgid "Maximum number of headers to display"
 msgstr ""
 
-#: ui/preferences.glade.h:19
-msgid "Show i_mage:"
+#: ui/preferences.glade.h:19 ui/popup.glade.h:4
+msgid "Popup"
 msgstr ""
 
 #: ui/preferences.glade.h:20
-msgid "Show t_ext:"
+msgid "Popup geometry"
 msgstr ""
 
 #: ui/preferences.glade.h:21
-msgid "Text to display"
+msgid "Show _image:"
+msgstr ""
+
+#: ui/preferences.glade.h:22
+msgid "Show _text:"
 msgstr ""
 
 #: ui/preferences.glade.h:23
+msgid "Show i_mage:"
+msgstr ""
+
+#: ui/preferences.glade.h:24
+msgid "Show t_ext:"
+msgstr ""
+
+#: ui/preferences.glade.h:25
+msgid "Text to display"
+msgstr ""
+
+#: ui/preferences.glade.h:27
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:28
 msgid "The command to run when new mail arrives"
 msgstr ""
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:29
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:30
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:31
 msgid "Time to display popup window"
 msgstr ""
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:32
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:33
 msgid "Use _geometry:"
 msgstr ""
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:34
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:35
 msgid "When _new mail:"
 msgstr ""
 
-#: ui/preferences.glade.h:32
-msgid "Wheter to display a text"
-msgstr ""
-
-#: ui/preferences.glade.h:33
-msgid "Wheter to display an image"
-msgstr ""
-
-#: ui/preferences.glade.h:34
-msgid "Wheter to display the popup window"
-msgstr ""
-
-#: ui/preferences.glade.h:35
-msgid "Wheter to restrict number of displayed headers"
-msgstr ""
-
 #: ui/preferences.glade.h:36
-msgid "Wheter to show an image "
+msgid "Whether to display a text"
 msgstr ""
 
 #: ui/preferences.glade.h:37
-msgid "Wheter to use format for header"
+msgid "Whether to display an image"
 msgstr ""
 
 #: ui/preferences.glade.h:38
-msgid "Wheter to use geometry"
+msgid "Whether to display the popup window"
 msgstr ""
 
 #: ui/preferences.glade.h:39
-msgid "Wheter to use window manager decoration"
+msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
 #: ui/preferences.glade.h:40
-msgid "[sender max size]:[subject max size]:[date max size]"
+msgid "Whether to show an image "
 msgstr ""
 
-#: ui/preferences.glade.h:41 ui/properties.glade.h:23
-msgid "_Browse..."
+#: ui/preferences.glade.h:41
+msgid "Whether to use format for header"
 msgstr ""
 
 #: ui/preferences.glade.h:42
-msgid "_Display for"
+msgid "Whether to use geometry"
 msgstr ""
 
 #: ui/preferences.glade.h:43
-msgid "_Font:"
+msgid "Whether to use window manager decoration"
 msgstr ""
 
 #: ui/preferences.glade.h:44
-msgid "_Format:"
+msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:45
-msgid "_Restrict collected mail  to"
+#: ui/preferences.glade.h:45 ui/properties.glade.h:23
+msgid "_Browse..."
 msgstr ""
 
 #: ui/preferences.glade.h:46
-msgid "_Restrict number to"
+msgid "_Display for"
+msgstr ""
+
+#: ui/preferences.glade.h:47
+msgid "_Font:"
 msgstr ""
 
 #: ui/preferences.glade.h:48
-msgid "gnubiff preferences"
+msgid "_Format:"
 msgstr ""
 
 #: ui/preferences.glade.h:49
-msgid "header(s)"
+msgid "_Restrict collected mail  to"
 msgstr ""
 
 #: ui/preferences.glade.h:50
+msgid "_Restrict number to"
+msgstr ""
+
+#: ui/preferences.glade.h:52
+msgid ""
+"gnubiff has originally been written by Nicolas Rougier.\n"
+"Many people have further contributed to gnubiff by\n"
+"  * reporting problems\n"
+"  * suggesting various improvements\n"
+"  * submitting actual code.\n"
+"\n"
+"Here is a list of these people in no particular order:\n"
+"  - Robert Sowada\n"
+"  - Roland Stigge\n"
+"  - Jean-Yves Lefort\n"
+"  - Calum Mackay\n"
+"  - Paul Kuliniewicz\n"
+"  - Erik Sittman\n"
+"  - Dries Verachtert\n"
+"  - Grzegorz Gotawski\n"
+"  - Adam Benjamin\n"
+"  - Theodore Tegos\n"
+"  - Achim Settelmeier\n"
+"  - Barry Skidmore\n"
+"  - Jason Lowdermilk\n"
+"  - Marc-jano Knopp\n"
+"  - Suzan Wassman\n"
+"  - Philippe Berger\n"
+"  - Earl A. Killian\n"
+"  - Christian Probst\n"
+"  - Hans-Ulrich Schaefer\n"
+"  - Josh Parsons\n"
+"  - Michael Moellney\n"
+"  - Dennis Bjorklund\n"
+"  - Craig  Agricola\n"
+"  - Bernhard Valenti\n"
+"  - Josh Berdine\n"
+"  - Michel Leunen\n"
+"  - Greg Fenton\n"
+"  - Cai Yu\n"
+"  - Chris Snell\n"
+"  - Reid Rivenburgh\n"
+"  - Neil Muller\n"
+"  - Sascha Ludecke\n"
+"  - Richard Torkar\n"
+"  - Pete Phillips\n"
+"  - Blaise Tarr\n"
+"\n"
+"And of course, there are also translators:\n"
+"  - Roland Stigge, Robert Sowada (de)\n"
+"  - Nicolas Lichtmaier (es)\n"
+"  - Elros Cyriatan (nl)\n"
+"  - Michel Robitaille (fr)\n"
+"  - Eugen Hoanca (ro)\n"
+"  - David Smeringe (sv)\n"
+msgstr ""
+
+#: ui/preferences.glade.h:103
+msgid "gnubiff preferences"
+msgstr ""
+
+#: ui/preferences.glade.h:104
+msgid "header(s)"
+msgstr ""
+
+#: ui/preferences.glade.h:105
 msgid "mail(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:106
 msgid "second(s)"
 msgstr ""
 

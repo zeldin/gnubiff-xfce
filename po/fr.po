@@ -1,3 +1,4 @@
+# translation of fr.po to 
 # translation of fr.po to Français
 # translation of fr.po to French
 # French translation of gnubiff
@@ -10,44 +11,42 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 00:36+0100\n"
-"PO-Revision-Date: 2004-10-17 12:14+0200\n"
-"Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
-"Language-Team: French\n"
+"POT-Creation-Date: 2004-12-05 11:05+0100\n"
+"PO-Revision-Date: 2004-12-05 11:12+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: src/gnubiff.cc:98
 msgid "Start gnome applet from command line"
-msgstr ""
+msgstr "Démarrer l'applet gnome depuis la ligne de commande"
 
 #: src/gnubiff.cc:106
-#, fuzzy
 msgid "Configuration file to use"
-msgstr "Fichier de configuration à utiliser"
+msgstr "Fichier de configuration à utiliser "
 
 #: src/gnubiff.cc:106
 msgid "file"
 msgstr "fichier"
 
 #: src/gnubiff.cc:108
-#, fuzzy
 msgid "Skip the configuration process"
 msgstr "Passer l'étape de configuration"
 
 #: src/gnubiff.cc:110
 msgid "Print version information and exit"
-msgstr ""
+msgstr "Afficher la version et sortir"
 
 #: src/gnubiff.cc:117
 msgid "General command line options:"
-msgstr ""
+msgstr "Options de la ligne de commande"
 
 #: src/gnubiff.cc:120
 msgid "Options for debugging:"
-msgstr ""
+msgstr "Options de déboggage"
 
 #: src/ui-applet-gnome.cc:359
 msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
@@ -133,13 +132,13 @@ msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 
 #: src/imap4.cc:252
-#, fuzzy, c-format
+#, c-format
 msgid "[%d] Unable to select folder %s on host %s"
-msgstr "[%d] Impossible de se connecter à %s via le port %d"
+msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
 #: src/imap4.cc:505
 msgid "[This mail has no \"text/plain\" part]"
-msgstr ""
+msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
 #: src/maildir.cc:86
 #, c-format
@@ -254,7 +253,7 @@ msgstr "Pas de boîte aux lettres séléctionnée"
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:493 ui/preferences.glade.h:47
+#: src/ui-preferences.cc:493 ui/preferences.glade.h:51
 msgid "_Stop"
 msgstr "_Stopper"
 
@@ -402,174 +401,291 @@ msgid "<b>When no mail</b>"
 msgstr "<b>Absence de courrier</b>"
 
 #: ui/preferences.glade.h:8
+msgid ""
+"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
+" <small>Released under the aegis of GNU\n"
+" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+msgstr ""
+"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
+" <small>Distribué sous l'égide de  GNU\n"
+" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+
+#: ui/preferences.glade.h:11
 msgid "Applet geometry"
 msgstr "Géométrie de l'applet"
 
-#: ui/preferences.glade.h:9
+#: ui/preferences.glade.h:12
 msgid "Applet or Biff"
 msgstr "Appet ou Biff"
 
-#: ui/preferences.glade.h:10
+#: ui/preferences.glade.h:13
 msgid "B_rowse..."
 msgstr "Che_rcher..."
 
-#: ui/preferences.glade.h:11
+#: ui/preferences.glade.h:14
 msgid "Browse for an image file"
 msgstr "Chercher une image"
 
-#: ui/preferences.glade.h:12
+#: ui/preferences.glade.h:15
+msgid "Credits"
+msgstr "Remerciements"
+
+#: ui/preferences.glade.h:16
 msgid "Image filename"
 msgstr "Image"
 
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:17
 msgid "Mailboxes"
 msgstr "Boîtes aux lettres"
 
-#: ui/preferences.glade.h:14
-msgid "Maximum number of header to display"
+#: ui/preferences.glade.h:18
+msgid "Maximum number of headers to display"
 msgstr "Nombre maximum de courriers à afficher"
 
-#: ui/preferences.glade.h:15 ui/popup.glade.h:4
+#: ui/preferences.glade.h:19 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Popup"
 
-#: ui/preferences.glade.h:16
+#: ui/preferences.glade.h:20
 msgid "Popup geometry"
 msgstr "Géométrie du popup"
 
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:21
 msgid "Show _image:"
 msgstr "Afficher l'_image"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:22
 msgid "Show _text:"
 msgstr "Afficher le _texte"
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:23
 msgid "Show i_mage:"
 msgstr "Afficher l'i_mage"
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:24
 msgid "Show t_ext:"
 msgstr "Afficher le t_exte"
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:25
 msgid "Text to display"
 msgstr "Texte à afficher"
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:27
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr "Texte à afficher (%d est le nombre de courriers)"
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:28
 msgid "The command to run when new mail arrives"
 msgstr "Commande à exécuter lorsqu'il y des nouveaux courriers"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:29
 msgid "The command to run when the icon is double-clicked"
 msgstr "Commande à exécuter pour un double-click"
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:30
 msgid "The font to use to display information"
 msgstr "Fonte à utiliser"
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:31
 msgid "Time to display popup window"
 msgstr "Durée d'affichage de la fenêtre popup"
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:32
 msgid "Use _decoration"
 msgstr "Utiliser la _décoration"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:33
 msgid "Use _geometry:"
 msgstr "Utiliser la _géométrie"
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:34
 msgid "When _double-clicked:"
 msgstr "En cas de _double-click"
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:35
 msgid "When _new mail:"
 msgstr "_Nouveau courrier:"
 
-#: ui/preferences.glade.h:32
-msgid "Wheter to display a text"
-msgstr "Afficher le texte ou non"
-
-#: ui/preferences.glade.h:33
-msgid "Wheter to display an image"
-msgstr "Afficher l'image ou non"
-
-#: ui/preferences.glade.h:34
-msgid "Wheter to display the popup window"
-msgstr "Afficher la fenêtre des entêtes ou non"
-
-#: ui/preferences.glade.h:35
-msgid "Wheter to restrict number of displayed headers"
-msgstr "Restreindre le nombre d'entêtes ou non"
-
 #: ui/preferences.glade.h:36
-msgid "Wheter to show an image "
-msgstr "Afficher l'image ou non"
+msgid "Whether to display a text"
+msgstr "Afficher un texte ou non"
 
 #: ui/preferences.glade.h:37
-msgid "Wheter to use format for header"
-msgstr "Utiliser un format d'entêtes ou non"
+msgid "Whether to display an image"
+msgstr "Afficher une image ou non"
 
 #: ui/preferences.glade.h:38
-msgid "Wheter to use geometry"
-msgstr "Utiliser la géométrie ou non"
+msgid "Whether to display the popup window"
+msgstr "Afficher la fenêtre des entêtes ou non"
 
 #: ui/preferences.glade.h:39
-msgid "Wheter to use window manager decoration"
-msgstr "Fenêtre des entêtes décorée ou non"
+msgid "Whether to restrict number of displayed headers"
+msgstr "Restreindre le nombre d'entêtes ou non"
 
 #: ui/preferences.glade.h:40
+msgid "Whether to show an image "
+msgstr "Afficher une image ou non"
+
+#: ui/preferences.glade.h:41
+msgid "Whether to use format for header"
+msgstr "Utiliser un format d'entêtes ou non"
+
+#: ui/preferences.glade.h:42
+msgid "Whether to use geometry"
+msgstr "Utiliser la géométrie ou non"
+
+#: ui/preferences.glade.h:43
+msgid "Whether to use window manager decoration"
+msgstr "Fenêtre des entêtes décorée ou non"
+
+#: ui/preferences.glade.h:44
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 "[taille max champs expéditeur]:[taille max champs sujet]:[taille max champs "
 "date]"
 
-#: ui/preferences.glade.h:41 ui/properties.glade.h:23
+#: ui/preferences.glade.h:45 ui/properties.glade.h:23
 msgid "_Browse..."
 msgstr "_Chercher..."
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:46
 msgid "_Display for"
 msgstr "_Affichage"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:47
 msgid "_Font:"
 msgstr "_Fonte:"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:48
 msgid "_Format:"
 msgstr "_Format:"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:49
 msgid "_Restrict collected mail  to"
 msgstr "_Restreindre le nombre de mail collectés à:"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:50
 msgid "_Restrict number to"
 msgstr "_Restreindre le nombre à"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:52
+msgid ""
+"gnubiff has originally been written by Nicolas Rougier.\n"
+"Many people have further contributed to gnubiff by\n"
+"  * reporting problems\n"
+"  * suggesting various improvements\n"
+"  * submitting actual code.\n"
+"\n"
+"Here is a list of these people in no particular order:\n"
+"  - Robert Sowada\n"
+"  - Roland Stigge\n"
+"  - Jean-Yves Lefort\n"
+"  - Calum Mackay\n"
+"  - Paul Kuliniewicz\n"
+"  - Erik Sittman\n"
+"  - Dries Verachtert\n"
+"  - Grzegorz Gotawski\n"
+"  - Adam Benjamin\n"
+"  - Theodore Tegos\n"
+"  - Achim Settelmeier\n"
+"  - Barry Skidmore\n"
+"  - Jason Lowdermilk\n"
+"  - Marc-jano Knopp\n"
+"  - Suzan Wassman\n"
+"  - Philippe Berger\n"
+"  - Earl A. Killian\n"
+"  - Christian Probst\n"
+"  - Hans-Ulrich Schaefer\n"
+"  - Josh Parsons\n"
+"  - Michael Moellney\n"
+"  - Dennis Bjorklund\n"
+"  - Craig  Agricola\n"
+"  - Bernhard Valenti\n"
+"  - Josh Berdine\n"
+"  - Michel Leunen\n"
+"  - Greg Fenton\n"
+"  - Cai Yu\n"
+"  - Chris Snell\n"
+"  - Reid Rivenburgh\n"
+"  - Neil Muller\n"
+"  - Sascha Ludecke\n"
+"  - Richard Torkar\n"
+"  - Pete Phillips\n"
+"  - Blaise Tarr\n"
+"\n"
+"And of course, there are also translators:\n"
+"  - Roland Stigge, Robert Sowada (de)\n"
+"  - Nicolas Lichtmaier (es)\n"
+"  - Elros Cyriatan (nl)\n"
+"  - Michel Robitaille (fr)\n"
+"  - Eugen Hoanca (ro)\n"
+"  - David Smeringe (sv)\n"
+msgstr ""
+"gnubiff a été écrit à l'origine par Nicolas Rougier.\n"
+"Beaucoup de personnes ont participé depuis, en\n"
+"  * reportant des problèmes\n"
+"  * suggérant des améliorations\n"
+"  * soumettant du code\n"
+"\n"
+"Voici une liste de ces personnes sans ordre particulier:\n"
+"  - Robert Sowada\n"
+"  - Roland Stigge\n"
+"  - Jean-Yves Lefort\n"
+"  - Calum Mackay\n"
+"  - Paul Kuliniewicz\n"
+"  - Erik Sittman\n"
+"  - Dries Verachtert\n"
+"  - Grzegorz Gotawski\n"
+"  - Adam Benjamin\n"
+"  - Theodore Tegos\n"
+"  - Achim Settelmeier\n"
+"  - Barry Skidmore\n"
+"  - Jason Lowdermilk\n"
+"  - Marc-jano Knopp\n"
+"  - Suzan Wassman\n"
+"  - Philippe Berger\n"
+"  - Earl A. Killian\n"
+"  - Christian Probst\n"
+"  - Hans-Ulrich Schaefer\n"
+"  - Josh Parsons\n"
+"  - Michael Moellney\n"
+"  - Dennis Bjorklund\n"
+"  - Craig  Agricola\n"
+"  - Bernhard Valenti\n"
+"  - Josh Berdine\n"
+"  - Michel Leunen\n"
+"  - Greg Fenton\n"
+"  - Cai Yu\n"
+"  - Chris Snell\n"
+"  - Reid Rivenburgh\n"
+"  - Neil Muller\n"
+"  - Sascha Ludecke\n"
+"  - Richard Torkar\n"
+"  - Pete Phillips\n"
+"  - Blaise Tarr\n"
+"\n"
+"Et bien sûr, il y a aussi les traducteurs:\n"
+"  - Roland Stigge, Robert Sowada (de)\n"
+"  - Nicolas Lichtmaier (es)\n"
+"  - Elros Cyriatan (nl)\n"
+"  - Michel Robitaille (fr)\n"
+"  - Eugen Hoanca (ro)\n"
+"  - David Smeringe (sv)\n"
+
+#: ui/preferences.glade.h:103
 msgid "gnubiff preferences"
 msgstr "gnubiff préferences"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:104
 msgid "header(s)"
 msgstr "entête(s)"
 
-#: ui/preferences.glade.h:50
-#, fuzzy
+#: ui/preferences.glade.h:105
 msgid "mail(s)"
-msgstr "mail"
+msgstr "mèl(s)"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:106
 msgid "second(s)"
 msgstr "seconde(s)"
 
@@ -586,6 +702,8 @@ msgid ""
 "<span size=\"x-small\"><i>Not necessary if mail server supports the IDLE "
 "state</i></span>"
 msgstr ""
+"<span size=\"x-small\"><i>Non nécessaire si le serveur possède la capacité "
+"IDLE</i></span>"
 
 #: ui/properties.glade.h:4
 msgid "A_ddress:"
@@ -765,28 +883,25 @@ msgstr "Etat ou Province"
 
 #: ui/popup.glade.h:1
 msgid "<small><b>Date</b></small>"
-msgstr ""
+msgstr "<small><b>Date</b></small>"
 
 #: ui/popup.glade.h:2
 msgid "<small><b>From</b></small>"
-msgstr ""
+msgstr "<small><b>De</b></small>"
 
 #: ui/popup.glade.h:3
-#, fuzzy
 msgid "<small><b>Subject</b></small>"
-msgstr "<b>Aspect</b>"
+msgstr "<small><b>Sujet</b></small>"
 
 #: ui/popup.glade.h:5
 msgid "aaaaa"
-msgstr ""
+msgstr "aaaaa"
 
 #: ui/popup.glade.h:6
-#, fuzzy
 msgid "date"
 msgstr "Date"
 
 #: ui/popup.glade.h:7
-#, fuzzy
 msgid "from"
 msgstr "De"
 
@@ -795,57 +910,5 @@ msgid "mail content"
 msgstr "mail content"
 
 #: ui/popup.glade.h:9
-#, fuzzy
 msgid "subject"
 msgstr "Sujet"
-
-#~ msgid ""
-#~ "\n"
-#~ "This version of gnubiff has been compiled with GNOME support\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Cette version de gnubiff a été compilée pour gnome \n"
-
-#~ msgid "If you want to use the GTK version, type gnubiff --gtk\n"
-#~ msgstr "Si vous voulez la version GTK, tapez gnubiff --gtk\n"
-
-#~ msgid " then use -c file to specify an alternate configuration file\n"
-#~ msgstr ""
-#~ "puis utiliser -c fichier pour spécifier un autre fichier de "
-#~ "configuration\n"
-
-#~ msgid "      and -n to skip configuration process\n"
-#~ msgstr "et -n pour passer l'étape de configuration\n"
-
-#~ msgid "If you want to use the GNOME version, use gnome panel\n"
-#~ msgstr "Si vous voulez la version GNOME, utilisez le panel gnome\n"
-
-#~ msgid "Have a nice day\n"
-#~ msgstr "Bonjour chez vous\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "This version of gnubiff has been compiled with GNOME support"
-#~ msgstr ""
-#~ "\n"
-#~ "Cette version de gnubiff a été compilée pour gnome "
-
-#~ msgid "Now I will hang forever...\n"
-#~ msgstr "Maintenant, je vais me mettre à attendre indéfiniment...\n"
-
-#, fuzzy
-#~ msgid "<b>Date</b>"
-#~ msgstr "<b>Aspect</b>"
-
-#, fuzzy
-#~ msgid "<b>From</b>"
-#~ msgstr "<b>Commandes</b>"
-
-#~ msgid "From: "
-#~ msgstr "De: "
-
-#~ msgid "Subject: "
-#~ msgstr "Sujet: "
-
-#~ msgid "Date: "
-#~ msgstr "Date: "

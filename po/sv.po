@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 00:36+0100\n"
+"POT-Creation-Date: 2004-12-05 11:05+0100\n"
 "PO-Revision-Date: 2004-03-11 22:32+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -248,7 +248,7 @@ msgstr ""
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:493 ui/preferences.glade.h:47
+#: src/ui-preferences.cc:493 ui/preferences.glade.h:51
 msgid "_Stop"
 msgstr ""
 
@@ -408,191 +408,298 @@ msgid "<b>When no mail</b>"
 msgstr "<b>Y</b>"
 
 #: ui/preferences.glade.h:8
-#, fuzzy
-msgid "Applet geometry"
-msgstr "Ingen geometri"
-
-#: ui/preferences.glade.h:9
-#, fuzzy
-msgid "Applet or Biff"
-msgstr "Applet"
-
-#: ui/preferences.glade.h:10
-msgid "B_rowse..."
+msgid ""
+"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
+" <small>Released under the aegis of GNU\n"
+" Copyright (c) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
 
 #: ui/preferences.glade.h:11
 #, fuzzy
+msgid "Applet geometry"
+msgstr "Ingen geometri"
+
+#: ui/preferences.glade.h:12
+#, fuzzy
+msgid "Applet or Biff"
+msgstr "Applet"
+
+#: ui/preferences.glade.h:13
+msgid "B_rowse..."
+msgstr ""
+
+#: ui/preferences.glade.h:14
+#, fuzzy
 msgid "Browse for an image file"
 msgstr "Bläddra efter en certifikatfil."
 
-#: ui/preferences.glade.h:12
+#: ui/preferences.glade.h:15
+msgid "Credits"
+msgstr "Tack"
+
+#: ui/preferences.glade.h:16
 msgid "Image filename"
 msgstr ""
 
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:17
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Brevlåda"
 
-#: ui/preferences.glade.h:14
+#: ui/preferences.glade.h:18
 #, fuzzy
-msgid "Maximum number of header to display"
+msgid "Maximum number of headers to display"
 msgstr "<small>Begränsa antal visade rubriker i poppuppfönstret till </small>"
 
-#: ui/preferences.glade.h:15 ui/popup.glade.h:4
+#: ui/preferences.glade.h:19 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Poppupp"
 
-#: ui/preferences.glade.h:16
+#: ui/preferences.glade.h:20
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Ingen geometri"
 
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:21
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:22
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:23
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:24
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:25
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:27
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:28
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Ljud att spela när nya meddelanden har anlänt"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:29
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:26
-msgid "The font to use to display information"
-msgstr ""
-
-#: ui/preferences.glade.h:27
-#, fuzzy
-msgid "Time to display popup window"
-msgstr "Visa poppuppfönster under popptids sekunder"
-
-#: ui/preferences.glade.h:28
-msgid "Use _decoration"
-msgstr ""
-
-#: ui/preferences.glade.h:29
-#, fuzzy
-msgid "Use _geometry:"
-msgstr "Ingen geometri"
-
 #: ui/preferences.glade.h:30
-msgid "When _double-clicked:"
+msgid "The font to use to display information"
 msgstr ""
 
 #: ui/preferences.glade.h:31
 #, fuzzy
-msgid "When _new mail:"
-msgstr "Göm när inga nya meddelanden finns"
+msgid "Time to display popup window"
+msgstr "Visa poppuppfönster under popptids sekunder"
 
 #: ui/preferences.glade.h:32
-msgid "Wheter to display a text"
+msgid "Use _decoration"
 msgstr ""
 
 #: ui/preferences.glade.h:33
-msgid "Wheter to display an image"
-msgstr ""
+#, fuzzy
+msgid "Use _geometry:"
+msgstr "Ingen geometri"
 
 #: ui/preferences.glade.h:34
-#, fuzzy
-msgid "Wheter to display the popup window"
-msgstr "Visa poppuppfönster under popptids sekunder"
+msgid "When _double-clicked:"
+msgstr ""
 
 #: ui/preferences.glade.h:35
-msgid "Wheter to restrict number of displayed headers"
-msgstr ""
+#, fuzzy
+msgid "When _new mail:"
+msgstr "Göm när inga nya meddelanden finns"
 
 #: ui/preferences.glade.h:36
-msgid "Wheter to show an image "
-msgstr ""
+#, fuzzy
+msgid "Whether to display a text"
+msgstr "Visa poppuppfönster under popptids sekunder"
 
 #: ui/preferences.glade.h:37
-msgid "Wheter to use format for header"
-msgstr ""
+#, fuzzy
+msgid "Whether to display an image"
+msgstr "Visa poppuppfönster under popptids sekunder"
 
 #: ui/preferences.glade.h:38
 #, fuzzy
-msgid "Wheter to use geometry"
-msgstr "Ingen geometri"
+msgid "Whether to display the popup window"
+msgstr "Visa poppuppfönster under popptids sekunder"
 
 #: ui/preferences.glade.h:39
-#, fuzzy
-msgid "Wheter to use window manager decoration"
-msgstr "Biff-fönster med fönsterhanterarens dekorationer eller ej"
+msgid "Whether to restrict number of displayed headers"
+msgstr ""
 
 #: ui/preferences.glade.h:40
+#, fuzzy
+msgid "Whether to show an image "
+msgstr "Biff-fönster med fönsterhanterarens dekorationer eller ej"
+
+#: ui/preferences.glade.h:41
+#, fuzzy
+msgid "Whether to use format for header"
+msgstr "Ingen geometri"
+
+#: ui/preferences.glade.h:42
+#, fuzzy
+msgid "Whether to use geometry"
+msgstr "Ingen geometri"
+
+#: ui/preferences.glade.h:43
+#, fuzzy
+msgid "Whether to use window manager decoration"
+msgstr "Biff-fönster med fönsterhanterarens dekorationer eller ej"
+
+#: ui/preferences.glade.h:44
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:41 ui/properties.glade.h:23
+#: ui/preferences.glade.h:45 ui/properties.glade.h:23
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:46
 #, fuzzy
 msgid "_Display for"
 msgstr "Visa titel"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "_Font:"
 msgstr "Typsnitt"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:48
 #, fuzzy
 msgid "_Format:"
 msgstr "Typsnitt"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "_Restrict collected mail  to"
 msgstr "<small>Begränsa antal visade rubriker i poppuppfönstret till </small>"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:50
 #, fuzzy
 msgid "_Restrict number to"
 msgstr "<small>Begränsa <b>avsändarstorleken</b> till </small>"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:52
+#, fuzzy
+msgid ""
+"gnubiff has originally been written by Nicolas Rougier.\n"
+"Many people have further contributed to gnubiff by\n"
+"  * reporting problems\n"
+"  * suggesting various improvements\n"
+"  * submitting actual code.\n"
+"\n"
+"Here is a list of these people in no particular order:\n"
+"  - Robert Sowada\n"
+"  - Roland Stigge\n"
+"  - Jean-Yves Lefort\n"
+"  - Calum Mackay\n"
+"  - Paul Kuliniewicz\n"
+"  - Erik Sittman\n"
+"  - Dries Verachtert\n"
+"  - Grzegorz Gotawski\n"
+"  - Adam Benjamin\n"
+"  - Theodore Tegos\n"
+"  - Achim Settelmeier\n"
+"  - Barry Skidmore\n"
+"  - Jason Lowdermilk\n"
+"  - Marc-jano Knopp\n"
+"  - Suzan Wassman\n"
+"  - Philippe Berger\n"
+"  - Earl A. Killian\n"
+"  - Christian Probst\n"
+"  - Hans-Ulrich Schaefer\n"
+"  - Josh Parsons\n"
+"  - Michael Moellney\n"
+"  - Dennis Bjorklund\n"
+"  - Craig  Agricola\n"
+"  - Bernhard Valenti\n"
+"  - Josh Berdine\n"
+"  - Michel Leunen\n"
+"  - Greg Fenton\n"
+"  - Cai Yu\n"
+"  - Chris Snell\n"
+"  - Reid Rivenburgh\n"
+"  - Neil Muller\n"
+"  - Sascha Ludecke\n"
+"  - Richard Torkar\n"
+"  - Pete Phillips\n"
+"  - Blaise Tarr\n"
+"\n"
+"And of course, there are also translators:\n"
+"  - Roland Stigge, Robert Sowada (de)\n"
+"  - Nicolas Lichtmaier (es)\n"
+"  - Elros Cyriatan (nl)\n"
+"  - Michel Robitaille (fr)\n"
+"  - Eugen Hoanca (ro)\n"
+"  - David Smeringe (sv)\n"
+msgstr ""
+"gnubiff skevs från början av Nicolas Rougier.\n"
+"Många personer har sedan dess bidragit till gnubiff med\n"
+"  * raportering av problem\n"
+"  * föreslagit olika förbättringar\n"
+"  * skickat in faktisk kod.\n"
+"\n"
+"Här är en lista med dessa personer utan inbördes sortering:\n"
+"  - Robert Sowada\n"
+"  - Grzegorz Gotawski\n"
+"  - Adam Benjamin\n"
+"  - Theodore Tegos\n"
+"  - Achim Settelmeie\n"
+"  - Roland Stigge\n"
+"  - Barry Skidmore\n"
+"  - Jason Lowdermilk\n"
+"  - Marc-jano Knopp\n"
+"  - Suzan Wassman\n"
+"  - Philippe Berger\n"
+"  - Earl A. Killian\n"
+"  - Chistian Probst\n"
+"  - Hans-Ulrich Schaefer\n"
+"  - Josh Parsons\n"
+"  - Michael Moellney\n"
+"  - Dennis Bjorklund\n"
+"  - Craig  Agricola\n"
+"  - Bernhard Valenti\n"
+"  - Josh Berdine\n"
+"  - Michel Leunen\n"
+"  - Greg Fenton\n"
+"  - Cai Yu\n"
+"  - Chris Snell\n"
+"  - Reid Rivenburgh\n"
+"  - Neil Muller\n"
+"  - Sascha Ludecke\n"
+"  - Richard Torkar\n"
+"  - Pete Phillips\n"
+"  - Blaise Tarr\n"
+
+#: ui/preferences.glade.h:103
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Inställningar"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:104
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:105
 #, fuzzy
 msgid "mail(s)"
 msgstr "Inga meddelanden"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:106
 msgid "second(s)"
 msgstr ""
 
@@ -938,9 +1045,6 @@ msgstr ""
 #~ msgid "Browse for a soundfile"
 #~ msgstr "Bläddra efter fil"
 
-#~ msgid "Credits"
-#~ msgstr "Tack"
-
 #~ msgid "Display popup window for poptime seconds"
 #~ msgstr "Visa poppuppfönster under popptids sekunder"
 
@@ -1021,104 +1125,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "_Sound"
 #~ msgstr "Ljud"
-
-#, fuzzy
-#~ msgid ""
-#~ "gnubiff has originally been written by Nicolas Rougier.\n"
-#~ "Many people have further contributed to gnubiff by\n"
-#~ "  * reporting problems\n"
-#~ "  * suggesting various improvements\n"
-#~ "  * submitting actual code.\n"
-#~ "\n"
-#~ "Here is a list of these people in no particular order:\n"
-#~ "  - Robert Sowada\n"
-#~ "  - Roland Stigge\n"
-#~ "  - Jean-Yves Lefort\n"
-#~ "  - Calum Mackay\n"
-#~ "  - Paul Kuliniewicz\n"
-#~ "  - Erik Sittman\n"
-#~ "  - Dries Verachtert\n"
-#~ "  - Grzegorz Gotawski\n"
-#~ "  - Adam Benjamin\n"
-#~ "  - Theodore Tegos\n"
-#~ "  - Achim Settelmeier\n"
-#~ "  - Barry Skidmore\n"
-#~ "  - Jason Lowdermilk\n"
-#~ "  - Marc-jano Knopp\n"
-#~ "  - Suzan Wassman\n"
-#~ "  - Philippe Berger\n"
-#~ "  - Earl A. Killian\n"
-#~ "  - Christian Probst\n"
-#~ "  - Hans-Ulrich Schaefer\n"
-#~ "  - Josh Parsons\n"
-#~ "  - Michael Moellney\n"
-#~ "  - Dennis Bjorklund\n"
-#~ "  - Craig  Agricola\n"
-#~ "  - Bernhard Valenti\n"
-#~ "  - Josh Berdine\n"
-#~ "  - Michel Leunen\n"
-#~ "  - Greg Fenton\n"
-#~ "  - Cai Yu\n"
-#~ "  - Chris Snell\n"
-#~ "  - Reid Rivenburgh\n"
-#~ "  - Neil Muller\n"
-#~ "  - Sascha Ludecke\n"
-#~ "  - Richard Torkar\n"
-#~ "  - Pete Phillips\n"
-#~ "  - Blaise Tarr\n"
-#~ "\n"
-#~ "And of course, there are also translators:\n"
-#~ "  - Roland Stigge, Robert Sowada (de)\n"
-#~ "  - Nicolas Lichtmaier (es)\n"
-#~ "  - Elros Cyriatan (nl)\n"
-#~ "  - Michel Robitaille (fr)\n"
-#~ "  - Eugen Hoanca (ro)\n"
-#~ "  - David Smeringe (sv)\n"
-#~ "\n"
-#~ "\n"
-#~ "If you like this software, you can send me a post-card to:\n"
-#~ "    Nicolas Rougier\n"
-#~ "    Campus Scientifique, B.P. 239\n"
-#~ "    F-54506 Vandoeuvre-Les-Nancy Cedex\n"
-#~ "    FRANCE"
-#~ msgstr ""
-#~ "gnubiff skevs från början av Nicolas Rougier.\n"
-#~ "Många personer har sedan dess bidragit till gnubiff med\n"
-#~ "  * raportering av problem\n"
-#~ "  * föreslagit olika förbättringar\n"
-#~ "  * skickat in faktisk kod.\n"
-#~ "\n"
-#~ "Här är en lista med dessa personer utan inbördes sortering:\n"
-#~ "  - Robert Sowada\n"
-#~ "  - Grzegorz Gotawski\n"
-#~ "  - Adam Benjamin\n"
-#~ "  - Theodore Tegos\n"
-#~ "  - Achim Settelmeie\n"
-#~ "  - Roland Stigge\n"
-#~ "  - Barry Skidmore\n"
-#~ "  - Jason Lowdermilk\n"
-#~ "  - Marc-jano Knopp\n"
-#~ "  - Suzan Wassman\n"
-#~ "  - Philippe Berger\n"
-#~ "  - Earl A. Killian\n"
-#~ "  - Chistian Probst\n"
-#~ "  - Hans-Ulrich Schaefer\n"
-#~ "  - Josh Parsons\n"
-#~ "  - Michael Moellney\n"
-#~ "  - Dennis Bjorklund\n"
-#~ "  - Craig  Agricola\n"
-#~ "  - Bernhard Valenti\n"
-#~ "  - Josh Berdine\n"
-#~ "  - Michel Leunen\n"
-#~ "  - Greg Fenton\n"
-#~ "  - Cai Yu\n"
-#~ "  - Chris Snell\n"
-#~ "  - Reid Rivenburgh\n"
-#~ "  - Neil Muller\n"
-#~ "  - Sascha Ludecke\n"
-#~ "  - Richard Torkar\n"
-#~ "  - Pete Phillips\n"
-#~ "  - Blaise Tarr\n"
 
 #, fuzzy
 #~ msgid "mozilla -mail"
