@@ -806,6 +806,7 @@ Imap4::command_logout (void) throw (imap_err)
 {
 	// Sending the command
 	sendline ("LOGOUT");
+	// Acknowledgment is read (and ignored) when closing socket
 	// Closing the socket
 	socket_->close ();
 }
