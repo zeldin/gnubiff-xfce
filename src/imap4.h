@@ -37,9 +37,12 @@
 
 #define IMAP4(x)				((Imap4 *)(x))
 
+/**
+ * Mailbox for the IMAP4 protocol. 
+ */
 class Imap4 : public Mailbox {
 
-protected:
+ protected:
 	class Socket *				socket_;		// socket to talk to server
 	std::vector<int>			saved_;			// saved uidl's
 	gboolean					idleable_;		// does server support the IDLE capability?
@@ -47,7 +50,7 @@ protected:
 
 	std::string					tag_;			// Tag created for the last sent IMAP command
 	guint						tagcounter_;	// Counter for creating the next tag
-public:
+ public:
 	// ========================================================================
 	//  base
 	// ========================================================================	
@@ -96,13 +99,24 @@ public:
 	void close();								 // Cleanup and close IMAP connection.
 };
 
+/**
+ * Information about one part of a multi-part mail. If the mail consists only
+ * of one part the information is valid for the whole mail.
+ */
 class PartInfo
 {
  public:
+	/** Part identifier as needed for the IMAP command FETCH (see
+	 *  RFC 3501 6:4:5). This is the part of the mail that will be displayed
+	 * by gnubiff (if possible). */
 	std::string part;
+	/// MIME type of this part. Currently only "text/plain" is supported.
 	std::string mimetype;
+	/// Encoding of this part. Currently supported encodings are 7bit, 8bit, binary and quoted-printable.
 	std::string encoding;
+	/// Character set of this part
 	std::string charset;
+	/// Size of this part in bytes
 	gint size;
 };
 
