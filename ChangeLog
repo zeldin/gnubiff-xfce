@@ -39,9 +39,10 @@ Version 2.1.3
    - Updated Vietnamese translation (thanks to Clytie Siddall)
    - Bugfix: Substituted protocol dependent test in "src/local.h" (fam)
    - Bugfix: Detecting FAMDeleted (this should finally fix debian bug
-        #297774)
+        297774)
    - Bugfix/Feature: New option "file_restore_atime". Note: This results in a
         changed default behavior!
+   - Updates in "ui/preferences.glade" to make translating easier
 
 Version 2.1.2		2005-03-26 17:28
  * Robert Sowada
