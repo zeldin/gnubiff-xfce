@@ -302,7 +302,8 @@ Biff::password (Mailbox *m)
 	for (guint i=0; i < size(); i++) {
 		if ((mailbox(i) != m)
 			&& (mailbox(i)->address() == m->address())
-			&& (mailbox(i)->username() == m->username()))
+			&& (mailbox(i)->username() == m->username())
+			&& (mailbox(i)->port() == m->port()))
 			return mailbox(i)->password();
 	}
 	return "";

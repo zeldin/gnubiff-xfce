@@ -8,7 +8,8 @@ Version 2.1.1
  * Nicolas Rougier
    - bugfix: gui, biff geometry field was sensitive when in gnome mode
    - bugfix: password automatic finding, misplaced mutex lock
- * Robert Sowada
+   - bugfix: password automatic finding, port was no taken into account
+* Robert Sowada
    - Changed version to 2.1.1, updated spec file
    - Small changes
    - Marked strings for internationalization (type & authentication menu)
