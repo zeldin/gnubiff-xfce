@@ -46,6 +46,7 @@ Version 2.1.2
    - Bugfix: Setting defaults for date, subject and from
    - Bugfix: Don't parse mails that aren't stored anyway
    - Added Victor Alonso to translators
+   - Cleanup of Socket::close()
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 
