@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-13 14:21+0200\n"
+"POT-Creation-Date: 2004-10-14 22:55+0200\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -73,22 +73,22 @@ msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
 
-#: src/biff.cc:152
+#: src/biff.cc:153
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "File di configurazione (%s) non trovato !"
 
-#: src/biff.cc:221 src/mailbox.cc:270
+#: src/biff.cc:222 src/mailbox.cc:270
 #, c-format
 msgid "Unable to create lookup thread: %s\n"
 msgstr "Impossibile creare il thread di controllo: %s\n"
 
-#: src/biff.cc:429
+#: src/biff.cc:462
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Non riesco ad aprire il tuo file di configurazione (%s)"
 
-#: src/biff.cc:451
+#: src/biff.cc:484
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -105,19 +105,19 @@ msgstr "casella di posta %d"
 msgid "[%d] Unable to create thread: %s\n"
 msgstr "[%d] Impossibile creare il thread: %s\n"
 
-#: src/mailbox.cc:365 src/mailbox.cc:372
+#: src/mailbox.cc:364 src/mailbox.cc:371
 msgid "Mailbox format is unknown"
 msgstr "Il formato della casella di posta è sconosciuto"
 
-#: src/mailbox.cc:400
+#: src/mailbox.cc:399
 msgid "<no sender>"
 msgstr "<nessun mittente>"
 
-#: src/mailbox.cc:410
+#: src/mailbox.cc:409
 msgid "<no subject>"
 msgstr "<nessun oggetto>"
 
-#: src/mailbox.cc:420
+#: src/mailbox.cc:419
 msgid "<no date>"
 msgstr "<nessuna data>"
 
@@ -142,27 +142,27 @@ msgstr "[%d] Non riesco ad identificare l'host remoto (%s sulla porta %d)"
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Impossibile scrivere a %s sulla porta %d"
 
-#: src/socket.cc:297
+#: src/socket.cc:299
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Impossibile leggere da %s dalla porta %d"
 
-#: src/imap4.cc:101
+#: src/imap4.cc:100
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossibile prendere il riconoscimento da %s alla porta %d"
 
-#: src/maildir.cc:81 src/maildir.cc:138
+#: src/maildir.cc:83 src/maildir.cc:144
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Non riesco a trovare la directory per la nuova posta (%s)"
 
-#: src/maildir.cc:88 src/maildir.cc:145
+#: src/maildir.cc:90 src/maildir.cc:151
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Non riesco ad aprire la directory per la nuova posta (%s)"
 
-#: src/maildir.cc:171
+#: src/maildir.cc:177
 #, c-format
 msgid "Cannot open %s."
 msgstr "Non riesco ad aprire %s."
@@ -223,16 +223,16 @@ msgstr "GUI_connect richiede un gmodule funzionante"
 msgid "Could not find signal handler '%s'."
 msgstr "Non riesco a trovare il signal handler '%s'."
 
-#: src/ui-applet.cc:178
+#: src/ui-applet.cc:165
 #, fuzzy
 msgid "error"
 msgstr "errore !"
 
-#: src/ui-applet.cc:180
+#: src/ui-applet.cc:167
 msgid "blocked (unsecure)"
 msgstr ""
 
-#: src/ui-applet.cc:185
+#: src/ui-applet.cc:172
 msgid " checking..."
 msgstr " sto controllando..."
 
@@ -244,44 +244,44 @@ msgstr "Nuova posta"
 msgid "No mail"
 msgstr "Niente posta"
 
-#: src/ui-preferences.cc:139 src/ui-popup.cc:138
+#: src/ui-preferences.cc:140 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Casella mail"
 
-#: src/ui-preferences.cc:158
+#: src/ui-preferences.cc:159
 msgid "Format"
 msgstr "Formato"
 
-#: src/ui-preferences.cc:167
+#: src/ui-preferences.cc:168
 msgid "Status"
 msgstr "Sato"
 
-#: src/ui-preferences.cc:175
+#: src/ui-preferences.cc:176
 msgid "Poll time"
 msgstr "Intervallo di controllo"
 
 #. Selection label
-#: src/ui-preferences.cc:192 src/ui-preferences.cc:638
+#: src/ui-preferences.cc:193 src/ui-preferences.cc:634
 msgid "No mailbox selected"
 msgstr "Nessuna casalle di posta selezionata"
 
-#: src/ui-preferences.cc:533
+#: src/ui-preferences.cc:534
 msgid "_Start"
 msgstr "_Avvia"
 
-#: src/ui-preferences.cc:539 ui/preferences.glade.h:74
+#: src/ui-preferences.cc:540 ui/preferences.glade.h:76
 msgid "_Stop"
 msgstr "_Ferma"
 
-#: src/ui-preferences.cc:549
+#: src/ui-preferences.cc:550
 msgid "Browse for a sound"
 msgstr "Scegli il file sonoro"
 
-#: src/ui-preferences.cc:580 ui/preferences.glade.h:16
+#: src/ui-preferences.cc:576 ui/preferences.glade.h:16
 msgid "Browse for a mail application"
 msgstr "Scegli l'applicazione di posta tramite file"
 
-#: src/ui-preferences.cc:587 src/ui-preferences.cc:600
+#: src/ui-preferences.cc:583 src/ui-preferences.cc:596
 msgid "Browse for a new mail image"
 msgstr "Scegli l'immagine per quando c'è nuova posta"
 
@@ -313,39 +313,39 @@ msgstr "Scegli un indirizzo"
 msgid "Browse for a certificate"
 msgstr "Scegli il file per il certificato"
 
-#: src/ui-popup.cc:154
+#: src/ui-popup.cc:155
 msgid "From"
 msgstr "Da"
 
-#: src/ui-popup.cc:162
+#: src/ui-popup.cc:163
 msgid "Subject"
 msgstr "Oggetto"
 
-#: src/ui-popup.cc:170
+#: src/ui-popup.cc:171
 msgid "Date"
 msgstr "Data"
 
 #. Sender
-#: src/ui-popup.cc:458
+#: src/ui-popup.cc:459
 msgid "From: "
 msgstr "Da: "
 
 #. Subject
-#: src/ui-popup.cc:467
+#: src/ui-popup.cc:468
 msgid "Subject: "
 msgstr "Oggetto: "
 
 #. Date
-#: src/ui-popup.cc:476
+#: src/ui-popup.cc:477
 msgid "Date: "
 msgstr "Data: "
 
-#: src/ui-popup.cc:536 src/ui-popup.cc:548 src/ui-popup.cc:557
-#: src/ui-popup.cc:564
+#: src/ui-popup.cc:537 src/ui-popup.cc:549 src/ui-popup.cc:558
+#: src/ui-popup.cc:565
 msgid "* error *"
 msgstr "* errore *"
 
-#: src/ui-popup.cc:695
+#: src/ui-popup.cc:696
 msgid "Error"
 msgstr "Errore"
 
@@ -635,92 +635,103 @@ msgid "Test sound"
 msgstr "_Nessun suono"
 
 #: ui/preferences.glade.h:59
-#, no-c-format
-msgid "Text to be displayed when new mail, %d is the number of mail."
+#, fuzzy, no-c-format
+msgid ""
+"Text to be displayed when new mail is present, %d is the number of mails. "
+"Valid XML must be entered, pango markup may be used."
 msgstr ""
 "Testo che deve essere visualizzato quando c'è nuova posta, %d è il numero "
 "dei messaggi."
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:61
+#, fuzzy, no-c-format
+msgid ""
+"Text to be displayed when no mail is present, %d is the number of mails. "
+"Valid XML must be entered, pango markup may be used."
+msgstr ""
+"Testo che deve essere visuallizzato quando non c'Ã¨ posta, %d Ã¨ il numero "
+"dei messaggi."
+
+#: ui/preferences.glade.h:62
 #, fuzzy
 msgid "Type:"
 msgstr "_Tipo:"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:63
 msgid "Use decoration"
 msgstr "Usa decorazione"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:64
 msgid "Use geometry"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:65
 msgid "Use image"
 msgstr "Usa un immagine"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:66
 msgid "Use of no image implies no applet window for GTK version"
 msgstr ""
 "Non usare un'immagine implica non avere la finestra dell'applet per la "
 "versione GTK"
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:67
 msgid "Use text"
 msgstr "Usa il testo"
 
-#: ui/preferences.glade.h:66
+#: ui/preferences.glade.h:68
 msgid "_Biff:"
 msgstr "_Biff:"
 
-#: ui/preferences.glade.h:67
+#: ui/preferences.glade.h:69
 msgid "_Command:"
 msgstr "_Comando:"
 
-#: ui/preferences.glade.h:68
+#: ui/preferences.glade.h:70
 msgid "_Display date"
 msgstr "_Visualizza la data"
 
-#: ui/preferences.glade.h:69
+#: ui/preferences.glade.h:71
 msgid "_Display popup window when new mail arrives"
 msgstr "Visualizza la finestra di notifica quando arrivanuova posta"
 
-#: ui/preferences.glade.h:70
+#: ui/preferences.glade.h:72
 msgid "_File:"
 msgstr "_File:"
 
-#: ui/preferences.glade.h:71
+#: ui/preferences.glade.h:73
 msgid "_No sound"
 msgstr "_Nessun suono"
 
-#: ui/preferences.glade.h:72
+#: ui/preferences.glade.h:74
 msgid "_Popup:"
 msgstr "_Notifica:"
 
-#: ui/preferences.glade.h:73
+#: ui/preferences.glade.h:75
 msgid "_Sound"
 msgstr "_Suono"
 
-#: ui/preferences.glade.h:75
+#: ui/preferences.glade.h:77
 msgid "_Volume:"
 msgstr "_Volume:"
 
-#: ui/preferences.glade.h:76
+#: ui/preferences.glade.h:78
 msgid "balsa"
 msgstr "balsa"
 
-#: ui/preferences.glade.h:77
+#: ui/preferences.glade.h:79
 msgid "characters"
 msgstr "caratteri"
 
-#: ui/preferences.glade.h:78
+#: ui/preferences.glade.h:80
 msgid "emacs"
 msgstr "emacs"
 
-#: ui/preferences.glade.h:79
+#: ui/preferences.glade.h:81
 msgid "evolution"
 msgstr "evolution"
 
-#: ui/preferences.glade.h:80
+#: ui/preferences.glade.h:82
 msgid ""
 "gnubiff has originally been written by Nicolas Rougier.\n"
 "Many people have further contributed to gnubiff by\n"
@@ -838,38 +849,38 @@ msgstr ""
 "    F-54506 Vandoeuvre-Les-Nancy Cedex\n"
 "    FRANCE"
 
-#: ui/preferences.glade.h:137
+#: ui/preferences.glade.h:139
 msgid "kmail"
 msgstr "kmail"
 
-#: ui/preferences.glade.h:138
+#: ui/preferences.glade.h:140
 msgid "mozilla -mail"
 msgstr "mozilla -mail"
 
-#: ui/preferences.glade.h:139
+#: ui/preferences.glade.h:141
 msgid "netscape -mail"
 msgstr "netscape -mail"
 
-#: ui/preferences.glade.h:141
+#: ui/preferences.glade.h:143
 #, no-c-format
 msgid "play %s -v %v"
 msgstr "play %s -v %v"
 
-#: ui/preferences.glade.h:142
+#: ui/preferences.glade.h:144
 msgid ""
 "pop3 and imap4 without ssl send passwords in clear. Checking this option "
 "prevents gnubiff from using them."
 msgstr ""
 
-#: ui/preferences.glade.h:143 ui/properties.glade.h:28
+#: ui/preferences.glade.h:145 ui/properties.glade.h:28
 msgid "seconds"
 msgstr "secondi"
 
-#: ui/preferences.glade.h:144
+#: ui/preferences.glade.h:146
 msgid "thunderbird"
 msgstr "thunderbird"
 
-#: ui/preferences.glade.h:145
+#: ui/preferences.glade.h:147
 msgid "xemacs "
 msgstr "xemacs "
 
@@ -1258,11 +1269,6 @@ msgstr "contenuto del messaggio"
 
 #~ msgid "Sounds "
 #~ msgstr "Suoni "
-
-#~ msgid "Text to be displayed when no mail, %d is the number of mail."
-#~ msgstr ""
-#~ "Testo che deve essere visuallizzato quando non c'Ã¨ posta, %d Ã¨ il "
-#~ "numero dei messaggi."
 
 #~ msgid ""
 #~ "This is the command used to play sound, %s is the name of the file, %v is "
