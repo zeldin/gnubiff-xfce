@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-26 21:36+0200\n"
+"POT-Creation-Date: 2004-10-27 21:10+0200\n"
 "PO-Revision-Date: 2004-10-26 22:00+0200\n"
 "Last-Translator: Robert Sowada <sowadart@users.sourceforge.net>\n"
 "Language-Team: German\n"
@@ -16,48 +16,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/gnubiff.cc:70
+#: src/gnubiff.cc:75
 msgid "configuration file to use"
 msgstr "Konfigurationsdatei"
 
-#: src/gnubiff.cc:70
+#: src/gnubiff.cc:75
 msgid "file"
 msgstr "Datei"
 
-#: src/gnubiff.cc:71
-msgid "skip the configure process"
-msgstr "Konfiguration überspringen"
+#: src/gnubiff.cc:76
+msgid "skip the configuration process"
+msgstr "Konfigurationsprozess überspringen"
 
-#: src/gnubiff.cc:174
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support.\n"
-"If you want to use the GTK version, type gnubiff --gtk\n"
-" then use -c file to specify an alternate configuration file\n"
-"      and -n to skip configuration process.\n"
-"If you want to use the GNOME version, use gnome panel.\n"
-"Have a nice day\n"
-msgstr ""
-"\n"
-"Diese Version von gnubiff wurde mit Gnome-Unterstützung übersetzt.\n"
-"Wenn Sie die GTK-Version verwenden wollen, geben Sie »gnubiff --gtk« ein.\n"
-" Mit »-c <Datei>« können Sie dann eine alternative Konfigurationsdatei "
-"angeben,\n"
-" mit »-n« den Konfigurationsprozess überspringen.\n"
-"Wenn Sie die Gnome-Version verwenden wollen, benutzen Sie das GNOME-Panel.\n"
-"Auf Wiedersehen!\n"
-
-#: src/gnubiff.cc:183
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support.\n"
-"If you want to use the GTK version, type gnubiff --gtk.\n"
-"Now I will hang forever...\n"
-msgstr ""
-"\n"
-"Diese Version von gnubiff wurde mit Gnome-Unterstützung übersetzt.\n"
-"Wenn Sie die GTK-Version verwenden wollen, geben Sie »gnubiff --gtk« ein.\n"
-"Dieser Prozess hängt jetzt dauerhaft...\n"
+#: src/gnubiff.cc:77
+msgid "print version information and exit"
+msgstr "Versionsinformation ausgeben und Programm beenden"
 
 #: src/ui-applet-gnome.cc:358
 msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gnubiff 2.0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-26 21:36+0200\n"
+"POT-Creation-Date: 2004-10-27 21:10+0200\n"
 "PO-Revision-Date: 2004-10-19 09:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -15,35 +15,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/gnubiff.cc:70
+#: src/gnubiff.cc:75
 msgid "configuration file to use"
 msgstr "fichier de configuration à utiliser"
 
-#: src/gnubiff.cc:70
+#: src/gnubiff.cc:75
 msgid "file"
 msgstr "fichier"
 
-#: src/gnubiff.cc:71
-msgid "skip the configure process"
+#: src/gnubiff.cc:76
+#, fuzzy
+msgid "skip the configuration process"
 msgstr "escamoter le processus de configuration"
 
-#: src/gnubiff.cc:174
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support.\n"
-"If you want to use the GTK version, type gnubiff --gtk\n"
-" then use -c file to specify an alternate configuration file\n"
-"      and -n to skip configuration process.\n"
-"If you want to use the GNOME version, use gnome panel.\n"
-"Have a nice day\n"
-msgstr ""
-
-#: src/gnubiff.cc:183
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support.\n"
-"If you want to use the GTK version, type gnubiff --gtk.\n"
-"Now I will hang forever...\n"
+#: src/gnubiff.cc:77
+msgid "print version information and exit"
 msgstr ""
 
 #: src/ui-applet-gnome.cc:358

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-26 21:36+0200\n"
+"POT-Creation-Date: 2004-10-27 21:10+0200\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -15,36 +15,22 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/gnubiff.cc:70
+#: src/gnubiff.cc:75
 #, fuzzy
 msgid "configuration file to use"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: src/gnubiff.cc:70
+#: src/gnubiff.cc:75
 msgid "file"
 msgstr "fiºier"
 
-#: src/gnubiff.cc:71
-msgid "skip the configure process"
+#: src/gnubiff.cc:76
+#, fuzzy
+msgid "skip the configuration process"
 msgstr "omitere a procesului de configurare"
 
-#: src/gnubiff.cc:174
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support.\n"
-"If you want to use the GTK version, type gnubiff --gtk\n"
-" then use -c file to specify an alternate configuration file\n"
-"      and -n to skip configuration process.\n"
-"If you want to use the GNOME version, use gnome panel.\n"
-"Have a nice day\n"
-msgstr ""
-
-#: src/gnubiff.cc:183
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support.\n"
-"If you want to use the GTK version, type gnubiff --gtk.\n"
-"Now I will hang forever...\n"
+#: src/gnubiff.cc:77
+msgid "print version information and exit"
 msgstr ""
 
 #: src/ui-applet-gnome.cc:358
