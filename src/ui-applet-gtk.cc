@@ -204,6 +204,7 @@ AppletGtk::show (std::string name)
 	else
 		gtk_window_unstick(dialog);
 	gtk_window_set_keep_above(dialog, biff_->applet_keep_above_);
+	gtk_window_set_skip_pager_hint (dialog, !biff_->applet_pager_);
 }
 
 

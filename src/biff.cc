@@ -114,6 +114,7 @@ Biff::Biff (gint ui_mode,
 	applet_use_decoration_	= false;
 	applet_be_sticky_       = false;
 	applet_keep_above_      = false;
+	applet_pager_			= false;
 	applet_font_			= "sans 10";
 	use_newmail_text_		= true;
 	newmail_text_			= "%d";
@@ -130,6 +131,7 @@ Biff::Biff (gint ui_mode,
 	popup_use_geometry_		= true;
 	popup_be_sticky_        = false;
 	popup_keep_above_       = false;
+	popup_pager_			= false;
 	popup_geometry_			= "-0+0";
 	popup_font_				= "sans 10";
 	popup_use_decoration_	= false;
@@ -489,6 +491,7 @@ Biff::save (void)
 	save_para("applet_geometry",applet_geometry_);
 	save_para("applet_be_sticky",applet_be_sticky_);
 	save_para("applet_keep_above",applet_keep_above_);
+	save_para("applet_pager",applet_pager_);
 	save_para("applet_use_decoration",applet_use_decoration_);
 	save_para("applet_font",applet_font_);
 	save_para("use_newmail_text",use_newmail_text_);
@@ -510,6 +513,7 @@ Biff::save (void)
 	save_para("popup_use_decoration",popup_use_decoration_);
 	save_para("popup_be_sticky",popup_be_sticky_);
 	save_para("popup_keep_above",popup_keep_above_);
+	save_para("popup_pager",popup_pager_);
 	save_para("popup_font",popup_font_);
 	save_para("popup_use_size",popup_use_size_);
 	save_para("popup_size",popup_size_);
@@ -779,6 +783,11 @@ Biff::xml_start_element (GMarkupParseContext *context,
 			strin >> applet_keep_above_;
 		}
 
+		else if (fmap["name"] == "applet_pager") {
+			std::istringstream strin(fmap["value"]);
+			strin >> applet_pager_;
+		}
+
 		else if (fmap["name"] == "applet_use_decoration") {
 			std::istringstream strin(fmap["value"]);
 			strin >> applet_use_decoration_;
@@ -861,6 +870,11 @@ Biff::xml_start_element (GMarkupParseContext *context,
 		else if (fmap["name"] == "popup_keep_above") {
 			std::istringstream strin(fmap["value"]);
 			strin >> popup_keep_above_;
+		}
+
+		else if (fmap["name"] == "popup_pager") {
+			std::istringstream strin(fmap["value"]);
+			strin >> popup_pager_;
 		}
 
 		else if (fmap["name"] == "popup_font") {

@@ -75,6 +75,7 @@ public:
 	gboolean		applet_use_decoration_;		// whether applet uses decoration
 	gboolean        applet_be_sticky_;          // whether applet should be sticky
 	gboolean        applet_keep_above_;         // whether applet window should be kept always on top
+	gboolean		applet_pager_;				// whether applet should appear in a pager
 	std::string		applet_font_;				// applet font
 	gboolean		use_newmail_text_;			// wheter text is displayed when new mail
 	std::string		newmail_text_;				// applet text when new mail
@@ -95,6 +96,7 @@ public:
 	gboolean		popup_use_decoration_;		// whether popup uses decoration
 	gboolean        popup_be_sticky_;           // whether popup should be sticky
 	gboolean        popup_keep_above_;          // whether popup window should be kept always on top
+	gboolean		popup_pager_;				// whether popup window should appear in a pager
 	std::string		popup_font_;				// popup font
 	gboolean		popup_use_size_;			// whether popup reestrict number of displayed header
 	guint			popup_size_;				// maximum header to display
