@@ -641,6 +641,15 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 	if (h.charset().empty() && (paras.find("charset") != paras.end()))
 		h.charset (paras["charset"]);
 
+	// Set default values if no value can be obtained from the mail (see
+	// RFC 2045)
+	if (h.charset().empty())
+		h.charset ("us-ascii");
+	if ((type.size() == 0) || (subtype.size() == 0)) {
+		type = "text";
+		subtype = "plain";
+	}
+
 	// Store mail depending on status
 	if (status)
 		// Pines trick
@@ -705,24 +714,16 @@ Mailbox::parse_contenttype (std::string line, std::string &type,
 		pos++;
 
 	// Get type
-	while ((pos < len) && ((g_ascii_isalnum(line[pos]))
-						   || (token_ok.find(line[pos]) != std::string::npos)))
-		type += line[pos++];
-	if (type.size() == 0)
+	if (!get_mime_token (line, type, pos))
 		return false;
-	type = ascii_strdown (type);
 
 	// Separator '/' between type and subtype
 	if ((pos >= len) || (line[pos++] != '/'))
 		return false;
 
 	// Get subtype
-	while ((pos < len) && ((g_ascii_isalnum(line[pos]))
-						   || (token_ok.find(line[pos]) != std::string::npos)))
-		subtype += line[pos++];
-	if (subtype.size() == 0)
+	if (!get_mime_token (line, subtype, pos))
 		return false;
-	subtype = ascii_strdown (subtype);
 
 	// Get parameters
 	while (true) {
@@ -774,11 +775,8 @@ Mailbox::parse_contenttype (std::string line, std::string &type,
 		}
 		// Token
 		else
-			while ((pos<len) && ((token_ok.find(line[pos])!=std::string::npos)
-								 || (g_ascii_isalnum(line[pos]))))
-				value += line[pos++];
-		if (value.size() == 0)
-			return false;
+			if (!get_mime_token (line, value, pos, false))
+				return false;
 
 		// Insert pair (attribute, value) into map
 		map[attr] = value;

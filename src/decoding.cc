@@ -130,6 +130,38 @@ Decoding::get_quotedstring (std::string line, std::string &str, guint &pos,
 }
 
 /**
+ *  Get a token that is a substring of {\em line}. This token may only consist
+ *  of those characters that are defined in RFC 2045 5.1.
+ *  
+ *  @param  line       String in which the quoted string is contained
+ *  @param  str        Here the obtained string is returned
+ *  @param  pos        Position of the first character of the token.
+ *                     When returning {\em pos} is the position of the next
+ *                     character after the token. If false is returned
+ *                     it is the position in which the error occurred.
+ *  @param  lowercase  Shall the token be converted to lower case (default is
+ *                     true)?
+ *  @return            Boolean indicating success
+ */
+gboolean 
+Decoding::get_mime_token (std::string line, std::string &str, guint &pos,
+						  gboolean lowercase)
+{
+	// Non alphanumeric characters allowed in tokens
+	const static std::string token_ok = "!#$%&'*+-._`{|}~";
+
+	guint len = line.size();
+	while ((pos < len) && ((g_ascii_isalnum(line[pos]))
+						   || (token_ok.find(line[pos]) != std::string::npos)))
+		str += line[pos++];
+	if (str.size() == 0)
+		return false;
+	if (lowercase)
+		str = ascii_strdown (str);
+	return true;
+}
+
+/**
  * Decoding of a base64 encoded string. If the given string
  * {\em todec} is not valid an empty string is returned.
  * See RFC 3548 for definition of base64 encoding.

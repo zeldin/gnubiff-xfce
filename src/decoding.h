@@ -51,6 +51,8 @@ protected:
 	gboolean get_quotedstring (std::string line, std::string &str, guint &pos,
 							   gchar quoted = '"', gboolean test_start = true,
 							   gboolean end_ok = false);
+	gboolean get_mime_token (std::string line, std::string &str, guint &pos,
+							 gboolean lowercase = true);
 
 	// Encodings
 	std::string decode_base64 (const std::string &);
