@@ -262,6 +262,11 @@ Gnubiff_Options::add_options_general (void)
 	add_option (new Option_Bool ("pref_allow_resize", OPTGRP_GENERAL,
 		"Shall it be allowed to resize the preferences dialog window?",
 								 false));
+	// DIR_CERTIFICATES
+	add_option (new Option_String ("dir_certificates", OPTGRP_GENERAL,
+		"Directory in which to look for certificates when building the "
+		"certificate chain.",
+								   "/etc/ssl/certs/"));
 }
 
 /// Add options that are for information purposes only
