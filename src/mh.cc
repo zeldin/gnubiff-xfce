@@ -60,21 +60,18 @@ Mh::~Mh (void)
 int
 Mh::connect (void)
 {
-	std::string filename;
-	struct stat file_stat;
-
-	// Check for mail directory
-	if ((stat (address_.c_str(), &file_stat) != 0) || (!S_ISDIR(file_stat.st_mode)))
-		return false;
-
 	// Build filename (.mh_sequences)
-	if (address_.find (".mh_sequences") == std::string::npos) {
-		if (address_[address_.size()-1] == '/') 
-			filename = address_.substr (0, address_.size()-1);
-		filename += "/.mh_sequences";
-	}
+	std::string filename;
+	gchar *base=g_path_get_basename(address_.c_str());
+	if (base==std::string(".mh_sequences"))
+		filename=address_;
 	else
-		filename = address_;
+	{
+		gchar *tmp=g_build_filename(address_.c_str(),".mh_sequences",NULL);
+		filename=std::string(tmp);
+		g_free(tmp);
+	}
+	g_free(base);
 
 	std::ifstream file;
 	file.open (filename.c_str());
@@ -186,13 +183,11 @@ Mh::fetch (void)
 		std::stringstream s;
 		s << saved_[i];
 
-		std::string filename;
-		if (address_[address_.size()-1] != '/')
-			filename = address_ + std::string("/") + s.str();
-		else
-			filename = address_ + s.str();
 		mail.clear();
-		file.open (filename.c_str());
+
+		gchar *filename=g_build_filename(address_.c_str(),s.str().c_str(),NULL);
+		file.open (filename);
+        g_free(filename);
 		if (file.is_open()) {
 			while (!file.eof()) {
 				getline(file, line);

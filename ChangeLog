@@ -86,6 +86,8 @@ Version 2.1.0
    - Bugfix: DoS attacks in IDLE command (IMAP4)
    - Bugfix: Hanging of local mailboxesi
    - Ported saving to configuration file code from 2.0.2 to 2.1.0
+   - Ported mh protocol fixes from 2.0.2 to 2.1.0
+   - Ported maildir protocol fixes from 2.0.2 to 2.1.0
 
 Version 2.0.3
   * Roland Stigge:

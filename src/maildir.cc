@@ -72,14 +72,17 @@ Maildir::fetch (void)
 	status_ = MAILBOX_CHECK;
 
 	// Build directory name
+	gchar *base=g_path_get_basename(address_.c_str());
 	std::string directory;
-	if (address_[address_.size()-1] == '/')
-		directory = address_.substr (0, address_.size()-1);
+	if (base==std::string("new"))
+		directory=address_;
 	else
-		directory = address_;
-	std::string lastdir = directory.substr (directory.find_last_of ('/'));
-	if (lastdir != "/new")
-		directory += "/new";
+	{
+		gchar *tmp=g_build_filename(address_.c_str(),"new",NULL);
+		directory=std::string(tmp);
+		g_free(tmp);
+	}
+	g_free(base);
 
 	// Check for existence of a new mail directory
 	if ((stat (directory.c_str(), &file_stat) != 0)||(!S_ISDIR(file_stat.st_mode))) {
@@ -103,8 +106,12 @@ Maildir::fetch (void)
 	while ((dent = readdir(dir)) && (new_unread_.size() < (unsigned int)(biff_->max_mail_))) {
 		if (dent->d_name[0]=='.')
 			continue;
+
 		std::ifstream file;
-		std::string filename = directory + std::string("/") + std::string (dent->d_name);
+		gchar *tmp=g_build_filename(directory.c_str(),dent->d_name,NULL);
+		std::string filename(tmp);
+		g_free(tmp);
+
 		file.open (filename.c_str());
 		if (file.is_open()) {
 			while (!file.eof()) {
@@ -115,9 +122,8 @@ Maildir::fetch (void)
 			parse (mail);
 			mail.clear();
 		}
-		else {
+		else
 			g_warning (_("Cannot open %s."), filename.c_str());
-		}
 		file.close();
 	}
 	closedir (dir);
