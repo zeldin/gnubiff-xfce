@@ -70,15 +70,19 @@ Apop::connect (void)
 	std::string line;
 
 	// First try: try to guess password by looking at other mailboxes
-	if (password_.empty())
-		password_ = biff_->password (this);
-
-	// Second try: ask to the user
+	// Remark: It's important to block thread before looking at other mailboxes
+	//         since one is maybe asking (using gui) for this password.
 	if (password_.empty()) {
 		g_static_mutex_lock (&ui_auth_mutex_);
-		gdk_threads_enter ();
-		ui_auth_->select (this);
-		gdk_threads_leave ();
+
+		password_ = biff_->password (this);
+
+		// Second try: ask to the user
+		if (password_.empty()) {
+			gdk_threads_enter ();
+			ui_auth_->select (this);
+			gdk_threads_leave ();
+		}
 		g_static_mutex_unlock (&ui_auth_mutex_);
 	}
 
