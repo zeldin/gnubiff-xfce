@@ -1,5 +1,6 @@
 # translation of fr.po to 
 # translation of fr.po to
+# translation of fr.po to
 # translation of fr.po to Français
 # translation of fr.po to French
 # French translation of gnubiff
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-12-27 19:42+0100\n"
-"PO-Revision-Date: 2004-12-22 18:56+0100\n"
+"PO-Revision-Date: 2004-12-28 09:38+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +25,7 @@ msgstr ""
 #: src/decoding.cc:69
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
-msgstr ""
+msgstr "[L'encodage \"%s\" ne peut être décodé]"
 
 #: src/gnubiff.cc:98
 msgid "Start gnome applet from command line"
@@ -162,13 +163,11 @@ msgstr "[%d] Mot de passe vide"
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
-msgstr ""
-"[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
+msgstr "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
 #: src/apop.cc:156
 #, c-format
-msgid ""
-"[%d] Problem with crypto that should have been detected at configure time"
+msgid "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
@@ -282,25 +281,23 @@ msgstr ""
 
 #: src/ui-properties.cc:125 src/ui-properties.cc:152
 msgid "Autodetect"
-msgstr ""
+msgstr "Autodetection"
 
 #: src/ui-properties.cc:126
-#, fuzzy
 msgid "File or Folder"
-msgstr "Répertoire de boîtes aux lettres"
+msgstr "Fichier ou Répertoire"
 
 #: src/ui-properties.cc:154
 msgid "User/Pass"
-msgstr ""
+msgstr "Utilisateur/Mot de Passe"
 
 #: src/ui-properties.cc:156
 msgid "Encrypted User/Pass (apop)"
-msgstr ""
+msgstr "Utilisateur/Mot de pass encrypté (apop)"
 
 #: src/ui-properties.cc:160
-#, fuzzy
 msgid "SSL with certificate"
-msgstr "Cer_tificat:"
+msgstr "SSL avec certificat"
 
 #: src/ui-properties.cc:316
 msgid "Browse for a file or folder"
@@ -376,8 +373,7 @@ msgid "Start command"
 msgstr "Exécuter la commande"
 
 #: ui/applet-gtk.glade.h:8
-msgid ""
-"This program is part of the GNU project, released under the aegis of GNU."
+msgid "This program is part of the GNU project, released under the aegis of GNU."
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
 #: ui/applet-gtk.glade.h:10
@@ -421,12 +417,10 @@ msgid "<b>When no mail</b>"
 msgstr "<b>Absence de courrier</b>"
 
 #: ui/preferences.glade.h:8
-#, fuzzy
 msgid ""
 "<small> Released under the aegis of GNU\n"
 " Copyright (c) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
-"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
 " <small>Distribué sous l'égide de  GNU\n"
 " Copyright (c) 2000-2004 Nicolas Rougier</small>"
 
@@ -566,13 +560,12 @@ msgid "When _new mail:"
 msgstr "_Nouveau courrier:"
 
 #: ui/preferences.glade.h:45
-#, fuzzy
 msgid "Whether the window shall be displayed on all desktops"
-msgstr "Restreindre le nombre d'entêtes ou non"
+msgstr "Afficher la fenêtre sur tous les bureaux ou non"
 
 #: ui/preferences.glade.h:46
 msgid "Whether the window shall be kept above all other windows"
-msgstr ""
+msgstr "Afficher la fenêtre par dessus les autres ou non"
 
 #: ui/preferences.glade.h:47
 msgid "Whether to display a text"
@@ -614,7 +607,7 @@ msgstr ""
 
 #: ui/preferences.glade.h:56
 msgid "_Be sticky"
-msgstr ""
+msgstr "Fenêtre _Collante"
 
 #: ui/preferences.glade.h:57 ui/properties.glade.h:21
 msgid "_Browse..."
@@ -634,7 +627,7 @@ msgstr "_Format:"
 
 #: ui/preferences.glade.h:61
 msgid "_Keep above"
-msgstr ""
+msgstr "_Garde au dessus"
 
 #: ui/preferences.glade.h:62
 msgid "_Restrict collected mail to"
@@ -728,8 +721,7 @@ msgstr "Répertoire standard"
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
-msgstr ""
-"Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
+msgstr "Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
 
 #: ui/properties.glade.h:19
 msgid "Your password on the mail server"
@@ -859,6 +851,3 @@ msgstr "<small><b>Sujet</b></small>"
 msgid "mail content"
 msgstr "contenu du mèl"
 
-#, fuzzy
-#~ msgid "<span font_desc=\"24\"><b>Gnubiff 2.1.1</b></span>"
-#~ msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
