@@ -334,7 +334,7 @@
 			  <property name="max_length">0</property>
 			  <property name="text" translatable="yes"></property>
 			  <property name="has_frame">True</property>
-			  <property name="invisible_char" translatable="yes">*</property>
+			  <property name="invisible_char">*</property>
 			  <property name="activates_default">False</property>
 			</widget>
 			<packing>
@@ -356,7 +356,7 @@
 			  <property name="max_length">0</property>
 			  <property name="text" translatable="yes"></property>
 			  <property name="has_frame">True</property>
-			  <property name="invisible_char" translatable="yes">*</property>
+			  <property name="invisible_char">*</property>
 			  <property name="activates_default">False</property>
 			</widget>
 			<packing>
@@ -527,7 +527,7 @@
 			  <property name="max_length">0</property>
 			  <property name="text" translatable="yes"></property>
 			  <property name="has_frame">True</property>
-			  <property name="invisible_char" translatable="yes">*</property>
+			  <property name="invisible_char">*</property>
 			  <property name="activates_default">False</property>
 			</widget>
 			<packing>
@@ -570,7 +570,7 @@
 			  <property name="max_length">0</property>
 			  <property name="text" translatable="yes"></property>
 			  <property name="has_frame">True</property>
-			  <property name="invisible_char" translatable="yes">*</property>
+			  <property name="invisible_char">*</property>
 			  <property name="activates_default">False</property>
 			</widget>
 			<packing>
@@ -592,7 +592,7 @@
 			  <property name="max_length">0</property>
 			  <property name="text" translatable="yes"></property>
 			  <property name="has_frame">True</property>
-			  <property name="invisible_char" translatable="yes">*</property>
+			  <property name="invisible_char">*</property>
 			  <property name="activates_default">False</property>
 			</widget>
 			<packing>
@@ -635,7 +635,7 @@
 			  <property name="max_length">0</property>
 			  <property name="text" translatable="yes"></property>
 			  <property name="has_frame">True</property>
-			  <property name="invisible_char" translatable="yes">*</property>
+			  <property name="invisible_char">*</property>
 			  <property name="activates_default">False</property>
 			</widget>
 			<packing>
@@ -680,7 +680,7 @@
 			  <property name="max_length">0</property>
 			  <property name="text" translatable="yes"></property>
 			  <property name="has_frame">True</property>
-			  <property name="invisible_char" translatable="yes">*</property>
+			  <property name="invisible_char">*</property>
 			  <property name="activates_default">False</property>
 			</widget>
 			<packing>
@@ -1087,7 +1087,7 @@
 			  <property name="max_length">0</property>
 			  <property name="text" translatable="yes"></property>
 			  <property name="has_frame">True</property>
-			  <property name="invisible_char" translatable="yes">*</property>
+			  <property name="invisible_char">*</property>
 			  <property name="activates_default">False</property>
 			</widget>
 			<packing>
@@ -1133,7 +1133,7 @@
 			  <property name="max_length">0</property>
 			  <property name="text" translatable="yes"></property>
 			  <property name="has_frame">True</property>
-			  <property name="invisible_char" translatable="yes">*</property>
+			  <property name="invisible_char">*</property>
 			  <property name="activates_default">False</property>
 			</widget>
 			<packing>
@@ -1535,7 +1535,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label7">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Robert Sowada</property>
+			      <property name="label">Robert Sowada</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1558,7 +1558,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label10">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(sowadart@gmx.de)&lt;/span&gt;</property>
+			      <property name="label">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(sowadart@gmx.de)&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1581,7 +1581,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label5">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Nicolas Rougier</property>
+			      <property name="label">Nicolas Rougier</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1605,7 +1605,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label9">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(rougier@loria.fr)&lt;/span&gt;</property>
+			      <property name="label">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(rougier@loria.fr)&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1664,7 +1664,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label31">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Roland Stigge &lt;small&gt;&lt;i&gt;(Debian)&lt;/i&gt;&lt;/small&gt;</property>
+			      <property name="label">Roland Stigge &lt;small&gt;&lt;i&gt;(Debian)&lt;/i&gt;&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1687,7 +1687,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label33">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(stigge@antcom.de)&lt;/span&gt;</property>
+			      <property name="label">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(stigge@antcom.de)&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1745,7 +1745,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label12">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Robert Sowada &lt;small&gt;&lt;i&gt;(de)&lt;/i&gt;&lt;/small&gt;</property>
+			      <property name="label">Robert Sowada &lt;small&gt;&lt;i&gt;(de)&lt;/i&gt;&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1768,7 +1768,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label13">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Roland Stigge &lt;small&gt;&lt;i&gt;(de)&lt;/i&gt;&lt;/small&gt;</property>
+			      <property name="label">Roland Stigge &lt;small&gt;&lt;i&gt;(de)&lt;/i&gt;&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1791,7 +1791,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label14">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(sowadart@gmx.de)&lt;/span&gt;</property>
+			      <property name="label">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(sowadart@gmx.de)&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1814,7 +1814,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label15">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(stigge@antcom.de)&lt;/span&gt;</property>
+			      <property name="label">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(stigge@antcom.de)&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1837,7 +1837,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label20">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Nicolas Rougier &lt;small&gt;&lt;i&gt;(fr_FR)&lt;/i&gt;&lt;/small&gt;</property>
+			      <property name="label">Nicolas Rougier &lt;small&gt;&lt;i&gt;(fr_FR)&lt;/i&gt;&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1861,7 +1861,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label21">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(rougier@loria.fr)&lt;/span&gt;</property>
+			      <property name="label">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(rougier@loria.fr)&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1885,7 +1885,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label18">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Elros Cyriatan &lt;small&gt;&lt;i&gt;(nl)&lt;/i&gt;&lt;/small&gt;</property>
+			      <property name="label">Elros Cyriatan &lt;small&gt;&lt;i&gt;(nl)&lt;/i&gt;&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1909,7 +1909,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label24">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(cyriatan@fastmail.fm)&lt;/span&gt;</property>
+			      <property name="label">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(cyriatan@fastmail.fm)&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1933,7 +1933,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label22">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Stefano Fabri &lt;small&gt;&lt;i&gt;(it)&lt;/i&gt;&lt;/small&gt;</property>
+			      <property name="label">Stefano Fabri &lt;small&gt;&lt;i&gt;(it)&lt;/i&gt;&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1957,7 +1957,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label23">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(bluefuture@email.it)&lt;/span&gt;</property>
+			      <property name="label">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(bluefuture@email.it)&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1981,7 +1981,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label17">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Nicolas Lichtmaler &lt;small&gt;&lt;i&gt;(es)&lt;/i&gt;&lt;/small&gt;</property>
+			      <property name="label">Nicolas Lichtmaler &lt;small&gt;&lt;i&gt;(es)&lt;/i&gt;&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2005,7 +2005,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label25">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(niqueco@hotmail.com)&lt;/span&gt;</property>
+			      <property name="label">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(niqueco@hotmail.com)&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2029,7 +2029,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label19">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Michel Robitaille &lt;small&gt;&lt;i&gt;(fr_CA)&lt;/i&gt;&lt;/small&gt;</property>
+			      <property name="label">Michel Robitaille &lt;small&gt;&lt;i&gt;(fr_CA)&lt;/i&gt;&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2053,7 +2053,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label26">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(robitail@iro.umontreal.ca)&lt;/span&gt;</property>
+			      <property name="label">&lt;span foreground=&quot;blue&quot; size=&quot;small&quot;&gt;(robitail@iro.umontreal.ca)&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2113,7 +2113,7 @@
   - reporting problems
   - suggesting various improvements
   - subimitting actual code
-Here is a list of these people in no particular order&lt;/small&gt;</property>
+Here is a list of these people:&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2156,7 +2156,7 @@ Here is a list of these people in no particular order&lt;/small&gt;</property>
 				  <property name="left_margin">6</property>
 				  <property name="right_margin">6</property>
 				  <property name="indent">0</property>
-				  <property name="text" translatable="yes">Jean-Yves Lefort, Calum Mackay, Paul Kuliniewicz, Erik Sittman, Dries Verachtert, Grzegorz Gotawski, Adam Benjamin, Theodore Tegos, Achim Settelmeier, Barry Skidmore, Jason Lowdermilk, Marc-jano Knopp, Suzan Wassman, Philippe Berger, Earl A. Killian, Christian Probst, Hans-Ulrich Schaefer, Josh Parsons, Michael Moellney, Dennis Bjorklund, Craig Agricola, Bernhard Valenti, Josh Berdine, Michel Leunen, Greg Fenton, Cai Yu, Chris Snell, Reid Rivenburgh, Neil Muller, Sascha Ludecke, Richard Torkar, Pete Phillips, Blaise Tarr</property>
+				  <property name="text">Craig Agricola, Adam Benjamin, Josh Berdine, Philippe Berger, Dennis Bjorklund, Greg Fenton, Grzegorz Gotawski, Earl Killian, Marc-Jano Knopp, Paul Kuliniewicz, Jean-Yves Lefort, Michel Leunen, Jason Lowdermilk, Sascha Ludecke, Calum Mackay, Michael Moellney, Neil Muller, Josh Parsons, Pete Phillips, Christian Probst, Reid Rivenburgh, Hans-Ulrich Schaefer, Achim Settelmeier, Erik Sittman, Barry Skidmore, Chris Snell, Blaise Tarr, Theodore Tegos, Richard Torkar, Bernhard Valenti, Dries Verachtert, Suzan Wassman, Cai Yu</property>
 				</widget>
 			      </child>
 			    </widget>
