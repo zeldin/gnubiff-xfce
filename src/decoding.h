@@ -56,6 +56,10 @@ protected:
 
 	// Converting
 	gchar* utf8_to_imaputf7(const gchar *, gssize);
+
+	// Password
+	std::string encrypt_password (const std::string &, const std::string &);
+	std::string decrypt_password (const std::string &, const std::string &);
 };
 
 #endif

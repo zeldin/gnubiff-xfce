@@ -69,6 +69,13 @@ extern "C" {
 	{
 		BIFF(data)->xml_start_element (context, element_name, attribute_names, attribute_values, error);
 	}
+	void BIFF_xml_end_element (GMarkupParseContext *context,
+							   const gchar *element_name,
+							   gpointer data,
+							   GError **error)
+	{
+		BIFF(data)->xml_end_element (context, element_name, error);
+	}
 
 	void BIFF_xml_error (GMarkupParseContext *context,
 						 GError *error,
@@ -384,11 +391,11 @@ Biff::save_endblock()
  * Saves the string {\em value} for the option {\em name} to the
  * configuration file.
  *
- * @param  name  valid utf-8 character array for the name of the option
- * @param  value C++ string that will be saved
+ * @param  name  name of the option
+ * @param  value string to be saved
  */
 void 
-Biff::save_para(const gchar *name,std::string value)
+Biff::save_para (const gchar *name, const std::string value)
 {
 	const gchar *fmt="%*s<parameter name=\"%s\"%*svalue=\"%s\"/>\n";
 	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2,"",name,
@@ -398,22 +405,129 @@ Biff::save_para(const gchar *name,std::string value)
 	save_file << esc;
 	g_free(esc);
 }
-  	 
+
 /**
- * Saves the integer {\em value} for the option {\em name} to the
- * configuration file.
+ * Saves the set {\em value} of strings for the option {\em name} to the
+ * configuration file. The strings are concatenated and separated by spaces.
  *
- * @param  name  valid utf-8 character array for the name of the option
- * @param  value integer that will be saved
+ * @param  name  name of the option
+ * @param  value Set of strings to be saved
  */
 void 
-Biff::save_para(const gchar *name,gint value)
+Biff::save_para(const gchar *name, const std::set<std::string> &value)
+{
+	std::stringstream str;
+	for (std::set<std::string>::iterator j=value.begin(); j!=value.end(); j++)
+		str << *j << " ";
+	save_para(name, str.str());
+}
+
+/**
+ * Saves the boolean {\em value} for the option {\em name} to the
+ * configuration file.
+ *
+ * @param  name  name of the option
+ * @param  value boolean that will be saved
+ */
+void 
+Biff::save_para (const gchar *name, gboolean value)
+{
+	value ? save_para (name, "true") : save_para (name, "false");
+}
+  	 
+/**
+ * Saves the unsigned integer {\em value} for the option {\em name} to the
+ * configuration file.
+ *
+ * @param  name  name of the option
+ * @param  value unsigned integer that will be saved
+ */
+void 
+Biff::save_para (const gchar *name, guint value)
 {
 	std::stringstream value_str;
 	value_str << value;
-	save_para(name,value_str.str());
+	save_para (name, value_str.str());
 }
 
+/**
+ * Loads the option {\em name} and saves its value in the boolean variable
+ * {\em var}.
+ *
+ * @param name  name of the option
+ * @param var   reference to the variable that gets the value
+ */
+void 
+Biff::load_para(const gchar *name, gboolean &var)
+{
+	std::string value = buffer_load_[std::string(name)];
+
+	if ((value == "1") || (value == "true"))
+		var = true;
+	else if ((value == "0") || (value == "false"))
+		var = false;
+	else
+		g_warning (_("Illegal value \"%s\" for parameter \"%s\""),
+				   buffer_load_[std::string(name)].c_str(), name);
+}
+
+/**
+ * Loads the option {\em name} and saves its value in the unsigned integer
+ * variable {\em var}.
+ *
+ * @param name  name of the option
+ * @param var   reference to the variable that gets the value
+ */
+void 
+Biff::load_para(const gchar *name, guint &var)
+{
+	guint temp;
+
+	std::istringstream strin(buffer_load_[std::string(name)]);
+	if (strin >> temp)
+		var = temp;
+	else
+		g_warning (_("Illegal value \"%s\" for parameter \"%s\""),
+				   buffer_load_[std::string(name)].c_str(), name);
+}
+
+/**
+ * Loads the option {\em name} and saves its value in the string variable
+ * {\em var}.
+ *
+ * @param name  name of the option
+ * @param var   reference to the variable that gets the value
+ */
+void 
+Biff::load_para(const gchar *name, std::string &var)
+{
+	var = buffer_load_[std::string(name)];
+}
+
+/**
+ * Loads the option {\em name} and saves its value in the set of strings
+ * variable {\em var}.
+ *
+ * @param name  name of the option
+ * @param var   reference to the variable that gets the value
+ */
+void 
+Biff::load_para(const gchar *name, std::set<std::string> &var)
+{
+	std::istringstream strin (buffer_load_[std::string(name)]);
+	std::string value;
+
+	var.clear ();
+	while (strin >> value)
+		var.insert (value);
+}
+
+/**
+ *  Save all option and mailboxes to the config file. If no config file
+ *  exists a new one is created that is readable only by the user.
+ *
+ *  @return       boolean indicating success
+ */
 gboolean 
 Biff::save (void)
 {
@@ -433,44 +547,8 @@ Biff::save (void)
 	// Mailboxes
 	for (unsigned int i=0; i< mailbox_.size(); i++)
 	{
-		save_newblock("mailbox");
-		save_para("protocol",mailbox_[i]->protocol());
-		save_para("authentication",mailbox_[i]->authentication());
-		save_para("name",mailbox_[i]->name());
-		save_para("address",mailbox_[i]->address());
-		save_para("username",mailbox_[i]->username());
-		// pop3 and imap4 protocols requires password in clear so we have to
-		// save password in clear within configuration file. No need to say
-		// this is higly unsecure if somebody looks at the file. So we try to
-		// take some measures:
-		//   1. The file is made readable by owner only.
-		//   2. password is "crypted" so it's not directly human readable.
-		// Of course, these measures won't prevent a determined person to break
-		// in but will at least prevent "ordinary" people to be able to steal
-		// password easily.
-#ifdef USE_PASSWORD
-		std::stringstream password;
-		for (guint j=0; j<mailbox_[i]->password().size(); j++)
-		    password << passtable_[mailbox_[i]->password()[j]/16]
-			         << passtable_[mailbox_[i]->password()[j]%16];
-		save_para("password",password.str());
-#else
-		save_para("password",std::string(""));
-#endif
-		save_para("port",mailbox_[i]->port());
-		save_para("folder",mailbox_[i]->folder());
-		save_para("certificate",mailbox_[i]->certificate());
-		save_para("delay",mailbox_[i]->delay());
-		save_para("use_idle",mailbox_[i]->use_idle());
-		save_para("use_other_folder",mailbox_[i]->use_other_folder());
-		save_para("other_folder",mailbox_[i]->other_folder());
-		save_para("use_other_port",mailbox_[i]->use_other_port());
-		save_para("other_port",mailbox_[i]->other_port());
-		std::stringstream seen;
-		for (std::set<std::string>::iterator j = mailbox_[i]->hidden().begin();
-			 j != mailbox_[i]->hidden().end(); j++)
-			seen << *j << " ";
-		save_para("seen",seen.str());
+		save_newblock ("mailbox");
+		mailbox_[i]->save_data ();
 		save_endblock();
 	}
 	g_mutex_unlock (mutex_);
@@ -536,10 +614,9 @@ Biff::save (void)
 	return true;
 }
 
-gboolean
+gboolean 
 Biff::load (void)
 {
-	count_ = -1;
 	mailbox_.clear();
 
 	std::ifstream file;
@@ -554,7 +631,7 @@ Biff::load (void)
 	// Instantiate a new xml parser
 	GMarkupParser parser;
 	parser.start_element = BIFF_xml_start_element;
-	parser.end_element   = 0;
+	parser.end_element   = BIFF_xml_end_element;
 	parser.text          = 0;
 	parser.passthrough   = 0;
 	parser.error         = BIFF_xml_error;
@@ -588,323 +665,112 @@ Biff::xml_start_element (GMarkupParseContext *context,
 						 const gchar **attribute_values,
 						 GError **error)
 {
-	if (std::string (element_name) == "mailbox")
-		count_++;
+	if (std::string (element_name) != "parameter")
+		buffer_load_.clear ();
+	else {
+		std::map<std::string,std::string> temp;
 
-	if (std::string (element_name) == "parameter") {
-		// Store attributes (name & value) in a map
-	    std::map<std::string,std::string> fmap;
-		guint i = 0;
-		while (attribute_names[i]) {
-			fmap[attribute_names[i]] = attribute_values[i];
-			i++;
+		for (guint i = 0; attribute_names[i]; i++)
+			temp[attribute_names[i]] = attribute_values[i];
+		if (temp["name"].empty ()) {
+			g_warning(_("Illegal parameter format in config file"));
+			return;
 		}
-
-		// A new mailbox can be created once we know the protocol
-		//  so this is the first information to be saved and loaded.
-		if (fmap["name"] == "protocol") {
-			int protocol;
-			std::istringstream strin(fmap["value"]);
-			strin >> protocol;
-			switch (protocol) {
-			case PROTOCOL_FILE:
-				mailbox_.push_back (new File (this));
-				break;
-			case PROTOCOL_MH:
-				mailbox_.push_back (new Mh (this));
-				break;
-			case PROTOCOL_MAILDIR:
-				mailbox_.push_back (new Maildir (this));
-				break;
-			case PROTOCOL_IMAP4:
-				mailbox_.push_back (new Imap4 (this));
-				break;
-			case PROTOCOL_POP3:
-				mailbox_.push_back (new Pop3 (this));
-				break;
-			case PROTOCOL_APOP:
-				mailbox_.push_back (new Apop (this));
-				break;
-			default:
-				mailbox_.push_back (new Mailbox (this));
-				break;
-			}
-		}
-
-		//
-		// Mailbox
-		//
-		if (fmap["name"] == "name") {
-			mailbox_[count_]->name (fmap["value"]);
-		}
-		
-		else if (fmap["name"] == "authentication") {
-			std::istringstream strin(fmap["value"]);
-			guint value; strin >> value;
-			mailbox_[count_]->authentication (value);
-		}
-
-		else if (fmap["name"] == "address") {
-			mailbox_[count_]->address (fmap["value"]);
-		}
-
-		else if (fmap["name"] == "username") {
-			mailbox_[count_]->username (fmap["value"]);
-		}
-
-		else if (fmap["name"] == "password") {
-			std::string password;
-			std::string tmp = fmap["value"];
-			for (gint i=0; i<gint(tmp.size())-1; i+=2) {
-				char c = 0;
-				guint j;
-				for (j=0; j<16; j++) {
-					if (passtable_ [j] == tmp[i])
-						c += j*16;
-					if (passtable_ [j] == tmp[i+1])
-						c += j;
-				}
-				password += c;
-			}
-			mailbox_[count_]->password(password);
-		}
-
-		else if (fmap["name"] == "port") {
-			std::istringstream strin(fmap["value"]);
-			guint value; strin >> value;
-			mailbox_[count_]->port(value);
-		}
-
-		else if (fmap["name"] == "folder") {
-			mailbox_[count_]->folder (fmap["value"]);
-		}
-
-		else if (fmap["name"] == "certificate") {
-			mailbox_[count_]->certificate (fmap["value"]);
-		}
-
-		else if (fmap["name"] == "delay") {
-			std::istringstream strin(fmap["value"]);
-			guint value; strin >> value;
-			mailbox_[count_]->delay (value);
-		}
-
-		else if (fmap["name"] == "use_idle") {
-			std::istringstream strin(fmap["value"]);
-			guint value; strin >> value;
-			mailbox_[count_]->use_idle (value);
-		}
-
-		else if (fmap["name"] == "use_other_folder") {
-			std::istringstream strin(fmap["value"]);
-			guint value; strin >> value;
-			mailbox_[count_]->use_other_folder(value);
-		}
-
-		else if (fmap["name"] == "other_folder") {
-			mailbox_[count_]->other_folder (fmap["value"]);
-		}
-
-		else if (fmap["name"] == "use_other_port") {
-			std::istringstream strin(fmap["value"]);
-			guint value; strin >> value;
-			mailbox_[count_]->use_other_port(value);
-		}
-
-		else if (fmap["name"] == "other_port") {
-			std::istringstream strin(fmap["value"]);
-			guint value; strin >> value;
-			mailbox_[count_]->other_port(value);
-		}
-
-		else if (fmap["name"] == "seen") {
-			std::istringstream strin (fmap["value"]);
-			mailbox_[count_]->hidden().clear();
-			std::string mailid;
-			while (strin >> mailid)
-				mailbox_[count_]->hidden().insert (mailid);
-		}
-
-		//
-		// General
-		//
-		else if (fmap["name"] == "use_max_mail") {
-			std::istringstream strin(fmap["value"]);
-			strin >> use_max_mail_;
-		}
-
-		else if (fmap["name"] == "max_mail") {
-			std::istringstream strin(fmap["value"]);
-			strin >> max_mail_;
-		}
-
-		else if (fmap["name"] == "use_newmail_command") {
-			std::istringstream strin(fmap["value"]);
-			strin >> use_newmail_command_;
-		}
-
-		else if (fmap["name"] == "newmail_command") {
-			newmail_command_ = fmap["value"];
-		}
-
-		else if (fmap["name"] == "use_double_command") {
-			std::istringstream strin(fmap["value"]);
-			strin >> use_double_command_;
-		}
-
-		else if (fmap["name"] == "double_command") {
-			double_command_ = fmap["value"];
-		}
-
-		else if (fmap["name"] == "check_mode") {
-			std::istringstream strin(fmap["value"]);
-			strin >> check_mode_;
-		}
-
-		//
-		// Applet
-		//
-		else if (fmap["name"] == "applet_use_geometry") {
-			std::istringstream strin(fmap["value"]);
-			strin >> applet_use_geometry_;
-		}
-
-		else if (fmap["name"] == "applet_geometry") {
-			applet_geometry_ = fmap["value"];
-		}
-
-		else if (fmap["name"] == "applet_be_sticky") {
-			std::istringstream strin(fmap["value"]);
-			strin >> applet_be_sticky_;
-		}
-
-		else if (fmap["name"] == "applet_keep_above") {
-			std::istringstream strin(fmap["value"]);
-			strin >> applet_keep_above_;
-		}
-
-		else if (fmap["name"] == "applet_pager") {
-			std::istringstream strin(fmap["value"]);
-			strin >> applet_pager_;
-		}
-
-		else if (fmap["name"] == "applet_use_decoration") {
-			std::istringstream strin(fmap["value"]);
-			strin >> applet_use_decoration_;
-		}
-
-		else if (fmap["name"] == "applet_font")
-			applet_font_ = fmap["value"];
-
-
-		else if (fmap["name"] == "use_newmail_text") {
-			std::istringstream strin(fmap["value"]);
-			strin >> use_newmail_text_;
-		}
-
-		else if (fmap["name"] == "newmail_text")
-			newmail_text_ = fmap["value"];
-
-		else if (fmap["name"] == "use_newmail_image") {
-			std::istringstream strin(fmap["value"]);
-			strin >> use_newmail_image_;
-		}
-
-		else if (fmap["name"] == "newmail_image") {
-			newmail_image_ = fmap["value"];
-			if (!g_file_test (newmail_image_.c_str(), G_FILE_TEST_EXISTS))
-				newmail_image_ = GNUBIFF_DATADIR"/tux-awake.png";
-		}
-
-		else if (fmap["name"] == "use_nomail_text") {
-			std::istringstream strin(fmap["value"]);
-			strin >> use_nomail_text_;
-		}
-
-		else if (fmap["name"] == "nomail_text")
-			 nomail_text_ = fmap["value"];
-
-		else if (fmap["name"] == "use_nomail_image") {
-			std::istringstream strin(fmap["value"]);
-			strin >> use_nomail_image_;
-		}
-
-		else if (fmap["name"] == "nomail_image") {
-			nomail_image_ = fmap["value"];
-			if (!g_file_test (nomail_image_.c_str(), G_FILE_TEST_EXISTS))
-				nomail_image_ = GNUBIFF_DATADIR"/tux-sleep.png";
-		}
-
-		//
-		// Popup
-		//
-		else if (fmap["name"] == "use_popup") {
-			std::istringstream strin(fmap["value"]);
-			strin >> use_popup_;
-		}
-
-		else if (fmap["name"] == "popup_delay") {
-			std::istringstream strin(fmap["value"]);
-			strin >> popup_delay_;
-		}
-
-		else if (fmap["name"] == "popup_use_geometry") {
-			std::istringstream strin(fmap["value"]);
-			strin >> popup_use_geometry_;
-		}
-
-		else if (fmap["name"] == "popup_geometry") {
-			popup_geometry_ = fmap["value"];
-		}
-
-		else if (fmap["name"] == "popup_use_decoration") {
-			std::istringstream strin(fmap["value"]);
-			strin >> popup_use_decoration_;
-		}
-
-		else if (fmap["name"] == "popup_be_sticky") {
-			std::istringstream strin(fmap["value"]);
-			strin >> popup_be_sticky_;
-		}
-
-		else if (fmap["name"] == "popup_keep_above") {
-			std::istringstream strin(fmap["value"]);
-			strin >> popup_keep_above_;
-		}
-
-		else if (fmap["name"] == "popup_pager") {
-			std::istringstream strin(fmap["value"]);
-			strin >> popup_pager_;
-		}
-
-		else if (fmap["name"] == "popup_font") {
-			popup_font_ = fmap["value"];
-		}
-
-		else if (fmap["name"] == "popup_use_size") {
-			std::istringstream strin(fmap["value"]);
-			strin >> popup_use_size_;
-		}
-
-		else if (fmap["name"] == "popup_size") {
-			std::istringstream strin(fmap["value"]);
-			strin >> popup_size_;
-		}
-
-		else if (fmap["name"] == "popup_use_format") {
-			std::istringstream strin(fmap["value"]);
-			strin >> popup_use_format_;
-		}
-
-		else if (fmap["name"] == "popup_format") {
-			popup_format (fmap["value"]);
-		}
+		buffer_load_[temp["name"]] = temp["value"];
 	}
 }
 
-void
-Biff::xml_error (GMarkupParseContext *context,
-				 GError *error)
+void 
+Biff::xml_end_element (GMarkupParseContext *context,
+					   const gchar *element_name, GError **error)
+{
+	std::string element = element_name;
+
+	// Mailbox
+	if (element == "mailbox") {
+		guint protocol;
+
+		load_para ("protocol", protocol);
+		switch (protocol) {
+		case PROTOCOL_FILE:
+			mailbox_.push_back (new File (this));
+			break;
+		case PROTOCOL_MH:
+			mailbox_.push_back (new Mh (this));
+			break;
+		case PROTOCOL_MAILDIR:
+			mailbox_.push_back (new Maildir (this));
+			break;
+		case PROTOCOL_IMAP4:
+			mailbox_.push_back (new Imap4 (this));
+			break;
+		case PROTOCOL_POP3:
+			mailbox_.push_back (new Pop3 (this));
+			break;
+		case PROTOCOL_APOP:
+			mailbox_.push_back (new Apop (this));
+			break;
+		default:
+			mailbox_.push_back (new Mailbox (this));
+			break;
+		}
+		mailbox_[mailbox_.size()-1]->load_data ();
+	}
+
+	// General
+	else if (element == "general") {
+		load_para ("use_max_mail", use_max_mail_);
+		load_para ("max_mail", max_mail_);
+		load_para ("use_newmail_command", use_newmail_command_);
+		load_para ("newmail_command", newmail_command_);
+		load_para ("use_double_command", use_double_command_);
+		load_para ("double_command", double_command_);
+	}
+
+	// Applet
+	else if (element == "applet") {
+		load_para ("applet_use_geometry", applet_use_geometry_);
+		load_para ("applet_geometry", applet_geometry_);
+		load_para ("applet_be_sticky", applet_be_sticky_);
+		load_para ("applet_keep_above", applet_keep_above_);
+		load_para ("applet_pager", applet_pager_);
+		load_para ("applet_use_decoration", applet_use_decoration_);
+		load_para ("applet_font", applet_font_);
+		load_para ("use_newmail_text", use_newmail_text_);
+		load_para ("newmail_text", newmail_text_);
+		load_para ("use_newmail_image", use_newmail_image_);
+		load_para ("newmail_image", newmail_image_);
+		load_para ("use_nomail_text", use_nomail_text_);
+		load_para ("nomail_text", nomail_text_);
+		load_para ("use_nomail_image", use_nomail_image_);
+		load_para ("nomail_image", nomail_image_);
+
+		if (!g_file_test (newmail_image_.c_str(), G_FILE_TEST_EXISTS))
+			newmail_image_ = GNUBIFF_DATADIR"/tux-awake.png";
+		if (!g_file_test (nomail_image_.c_str(), G_FILE_TEST_EXISTS))
+			nomail_image_ = GNUBIFF_DATADIR"/tux-sleep.png";
+	}
+
+	// Popup
+	else if (element == "popup") {
+		load_para ("use_popup", use_popup_);
+		load_para ("popup_delay", popup_delay_);
+		load_para ("popup_use_geometry", popup_use_geometry_);
+		load_para ("popup_geometry", popup_geometry_);
+		load_para ("popup_use_decoration", popup_use_decoration_);
+		load_para ("popup_be_sticky", popup_be_sticky_);
+		load_para ("popup_keep_above", popup_keep_above_);
+		load_para ("popup_pager", popup_pager_);
+		load_para ("popup_font", popup_font_);
+		load_para ("popup_use_size", popup_use_size_);
+		load_para ("popup_size", popup_size_);
+		load_para ("popup_use_format", popup_use_format_);
+		load_para ("popup_format", popup_format_);
+	}
+}
+
+void 
+Biff::xml_error (GMarkupParseContext *context, GError *error)
 {
 	g_warning ("%s\n", error->message);
 }

@@ -29,6 +29,7 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include <sstream>
 #include "decoding.h"
 #include "nls.h"
 
@@ -367,4 +368,75 @@ Decoding::utf8_to_imaputf7(const gchar *str, gssize len)
 	}
 
 	return g_strdup(result.c_str());
+}
+
+/**
+ * Encrypt the password for saving.
+ * Pop3 and Imap4 protocols require password in clear so we have to
+ * save passwords in clear within the configuration file. No need to say
+ * this is higly unsecure if somebody looks at the file. So we try to
+ * take some measures:
+ * \begin{itemize}
+ *    \item The file is made readable by owner only.
+ *	  \item Password is "crypted" so it's not directly human readable.
+ * \end{\itemize}
+ * Of course, these measures won't prevent a determined person to break
+ * in but will at least prevent "ordinary" people to be able to steal
+ * password easily.
+ *
+ * If no password saving is selected at configure time, an empty string is
+ * returned.
+ *
+ * @param password  Password to be encrypted
+ * @param passtable Passtable to be used for the encryption
+ * @return          "Encrypted" password or empty string
+ */
+std::string 
+Decoding::encrypt_password (const std::string &password,
+							const std::string &passtable)
+{
+#ifdef USE_PASSWORD
+	std::stringstream encrypted;
+
+	for (guint j=0; j < password.size(); j++)
+		encrypted << passtable[password[j]/16] << passtable[password[j]%16];
+	return encrypted.str();
+#else
+	return std::string("");
+#endif
+}
+
+/**
+ * Decrypt a password from the config file.
+ *
+ * If no password saving is selected at configure time, an empty string is
+ * returned.
+ *
+ * @param password  Password to be decrypted
+ * @param passtable Passtable to be used for the decryption
+ * @return          Decrypted password or empty string
+ * @see             Decoding::crypt_password()
+ */
+std::string 
+Decoding::decrypt_password (const std::string &password,
+							const std::string &passtable)
+{
+#ifdef USE_PASSWORD
+	std::stringstream decrypted;
+
+	for (guint i = 0; i+1 < password.size(); i += 2) {
+		char c = 0;
+		guint j;
+		for (j=0; j<16; j++) {
+			if (passtable [j] == password[i])
+				c += j*16;
+			if (passtable [j] == password[i+1])
+				c += j;
+		}
+		decrypted << c;
+	}
+	return decrypted.str();
+#else
+	return std::string("");
+#endif
 }

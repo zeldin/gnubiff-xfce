@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-15 14:21+0100\n"
+"POT-Creation-Date: 2005-01-16 22:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/decoding.cc:69
+#: src/decoding.cc:70
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr ""
@@ -49,23 +49,32 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:124
+#: src/biff.cc:131
 msgid "no mail"
 msgstr ""
 
-#: src/biff.cc:163
+#: src/biff.cc:170
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr ""
 
-#: src/biff.cc:550
+#: src/biff.cc:470 src/biff.cc:490
+#, c-format
+msgid "Illegal value \"%s\" for parameter \"%s\""
+msgstr ""
+
+#: src/biff.cc:627
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr ""
 
-#: src/biff.cc:575
+#: src/biff.cc:652
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
+msgstr ""
+
+#: src/biff.cc:676
+msgid "Illegal parameter format in config file"
 msgstr ""
 
 #: src/mailbox.cc:63

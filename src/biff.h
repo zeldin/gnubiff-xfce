@@ -35,10 +35,13 @@
 #ifdef HAVE_CONFIG_H
 #   include <config.h>
 #endif
+#include <set>
 #include <sstream>
 #include <string>
+#include <map>
 #include <vector>
 #include <glib.h>
+#include "decoding.h"
 
 /**
  * Constant definitions
@@ -58,6 +61,7 @@ public:
 	// ================================================================================
 	//  general
 	// ================================================================================
+	std::string		passtable_;					// encryption table
 	guint			ui_mode_;					// GTK or GNOME mode
 	guint			check_mode_;				// gnubiff check mode
 	gboolean		use_max_mail_;				// whether to restrict maximum collected email
@@ -66,6 +70,8 @@ public:
 	std::string		newmail_command_;			// command to run when new mail
 	gboolean		use_double_command_;		// whether to run a command when double clicked
 	std::string		double_command_;			// command to run when double clicked
+	/// Buffer for temporary saving values when loading the config file
+	std::map<std::string,std::string> buffer_load_;
 
 	// ================================================================================
 	//  applet
@@ -112,12 +118,10 @@ protected:
 	//  internal
 	// ================================================================================
 	std::string						filename_;		// configuration file
-	std::string						passtable_;		// encryption table
 	std::vector<class Mailbox *>	mailbox_;		// mailboxes
 	GMutex *						mutex_;			// access mutex
 	class Authentication			*ui_auth_;		// ui to get username & password
 	GMutex							*ui_auth_mutex_;// Lock to avoid conflicts
-	gint							count_;			// counter used during loading
 	class Preferences	*			preferences_;	// preferences ui
 	class Popup *					popup_;			// popup ui
 	class Applet *					applet_;		// applet ui
@@ -160,15 +164,22 @@ protected:
 	std::stringstream save_file;
 	void save_newblock(const gchar *);
 	void save_endblock();
-	void save_para(const gchar *,std::string);
-	void save_para(const gchar *,gint);
 public:
+	void save_para(const gchar *, const std::string);
+	void save_para(const gchar *, const std::set<std::string> &);
+	void save_para(const gchar *, guint);
+	void save_para(const gchar *, gboolean);
+	void load_para(const gchar *, guint &);
+	void load_para(const gchar *, std::string &);
+	void load_para(const gchar *, gboolean &);
+	void load_para(const gchar *, std::set<std::string> &);
 	gboolean save (void);
 	void xml_start_element (GMarkupParseContext *context,
 							const gchar *element_name,
 							const gchar **attribute_names,
 							const gchar **attribute_values,
 							GError **error);
+	void xml_end_element (GMarkupParseContext *, const gchar *, GError **);
 	void xml_error (GMarkupParseContext *context,
 					GError *error);
 };

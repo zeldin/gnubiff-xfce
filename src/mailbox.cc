@@ -667,3 +667,57 @@ Mailbox::new_mail(std::string &mailid)
 #endif
 	return true;
 }
+
+/**
+ *  Load the values for the mailbox from the config file.
+ */
+void 
+Mailbox::load_data (void)
+{
+	g_mutex_lock (mutex_);
+	biff_->load_para ("protocol", protocol_);
+	biff_->load_para ("authentication", (guint)authentication_);
+	biff_->load_para ("name", name_);
+	biff_->load_para ("address", address_);
+	biff_->load_para ("username", username_);
+	biff_->load_para ("password", password_);
+	biff_->load_para ("port", port_);
+	biff_->load_para ("folder", folder_);
+	biff_->load_para ("certificate", certificate_);
+	biff_->load_para ("delay", delay_);
+	biff_->load_para ("use_idle", use_idle_);
+	biff_->load_para ("use_other_folder", use_other_folder_);
+	biff_->load_para ("other_folder", other_folder_);
+	biff_->load_para ("use_other_port", use_other_port_);
+	biff_->load_para ("other_port", other_port_);
+	biff_->load_para ("seen", hidden_);
+
+	password_ = decrypt_password (password_, biff_->passtable_);
+	g_mutex_unlock (mutex_);
+}
+
+/**
+ *  Save the values for the mailbox to the config file.
+ */
+void 
+Mailbox::save_data (void)
+{
+	g_mutex_lock (mutex_);
+	biff_->save_para ("protocol", protocol_);
+	biff_->save_para ("authentication", (guint)authentication_);
+	biff_->save_para ("name", name_);
+	biff_->save_para ("address", address_);
+	biff_->save_para ("username", username_);
+	biff_->save_para ("password", encrypt_password (password_, biff_->passtable_));
+	biff_->save_para ("port", port_);
+	biff_->save_para ("folder", folder_);
+	biff_->save_para ("certificate", certificate_);
+	biff_->save_para ("delay", delay_);
+	biff_->save_para ("use_idle", use_idle_);
+	biff_->save_para ("use_other_folder", use_other_folder_);
+	biff_->save_para ("other_folder", other_folder_);
+	biff_->save_para ("use_other_port", use_other_port_);
+	biff_->save_para ("other_port", other_port_);
+	biff_->save_para ("seen", hidden_);
+	g_mutex_unlock (mutex_);
+}

@@ -45,7 +45,7 @@
 #include <string>
 
 
-const gint	SOCKET_TIMEOUT		=	 2;
+const gint	SOCKET_TIMEOUT			=	 2;
 const gint	SOCKET_STATUS_OK		=	 1;
 const gint	SOCKET_STATUS_ERROR		=	 0;
 const gint	SD_CLOSE				=	-1;
