@@ -676,7 +676,7 @@ Mailbox::load_data (void)
 {
 	g_mutex_lock (mutex_);
 	biff_->load_para ("protocol", protocol_);
-	biff_->load_para ("authentication", (guint)authentication_);
+	biff_->load_para ("authentication", (guint &)authentication_);
 	biff_->load_para ("name", name_);
 	biff_->load_para ("address", address_);
 	biff_->load_para ("username", username_);
