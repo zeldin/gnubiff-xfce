@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-28 16:01+0200\n"
-"PO-Revision-Date: 2004-10-28 16:00+0200\n"
+"POT-Creation-Date: 2004-10-29 13:37+0200\n"
+"PO-Revision-Date: 2004-10-29 13:40+0200\n"
 "Last-Translator: Robert Sowada <sowadart@users.sourceforge.net>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/gnubiff.cc:93
-msgid "start gnome applet from command line"
+msgid "Start gnome applet from command line"
 msgstr "Gnome-Applet von der Kommandozeile aus starten"
 
 #: src/gnubiff.cc:101
-msgid "configuration file to use"
+msgid "Configuration file to use"
 msgstr "Zu benutzende Konfigurationsdatei"
 
 #: src/gnubiff.cc:101
@@ -29,11 +29,11 @@ msgid "file"
 msgstr "Datei"
 
 #: src/gnubiff.cc:103
-msgid "skip the configuration process"
+msgid "Skip the configuration process"
 msgstr "Konfigurationsprozess überspringen"
 
 #: src/gnubiff.cc:105
-msgid "print version information and exit"
+msgid "Print version information and exit"
 msgstr "Versionsinformation ausgeben und Programm beenden"
 
 #: src/gnubiff.cc:112

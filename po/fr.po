@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-28 16:01+0200\n"
+"POT-Creation-Date: 2004-10-29 13:37+0200\n"
 "PO-Revision-Date: 2004-10-18 12:04+0200\n"
 "Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
 "Language-Team: Français\n"
@@ -20,11 +20,12 @@ msgstr ""
 "X-Generator: KBabel 1.0.2\n"
 
 #: src/gnubiff.cc:93
-msgid "start gnome applet from command line"
+msgid "Start gnome applet from command line"
 msgstr ""
 
 #: src/gnubiff.cc:101
-msgid "configuration file to use"
+#, fuzzy
+msgid "Configuration file to use"
 msgstr "Fichier de configuration à utiliser"
 
 #: src/gnubiff.cc:101
@@ -33,11 +34,11 @@ msgstr "fichier"
 
 #: src/gnubiff.cc:103
 #, fuzzy
-msgid "skip the configuration process"
+msgid "Skip the configuration process"
 msgstr "Passer l'étape de configuration"
 
 #: src/gnubiff.cc:105
-msgid "print version information and exit"
+msgid "Print version information and exit"
 msgstr ""
 
 #: src/gnubiff.cc:112
