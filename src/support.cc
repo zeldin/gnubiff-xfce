@@ -92,15 +92,15 @@ std::string
 gb_substitute(std::string format, std::string chars,
 			  std::vector<std::string> toinsert)
 {
-	guint pos=0,cpos,prevpos=0;
-	guint len=format.length();
+	std::string::size_type pos = 0, cpos, prevpos=0;
+	std::string::size_type len = format.length();
 	std::string result("");
 
-	while ((pos<len)&&(pos=format.find("%",prevpos))!=std::string::npos)
+	while ((pos<len) && (pos=format.find("%",prevpos)) != std::string::npos)
     {
-		if (prevpos<pos)
-			result.append(format,prevpos,pos-prevpos);
-		prevpos=pos+2;
+		if (prevpos < pos)
+			result.append (format, prevpos, pos-prevpos);
+		prevpos = pos+2;
 		// '%' at end of string
 		if (pos+1==len)
 			return result;

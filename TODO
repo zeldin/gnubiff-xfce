@@ -8,3 +8,4 @@ To do:
   functions Robert so I will try to do that for remaining sources)
 - Cleanup Mailbox::parse()
 - Fix bugs ;-)
+- Make gnubiff 64bit safe (see debian bug #301853 report by David Mosberger)

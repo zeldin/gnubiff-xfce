@@ -16,6 +16,9 @@ Version 2.1.3
    - Bugfix: Reading message body (file)
    - Bugfix: Don't read whole body (maildir)
    - Bugfix: Check pointers in callbacks (in "src/gui.cc")
+   - Bugfix: 64bit problem (debian bug #301853); note: The same problem is
+        still present multiple times in the code; added this to TODO file;
+	thanks to David Mosberger for reporting this bug
 
 Version 2.1.2		2005-03-26 17:28
  * Robert Sowada
