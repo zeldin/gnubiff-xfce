@@ -702,7 +702,7 @@ Popup::decode_base64 (gchar *src, gchar *dest)
 gchar *
 Popup::convert (std::string text, std::string charset)
 {
-	gchar *utf8;
+	gchar *utf8 = (char *) text.c_str();
 
 	if (!charset.empty())
 		utf8 = g_convert (text.c_str(), -1, "utf-8", charset.c_str(), 0,0,0);

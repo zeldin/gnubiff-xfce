@@ -227,9 +227,7 @@ Socket::open (std::string hostname,
 		}
 
 		if ((certificate_.size() > 0) && (SSL_get_verify_result(ssl_) != X509_V_OK)) {
-			gdk_threads_enter ();
 			ui_certificate_->select (this);
-			gdk_threads_leave ();
 			if (!bypass_certificate_) {
 				SSL_free (ssl_);
 				ssl_ = NULL;

@@ -42,7 +42,6 @@ class AppletGnome : public Applet {
 
 protected:
 	GtkWidget *		applet_;
-	GtkWidget *		about_;
 
 public:
 	// ========================================================================

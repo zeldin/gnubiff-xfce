@@ -7,8 +7,6 @@
                    pixtype="stock" pixname="gnome-stock-mail"/>
          <menuitem name="Item 3" verb="MailRead" _label="Mark mailboxes read"
                    pixtype="stock" pixname="gnome-stock-mail-rpl"/>
-         <menuitem name="Item 4" verb="About" _label="About..."
-                   pixtype="stock" pixname="gnome-stock-about"/>
       </popup>
    </popups>
 </Root>

@@ -104,13 +104,6 @@ extern "C" {
 		((AppletGnome *) data)->on_menu_mail_read (uic, verbname);
 	}
 
-	void APPLET_GNOME_on_menu_about (BonoboUIComponent *uic,
-									 gpointer data,
-									 const gchar *verbname)
-	{
-		((AppletGnome *) data)->on_menu_about (uic, verbname);
-	}
-
 	gboolean APPLET_GNOME_reconnect (gpointer data)
 	{
 		g_signal_connect (G_OBJECT (((AppletGnome *)data)->panelapplet()),
@@ -124,7 +117,6 @@ extern "C" {
 
 AppletGnome::AppletGnome (Biff *biff) : Applet (biff, GNUBIFF_DATADIR"/applet-gnome.glade")
 {
-	about_ = 0;
 }
 
 AppletGnome::~AppletGnome (void)
@@ -139,7 +131,6 @@ AppletGnome::dock (GtkWidget *applet)
 		BONOBO_UI_VERB ("Props",   APPLET_GNOME_on_menu_properties),
 		BONOBO_UI_VERB ("MailApp", APPLET_GNOME_on_menu_command),
 		BONOBO_UI_VERB ("MailRead", APPLET_GNOME_on_menu_mail_read),
-		BONOBO_UI_VERB ("About",   APPLET_GNOME_on_menu_about), 
 		BONOBO_UI_VERB_END
 	};
  
@@ -316,8 +307,6 @@ AppletGnome::on_menu_properties (BonoboUIComponent *uic, const gchar *verbname)
 {
 	biff_->popup()->hide();
 	biff_->preferences()->show();
-	if (about_ != 0)
-		gdk_window_hide (about_->window);
 }
 
 void
@@ -339,27 +328,3 @@ AppletGnome::on_menu_mail_read (BonoboUIComponent *uic, const gchar *verbname)
 	update();
 }
 
-void
-AppletGnome::on_menu_about (BonoboUIComponent *uic, const gchar *verbname)
-{
-	biff_->popup()->hide();
-	biff_->preferences()->hide();
-
-	static const gchar *authors[] = {
-		"Nicolas Rougier <Nicolas.Rougier@loria.fr>",
-		NULL
-	};
- 
-	if (about_ != 0) {
-		gdk_window_show (about_->window);
-		gdk_window_raise (about_->window);
-		return;
-	}
-	about_ = gnome_about_new ("gnubiff applet", PACKAGE_VERSION,
-							  _("Copyright (c) 2000-2004 Nicolas Rougier\n"),
-							  _("This program is part of the GNU project, released under the aegis of GNU."),
-							  authors,
-							  NULL, NULL, gdk_pixbuf_new_from_file (GNUBIFF_DATADIR"/logo.png", 0));
-	g_signal_connect (G_OBJECT (about_), "destroy", G_CALLBACK (gtk_widget_destroyed), &about_);
-	gtk_widget_show (about_);
-}

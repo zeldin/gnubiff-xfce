@@ -68,11 +68,8 @@ int
 Pop3::connect (void)
 {
 	// show authentication if password is empty
-	if (password_.empty()) {
-		gdk_threads_enter ();
+	if (password_.empty())
 		ui_auth_->select (this);
-		gdk_threads_leave ();
-	}
 
 	// if it is still empty after authentication, just return
 	if (password_.empty()) {

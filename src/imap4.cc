@@ -600,7 +600,7 @@ Imap4::fetch_header (void)
 			line = std::string ("DONE") +std::string ("\r\n");
 			if (!socket_->write (line)) idling = false;
 		
-			// Either we got an 
+			// Either we got a OK or a BYE
 			do {
 				if (!socket_->read (line)) break;
 				// Do we lost lock ?

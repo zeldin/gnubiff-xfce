@@ -70,11 +70,8 @@ Apop::connect (void)
 	std::string line;
 
 	// Check password is not empty
-	if (password_.empty()) {
-		gdk_threads_enter ();
+	if (password_.empty())
 		ui_auth_->select (this);
-		gdk_threads_leave ();
-	}
 
 	if (password_.empty()) {
 		socket_->status(SOCKET_STATUS_ERROR);
