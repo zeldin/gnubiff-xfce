@@ -1,0 +1,243 @@
+\input texinfo   @c -*-texinfo-*-
+@c %**start of header
+@setfilename gnubiff.info
+@settitle gnubiff
+@c %**end of header
+
+@copying
+This manual is for gnubiff version 1.4.0 Copyright @copyright{}
+2000-2004 Nicolas Rougier.
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.2
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+
+@titlepage
+@title gnubiff
+@author Nicolas Rougier
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+Published by Nicolas Rougier
+@end titlepage
+     
+@contents
+
+@ifnottex
+@node Top
+@top gnubiff
+     
+@insertcopying
+@end ifnottex
+
+
+@menu
+* Copying::            Your rights
+* About gnubiff::      What it is and what it is isn't
+* Installation::       How to install gnubiff
+* Start gnubiff::      How to start gnubiff.
+* Using gnubiff::      gnubiff interface.
+* Files::              Configuration files.
+* Animation format::   Description of PNG animation
+* Contributors::       People who have contributed to gnubiff.
+@end menu
+
+
+@comment ------------------------------------------------------------
+@node Installation
+@chapter Installation
+@unnumberedsec
+@comment ------------------------------------------------------------
+@noindent To install gnubiff:@*
+@command{./configure}@*
+@command{make}@*
+@command{make install}@*
+@sp 1
+@noindent To have gnubiff to use GTK only:@*
+@command{./configure --disable-gnome}
+@sp 1
+@noindent To have gnubiff to save password (unsecure):@*
+@command{./configure --with-password}
+@sp 1
+@noindent To have gnubiff to use a given encryption table:@*
+@command{./configure --with-password-string}
+
+
+@include gpl.texi
+
+@comment ------------------------------------------------------------
+@node About gnubiff
+@chapter About gnubiff
+@unnumberedsec
+@comment ------------------------------------------------------------
+
+gnubiff is part of the GNU project, released under the aegis of GNU.
+@sp 1
+gnubiff is a mail notification program that checks for mail, displays
+headers when new mail has arrived and allow to read first lines of new
+mails. It relies on the GNOME and GTK libraries but can be compiled and
+used with or without GNOME support. Supported protocols are pop3, apop,
+imap4, mh, qmail and mailfile.  Furthermore, gnubiff is fully
+configurable with a lot of options like polltime, poptime, sounds, mail
+reader, mailbox names, etc. and can also filter spam.@* Note that
+gnubiff is not a mail reader even if it offers the possibility of
+reading very first lines of new mails. If you send some requests for
+specific features to be implemented, keep that in mind !
+@sp 1
+@noindent Homepage: http://gnubiff.sourceforge.net/
+
+
+@comment ------------------------------------------------------------
+@node Start gnubiff
+@chapter Start gnubiff
+@unnumberedsec
+@comment ------------------------------------------------------------
+Depending if you have compiled gnubff with or without GNOME libraries,
+you'll be able to start gnubiff from command line or from the GNOME
+panel.
+
+@section How to start gnubiff in GTK mode when compiled without GNOME
+@command{gnubiff [-c|--config file] [-n|--noconfigure] [--version]}
+@sp 1
+@table @samp
+@item -c file, --config file
+This option allows to specify an alternate configuration file,
+default is '$HOME/.gnubiffrc'.
+@item -n, --noconfigure
+Skip the configuration process.
+@item -v, --version
+Displays version number and exit
+@end table
+
+@sp 2
+
+@section How to start gnubiff in GTK mode when compiled with GNOME
+@command{gnubiff --gtk --[-c|--config file] [-n|--noconfigure] [--version]}@*
+or
+@command{gnubiff -g --[-c|--config file] [-n|--noconfigure] [--version]}
+@sp 1
+@table @samp
+@item -c file, --config file
+This option allows to specify an alternate configuration file,
+default is '$HOME/.gnubiffrc'.
+@item -n, --noconfigure
+Skip the configuration process.
+@item -v, --version
+Displays version number and exit
+@end table
+
+@sp 2
+
+@section How to start gnubiff in GNOME mode
+After installation, you should be able to select gnubiff in the Internet
+menu of the GNOME panel. Be careful that after installation, panel has
+to be restarted if this is your first installation. If gnubiff doesn't
+appear, check that prefix you provided at configure time is correct
+(usually, it's /usr). If prefix is right, panel has been restarted and
+gnubiff doesn't appear in GNOME panel menu, please contact the author.
+
+
+
+@comment ------------------------------------------------------------
+@node Using gnubiff
+@chapter Using gnubiff
+@unnumberedsec
+@comment ------------------------------------------------------------
+gnubiff has several mouse shortcuts:
+@sp 1
+@itemize @bullet
+@item You can invoke a submenu by right-clicking on the applet window. 
+@item You can mark mails as read by middle-clicking on the applet
+window.
+@item You can force a check by left clicking on the applet window.
+@item You can invoke your mail reader by double left-clicking on the
+applet window.
+@item You can read first lines of mail by left-clicking on them in the
+popup window.
+@item You can pop down popup window by right-clicking in it.
+@item As long as your mouse pointer remains in the popup window, popup
+is not popped down.
+@end itemize
+
+
+
+@comment ------------------------------------------------------------
+@node Files
+@chapter Files
+@unnumberedsec
+@comment ------------------------------------------------------------
+gnubiff loads ans saves parameters in default file "~/.gnubiffrc".
+
+@comment ------------------------------------------------------------
+@node Animation format
+@chapter Animation format
+@unnumberedsec
+@comment ------------------------------------------------------------
+gnubiff uses a very simple PNG animation format that allow to use full
+color images and also to handle alpha channel properly (thanks to PNG
+support). The idea is simply to put all frames of your animation in one
+big PNG image and gnubiff will take care of the animation. But, gnubiff
+cannot decide what is the size of a frame based on image size and so
+you have to provide this size with the name of the image. The convention
+is that frame size is given between parenthesis.@* 
+For example, "anim(64x64).png" means that frame size is 64 by 64
+pixels and then image should be 64 pixels width and n*64 pixels heigth
+where n is the number of frame.
+@sp 1
+@noindent To convert a gif animation to this format just type:@*
+@command{convert +append animation.gif animation(64x64).png}
+
+
+@comment ------------------------------------------------------------
+@node Contributors
+@chapter Contributors
+@unnumberedsec
+@comment ------------------------------------------------------------
+The authors would like to thank their many contributors.  Without them
+the project would not have been nearly as successful as it has been.
+Any omissions in this list are accidental.  Feel free to contact authors
+if you have been left out or some of your contributions are not listed.
+Please keep this list in alphabetical order.
+
+@itemize @bullet
+@item Calum Mackay
+@item Robert Sowada
+@item Grzegorz Gotawski
+@item Paul Kuliniewicz
+@item Adam Benjamin
+@item Theodore Tegos
+@item Achim Settelmeier
+@item Roland Stigge
+@item Barry Skidmore
+@item Jason Lowdermilk
+@item Marc-jano Knopp
+@item Suzan Wassman
+@item Philippe Berger
+@item Earl A. Killian
+@item Chistian Probst
+@item Hans-Ulrich Schaefer
+@item Josh Parsons
+@item Michael Moellney
+@item Dennis Bjorklund
+@item Craig  Agricola
+@item Bernhard Valenti
+@item Josh Berdine
+@item Michel Leunen
+@item Greg Fenton
+@item Cai Yu
+@item Chris Snell
+@item Reid Rivenburgh
+@item Neil Muller
+@item Sascha Ludecke
+@item Richard Torkar
+@item Pete Phillips
+@item Blaise Tarr
+@end itemize
+
+@bye

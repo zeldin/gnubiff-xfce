@@ -1,0 +1,829 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-06-18 21:40+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/gnubiff.cc:52
+msgid "configuration file to use"
+msgstr ""
+
+#: src/gnubiff.cc:52 src/Setup.glade.h:121
+msgid "file"
+msgstr ""
+
+#: src/gnubiff.cc:53
+msgid "skip the configure process"
+msgstr ""
+
+#: src/gnubiff.cc:181
+msgid ""
+"\n"
+"This version of gnubiff has been compiled with GNOME support\n"
+msgstr ""
+
+#: src/gnubiff.cc:182 src/gnubiff.cc:191
+msgid "If you want to use the GTK version, type gnubiff --gtk\n"
+msgstr ""
+
+#: src/gnubiff.cc:183
+msgid " then use -c file to specify an alternate configuration file\n"
+msgstr ""
+
+#: src/gnubiff.cc:184
+msgid "      and -n to skip configuration process\n"
+msgstr ""
+
+#: src/gnubiff.cc:185
+msgid "If you want to use the GNOME version, use gnome panel\n"
+msgstr ""
+
+#: src/gnubiff.cc:186
+msgid "Have a nice day\n"
+msgstr ""
+
+#: src/gnubiff.cc:190
+msgid ""
+"\n"
+"This version of gnubiff has been compiled with GNOME support"
+msgstr ""
+
+#: src/gnubiff.cc:192
+msgid "Now I will hang forever...\n"
+msgstr ""
+
+#: src/GUI.cc:101
+#, c-format
+msgid ""
+"Cannot build the interface.\n"
+"\n"
+"Name: %s\n"
+"Path: %s\n"
+"\n"
+"Please make sure package has been installed correctly."
+msgstr ""
+
+#: src/GUI.cc:160
+#, c-format
+msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
+msgstr ""
+
+#: src/GUI.cc:214
+msgid "GUI_connect requires working gmodule"
+msgstr ""
+
+#: src/GUI.cc:221
+#, c-format
+msgid "Could not find signal handler '%s'."
+msgstr ""
+
+#: src/Biff.cc:180
+#, c-format
+msgid "Configuration file (%s) not found !"
+msgstr ""
+
+#: src/Biff.cc:347
+#, c-format
+msgid "Cannot open your configuration file (%s)"
+msgstr ""
+
+#: src/Biff.cc:366
+msgid "Found no mailbox definition in your .gnubiffrc"
+msgstr ""
+
+#: src/Applet.cc:177
+msgid "error !"
+msgstr ""
+
+#: src/Applet.cc:182
+msgid " checking..."
+msgstr ""
+
+#: src/AppletGNOME.cc:345
+msgid ""
+"Released under the GNU general public license.\n"
+"Mail notification program."
+msgstr ""
+
+#. Now we add branches to the tree
+#: src/Setup.cc:162 src/Setup.glade.h:61
+msgid "Mailbox"
+msgstr ""
+
+#: src/Setup.cc:162
+msgid "Mailbox configuration"
+msgstr ""
+
+#: src/Setup.cc:164 src/Setup.glade.h:77
+msgid "Options"
+msgstr ""
+
+#: src/Setup.cc:165 src/Setup.glade.h:57
+msgid "Layout"
+msgstr ""
+
+#: src/Setup.cc:166 src/Setup.glade.h:53
+msgid "Geometry"
+msgstr ""
+
+#: src/Setup.cc:167 src/Setup.glade.h:42
+msgid "Credits"
+msgstr ""
+
+#: src/Setup.cc:289 src/Setup.cc:666 src/Setup.glade.h:28
+msgid "<span color=\"darkgreen\"><b>Running</b></span>"
+msgstr ""
+
+#: src/Setup.cc:293 src/Setup.cc:661
+msgid "<span color=\"red\"><b>Stopped</b></span>"
+msgstr ""
+
+#: src/Mailbox.cc:50
+msgid "Account "
+msgstr ""
+
+#: src/Mailbox.cc:143
+#, c-format
+msgid "Unable to create thread: %s\n"
+msgstr ""
+
+#: src/Mailbox.cc:250
+msgid "<no sender found>"
+msgstr ""
+
+#: src/Mailbox.cc:260
+msgid "<no subject found>"
+msgstr ""
+
+#: src/Mailbox.cc:270
+msgid "<no date found>"
+msgstr ""
+
+#: src/Mailbox.cc:352 src/Mailbox.cc:374 src/Mailbox.cc:389 src/Mailbox.cc:414
+#: src/Mailbox.cc:420 src/Mailbox.cc:429
+#, c-format
+msgid "Unable to connect to %s on port %d"
+msgstr ""
+
+#: src/Mailbox.cc:476 src/Mailbox.cc:484
+#, c-format
+msgid "Unable to write to %s on port %d"
+msgstr ""
+
+#: src/Mailbox.cc:510 src/Mailbox.cc:521
+#, c-format
+msgid "Unable to read from %s on port %d"
+msgstr ""
+
+#: src/Maildir.cc:70 src/Maildir.cc:122
+#, c-format
+msgid "Cannot find new mail directory (%s)"
+msgstr ""
+
+#: src/Maildir.cc:77 src/Maildir.cc:129
+#, c-format
+msgid "Cannot open new mail directory (%s)"
+msgstr ""
+
+#: src/Maildir.cc:156
+#, c-format
+msgid "Cannot open %s."
+msgstr ""
+
+#: src/Imap4.cc:104
+#, c-format
+msgid "Unable to get acknowledgment from %s on port %d"
+msgstr ""
+
+#: src/Apop.cc:100
+#, c-format
+msgid "%02x"
+msgstr ""
+
+#: src/AppletGTK.glade.h:1
+msgid "00/00"
+msgstr ""
+
+#: src/AppletGTK.glade.h:2
+msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
+msgstr ""
+
+#: src/AppletGTK.glade.h:3
+msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
+msgstr ""
+
+#: src/AppletGTK.glade.h:4
+msgid "A Mail notification program"
+msgstr ""
+
+#: src/AppletGTK.glade.h:5
+msgid "About"
+msgstr ""
+
+#: src/AppletGTK.glade.h:6
+msgid "About gnubiff"
+msgstr ""
+
+#: src/AppletGTK.glade.h:7 src/GNOME_gnubiffApplet.xml.h:2
+msgid "Mark mails as read"
+msgstr ""
+
+#: src/AppletGTK.glade.h:8
+msgid "Ok"
+msgstr ""
+
+#: src/AppletGTK.glade.h:9 src/GNOME_gnubiffApplet.xml.h:3
+msgid "Preferences..."
+msgstr ""
+
+#: src/AppletGTK.glade.h:10 src/GNOME_gnubiffApplet.xml.h:4
+msgid "Start mail application"
+msgstr ""
+
+#: src/AppletGTK.glade.h:11
+msgid "gnubiff"
+msgstr ""
+
+#: src/AppletGTK.glade.h:12
+msgid "tooltip"
+msgstr ""
+
+#: src/AppletGNOME.glade.h:1
+msgid "00"
+msgstr ""
+
+#: src/AppletGNOME.glade.h:2
+msgid "Applet"
+msgstr ""
+
+#: src/Setup.glade.h:1
+msgid " ... "
+msgstr ""
+
+#: src/Setup.glade.h:2
+msgid " <span size=\"x-large\"><b>Mailbox</b></span>"
+msgstr ""
+
+#: src/Setup.glade.h:4
+#, no-c-format
+msgid "%d"
+msgstr ""
+
+#: src/Setup.glade.h:5
+msgid "*"
+msgstr ""
+
+#: src/Setup.glade.h:6
+msgid "<b>X</b>"
+msgstr ""
+
+#: src/Setup.glade.h:7
+msgid "<b>Y</b>"
+msgstr ""
+
+#: src/Setup.glade.h:8
+msgid "<small><b>Applet (GTK only)</b></small>"
+msgstr ""
+
+#: src/Setup.glade.h:9
+msgid "<small><b>Applet</b></small>"
+msgstr ""
+
+#: src/Setup.glade.h:10
+msgid "<small><b>Popup</b></small>"
+msgstr ""
+
+#: src/Setup.glade.h:11
+msgid "<small><b>Sound file</b></small>"
+msgstr ""
+
+#: src/Setup.glade.h:12
+msgid "<small><b>Volume</b></small>"
+msgstr ""
+
+#: src/Setup.glade.h:13
+msgid "<small>Address / filename</small>"
+msgstr ""
+
+#: src/Setup.glade.h:14
+msgid "<small>Folder</small>"
+msgstr ""
+
+#: src/Setup.glade.h:15
+msgid "<small>Local</small>"
+msgstr ""
+
+#: src/Setup.glade.h:16
+msgid "<small>Mail application</small>"
+msgstr ""
+
+#: src/Setup.glade.h:17
+msgid ""
+"<small>Maximum number\n"
+"of mails to be collected</small>"
+msgstr ""
+
+#: src/Setup.glade.h:19
+msgid "<small>Maximum number of displayed header(s) in popup: </small>"
+msgstr ""
+
+#: src/Setup.glade.h:20
+msgid "<small>Network</small>"
+msgstr ""
+
+#: src/Setup.glade.h:21
+msgid "<small>Password</small>"
+msgstr ""
+
+#: src/Setup.glade.h:22
+msgid "<small>Poll time (s)</small>"
+msgstr ""
+
+#: src/Setup.glade.h:23
+msgid "<small>Pop time(s)</small>"
+msgstr ""
+
+#: src/Setup.glade.h:24
+msgid "<small>Port</small>"
+msgstr ""
+
+#: src/Setup.glade.h:25
+msgid "<small>Server certificate</small>"
+msgstr ""
+
+#: src/Setup.glade.h:26
+msgid "<small>User</small>"
+msgstr ""
+
+#: src/Setup.glade.h:27
+msgid "<small>character(s)</small>"
+msgstr ""
+
+#: src/Setup.glade.h:29
+msgid ""
+"<span size=\"small\">Released under the GNU general public license\n"
+"(c) 2000-2004<b> Nicolas Rougier</b></span>\n"
+"<span size=\"x-small\" color=\"blue\">Special thanks to Robert Sowada and "
+"Roland Stigge for their help</span>\n"
+"<span size=\"x-small\">Most icons come from the GNOME project</span>"
+msgstr ""
+
+#: src/Setup.glade.h:33
+msgid ""
+"APOP protocol: your mailbox is held on an APOP server on a remote host. "
+"Contact your system admnistrator for setup details."
+msgstr ""
+
+#: src/Setup.glade.h:34
+msgid "Address of your mailbox"
+msgstr ""
+
+#: src/Setup.glade.h:35
+msgid "Applet "
+msgstr ""
+
+#: src/Setup.glade.h:36
+msgid "Biff window with window manager decorations or not"
+msgstr ""
+
+#: src/Setup.glade.h:37
+msgid "Browse for a certificate file"
+msgstr ""
+
+#: src/Setup.glade.h:38
+msgid "Browse for file"
+msgstr ""
+
+#: src/Setup.glade.h:39
+msgid "Certificate filename. Leave blank if you don't want to use one."
+msgstr ""
+
+#: src/Setup.glade.h:40
+msgid "Check for new mail every polltime seconds"
+msgstr ""
+
+#: src/Setup.glade.h:41
+msgid "Create a new mailbox"
+msgstr ""
+
+#: src/Setup.glade.h:43
+msgid "Decorated"
+msgstr ""
+
+#: src/Setup.glade.h:44
+msgid "Delete current mailbox"
+msgstr ""
+
+#: src/Setup.glade.h:45
+msgid "Display date in headers"
+msgstr ""
+
+#: src/Setup.glade.h:46
+msgid "Display popup window for poptime seconds"
+msgstr ""
+
+#: src/Setup.glade.h:47
+msgid "Do not show any text when new mail"
+msgstr ""
+
+#: src/Setup.glade.h:48
+msgid "Do not show any text when no mail"
+msgstr ""
+
+#: src/Setup.glade.h:49
+msgid "Do not use image"
+msgstr ""
+
+#: src/Setup.glade.h:50
+msgid "Do not use text"
+msgstr ""
+
+#: src/Setup.glade.h:51
+msgid ""
+"File protocol: for example, your mailbox is held in a file like \"/var/log/"
+"login_name\""
+msgstr ""
+
+#: src/Setup.glade.h:52
+msgid "Fonts "
+msgstr ""
+
+#: src/Setup.glade.h:54
+msgid ""
+"IMAP4 protocol: your mailbox is held on an IMAP4 server on a remote host. "
+"Contact your system administrator for setup details."
+msgstr ""
+
+#: src/Setup.glade.h:55
+msgid "Image or animation to use when new mail has arrived"
+msgstr ""
+
+#: src/Setup.glade.h:56
+msgid "Image or animation to use when no new mail available"
+msgstr ""
+
+#: src/Setup.glade.h:58
+msgid "Let window manager place window"
+msgstr ""
+
+#: src/Setup.glade.h:59
+msgid "MH protocol: your mailbox is held in a mh directory."
+msgstr ""
+
+#: src/Setup.glade.h:60
+msgid "Mail application to launch via popup menu."
+msgstr ""
+
+#: src/Setup.glade.h:62
+msgid "Maildir protocol: your mailbox is held in a directory."
+msgstr ""
+
+#: src/Setup.glade.h:63
+msgid "Maximum number of collected mail"
+msgstr ""
+
+#: src/Setup.glade.h:64
+msgid ""
+"Maximum number of displayed headers (you know, if you have a screen with a "
+"finite display area...)"
+msgstr ""
+
+#: src/Setup.glade.h:65
+msgid "Maximum sender size"
+msgstr ""
+
+#: src/Setup.glade.h:66
+msgid "Maximum size of subject field in popup window"
+msgstr ""
+
+#: src/Setup.glade.h:67
+msgid "Maximum size of the sender field in popup window"
+msgstr ""
+
+#: src/Setup.glade.h:68
+msgid "Maximum subject size"
+msgstr ""
+
+#: src/Setup.glade.h:69
+msgid "Miscellaneous "
+msgstr ""
+
+#: src/Setup.glade.h:70
+msgid "Name:"
+msgstr ""
+
+#: src/Setup.glade.h:71
+msgid "New mail"
+msgstr ""
+
+#: src/Setup.glade.h:72
+msgid "Next mailbox"
+msgstr ""
+
+#: src/Setup.glade.h:73
+msgid "No geometry"
+msgstr ""
+
+#: src/Setup.glade.h:74
+msgid "No mail"
+msgstr ""
+
+#: src/Setup.glade.h:75
+msgid "No sound"
+msgstr ""
+
+#: src/Setup.glade.h:76
+msgid "No sound when new mail has arrived"
+msgstr ""
+
+#: src/Setup.glade.h:78
+msgid ""
+"POP3 protocol: your mailbox is held on a POP3 server on a remote host. "
+"Contact your system admnistrator for setup details."
+msgstr ""
+
+#: src/Setup.glade.h:79
+msgid "Parameters "
+msgstr ""
+
+#: src/Setup.glade.h:80
+msgid "Pick a color for applet font"
+msgstr ""
+
+#: src/Setup.glade.h:81
+msgid "Pick a color for popup background"
+msgstr ""
+
+#: src/Setup.glade.h:82
+msgid "Pick a color for popup font"
+msgstr ""
+
+#: src/Setup.glade.h:83
+msgid "Pick a font for applet"
+msgstr ""
+
+#: src/Setup.glade.h:84
+msgid "Pick a font for popup"
+msgstr ""
+
+#: src/Setup.glade.h:85
+msgid "Placement "
+msgstr ""
+
+#: src/Setup.glade.h:86
+msgid "Play selected sound"
+msgstr ""
+
+#: src/Setup.glade.h:87
+msgid "Popup "
+msgstr ""
+
+#: src/Setup.glade.h:88
+msgid "Popup window with window manager decorations or not"
+msgstr ""
+
+#: src/Setup.glade.h:89
+msgid ""
+"Positive numbers refer to left border, negative numbers refer to right border"
+msgstr ""
+
+#: src/Setup.glade.h:90
+msgid ""
+"Positive numbers refer to top border, negative numbers refer to bottom border"
+msgstr ""
+
+#: src/Setup.glade.h:91
+msgid "Preferences"
+msgstr ""
+
+#: src/Setup.glade.h:92
+msgid "Previous mailbox"
+msgstr ""
+
+#: src/Setup.glade.h:93
+msgid "Protocol "
+msgstr ""
+
+#: src/Setup.glade.h:94
+msgid "Sanity "
+msgstr ""
+
+#: src/Setup.glade.h:95
+msgid "Show date in headers or not"
+msgstr ""
+
+#: src/Setup.glade.h:96
+msgid "Show popup window when new mail has arrived"
+msgstr ""
+
+#: src/Setup.glade.h:97
+msgid "Size "
+msgstr ""
+
+#: src/Setup.glade.h:98
+msgid "Sound"
+msgstr ""
+
+#: src/Setup.glade.h:99
+msgid "Sound command"
+msgstr ""
+
+#: src/Setup.glade.h:100
+msgid "Sound to play when new mail has arrived"
+msgstr ""
+
+#: src/Setup.glade.h:101
+msgid "Sound when new mail has arrived"
+msgstr ""
+
+#: src/Setup.glade.h:102
+msgid "Sounds "
+msgstr ""
+
+#: src/Setup.glade.h:103
+msgid "System beep"
+msgstr ""
+
+#: src/Setup.glade.h:104
+msgid "System beep when new mail has arrived"
+msgstr ""
+
+#: src/Setup.glade.h:106
+#, no-c-format
+msgid "Text to be displayed when new mail, %d is the number of mail."
+msgstr ""
+
+#: src/Setup.glade.h:108
+#, no-c-format
+msgid "Text to be displayed when no mail, %d is the number of mail."
+msgstr ""
+
+#: src/Setup.glade.h:110
+#, no-c-format
+msgid ""
+"This is the command used to play sound, %s is the name of the file, %v is "
+"the volume (between 0.0 and 1.0)"
+msgstr ""
+
+#: src/Setup.glade.h:111
+msgid "Timing "
+msgstr ""
+
+#: src/Setup.glade.h:112
+msgid "Title of the mailbox to be displayed."
+msgstr ""
+
+#: src/Setup.glade.h:113
+msgid "Use Secure Socket Layer"
+msgstr ""
+
+#: src/Setup.glade.h:114
+msgid "Use no image implies no applet window for GTK version"
+msgstr ""
+
+#: src/Setup.glade.h:115
+msgid "Use popup"
+msgstr ""
+
+#: src/Setup.glade.h:116
+msgid "User mail account name "
+msgstr ""
+
+#: src/Setup.glade.h:117
+msgid "User mail account password"
+msgstr ""
+
+#: src/Setup.glade.h:118
+msgid "apop"
+msgstr ""
+
+#: src/Setup.glade.h:119
+msgid "balsa"
+msgstr ""
+
+#: src/Setup.glade.h:120
+msgid "emacs"
+msgstr ""
+
+#: src/Setup.glade.h:122
+msgid ""
+"gnubiff has originally been written by Nicolas Rougier.\n"
+"Many people have further contributed to gnubiff by\n"
+"  * reporting problems\n"
+"  * suggesting various improvements\n"
+"  * submitting actual code.\n"
+"\n"
+"Here is a list of these people in no particular order:\n"
+"  - Robert Sowada\n"
+"  - Roland Stigge\n"
+"  - Calum Mackay\n"
+"  - Paul Kuliniewicz\n"
+"  - Grzegorz Gotawski\n"
+"  - Adam Benjamin\n"
+"  - Theodore Tegos\n"
+"  - Achim Settelmeier\n"
+"  - Barry Skidmore\n"
+"  - Jason Lowdermilk\n"
+"  - Marc-jano Knopp\n"
+"  - Suzan Wassman\n"
+"  - Philippe Berger\n"
+"  - Earl A. Killian\n"
+"  - Christian Probst\n"
+"  - Hans-Ulrich Schaefer\n"
+"  - Josh Parsons\n"
+"  - Michael Moellney\n"
+"  - Dennis Bjorklund\n"
+"  - Craig  Agricola\n"
+"  - Bernhard Valenti\n"
+"  - Josh Berdine\n"
+"  - Michel Leunen\n"
+"  - Greg Fenton\n"
+"  - Cai Yu\n"
+"  - Chris Snell\n"
+"  - Reid Rivenburgh\n"
+"  - Neil Muller\n"
+"  - Sascha Ludecke\n"
+"  - Richard Torkar\n"
+"  - Pete Phillips\n"
+"  - Blaise Tarr\n"
+"\n"
+"And of course, there are also translators:\n"
+"  - Roland Stigge, Robert Sowada (de)\n"
+"  - Nicolas Lichtmaier (es)\n"
+"  - Elros Cyriatan (nl)\n"
+"  - Michel Robitaille (fr)\n"
+"  - Eugen Hoanca (ro)\n"
+"  - David Smeringe (sv)\n"
+"\n"
+"\n"
+"If you like this software, you can send me a post-card to:\n"
+"    Nicolas Rougier\n"
+"    Campus Scientifique, B.P. 239\n"
+"    F-54506 Vandoeuvre-Les-Nancy Cedex\n"
+"    FRANCE"
+msgstr ""
+
+#: src/Setup.glade.h:176
+msgid "imap4"
+msgstr ""
+
+#: src/Setup.glade.h:177
+msgid "kmail"
+msgstr ""
+
+#: src/Setup.glade.h:178
+msgid "mail.wav"
+msgstr ""
+
+#: src/Setup.glade.h:179
+msgid "maildir"
+msgstr ""
+
+#: src/Setup.glade.h:180
+msgid "mh"
+msgstr ""
+
+#: src/Setup.glade.h:181
+msgid "mozilla -mail"
+msgstr ""
+
+#: src/Setup.glade.h:182
+msgid "netscape -mail"
+msgstr ""
+
+#: src/Setup.glade.h:184
+#, no-c-format
+msgid "play %s -v %v"
+msgstr ""
+
+#: src/Setup.glade.h:185
+msgid "pop3"
+msgstr ""
+
+#: src/Setup.glade.h:186
+msgid "xemacs "
+msgstr ""
+
+#: src/Popup.glade.h:1
+msgid "Popup"
+msgstr ""
+
+#: src/Popup.glade.h:2
+msgid "mail content"
+msgstr ""
+
+#: src/GNOME_gnubiffApplet.xml.h:1
+msgid "About..."
+msgstr ""

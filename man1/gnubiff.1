@@ -1,0 +1,33 @@
+.TH gnubiff 1 "07 January 2004" "Version 1.0.9" "gnubiff Manual Pages"
+.SH NAME
+gnubiff \- a mail notification program supporting GTK+ and GNOME
+.SH SYNOPSIS
+.B gnubiff
+.RI [ options ]
+.SH DESCRIPTION
+gnubiff periodically checks for mail and displays headers when new mail has arrived. Supported protocols are: mailfile, qmail, mh, imap4, pop3, apop. It interprets any ISO-8859 encoding and supports both GTK and GNOME.
+.SH OPTIONS
+gnubiff accepts the following command line options:
+.TP
+.B \-\-gtk
+Lauch GTK version
+.TP
+.BI "\-c " filename
+Use the specified file as configuration file (default: ~/.gnubiffrc)
+.TP
+.BI "\-n "
+Skip the configure process
+.TP
+.B \-h, \-\-help
+Show summary of options
+.TP
+.B  \-v, \-\-version
+Print version information
+.SH FILES
+.TP
+.I ~/.gnubiffrc
+user specific options file
+.SH BUGS
+None known.
+.SH AUTHORS
+gnubiff was developed by Nicolas Rougier <Nicolas.Rougier@loria.fr>. This manpage was written by Roland Stigge <stigge@antcom.de> for Debian. It can be used elsewhere, of course.

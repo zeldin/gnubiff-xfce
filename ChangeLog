@@ -1,0 +1,244 @@
+gnubiff -- History of visible changes.
+
+Copyright (C) 2000-2004, Nicolas Rougier <Nicolas.Rougier@loria.fr>
+See the end for copying conditions.
+Please send gnubiff bug reports to Nicolas.Rougier@loria.fr.
+
+
+Version 1.4.0
+ * gnubiff now requires glib/gdk/gtk/libglade 2.4
+ * Use of file chooser instead of file selector	
+ * PNG simple animation support
+ * Preview added when selecting images
+ * Image/animation resizing with panel for GNOME version
+ * Read mails are saved in configuration file
+ * User can now choose text to be displayed when new mail and when no mail
+ * Possibility to choose command to play sound
+ * Possibility to choose popup background color (to make it flashy)
+ * Possibility to hide image or/and text when no mail and when new mail
+ * File protocol has been improved to speedup things
+ * Security fix: table used for password encryption is now configurable
+   using the --with-password-string making your .gnubiffrc dependent on
+   your gnubiff executable (far more secure than previously but still
+   very unsecure).
+ * Configure script has been changed to auto-detect gnome
+ * Bug fix for automatic check at startup
+ * Bug fix in IMAP4 protocol with user/password/folder fields
+ * Bug fix in maildir protocol with the static mtime field
+ * Bug fix in file protocol with the static mtime field
+ * Bug fix with mail read and popup preview
+ * Bug fix with multi mailboxes and polltime
+ * Bug fix in creating a default configuration file from void
+ * Bug fix when no mailbox defined in confiration file
+ * Bug fix with gethostbyname which is no thread safe on some platform
+ * --enable-debug option added to configure
+
+	
+Version 1.2.0
+ * Real multi-mailbox support
+ * Mouse button clicks are now different
+ * Bug fix in displaying headers
+ * GTK version got now a popup menu
+ * New possibility of marking "mail as seen"
+
+Version 1.0.10
+ * gnubiff becomes multithreaded (so it won't hang while checking for mail)
+ * Bug fix in playing soundfile with space in name
+ * Spam tagged email are not displayed (X-Spam-Flag: YES)
+ * Fix a bug when no connection or when server is unreachable
+ * Added a "max collected header" option.
+ * Various translation fixes
+	
+Version 1.0.9
+ * Multi mailbox with GNOME
+ * Small typo fixes
+ * Rewrite of decode64 function
+ * Fix a bug for handling bad formatted email
+
+Version 1.0.8
+ * Fix in password saving
+ * Fix in imap4 protocol
+
+Version 1.0.7
+ * Fix a bug in playing sound in setup
+ * Fix a bug with forbidden characters in password
+ * Fix a bug with Pop protocols and null password
+	
+Version 1.0.6
+ * Fix a bug with saved options for popup geometry
+ * Added a configure option to save password within configuration file
+ * Fixed a bug in imap4 protocol (prevents gnubiff from stalling)
+
+Version 1.0.5
+ * Fix a bug when consulting email and closing popup window
+ * Fix a bug with the about window (GNOME version)
+ * Fix a bug in mail file protocol
+ * Added a --gtk version to the gnome version
+	
+Version 1.0.4
+ * Fix a bug when consulting environment variables
+ * Take the UW-IMAP mailbox state mail into account
+ * Fix a bug in maildir
+
+Version 1.0.3
+ * Fix mailfile protocol
+	
+Version 1.0.2
+ * Use of a certificate for SSL authentication
+ * Window placement can now be done by window manager
+	
+Version 1.0.1
+ * Complete rewrite of gbiff2 that becomes officially gnubiff and
+   to be part ot the GNU project
+ * SSL support added - Achim Settelmeier
+ * Possibility to read mail (first 10 lines)
+ * All protocols fixed (hopefully)
+
+
+-------------------------------------------------------
+ gbiff2 package - development stopped
+-------------------------------------------------------
+
+Version 0.4.0
+ * Hide 'Quit' button in configuration for GNOME version		
+ * Display title and read mail now also affect biff and applet
+ * Fix IMAP4 protocol again (hope it'll be the last)
+ * gbiff2 now support animations !
+
+Version 0.3.0
+ * Add man page
+ * Add German translation
+ * Fix French translation
+ * More cleanup with 'make distclean'
+ * Modified configure.ac script
+ * Bugfix in IMAP4 protocol	
+ * Bugfix to handle cases when mail number > MAX_HEADERS (100)
+	
+Version 0.2.0
+ * Fix bug with image filenames
+ * Fix bug in popup delete_event_handler
+ * Fix window positionning
+ * Add a 'smart update' buttons for geometry automatic update
+ * Remove schemas file from GNOME version
+
+Version 0.1.0
+ * Alpha release
+ * GNOME 2.0 support
+ * GTK 2.0 support
+ * Use of a config file
+
+
+-------------------------------------------------------
+ gbiff package - development stopped
+-------------------------------------------------------
+
+Version 3.2
+* Configure change to include orbit headers properly
+
+Version 3.1
+* Popup window has decorations back
+* Added support for apop protocol - Earl A. Killian <earl@killian.com>
+* Bug fix in GTK style management - Philippe Berger <keith001@writeme.com>
+* Bug fix in IMAP4 (yes, again !)
+* Bug fix with missing logo.xpm file in RPM distributions
+* Bug fix in mail application saving
+* Bug fix in pixmap handling
+* Bug fix in window management
+
+Version 3.0
+* Bug corrected in RPM packages - Dennis Bjorklund <db@zigo.dhs.org>
+* Major interface change - Josh Parsons <jp30@st-andrews.ac.uk>
+* Bug fix in window positioning
+* gbiff now only displays new mails (use of 'Status:' field)
+* You can now launch a mail application by a double-click
+* Bug fix in buffer overflow in IMAP4 protocol
+	
+Version 2.6
+* Bug corrected in MH protocol when only one mail
+* File last access time fixed in FILE protocol (mutt)
+* Dynamic ports for POP3 and IMAP4 protocols (omnibiff, ssh)
+* Suspend button for stopping automatic check
+* --user option - Craig B. Agricola <craig@chocolate.chip.net>
+* Memory leaks fixed - Craig B. Agricola <craig@chocolate.chip.net>
+
+Version 2.5
+* Added support for imap4 - Cai Yu <yu.cai@rdc.ericsson.se>
+* Minor bugfixes - Cai Yu <yu.cai@rdc.ericsson.se>
+* Web page documentation Greg Fenton <gregfenton@home.com>
+* Base64 decoding support
+   -> parse_base64 by Michel Leunen <leu@rtbf.be>
+* Minor bugfix in file descriptors handling
+* Internationalization: French added
+	
+Version 2.4a
+* Major bugfix in mh-style maildirs
+* Minor bugfix in pop3 protocol - Blaise Tarr <conitorus@yahoo.com>
+* Minor bugfix in font selection - Blaise Tarr <conitorus@yahoo.com>
+* Minor bugfix in memory leaks
+	
+Version 2.4
+* Added Support for mh-style maildirs
+* Minor bugfix in qmail-style 	
+* RPM packaging - Richard Torkar <ds98rito@thn.htu.se>
+	
+Version 2.3
+* Gnome session management - Neil Muller <neil@dip.sun.ac.za>
+* --disable-gnome flag in configure script, allows to use gbiff without gnome
+* Minor bug fixes
+
+Version 2.2
+* Bug fixes - Neil Muller <neil@dip.sun.ac.za>
+* Added Support for qmail-style maildirs - Neil Muller <neil@dip.sun.ac.za>
+* Bug fixes for buffer overflow
+* Added support for gnome panel size and orientation
+
+Version 2.1
+* Added support fo POP3 protocol
+
+Version 2.0
+* Gnome dockable version
+
+Version 1.0
+* Fix remaining bugs
+
+Version 0.4
+* New handling of mouse button events:
+   - keeping mouse button pressed makes headers to remain popped. 
+   - keeping mouse in popup makes headers to remain popped. 
+* Max length option for 'From' and 'Subject' fields
+* New field (number) in popup window
+* Possibility of sorting headers by number, sender, subject or date by clicking titles.
+
+Version 0.3
+* popup_geometry bug fixed
+* you can now play .au or .wav sound files when new mail (requires a play program)
+* you can now choose the main window background color
+
+Version 0.2
+* Display date of messages
+* Possibility of choosing what has to be displayed in popup window
+* Presentation in list format
+* Several bug fixes
+
+Version 0.1
+* Check for mail and popup a window with sender and subject information
+* Click on main window to force mail check. 
+* When headers are popped, click on them or in main window to hide them. 
+* Display unread mail number at any time
+	
+	
+-------------------------------------------------------
+Copying information:
+
+Copyright (C) 2000-2004, Nicolas Rougier <Nicolas.Rougier@loria.fr>
+
+   Permission is granted to anyone to make or distribute verbatim copies
+   of this document as received, in any medium, provided that the
+   copyright notice and this permission notice are preserved,
+   thus giving the recipient permission to redistribute in turn.
+
+   Permission is granted to distribute modified versions
+   of this document, or of portions of it,
+   under the above conditions, provided also that they
+   carry prominent notices stating who last changed them.
+
