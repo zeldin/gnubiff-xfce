@@ -43,7 +43,7 @@ common_sources = \
 ## In case of compilation problem, just comment next lines
 ## then autoconf/automake/configure/make
 .cc.o:
-	@echo -n "Compiling $<... " 
+	@printf "%-40s" "Compiling $<... " 
 	@am__fastdepCXX_TRUE@	if $(CXXCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
 	@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; fi
 	@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
@@ -53,7 +53,7 @@ common_sources = \
 
 gnubiff$(EXEEXT): $(gnubiff_OBJECTS) $(gnubiff_DEPENDENCIES) 
 	@rm -f gnubiff$(EXEEXT)
-	@echo -n "Linking $@ ... "
+	@printf "%-40s" "Linking $@ ... "
 	$(CXXLINK) $(gnubiff_LDFLAGS) $(gnubiff_OBJECTS) $(gnubiff_LDADD) $(LIBS)
 	@echo "[OK]"
 
