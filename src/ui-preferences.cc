@@ -276,7 +276,7 @@ Preferences::create (void)
 void 
 Preferences::expert_create (void)
 {
-	if (!biff_->value_bool ("use_expert"))
+	if (!biff_->value_bool ("expert_show_tab"))
 		return;
 
 	expert_liststore = gtk_list_store_new (COL_EXP_N, G_TYPE_INT,
@@ -420,10 +420,10 @@ Preferences::synchronize (void)
 	}
 
 	// Insert the values of the options into the GUI widgets
-	biff_->update_gui (OPTSGUI_SET, OPTGRP_ALL, xml_, filename_);
+	biff_->update_gui (OPTSGUI_UPDATE, OPTGRP_ALL, xml_, filename_);
 
 	// Expert dialog
-	if (biff_->value_bool ("use_expert"))
+	if (biff_->value_bool ("expert_show_tab"))
 		expert_update_option_list ();
 
 	// Stop button
@@ -686,7 +686,7 @@ void
 Preferences::expert_add_option_list (void)
 {
 	// General options regarding expert dialog
-	if (!biff_->value_bool ("use_expert"))
+	if (!biff_->value_bool ("expert_show_tab"))
 		return;
 	gboolean showfixed = biff_->value_bool ("expert_show_fixed");
 	gboolean shownoshow = biff_->value_bool ("expert_show_noshow");

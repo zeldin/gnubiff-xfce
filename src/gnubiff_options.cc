@@ -203,12 +203,19 @@ Gnubiff_Options::add_options_general (void)
 		"body is shorter then the whole body is read. If supported by the "
 		"protocol gnubiff tries to read exactly this number of lines.",
 								 12));
-	// USE_EXPERT
+	// EXPERT_SHOW_TAB
 	const static gchar *s5[] = {"expert_vbox", NULL};
-	add_option (new Option_Bool ("use_expert", OPTGRP_GENERAL,
-		"Shall the expert dialog for editing all options be shown?",
-								 false, OPTFLG_NONE, OPTGUI_NONE,
-								 "", NULL, s5));
+	add_option (new Option_Bool ("expert_show_tab", OPTGRP_GENERAL,
+		"Shall the expert dialog for editing all options be shown? Note: If "
+		"this option is set to \"false\" it can only be changed to \"true\" "
+		"by editing the config file manually. The default value of this "
+		"option can be changed via an option to configure.",
+#ifdef EXPERT_SHOW_NO_TAB
+								 false,
+#else
+								 true,
+#endif
+								 OPTFLG_NONE, OPTGUI_NONE, "", NULL, s5));
 	// EXPERT_SHOW_FIXED
 	add_option (new Option_Bool ("expert_show_fixed", OPTGRP_GENERAL,
 		"Shall options be displayed in the expert dialog that cannot be "

@@ -187,12 +187,18 @@ AM_CONDITIONAL(PASSWORD_STRING, test "$password" = yes)
 
 
 ######################################################################
+#                           expert tab default                       #
+######################################################################
+AC_ARG_ENABLE(expert,
+[  --disable-expert        disable showing expert tab as default, [default=yes]],
+	AC_DEFINE(EXPERT_SHOW_NO_TAB, 1, [Define to 1 to disable showing expert tab as default.]),)
+
+######################################################################
 #                           debug support                            #
 ######################################################################
 AC_ARG_ENABLE(debug,
 [  --enable-debug          turn on debugging [default=no]],
-	AC_DEFINE(DEBUG, 1, [Define to 1 to enable debugging code.]),)
-
+        AC_DEFINE(DEBUG, 1, [Define to 1 to enable debugging code.]),)
 
 
 ##################

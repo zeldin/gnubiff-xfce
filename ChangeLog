@@ -151,6 +151,9 @@ Version 2.1.1
    - Bugfix: Respect "min_body_lines" for file protocol
    - Bugfixes: Displaying of mail body in popup
    - Bugfix: Prevent DoS attacks in socket closing function
+   - Bugfix: Updating GUI when changing option via expert dialog
+   - Feature: Default value for showing expert tab can be changed via option
+        to configure
 
 Version 2.1.0
  * Nicolas Rougier
