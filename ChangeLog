@@ -62,6 +62,7 @@ Version 2.1.1
    - Don't stop idling when the server sends information and warning messages
         (IMAP4)
    - Source code for class Imap4 is fully documented now
+   - Bugfix: Printing debug messages for sent lines (IMAP4 & POP3)
 
 Version 2.1.0
  * Nicolas Rougier

@@ -319,7 +319,7 @@ Socket::write (std::string line,
 
 #ifdef DEBUG
 	if (debug)
-		g_print ("** Message: [%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
+		g_message ("[%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
 #endif
 
 	if ((debug) && (!status_)) {
