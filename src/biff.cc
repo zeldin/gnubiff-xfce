@@ -298,13 +298,26 @@ Biff::remove (Mailbox *mailbox)
  */
 std::string 
 Biff::password (Mailbox *m)
-{
+{	
+#if DEBUG
+	g_message ("[%d] Looking for password for %s:%d", m->uin(), m->address().c_str(), m->port());
+#endif
+
 	for (guint i=0; i < size(); i++) {
-		if ((mailbox(i) != m)
+		if ((mailbox(i) != m) 
 			&& (mailbox(i)->address() == m->address())
 			&& (mailbox(i)->username() == m->username())
-			&& (mailbox(i)->port() == m->port()))
+			&& (mailbox(i)->port() == m->port())) {
+#if DEBUG
+			g_message ("[%d] Found a match from %d (%s:%d)", m->uin(), mailbox(i)->uin(), mailbox(i)->address().c_str(), mailbox(i)->port());
+#endif
 			return mailbox(i)->password();
+		}
+		else {
+#if DEBUG
+			g_message ("[%d] %d (%s:%d) does not match", m->uin(), mailbox(i)->uin(), mailbox(i)->address().c_str(), mailbox(i)->port());
+#endif			
+		}
 	}
 	return "";
 }
