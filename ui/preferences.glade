@@ -2209,7 +2209,7 @@ Here is a list of these people:&lt;/small&gt;</property>
 		<widget class="GtkLabel" id="credits">
 		  <property name="visible">True</property>
 		  <property name="label" translatable="yes">Credits</property>
-		  <property name="use_underline">False</property>
+		  <property name="use_underline">True</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
 		  <property name="wrap">False</property>
