@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-03 21:34+0100\n"
+"POT-Creation-Date: 2005-01-06 01:12+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -61,12 +61,12 @@ msgstr "Geen e-mail"
 msgid "Configuration file (%s) not found !"
 msgstr "Configuratiebestand (%s) niet gevonden!"
 
-#: src/biff.cc:544
+#: src/biff.cc:545
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
-#: src/biff.cc:569
+#: src/biff.cc:570
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Geen postvak-definitie gevonden in uw .gnubiffrc"
@@ -76,22 +76,22 @@ msgstr "Geen postvak-definitie gevonden in uw .gnubiffrc"
 msgid "mailbox %d"
 msgstr "Postvak"
 
-#: src/mailbox.cc:180
+#: src/mailbox.cc:186
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "Kon thread niet aanmaken: %s\n"
 
-#: src/mailbox.cc:482
+#: src/mailbox.cc:489
 #, fuzzy
 msgid "<no sender>"
 msgstr "<geen verzender gevonden>"
 
-#: src/mailbox.cc:492
+#: src/mailbox.cc:499
 #, fuzzy
 msgid "<no subject>"
 msgstr "<geen onderwerp gevonden>"
 
-#: src/mailbox.cc:502
+#: src/mailbox.cc:509
 #, fuzzy
 msgid "<no date>"
 msgstr "<geen datum gevonden>"
@@ -122,40 +122,45 @@ msgstr "Kan niet schrijven naar %s op poort %d"
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "Kan niet lezen van %s op poort %d"
 
-#: src/imap4.cc:467
+#: src/socket.cc:408
+#, c-format
+msgid "Could not set read timeout on socket: %s"
+msgstr ""
+
+#: src/imap4.cc:496
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
 #. Create error message
-#: src/imap4.cc:795
+#: src/imap4.cc:864
 #, fuzzy, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/imap4.cc:885
+#: src/imap4.cc:963
 #, fuzzy, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "Kan geen bevestiging opvragen van %s op poort %d"
 
-#: src/imap4.cc:933
+#: src/imap4.cc:1017
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
 #. see RFC 3501 7.1.5
-#: src/imap4.cc:1311
+#: src/imap4.cc:1451
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.3
-#: src/imap4.cc:1316
+#: src/imap4.cc:1456
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.2
-#: src/imap4.cc:1321
+#: src/imap4.cc:1461
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
@@ -175,29 +180,29 @@ msgstr "Kan nieuwe e-mail map niet openen (%s)"
 msgid "Cannot open %s."
 msgstr "Kan %s niet openen."
 
-#: src/pop.cc:340
-#, c-format
-msgid "[%d] Error message from POP3 server:%s"
-msgstr ""
-
-#: src/pop.cc:348
-#, c-format
-msgid "[%d] Did not get a positive response from POP3 server"
-msgstr ""
-
-#: src/apop.cc:75 src/pop3.cc:73
+#: src/pop.cc:157
 #, c-format
 msgid "[%d] Empty password"
 msgstr ""
 
-#: src/apop.cc:115
+#: src/pop.cc:481
+#, c-format
+msgid "[%d] Error message from POP3 server:%s"
+msgstr ""
+
+#: src/pop.cc:488
+#, c-format
+msgid "[%d] Did not get a positive response from POP3 server"
+msgstr ""
+
+#: src/apop.cc:102
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
 msgstr ""
 
-#: src/apop.cc:139
+#: src/apop.cc:122
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -354,13 +359,13 @@ msgstr ""
 msgid "Date"
 msgstr "Versierd"
 
-#: src/ui-popup.cc:577 src/ui-popup.cc:589 src/ui-popup.cc:598
-#: src/ui-popup.cc:605
+#: src/ui-popup.cc:588 src/ui-popup.cc:600 src/ui-popup.cc:609
+#: src/ui-popup.cc:616
 #, fuzzy
 msgid "* error *"
 msgstr "fout!"
 
-#: src/ui-popup.cc:658
+#: src/ui-popup.cc:669
 #, fuzzy
 msgid "Error"
 msgstr "fout!"

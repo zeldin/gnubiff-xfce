@@ -97,8 +97,9 @@ Version 2.1.1
    - Cleanup of error message when setting socket timeouts
    - Feature: Mails are now fetched from the server and parsed only once per
         session. Subsequent updates take the saved header instead of fetching
-	and parsing the mail again.
+	and parsing the mail again (IMAP4 & POP3)
    - Feature: Do not fetch and parse mails that are not to be displayed anyway
+        (IMAP4 & POP3)
 
 Version 2.1.0
  * Nicolas Rougier
