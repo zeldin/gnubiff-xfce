@@ -70,7 +70,7 @@ public:
 	// ========================================================================
 	//  Internal stuff
 	// ========================================================================	
-	std::string parse_bodystructure (std::string, gint &,
+	std::string parse_bodystructure (std::string, gint &, std::string &,
 									 gboolean toplevel=true);
 	void reset_tag();
 	std::string tag();

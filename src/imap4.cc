@@ -487,7 +487,9 @@ Imap4::fetch_header (void)
 			if (line.substr(line.size()-2) != ")\r")
 				return;
 
-			// Remove first and last part, change to lower case
+			// Remove first and last part, convert to lower case
+			// (Note: We are only interested in information that must be
+			// handled case insensitive)
 			line=line.substr(25+s.str().size(),line.size()-28-s.str().size());
 			gchar *lowercase=g_utf8_strdown(line.c_str(),-1);
 			line=std::string(lowercase);
@@ -496,7 +498,8 @@ Imap4::fetch_header (void)
 			// Get Part of Mail that contains "text/plain" (if any exists) and
 			// size of this text
 			gint textsize;
-			std::string part=parse_bodystructure(line,textsize);
+			std::string encoding;
+			std::string part=parse_bodystructure(line,textsize,encoding);
 
 			// Read end of command
 			cnt=1+preventDoS_additionalLines_;
@@ -638,7 +641,10 @@ Imap4::fetch_header (void)
  *                   (without "* ... FETCH (BODYSTRUCTURE (" and the trailing
  *                   ')'). This string must be converted to lower case before
  *                   calling this function!
- * @param  size      Reference to an integer, in which the size of the returned
+ * @param  size      Reference to an integer, in which the size of the
+ *                   part is returned. If an empty string is returned this
+ *                   value is not defined.
+ * @param  encoding  Reference to a C++ String, in which the encoding of the
  *                   part is returned. If an empty string is returned this
  *                   value is not defined.
  * @param  toplevel  Boolean (default value is true). This is true if it is the
@@ -648,7 +654,8 @@ Imap4::fetch_header (void)
  *                   empty string
  */
 std::string 
-Imap4::parse_bodystructure (std::string structure,gint &size,gboolean toplevel)
+Imap4::parse_bodystructure (std::string structure, gint &size,
+							std::string &encoding, gboolean toplevel)
 {
 	gint len=structure.size(),pos=0,block=1,nestlevel=0,startpos=0;
 	gboolean multipart=false;
@@ -673,9 +680,15 @@ Imap4::parse_bodystructure (std::string structure,gint &size,gboolean toplevel)
 		// String (FIXME: '"' inside of strings?)
 		if (c=='"')
 		{
+			// When in multipart only the last entry is allowed to be a string
 			if ((multipart) && (nestlevel==0))
 				return std::string("");
+			// Get the string
+			gint oldpos=pos;
 			while ((pos<len) && (structure.at(pos++)!='"'));
+			// 6th block is the encoding
+			if (block==6)
+				encoding=structure.substr(oldpos,pos-oldpos-1);
 			continue;
 		}
 
@@ -710,7 +723,8 @@ Imap4::parse_bodystructure (std::string structure,gint &size,gboolean toplevel)
 			{
 				gint textsize=0;
 				std::string part=structure.substr(startpos+1,pos-startpos-2);
-				std::string result=parse_bodystructure(part,textsize,false);
+				std::string result=parse_bodystructure(part,textsize,encoding,
+													   false);
 				if (result.empty())
 					continue;
 				size=textsize;
