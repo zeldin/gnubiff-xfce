@@ -275,39 +275,38 @@ Mailbox::lookup (void)
 void
 Mailbox::lookup_thread (void)
 {
-
-
 	g_mutex_lock (watch_mutex_);
 
 	// Local mailbox
 	if (is_local ()) {
-		std::string location = location_;
+		gchar *base=g_path_get_basename(location_.c_str());
 
-		// Strip terminal '/' (if any)
-		if (location[location.size()-1] == '/')
-			location = location.substr (0, location.size()-1);
-		
-		// Is it a directory ?
-		if (g_file_test (location.c_str(), G_FILE_TEST_IS_DIR)) {
-			std::string mh_sequence = location + "/.mh_sequences";
-			std::string maildir_new = location + "/new";
+		// Is it a directory?
+		if (g_file_test (location_.c_str(), G_FILE_TEST_IS_DIR)) {
+			gchar *mh_seq=g_build_filename(location_.c_str(),".mh_sequences",NULL);
+			gchar *md_new=g_build_filename(location_.c_str(),"new",NULL);
 
-			if (g_file_test (mh_sequence.c_str(), G_FILE_TEST_EXISTS))
-				protocol_ = PROTOCOL_MH;
-			else if (location.find ("new") != std::string::npos)
+			if (g_file_test (mh_seq, G_FILE_TEST_IS_REGULAR))
+   				protocol_ = PROTOCOL_MH;
+		    else if (base==std::string("new"))
 				protocol_ = PROTOCOL_MAILDIR;
-			else if (g_file_test (maildir_new.c_str(), G_FILE_TEST_IS_DIR))
+			else if (g_file_test (md_new, G_FILE_TEST_IS_DIR))
 				protocol_ = PROTOCOL_MAILDIR;
+
+			g_free(mh_seq);
+			g_free(md_new);
 		}
-		// Is it a file
-		else if (g_file_test (location.c_str(), (G_FILE_TEST_EXISTS))) {
-			if (location.find (".mh_sequences") != std::string::npos)
+		// Is it a file?
+		else if (g_file_test (location_.c_str(), G_FILE_TEST_IS_REGULAR)) {
+			if (base==std::string(".mh_sequences"))
 				protocol_ = PROTOCOL_MH;
 			else
 				protocol_ = PROTOCOL_FILE;
 		}
 		else
 			protocol_ = PROTOCOL_NONE;
+
+		g_free(base);
 	}
 
 	// Distant mailbox

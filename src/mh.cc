@@ -53,21 +53,18 @@ Mh::~Mh (void)
 int
 Mh::connect (void)
 {
-	std::string filename;
-	struct stat file_stat;
-
-	// Check for mail directory
-	if ((stat (location_.c_str(), &file_stat) != 0) || (!S_ISDIR(file_stat.st_mode)))
-		return false;
-
 	// Build filename (.mh_sequences)
-	if (location_.find (".mh_sequences") == std::string::npos) {
-		if (location_[location_.size()-1] == '/') 
-			filename = location_.substr (0, location_.size()-1);
-		filename += "/.mh_sequences";
-	}
+	std::string filename;
+	gchar *base=g_path_get_basename(location_.c_str());
+	if (base==std::string(".mh_sequences"))
+		filename=location_;
 	else
-		filename = location_;
+	{
+		gchar *tmp=g_build_filename(location_.c_str(),".mh_sequences",NULL);
+		filename=std::string(tmp);
+		g_free(tmp);
+	}
+	g_free(base);
 
 	std::ifstream file;
 	file.open (filename.c_str());

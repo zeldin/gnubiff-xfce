@@ -19,15 +19,17 @@ Version 2.0.2
    - updated po/{nl,de}.po
    - finally fixed g++-3.4 compile error (Debian bug #271288)
  * Robert Sowada:
-   - Bug fix: User can no longer make config file invalid by using XML 
+   - Bugfix: User can no longer make config file invalid by using XML 
      sensitive characters in strings
    - It is no longer necessary to open a shell for setting file permissions
-   - Bug fix: Setting file permissions is no longer susceptible to race
+   - Bugfix: Setting file permissions is no longer susceptible to race
      conditions
    - File permissions are only set when creating a new config file. So the user
      is able to change to less restrictive permissions if he/she wants to do
      this
    - Bugfix in detection of animation information
+   - Bugfixes in detection of local mailbox format
+   - Bugfix in mh protocol
 
 
 Version 2.0.1

@@ -66,15 +66,17 @@ Maildir::get_status (void)
 	status_ = MAILBOX_CHECKING;
 
 	// Build directory name
+	gchar *base=g_path_get_basename(location_.c_str());
 	std::string directory;
-	if (location_[location_.size()-1] == '/')
-		directory = location_.substr (0, location_.size()-1);
+	if (base==std::string("new"))
+		directory=location_;
 	else
-		directory = location_;
-	std::string lastdir = directory.substr (directory.find_last_of ('/'));
-	if (lastdir != "/new")
-		directory += "/new";
-
+	{
+		gchar *tmp=g_build_filename(location_.c_str(),"new",NULL);
+		directory=std::string(tmp);
+		g_free(tmp);
+	}
+	g_free(base);
 
 	// Check for existence of a new mail directory
 	if ((stat (directory.c_str(), &file_stat) != 0)||(!S_ISDIR(file_stat.st_mode))) {
@@ -124,14 +126,17 @@ Maildir::get_header (void)
 	status_ = MAILBOX_CHECKING;
 
 	// Build directory name
+	gchar *base=g_path_get_basename(location_.c_str());
 	std::string directory;
-	if (location_[location_.size()-1] == '/')
-		directory = location_.substr (0, location_.size()-1);
+	if (base==std::string("new"))
+		directory=location_;
 	else
-		directory = location_;
-	std::string lastdir = directory.substr (directory.find_last_of ('/'));
-	if (lastdir != "/new")
-		directory += "/new";
+	{
+		gchar *tmp=g_build_filename(location_.c_str(),"new",NULL);
+		directory=std::string(tmp);
+		g_free(tmp);
+	}
+	g_free(base);
 
 	// Check for existence of a new mail directory
 	if ((stat (directory.c_str(), &file_stat) != 0)||(!S_ISDIR(file_stat.st_mode))) {
