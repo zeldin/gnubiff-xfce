@@ -69,6 +69,8 @@ Version 2.1.1
    - Cleanup: Got rid of protocol specific code in class Socket
    - Bugfix: Corrected tests regarding socket status
    - Bugfix: Allow mail lines to begin with "-ERR" (POP3)
+   - Bugfix: Don't treat "* BYE" messages by server as mailbox error when not
+        checking for mail (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier

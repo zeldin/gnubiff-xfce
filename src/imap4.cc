@@ -131,9 +131,11 @@ Imap4::start (void)
 #if DEBUG
 		g_warning ("[%d] Imap exception: %s", uin_, err.what());
 #endif
-		status_ = MAILBOX_ERROR;
-		unread_.clear ();
-		seen_.clear ();
+		if (err.is_mailboxerror()) {
+			status_ = MAILBOX_ERROR;
+			unread_.clear ();
+			seen_.clear ();
+		}
 		socket_->close ();
 	}
 
@@ -1274,6 +1276,10 @@ Imap4::sendline (std::string command, gboolean print, gboolean check)
  * message is printed and an imap_command_err exception is thrown. If a
  * warning response ("* NO") is found the warning is printed.
  *
+ * Remark: If the mailbox is not checking for new mail and we get a "* BYE"
+ * message (when idling for example) an imap_command_err exception is thrown
+ * but mailbox status will not be set to MAILBOX_ERROR.
+ *
  * Remark: The parameter {\em checkline} must be false if reading the response
  * to the "LOGOUT" command because an untagged "* BYE" response doesn't
  * indicate an error.
@@ -1310,7 +1316,7 @@ Imap4::readline (std::string &line, gboolean print, gboolean check,
 	if (line.find("* BYE") == 0) { // see RFC 3501 7.1.5
 		g_warning (_("[%d] Server closes connection immediately:%s"),
 				   uin_, line.substr(5,line.size()-5).c_str());
-		throw imap_command_err();
+		throw imap_command_err(status_ == MAILBOX_CHECK);
 	}
 	if (line.find("* BAD") == 0) { // see RFC 3501 7.1.3
 		g_warning (_("[%d] Internal server failure or unknown error:%s"),
@@ -1348,7 +1354,8 @@ Imap4::readline (std::string &line, gboolean print, gboolean check,
  *                  This exception is thrown if a network error occurs.
  * @see             The description of the method Imap4::readline() contains a
  *                  more extensive description of the parameters {\em check}
- *                  and {\em checkline}.
+ *                  and {\em checkline} and some information regarding
+ *                  exception handling.
  */
 gint 
 Imap4::readline_ignoreinfo (std::string &line, gboolean print, gboolean check,
