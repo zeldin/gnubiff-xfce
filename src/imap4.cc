@@ -396,10 +396,10 @@ Imap4::get_header (void)
 		else
 		{
 			// Note: We are only interested in the first 12 lines, there are at
-			// most 1001 characters per line (see RFC 2821 4.5.3.1), so it is
-			// sufficient to get at most 12012 bytes.
-			if (textsize>12012)
-				textsize=12012;
+			// most 1000 characters per line (see RFC 2821 4.5.3.1), so it is
+			// sufficient to get at most 12000 bytes.
+			if (textsize>12000)
+				textsize=12000;
 			std::stringstream textsizestr;
 			textsizestr << textsize;
 			line = "FETCH " + s.str() + " (BODY.PEEK[" + part + "]<0.";

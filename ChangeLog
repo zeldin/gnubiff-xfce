@@ -42,6 +42,7 @@ Version 2.0.3
    - Bugfixes in displaying first lines of mails
    - Bugfix: Creating different tags for different commands (IMAP)
    - Update of man page (command line options, version, date)
+   - Bugfix: Handling of text lines beginning with a dot (IMAP & POP3)
    
 
 Version 2.0.2

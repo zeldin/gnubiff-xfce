@@ -194,7 +194,10 @@ Pop::get_header (void)
 		do {
 			if (!socket_->read (line, false)) return;
 			if (line.size() > 1) {
-				mail.push_back (line.substr(0, line.size()-1));
+				if (line.at(0)!='.')
+					mail.push_back (line.substr(0, line.size()-1));
+				else
+					mail.push_back (line.substr(1, line.size()-2));
 #ifdef DEBUG
 				g_print ("+");
 #endif
