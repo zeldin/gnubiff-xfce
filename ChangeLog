@@ -13,6 +13,7 @@ Version 2.1.1
    - bugfix: change preferences ui
    - update: French translation
    - update: gnubiff.texi
+   - bugfix: Remose use of the pseudo-capability greeting message in IMAP4
 * Robert Sowada
    - Changed version to 2.1.1, updated spec file
    - Small changes

@@ -278,7 +278,7 @@ Imap4::connect (void) throw (imap_err)
 	readline (line);
 
 	// CAPABILITY
-	command_capability(true);
+	command_capability (false);
 
 	// LOGIN
 	command_login();
@@ -429,6 +429,7 @@ Imap4::command_capability (gboolean check_rc) throw (imap_err)
 
 	// Looking for supported capabilities
 	idleable_ = use_idle () && (line.find (" IDLE ") != std::string::npos);
+
 
 	if (line.find (" LOGINDISABLED ") != std::string::npos) {
 		command_logout();

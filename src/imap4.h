@@ -45,34 +45,46 @@ class Imap4 : public Mailbox {
  protected:
 	/// Socket to talk to the server
 	class Socket *				socket_;
+
 	/// Does the server support the IDLE capability?
 	gboolean					idleable_;
+
 	/// Is the server currently idled?
 	gboolean					idled_;
+
 	/// Tag created for the last sent IMAP command.
 	std::string					tag_;
+
 	/** Counter for creating the tag of the next IMAP command to be sent to
 	 *  the server. */
 	guint						tagcounter_;
+
 	/** Value of UIDVALIDITY as sent by the IMAP4 server. This is a response
 	 *  code to the SELECT command. The string is empty if the server does
 	 *  not send it. See also RFC 3501 2.3.1.1.
 	 */
 	std::string					uidvalidity_;
+
 	/** Map of pairs (atom, arg) that represent the last sent server response
 	 *  codes via untagged "* OK" server responses. */
 	std::map<std::string, std::string> ok_response_codes_;
+
 	/// Was the last line sent by the server an untagged response?
 	gboolean					last_untagged_response_;
+
 	/// Contents of the last untagged response. This value may be empty.
 	std::string					last_untagged_response_cont_;
+
 	/// Keyword of the last untagged response
 	std::string					last_untagged_response_key_;
+
 	/** Message sequence number of the last untagged response. This value is
 	 *  0 if there was no message sequence number. */
 	guint						last_untagged_response_msn_;
+
 	/// Map of message sequence numbers and corresponding unique ids.
 	std::map<guint,std::string> msn_uid_;
+
  public:
 	// ========================================================================
 	//  base
@@ -110,14 +122,17 @@ class Imap4 : public Mailbox {
 	class imap_command_err : public imap_err
 	{
 	public:
+
 		/** Constructor. 
 		 *
 		 * @param mailboxerror Whether this exception should imply a mailbox
 		 *                     error status or not. The default is true. */
 		imap_command_err(gboolean mailboxerror=true):imap_err(mailboxerror) {}
 	};
+
 	/// This exception is thrown when a DoS attack is suspected. 
 	class imap_dos_err : public imap_err {};
+
 	/** This exception is thrown when login isn't possible. This can happen in
 	 *  the following situations:
 	 *  \begin{itemize}

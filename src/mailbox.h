@@ -178,6 +178,7 @@ protected:
 	std::string					folder_;			// mailbox folder
 	std::string					certificate_;		// certificate file
 	guint						delay_;				// delay between mail check (apop & pop3 only)
+
 	/** Use IDLE command if server supports it. This is usually a good idea.
 	 *  But if multiple clients connect to the same mailbox this can lead to
 	 *  connection errors (depending on the internal server configuration).
@@ -208,22 +209,28 @@ protected:
 
 	/// Mail headers of mails that have not been read yet
 	std::map<std::string, header> unread_;
+
 	/** Mail headers of mails (of the the present update) that have not been
 	 *  read yet. These headers will be transfered to Mailbox::unread_ once
 	 *  the updated is completed successfully. */
 	std::map<std::string, header> new_unread_;
+
 	/// Set of gnubiff mail ids of those mails that won't be displayed
 	std::set<std::string>		hidden_;
+
 	/** Set of gnubiff mail ids of those mails that have already been seen by
 	 *  gnubiff during the last update */
 	std::set<std::string>		seen_;
+
 	/** Set of gnubiff mail ids of those mails that have already been seen by
 	 *  gnubiff during the present update. These ids will be transfered to
 	 *  Mailbox::seen_ once the update is completed successfully. */
 	std::set<std::string>		new_seen_;
+
 	/** This vector contains the gnubiff mail ids of all those mails that will
 	 *  be displayed (in the opposite order). */
 	std::vector<std::string>    mails_to_be_displayed_;
+
 	/** Into this vector the gnubiff mail ids of all those mails that will
 	 *  be displayed (in the opposite order) when the current update is
 	 *  finished are inserted. */
