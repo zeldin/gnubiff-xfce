@@ -744,10 +744,13 @@ Preferences::expert_update_option_list ()
 		else
 			option_opts = biff_->get (id);
 
-		// Update option
-		expert_update_option (name, option_opts, store, &iter);
-
-		valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
+		// Update option (remove options to non existing mailboxes)
+		if (option_opts) {
+			expert_update_option (name, option_opts, store, &iter);
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
+		}
+		else
+			valid = gtk_list_store_remove (store, &iter);
 	}
 }
 
