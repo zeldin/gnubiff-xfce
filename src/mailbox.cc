@@ -320,21 +320,14 @@ Mailbox::lookup_thread (void)
 			if (line.find("+OK") == 0) {
 				s.write ("QUIT\r\n");
 				s.close();
+				protocol_ = PROTOCOL_POP3;
 				if (line.find ("<") != std::string::npos) {
 #ifdef HAVE_CRYPTO
-
 #ifdef HAVE_LIBSSL
-					if (use_ssl_)
-						protocol_ = PROTOCOL_POP3;
-					else
+					if (!use_ssl_)
 #endif
 						protocol_ = PROTOCOL_APOP;
-#else
-					protocol_ = PROTOCOL_POP3;
 #endif
-				}
-				else {
-				  protocol_ = PROTOCOL_POP3;
 				}
 			}
 			else if ((line.find("* OK") == 0)||(line.find("* PREAUTH")== 0)) {
