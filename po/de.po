@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-07 19:04+0100\n"
-"PO-Revision-Date: 2004-12-05 00:55+0100\n"
+"POT-Creation-Date: 2004-12-07 22:38+0100\n"
+"PO-Revision-Date: 2004-12-07 22:42+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "Debugging-Optionen:"
 
 #: src/biff.cc:118
 msgid "no mail"
-msgstr "Nichts"
+msgstr "Keine Nachrichten"
 
 #: src/biff.cc:150
 #, c-format
@@ -123,7 +123,7 @@ msgstr "[%d] Bekomme keine Bestätigung von »%s« auf Port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kann Ordner »%s« auf dem Server »%s« nicht auswählen"
 
-#: src/imap4.cc:513
+#: src/imap4.cc:516
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Diese Nachricht besitzt keinen Klartext-Abschnitt (\"text/plain\")]"
 
@@ -384,7 +384,7 @@ msgstr "<b>Bei neuen Nachrichten</b>"
 
 #: ui/preferences.glade.h:7
 msgid "<b>When no mail</b>"
-msgstr "<b>Bei keinen Nachrichten</b>"
+msgstr "<b>Bei keinen neuen Nachrichten</b>"
 
 #: ui/preferences.glade.h:8
 msgid ""
@@ -428,15 +428,15 @@ msgstr "Wähle Bilddatei"
 
 #: ui/preferences.glade.h:20
 msgid "Contributors"
-msgstr "Mitwirkende"
+msgstr "Mit_wirkende"
 
 #: ui/preferences.glade.h:21
 msgid "Credits"
-msgstr "Danksagungen"
+msgstr "_Danksagungen"
 
 #: ui/preferences.glade.h:22
 msgid "Developers"
-msgstr "Entwickler"
+msgstr "_Entwickler"
 
 #: ui/preferences.glade.h:23
 msgid "Image filename"
@@ -444,11 +444,11 @@ msgstr "Dateiname des ausgewählten Bildes"
 
 #: ui/preferences.glade.h:24
 msgid "Mailboxes"
-msgstr "Briefkästen"
+msgstr "_Briefkästen"
 
 #: ui/preferences.glade.h:25
 msgid "Maintainers"
-msgstr "Maintainer"
+msgstr "_Maintainer"
 
 #: ui/preferences.glade.h:26
 msgid "Maximum number of headers to display"
@@ -456,7 +456,7 @@ msgstr "Maximale Anzahl anzuzeigender Nachrichten"
 
 #: ui/preferences.glade.h:27 ui/popup.glade.h:4
 msgid "Popup"
-msgstr "Popup"
+msgstr "_Popup"
 
 #: ui/preferences.glade.h:28
 msgid "Popup geometry"
@@ -464,7 +464,7 @@ msgstr "Platzierungseinstellungen für das Popup-Fenster"
 
 #: ui/preferences.glade.h:29
 msgid "Show _image:"
-msgstr "_Bild anzeigen:"
+msgstr "B_ild anzeigen:"
 
 #: ui/preferences.glade.h:30
 msgid "Show _text:"
@@ -472,11 +472,11 @@ msgstr "_Text anzeigen:"
 
 #: ui/preferences.glade.h:31
 msgid "Show i_mage:"
-msgstr "_Bild anzeigen:"
+msgstr "Bi_ld anzeigen:"
 
 #: ui/preferences.glade.h:32
 msgid "Show t_ext:"
-msgstr "Text anzeigen:"
+msgstr "Te_xt anzeigen:"
 
 #: ui/preferences.glade.h:33
 msgid "Text to display"
@@ -507,19 +507,19 @@ msgstr "Zeit, die das Popup-Fenster dargestellt wird"
 
 #: ui/preferences.glade.h:40
 msgid "Translators"
-msgstr "Übersetzer"
+msgstr "_Übersetzer"
 
 #: ui/preferences.glade.h:41
 msgid "Use _decoration"
-msgstr "Fenster_dekoration verwenden"
+msgstr "F_ensterdekoration verwenden"
 
 #: ui/preferences.glade.h:42
 msgid "Use _geometry:"
-msgstr "Fenster_platzierung verwenden:"
+msgstr "_Fensterplatzierung verwenden:"
 
 #: ui/preferences.glade.h:43
 msgid "When _double-clicked:"
-msgstr "Bei _Doppelklick:"
+msgstr "Bei D_oppelklick:"
 
 #: ui/preferences.glade.h:44
 msgid "When _new mail:"
@@ -569,7 +569,7 @@ msgstr "Aus_wählen..."
 
 #: ui/preferences.glade.h:55
 msgid "_Display for"
-msgstr "An_zeigen für"
+msgstr "A_nzeigen für"
 
 #: ui/preferences.glade.h:56
 msgid "_Font:"
@@ -577,7 +577,7 @@ msgstr "_Zeichensatz:"
 
 #: ui/preferences.glade.h:57
 msgid "_Format:"
-msgstr "_Format der Ausgabe:"
+msgstr "F_ormat der Ausgabe:"
 
 #: ui/preferences.glade.h:58
 msgid "_Restrict collected mail to"
@@ -585,7 +585,7 @@ msgstr "An_zahl einzusammelnder Nachrichten beschränken auf"
 
 #: ui/preferences.glade.h:59
 msgid "_Restrict number to"
-msgstr "An_zahl einschränken auf"
+msgstr "Anzahl einschr_änken auf"
 
 #: ui/preferences.glade.h:61
 msgid "gnubiff preferences"
@@ -633,7 +633,7 @@ msgstr "Port, auf dem der Server kontaktiert werden soll"
 
 #: ui/properties.glade.h:9
 msgid "Connection:"
-msgstr "_Verbindung:"
+msgstr "Verbindung:"
 
 #: ui/properties.glade.h:10
 msgid "Dela_y:"
@@ -689,9 +689,9 @@ msgstr "_Briefkasten:"
 
 #: ui/properties.glade.h:23
 msgid "_Name:"
-msgstr "Na_me:"
+msgstr "_Name:"
 
-#: ui/properties.glade.h:24 ui/authentication.glade.h:5
+#: ui/properties.glade.h:24 ui/authentication.glade.h:4
 msgid "_Password:"
 msgstr "_Passwort:"
 
@@ -699,13 +699,13 @@ msgstr "_Passwort:"
 msgid "_Type:"
 msgstr "T_yp:"
 
-#: ui/properties.glade.h:26 ui/authentication.glade.h:6
+#: ui/properties.glade.h:26 ui/authentication.glade.h:5
 msgid "_Username:"
 msgstr "_Benutzername:"
 
 #: ui/properties.glade.h:27
 msgid "_other"
-msgstr "benutzerdefiniert"
+msgstr "benu_tzerdefiniert"
 
 #: ui/properties.glade.h:28
 msgid "file or folder or [ssl:]hostname[:port][:folder]"
@@ -717,7 +717,7 @@ msgstr "Minuten"
 
 #: ui/properties.glade.h:30
 msgid "othe_r"
-msgstr "benutzerdefiniert"
+msgstr "benut_zerdefiniert"
 
 #: ui/properties.glade.h:31
 msgid "seconds"
@@ -725,25 +725,21 @@ msgstr "Sekunden"
 
 #: ui/properties.glade.h:32
 msgid "stan_dard"
-msgstr "standardmäßig"
+msgstr "standardm_äßig"
 
 #: ui/properties.glade.h:33
 msgid "stand_ard"
-msgstr "standardmäßig"
+msgstr "standardmä_ßig"
 
 #: ui/authentication.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ui/authentication.glade.h:2
 msgid "Authentication"
 msgstr "Authentifizierung"
 
-#: ui/authentication.glade.h:3
+#: ui/authentication.glade.h:2
 msgid "Your password on the server"
 msgstr "Passwort auf dem Server"
 
-#: ui/authentication.glade.h:4
+#: ui/authentication.glade.h:3
 msgid "Your username on the server"
 msgstr "Benutzername auf dem Server"
 
@@ -822,3 +818,4 @@ msgstr "Nachrichtentext"
 #: ui/popup.glade.h:9
 msgid "subject"
 msgstr "Betreff"
+

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-07 19:04+0100\n"
+"POT-Creation-Date: 2004-12-07 22:38+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -127,7 +127,7 @@ msgstr "Kan geen bevestiging opvragen van %s op poort %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/imap4.cc:513
+#: src/imap4.cc:516
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -726,7 +726,7 @@ msgstr "Postvak"
 msgid "_Name:"
 msgstr "Naam:"
 
-#: ui/properties.glade.h:24 ui/authentication.glade.h:5
+#: ui/properties.glade.h:24 ui/authentication.glade.h:4
 msgid "_Password:"
 msgstr ""
 
@@ -734,7 +734,7 @@ msgstr ""
 msgid "_Type:"
 msgstr ""
 
-#: ui/properties.glade.h:26 ui/authentication.glade.h:6
+#: ui/properties.glade.h:26 ui/authentication.glade.h:5
 msgid "_Username:"
 msgstr ""
 
@@ -767,18 +767,14 @@ msgid "stand_ard"
 msgstr ""
 
 #: ui/authentication.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ui/authentication.glade.h:2
 msgid "Authentication"
 msgstr ""
 
-#: ui/authentication.glade.h:3
+#: ui/authentication.glade.h:2
 msgid "Your password on the server"
 msgstr ""
 
-#: ui/authentication.glade.h:4
+#: ui/authentication.glade.h:3
 msgid "Your username on the server"
 msgstr ""
 
@@ -864,6 +860,9 @@ msgstr "postinhoud"
 #, fuzzy
 msgid "subject"
 msgstr "<geen onderwerp gevonden>"
+
+#~ msgid "*"
+#~ msgstr "*"
 
 #~ msgid "00/00"
 #~ msgstr "00/00"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-07 19:04+0100\n"
+"POT-Creation-Date: 2004-12-07 22:38+0100\n"
 "PO-Revision-Date: 2004-12-05 11:12+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -127,7 +127,7 @@ msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:513
+#: src/imap4.cc:516
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
@@ -687,7 +687,7 @@ msgstr "_Boîte aux lettres:"
 msgid "_Name:"
 msgstr "_Nom:"
 
-#: ui/properties.glade.h:24 ui/authentication.glade.h:5
+#: ui/properties.glade.h:24 ui/authentication.glade.h:4
 msgid "_Password:"
 msgstr "Mot de _passe"
 
@@ -695,7 +695,7 @@ msgstr "Mot de _passe"
 msgid "_Type:"
 msgstr "_Type:"
 
-#: ui/properties.glade.h:26 ui/authentication.glade.h:6
+#: ui/properties.glade.h:26 ui/authentication.glade.h:5
 msgid "_Username:"
 msgstr "_Utilisateur:"
 
@@ -728,18 +728,14 @@ msgid "stand_ard"
 msgstr "stand_ard"
 
 #: ui/authentication.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ui/authentication.glade.h:2
 msgid "Authentication"
 msgstr "Authentification"
 
-#: ui/authentication.glade.h:3
+#: ui/authentication.glade.h:2
 msgid "Your password on the server"
 msgstr "Votre mot de passe sur le seveur"
 
-#: ui/authentication.glade.h:4
+#: ui/authentication.glade.h:3
 msgid "Your username on the server"
 msgstr "Votre nom d'utilisateur sur le serveur"
 
@@ -818,6 +814,9 @@ msgstr "mail content"
 #: ui/popup.glade.h:9
 msgid "subject"
 msgstr "Sujet"
+
+#~ msgid "*"
+#~ msgstr "*"
 
 #~ msgid "00/00"
 #~ msgstr "00/00"

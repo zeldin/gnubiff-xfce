@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-07 19:04+0100\n"
+"POT-Creation-Date: 2004-12-07 22:38+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -124,7 +124,7 @@ msgstr ""
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:513
+#: src/imap4.cc:516
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -714,7 +714,7 @@ msgstr "Mailbox"
 msgid "_Name:"
 msgstr "Utilizator:"
 
-#: ui/properties.glade.h:24 ui/authentication.glade.h:5
+#: ui/properties.glade.h:24 ui/authentication.glade.h:4
 #, fuzzy
 msgid "_Password:"
 msgstr "Parolã:"
@@ -723,7 +723,7 @@ msgstr "Parolã:"
 msgid "_Type:"
 msgstr ""
 
-#: ui/properties.glade.h:26 ui/authentication.glade.h:6
+#: ui/properties.glade.h:26 ui/authentication.glade.h:5
 #, fuzzy
 msgid "_Username:"
 msgstr "Utilizator:"
@@ -757,18 +757,14 @@ msgid "stand_ard"
 msgstr ""
 
 #: ui/authentication.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ui/authentication.glade.h:2
 msgid "Authentication"
 msgstr ""
 
-#: ui/authentication.glade.h:3
+#: ui/authentication.glade.h:2
 msgid "Your password on the server"
 msgstr ""
 
-#: ui/authentication.glade.h:4
+#: ui/authentication.glade.h:3
 msgid "Your username on the server"
 msgstr ""
 
@@ -855,6 +851,9 @@ msgstr ""
 #, fuzzy
 msgid "subject"
 msgstr "Subiect"
+
+#~ msgid "*"
+#~ msgstr "*"
 
 #, fuzzy
 #~ msgid ""
