@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 15:40+0100\n"
+"POT-Creation-Date: 2004-12-05 00:36+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -16,58 +16,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/gnubiff.cc:68
-msgid "configuration file to use"
+#: src/gnubiff.cc:98
+msgid "Start gnome applet from command line"
+msgstr ""
+
+#: src/gnubiff.cc:106
+#, fuzzy
+msgid "Configuration file to use"
 msgstr "configuratiebestand om te gebruiken"
 
-#: src/gnubiff.cc:68
+#: src/gnubiff.cc:106
 msgid "file"
 msgstr "bestand"
 
-#: src/gnubiff.cc:69
-msgid "skip the configure process"
+#: src/gnubiff.cc:108
+#, fuzzy
+msgid "Skip the configuration process"
 msgstr "configuratieproces overslaan"
 
-#: src/gnubiff.cc:173
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support\n"
+#: src/gnubiff.cc:110
+msgid "Print version information and exit"
 msgstr ""
-"\n"
-"Deze versie van gnubiff is gecompileerd met GNOME-ondersteuning\n"
 
-#: src/gnubiff.cc:174 src/gnubiff.cc:183
-msgid "If you want to use the GTK version, type gnubiff --gtk\n"
-msgstr "Als u de GTK-versie wilt gebruiken, typ gnubiff --gtk\n"
-
-#: src/gnubiff.cc:175
-msgid " then use -c file to specify an alternate configuration file\n"
+#: src/gnubiff.cc:117
+msgid "General command line options:"
 msgstr ""
-" gebruik dan -c BESTAND om een alternatief configuratiebestand aan te geven\n"
 
-#: src/gnubiff.cc:176
-msgid "      and -n to skip configuration process\n"
-msgstr "      en -n om het configuratieproces over te slaan\n"
-
-#: src/gnubiff.cc:177
-msgid "If you want to use the GNOME version, use gnome panel\n"
-msgstr "Als u de GNOME-versie wilt gebruiken, gebruik het GNOME Paneel\n"
-
-#: src/gnubiff.cc:178
-msgid "Have a nice day\n"
-msgstr "Fijne dag verder nog\n"
-
-#: src/gnubiff.cc:182
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support"
+#: src/gnubiff.cc:120
+msgid "Options for debugging:"
 msgstr ""
-"\n"
-"Deze versie van gnubiff is gecompileerd met GNOME-ondersteuning"
-
-#: src/gnubiff.cc:184
-msgid "Now I will hang forever...\n"
-msgstr "Nu ga ik eeuwig hangen...\n"
 
 #: src/ui-applet-gnome.cc:359
 #, fuzzy
@@ -101,64 +78,69 @@ msgstr "Kan uw configuratiebestand (%s) niet openen"
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Geen postvak-definitie gevonden in uw .gnubiffrc"
 
-#: src/mailbox.cc:67
+#: src/mailbox.cc:68
 #, fuzzy, c-format
 msgid "mailbox %d"
 msgstr "Postvak"
 
-#: src/mailbox.cc:158
+#: src/mailbox.cc:159
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "Kon thread niet aanmaken: %s\n"
 
-#: src/mailbox.cc:441
+#: src/mailbox.cc:442
 #, fuzzy
 msgid "<no sender>"
 msgstr "<geen verzender gevonden>"
 
-#: src/mailbox.cc:451
+#: src/mailbox.cc:452
 #, fuzzy
 msgid "<no subject>"
 msgstr "<geen onderwerp gevonden>"
 
-#: src/mailbox.cc:461
+#: src/mailbox.cc:462
 #, fuzzy
 msgid "<no date>"
 msgstr "<geen datum gevonden>"
 
-#: src/socket.cc:107 src/socket.cc:136 src/socket.cc:164 src/socket.cc:172
-#: src/socket.cc:180 src/socket.cc:192 src/socket.cc:216 src/socket.cc:224
+#: src/socket.cc:108 src/socket.cc:137 src/socket.cc:165 src/socket.cc:173
+#: src/socket.cc:181 src/socket.cc:193 src/socket.cc:217 src/socket.cc:225
 #, fuzzy, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/socket.cc:202
+#: src/socket.cc:203
 #, fuzzy, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/socket.cc:237
+#: src/socket.cc:238
 #, fuzzy, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "Kan niet schrijven naar %s op poort %d"
 
-#: src/socket.cc:304
+#: src/socket.cc:305
 #, fuzzy, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "Kan niet schrijven naar %s op poort %d"
 
-#: src/socket.cc:349
+#: src/socket.cc:352
 #, fuzzy, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "Kan niet lezen van %s op poort %d"
 
-#: src/imap4.cc:176 src/imap4.cc:196
+#: src/imap4.cc:190 src/imap4.cc:210
 #, fuzzy, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "Kan geen bevestiging opvragen van %s op poort %d"
 
-#: src/imap4.cc:444
-msgid "<EMPTY>"
+#: src/imap4.cc:252
+#, fuzzy, c-format
+msgid "[%d] Unable to select folder %s on host %s"
+msgstr "Kan niet met %s verbinden op poort %d"
+
+#: src/imap4.cc:505
+msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
 #: src/maildir.cc:86
@@ -274,7 +256,7 @@ msgstr ""
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:493 ui/preferences.glade.h:48
+#: src/ui-preferences.cc:493 ui/preferences.glade.h:47
 msgid "_Stop"
 msgstr ""
 
@@ -323,13 +305,13 @@ msgstr ""
 msgid "Date"
 msgstr "Versierd"
 
-#: src/ui-popup.cc:548 src/ui-popup.cc:560 src/ui-popup.cc:569
-#: src/ui-popup.cc:576
+#: src/ui-popup.cc:554 src/ui-popup.cc:566 src/ui-popup.cc:575
+#: src/ui-popup.cc:582
 #, fuzzy
 msgid "* error *"
 msgstr "fout!"
 
-#: src/ui-popup.cc:707
+#: src/ui-popup.cc:713
 #, fuzzy
 msgid "Error"
 msgstr "fout!"
@@ -399,236 +381,235 @@ msgstr "00"
 msgid "Applet"
 msgstr "Applet"
 
-#: ui/preferences.glade.h:1 ui/properties.glade.h:1
-#: ui/authentication.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ui/preferences.glade.h:2
+#: ui/preferences.glade.h:1
 #, fuzzy
 msgid "<b>Commands</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:3
+#: ui/preferences.glade.h:2
 #, fuzzy
 msgid "<b>General</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:4
+#: ui/preferences.glade.h:3
 #, fuzzy
 msgid "<b>Headers</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:5
+#: ui/preferences.glade.h:4
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:6
+#: ui/preferences.glade.h:5
 #, fuzzy
 msgid "<b>Mailboxes</b>"
 msgstr "Postvak"
 
-#: ui/preferences.glade.h:7
+#: ui/preferences.glade.h:6
 #, fuzzy
 msgid "<b>When new mail</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:8
+#: ui/preferences.glade.h:7
 #, fuzzy
 msgid "<b>When no mail</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:9
+#: ui/preferences.glade.h:8
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:10
+#: ui/preferences.glade.h:9
 #, fuzzy
 msgid "Applet or Biff"
 msgstr "Applet "
 
-#: ui/preferences.glade.h:11
+#: ui/preferences.glade.h:10
 msgid "B_rowse..."
 msgstr ""
 
-#: ui/preferences.glade.h:12
+#: ui/preferences.glade.h:11
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "Bladeren voor een certificaatbestand"
 
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:12
 msgid "Image filename"
 msgstr ""
 
-#: ui/preferences.glade.h:14
+#: ui/preferences.glade.h:13
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Postvak"
 
-#: ui/preferences.glade.h:15
+#: ui/preferences.glade.h:14
 #, fuzzy
 msgid "Maximum number of header to display"
 msgstr ""
 "<small>Maximale aantal\n"
 "te verzamelen berichten</small>"
 
-#: ui/preferences.glade.h:16 ui/popup.glade.h:4
+#: ui/preferences.glade.h:15 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Pop-up"
 
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:16
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:17
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:18
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:19
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:20
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:21
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:23
 #, fuzzy, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 "Tekst om weer te geven als er geen nieuwe post is; %d is het aantal "
 "berichten."
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:24
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Geluid om af te spelen als nieuwe e-mail is ontvangen"
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:25
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:26
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:27
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:28
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:29
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:30
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:31
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Nieuwe e-mail"
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:32
 msgid "Wheter to display a text"
 msgstr ""
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:33
 msgid "Wheter to display an image"
 msgstr ""
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:34
 #, fuzzy
 msgid "Wheter to display the popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:35
 msgid "Wheter to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:36
 msgid "Wheter to show an image "
 msgstr ""
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:37
 msgid "Wheter to use format for header"
 msgstr ""
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:38
 #, fuzzy
 msgid "Wheter to use geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:39
 #, fuzzy
 msgid "Wheter to use window manager decoration"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:40
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:42 ui/properties.glade.h:23
+#: ui/preferences.glade.h:41 ui/properties.glade.h:23
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:42
 #, fuzzy
 msgid "_Display for"
 msgstr "Datum weergeven in koppen"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:43
 #, fuzzy
 msgid "_Font:"
 msgstr "Lettertypes "
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:44
 #, fuzzy
 msgid "_Format:"
 msgstr "Lettertypes "
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:45
 msgid "_Restrict collected mail  to"
 msgstr ""
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:46
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:48
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Voorkeuren"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:49
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:50
 #, fuzzy
-msgid "mail"
+msgid "mail(s)"
 msgstr "kmail"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:51
 msgid "second(s)"
 msgstr ""
+
+#: ui/properties.glade.h:1 ui/authentication.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ui/properties.glade.h:2
 #, fuzzy
@@ -828,18 +809,18 @@ msgstr ""
 
 #: ui/popup.glade.h:1
 #, fuzzy
-msgid "<b>Date</b>"
-msgstr "<b>Y</b>"
+msgid "<small><b>Date</b></small>"
+msgstr "<small><b>Applet</b></small>"
 
 #: ui/popup.glade.h:2
 #, fuzzy
-msgid "<b>From</b>"
-msgstr "<b>Y</b>"
+msgid "<small><b>From</b></small>"
+msgstr "<small><b>Geluidssterkte</b></small>"
 
 #: ui/popup.glade.h:3
 #, fuzzy
-msgid "<b>Subject</b>"
-msgstr "<b>Y</b>"
+msgid "<small><b>Subject</b></small>"
+msgstr "<small><b>Geluidssterkte</b></small>"
 
 #: ui/popup.glade.h:5
 msgid "aaaaa"
@@ -862,6 +843,52 @@ msgstr "postinhoud"
 #, fuzzy
 msgid "subject"
 msgstr "<geen onderwerp gevonden>"
+
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Deze versie van gnubiff is gecompileerd met GNOME-ondersteuning\n"
+
+#~ msgid "If you want to use the GTK version, type gnubiff --gtk\n"
+#~ msgstr "Als u de GTK-versie wilt gebruiken, typ gnubiff --gtk\n"
+
+#~ msgid " then use -c file to specify an alternate configuration file\n"
+#~ msgstr ""
+#~ " gebruik dan -c BESTAND om een alternatief configuratiebestand aan te "
+#~ "geven\n"
+
+#~ msgid "      and -n to skip configuration process\n"
+#~ msgstr "      en -n om het configuratieproces over te slaan\n"
+
+#~ msgid "If you want to use the GNOME version, use gnome panel\n"
+#~ msgstr "Als u de GNOME-versie wilt gebruiken, gebruik het GNOME Paneel\n"
+
+#~ msgid "Have a nice day\n"
+#~ msgstr "Fijne dag verder nog\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support"
+#~ msgstr ""
+#~ "\n"
+#~ "Deze versie van gnubiff is gecompileerd met GNOME-ondersteuning"
+
+#~ msgid "Now I will hang forever...\n"
+#~ msgstr "Nu ga ik eeuwig hangen...\n"
+
+#, fuzzy
+#~ msgid "<b>Date</b>"
+#~ msgstr "<b>Y</b>"
+
+#, fuzzy
+#~ msgid "<b>From</b>"
+#~ msgstr "<b>Y</b>"
+
+#, fuzzy
+#~ msgid "<b>Subject</b>"
+#~ msgstr "<b>Y</b>"
 
 #, fuzzy
 #~ msgid "Unable to create lookup thread: %s\n"
@@ -1243,17 +1270,11 @@ msgstr "<geen onderwerp gevonden>"
 #~ msgid "<small><b>Applet (GTK only)</b></small>"
 #~ msgstr "<small><b>Applet (alleen GTK)</b></small>"
 
-#~ msgid "<small><b>Applet</b></small>"
-#~ msgstr "<small><b>Applet</b></small>"
-
 #~ msgid "<small><b>Popup</b></small>"
 #~ msgstr "<small><b>Pop-up</b></small>"
 
 #~ msgid "<small><b>Sound file</b></small>"
 #~ msgstr "<small><b>Geluidsbestand</b></small>"
-
-#~ msgid "<small><b>Volume</b></small>"
-#~ msgstr "<small><b>Geluidssterkte</b></small>"
 
 #~ msgid "<small>Address / filename</small>"
 #~ msgstr "<small>Adres / bestandsnaam</small>"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr_FR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 15:40+0100\n"
+"POT-Creation-Date: 2004-12-05 00:36+0100\n"
 "PO-Revision-Date: 2004-09-02 13:50+0200\n"
 "Last-Translator: Nicolas Rougier <Nicolas.Rougier@loria.fr>\n"
 "Language-Team: Français\n"
@@ -19,58 +19,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.2\n"
 
-#: src/gnubiff.cc:68
-msgid "configuration file to use"
+#: src/gnubiff.cc:98
+msgid "Start gnome applet from command line"
+msgstr ""
+
+#: src/gnubiff.cc:106
+#, fuzzy
+msgid "Configuration file to use"
 msgstr "Fichier de configuration à utiliser"
 
-#: src/gnubiff.cc:68
+#: src/gnubiff.cc:106
 msgid "file"
 msgstr "fichier"
 
-#: src/gnubiff.cc:69
-msgid "skip the configure process"
+#: src/gnubiff.cc:108
+#, fuzzy
+msgid "Skip the configuration process"
 msgstr "Passer l'étape de configuration"
 
-#: src/gnubiff.cc:173
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support\n"
+#: src/gnubiff.cc:110
+msgid "Print version information and exit"
 msgstr ""
-"\n"
-"Cette version de gnubiff a été compilée pour gnome \n"
 
-#: src/gnubiff.cc:174 src/gnubiff.cc:183
-msgid "If you want to use the GTK version, type gnubiff --gtk\n"
-msgstr "Si vous voulez la version GTK, tapez gnubiff --gtk\n"
-
-#: src/gnubiff.cc:175
-msgid " then use -c file to specify an alternate configuration file\n"
+#: src/gnubiff.cc:117
+msgid "General command line options:"
 msgstr ""
-"puis utiliser -c fichier pour spécifier un autre fichier de configuration\n"
 
-#: src/gnubiff.cc:176
-msgid "      and -n to skip configuration process\n"
-msgstr "et -n pour passer l'étape de configuration\n"
-
-#: src/gnubiff.cc:177
-msgid "If you want to use the GNOME version, use gnome panel\n"
-msgstr "Si vous voulez la version GNOME, utilisez le panel gnome\n"
-
-#: src/gnubiff.cc:178
-msgid "Have a nice day\n"
-msgstr "Bonjour chez vous\n"
-
-#: src/gnubiff.cc:182
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support"
+#: src/gnubiff.cc:120
+msgid "Options for debugging:"
 msgstr ""
-"\n"
-"Cette version de gnubiff a été compilée pour gnome "
-
-#: src/gnubiff.cc:184
-msgid "Now I will hang forever...\n"
-msgstr "Maintenant, je vais me mettre à attendre indéfiniment...\n"
 
 #: src/ui-applet-gnome.cc:359
 msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
@@ -103,61 +80,66 @@ msgstr ""
 "Votre fichier de configuration n'as pas de définition de boîte aux lettres (%"
 "s)"
 
-#: src/mailbox.cc:67
+#: src/mailbox.cc:68
 #, c-format
 msgid "mailbox %d"
 msgstr "Boîte aux lettres %d"
 
-#: src/mailbox.cc:158
+#: src/mailbox.cc:159
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossible de créer le thread: %s\n"
 
-#: src/mailbox.cc:441
+#: src/mailbox.cc:442
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: src/mailbox.cc:451
+#: src/mailbox.cc:452
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: src/mailbox.cc:461
+#: src/mailbox.cc:462
 msgid "<no date>"
 msgstr "<Pas de date>"
 
-#: src/socket.cc:107 src/socket.cc:136 src/socket.cc:164 src/socket.cc:172
-#: src/socket.cc:180 src/socket.cc:192 src/socket.cc:216 src/socket.cc:224
+#: src/socket.cc:108 src/socket.cc:137 src/socket.cc:165 src/socket.cc:173
+#: src/socket.cc:181 src/socket.cc:193 src/socket.cc:217 src/socket.cc:225
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Impossible de se connecter à %s via le port %d"
 
-#: src/socket.cc:202
+#: src/socket.cc:203
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Impossible de charger le certificat (%s) pour %s"
 
-#: src/socket.cc:237
+#: src/socket.cc:238
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Impossible d'identifier l'hôte (%s sur le port %d)"
 
-#: src/socket.cc:304
+#: src/socket.cc:305
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Impossible d'écrire à %s sur le port %d"
 
-#: src/socket.cc:349
+#: src/socket.cc:352
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Impossible de lire depuis %s sur le port %d"
 
-#: src/imap4.cc:176 src/imap4.cc:196
+#: src/imap4.cc:190 src/imap4.cc:210
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 
-#: src/imap4.cc:444
-msgid "<EMPTY>"
+#: src/imap4.cc:252
+#, fuzzy, c-format
+msgid "[%d] Unable to select folder %s on host %s"
+msgstr "[%d] Impossible de se connecter à %s via le port %d"
+
+#: src/imap4.cc:505
+msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
 #: src/maildir.cc:86
@@ -275,7 +257,7 @@ msgstr "Pas de boîte aux lettres séléctionnée"
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:493 ui/preferences.glade.h:48
+#: src/ui-preferences.cc:493 ui/preferences.glade.h:47
 msgid "_Stop"
 msgstr "_Stopper"
 
@@ -327,12 +309,12 @@ msgstr "Sujet"
 msgid "Date"
 msgstr "Date"
 
-#: src/ui-popup.cc:548 src/ui-popup.cc:560 src/ui-popup.cc:569
-#: src/ui-popup.cc:576
+#: src/ui-popup.cc:554 src/ui-popup.cc:566 src/ui-popup.cc:575
+#: src/ui-popup.cc:582
 msgid "* error *"
 msgstr "* erreur *"
 
-#: src/ui-popup.cc:707
+#: src/ui-popup.cc:713
 msgid "Error"
 msgstr "Erreur"
 
@@ -399,237 +381,236 @@ msgstr "00"
 msgid "Applet"
 msgstr "Applet"
 
-#: ui/preferences.glade.h:1 ui/properties.glade.h:1
-#: ui/authentication.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ui/preferences.glade.h:2
+#: ui/preferences.glade.h:1
 #, fuzzy
 msgid "<b>Commands</b>"
 msgstr "<b>Son</b>"
 
-#: ui/preferences.glade.h:3
+#: ui/preferences.glade.h:2
 msgid "<b>General</b>"
 msgstr "<b>Général</b>"
 
-#: ui/preferences.glade.h:4
+#: ui/preferences.glade.h:3
 #, fuzzy
 msgid "<b>Headers</b>"
 msgstr "<b>Général</b>"
 
-#: ui/preferences.glade.h:5
+#: ui/preferences.glade.h:4
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "<b>Fonte</b>"
 
-#: ui/preferences.glade.h:6
+#: ui/preferences.glade.h:5
 msgid "<b>Mailboxes</b>"
 msgstr "Boîtes aux lettres"
 
-#: ui/preferences.glade.h:7
+#: ui/preferences.glade.h:6
 #, fuzzy
 msgid "<b>When new mail</b>"
 msgstr "<b>Général</b>"
 
-#: ui/preferences.glade.h:8
+#: ui/preferences.glade.h:7
 #, fuzzy
 msgid "<b>When no mail</b>"
 msgstr "<b>Général</b>"
 
-#: ui/preferences.glade.h:9
+#: ui/preferences.glade.h:8
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Utiliser la géométrie"
 
-#: ui/preferences.glade.h:10
+#: ui/preferences.glade.h:9
 #, fuzzy
 msgid "Applet or Biff"
 msgstr "Utiliser la géométrie"
 
-#: ui/preferences.glade.h:11
+#: ui/preferences.glade.h:10
 #, fuzzy
 msgid "B_rowse..."
 msgstr "Chercher..."
 
-#: ui/preferences.glade.h:12
+#: ui/preferences.glade.h:11
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "Chercher le certificat"
 
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:12
 #, fuzzy
 msgid "Image filename"
 msgstr "Détails du certificat"
 
-#: ui/preferences.glade.h:14
+#: ui/preferences.glade.h:13
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Boîtes aux lettres"
 
-#: ui/preferences.glade.h:15
+#: ui/preferences.glade.h:14
 #, fuzzy
 msgid "Maximum number of header to display"
 msgstr "Nombre maximum de courriers à afficher"
 
-#: ui/preferences.glade.h:16 ui/popup.glade.h:4
+#: ui/preferences.glade.h:15 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Popup"
 
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:16
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Utiliser la géométrie"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:17
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:18
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:19
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:20
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:21
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:23
 #, fuzzy, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 "Texte à afficher pour le nouveau courrier. %d est le nombre de nouveaux "
 "courriers."
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:24
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Pas de son pour le nouveau courrier"
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:25
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:26
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:27
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Afficher la _fenêtre des entêtes pendant"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:28
 #, fuzzy
 msgid "Use _decoration"
 msgstr "Utilser la décoration"
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:29
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Utiliser la géométrie"
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:30
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:31
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Nouveau courrier:"
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:32
 msgid "Wheter to display a text"
 msgstr ""
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:33
 msgid "Wheter to display an image"
 msgstr ""
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:34
 #, fuzzy
 msgid "Wheter to display the popup window"
 msgstr "Afficher la _fenêtre des entêtes pendant"
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:35
 msgid "Wheter to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:36
 msgid "Wheter to show an image "
 msgstr ""
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:37
 msgid "Wheter to use format for header"
 msgstr ""
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:38
 #, fuzzy
 msgid "Wheter to use geometry"
 msgstr "Utiliser la géométrie"
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:39
 #, fuzzy
 msgid "Wheter to use window manager decoration"
 msgstr "Fenêtre dentêtes décorée ou non"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:40
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:42 ui/properties.glade.h:23
+#: ui/preferences.glade.h:41 ui/properties.glade.h:23
 #, fuzzy
 msgid "_Browse..."
 msgstr "Chercher..."
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:42
 #, fuzzy
 msgid "_Display for"
 msgstr "Afficher les _dates"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:43
 #, fuzzy
 msgid "_Font:"
 msgstr "P_ort:"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:44
 #, fuzzy
 msgid "_Format:"
 msgstr "Format"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:45
 msgid "_Restrict collected mail  to"
 msgstr ""
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:46
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:48
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Préferences"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:49
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:50
 #, fuzzy
-msgid "mail"
+msgid "mail(s)"
 msgstr "kmail"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "second(s)"
 msgstr "secondes"
+
+#: ui/properties.glade.h:1 ui/authentication.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ui/properties.glade.h:2
 #, fuzzy
@@ -834,18 +815,16 @@ msgid "State or Province"
 msgstr "Etat ou Province"
 
 #: ui/popup.glade.h:1
-#, fuzzy
-msgid "<b>Date</b>"
-msgstr "<b>Fonte</b>"
+msgid "<small><b>Date</b></small>"
+msgstr ""
 
 #: ui/popup.glade.h:2
-#, fuzzy
-msgid "<b>From</b>"
-msgstr "<b>Popup</b>"
+msgid "<small><b>From</b></small>"
+msgstr ""
 
 #: ui/popup.glade.h:3
 #, fuzzy
-msgid "<b>Subject</b>"
+msgid "<small><b>Subject</b></small>"
 msgstr "<b>Fonte</b>"
 
 #: ui/popup.glade.h:5
@@ -870,6 +849,48 @@ msgstr "mail content"
 #, fuzzy
 msgid "subject"
 msgstr "Sujet"
+
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Cette version de gnubiff a été compilée pour gnome \n"
+
+#~ msgid "If you want to use the GTK version, type gnubiff --gtk\n"
+#~ msgstr "Si vous voulez la version GTK, tapez gnubiff --gtk\n"
+
+#~ msgid " then use -c file to specify an alternate configuration file\n"
+#~ msgstr ""
+#~ "puis utiliser -c fichier pour spécifier un autre fichier de "
+#~ "configuration\n"
+
+#~ msgid "      and -n to skip configuration process\n"
+#~ msgstr "et -n pour passer l'étape de configuration\n"
+
+#~ msgid "If you want to use the GNOME version, use gnome panel\n"
+#~ msgstr "Si vous voulez la version GNOME, utilisez le panel gnome\n"
+
+#~ msgid "Have a nice day\n"
+#~ msgstr "Bonjour chez vous\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support"
+#~ msgstr ""
+#~ "\n"
+#~ "Cette version de gnubiff a été compilée pour gnome "
+
+#~ msgid "Now I will hang forever...\n"
+#~ msgstr "Maintenant, je vais me mettre à attendre indéfiniment...\n"
+
+#, fuzzy
+#~ msgid "<b>Date</b>"
+#~ msgstr "<b>Fonte</b>"
+
+#, fuzzy
+#~ msgid "<b>From</b>"
+#~ msgstr "<b>Popup</b>"
 
 #~ msgid "From: "
 #~ msgstr "De: "

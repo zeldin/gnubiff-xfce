@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 15:40+0100\n"
+"POT-Creation-Date: 2004-12-05 00:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,52 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/gnubiff.cc:68
-msgid "configuration file to use"
+#: src/gnubiff.cc:98
+msgid "Start gnome applet from command line"
 msgstr ""
 
-#: src/gnubiff.cc:68
+#: src/gnubiff.cc:106
+msgid "Configuration file to use"
+msgstr ""
+
+#: src/gnubiff.cc:106
 msgid "file"
 msgstr ""
 
-#: src/gnubiff.cc:69
-msgid "skip the configure process"
+#: src/gnubiff.cc:108
+msgid "Skip the configuration process"
 msgstr ""
 
-#: src/gnubiff.cc:173
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support\n"
+#: src/gnubiff.cc:110
+msgid "Print version information and exit"
 msgstr ""
 
-#: src/gnubiff.cc:174 src/gnubiff.cc:183
-msgid "If you want to use the GTK version, type gnubiff --gtk\n"
+#: src/gnubiff.cc:117
+msgid "General command line options:"
 msgstr ""
 
-#: src/gnubiff.cc:175
-msgid " then use -c file to specify an alternate configuration file\n"
-msgstr ""
-
-#: src/gnubiff.cc:176
-msgid "      and -n to skip configuration process\n"
-msgstr ""
-
-#: src/gnubiff.cc:177
-msgid "If you want to use the GNOME version, use gnome panel\n"
-msgstr ""
-
-#: src/gnubiff.cc:178
-msgid "Have a nice day\n"
-msgstr ""
-
-#: src/gnubiff.cc:182
-msgid ""
-"\n"
-"This version of gnubiff has been compiled with GNOME support"
-msgstr ""
-
-#: src/gnubiff.cc:184
-msgid "Now I will hang forever...\n"
+#: src/gnubiff.cc:120
+msgid "Options for debugging:"
 msgstr ""
 
 #: src/ui-applet-gnome.cc:359
@@ -92,61 +72,66 @@ msgstr ""
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 
-#: src/mailbox.cc:67
+#: src/mailbox.cc:68
 #, c-format
 msgid "mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:158
+#: src/mailbox.cc:159
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: src/mailbox.cc:441
+#: src/mailbox.cc:442
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:451
+#: src/mailbox.cc:452
 msgid "<no subject>"
 msgstr ""
 
-#: src/mailbox.cc:461
+#: src/mailbox.cc:462
 msgid "<no date>"
 msgstr ""
 
-#: src/socket.cc:107 src/socket.cc:136 src/socket.cc:164 src/socket.cc:172
-#: src/socket.cc:180 src/socket.cc:192 src/socket.cc:216 src/socket.cc:224
+#: src/socket.cc:108 src/socket.cc:137 src/socket.cc:165 src/socket.cc:173
+#: src/socket.cc:181 src/socket.cc:193 src/socket.cc:217 src/socket.cc:225
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr ""
 
-#: src/socket.cc:202
+#: src/socket.cc:203
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr ""
 
-#: src/socket.cc:237
+#: src/socket.cc:238
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr ""
 
-#: src/socket.cc:304
+#: src/socket.cc:305
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr ""
 
-#: src/socket.cc:349
+#: src/socket.cc:352
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:176 src/imap4.cc:196
+#: src/imap4.cc:190 src/imap4.cc:210
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:444
-msgid "<EMPTY>"
+#: src/imap4.cc:252
+#, c-format
+msgid "[%d] Unable to select folder %s on host %s"
+msgstr ""
+
+#: src/imap4.cc:505
+msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
 #: src/maildir.cc:86
@@ -252,7 +237,7 @@ msgstr ""
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:493 ui/preferences.glade.h:48
+#: src/ui-preferences.cc:493 ui/preferences.glade.h:47
 msgid "_Stop"
 msgstr ""
 
@@ -297,12 +282,12 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: src/ui-popup.cc:548 src/ui-popup.cc:560 src/ui-popup.cc:569
-#: src/ui-popup.cc:576
+#: src/ui-popup.cc:554 src/ui-popup.cc:566 src/ui-popup.cc:575
+#: src/ui-popup.cc:582
 msgid "* error *"
 msgstr ""
 
-#: src/ui-popup.cc:707
+#: src/ui-popup.cc:713
 msgid "Error"
 msgstr ""
 
@@ -366,206 +351,205 @@ msgstr ""
 msgid "Applet"
 msgstr ""
 
-#: ui/preferences.glade.h:1 ui/properties.glade.h:1
-#: ui/authentication.glade.h:1
-msgid "*"
-msgstr ""
-
-#: ui/preferences.glade.h:2
+#: ui/preferences.glade.h:1
 msgid "<b>Commands</b>"
 msgstr ""
 
-#: ui/preferences.glade.h:3
+#: ui/preferences.glade.h:2
 msgid "<b>General</b>"
 msgstr ""
 
-#: ui/preferences.glade.h:4
+#: ui/preferences.glade.h:3
 msgid "<b>Headers</b>"
 msgstr ""
 
-#: ui/preferences.glade.h:5
+#: ui/preferences.glade.h:4
 msgid "<b>Layout</b>"
 msgstr ""
 
-#: ui/preferences.glade.h:6
+#: ui/preferences.glade.h:5
 msgid "<b>Mailboxes</b>"
 msgstr ""
 
-#: ui/preferences.glade.h:7
+#: ui/preferences.glade.h:6
 msgid "<b>When new mail</b>"
 msgstr ""
 
-#: ui/preferences.glade.h:8
+#: ui/preferences.glade.h:7
 msgid "<b>When no mail</b>"
 msgstr ""
 
-#: ui/preferences.glade.h:9
+#: ui/preferences.glade.h:8
 msgid "Applet geometry"
 msgstr ""
 
-#: ui/preferences.glade.h:10
+#: ui/preferences.glade.h:9
 msgid "Applet or Biff"
 msgstr ""
 
-#: ui/preferences.glade.h:11
+#: ui/preferences.glade.h:10
 msgid "B_rowse..."
 msgstr ""
 
-#: ui/preferences.glade.h:12
+#: ui/preferences.glade.h:11
 msgid "Browse for an image file"
 msgstr ""
 
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:12
 msgid "Image filename"
 msgstr ""
 
-#: ui/preferences.glade.h:14
+#: ui/preferences.glade.h:13
 msgid "Mailboxes"
 msgstr ""
 
-#: ui/preferences.glade.h:15
+#: ui/preferences.glade.h:14
 msgid "Maximum number of header to display"
 msgstr ""
 
-#: ui/preferences.glade.h:16 ui/popup.glade.h:4
+#: ui/preferences.glade.h:15 ui/popup.glade.h:4
 msgid "Popup"
 msgstr ""
 
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:16
 msgid "Popup geometry"
 msgstr ""
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:17
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:18
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:19
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:20
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:21
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:23
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:24
 msgid "The command to run when new mail arrives"
 msgstr ""
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:25
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:26
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:27
 msgid "Time to display popup window"
 msgstr ""
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:28
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:29
 msgid "Use _geometry:"
 msgstr ""
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:30
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:31
 msgid "When _new mail:"
 msgstr ""
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:32
 msgid "Wheter to display a text"
 msgstr ""
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:33
 msgid "Wheter to display an image"
 msgstr ""
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:34
 msgid "Wheter to display the popup window"
 msgstr ""
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:35
 msgid "Wheter to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:36
 msgid "Wheter to show an image "
 msgstr ""
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:37
 msgid "Wheter to use format for header"
 msgstr ""
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:38
 msgid "Wheter to use geometry"
 msgstr ""
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:39
 msgid "Wheter to use window manager decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:40
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:42 ui/properties.glade.h:23
+#: ui/preferences.glade.h:41 ui/properties.glade.h:23
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:42
 msgid "_Display for"
 msgstr ""
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:43
 msgid "_Font:"
 msgstr ""
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:44
 msgid "_Format:"
 msgstr ""
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:45
 msgid "_Restrict collected mail  to"
 msgstr ""
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:46
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:48
 msgid "gnubiff preferences"
 msgstr ""
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:49
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:51
-msgid "mail"
+#: ui/preferences.glade.h:50
+msgid "mail(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:51
 msgid "second(s)"
+msgstr ""
+
+#: ui/properties.glade.h:1 ui/authentication.glade.h:1
+msgid "*"
 msgstr ""
 
 #: ui/properties.glade.h:2
@@ -755,15 +739,15 @@ msgid "State or Province"
 msgstr ""
 
 #: ui/popup.glade.h:1
-msgid "<b>Date</b>"
+msgid "<small><b>Date</b></small>"
 msgstr ""
 
 #: ui/popup.glade.h:2
-msgid "<b>From</b>"
+msgid "<small><b>From</b></small>"
 msgstr ""
 
 #: ui/popup.glade.h:3
-msgid "<b>Subject</b>"
+msgid "<small><b>Subject</b></small>"
 msgstr ""
 
 #: ui/popup.glade.h:5
