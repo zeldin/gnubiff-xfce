@@ -38,12 +38,17 @@
 
 class Imap4 : public Mailbox {
 
+private:
+	std::string tag_;
+	guint tagcounter_;
 protected:
 	class Socket *			socket_;
 	std::vector<int>		saved_;
 	std::string parse_bodystructure (std::string, gint &,
 									 gboolean toplevel=true);
-
+	void reset_tag();
+	std::string tag();
+	gint send(std::string,gboolean debug=true);
 public:
 	/* Base */
 	Imap4 (class Biff *owner);

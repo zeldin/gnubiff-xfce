@@ -86,22 +86,26 @@ gint Imap4::connect (void)
 #endif
 	if (!(socket_->read (line, true))) return 0;
 
+	// Reset tag counter
+	reset_tag();
+
 	// LOGIN
-	line = "A001 LOGIN \"" + username_ + std::string ("\" \"") + password_ + std::string ("\"\r\n");
+	line = "LOGIN \"" + username_ + "\" \"" + password_ + "\"";
+	if (!send(line,false)) return 0;
 
 	// Just in case send someone me the output: password won't be displayed
 #ifdef DEBUG
-	std::string line_no_password = "A001 LOGIN \"" + username_ + std::string ("\" \"")
-		+ std::string("(hidden)") + std::string ("\"\r\n");
-	g_message ("[%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_, line_no_password.c_str());
+	line = tag() + "LOGIN \"" + username_ + "\" (password) \r\n";
+	g_message ("[%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_,
+			   line.c_str());
 #endif
 
-	if (!socket_->write (line, false)) return 0;
 	if (!(socket_->read (line))) return 0;
-	if (line.find ("A001 OK") != 0) {
+	if (line.find (tag()+"OK") != 0) {
 		socket_->status (SOCKET_STATUS_ERROR);
 		status_ = MAILBOX_ERROR;
-		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"), uin_, hostname_.c_str(), port_);
+		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"),
+				   uin_, hostname_.c_str(), port_);
 		return 0;
 	}
 
@@ -110,10 +114,9 @@ gint Imap4::connect (void)
 	gchar *folder_imaputf7=gb_utf8_to_imaputf7(folder_.c_str(),-1);
 	if (folder_imaputf7)
 	{
-		std::string s = std::string("A002 SELECT \"") + folder_imaputf7
-						+ std::string ("\"\r\n");
+		line=std::string("SELECT \"") + folder_imaputf7 + "\"";
 		g_free(folder_imaputf7);
-		if (!socket_->write (s.c_str())) return 0;
+		if (!send(line)) return 0;
 
 		// We need to set a limit to lines read (DoS Attacks).
 		// According to RFC 3501 6.3.1 there must be exactly seven lines
@@ -121,23 +124,23 @@ gint Imap4::connect (void)
 		gint cnt=8+preventDoS_additionalLines_;
 		while ((socket_->read (line)) && (cnt--))
 		{
-			if (line.find ("A002 OK") == 0)
+			if (line.find (tag()+"OK") == 0)
 			{
 				check = true;
 				break;
 			}
-			else if (line.find ("A002") == 0)
+			else if (line.find (tag()) == 0)
 			{
-				socket_->write ("A003 LOGOUT\r\n");
-				socket_->close ();
+				if (send("LOGOUT"))
+					socket_->close ();
 				break;
 			}
 		}
 	}
 	else
 	{
-		socket_->write ("A002 LOGOUT\r\n");
-		socket_->close ();
+		if (send("LOGOUT"))
+			socket_->close ();
 	}
 
 	if (!socket_->status()||!check||!folder_imaputf7)
@@ -174,7 +177,7 @@ Imap4::get_status (void)
 	if (!connect ()) return;
 
 	// SEARCH NOT SEEN
-	if (!socket_->write ("A003 SEARCH NOT SEEN\r\n")) return;
+	if (!send("SEARCH NOT SEEN")) return;
 
 	// We need to set a limit to lines read (DoS Attacks).
 	// Expected response "* SEARCH ..." should be in the next line.
@@ -235,12 +238,12 @@ Imap4::get_status (void)
 	saved_ = buffer;
 	cnt=1+preventDoS_additionalLines_;
 	while ((socket_->read (line) > 0) && (cnt--))
-		if (line.find ("A003") != std::string::npos)
+		if (line.find (tag()) != std::string::npos)
 			break;
 	if ((!socket_->status()) || (cnt<0)) return;
 
 	// Closing connection
-	if (!socket_->write ("A004 LOGOUT\r\n")) return;
+	if (!send("LOGOUT")) return;
 	socket_->close ();
 }
 
@@ -264,7 +267,7 @@ Imap4::get_header (void)
 	if (!connect ()) return;
 
 	// SEARCH NOT SEEN
-	if (!socket_->write ("A003 SEARCH NOT SEEN\r\n")) return;
+	if (!send("SEARCH NOT SEEN")) return;
 
 	// We need to set a limit to lines read (DoS Attacks).
 	// Expected response "* SEARCH ..." should be in the next line.
@@ -294,7 +297,7 @@ Imap4::get_header (void)
 
 	cnt=1+preventDoS_additionalLines_;
 	while ((socket_->read (line) > 0) && (cnt--))
-		if (line.find ("A003") != std::string::npos)
+		if (line.find (tag()) != std::string::npos)
 			break;
 	if ((!socket_->status()) || (cnt<0)) return;
 
@@ -308,8 +311,9 @@ Imap4::get_header (void)
 		s << buffer[i];
 		mail.clear();
 
-		std::string line = std::string ("A004 FETCH ") + s.str() + std::string (" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])\r\n");
-		if (!socket_->write (line)) return;
+		line="FETCH " + s.str();
+		line+=" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])";
+		if (!send(line)) return;
 
 		// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
 		cnt=1+preventDoS_additionalLines_;
@@ -325,11 +329,11 @@ Imap4::get_header (void)
 #endif
 		cnt=5+preventDoS_additionalLines_;
 		while (((socket_->read(line, false) > 0)) && (cnt--)) {
-			if (line.find ("A004 OK") == 0)
+			if (line.find (tag()+"OK") == 0)
 				break;
-			if (line.find ("A004") == 0) {
-				socket_->write ("A005 LOGOUT\r\n");
-				socket_->close ();
+			if (line.find (tag()) == 0) {
+				if (send("LOGOUT"))
+					socket_->close ();
 				return;
 			}
 			if (line.size() > 0) {
@@ -351,8 +355,7 @@ Imap4::get_header (void)
 
 
 		// FETCH BODYSTRUCTURE
-		line = std::string ("A007 FETCH ") + s.str() + std::string (" (BODYSTRUCTURE)\r\n");
-		if (!socket_->write (line)) return;
+		if (!send("FETCH " + s.str() + " (BODYSTRUCTURE)")) return;
 
 		// Response should be: "* s FETCH (BODYSTRUC..." (see RFC 3501 7.4.2)
 		cnt=1+preventDoS_additionalLines_;
@@ -374,11 +377,11 @@ Imap4::get_header (void)
 		// Read end of command
 		cnt=1+preventDoS_additionalLines_;
 		while (((socket_->read(line, false) > 0)) && (cnt--)) {
-			if (line.find ("A007 OK") == 0)
+			if (line.find (tag()+"OK") == 0)
 				break;
-			if (line.find ("A007") == 0) {
-				socket_->write ("A005 LOGOUT\r\n");
-				socket_->close ();
+			if (line.find (tag()) == 0) {
+				if (send("LOGOUT"))
+					socket_->close ();
 				return;
 			}
 		}
@@ -398,8 +401,9 @@ Imap4::get_header (void)
 				textsize=12012;
 			std::stringstream textsizestr;
 			textsizestr << textsize;
-			line = std::string ("A005 FETCH ") + s.str() + std::string (" (BODY.PEEK[") + part + std::string ("]<0.") + textsizestr.str() + std::string (">)\r\n");
-			if (!socket_->write (line)) return;
+			line = "FETCH " + s.str() + " (BODY.PEEK[" + part + "]<0.";
+			line+= textsizestr.str() + ">)";
+			if (!send(line)) return;
 
 			// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
 			cnt=1+preventDoS_additionalLines_;
@@ -430,7 +434,7 @@ Imap4::get_header (void)
 				mail.push_back (line.substr(0, line.size()-2));
 			// Read end of command
 			if (!(socket_->read(line, false))) return;
-			if (line.find ("A005 OK") != 0) return;
+			if (line.find (tag()+"OK") != 0) return;
 		}
 #ifdef DEBUG
 		g_print ("\n");
@@ -441,7 +445,7 @@ Imap4::get_header (void)
 	}
 
 	// Closing connection
-	if (!socket_->write ("A006 LOGOUT\r\n")) return;
+	if (!send("LOGOUT")) return;
 	socket_->close ();
 
 	// We restore status
@@ -576,4 +580,53 @@ Imap4::parse_bodystructure (std::string structure,gint &size,gboolean toplevel)
 	}
 	// At end and no length found: Error!
 	return std::string("");
+}
+
+/**
+ * Reset the counter for tagging imap commands.
+ */
+void
+Imap4::reset_tag()
+{
+	tag_=std::string("");
+	tagcounter_=0;
+}
+
+/**
+ * Give the tag (including the following space) of the last sent IMAP command.
+ *
+ * @return  a C++ string with the tag
+ */
+std::string
+Imap4::tag()
+{
+	return tag_;
+}
+
+/**
+ * Send an IMAP command.
+ * The given {\em command} is prefixed with a unique identifier (obtainable
+ * via the tag() function) and postfixed with "\r\n" and then written to the
+ * socket of the mailbox.
+ *
+ * @param command  IMAP command as a C++ string
+ * @param debug    boolean that says if the command should be printed in debug
+ *                 mode (default is true)
+ * @return         return value of the socket write command
+ */
+gint
+Imap4::send(std::string command, gboolean debug)
+{
+	// Create new tag
+	tagcounter_++;
+	gint len=g_snprintf(NULL,0,"A%05d ",tagcounter_)+1;
+	gchar *buffer=g_strnfill(len,'\0');
+	if (buffer==NULL)
+		return 0;
+	if (g_snprintf(buffer,len,"A%05d ",tagcounter_)!=len-1)
+		return 0;
+	tag_=std::string(buffer);
+	g_free(buffer);
+	// Write line
+	return socket_->write (tag_ + command + "\r\n", debug);
 }

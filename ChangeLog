@@ -40,6 +40,7 @@ Version 2.0.3
    - Bugfix: Setting always status to MAILBOX_ERROR if an error occurs
      (POP3 & IMAP)
    - Bugfixes in displaying first lines of mails
+   - Bugfix: Creating different tags for different commands (IMAP)
    
 
 Version 2.0.2
