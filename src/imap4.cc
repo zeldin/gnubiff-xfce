@@ -388,7 +388,7 @@ Imap4::fetch_status (void)
 	// We're done
 	cnt=1+preventDoS_additionalLines_;
 	while ((socket_->read (line) > 0) && (cnt--))
-		if (line.find (tag()) != std::string::npos)
+		if (line.find (tag()) == 0)
 			break;
 	if ((!socket_->status()) || (cnt<0)) throw imap_socket_err();
 
@@ -455,7 +455,7 @@ Imap4::fetch_header (void)
 	
 	cnt=1+preventDoS_additionalLines_;
 	while ((socket_->read (line) > 0) && (cnt--))
-		if (line.find (tag()) != std::string::npos)
+		if (line.find (tag()) == 0)
 			break;
 	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
 	
