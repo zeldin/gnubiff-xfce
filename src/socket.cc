@@ -317,7 +317,8 @@ Socket::write (std::string line, gboolean print)
 
 #ifdef DEBUG
 	if (print)
-		g_message ("[%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
+		g_message ("[%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_,
+				   line.substr(0, line.size()-2).c_str());
 #endif
 
 	if ((print) && (status_ != SOCKET_STATUS_OK)) {
