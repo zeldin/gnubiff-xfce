@@ -90,7 +90,7 @@ int mainGTK (int argc, char **argv) {
    	static struct poptOption options_debug[] =
 	{
 	   	{"applet",'\0', POPT_ARG_NONE,   &debug_applet,  0,
-		 N_("start gnome applet from command line"), NULL},
+		 N_("Start gnome applet from command line"), NULL},
 		POPT_TABLEEND
 	};
 #endif
@@ -98,11 +98,11 @@ int mainGTK (int argc, char **argv) {
 	static struct poptOption options_general[] =
 	{
 	   	{"config",      'c' , POPT_ARG_STRING, &config_file,   0,
-		 N_("configuration file to use"),  N_("file")},
+		 N_("Configuration file to use"),  N_("file")},
 		{"noconfigure", 'n' , POPT_ARG_NONE,   &no_configure,  0,
-		 N_("skip the configuration process"), NULL},
+		 N_("Skip the configuration process"), NULL},
 		{"version",     'v' , POPT_ARG_NONE,   &print_version, 0,
-		 N_("print version information and exit"), NULL},
+		 N_("Print version information and exit"), NULL},
 		POPT_TABLEEND
 	};
 
