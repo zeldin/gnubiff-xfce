@@ -1233,7 +1233,7 @@ Imap4::tag ()
  * this function.
  *
  * @param command  IMAP command as a C++ string
- * @param debug    Shall the sent command be printed in debug mode?
+ * @param print    Shall the sent command be printed in debug mode?
  *                 The default is true.
  * @param check    Shall the return value of the Socket::write() command be
  *                 checked? The default is true.
@@ -1246,7 +1246,7 @@ Imap4::tag ()
  *                 This exception is thrown if a network error occurs.
  */
 gint 
-Imap4::sendline (std::string command, gboolean debug, gboolean check)
+Imap4::sendline (std::string command, gboolean print, gboolean check)
 				 throw (imap_err)
 {
 	// Create new tag
@@ -1257,7 +1257,7 @@ Imap4::sendline (std::string command, gboolean debug, gboolean check)
 	g_free(buffer);
 
 	// Write line
-	gint status=socket_->write (tag_ + command + "\r\n", debug);
+	gint status=socket_->write (tag_ + command + "\r\n", print);
 	if ((status!=SOCKET_STATUS_OK) && check) throw imap_socket_err();
 	return status;
 }
@@ -1281,7 +1281,7 @@ Imap4::sendline (std::string command, gboolean debug, gboolean check)
  * @param line      String that contains the read line if the call was
  *                  successful (i.e. the return value is SOCKET_STATUS_OK),
  *                  the value is undetermined otherwise
- * @param debug     Shall the read line be printed in debug mode?
+ * @param print     Shall the read line be printed in debug mode?
  *                  The default is true.
  * @param check     Shall the return value of the Socket::read() command be
  *                  checked? The default is true.
@@ -1297,11 +1297,11 @@ Imap4::sendline (std::string command, gboolean debug, gboolean check)
  *                  This exception is thrown if a network error occurs.
  */
 gint 
-Imap4::readline (std::string &line, gboolean debug, gboolean check,
+Imap4::readline (std::string &line, gboolean print, gboolean check,
 				 gboolean checkline) throw (imap_err)
 {
 	// Read line
-	gint status=socket_->read(line, debug, check);
+	gint status=socket_->read(line, print, check);
 	if (check && (status!=SOCKET_STATUS_OK)) throw imap_socket_err();
 
 	// Check for an untagged negative response
@@ -1330,7 +1330,7 @@ Imap4::readline (std::string &line, gboolean debug, gboolean check,
  * @param line      String that contains the read line if the call was
  *                  successful (i.e. the return value is SOCKET_STATUS_OK),
  *                  the value is undetermined otherwise
- * @param debug     Shall the read line be printed in debug mode?
+ * @param print     Shall the read lines be printed in debug mode?
  *                  The default is true.
  * @param check     Shall the return value of the Socket::read() command be
  *                  checked? The default is true.
@@ -1351,13 +1351,13 @@ Imap4::readline (std::string &line, gboolean debug, gboolean check,
  *                  and {\em checkline}.
  */
 gint 
-Imap4::readline_ignoreinfo (std::string &line, gboolean debug, gboolean check,
+Imap4::readline_ignoreinfo (std::string &line, gboolean print, gboolean check,
 							gboolean checkline) throw (imap_err)
 {
 	gint cnt=1+preventDoS_ignoreinfo_, status;
 
 	do {
-		status=readline (line, debug, check, checkline);
+		status=readline (line, print, check, checkline);
 		// Check for information or warning message
 		if ((line.find("* OK") != 0) && (line.find("* NO") != 0))
 			break;
