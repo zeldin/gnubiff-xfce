@@ -35,6 +35,7 @@
 #ifdef HAVE_CONFIG_H
 #   include <config.h>
 #endif
+#include "decoding.h"
 #include "gui.h"
 #include "biff.h"
 #include "mailbox.h"
@@ -49,10 +50,7 @@ enum {
 	COLUMNS
 };
 
-#define BASE64(c) (index_64[(unsigned char)(c) & 0x7F])
-
-
-class Popup : public GUI {
+class Popup : public GUI, public Decoding {
 
 protected:
 	class Biff *		biff_;				// Biff owner
@@ -87,8 +85,6 @@ protected:
 private:
 	/* util */
 	gchar *parse_header (std::string text);
-	int decode_quoted (const gchar *buftodec, gchar *decbuf);
-	int decode_base64 (gchar *src, gchar *dest);
 	gchar *convert (std::string text, std::string charset);
 };
 

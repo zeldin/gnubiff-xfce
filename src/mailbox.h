@@ -38,6 +38,7 @@
 #include <glib.h>
 #include <string>
 #include "biff.h"
+#include "decoding.h"
 #include "socket.h"
 
 
@@ -103,7 +104,7 @@ typedef struct _header {
 #define MAILBOX(x)					((Mailbox *)(x))
 
 
-class Mailbox {
+class Mailbox : public Decoding {
 
 protected:
 	// ========================================================================
@@ -174,7 +175,6 @@ public:
 	void parse (std::vector<std::string> &mail,		// parse a mail 
 				int status = -1);
 	gboolean decode_body (std::vector<std::string> &,std::string); // decode mail body
-	std::string decode_quotedprintable (std::string);
 
 	// ========================================================================
 	//  access

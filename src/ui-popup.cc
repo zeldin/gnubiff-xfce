@@ -600,25 +600,17 @@ Popup::parse_header (std::string text)
 				break;
 			} 
 
-			// Allocate a buffer to get the decoded string (whose size will be smaller)
-			buffer = (gchar *) g_malloc (copy_part.size()+1);
-
 			// Now decode
-			if (copy_part.size() == 0)
-				utf8_part = g_locale_to_utf8 ("", -1, 0, 0, 0);
-			else if ((encoding == 'Q') || (encoding == 'q')) {
-				decode_quoted (copy_part.c_str(), buffer);
-				utf8_part = g_convert (buffer, -1, "utf-8", charset.c_str(), 0,0,0);
-			}
-			else if ((encoding == 'B') || (encoding == 'b')) {
-				int size = decode_base64 ((gchar *) copy_part.c_str(), buffer);
-				if (size > 0)
-					utf8_part = g_convert (buffer, size, "utf-8", charset.c_str(), 0,0,0);
-			}	
-			else {
+			std::string decoded;
+			utf8_part=NULL;
+			if ((encoding == 'Q') || (encoding == 'q'))
+				decoded=decode_quotedprintable(copy_part);
+			else if ((encoding == 'B') || (encoding == 'b'))
+				decoded=decode_base64(copy_part);
+			else
 				utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
-			}
-			g_free (buffer);
+			if (decoded.size()>0)
+				utf8_part = g_convert (decoded.c_str(), -1, "utf-8", charset.c_str(), 0,0,0);
 			i += 2;
 			// We translate to utf8 what we got
 			if (utf8_part) {
@@ -646,75 +638,6 @@ Popup::parse_header (std::string text)
 
 	return utf8_text;
 }
-
-
-int
-Popup::decode_quoted (const gchar *buftodec,
-					  gchar *decbuf)
-{
-	guint j=0;
-	guint i=0;
-	do {
-		// Quoted printable code
-		if ((buftodec[i] == '=') && ((i+2) < strlen(buftodec))) {
-			char encoded[5];
-			int decoded;
-			encoded[0] = '0';
-			encoded[1] = 'x';
-			encoded[2] = buftodec[i+1];
-			encoded[3] = buftodec[i+2];
-			encoded[4] = '\0';
-			sscanf (encoded, "%i", &decoded);
-			decbuf[j++] = char (decoded);
-			i += 3;
-		}
-		// End of quoted printable code
-
-		// Normal text
-		else if (buftodec[i] == '_') {
-			decbuf[j++] = ' ';
-			i++;
-		}
-		else
-			decbuf[j++] = buftodec[i++];
-	} while (i<strlen (buftodec));
-
-	decbuf[j] = '\0';
-
-	return strlen (decbuf);
-}
-
-int
-Popup::decode_base64 (gchar *src, gchar *dest)
-{
-	int index_64[128] =	{
-		-1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
-		-1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
-		-1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,62, -1,-1,-1,63,
-		52,53,54,55, 56,57,58,59, 60,61,-1,-1, -1,-1,-1,-1,
-		-1, 0, 1, 2,  3, 4, 5, 6,  7, 8, 9,10, 11,12,13,14,
-		15,16,17,18, 19,20,21,22, 23,24,25,-1, -1,-1,-1,-1,
-		-1,26,27,28, 29,30,31,32, 33,34,35,36, 37,38,39,40,
-		41,42,43,44, 45,46,47,48, 49,50,51,-1, -1,-1,-1,-1
-	};
-	gchar *end = (gchar *)(src + strlen(src));
-	int size = 0;
-	while (src + 3 < end) {
-        *dest++ = (BASE64(src[0]) << 2) | (BASE64(src[1]) >> 4);
-		size++;
-		if (src[2] == '=')
-			break;
-		*dest++ = ((BASE64(src[1]) & 0xf) << 4) | (BASE64(src[2]) >> 2);
-		size++;
-		if (src[3] == '=')
-			break;
-		*dest++ = ((BASE64(src[2]) & 0x3) << 6) | BASE64(src[3]);
-		size++;
-		src += 4;
-	}
-	return size;
-}
-
 
 gchar *
 Popup::convert (std::string text, std::string charset)
