@@ -272,6 +272,7 @@ public:
 	void lookup (void);								// try to guess mailbox format
 	static Mailbox *lookup_local(Mailbox &);        // try to guess mailbox format for a local mailbox
 	gboolean new_mail (std::string &);
+	void update_mailbox_status (void);
 	void start_checking (void);
 	void mail_displayed (void);
 	void parse (std::vector<std::string> &mail,		// parse a mail 
