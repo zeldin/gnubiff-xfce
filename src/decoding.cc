@@ -89,7 +89,7 @@ Decoding::decode_base64 (const std::string &todec)
 /**
  * Decoding of a quoted-printable encoded string. This string must consist of
  * exactly one line (there is no handling of soft breaks etc., see
- * RFC 2045 6.7. (3)-(5). If the given string {\em todec} is not valid an
+ * RFC 2045 6.7. (3)-(5)). If the given string {\em todec} is not valid an
  * empty string is returned.
  *
  * @param  todec  Reference to a C++ string to be decoded
