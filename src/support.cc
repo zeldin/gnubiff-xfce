@@ -82,7 +82,7 @@ gb_utf8_strndup(const gchar *str, gsize n)
  *             less than zero if {\em str} is nul-terminated
  * @return     a newly allocated nul-terminated character array or NULL
  */
-gchar*
+gchar* 
 gb_utf8_to_imaputf7(const gchar *str, gssize len)
 {
 	// Modified base64 characters (see RFC 2045, RFC 3501 5.1.3)
@@ -198,7 +198,7 @@ gb_utf8_to_imaputf7(const gchar *str, gssize len)
  * @return          format string {\em format} with all '%'-sequences
  *                  substituted
  */
-std::string
+std::string 
 gb_substitute(std::string format, std::string chars,
 			  std::vector<std::string> toinsert)
 {

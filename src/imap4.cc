@@ -632,7 +632,7 @@ Imap4::fetch_header (void)
  * @return           C++ String containing the first "text/plain" part or an
  *                   empty string
  */
-std::string
+std::string 
 Imap4::parse_bodystructure (std::string structure,gint &size,gboolean toplevel)
 {
 	gint len=structure.size(),pos=0,block=1,nestlevel=0,startpos=0;
@@ -738,7 +738,7 @@ Imap4::parse_bodystructure (std::string structure,gint &size,gboolean toplevel)
 /**
  * Reset the counter for tagging imap commands.
  */
-void
+void 
 Imap4::reset_tag()
 {
 	tag_=std::string("");
@@ -750,7 +750,7 @@ Imap4::reset_tag()
  *
  * @return  a C++ string with the tag
  */
-std::string
+std::string 
 Imap4::tag()
 {
 	return tag_;
@@ -767,7 +767,7 @@ Imap4::tag()
  *                 mode (default is true)
  * @return         return value of the socket write command
  */
-gint
+gint 
 Imap4::send(std::string command, gboolean debug)
 {
 	// Create new tag
