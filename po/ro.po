@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-27 19:42+0100\n"
+"POT-Creation-Date: 2004-12-28 14:24+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -60,12 +60,12 @@ msgstr "Nici un mail"
 msgid "Configuration file (%s) not found !"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: src/biff.cc:508
+#: src/biff.cc:522
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: src/biff.cc:533
+#: src/biff.cc:547
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
@@ -232,19 +232,19 @@ msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:566
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:567
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:500
+#: src/ui-preferences.cc:501
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:506 ui/preferences.glade.h:64
+#: src/ui-preferences.cc:507 ui/preferences.glade.h:64
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:517 src/ui-preferences.cc:524
+#: src/ui-preferences.cc:518 src/ui-preferences.cc:525
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Rãsfoire(browse) dupã fiºier"
@@ -786,8 +786,9 @@ msgid "_other"
 msgstr ""
 
 #: ui/properties.glade.h:28
-msgid "file or folder or [ssl:]hostname[:port][:folder]"
-msgstr ""
+#, fuzzy
+msgid "file or folder or hostname"
+msgstr "Mailbox"
 
 #: ui/properties.glade.h:29
 msgid "minutes"

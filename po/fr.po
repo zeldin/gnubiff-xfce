@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-27 19:42+0100\n"
+"POT-Creation-Date: 2004-12-28 14:24+0100\n"
 "PO-Revision-Date: 2004-12-28 09:38+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -64,12 +64,12 @@ msgstr "Aucun courrier"
 msgid "Configuration file (%s) not found !"
 msgstr "Fichier de configuration non trouvé (%s)"
 
-#: src/biff.cc:508
+#: src/biff.cc:522
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: src/biff.cc:533
+#: src/biff.cc:547
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -163,11 +163,13 @@ msgstr "[%d] Mot de passe vide"
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
-msgstr "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
+msgstr ""
+"[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
 #: src/apop.cc:156
 #, c-format
-msgid "[%d] Problem with crypto that should have been detected at configure time"
+msgid ""
+"[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
@@ -241,19 +243,19 @@ msgid "Security"
 msgstr "Sécurité"
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:566
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:567
 msgid "No mailbox selected"
 msgstr "Pas de boîte aux lettres séléctionnée"
 
-#: src/ui-preferences.cc:500
+#: src/ui-preferences.cc:501
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:506 ui/preferences.glade.h:64
+#: src/ui-preferences.cc:507 ui/preferences.glade.h:64
 msgid "_Stop"
 msgstr "_Stopper"
 
-#: src/ui-preferences.cc:517 src/ui-preferences.cc:524
+#: src/ui-preferences.cc:518 src/ui-preferences.cc:525
 msgid "Browse for a new mail image"
 msgstr "Chercher le fichier image"
 
@@ -373,7 +375,8 @@ msgid "Start command"
 msgstr "Exécuter la commande"
 
 #: ui/applet-gtk.glade.h:8
-msgid "This program is part of the GNU project, released under the aegis of GNU."
+msgid ""
+"This program is part of the GNU project, released under the aegis of GNU."
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
 #: ui/applet-gtk.glade.h:10
@@ -721,7 +724,8 @@ msgstr "Répertoire standard"
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
-msgstr "Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
+msgstr ""
+"Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
 
 #: ui/properties.glade.h:19
 msgid "Your password on the mail server"
@@ -756,7 +760,8 @@ msgid "_other"
 msgstr "_autre:"
 
 #: ui/properties.glade.h:28
-msgid "file or folder or [ssl:]hostname[:port][:folder]"
+#, fuzzy
+msgid "file or folder or hostname"
 msgstr "fichier ou répertoire ou [ssl:]hôte[:port][:répertoire]"
 
 #: ui/properties.glade.h:29
@@ -850,4 +855,3 @@ msgstr "<small><b>Sujet</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "contenu du mèl"
-

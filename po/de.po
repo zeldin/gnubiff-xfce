@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-27 19:42+0100\n"
+"POT-Creation-Date: 2004-12-28 14:24+0100\n"
 "PO-Revision-Date: 2004-12-26 17:50+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -59,12 +59,12 @@ msgstr "Keine Nachrichten"
 msgid "Configuration file (%s) not found !"
 msgstr "Konnte Konfigurationsdatei »%s« nicht finden!"
 
-#: src/biff.cc:508
+#: src/biff.cc:522
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kann die Konfigurationsdatei »%s« nicht öffnen!"
 
-#: src/biff.cc:533
+#: src/biff.cc:547
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Keine Briefkastendefinition in der Konfigurationsdatei »%s« gefunden!"
@@ -238,19 +238,19 @@ msgid "Security"
 msgstr "Sicherheit"
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:566
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:567
 msgid "No mailbox selected"
 msgstr "Kein Briefkasten ausgewählt"
 
-#: src/ui-preferences.cc:500
+#: src/ui-preferences.cc:501
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:506 ui/preferences.glade.h:64
+#: src/ui-preferences.cc:507 ui/preferences.glade.h:64
 msgid "_Stop"
 msgstr "_Stopp"
 
-#: src/ui-preferences.cc:517 src/ui-preferences.cc:524
+#: src/ui-preferences.cc:518 src/ui-preferences.cc:525
 msgid "Browse for a new mail image"
 msgstr "Datei für ein neues Nachrichtenbild wählen"
 
@@ -758,7 +758,8 @@ msgid "_other"
 msgstr "benu_tzerdefiniert"
 
 #: ui/properties.glade.h:28
-msgid "file or folder or [ssl:]hostname[:port][:folder]"
+#, fuzzy
+msgid "file or folder or hostname"
 msgstr "Datei, Ordner oder [ssl:]Rechnername[:Port][:Ordner]"
 
 #: ui/properties.glade.h:29
