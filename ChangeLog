@@ -136,6 +136,7 @@ Version 2.1.1
         present in the response code (IMAP4)
    - Bugfix: Updating applet/popup when idling (IMAP4), thanks to Byron Foster
 	for reporting this bug
+   - Bugfix: Marking mails as read
 
 Version 2.1.0
  * Nicolas Rougier
