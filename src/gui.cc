@@ -51,38 +51,59 @@ extern "C" {
 								  GdkEvent *event,
 								  gpointer data)
 	{
-		return ((GUI *)data)->on_delete (widget, event);
+		if (data)
+			return ((GUI *)data)->on_delete (widget, event);
+		else
+			unknown_internal_error ();
+		return false;
 	}
 
 	gboolean GUI_on_destroy_event (GtkWidget *widget,
 								   GdkEvent *event,
 								   gpointer data)
 	{
-		return ((GUI *)data)->on_destroy (widget, event);
+		if (data)
+			return ((GUI *)data)->on_destroy (widget, event);
+		else
+			unknown_internal_error ();
+		return false;
+
 	}
 
 	void GUI_on_ok (GtkWidget *widget,
 					gpointer data)
 	{
-		((GUI *)data)->on_ok (widget);
+		if (data)
+			((GUI *)data)->on_ok (widget);
+		else
+			unknown_internal_error ();
 	}
 
 	void GUI_on_apply (GtkWidget *widget,
 						 gpointer data)
 	{
-		((GUI *)data)->on_apply (widget);
+		if (data)
+			((GUI *)data)->on_apply (widget);
+		else
+			unknown_internal_error ();
 	}
 
 	void GUI_on_close (GtkWidget *widget,
 					   gpointer data)
 	{
-		((GUI *)data)->on_close (widget);
+		if (data)
+			((GUI *)data)->on_close (widget);
+		else
+			unknown_internal_error ();
 	}
 
 	void GUI_on_cancel (GtkWidget *widget,
 						gpointer data)
 	{
-		((GUI *)data)->on_cancel (widget);
+		if (data)
+			((GUI *)data)->on_cancel (widget);
+		else
+			unknown_internal_error ();
 	}
 
 	/*
