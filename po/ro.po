@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-10 10:17+0100\n"
+"POT-Creation-Date: 2004-12-12 18:23+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -75,17 +75,22 @@ msgstr "Nici un mail"
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: src/mailbox.cc:465
+#: src/mailbox.cc:460
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:475
+#: src/mailbox.cc:470
 #, fuzzy
 msgid "<no subject>"
 msgstr "Subiect"
 
-#: src/mailbox.cc:485
+#: src/mailbox.cc:480
 msgid "<no date>"
+msgstr ""
+
+#: src/mailbox.cc:575
+#, c-format
+msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr ""
 
 #: src/socket.cc:108 src/socket.cc:137 src/socket.cc:165 src/socket.cc:173
@@ -124,7 +129,7 @@ msgstr ""
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:521
+#: src/imap4.cc:516
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -288,7 +293,7 @@ msgstr "Data"
 msgid "* error *"
 msgstr ""
 
-#: src/ui-popup.cc:730
+#: src/ui-popup.cc:729
 msgid "Error"
 msgstr ""
 

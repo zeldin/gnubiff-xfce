@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-10 10:17+0100\n"
+"POT-Creation-Date: 2004-12-12 18:23+0100\n"
 "PO-Revision-Date: 2004-03-11 22:32+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -75,16 +75,21 @@ msgstr "Inga meddelanden"
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: src/mailbox.cc:465
+#: src/mailbox.cc:460
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:475
+#: src/mailbox.cc:470
 msgid "<no subject>"
 msgstr ""
 
-#: src/mailbox.cc:485
+#: src/mailbox.cc:480
 msgid "<no date>"
+msgstr ""
+
+#: src/mailbox.cc:575
+#, c-format
+msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr ""
 
 #: src/socket.cc:108 src/socket.cc:137 src/socket.cc:165 src/socket.cc:173
@@ -123,7 +128,7 @@ msgstr ""
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:521
+#: src/imap4.cc:516
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -293,7 +298,7 @@ msgstr "Dekorerad"
 msgid "* error *"
 msgstr ""
 
-#: src/ui-popup.cc:730
+#: src/ui-popup.cc:729
 msgid "Error"
 msgstr ""
 
