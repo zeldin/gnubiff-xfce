@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-03-31 11:01+0200\n"
+"POT-Creation-Date: 2005-03-31 18:12+0200\n"
 "PO-Revision-Date: 2005-03-31 12:54+0950\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -188,7 +188,7 @@ msgstr "[%d] Không đọc được từ %s qua cổng %d"
 msgid "Could not set read timeout on socket: %s"
 msgstr "Không lập được thời hạn đọc tại ổ cắm: %s"
 
-#: src/file.cc:80 src/maildir.cc:142
+#: src/file.cc:82 src/maildir.cc:142
 #, c-format
 msgid "Cannot open %s."
 msgstr "Không mở được %s."
@@ -283,7 +283,7 @@ msgstr "Không biết tùy chọn \"%s\""
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Không lập được tùy chọn \"%s\" thành \"%s\""
 
-#: src/options.cc:665 src/gui.cc:232
+#: src/options.cc:665 src/gui.cc:263
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
@@ -311,11 +311,11 @@ msgstr ""
 "\n"
 "Hãy kiểm tra lại xem gói tinha có được cài đặt đúng chưa."
 
-#: src/gui.cc:339
+#: src/gui.cc:371
 msgid "GUI_connect requires working gmodule"
 msgstr "Tùy chọn GUI_connect cần đến môđun gmodule hoặt động"
 
-#: src/gui.cc:346
+#: src/gui.cc:378
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr "Không tìm thấy được điều quản lý tín hiệu '%s'."
@@ -340,43 +340,43 @@ msgstr "Thư mới"
 msgid "No mail"
 msgstr "Không có thư mới"
 
-#: src/ui-preferences.cc:267 src/ui-popup.cc:160
+#: src/ui-preferences.cc:269 src/ui-popup.cc:160
 msgid "Mailbox"
 msgstr "Hôp thư"
 
-#: src/ui-preferences.cc:281 src/ui-preferences.cc:363
+#: src/ui-preferences.cc:283 src/ui-preferences.cc:365
 msgid "Type"
 msgstr "Loại"
 
-#: src/ui-preferences.cc:300
+#: src/ui-preferences.cc:302
 msgid "Status"
 msgstr "Trạng thái"
 
-#: src/ui-preferences.cc:315
+#: src/ui-preferences.cc:317
 msgid "Security"
 msgstr "Bảo mật"
 
-#: src/ui-preferences.cc:327 src/ui-preferences.cc:654
+#: src/ui-preferences.cc:329 src/ui-preferences.cc:656
 msgid "No mailbox selected"
 msgstr "Chưa chọn hộp thư"
 
-#: src/ui-preferences.cc:355
+#: src/ui-preferences.cc:357
 msgid "Option"
 msgstr "Tùy chọn"
 
-#: src/ui-preferences.cc:373
+#: src/ui-preferences.cc:375
 msgid "Value"
 msgstr "Giá trị"
 
-#: src/ui-preferences.cc:588
+#: src/ui-preferences.cc:590
 msgid "_Start"
 msgstr "_Bắt đầu"
 
-#: src/ui-preferences.cc:594 ui/preferences.glade:2930
+#: src/ui-preferences.cc:596 ui/preferences.glade:2951
 msgid "_Stop"
 msgstr "_Ngừng"
 
-#: src/ui-preferences.cc:605 src/ui-preferences.cc:612
+#: src/ui-preferences.cc:607 src/ui-preferences.cc:614
 msgid "Browse for a new mail image"
 msgstr "Duyệt để tìm thấy hình ảnh thư mới"
 
@@ -491,21 +491,15 @@ msgstr ""
 msgid "About gnubiff"
 msgstr "Về gnubiff"
 
-#: ui/applet-gtk.glade:234
-msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
-msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
-
-#: ui/applet-gtk.glade:255
+#: ui/applet-gtk.glade:255 ui/preferences.glade:1895
+#, fuzzy
 msgid ""
-"This program is part of the GNU project, released under the aegis of GNU."
+"<small> This program is part of the GNU project,\n"
+" released under the aegis of GNU.</small>"
 msgstr ""
 "Chương trình này là phần dự án GNU nên đã phát hành dưới sự che chở của GNU."
 
-#: ui/applet-gtk.glade:276
-msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
-msgstr "<small>Bản quyền © năm 2000-2004 Nicolas Rougier</small>"
-
-#: ui/applet-gtk.glade:362
+#: ui/applet-gtk.glade:363
 msgid "Ok"
 msgstr "Được"
 
@@ -779,15 +773,7 @@ msgstr ""
 msgid "Expert"
 msgstr "Cấp cao"
 
-#: ui/preferences.glade:1895
-msgid ""
-"<small> Released under the aegis of GNU\n"
-" Copyright (c) 2000-2005 Nicolas Rougier</small>"
-msgstr ""
-"<small> Được phát hành dưới sự che chở của GNU \n"
-" Bản quyền © năm 2000-2005 Nicolas Rougier</small>"
-
-#: ui/preferences.glade:2051
+#: ui/preferences.glade:2072
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
@@ -795,19 +781,19 @@ msgstr ""
 "<small>Hãy báo cáo lỗi cho <span foreground=\"blue\">gnubiff-bugs@lists."
 "sourceforge.net</span></small>"
 
-#: ui/preferences.glade:2086
+#: ui/preferences.glade:2107
 msgid "Developers"
 msgstr "Lập trình viên"
 
-#: ui/preferences.glade:2215
+#: ui/preferences.glade:2236
 msgid "Maintainers"
 msgstr "Bảo quản viên"
 
-#: ui/preferences.glade:2726
+#: ui/preferences.glade:2747
 msgid "Translators"
 msgstr "Người dịch"
 
-#: ui/preferences.glade:2752
+#: ui/preferences.glade:2773
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -821,23 +807,23 @@ msgstr ""
 "  - tạo mã nguồn thật\n"
 "Đây là danh sách người này:</small>"
 
-#: ui/preferences.glade:2819
+#: ui/preferences.glade:2840
 msgid "Contributors"
 msgstr "Người đóng góp"
 
-#: ui/preferences.glade:2851
+#: ui/preferences.glade:2872
 msgid "Credits"
 msgstr "Lời cám ơn"
 
-#: ui/preferences.glade:2982
+#: ui/preferences.glade:3003
 msgid "Set to default value"
 msgstr "Trở về gia trị mặc định"
 
-#: ui/preferences.glade:3003
+#: ui/preferences.glade:3024
 msgid "Toggle option"
 msgstr "Bập bênh tùy chọn"
 
-#: ui/preferences.glade:3024
+#: ui/preferences.glade:3045
 msgid "Edit option"
 msgstr "Hiệu chỉnh tùy chọn"
 
@@ -1040,3 +1026,17 @@ msgstr "<small><b>Chủ đề</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Ngày</b></small>"
+
+#, fuzzy
+#~ msgid "<span size=\"xx-large\"><b>Gnubiff %v %c</b></span>"
+#~ msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
+
+#~ msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
+#~ msgstr "<small>Bản quyền © năm 2000-2004 Nicolas Rougier</small>"
+
+#~ msgid ""
+#~ "<small> Released under the aegis of GNU\n"
+#~ " Copyright (c) 2000-2005 Nicolas Rougier</small>"
+#~ msgstr ""
+#~ "<small> Được phát hành dưới sự che chở của GNU \n"
+#~ " Bản quyền © năm 2000-2005 Nicolas Rougier</small>"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-03-31 11:01+0200\n"
+"POT-Creation-Date: 2005-03-31 18:12+0200\n"
 "PO-Revision-Date: 2005-03-23 13:25+0100\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -195,7 +195,7 @@ msgstr "[%d] Impossible de lire depuis %s sur le port %d"
 msgid "Could not set read timeout on socket: %s"
 msgstr "Impossible de régler le délai sur la socket: %s"
 
-#: src/file.cc:80 src/maildir.cc:142
+#: src/file.cc:82 src/maildir.cc:142
 #, c-format
 msgid "Cannot open %s."
 msgstr "Impossible d'ouvrir %s"
@@ -291,7 +291,7 @@ msgstr "Option inconnue \"%s\""
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Impossible de mettre l'option \"%s\" à \"%s\""
 
-#: src/options.cc:665 src/gui.cc:232
+#: src/options.cc:665 src/gui.cc:263
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
@@ -318,11 +318,11 @@ msgstr ""
 "Chemin: %s\n"
 "Assurez vous que gnubiff a été installé correctement"
 
-#: src/gui.cc:339
+#: src/gui.cc:371
 msgid "GUI_connect requires working gmodule"
 msgstr "GUI_connect requiert la librairie gmodule"
 
-#: src/gui.cc:346
+#: src/gui.cc:378
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr "Handler '%s' non trouvé."
@@ -347,43 +347,43 @@ msgstr "Nouveau courrier"
 msgid "No mail"
 msgstr "Aucun courrier"
 
-#: src/ui-preferences.cc:267 src/ui-popup.cc:160
+#: src/ui-preferences.cc:269 src/ui-popup.cc:160
 msgid "Mailbox"
 msgstr "Boîte aux lettres"
 
-#: src/ui-preferences.cc:281 src/ui-preferences.cc:363
+#: src/ui-preferences.cc:283 src/ui-preferences.cc:365
 msgid "Type"
 msgstr "Type"
 
-#: src/ui-preferences.cc:300
+#: src/ui-preferences.cc:302
 msgid "Status"
 msgstr "Status"
 
-#: src/ui-preferences.cc:315
+#: src/ui-preferences.cc:317
 msgid "Security"
 msgstr "Sécurité"
 
-#: src/ui-preferences.cc:327 src/ui-preferences.cc:654
+#: src/ui-preferences.cc:329 src/ui-preferences.cc:656
 msgid "No mailbox selected"
 msgstr "Pas de boîte aux lettres séléctionnée"
 
-#: src/ui-preferences.cc:355
+#: src/ui-preferences.cc:357
 msgid "Option"
 msgstr "Option"
 
-#: src/ui-preferences.cc:373
+#: src/ui-preferences.cc:375
 msgid "Value"
 msgstr "Valeur"
 
-#: src/ui-preferences.cc:588
+#: src/ui-preferences.cc:590
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:594 ui/preferences.glade:2930
+#: src/ui-preferences.cc:596 ui/preferences.glade:2951
 msgid "_Stop"
 msgstr "_Stopper"
 
-#: src/ui-preferences.cc:605 src/ui-preferences.cc:612
+#: src/ui-preferences.cc:607 src/ui-preferences.cc:614
 msgid "Browse for a new mail image"
 msgstr "Chercher le fichier image"
 
@@ -501,20 +501,14 @@ msgstr ""
 msgid "About gnubiff"
 msgstr "A propos de gnubiff"
 
-#: ui/applet-gtk.glade:234
-msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
-msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
-
-#: ui/applet-gtk.glade:255
+#: ui/applet-gtk.glade:255 ui/preferences.glade:1895
+#, fuzzy
 msgid ""
-"This program is part of the GNU project, released under the aegis of GNU."
+"<small> This program is part of the GNU project,\n"
+" released under the aegis of GNU.</small>"
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
-#: ui/applet-gtk.glade:276
-msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
-msgstr "<small>(C) 2000-2004 Nicolas Rougier</small>"
-
-#: ui/applet-gtk.glade:362
+#: ui/applet-gtk.glade:363
 msgid "Ok"
 msgstr "Ok"
 
@@ -787,15 +781,7 @@ msgstr ""
 msgid "Expert"
 msgstr "Expert"
 
-#: ui/preferences.glade:1895
-msgid ""
-"<small> Released under the aegis of GNU\n"
-" Copyright (c) 2000-2005 Nicolas Rougier</small>"
-msgstr ""
-" <small>Distribué sous l'égide de  GNU\n"
-" Copyright (c) 2000-200 Nicolas Rougier</small>"
-
-#: ui/preferences.glade:2051
+#: ui/preferences.glade:2072
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
@@ -803,19 +789,19 @@ msgstr ""
 "<small>Les bogues doivent etre reportés à <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 
-#: ui/preferences.glade:2086
+#: ui/preferences.glade:2107
 msgid "Developers"
 msgstr "Développeurs"
 
-#: ui/preferences.glade:2215
+#: ui/preferences.glade:2236
 msgid "Maintainers"
 msgstr "Mainteneurs"
 
-#: ui/preferences.glade:2726
+#: ui/preferences.glade:2747
 msgid "Translators"
 msgstr "Traducteurs"
 
-#: ui/preferences.glade:2752
+#: ui/preferences.glade:2773
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -829,23 +815,23 @@ msgstr ""
 "  - soumettant du code\n"
 "Voici une liste de ces personnes:</small>"
 
-#: ui/preferences.glade:2819
+#: ui/preferences.glade:2840
 msgid "Contributors"
 msgstr "Contributeurs"
 
-#: ui/preferences.glade:2851
+#: ui/preferences.glade:2872
 msgid "Credits"
 msgstr "Remerciements"
 
-#: ui/preferences.glade:2982
+#: ui/preferences.glade:3003
 msgid "Set to default value"
 msgstr "Mettre la valeur par défaut"
 
-#: ui/preferences.glade:3003
+#: ui/preferences.glade:3024
 msgid "Toggle option"
 msgstr "Basculer l'option"
 
-#: ui/preferences.glade:3024
+#: ui/preferences.glade:3045
 msgid "Edit option"
 msgstr "Editer l'option"
 
@@ -1047,3 +1033,17 @@ msgstr "<small><b>Sujet</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Date</b></small>"
+
+#, fuzzy
+#~ msgid "<span size=\"xx-large\"><b>Gnubiff %v %c</b></span>"
+#~ msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
+
+#~ msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
+#~ msgstr "<small>(C) 2000-2004 Nicolas Rougier</small>"
+
+#~ msgid ""
+#~ "<small> Released under the aegis of GNU\n"
+#~ " Copyright (c) 2000-2005 Nicolas Rougier</small>"
+#~ msgstr ""
+#~ " <small>Distribué sous l'égide de  GNU\n"
+#~ " Copyright (c) 2000-200 Nicolas Rougier</small>"
