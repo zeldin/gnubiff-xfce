@@ -29,6 +29,7 @@ Version 2.1.3
    - Feature: More information in unknown_internal_error() provided
    - Documentation of Mailbox::parse()
    - Bugfix: Throw exception if login line cannot be created (apop)
+   - Bugfix: "Quit" menu item (gtk applet)
 
 Version 2.1.2		2005-03-26 17:28
  * Robert Sowada
