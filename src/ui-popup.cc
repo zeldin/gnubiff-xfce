@@ -231,26 +231,28 @@ Popup::update (void)
 	// present in the different mailboxes, knowing that last received
 	// mail is at the end of each mailbox. We then need to compute
 	// the exact number of mails to display for each mailbox.
-	std::vector <gint> count;
+	std::vector <guint> count (biff_->size(), 0), max (biff_->size());
+	guint num_mails = 0;
+	for (guint i = 0; i < biff_->size(); i++)
+		num_mails += max[i] = biff_->mailbox(i)->unreads();
+	if (num_mails > biff_->popup_size_)
+		num_mails = biff_->popup_size_;
 
 	if (biff_->popup_use_size_) {
-		for (guint i=0; i<biff_->size(); i++)
-			count.push_back (0);
-		guint index = 0;
-		for (guint i=0; i< biff_->popup_size_; i++) {
-			if (count[index] < gint(biff_->mailbox(index)->unreads()))
+		guint index = 0, all = 0;
+		while (all < num_mails) {
+			if (count[index] < max[index]) {
 				count[index]++;
-			index++;
-			if (index >= biff_->size())
-				index = 0;
+				all++;
+			}
+			index = (index + 1) % biff_->size();
 		}
 	}
 	else
-		for (guint i=0; i<biff_->size(); i++)
-			count.push_back (biff_->mailbox(i)->unreads());	
+		count = max;
 
 	// Now we populate the list
-	for (guint j=0, maxcnt=0; j<biff_->size(); j++) {
+	for (guint j=0; j<biff_->size(); j++) {
 		std::set<std::string>::iterator ie=biff_->mailbox(j)->seen().end();
 		std::set<std::string>::iterator ib=biff_->mailbox(j)->seen().begin();
 		guint cnt=0;
@@ -260,9 +262,8 @@ Popup::update (void)
 			if (biff_->mailbox(j)->hidden().find(*i)
 				!= biff_->mailbox(j)->hidden().end())
 				continue;
-			if (maxcnt++ >= biff_->popup_size_)
+			if (cnt++ >= count[j])
 				break;
-			cnt++;
 
 			// Get the header
 			header h = biff_->mailbox(j)->unread()[*i];
@@ -313,8 +314,6 @@ Popup::update (void)
 								COLUMN_HEADER,&biff_->mailbox(j)->unread()[*i],
 								-1);
 		}
-		if (maxcnt > biff_->popup_size_)
-			break;
 	}
 
 	// Update window decoration
