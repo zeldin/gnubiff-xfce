@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -40,7 +40,7 @@
 /**
  * Local variable for animation preview in gtk_file_chooser
  **/
-GtkImageAnimation *preview_animation = 0;
+GtkImageAnimation *preview_animation = NULL;
 
 
 /**
@@ -263,7 +263,7 @@ GUI::browse (std::string title,
 		gtk_entry_set_text (GTK_ENTRY (get(widget_name.c_str())), filename);
 		g_free (filename);
 	}
-	if (preview)
+	if (preview && preview_animation)
 		preview_animation->stop();
 	gtk_widget_destroy (chooser);
 
