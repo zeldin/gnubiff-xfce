@@ -614,7 +614,8 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 class PartInfo 
 Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 {
-	std::string line;
+	std::string line, response;
+	guint nestlevel=0;
 
 	// Message sequence number
 	std::stringstream ss;
@@ -630,15 +631,21 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 			break;
 	if (!socket_->status()) throw imap_socket_err();
 	if (cnt<0) throw imap_dos_err();
-	if (line.substr(line.size()-2) != ")\r") throw imap_command_err();
 
-	// Remove first and last part
-	line=line.substr(25+ss.str().size(),line.size()-28-ss.str().size());
+	// Get the whole response (may be multiline)
+	response=line.substr(25+ss.str().size(),line.size()-27-ss.str().size());
+	cnt=preventDoS_imap4_multilineResponse_;
+	while ((nestlevel=isfinished_fetchbodystructure(line,nestlevel))&&(cnt--)){
+		if (!(socket_->read(line,true,false))) throw imap_socket_err();
+		response+=line.substr(0,line.size()-1); // trailing '\r'
+	}
+	if (cnt<0) throw imap_dos_err();
+	response=response.substr(0,response.size()-1); // trailing ')'
 
-	// Get Part of Mail that contains "text/plain" (if any exists) and
-	// size of this text, encoding, charset
+	// Get part of mail that contains "text/plain" (if any exists) and its
+	// properties
 	PartInfo partinfo;
-	parse_bodystructure(line,partinfo);
+	parse_bodystructure(response, partinfo);
 #ifdef DEBUG
 	g_print("** Part %s size=%d, encoding=%s, charset=%s\n",
 			partinfo.part_.c_str(), partinfo.size_, partinfo.encoding_.c_str(),
@@ -883,6 +890,59 @@ Imap4::waitforack (gint cnt) throw (imap_err)
 				   uin_, address_.c_str(), port_);
 		throw imap_command_err();
 	}
+}
+
+/**
+ * Determine if the whole response to the "FETCH (BODYSTRUCTURE)" command has
+ * been read. The server's response may be multiline. So gnubiff must know if
+ * another line has to be read. This is done be counting opening and closing
+ * parentheses ("(" and ")"). The level of nesting before getting to the
+ * current line is given by the parameter {\em nestlevel}.
+ *
+ * @param  line        Current line of server's response
+ * @param  nestlevel   Level of nesting before parsing response {\em line}
+ * @return             Level of nesting after parsing response {\em line}
+ * @exception imap_command_err
+ *                     This exception is thrown when the structure of the
+ *                     response {\em line} is not what we expected.
+ */
+guint 
+Imap4::isfinished_fetchbodystructure (std::string line, guint nestlevel)
+									  throw (imap_err)
+{
+	gint len=line.size(), pos=0;
+
+	while (pos<len)	{
+		gchar c=line[pos++];
+
+		// String (FIXME: '"' inside of strings?)
+		if (c=='"')	{
+			// Read whole string
+			while ((pos<len) && (line[pos++]!='"'));
+			// We don't allow line breaks inside of strings. Is this a problem?
+			if (pos>=len) throw imap_command_err();
+			continue;
+		}
+
+		// Nested "( ... )" block begins
+		if (c=='(') {
+			nestlevel++;
+			continue;
+		}
+
+		// Nested "( ... )" block ends
+		if (c==')')	{
+			nestlevel--;
+			// Back at toplevel we expect to be at the end of the line
+			if ((nestlevel == 0) && (pos!=len-1) && (line[pos]!='\r'))
+				throw imap_command_err();
+			if (nestlevel == 0) return 0;
+			continue;
+		}
+
+		// All other characters are ignored
+	}
+	return nestlevel;
 }
 
 /** 

@@ -48,6 +48,8 @@ Version 2.1.1
    - Cleanup of code for getting server's acknowledgment (IMAP4)
    - Bugfix: LOGINDISABLED capability respected (IMAP4)
    - Bugfix: Inserting a correct Content-type into the header (IMAP4)
+   - Bugfix: Server's response to the "FETCH (BODYSTRUCTURE)" command may be
+        multiline (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier

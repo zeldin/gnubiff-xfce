@@ -105,7 +105,9 @@ class Imap4 : public Mailbox {
  private:
 	// ========================================================================
 	//	Internal stuff
-	// ========================================================================	
+	// ========================================================================
+
+	guint isfinished_fetchbodystructure(std::string,guint) throw (imap_err);
 	gboolean parse_bodystructure (std::string, class PartInfo &,
 								  gboolean toplevel=true);
 	gboolean parse_bodystructure_parameters (std::string, class PartInfo &);
