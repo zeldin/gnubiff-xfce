@@ -496,9 +496,10 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 #endif
 	// Read text
 	guint lineno = 0;
-	gint bytes = textsize + 3; // ")\r\n" at end of mail
-	while ((bytes > 0) && (readline (line, false, true, false))) {
-		bytes-=line.size()+1; // don't forget to count '\n'!
+	std::string::size_type bytes = 0;
+	std::string::size_type maxbytes = textsize + 3; // ")\r\n" at end of mail
+	while ((bytes < maxbytes) && (readline (line, false, true, false))) {
+		bytes += (gint)(line.size() + 1); // don't forget to count '\n'!
 		if ((line.size() > 0)
 			&& (lineno++ < biff_->value_uint ("min_body_lines"))) {
 			mail.push_back (line.substr(0, line.size()-1));
@@ -510,10 +511,10 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 #ifdef DEBUG
 		g_print ("\n");
 #endif
-	if (bytes<0) throw imap_dos_err();
+	if (bytes > maxbytes) throw imap_dos_err();
 	// Remove ")\r" from last line ('\n' was removed before)
-	mail.pop_back();
-	if ((line.size()>1) && (line[line.size()-2]==')'))
+	mail.pop_back ();
+	if ((line.size() > 1) && (line[line.size()-2] == ')'))
 		mail.push_back (line.substr(0, line.size()-2));
 	else
 		throw imap_command_err();
@@ -559,7 +560,7 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 		response += line.substr (0, line.size()-1); // trailing '\r'
 	}
 	if (cnt < 0) throw imap_dos_err();
-	response=response.substr(0,response.size()-1); // trailing ')'
+	response = response.substr (0, response.size()-1); // trailing ')'
 
 	// Get part of mail that contains "text/plain" (if any exists) and its
 	// properties
@@ -626,14 +627,14 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 	g_print ("\n");
 #endif
 	// Did an error happen?
-	if (cnt<0) throw imap_dos_err();
+	if (cnt < 0) throw imap_dos_err();
 	if ((line.find (tag() + "OK") != 0) || (mail.size()<2))
 		throw imap_command_err();
 		
 	// Remove the last line (should contain a closing parenthesis).
 	// Note: We need the empty line before because it separates the
 	// header from the mail text
-	if ((mail[mail.size()-1]!=")") && (mail[mail.size()-2].size()!=0))
+	if ((mail[mail.size()-1] != ")") && (mail[mail.size()-2].size() != 0))
 		throw imap_command_err();
 	mail.pop_back();
 	return mail;
@@ -674,18 +675,18 @@ Imap4::command_fetchuid (std::set<guint> msn) throw (imap_err)
 	sendline ("FETCH " + ss.str () + " (UID)");
 
 	// Get all untagged responses that are of interest
-	guint cnt = msn.size()+1; // prevent DoS
+	std::set<guint>::size_type cnt = msn.size() + 1; // prevent DoS
 	while ((waitfor_ack_untaggedresponse ("FETCH" , "(UID ")) && (cnt--)) {
 		// Get uid
-		std::string line=last_untagged_response_cont_.substr (5);
-		guint pos=line.find(")");
+		std::string line = last_untagged_response_cont_.substr (5);
+		std::string::size_type pos = line.find (")");
 		if ((pos == 0) || (pos == std::string::npos)) throw imap_command_err();
 		if (msn.find (last_untagged_response_msn_) == msn.end ())
 			throw imap_command_err();
 		uid.insert (line.substr (0, pos));
 		msn_uid_[last_untagged_response_msn_] = line.substr (0, pos);
 	}
-	if (cnt <= 0) throw imap_dos_err();
+	if (cnt == 0) throw imap_dos_err();
 	if (msn.size() != uid.size()) throw imap_command_err();
 
 	return uid;
@@ -736,7 +737,7 @@ Imap4::command_idle(gboolean &sentdone) throw (imap_err)
 
 			if (socket_->write (std::string("DONE\r\n")) != SOCKET_STATUS_OK)
 				throw imap_socket_err();
-			sentdone=true;
+			sentdone = true;
 
 			status = readline_ignoreinfo (line, true, false, true);
 			if (status != SOCKET_STATUS_OK)
@@ -819,7 +820,7 @@ Imap4::command_logout (void) throw (imap_err)
 void 
 Imap4::command_select (void) throw (imap_err)
 {
-	gchar *buffer=utf8_to_imaputf7 (folder().c_str(),-1);
+	gchar *buffer = utf8_to_imaputf7 (folder().c_str(), -1);
 	if (!buffer) throw imap_command_err();
 
 	// Send command
@@ -830,12 +831,12 @@ Imap4::command_select (void) throw (imap_err)
 	buffer = g_strdup_printf (_("[%d] Unable to select folder %s on host %s"),
 							  uin(), folder().c_str(), address().c_str());
 	if (!buffer) throw imap_command_err();
-	std::string msg=std::string(buffer);
+	std::string msg = std::string(buffer);
 	g_free (buffer);
 
 	// According to RFC 3501 6.3.1 there must be exactly seven lines
 	// before getting the acknowledgment line.
-	waitfor_ack (msg,7);
+	waitfor_ack (msg, 7);
 
 	// Check for UIDVALIDITY response code; see RFC 3501 2.3.1.1
 	if (ok_response_codes_.find("UIDVALIDITY") != ok_response_codes_.end())
@@ -870,9 +871,9 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	// Parse server's answer. Should be something like
 	// "* SEARCH 1 2 3 4" or "* SEARCH"
 	std::set<guint> buffer;
-	guint n, cnt=0;
-	while ((ss >> n) && (!biff_->value_bool ("use_max_mail") ||
-						 (cnt++ < biff_->value_uint ("max_mail"))))
+	guint n, cnt = 0, maxcnt = biff_->value_uint ("max_mail");
+	gboolean usemax = biff_->value_bool ("use_max_mail");
+	while ((ss >> n) && (!usemax || (cnt++ < maxcnt)))
 		buffer.insert (n);
 
 	// Getting the acknowledgment
@@ -974,8 +975,8 @@ Imap4::waitfor_ack_untaggedresponse (std::string key, std::string contbegin,
 	}
 
 	if (num < 0) {
-		g_warning (_("[%d] Server doesn't send untagged \"%s\" response or acknowledgment"),
-				   uin(), key.c_str());
+		g_warning (_("[%d] Server doesn't send untagged \"%s\" response "
+					 "or acknowledgment"), uin(), key.c_str());
 		throw imap_dos_err();
 	}
 
@@ -1050,9 +1051,9 @@ guint
 Imap4::isfinished_fetchbodystructure (std::string line, guint nestlevel)
 									  throw (imap_err)
 {
-	guint len = line.size(), pos = 0;
+	std::string::size_type len = line.size (), pos = 0;
 
-	while (pos<len)	{
+	while (pos < len)	{
 		gchar c = line[pos++];
 
 		// String
@@ -1111,7 +1112,8 @@ gboolean
 Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 							gboolean toplevel)
 {
-	guint len=structure.size(),pos=0,block=1,nestlevel=0,startpos=0;
+	std::string::size_type len = structure.size (), pos = 0, startpos = 0;
+	guint block = 1, nestlevel = 0;
 	gboolean multipart=false;
 
 	// Multipart? -> Parse recursively
@@ -1119,13 +1121,13 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 		multipart=true;
 
 	// Length is in the 7th block:-(
-	while (pos<len) {
-		gchar c=structure.at(pos++);
+	while (pos < len) {
+		gchar c = structure.at (pos++);
 
 		// String
 		if (c == '"') {
 			// When in multipart only the last entry is allowed to be a string
-			if ((multipart) && (nestlevel==0))
+			if ((multipart) && (nestlevel == 0))
 				return false;
 			// Get the string
 			std::string value;
@@ -1153,10 +1155,10 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 		}
 
 		// Next block
-		if (c==' ')	{
+		if (c == ' ')	{
 			if (nestlevel == 0)
 				block++;
-			if ((block>7) && (!multipart))
+			if ((block > 7) && (!multipart))
 				return false;
 			while ((pos < len) && (structure.at(pos) == ' '))
 				pos++;
@@ -1165,8 +1167,8 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 
 		// Nested "( ... )" block begins
 		if (c == '(') {
-			if (nestlevel==0)
-				startpos=pos-1;
+			if (nestlevel == 0)
+				startpos = pos - 1;
 			nestlevel++;
 			continue;
 		}
@@ -1192,7 +1194,7 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 				return true;
 			}
 			// List of parameter/value pairs? (3rd block)
-			if ((nestlevel==0) && (!multipart) && (block==3)) {
+			if ((nestlevel == 0) && (!multipart) && (block == 3)) {
 				
 				if (!parse_bodystructure_parameters (content, partinfo))
 					return false;
@@ -1201,15 +1203,15 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 		}
 
 		// Alphanumerical character
-		if (g_ascii_isalnum(c))	{
-			if ((multipart) && (nestlevel==0))
+		if (g_ascii_isalnum (c))	{
+			if ((multipart) && (nestlevel == 0))
 				return false;
 			if (!multipart)
-				startpos=pos-2;
+				startpos = pos-2;
 			while ((pos<len) && (g_ascii_isalnum(structure.at(pos))))
 				pos++;
 			// Block with size information?
-			if ((block==7) && (nestlevel==0) && (!multipart))
+			if ((block == 7) && (nestlevel == 0) && (!multipart))
 			{
 				std::stringstream ss;
 				ss << structure.substr (startpos, pos-startpos).c_str();
@@ -1246,24 +1248,25 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 gboolean 
 Imap4::parse_bodystructure_parameters (std::string list, PartInfo &partinfo)
 {
-	guint len=list.size(), pos=0, stringcnt=1;
+	std::string::size_type len = list.size(), pos = 0;
+	guint stringcnt = 1;
 	std::string parameter, value;
 
-	while (pos<len)
+	while (pos < len)
 	{
-		gchar c=list.at(pos++);
+		gchar c = list.at (pos++);
 
 		// Next string
-		if (c==' ')
+		if (c == ' ')
 		{
-			while ((pos<len) && (list.at(pos)==' '))
+			while ((pos < len) && (list.at(pos) == ' '))
 				pos++;
 			stringcnt++;
 			continue;
 		}
 
 		// String
-		if (c=='"')	{
+		if (c == '"')	{
 			if (!get_quotedstring (list, value, pos, '"', false))
 				return false;
 
@@ -1290,8 +1293,8 @@ Imap4::parse_bodystructure_parameters (std::string list, PartInfo &partinfo)
 void 
 Imap4::reset_tag ()
 {
-	tag_=std::string("");
-	tagcounter_=0;
+	tag_ = std::string("");
+	tagcounter_ = 0;
 }
 
 /**
@@ -1320,7 +1323,7 @@ Imap4::save_response_code (std::map<std::string,std::string> &rc_map)
 						   throw (imap_err)
 {
 	gboolean is_string = false;
-	guint pos = 0, startpos = 1;
+	std::string::size_type pos = 0, startpos = 1;
 
 	// No response code in line
 	if (last_untagged_response_cont_[0] != '[') throw imap_command_err();
@@ -1337,8 +1340,8 @@ Imap4::save_response_code (std::map<std::string,std::string> &rc_map)
 	// Get atom and (if available) arguments
 	std::string rc=last_untagged_response_cont_.substr(startpos, pos-startpos);
 	std::string atom, arg;
-	pos=rc.find(" ");
-	if (pos==std::string::npos)
+	pos = rc.find (" ");
+	if (pos == std::string::npos)
 		atom = rc;
 	else {
 		atom = rc.substr (0, pos);
@@ -1348,8 +1351,8 @@ Imap4::save_response_code (std::map<std::string,std::string> &rc_map)
 	// Save response code
 	rc_map[atom] = arg;
 #ifdef DEBUG
-	g_message ("[%d] Saved response code to untagged status response: atom=\"%s\" arg=\"%s\"",
-			   uin(), atom.c_str(), arg.c_str());
+	g_message ("[%d] Saved response code to untagged status response: "
+			   "atom=\"%s\" arg=\"%s\"", uin(), atom.c_str(), arg.c_str());
 #endif
 }
 
@@ -1379,7 +1382,7 @@ Imap4::save_untagged_response (std::string &line) throw (imap_err)
 	last_untagged_response_cont_ = std::string("");
 	last_untagged_response_key_ = std::string("");
 
-	guint pos = 2;
+	std::string::size_type pos = 2;
 	// Handling the message sequence number
 	if (g_ascii_isdigit (line[2])) {
 		while (g_ascii_isdigit (line[++pos]));// terminates because '\r' at end
@@ -1389,7 +1392,7 @@ Imap4::save_untagged_response (std::string &line) throw (imap_err)
 	}
 
 	// Find the separating space between key and contents (if it exists)
-	guint pos_sep = line.find (" ", pos);
+	std::string::size_type pos_sep = line.find (" ", pos);
 
 	if (pos_sep == std::string::npos)
 		last_untagged_response_key_ = line.substr (pos, line.size()-pos-1);
@@ -1474,14 +1477,14 @@ Imap4::sendline (const std::string command, gboolean print, gboolean check)
 {
 	// Create new tag
 	tagcounter_++;
-	gchar *buffer=g_strdup_printf("A%05d ",tagcounter_);
-	if (buffer==NULL) throw imap_command_err();
-	tag_=std::string(buffer);
-	g_free(buffer);
+	gchar *buffer = g_strdup_printf("A%05d ",tagcounter_);
+	if (buffer == NULL) throw imap_command_err();
+	tag_ = std::string (buffer);
+	g_free (buffer);
 
 	// Write line
-	gint status=socket_->write (tag_ + command + "\r\n", print);
-	if ((status!=SOCKET_STATUS_OK) && check) throw imap_socket_err();
+	gint status = socket_->write (tag_ + command + "\r\n", print);
+	if ((status != SOCKET_STATUS_OK) && check) throw imap_socket_err();
 	return status;
 }
 
@@ -1567,7 +1570,7 @@ Imap4::readline (std::string &line, gboolean print, gboolean check,
 				 gboolean checkline) throw (imap_err)
 {
 	// Read line
-	gint status=socket_->read(line, print, check);
+	gint status = socket_->read (line, print, check);
 	if (check && (status != SOCKET_STATUS_OK)) throw imap_socket_err();
 
 	// Check for an untagged negative response
@@ -1579,20 +1582,20 @@ Imap4::readline (std::string &line, gboolean print, gboolean check,
 		return status;
 	// Parse specific untagged responses
 	if (test_untagged_response (0, "OK", "[")) // see RFC 3501 7.1
-		save_response_code(ok_response_codes_);
+		save_response_code (ok_response_codes_);
 	else if (test_untagged_response (0, "BYE")) { // see RFC 3501 7.1.5
 		g_warning (_("[%d] Server closes connection immediately:%s"),
-				   uin(), line.substr(5,line.size()-5).c_str());
+				   uin(), line.substr (5, line.size()-5).c_str());
 		throw imap_command_err (Mailbox::status() == MAILBOX_CHECK);
 	}
 	else if (test_untagged_response (0, "BAD")) { // see RFC 3501 7.1.3
 		g_warning (_("[%d] Internal server failure or unknown error:%s"),
-				   uin(), line.substr(5,line.size()-5).c_str());
+				   uin(), line.substr (5, line.size()-5).c_str());
 		throw imap_command_err();
 	}
 	else if (test_untagged_response (0, "NO")) { // see RFC 3501 7.1.2
 		g_warning (_("[%d] Warning from server:%s"), uin(),
-				   line.substr(4,line.size()-4).c_str());
+				   line.substr (4, line.size()-4).c_str());
 	}
 	return status;
 }
@@ -1631,7 +1634,7 @@ Imap4::readline_ignoreinfo (std::string &line, gboolean print, gboolean check,
 	gint cnt = 1 + biff_->value_uint ("prevdos_ignore_info"), status;
 
 	do {
-		status=readline (line, print, check, checkline);
+		status = readline (line, print, check, checkline);
 		// Check for information or warning message
 		if (!last_untagged_response_)
 			break;
@@ -1639,7 +1642,7 @@ Imap4::readline_ignoreinfo (std::string &line, gboolean print, gboolean check,
 			continue;
 		if (last_untagged_response_key_ != "NO")
 			break;
-	} while ((status==SOCKET_STATUS_OK) && (cnt--));
+	} while ((status == SOCKET_STATUS_OK) && (cnt--));
 	if (cnt < 0) throw imap_dos_err();
 
 	return status;

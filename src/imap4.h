@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -175,21 +175,23 @@ class Imap4 : public Mailbox {
 	void waitfor_ack (std::string msg=std::string(""),
 					  gint num = 0) throw (imap_err);
 	gboolean waitfor_ack_untaggedresponse (std::string,
-										   std::string contbegin = std::string(""),
-										   gint num = 0) throw(imap_err);
+				std::string contbegin = std::string(""),
+				gint num = 0) throw(imap_err);
 	void waitfor_untaggedresponse (guint, std::string,
 								   std::string contbegin=std::string(""),
 								   gint num = 0) throw (imap_err);
 	void reset_tag();
 	std::string tag();
-	gint sendline (const std::string, gboolean print=true, gboolean check=true)
+	gint sendline (const std::string command, gboolean print = true,
+				   gboolean check = true) throw (imap_err);
+	gint sendline (const std::string command, guint msn, const std::string arg,
+				   gboolean print = true, gboolean check = true)
 				   throw (imap_err);
-	gint sendline (const std::string, guint, const std::string,
-				   gboolean print=true, gboolean check=true) throw (imap_err);
-	gint readline (std::string &, gboolean print=true, gboolean check=true,
-				   gboolean checkline=true) throw (imap_err);
-	gint readline_ignoreinfo (std::string &, gboolean print=true,
-							  gboolean check=true, gboolean checkline=true)
+	gint readline (std::string &line, gboolean print = true,
+				   gboolean check = true, gboolean checkline = true)
+				   throw (imap_err);
+	gint readline_ignoreinfo (std::string &line, gboolean print = true,
+							  gboolean check = true, gboolean checkline = true)
 							  throw (imap_err);
 	void save_response_code (std::map<std::string, std::string> &)
 							 throw (imap_err);
