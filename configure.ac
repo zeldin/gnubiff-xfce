@@ -36,8 +36,8 @@
 #
 # Current version is 2.1.0
 
-AC_PREREQ(2.53)
-AC_INIT(gnubiff, 2.1.0, rougier@loria.fr)
+AC_PREREQ(2.59)
+AC_INIT([gnubiff],[2.1.0],[rougier@loria.fr])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_SRCDIR([src/gnubiff.cc])
@@ -57,9 +57,23 @@ AC_PROG_MAKE_SET
 ######################################################################
 #                         Checks for libraries                       #
 ######################################################################
-AC_HAVE_LIBRARY(popt)
-AC_HAVE_LIBRARY(fam)
-AC_HAVE_LIBRARY(ssl)
+AC_CHECK_LIB([popt],[main], ,
+	AC_MSG_ERROR([
+	Cannot find popt library
+	Please consider installing it before installing gnubiff
+	])
+)
+
+AC_CHECK_LIB([fam],[main], ,
+	AC_MSG_ERROR([
+	Cannot find fam (File Alteration Monitor) library
+	Please consider installing it before installing gnubiff
+    ])
+)
+
+AC_CHECK_LIB([ssl],[main],[],[],[])
+
+
 AC_CHECK_LIB(crypto, MD5_Init, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions),
                 [AC_CHECK_LIB(ssl, MD5_init, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions))])
 GTK_REQUIRED="gtk+-2.0 >= 2.4"

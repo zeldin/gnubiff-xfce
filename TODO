@@ -9,9 +9,9 @@ To do:
 - Implement the poll feature if no FAM available
 - Uniformize functions comments (I really liked your way of commenting
   functions Robert so I will try to do that for remaining sources)
-- Update Developpers/Maintainers in the credits panel
 - Displayed last headers (instead of first) in popup when there are too many messages
 
 
 Done:
 - Put credits back
+- Update Developpers/Maintainers in the credits panel
