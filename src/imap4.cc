@@ -225,23 +225,11 @@ Imap4::connect (void)
 #endif
 	if (!(socket_->read (line, true))) return 0;
 
+	// Resetting the tag counter
 	reset_tag();
 
-	// Get the IDLE capacity
-	line = "CAPABILITY";
-	if (!send (line, false)) return 0;
-	if (!(socket_->read (line))) return 0;
-	if (line.find ("IDLE") != std::string::npos)
-		idleable_ = true;
-
-	if (!(socket_->read (line))) return 0;
-	if (line.find (tag()+"OK") != 0) {
-		socket_->status (SOCKET_STATUS_ERROR);
-		status_ = MAILBOX_ERROR;
-		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"), uin_, address_.c_str(), port_);
-		return 0;
-	}
-
+	// CAPABILITY
+	command_capability();
 
 	// LOGIN
 	line = "LOGIN \"" + username_ + std::string ("\" \"") + password_+ "\"";
@@ -596,10 +584,60 @@ Imap4::idle_renew_loop() throw (imap_err)
 }
 
 /**
- * Sending the IMAP command SEARCH NOT SEEN and parsing the server's response.
+ * Sending the IMAP command "CAPABILITY" and parsing the server's response.
+ * The command "CAPABILITY" is sent to the server to get the supported
+ * capabilities. Currently gnubiff recognizes the following capabilities:
+ * \begin{itemize}
+ *    \item IDLE: If the server has the IDLE capability, gnubiff uses the
+ *          IDLE command instead of polling.
+ * \end{\itemize}
  * 
- * @return             C++ vector of integers indicating those mails that are
- *                     still unread.
+ * @exception imap_command_err
+ *                     In case of an unexpected server's response or if a
+ *                     network error occurs.
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ */
+void 
+Imap4::command_capability (void) throw (imap_err)
+{
+	std::string line;
+
+	// Sending the command
+	if (!send("CAPABILITY")) throw imap_command_err();
+
+	// Getting server's response
+	if (!(socket_->read (line))) throw imap_command_err();
+	if (line.find ("* CAPABILITY") != 0) throw imap_command_err();
+
+	// Remark: We have a space-separated listing. In order to not match
+	// substrings we have to include the spaces when comparing. To match the
+	// last entry we have to convert '\n' to ' '
+	line[line.size()-1]=' ';
+
+	// Looking for supported capabilities
+	idleable_=(line.find (" IDLE ") != std::string::npos);
+
+	// Getting the acknowledgment
+	gint cnt=1+preventDoS_additionalLines_;
+	while ((socket_->read (line) > 0) && (cnt--))
+		if (line.find (tag()) == 0)
+			break;
+	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
+	if (line.find (tag() + "OK") != 0) {
+		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"),
+				   uin_, address_.c_str(), port_);
+		throw imap_command_err();
+	}
+}
+
+/**
+ * Sending the IMAP command "SEARCH NOT SEEN" and parsing the server's
+ * response. The IMAP command "SEARCH NOT SEEN" is sent to the server to get
+ * the message sequence numbers of those messages that have not been read yet.
+ * 
+ * @return             C++ vector of integers for the message sequence numbers
+ *                     of unread messages.
  * @exception imap_command_err
  *                     In case of an unexpected server's response or if a
  *                     network error occurs.
@@ -611,6 +649,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 {
 	std::string line;
 
+	// Sending the command
 	if (!send("SEARCH NOT SEEN")) throw imap_command_err();
 
 	// We need to set a limit to lines read (DoS Attacks).

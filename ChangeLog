@@ -36,13 +36,14 @@ Version 2.1.1
         thanks to Byron Foster for providing a patch)
    - Bugfix: Corrected tests for responses to IDLE and SEARCH NOT SEEN
         commands (IMAP4)
-   - Cleanup of SEARCH NOT SEEN command (IMAP4)
+   - Cleanup of SEARCH NOT SEEN, CAPABILITY commands (IMAP4)
    - Bugfix: Segfaulting in SSL when writing to a closed socket
    - Cleanup of code for obtaining the password for distant mailboxes
    - Cleanup of code for checking for new mails (IMAP4)
    - Bugfix: Signal SIGCHLD interrupts socket reads (thanks to Byron
         Foster for providing patches)
    - Bugfix: Some error handling was only done when debugging was activated
+   - Bugfix: CAPABILITY command (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier
