@@ -148,7 +148,7 @@ public:
 	void update_mailbox_status (void);
 	void start_checking (void);
 	void mail_displayed (void);
-	void parse (std::vector<std::string> &mail,		// parse a mail
+	void parse (std::vector<std::string> &mail,
 				std::string uid = std::string(""),
 				class PartInfo *pi = NULL, class Header *hh = NULL,
 				guint pos = 0);

@@ -445,7 +445,8 @@ Mailbox::lookup (void)
 #ifdef DEBUG
 	if (mailbox) {
 		std::string type = value_to_string ("protocol", mailbox->protocol());
-		g_message ("[%d] Ok, mailbox \"%s\" type is %s, monitoring starting in 3 seconds", uin(), name().c_str(), type.c_str());
+		g_message ("[%d] Ok, mailbox \"%s\" type is %s, monitoring starting "
+				   "in 3 seconds", uin(), name().c_str(), type.c_str());
 	}
 #endif
 
@@ -459,7 +460,8 @@ Mailbox::lookup (void)
 	g_mutex_unlock (monitor_mutex_);
 
 #ifdef DEBUG
-	g_message ("[%d] mailbox \"%s\" type is still unknown, retrying in 3 seconds", uin(), name().c_str());
+	g_message ("[%d] mailbox \"%s\" type is still unknown, retrying in 3 "
+			   "seconds", uin(), name().c_str());
 #endif
 
 	threaded_start (3);
@@ -483,9 +485,9 @@ Mailbox::lookup (void)
 Mailbox * 
 Mailbox::lookup_local (Mailbox &oldmailbox)
 {
-	Mailbox *mailbox=NULL;
-	const gchar *address=oldmailbox.address().c_str();
-	gchar *base=g_path_get_basename(address);
+	Mailbox *mailbox = NULL;
+	const gchar *address = oldmailbox.address().c_str();
+	gchar *base = g_path_get_basename (address);
 
 	// Is it a directory?
 	if (g_file_test (address, G_FILE_TEST_IS_DIR)) {
@@ -514,13 +516,26 @@ Mailbox::lookup_local (Mailbox &oldmailbox)
 	return mailbox;
 }
 
-// ================================================================================
-//  Parse a mail string array
-// --------------------------------------------------------------------------------
-//  This function parse a mail (as a vector of string) to extract
-//  sender/date/subject, to convert strings if necessary and to store the mail in
-//  unread array (depending if it's spam or if it is internally marked as seen)
-// ================================================================================
+/**
+ *  Parse a mail string array. This function parses a message that is given
+ *  line by line in the vector {\em mail}. Information like sender, date,
+ *  subject is extracted and decoded from the header. Messages that have not
+ *  be seen before and that are not marked as being spam are stored in the
+ *  vector for unread messages. If some information has been obtained before
+ *  it can be given to this functions via the optional parameters {\em pi} and
+ *  {\em hh}.
+ *
+ *  @param mail  Message line by line in a vector of strings
+ *  @param uid   Unique identifier of the mail (if known), the default is an
+ *               empty string.
+ *  @param pi    PartInfo structure with information about the first part of
+ *               the mail (if known), the default is NULL.
+ *  @param hh    Header with retrieved information about the message (if
+ *               known), the default is NULL.
+ *  @param pos   Number of the first line in the array to be parsed. This is
+ *               needed to easily parse multipart messages recusively. The
+ *               default is 0.
+ */
 void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 					 PartInfo *pi, Header *hh, guint pos)
 {
@@ -605,7 +620,8 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 
 		// Content Transfer Encoding (see RFC 2045 6.)
 		if (line.find ("Content-Transfer-Encoding:") == 0) {
-			guint cte_pos = 26; // size of "Content-Transfer-Encoding:"
+			// size of "Content-Transfer-Encoding:" is 26
+			std::string::size_type cte_pos = 26;
 
 			// Ignore whitespace
 			while ((cte_pos < line.size())
@@ -784,7 +800,7 @@ Mailbox::parse_contenttype (std::string line, class PartInfo &partinfo)
 	partinfo.subtype_ = "";
 	partinfo.parameters_.clear ();
 
-	guint len = line.size(), pos = 0;
+	std::string::size_type len = line.size(), pos = 0;
 	// Ignore whitespace
 	while ((pos < len) && ((line[pos] == ' ') || (line[pos] == '\t')))
 		pos++;

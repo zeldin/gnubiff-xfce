@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -81,8 +81,9 @@ Apop::~Apop (void)
  *
  * @exception pop_command_err
  *                     This exception is thrown when we get an unexpected
- *                     response.
- * @exception imap_socket_err
+ *                     response or if the encrypted login line cannot be
+ *                     created.
+ * @exception pop_socket_err
  *                     This exception is thrown if a network error occurs.
  */
 void 
@@ -97,9 +98,10 @@ Apop::connect (void) throw (pop_err)
 	//  if so, answer should be something like:
 	//  +OK POP3 server ready <1896.697170952@dbc.mtview.ca.us>
 	readline (line);
-	guint lt=line.find ("<"), gt=line.find (">");
+	std::string::size_type lt = line.find ("<"), gt = line.find (">");
 	if ((lt == std::string::npos) || (gt == std::string::npos) || (gt < lt)) {
-		g_warning (_("[%d] Your pop server does not seem to accept apop protocol (no timestamp provided)"), uin());
+		g_warning (_("[%d] Your pop server does not seem to accept apop "
+					 "protocol (no timestamp provided)"), uin());
 		throw pop_command_err ();
 	}
 
@@ -119,8 +121,9 @@ Apop::connect (void) throw (pop_err)
 		sprintf (&hex_response[i*2], "%02x", response[i]);
 	hex_response[32] = '\0';
 #else
-	g_warning (_("[%d] Problem with crypto that should have been detected at configure time"), uin());
-	return 0;
+	g_warning (_("[%d] Problem with crypto that should have been detected "
+				 "at configure time"), uin());
+	throw pop_command_err ();
 #endif
 
 	// LOGIN
