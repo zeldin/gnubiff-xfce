@@ -298,67 +298,29 @@ void
 Imap4::fetch_header (void)
 {
 	std::string line;
-	std::vector<int> buffer;
 	
 	// Status will be restored in the end if no problem occured
 	status_ = MAILBOX_CHECK;
 
 	// SEARCH NOT SEEN
-	buffer=command_searchnotseen();
+	std::vector<int> buffer=command_searchnotseen();
 	
 	// FETCH NOT SEEN
 	new_unread_.clear();
 	new_seen_.clear();
-	std::vector<std::string> mail;
 	for (guint i=0; (i<buffer.size()) && (new_unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
+
+		// FETCH header information
+		std::vector<std::string> mail=command_fetchheader(buffer[i]);
+
 		std::stringstream s;
 		s << buffer[i];
-		mail.clear();
-		
-		line="FETCH " + s.str();
-		line+=" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])";
-		if (!send(line)) throw imap_socket_err();
-		
-		// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
-		gint cnt=1+preventDoS_additionalLines_;
-		while (((socket_->read(line) > 0)) && (cnt--))
-			if (line.find ("* "+s.str()+" FETCH") == 0)
-				break;
-		if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
-		
-		// Date, From, Subject
-#ifdef DEBUG
-		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
-						 address_.c_str(), port_);
-#endif
-		cnt=5+preventDoS_additionalLines_;
-		while (((socket_->read(line, false) > 0)) && (cnt--)) {
-			if (line.find (tag()) == 0)
-				break;
-			if (line.size() > 0) {
-				mail.push_back (line.substr(0, line.size()-1));
-#ifdef DEBUG
-				g_print ("+");
-#endif
-			}
-		}
-#ifdef DEBUG
-		g_print ("\n");
-#endif
-		// Did an error happen?
-		if ((!socket_->status()) || (cnt<0) || (mail.size()==0)) throw imap_dos_err();
-		
-		// Remove last line (should contain a closing parenthesis). Note:
-		// We need the (hopefully empty;-) line before because it separates
-		// header and mail text
-		mail.pop_back();
-		
 		
 		// FETCH BODYSTRUCTURE
 		if (!send("FETCH " + s.str() + " (BODYSTRUCTURE)")) throw imap_socket_err();
 		
 		// Response should be: "* s FETCH (BODYSTRUC..." (see RFC 3501 7.4.2)
-		cnt=1+preventDoS_additionalLines_;
+		gint cnt=1+preventDoS_additionalLines_;
 		while (((socket_->read(line) > 0)) && (cnt--))
 			if (line.find ("* "+s.str()+" FETCH (BODYSTRUCTURE (") == 0)
 				break;
@@ -619,6 +581,76 @@ Imap4::command_capability (void) throw (imap_err)
 		send ("LOGOUT");
 		throw imap_nologin_err();
 	}
+}
+
+/**
+ * Obtain some header information from the mail with sequence number {\em msn}.
+ * The IMAP command "FETCH" is sent to the server in order to obtain the From,
+ * Date and Subject of the mail. The last line of the returned header lines
+ * should be empty.
+ * 
+ * @param     msn      Unsigned integer for the message sequence number of the
+ *                     mail
+ * @return             C++ vector of C++ strings containing the header lines
+ * @exception imap_command_err
+ *                     In case of an unexpected server's response or if a
+ *                     network error occurs.
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ */
+std::vector<std::string> 
+Imap4::command_fetchheader (guint msn) throw (imap_err)
+{	
+	// Start with an empty mail
+	std::vector<std::string> mail;
+	mail.clear();
+
+	// Message sequence number
+	std::stringstream ss;
+	ss << msn;
+		
+	// Send command
+	std::string line;
+	line="FETCH "+ss.str()+" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])";
+	if (!send(line)) throw imap_command_err();
+		
+	// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
+	gint cnt=1+preventDoS_additionalLines_;
+	while (((socket_->read(line) > 0)) && (cnt--))
+		if (line.find ("* "+ss.str()+" FETCH") == 0)
+			break;
+	if (!socket_->status()) throw imap_socket_err();
+	if (cnt<0) throw imap_dos_err();
+		
+	// Date, From, Subject and an empty line
+#ifdef DEBUG
+	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
+			 address_.c_str(), port_);
+#endif
+	cnt=5+preventDoS_additionalLines_;
+	while (((socket_->read(line, false) > 0)) && (cnt--)) {
+		if (line.find (tag()) == 0)
+			break;
+		if (line.size() > 0) {
+			mail.push_back (line.substr(0, line.size()-1));
+#ifdef DEBUG
+			g_print ("+");
+#endif
+		}
+	}
+#ifdef DEBUG
+	g_print ("\n");
+#endif
+	// Did an error happen?
+	if ((!socket_->status()) || (mail.size()==0)) throw imap_command_err();
+	if (cnt<0) throw imap_dos_err();
+	if (line.find (tag() + "OK") != 0) throw imap_command_err();
+		
+	// Remove last line (should contain a closing parenthesis). Note:
+	// We need the (hopefully empty;-) line before because it separates
+	// header and mail text
+	mail.pop_back();
+	return mail;
 }
 
 /**
