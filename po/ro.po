@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 11:05+0100\n"
+"POT-Creation-Date: 2004-12-05 23:46+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -133,7 +133,7 @@ msgstr ""
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:505
+#: src/imap4.cc:508
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -539,8 +539,9 @@ msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
 #: ui/preferences.glade.h:40
-msgid "Whether to show an image "
-msgstr ""
+#, fuzzy
+msgid "Whether to show an image"
+msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
 #: ui/preferences.glade.h:41
 #, fuzzy
@@ -580,7 +581,7 @@ msgid "_Format:"
 msgstr "De la"
 
 #: ui/preferences.glade.h:49
-msgid "_Restrict collected mail  to"
+msgid "_Restrict collected mail to"
 msgstr ""
 
 #: ui/preferences.glade.h:50

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 11:05+0100\n"
+"POT-Creation-Date: 2004-12-05 23:46+0100\n"
 "PO-Revision-Date: 2004-12-05 11:12+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -136,7 +136,7 @@ msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:505
+#: src/imap4.cc:508
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
@@ -524,7 +524,8 @@ msgid "Whether to restrict number of displayed headers"
 msgstr "Restreindre le nombre d'entêtes ou non"
 
 #: ui/preferences.glade.h:40
-msgid "Whether to show an image "
+#, fuzzy
+msgid "Whether to show an image"
 msgstr "Afficher une image ou non"
 
 #: ui/preferences.glade.h:41
@@ -562,7 +563,8 @@ msgid "_Format:"
 msgstr "_Format:"
 
 #: ui/preferences.glade.h:49
-msgid "_Restrict collected mail  to"
+#, fuzzy
+msgid "_Restrict collected mail to"
 msgstr "_Restreindre le nombre de mail collectés à:"
 
 #: ui/preferences.glade.h:50

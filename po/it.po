@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 11:05+0100\n"
+"POT-Creation-Date: 2004-12-05 23:46+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -130,7 +130,7 @@ msgstr "[%d] Impossibile prendere il riconoscimento da %s alla porta %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossibile connettersi a %s alla porta %d"
 
-#: src/imap4.cc:505
+#: src/imap4.cc:508
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -547,7 +547,7 @@ msgstr ""
 
 #: ui/preferences.glade.h:40
 #, fuzzy
-msgid "Whether to show an image "
+msgid "Whether to show an image"
 msgstr "Finestra Biff con dercorazioni del gestore delle finestre o senza"
 
 #: ui/preferences.glade.h:41
@@ -590,8 +590,9 @@ msgid "_Format:"
 msgstr "Formato"
 
 #: ui/preferences.glade.h:49
-msgid "_Restrict collected mail  to"
-msgstr ""
+#, fuzzy
+msgid "_Restrict collected mail to"
+msgstr "Riduci la dimensione del <b>mittente</b> a"
 
 #: ui/preferences.glade.h:50
 #, fuzzy

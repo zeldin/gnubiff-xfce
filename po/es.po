@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 11:05+0100\n"
+"POT-Creation-Date: 2004-12-05 23:46+0100\n"
 "PO-Revision-Date: 2003-12-11 15:45+0300\n"
 "Last-Translator: Nicolás Lichtmaier <niqueco@hotmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -132,7 +132,7 @@ msgstr ""
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:505
+#: src/imap4.cc:508
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -535,7 +535,7 @@ msgstr ""
 
 #: ui/preferences.glade.h:40
 #, fuzzy
-msgid "Whether to show an image "
+msgid "Whether to show an image"
 msgstr "Ventanita decorada por el gestor de ventanas o no"
 
 #: ui/preferences.glade.h:41
@@ -578,7 +578,7 @@ msgstr "Tipografía"
 
 #: ui/preferences.glade.h:49
 #, fuzzy
-msgid "_Restrict collected mail  to"
+msgid "_Restrict collected mail to"
 msgstr ""
 "<small>Restringir el número de cabeceras a mostrar en la ventanita a </small>"
 

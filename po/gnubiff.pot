@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 11:05+0100\n"
+"POT-Creation-Date: 2004-12-05 23:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,7 +130,7 @@ msgstr ""
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:505
+#: src/imap4.cc:508
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -500,7 +500,7 @@ msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
 #: ui/preferences.glade.h:40
-msgid "Whether to show an image "
+msgid "Whether to show an image"
 msgstr ""
 
 #: ui/preferences.glade.h:41
@@ -536,7 +536,7 @@ msgid "_Format:"
 msgstr ""
 
 #: ui/preferences.glade.h:49
-msgid "_Restrict collected mail  to"
+msgid "_Restrict collected mail to"
 msgstr ""
 
 #: ui/preferences.glade.h:50
