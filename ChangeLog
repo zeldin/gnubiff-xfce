@@ -11,6 +11,7 @@ Version 2.1.3
    - Bugfix: Maildir protocol provides uid
    - Cleanup: Using glib functions for directory access (maildir)
    - Bugfix: Obtaining version of gnubiff config file
+   - Bugfix: Don't parse already read messages (maildir)
 
 Version 2.1.2		2005-03-26 17:28
  * Robert Sowada

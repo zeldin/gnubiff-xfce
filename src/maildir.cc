@@ -64,7 +64,7 @@ void
 Maildir::fetch (void)
 {
 	int saved_status = status();
-  
+
 	// Build directory name
 	gchar *base = g_path_get_basename (address().c_str());
 	std::string directory;
@@ -103,6 +103,11 @@ Maildir::fetch (void)
 		if (d_name[0] == '.')
 			continue;
 
+		// If the mail is already known, we don't need to parse it
+		std::string uid = std::string (d_name);
+		if (new_mail (uid))
+			continue;
+
 		std::ifstream file;
 		gchar *tmp = g_build_filename (directory.c_str(), d_name, NULL);
 		std::string filename(tmp);
@@ -115,7 +120,7 @@ Maildir::fetch (void)
 				getline(file, line);
 				mail.push_back (line);
 			}
-			parse (mail, d_name);
+			parse (mail, uid);
 			mail.clear();
 		}
 		else
