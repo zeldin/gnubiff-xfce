@@ -92,12 +92,13 @@ Maildir::get_status (void)
 		return;
 	}
 
-	// Read number of entries (but '.'  and '..')
+	// Read number of entries (not counting files beginning with '.',
+	// including "." and "..")
 	while ((dent = readdir(dir)))
 		if (dent->d_name[0] != '.')
 			dirsize++;
 	closedir (dir); 
-   
+
 	// No entry  = no new mail
 	if (dirsize == 0)
 		status_ = MAILBOX_EMPTY;
