@@ -382,7 +382,7 @@ Properties::on_apply (GtkWidget *widget)
 			mailbox_->address(newaddress);
 			// If possible create a correct mailbox, otherwise a generic one
 			// (to force lookup)
-			if (!(mailbox=Mailbox::lookup_local(mailbox_)))
+			if (!(mailbox=Mailbox::lookup_local(*mailbox_)))
 				mailbox=new Mailbox (*mailbox_);
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}

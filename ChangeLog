@@ -8,7 +8,8 @@ Version 2.1.1
  * Nicolas Rougier
    - bugfix: gui, biff geometry field was sensitive when in gnome mode
    - bugfix: password automatic finding, misplaced mutex lock
-	
+ * Robert Sowada
+   - Small changes
 	
 Version 2.1.0
  * Nicolas Rougier

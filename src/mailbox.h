@@ -174,7 +174,7 @@ public:
 	virtual void fetch (void);						// fetch headers (if any)
 	void read (gboolean value=true);				// mark/unmark mailbox as read
 	void lookup (void);								// try to guess mailbox format
-	static Mailbox *lookup_local(Mailbox *);            // try to guess mailbox format for a local mailbox
+	static Mailbox *lookup_local(Mailbox &);        // try to guess mailbox format for a local mailbox
 	void parse (std::vector<std::string> &mail,		// parse a mail 
 				int status = -1);
 

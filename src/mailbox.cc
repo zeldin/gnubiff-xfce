@@ -278,7 +278,7 @@ Mailbox::lookup (void)
 
 	// Local mailbox
 	if (g_path_is_absolute(address_.c_str()))
-		mailbox=lookup_local(this);
+		mailbox=lookup_local(*this);
 	// Distant mailbox
 	else {
 		std::string line;
@@ -427,10 +427,10 @@ Mailbox::lookup (void)
  *                     be determined.
  */
 Mailbox * 
-Mailbox::lookup_local(Mailbox *oldmailbox)
+Mailbox::lookup_local(Mailbox &oldmailbox)
 {
 	Mailbox *mailbox=NULL;
-	const gchar *address=oldmailbox->address().c_str();
+	const gchar *address=oldmailbox.address().c_str();
 	gchar *base=g_path_get_basename(address);
 
 	// Is it a directory?
@@ -439,11 +439,11 @@ Mailbox::lookup_local(Mailbox *oldmailbox)
 		gchar *md_new=g_build_filename(address,"new",NULL);
 
 		if (g_file_test (mh_seq, G_FILE_TEST_IS_REGULAR))
-			mailbox = new Mh (*oldmailbox);
+			mailbox = new Mh (oldmailbox);
 		else if (std::string(base)=="new")
-			mailbox = new Maildir (*oldmailbox);
+			mailbox = new Maildir (oldmailbox);
 		else if (g_file_test (md_new, G_FILE_TEST_IS_DIR))
-			mailbox = new Maildir (*oldmailbox);
+			mailbox = new Maildir (oldmailbox);
 
 		g_free(mh_seq);
 		g_free(md_new);
@@ -451,9 +451,9 @@ Mailbox::lookup_local(Mailbox *oldmailbox)
 	// Is it a file?
 	else if (g_file_test (address, (G_FILE_TEST_EXISTS))) {
 		if (std::string(base)==".mh_sequences")
-			mailbox = new Mh (*oldmailbox);
+			mailbox = new Mh (oldmailbox);
 		else
-			mailbox = new File (*oldmailbox);
+			mailbox = new File (oldmailbox);
 	}
 
 	g_free(base);
