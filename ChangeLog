@@ -27,6 +27,7 @@ Version 2.0.2
    - File permissions are only set when creating a new config file. So the user
      is able to change to less restrictive permissions if he/she wants to do
      this
+   - Bugfix in detection of animation information
 
 
 Version 2.0.1
