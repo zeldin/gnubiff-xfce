@@ -9,6 +9,7 @@ Version 2.0.3
    - Updated man page (section 1, "GTK+")
  * Robert Sowada:
    - Changed version to 2.0.3
+   - Various small changes and bugfixes
    - Updated german translation, updated po files
    - Gnome version can determine itself if in standalone mode or panel mode
    - Removed "--gtk" option, added "--applet" option in debug mode instead

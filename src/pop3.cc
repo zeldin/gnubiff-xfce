@@ -94,10 +94,9 @@ Pop3::connect (void)
 	// LOGIN : password
 	line = "PASS " + password_ + std::string ("\r\n");
 
-	// Just in case send someone me the output: password won't be displayed
-	std::string line_no_password = "PASS (hidden)\r\n";
 #ifdef DEBUG
-	g_print ("** Message: [%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_, line_no_password.c_str());
+	// Just in case someone sends me the output: password won't be displayed
+	g_print ("** Message: [%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_, "PASS (hidden)\r\n");
 #endif
 
 	if (!socket_->write (line,false)) return 0;
