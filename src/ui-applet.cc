@@ -164,7 +164,9 @@ Applet::update (gboolean no_popup)
 	gboolean newmail = false;
 	int unread = 0;
 	for (unsigned int i=0; i<biff_->size(); i++) {
-		if (biff_->mailbox(i)->status() == MAILBOX_NEW)
+		gint status = biff_->mailbox(i)->status();
+
+		if (status == MAILBOX_NEW)
 			newmail = true;
 		unread += biff_->mailbox(i)->unreads();
 	}

@@ -43,11 +43,11 @@ class Imap4 : public Mailbox {
 protected:
 	class Socket *				socket_;		// socket to talk to server
 	std::vector<int>			saved_;			// saved uidl's
-	gboolean					idleable_;		// does server support the IDLE capability ?
+	gboolean					idleable_;		// does server support the IDLE capability?
 	gboolean					idled_;			// Is the  server currently idled
 
-	std::string					tag_;			// 
-	guint						tagcounter_;	//
+	std::string					tag_;			// Tag created for the last sent IMAP command
+	guint						tagcounter_;	// Counter for creating the next tag
 public:
 	// ========================================================================
 	//  base
@@ -66,16 +66,28 @@ public:
 	void fetch_status (void);
 	void fetch_header (void);
 
+	class imap_err : public std::exception {};	 // General Imap Exception
+	class imap_socket_err : public imap_err {};	 // Socket connection Failure
+												 // usually when reading or writing.
+	class imap_command_err : public imap_err {}; // IMAP command not understood
+												 // or not expected.
+	class imap_dos_err : public imap_err {};	 // We've been attacked DoS style!
+	
  private:
 	// ========================================================================
-	//  Internal stuff
+	//	Internal stuff
 	// ========================================================================	
 	gboolean parse_bodystructure (std::string, class PartInfo &,
-								  gboolean toplevel=true);
+									gboolean toplevel=true);
 	gboolean parse_bodystructure_parameters (std::string, class PartInfo &);
 	void reset_tag();
 	std::string tag();
 	gint send(std::string,gboolean debug=true);
+	std::string idle_renew_loop() throw (imap_err);	 // Renew IDLE state
+													 // periodically. 
+	void update_applet();						 // Update the applet to new IMAP state.
+	void idle() throw (imap_err);		         // Begin idle IMAP mode.
+	void close();								 // Cleanup and close IMAP connection.
 };
 
 class PartInfo

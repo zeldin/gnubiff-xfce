@@ -337,23 +337,31 @@ Socket::read (std::string &line,
 
 #ifdef HAVE_LIBSSL
 	if (use_ssl_) {
+		errno = 0;
 		while ((0<cnt--) && ((status = SSL_read (ssl_, &buffer, 1)) > 0) && (buffer != '\n'))
 			line += buffer;
-		if ((status > 0) && (cnt>=0))
+		if (errno == EAGAIN)
+			status_ = SOCKET_TIMEOUT;
+		else if ((status > 0) && (cnt>=0))
 			status_ = SOCKET_STATUS_OK;
 		else
 			status_ = SOCKET_STATUS_ERROR;
 	}
 #endif
 	if (status_ == -1) {
+		errno = 0;
 		while ((0<cnt--) && ((status = ::read (sd_, &buffer, 1)) > 0) && (buffer != '\n'))
 			line += buffer;
-		if ((status > 0) && (cnt>=0))
+
+		if (errno == EAGAIN)
+			status_ = SOCKET_TIMEOUT;
+		else if ((status > 0) && (cnt>=0))
 			status_ = SOCKET_STATUS_OK;
 		else
 			status_ = SOCKET_STATUS_ERROR;
 	}
 
+  
 	if (!check)
 		return status_;
 
@@ -388,3 +396,25 @@ Socket::read (std::string &line,
 	
 	return status_;
 }
+
+/**
+ * Specify a timeout value for read operations on this socket.  Read
+ * operations will block until the given time has expired.  if the
+ * {\em gint Socket::read (std::string, gboolean, gboolean)} method
+ * returns because of the timeout it will return with {\em
+ * SOCKET_TIMEOUT}
+ *
+ * @param  timeout   Time in seconds for timeout duration.
+ */
+void
+Socket::set_read_timeout(gint timeout)
+{
+	struct timeval tv;
+	tv.tv_sec = timeout;
+	tv.tv_usec = 0;
+	if (setsockopt(sd_, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) == -1) {
+		g_error("Could not set read timeout on socket:	%s", strerror(errno));
+	}
+	
+}
+

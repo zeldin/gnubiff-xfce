@@ -73,22 +73,22 @@ Imap4::~Imap4 (void)
 void
 Imap4::threaded_start (guint delay)
 {
-	// Is there already a timeout ?
+	// Is there already a timeout?
 	if (timetag_)
 		return;
 
-	// Are we in idle state ?
+	// Are we in idle state?
 	if (idled_)
 		return;
 
-	// Do we want to start using given delay ?
+	// Do we want to start using given delay?
 	if (delay) {
 		timetag_ = g_timeout_add (delay*1000, start_delayed_entry_point, this);
 #if DEBUG
 		g_message ("[%d] Start fetch in %d second(s)", uin_, delay);
 #endif
 	}
-	//  or internal delay ?
+	//  or internal delay?
 	else {
 		timetag_ = g_timeout_add (delay_*1000, start_delayed_entry_point, this);
 #if DEBUG
@@ -97,39 +97,81 @@ Imap4::threaded_start (guint delay)
 	}
 }
 
-void
+void 
 Imap4::start (void)
 {
 	if (!g_mutex_trylock (monitor_mutex_))
 		return;
-	fetch ();
+
+	try
+	{
+		fetch ();
+		send ("LOGOUT");	
+	}
+	catch (imap_err& err)
+	{
+		// Catch all errors that are un-recoverable and result in
+		// closing the connection, and resetting the mailbox status.
+#if DEBUG
+		g_message("Imap exception:	%s", err.what());
+#endif
+		status_ = MAILBOX_ERROR;
+		unread_.clear();
+		seen_.clear();
+		saved_.clear();
+	}
+
+	idled_ = false;
+	socket_->close ();
+	update_applet();
+
 	g_mutex_unlock (monitor_mutex_);
 
 	threaded_start (delay_);
 }
 
-void
+void 
 Imap4::fetch (void)
 {
+	// Find out if we have new mail.
 	fetch_status();
-	if ((status_ == MAILBOX_NEW) || (status_ == MAILBOX_EMPTY) || (idleable_))
+
+	// If we have new mail, then get the mail header information
+	// such as subject, from, date, etc... for each new mail.
+	// Do we need to check when empty?
+	if ((status_ == MAILBOX_NEW) || (status_ == MAILBOX_EMPTY))
 		fetch_header();
-
-	if (!GTK_WIDGET_VISIBLE (biff_->popup()->get())) {
-		gdk_threads_enter();
-		biff_->applet()->update();
-		gdk_threads_leave();
-
-		// If we have reported the new mail, then set the status to old
-		if (status_ == MAILBOX_NEW)
-			status_ = MAILBOX_OLD;
+	
+	if (idleable_) {
+		idled_ = true;
+		idle();
 	}
 }
 
-gint Imap4::connect (void)
+/**
+ * Update the applet with any new information about this mailbox. This
+ * includes new or removed mail, for a new mail count.
+ */
+void 
+Imap4::update_applet(void)
+{
+	// Removed the below so notifications will queue up, instead
+	// of potential notifications being missed.
+	// if (!GTK_WIDGET_VISIBLE (biff_->popup()->get())) {
+		gdk_threads_enter();
+		biff_->applet()->update();
+		gdk_threads_leave();
+	// }
+
+	// If we have reported the new mail, then set the status to old
+	if (status_ == MAILBOX_NEW)
+		status_ = MAILBOX_OLD;
+}
+
+gint 
+Imap4::connect (void)
 {
 	std::string line;
-
 
 	// Check standard port
 	if (!use_other_port_)
@@ -172,6 +214,11 @@ gint Imap4::connect (void)
 		return 0;
 	}
 
+	// Set reads from the socket to time out.	We do this primarily for
+	// the IDLE state.	However, this also prevents reads in general
+	// from blocking forever on connections that have gone bad.	 We
+	// don't let the timeout period be less then 60 seconds.
+	socket_->set_read_timeout(delay_ < 60 ? 60 : delay_);
 
 #ifdef DEBUG
 	g_message ("[%d] Connected to %s on port %d", uin_, address_.c_str(), port_);
@@ -228,10 +275,8 @@ gint Imap4::connect (void)
 		// According to RFC 3501 6.3.1 there must be exactly seven lines
 		// before the "Axxx OK ..." line.
 		gint cnt=8+preventDoS_additionalLines_;
-		while ((socket_->read (line)) && (cnt--))
-		{
-			if (line.find (tag()+"OK") == 0)
-			{
+		while ((socket_->read (line)) && (cnt--)) {
+			if (line.find (tag()+"OK") == 0) {
 				check = true;
 				break;
 			}
@@ -243,14 +288,12 @@ gint Imap4::connect (void)
 			}
 		}
 	}
-	else
-	{
+	else {
 		if (send("LOGOUT"))
 			socket_->close ();
 	}
 
-	if (!socket_->status()||!check||!folder_imaputf7)
-	{
+	if (!socket_->status() || !check || !folder_imaputf7) {
 		socket_->status (SOCKET_STATUS_ERROR);
 		status_ = MAILBOX_ERROR;
 		g_warning (_("[%d] Unable to select folder %s on host %s"),
@@ -265,7 +308,7 @@ gint Imap4::connect (void)
 }
 
 
-void
+void 
 Imap4::fetch_status (void)
 {
 	std::string line;
@@ -294,17 +337,17 @@ Imap4::fetch_status (void)
 	// No way, user do not want to help us, we simply return
 	if (password_.empty()) {
 		status_ = MAILBOX_ERROR;
-		return;
+		throw imap_socket_err();
 	}
 
 	// Connection and authentification
 	if (!connect ()) {
 		status_ = MAILBOX_ERROR;
-		return;
+		throw imap_socket_err();
 	}
 
 	// SEARCH NOT SEEN
-	if (!send ("SEARCH NOT SEEN")) return;
+	if (!send ("SEARCH NOT SEEN")) throw imap_socket_err();
 
 	// We need to set a limit to lines read (DoS Attacks).
 	// Expected response "* SEARCH ..." should be in the next line.
@@ -312,7 +355,7 @@ Imap4::fetch_status (void)
 	while (((socket_->read(line) > 0)) && (cnt--))
 		if (line.find ("* SEARCH") == 0)
 			break;
-	if ((!socket_->status()) || (cnt<0)) return;
+	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
 
 
 	// Parse server answer
@@ -347,11 +390,12 @@ Imap4::fetch_status (void)
 	while ((socket_->read (line) > 0) && (cnt--))
 		if (line.find (tag()) != std::string::npos)
 			break;
-	if ((!socket_->status()) || (cnt<0)) return;
+	if ((!socket_->status()) || (cnt<0)) throw imap_socket_err();
 
+	// Connection closing is done at the top level routine fetch
 	// Closing connection
-	if (!send("LOGOUT")) return;
-	socket_->close ();
+	// if (!send("LOGOUT")) throw imap_command_err();
+	// socket_->close ();
 }
 
 void
@@ -360,8 +404,7 @@ Imap4::fetch_header (void)
 	std::string line;
 	std::vector<int> buffer;
 	int saved_status = status_;
-	gboolean idling = true;
-  
+	
 	// Status will be restored in the end if no problem occured
 	status_ = MAILBOX_CHECK;
 
@@ -371,265 +414,335 @@ Imap4::fetch_header (void)
 
 	if (password_.empty()) {
 		status_ = MAILBOX_ERROR;
-		return;
+		throw imap_socket_err();
 	}
 
+	// Connecting is done once in the fetch_status routine.
 	// Connection and authentification
-	if (!connect ()) {
-		status_ = MAILBOX_ERROR;
-		return;
-	}
+	// if (!connect ()) {
+	//	status_ = MAILBOX_ERROR;
+	//	throw imap_socket_err();
+	// }
 
-	// This loop is for the idle state when we wait for new message
-	do {
-		// SEARCH NOT SEEN
-		if (!send("SEARCH NOT SEEN")) return;
+	// SEARCH NOT SEEN
+	if (!send("SEARCH NOT SEEN")) throw imap_command_err();
 
-		// We need to set a limit to lines read (DoS Attacks).
-		// Expected response "* SEARCH ..." should be in the next line.
-		gint cnt=1+preventDoS_additionalLines_;
-		while (((socket_->read(line) > 0)) && (cnt--))
-			if (line.find ("* SEARCH") == 0)
-				break;
-		if ((!socket_->status()) || (cnt<0)) return;
-
-		// Parse server answer
-		// Should be something like
-		// "* SEARCH 1 2 3 4" or "* SEARCH"
-		// (9 is size of "* SEARCH ")
-		buffer.clear();
-		if (line.size() > 9) {
-			line = line.substr (9);
-			int n = 0;
-			for (guint i=0; i<line.size(); i++) {
-				if (line[i] >= '0' && line[i] <= '9')
-					n = n*10 + int(line[i]-'0');
-				else {
-					buffer.push_back (n);
-					n = 0;
-				}
+	// We need to set a limit to lines read (DoS Attacks).
+	// Expected response "* SEARCH ..." should be in the next line.
+	gint cnt=1+preventDoS_additionalLines_;
+	while (((socket_->read(line) > 0)) && (cnt--))
+		if (line.find ("* SEARCH") == 0)
+			break;
+	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
+	
+	// Parse server answer
+	// Should be something like
+	// "* SEARCH 1 2 3 4" or "* SEARCH"
+	// (9 is size of "* SEARCH ")
+	buffer.clear();
+	if (line.size() > 9) {
+		line = line.substr (9);
+		int n = 0;
+		for (guint i=0; i<line.size(); i++) {
+			if (line[i] >= '0' && line[i] <= '9')
+				n = n*10 + int(line[i]-'0');
+			else {
+				buffer.push_back (n);
+				n = 0;
 			}
 		}
-
+	}
+	
+	cnt=1+preventDoS_additionalLines_;
+	while ((socket_->read (line) > 0) && (cnt--))
+		if (line.find (tag()) != std::string::npos)
+			break;
+	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
+	
+	
+	// FETCH NOT SEEN
+	new_unread_.clear();
+	new_seen_.clear();
+	std::vector<std::string> mail;
+	for (guint i=0; (i<buffer.size()) && (new_unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
+		std::stringstream s;
+		s << buffer[i];
+		mail.clear();
+		
+		line="FETCH " + s.str();
+		line+=" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])";
+		if (!send(line)) throw imap_socket_err();
+		
+		// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
 		cnt=1+preventDoS_additionalLines_;
-		while ((socket_->read (line) > 0) && (cnt--))
-			if (line.find (tag()) != std::string::npos)
+		while (((socket_->read(line) > 0)) && (cnt--))
+			if (line.find ("* "+s.str()+" FETCH") == 0)
 				break;
-		if ((!socket_->status()) || (cnt<0)) return;
-
-
-		// FETCH NOT SEEN
-		new_unread_.clear();
-		new_seen_.clear();
-		std::vector<std::string> mail;
-		for (guint i=0; (i<buffer.size()) && (new_unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
-			std::stringstream s;
-			s << buffer[i];
-			mail.clear();
-
-			line="FETCH " + s.str();
-			line+=" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])";
-			if (!send(line)) return;
-
+		if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
+		
+		// Date, From, Subject
+#ifdef DEBUG
+		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
+						 address_.c_str(), port_);
+#endif
+		cnt=5+preventDoS_additionalLines_;
+		while (((socket_->read(line, false) > 0)) && (cnt--)) {
+			if (line.find (tag()) == 0)
+				break;
+			if (line.size() > 0) {
+				mail.push_back (line.substr(0, line.size()-1));
+#ifdef DEBUG
+				g_print ("+");
+#endif
+			}
+		}
+#ifdef DEBUG
+		g_print ("\n");
+#endif
+		// Did an error happen?
+		if ((!socket_->status()) || (cnt<0) || (mail.size()==0)) throw imap_dos_err();
+		
+		// Remove last line (should contain a closing parenthesis). Note:
+		// We need the (hopefully empty;-) line before because it separates
+		// header and mail text
+		mail.pop_back();
+		
+		
+		// FETCH BODYSTRUCTURE
+		if (!send("FETCH " + s.str() + " (BODYSTRUCTURE)")) throw imap_socket_err();
+		
+		// Response should be: "* s FETCH (BODYSTRUC..." (see RFC 3501 7.4.2)
+		cnt=1+preventDoS_additionalLines_;
+		while (((socket_->read(line) > 0)) && (cnt--))
+			if (line.find ("* "+s.str()+" FETCH (BODYSTRUCTURE (") == 0)
+				break;
+		if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
+		if (line.substr(line.size()-2) != ")\r")
+			throw imap_command_err();
+		
+		// Remove first and last part
+		line=line.substr(25+s.str().size(),line.size()-28-s.str().size());
+		
+		// Get Part of Mail that contains "text/plain" (if any exists) and
+		// size of this text, encoding, charset
+		PartInfo partinfo;
+		parse_bodystructure(line,partinfo);
+		gint textsize=partinfo.size;
+#ifdef DEBUG
+		g_print("** Part %s size=%d, encoding=%s, charset=%s\n",
+						partinfo.part.c_str(), partinfo.size,
+						partinfo.encoding.c_str(), partinfo.charset.c_str());
+#endif
+		
+		// Read end of command
+		cnt=1+preventDoS_additionalLines_;
+		while (((socket_->read(line, false) > 0)) && (cnt--))
+			if (line.find (tag()) == 0)
+				break;
+		if ((!socket_->status()) || (cnt<0)) throw imap_socket_err();
+		
+		
+		// FETCH BODY.PEEK
+		// Is there any plain text?
+		if (partinfo.part=="")
+			mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
+		else if (textsize == 0)
+			mail.push_back(std::string(""));
+		else {
+			if (partinfo.charset!="")
+				mail.insert (mail.begin(), std::string("charset=") + partinfo.charset + std::string(";"));
+			
+			// Note: We are only interested in the first lines, there
+			// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
+			// so it is sufficient to get at most 1000*bodyLinesToBeRead_
+			// bytes.
+			if (textsize>1000*bodyLinesToBeRead_)
+				textsize=1000*bodyLinesToBeRead_;
+			std::stringstream textsizestr;
+			textsizestr << textsize;
+			line = "FETCH "+s.str()+" (BODY.PEEK["+partinfo.part+"]<0.";
+			line+= textsizestr.str() + ">)";
+			if (!send(line)) throw imap_socket_err();
+			
 			// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
 			cnt=1+preventDoS_additionalLines_;
 			while (((socket_->read(line) > 0)) && (cnt--))
 				if (line.find ("* "+s.str()+" FETCH") == 0)
 					break;
-			if ((!socket_->status()) || (cnt<0)) return;
-
-			// Date, From, Subject
+			if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
+			
 #ifdef DEBUG
-			g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
-					 address_.c_str(), port_);
+			g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, address_.c_str(), port_);
 #endif
-			cnt=5+preventDoS_additionalLines_;
-			while (((socket_->read(line, false) > 0)) && (cnt--)) {
-				if (line.find (tag()) == 0)
-					break;
-				if (line.size() > 0) {
+			// Read text
+			gint lineno=0,bytes=textsize+3; // ")\r\n" at end of mail
+			while ((bytes>0) && ((socket_->read(line, false) > 0))) {
+				bytes-=line.size()+1; // don't forget to count '\n'!
+				if ((line.size() > 0) && (lineno++<bodyLinesToBeRead_)) {
 					mail.push_back (line.substr(0, line.size()-1));
 #ifdef DEBUG
 					g_print ("+");
 #endif
 				}
 			}
-#ifdef DEBUG
-			g_print ("\n");
-#endif
-			// Did an error happen?
-			if ((!socket_->status()) || (cnt<0) || (mail.size()==0)) return;
-
-			// Remove last line (should contain a closing parenthesis). Note:
-			// We need the (hopefully empty;-) line before because it separates
-			// header and mail text
+			if ((!socket_->status()) || (bytes<0)) throw imap_socket_err();
+			// Remove ")\r" from last line ('\n' was removed before)
 			mail.pop_back();
-
-
-			// FETCH BODYSTRUCTURE
-			if (!send("FETCH " + s.str() + " (BODYSTRUCTURE)")) return;
-
-			// Response should be: "* s FETCH (BODYSTRUC..." (see RFC 3501 7.4.2)
-			cnt=1+preventDoS_additionalLines_;
-			while (((socket_->read(line) > 0)) && (cnt--))
-				if (line.find ("* "+s.str()+" FETCH (BODYSTRUCTURE (") == 0)
-					break;
-			if ((!socket_->status()) || (cnt<0)) return;
-			if (line.substr(line.size()-2) != ")\r")
-				return;
-
-			// Remove first and last part
-			line=line.substr(25+s.str().size(),line.size()-28-s.str().size());
-
-			// Get Part of Mail that contains "text/plain" (if any exists) and
-			// size of this text, encoding, charset
-			PartInfo partinfo;
-			parse_bodystructure(line,partinfo);
-			gint textsize=partinfo.size;
-#ifdef DEBUG
-			g_print("** Part %s size=%d, encoding=%s, charset=%s\n",
-					partinfo.part.c_str(), partinfo.size,
-					partinfo.encoding.c_str(), partinfo.charset.c_str());
-#endif
-
+			if (line.size()>1)
+				mail.push_back (line.substr(0, line.size()-2));
 			// Read end of command
-			cnt=1+preventDoS_additionalLines_;
-			while (((socket_->read(line, false) > 0)) && (cnt--))
-				if (line.find (tag()) == 0)
-					break;
-			if ((!socket_->status()) || (cnt<0)) return;
-
-
-			// FETCH BODY.PEEK
-			// Is there any plain text?
-			if (partinfo.part=="")
-				mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
-			else if (textsize == 0)
-				mail.push_back(std::string(""));
-			else {
-				if (partinfo.charset!="")
-					mail.insert (mail.begin(), std::string("charset=") +  partinfo.charset + std::string(";"));
-
-				// Note: We are only interested in the first lines, there
-				// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
-				// so it is sufficient to get at most 1000*bodyLinesToBeRead_
-				// bytes.
-				if (textsize>1000*bodyLinesToBeRead_)
-					textsize=1000*bodyLinesToBeRead_;
-				std::stringstream textsizestr;
-				textsizestr << textsize;
-				line = "FETCH "+s.str()+" (BODY.PEEK["+partinfo.part+"]<0.";
-				line+= textsizestr.str() + ">)";
-				if (!send(line)) return;
-
-				// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
-				cnt=1+preventDoS_additionalLines_;
-				while (((socket_->read(line) > 0)) && (cnt--))
-					if (line.find ("* "+s.str()+" FETCH") == 0)
-						break;
-				if ((!socket_->status()) || (cnt<0)) return;
-
-#ifdef DEBUG
-				g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, address_.c_str(), port_);
-#endif
-				// Read text
-				gint lineno=0,bytes=textsize+3; // ")\r\n" at end of mail
-				while ((bytes>0) && ((socket_->read(line, false) > 0))) {
-					bytes-=line.size()+1; // don't forget to count '\n'!
-					if ((line.size() > 0) && (lineno++<bodyLinesToBeRead_)) {
-						mail.push_back (line.substr(0, line.size()-1));
-#ifdef DEBUG
-						g_print ("+");
-#endif
-					}
-				}
-				if ((!socket_->status()) || (bytes<0)) return;
-				// Remove ")\r" from last line ('\n' was removed before)
-				mail.pop_back();
-				if (line.size()>1)
-					mail.push_back (line.substr(0, line.size()-2));
-				// Read end of command
-				if (!(socket_->read(line, false))) return;
-				if (line.find (tag()+"OK") != 0) return;
-			}
-#ifdef DEBUG
-			g_print ("\n");
-#endif
-			if (!socket_->status()) return;
-
-			if (partinfo.part!="")
-				decode_body (mail, partinfo.encoding);
-			parse (mail, MAIL_UNREAD);
+			if (!(socket_->read(line, false))) throw imap_socket_err();
+			if (line.find (tag()+"OK") != 0) throw imap_command_err();
 		}
-
-		// We restore status
-		status_ = saved_status;
-
-		if (contains_new<header>(new_unread_, unread_))
-			status_ = MAILBOX_NEW;
-		else
-			status_ = MAILBOX_OLD;
-
-		unread_ = new_unread_;
-		seen_ = new_seen_;
-
-		// Is server idleable?
-		if (idleable_) {
-			// When in idle state, we won't exit this thread function
-			// so we have to, update applet in the meantime
-			if (!GTK_WIDGET_VISIBLE (biff_->popup()->get())) {
-				gdk_threads_enter();
-				biff_->applet()->update();
-				gdk_threads_leave();
-
-				// If we have reported the new mail, then set the status to old
-				if (status_ == MAILBOX_NEW)
-					status_ = MAILBOX_OLD;
-			}
-
-			if (timetag_)
-				g_source_remove (timetag_);
-			timetag_ = 0;
-			// Entering idle state
-			idled_ = true;
-			line = std::string ("IDLE");
-			if (!send (line)) break;
+#ifdef DEBUG
+		g_print ("\n");
+#endif
+		if (!socket_->status()) throw imap_socket_err();
 		
-			// Read acknowledgement
-			if (!socket_->read (line)) break;
-			
-			// Wait for new mail and block thread at this point
-			if (!socket_->read (line)) break;
+		if (partinfo.part!="")
+			decode_body (mail, partinfo.encoding);
+		parse (mail, MAIL_UNREAD);
+	}
+	
+	// We restore status
+	status_ = saved_status;
+	
+	if (contains_new<header>(new_unread_, unread_))
+		status_ = MAILBOX_NEW;
+	else
+		status_ = MAILBOX_OLD;
+	
+	unread_ = new_unread_;
+	seen_ = new_seen_;
+}
 
-			// Did we lost lock?
-			if (line.find ("* BYE") == 0) break;
-
-			line = std::string ("DONE") +std::string ("\r\n");
-			if (!socket_->write (line)) idling = false;
-		
-			// Either we got a OK or a BYE
-			cnt=preventDoS_additionalLines_;
-			do {
-				if (!socket_->read (line)) break;
-				// Did we lost lock?
-				if (line.find ("* BYE") == 0) break;
-			} while ((line.find (tag()+"OK") != 0) && (cnt--));
-			if (!cnt)
-				break;
-		}
-		else {
-			// Closing connection
-			if (!send ("LOGOUT")) break;
-			socket_->close ();
-			idling = false;
-			idled_ = false;
-			return;
-		}
-		if (!socket_->status()) break;
-	} while (idling);
-
-	idled_ = false;
+/**
+ * Cleanup, then close the connection to the IMAP server.
+ */
+void
+Imap4::close()
+{
+	// Closing connection
+	send ("LOGOUT");	
 	socket_->close ();
+}
+
+/**
+ * Begin the IMAP idle mode.  This method will not return until
+ * either we recieve IMAP notifications (new mail...), or the server
+ * terminates for some reason.
+ *
+ * @throws         imap_err if a problem occurs while processing
+ *                 the idle loop.  Most likely this will be a
+ *                 imap_socket_err if we loose connection to the server.
+ */
+void
+Imap4::idle() throw (imap_err)
+{
+
+	// currently we will never exit this loop unless an error occurs,
+	// Probably due to the loss of a connection.	Basically our loop is:
+	// (update applet)->(wait in idle for mail change)->(Get Mail headers)
+	while (true)
+	{
+		// When in idle state, we won't exit this thread function
+		// so we have to, update applet in the meantime
+		update_applet();
+		
+		if (timetag_)
+			g_source_remove (timetag_);
+		timetag_ = 0;
+		
+		std::string line = idle_renew_loop();
+		
+		// Did we loose the lock?
+		if (line.find ("* BYE") != std::string::npos) throw imap_command_err();
+		
+		line = std::string ("DONE") +std::string ("\r\n");
+		if (!socket_->write (line)) throw imap_socket_err();
+		
+		// Either we got a OK or a BYE
+		gint cnt=preventDoS_additionalLines_;
+		do {
+			if (!socket_->read (line)) throw imap_socket_err();
+			// Did we lost lock?
+			if (line.find ("* BYE") == 0) throw imap_command_err();
+		} while ((line.find (tag()+"OK") != 0) && (cnt--));
+		if (!cnt)
+			throw imap_dos_err();
+
+		fetch_header();
+	}
+}
+
+/**
+ * idle_loop enters into the idle mode by issueing the imap "IDLE"
+ * command, then waits for notifications from the IMAP server.
+ * With inactivity the socket read will timeout periodically waiting for server
+ * notifications.  When the timeout occurs we simply issue the IMAP
+ * "DONE" command then re-enter the idle mode again.  The timeout
+ * occurs every {\em delay_} + 1 minute time.  We perform this timeout
+ * operation so that we periodically test the connection to make sure it
+ * is still valid, and to also keep the connection from being closed by
+ * keeping the connection active.
+ * 
+ * @return         Returns the last line recieved from the IMAP server.
+ * @throws         imap_err if a problem occurs while processing
+ *                 the idle loop.  Most likely this will be a
+ *                 imap_socket_err if we loose connection to the server.
+ */
+std::string
+Imap4::idle_renew_loop() throw (imap_err)
+{
+	gboolean idleRenew = false;	 // If we should renew the IDLE again.
+	std::string line;
+	do
+	{
+		idleRenew = false;
+		line = std::string ("IDLE");
+		if (!send (line)) throw imap_socket_err();
+		
+		// Read acknowledgement
+		if (!socket_->read (line)) throw imap_socket_err();
+		
+		// Wait for new mail and block thread at this point
+		gint status = socket_->read (line);
+		if (status == SOCKET_TIMEOUT) {
+		
+			// We timed out, so we want to loop, and issue IDLE again.
+			idleRenew = true;
+
+			if (!socket_->write (std::string("DONE\r\n"))) {
+				throw imap_socket_err();
+			}
+
+			status = socket_->read (line);
+			if (line == "")
+			{
+				// At this point we know the connection is probably bad.	The
+				// socket has not been torn down yet, but the read has timed
+				// out again, with no recieved data.
+				throw imap_socket_err();
+			}
+			if (line.find ("OK IDLE") == std::string::npos)
+			{
+				// We may receive email notification before the server
+				// receives the DONE command, in which case we would get
+				// something like "XXX EXISTS" here before "OK IDLE".
+				// At this point we assume this is the case, and fallout
+				// of the idle_renew_loop method with the intent that the
+				// calling method can handle this.
+				idleRenew = false;
+			}
+		}
+		else if (status != SOCKET_STATUS_OK) {
+			throw imap_socket_err();
+		}
+		
+	}
+	while (idleRenew);
+
+	return line;
 }
 
 /** 

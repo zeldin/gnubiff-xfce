@@ -32,6 +32,8 @@ Version 2.1.1
         Calum Mackay for reporting this bug)
    - Feature: Applet and Popup now can be set to be sticky and be kept above all
         other windows
+   - Bugfixes: Better error handling and bad connection handling (IMAP4;
+        thanks to Byron Foster for providing a patch)
 
 Version 2.1.0
  * Nicolas Rougier
