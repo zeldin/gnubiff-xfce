@@ -47,6 +47,7 @@ Version 2.1.1
    - Bugfix: CAPABILITY command (IMAP4)
    - Cleanup of code for getting server's acknowledgment (IMAP4)
    - Bugfix: LOGINDISABLED capability respected (IMAP4)
+   - Bugfix: Inserting a correct Content-type into the header (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier

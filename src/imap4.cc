@@ -569,8 +569,11 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	}
 
 	// Insert character set into header
-	if (partinfo.charset_!="")
-		mail.insert (mail.begin(), std::string("charset=") + partinfo.charset_ + std::string(";"));
+	if (partinfo.charset_!="") {
+		line = "Content-type: " + partinfo.mimetype_ + "; charset=";
+		line+= partinfo.charset_;
+		mail.insert (mail.begin(), line);
+	}
 
 	// Note: We are only interested in the first lines, there
 	// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
