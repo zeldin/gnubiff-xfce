@@ -1,3 +1,4 @@
+# translation of fr.po to Français
 # French translation of gnubiff
 # Copyright (C) 2005 Nicolas Rougier <Nicolas.Rougier@loria.fr>
 # This file is distributed under the same license as the gnubiff package.
@@ -9,13 +10,13 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
 "POT-Creation-Date: 2005-03-20 16:51+0100\n"
-"PO-Revision-Date: 2005-02-27 10:47+0100\n"
-"Last-Translator: \n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2005-03-23 13:25+0100\n"
+"Last-Translator: Rougier <rougier@loria.fr>\n"
+"Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.3.1\n"
 
 #: src/decoding.cc:77
 #, c-format
@@ -25,13 +26,12 @@ msgstr "[L'encodage \"%s\" ne peut être décodé]"
 #: src/decoding.cc:120 src/decoding.cc:126 src/decoding.cc:137
 #: src/decoding.cc:144 src/decoding.cc:149 src/decoding.cc:165
 msgid "[Cannot decode this header line]"
-msgstr ""
+msgstr "[Impossible de décoder cette ligne]"
 
 #: src/decoding.cc:585
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
-msgstr ""
-"[Impossible de convertir le jeu de caractères (fr \"%s\" vers \"utf-8\")]"
+msgstr "[Impossible de convertir le jeu de caractères (fr \"%s\" vers \"utf-8\")]"
 
 #: src/gnubiff.cc:98
 msgid "Start gnome applet from command line"
@@ -62,30 +62,29 @@ msgid "Options for debugging:"
 msgstr "Options de déboggage"
 
 #: src/biff.cc:136
-#, fuzzy, c-format
+#, c-format
 msgid "Configuration file (%s) not found!"
-msgstr "Fichier de configuration non trouvé (%s)"
+msgstr "Fichier de configuration (%s) non trouvé"
 
 #: src/biff.cc:398
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
-msgstr ""
+msgstr "Chargement du fichier de configuration à partir d'une vieille version de gnubiff \"%s\""
 
 #: src/biff.cc:400
-#, fuzzy
 msgid "Trying to convert all options."
-msgstr "Liste des options"
+msgstr "Tentative de conversion des options"
 
 #: src/biff.cc:426
 msgid "Successfully converted all options."
-msgstr ""
+msgstr "Tentative de conversion réussie"
 
 #: src/biff.cc:429
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
-msgstr ""
+msgstr "Tentative de conversion réussie pour quelques options. Les options suivantes doivent être manuellement converties: %s "
 
 #: src/biff.cc:576
 #, c-format
@@ -93,9 +92,8 @@ msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
 #: src/biff.cc:592
-#, fuzzy
 msgid "Cannot create XML parser for config file"
-msgstr "Format de paramètre illégal dans le fichier de configuration"
+msgstr "Impossible de créer le parser XML pour le fichier de configuration"
 
 #: src/biff.cc:609
 #, c-format
@@ -137,24 +135,24 @@ msgstr "<Pas de sujet>"
 
 #: src/mailbox.cc:597
 msgid "[Cannot parse content type header line]"
-msgstr ""
+msgstr "[Impossible de décoder le type de la ligne d'entête]"
 
 #: src/mailbox.cc:617
 msgid "[Cannot parse content transfer encoding header line]"
-msgstr ""
+msgstr "[Impossible de décoder le code de la ligne d'entête]"
 
 #: src/mailbox.cc:665
 msgid "[Malformed multipart message]"
-msgstr ""
+msgstr "[Message multi-parties mal formé]"
 
 #: src/mailbox.cc:673
 msgid "[Can't find first part's beginning in the multipart message]"
-msgstr ""
+msgstr "[Impossible de trouver la première partie du message]"
 
 #: src/mailbox.cc:719
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
-msgstr ""
+msgstr "[Ce message possède un contenu de type non supporté: \"%s/%s\"]"
 
 #: src/header.cc:149
 #, c-format
@@ -194,7 +192,7 @@ msgstr "Impossible de régler le délai sur la socket: %s"
 
 #: src/imap4.cc:466
 msgid "[This message has no part with a supported content type]"
-msgstr ""
+msgstr "[Ce message de possède pas de partie avec un contenu lisible]"
 
 #: src/imap4.cc:830
 #, c-format
@@ -209,8 +207,7 @@ msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 #: src/imap4.cc:977
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
-msgstr ""
-"[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\" ni l'acquitement."
+msgstr "[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\" ni l'acquitement."
 
 #: src/imap4.cc:1030
 #, c-format
@@ -267,13 +264,11 @@ msgstr "[%d] Aucune réponse positive du serveur POP3"
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
-msgstr ""
-"[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
+msgstr "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
 #: src/apop.cc:122
 #, c-format
-msgid ""
-"[%d] Problem with crypto that should have been detected at configure time"
+msgid "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
@@ -465,6 +460,9 @@ msgid ""
 "\n"
 "Additional information:\n"
 msgstr ""
+"Vous venez de trouver une erreur interne. Veuillez s'il vous plaît envoyer un rapport de bug à \"gnubiff-bugs@lists.sourceforge.net\".\n"
+"\n"
+"Information additionelle:\n"
 
 #: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade:125
 msgid "Mark mailboxes read"
@@ -507,8 +505,7 @@ msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
 msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
 
 #: ui/applet-gtk.glade:243
-msgid ""
-"This program is part of the GNU project, released under the aegis of GNU."
+msgid "This program is part of the GNU project, released under the aegis of GNU."
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
 #: ui/applet-gtk.glade:264
@@ -584,9 +581,8 @@ msgid "_Browse..."
 msgstr "_Chercher..."
 
 #: ui/preferences.glade:567
-#, fuzzy
 msgid "Text to display (%d is the number of new messages)"
-msgstr "Texte à afficher (%d est le nombre de courriers)"
+msgstr "Texte à afficher (%d est le nombre de nouveaux courriers)"
 
 #: ui/preferences.glade:613
 msgid "B_rowse..."
@@ -778,13 +774,12 @@ msgid ""
 msgstr "Recherche les options contenant la chaîne spécifiée."
 
 #: ui/preferences.glade:1743
-#, fuzzy
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
 msgstr ""
-"List des options, leur type and leur valeurs courantes. Pour éditer une "
-"option, double-cliquer sur sa valeur."
+"Liste des options,  types et valeurs courantes. Pour éditer une "
+"option, double-cliquez sur sa valeur."
 
 #: ui/preferences.glade:1815
 msgid "Expert"
@@ -932,8 +927,7 @@ msgstr "secondes"
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
-msgstr ""
-"Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
+msgstr "Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
 
 #: ui/properties.glade:767
 msgid "Dela_y:"
@@ -1039,8 +1033,3 @@ msgstr "<small><b>Sujet</b></small>"
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Date</b></small>"
 
-#~ msgid "[This mail has no \"text/plain\" part]"
-#~ msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
-
-#~ msgid "* error *"
-#~ msgstr "* erreur *"
