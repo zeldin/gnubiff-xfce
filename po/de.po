@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-09 17:15+0100\n"
-"PO-Revision-Date: 2005-03-09 17:15+0100\n"
+"POT-Creation-Date: 2005-03-10 11:02+0100\n"
+"PO-Revision-Date: 2005-03-10 11:15+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -59,33 +59,25 @@ msgstr "Allgemeine Kommandozeilenoptionen:"
 msgid "Options for debugging:"
 msgstr "Debugging-Optionen:"
 
-#: ../src/biff.cc:125
+#: ../src/biff.cc:136
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Konnte Konfigurationsdatei »%s« nicht finden!"
 
-#: ../src/biff.cc:167
-msgid ""
-"You just encountered a strange error. Please send a bug report to \"gnubiff-"
-"bugs@lists.sourceforge.net\"."
-msgstr ""
-"Es ist gerade ein ungewöhnlicher Fehler aufgetreten. Bitte senden Sie einen "
-"Fehlerbericht an »gnubiff-bugs@lists.sourceforge.net«."
-
-#: ../src/biff.cc:400
+#: ../src/biff.cc:398
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Konfigurationsdatei aus alter Gnubiff-Version »%s« geladen."
 
-#: ../src/biff.cc:402
+#: ../src/biff.cc:400
 msgid "Trying to convert all options."
 msgstr "Versuche alle Optionen zu konvertieren."
 
-#: ../src/biff.cc:428
+#: ../src/biff.cc:426
 msgid "Successfully converted all options."
 msgstr "Erfolgreich alle Optionen konvertiert."
 
-#: ../src/biff.cc:431
+#: ../src/biff.cc:429
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -94,29 +86,25 @@ msgstr ""
 "Erfolgreich einige Optionen konvertiert. Die folgenden Optionen müssen "
 "manuell aktualisiert werden: %s."
 
-#: ../src/biff.cc:578
+#: ../src/biff.cc:576
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kann die Konfigurationsdatei »%s« nicht öffnen!"
 
-#: ../src/biff.cc:594
+#: ../src/biff.cc:592
 msgid "Cannot create XML parser for config file"
 msgstr "Kann keinen XML-Parser für die Konfigurationsdatei erzeugen!"
 
-#: ../src/biff.cc:611
+#: ../src/biff.cc:609
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Keine Briefkastendefinition in der Konfigurationsdatei »%s« gefunden!"
 
-#: ../src/biff.cc:645
-msgid "Unknown error while parsing config file"
-msgstr "Unbekannter Fehler beim Parsen der Konfigurationsdatei!"
-
-#: ../src/biff.cc:659
+#: ../src/biff.cc:656
 msgid "Illegal parameter format in config file"
 msgstr "Illegales Parameterformat in der Konfigurationsdatei!"
 
-#: ../src/biff.cc:682
+#: ../src/biff.cc:685
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Kein Protokoll für Briefkasten %d angegeben"
@@ -474,6 +462,19 @@ msgstr "Betreff"
 #: ../src/ui-popup.cc:163
 msgid "Date"
 msgstr "Datum"
+
+#. Create error message
+#: ../src/support.cc:148
+msgid ""
+"You just found an unknown internal error. Please send a bug report to "
+"\"gnubiff-bugs@lists.sourceforge.net\".\n"
+"\n"
+"Additional information:\n"
+msgstr ""
+"Sie haben gerade einen unbekannten internen Fehler gefunden. Bitte senden "
+"Sie einen Fehlerbericht an »gnubiff-bugs@lists.sourceforge.net«.\n"
+"\n"
+"Zusätzliche Informationen:\n"
 
 #: ../src/GNOME_gnubiffApplet.xml.h:1 ../ui/applet-gtk.glade.h:5
 msgid "Mark mailboxes read"
@@ -1058,6 +1059,9 @@ msgstr "<small><b>Betreff</b></small>"
 #: ../ui/popup.glade.h:5
 msgid "mail content"
 msgstr "Nachrichtentext"
+
+#~ msgid "Unknown error while parsing config file"
+#~ msgstr "Unbekannter Fehler beim Parsen der Konfigurationsdatei!"
 
 #~ msgid "[This mail has no \"text/plain\" part]"
 #~ msgstr ""

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-09 17:15+0100\n"
+"POT-Creation-Date: 2005-03-10 11:02+0100\n"
 "PO-Revision-Date: 2005-02-27 10:47+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -67,64 +67,54 @@ msgstr "Options de la ligne de commande"
 msgid "Options for debugging:"
 msgstr "Options de déboggage"
 
-#: ../src/biff.cc:125
+#: ../src/biff.cc:136
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Fichier de configuration non trouvé (%s)"
 
-#: ../src/biff.cc:167
-msgid ""
-"You just encountered a strange error. Please send a bug report to \"gnubiff-"
-"bugs@lists.sourceforge.net\"."
-msgstr ""
-
-#: ../src/biff.cc:400
+#: ../src/biff.cc:398
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 
-#: ../src/biff.cc:402
+#: ../src/biff.cc:400
 #, fuzzy
 msgid "Trying to convert all options."
 msgstr "Liste des options"
 
-#: ../src/biff.cc:428
+#: ../src/biff.cc:426
 msgid "Successfully converted all options."
 msgstr ""
 
-#: ../src/biff.cc:431
+#: ../src/biff.cc:429
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: ../src/biff.cc:578
+#: ../src/biff.cc:576
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: ../src/biff.cc:594
+#: ../src/biff.cc:592
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Format de paramètre illégal dans le fichier de configuration"
 
-#: ../src/biff.cc:611
+#: ../src/biff.cc:609
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Votre fichier de configuration n'as pas de définition de boîte aux lettres (%"
 "s)"
 
-#: ../src/biff.cc:645
-msgid "Unknown error while parsing config file"
-msgstr ""
-
-#: ../src/biff.cc:659
+#: ../src/biff.cc:656
 msgid "Illegal parameter format in config file"
 msgstr "Format de paramètre illégal dans le fichier de configuration"
 
-#: ../src/biff.cc:682
+#: ../src/biff.cc:685
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Pas de protocole spécifié pour la boîte aux lettres %d"
@@ -483,6 +473,15 @@ msgstr "Sujet"
 #: ../src/ui-popup.cc:163
 msgid "Date"
 msgstr "Date"
+
+#. Create error message
+#: ../src/support.cc:148
+msgid ""
+"You just found an unknown internal error. Please send a bug report to "
+"\"gnubiff-bugs@lists.sourceforge.net\".\n"
+"\n"
+"Additional information:\n"
+msgstr ""
 
 #: ../src/GNOME_gnubiffApplet.xml.h:1 ../ui/applet-gtk.glade.h:5
 msgid "Mark mailboxes read"

@@ -24,6 +24,7 @@ src/ui-certificate.cc
 src/ui-properties.cc
 src/gtk_image_animation.cc
 src/ui-popup.cc
+src/support.cc
 src/GNOME_gnubiffApplet.xml
 src/GNOME_gnubiffApplet.server.in
 ui/applet-gtk.glade
