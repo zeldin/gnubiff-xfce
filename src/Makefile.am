@@ -36,7 +36,8 @@ common_sources = \
 	ui-certificate.cc		ui-certificate.h		\
 	ui-properties.cc		ui-properties.h			\
 	gtk_image_animation.cc	gtk_image_animation.h 	\
-	ui-popup.cc				ui-popup.h
+	ui-popup.cc				ui-popup.h				\
+	support.cc				support.h
 
 if USE_GNOME
 gnubiff_SOURCES = \

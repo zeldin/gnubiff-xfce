@@ -25,10 +25,11 @@ Version 2.0.2
    - File permissions are only set when creating a new config file. So the user
      is able to change to less restrictive permissions if he/she wants to do
      this
-   - Bugfix in detection of animation information
+   - Bugfix in detection of animation information (via filename)
    - Bugfixes in detection of local mailbox format
    - Bugfix in mh protocol
-   - Bugfix in handling of sound filename
+   - Bugfixes in handling of sound filename
+   - Bugfixes in string handling
 
 
 Version 2.0.1

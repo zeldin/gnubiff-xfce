@@ -38,7 +38,7 @@
 #include <cstdio>
 #include <string>
 #include <glib.h>
-
+#include "support.h"
 #include "ui-applet.h"
 #include "ui-popup.h"
 #include "mailbox.h"
@@ -109,7 +109,7 @@ guint Applet::unread_markup (std::string &text) {
 	std::stringstream smax;
 	smax << biff_->max_mail_;
 
-	// Get number of unread mails
+	// Get number of unread mails	
 	guint unread = 0;
 	for (unsigned int i=0; i<biff_->size(); i++)
 		unread += biff_->mailbox(i)->unreads();
@@ -125,32 +125,19 @@ guint Applet::unread_markup (std::string &text) {
 	text += biff_->biff_font_color_;
 	text += "\">";
 
-	std::string ctext;
+	std::vector<std::string> vec(1);
 	if (unread == 0) {
-		ctext = biff_->biff_nomail_text_;
-		guint i;
-		while ((i = ctext.find ("%d")) != std::string::npos) {
-			ctext.erase (i, 2);
-			ctext.insert(i, unreads.str());
-		}
+		vec[0]=std::string(unreads.str());
+		text+=gb_substitute(biff_->biff_nomail_text_,"d",vec);
 	}
 	else if (unread < biff_->max_mail_) {
-		ctext = biff_->biff_newmail_text_;
-		guint i;
-		while ((i = ctext.find ("%d")) != std::string::npos) {
-			ctext.erase (i, 2);
-			ctext.insert(i, unreads.str());
-		}
+		vec[0]=std::string(unreads.str());
+		text+=gb_substitute(biff_->biff_newmail_text_,"d",vec);
 	}
 	else {
-		ctext = biff_->biff_newmail_text_;
-		guint i;
-		while ((i = ctext.find ("%d")) != std::string::npos) {
-			ctext.erase (i, 2);
-			ctext.insert(i, std::string(smax.str().size(), '+'));
-		}
+		vec[0]=std::string(std::string(smax.str().size(), '+'));
+		text+=gb_substitute(biff_->biff_newmail_text_,"d",vec);
 	}
-	text += ctext;
 	text += "</span></span>";
 	
 	return unread;
@@ -222,18 +209,12 @@ void Applet::process (void) {
 		else if (biff_->sound_type_ == SOUND_FILE) {
 			std::stringstream s;
 			s << biff_->sound_volume_/100.0f;
-			std::string command = biff_->sound_command_;
-			guint i;
-			while ((i = command.find ("%s")) != std::string::npos) {
-				command.erase (i, 2);
-				gchar *quoted=g_shell_quote(biff_->sound_file_.c_str());
-				command.insert(i,quoted);
-				g_free(quoted);
-			}
-			while ((i = command.find ("%v")) != std::string::npos) {
-				command.erase (i, 2);
-				command.insert(i, s.str());
-			}
+
+			std::vector<std::string> vec(2);
+			vec[0]=std::string(g_shell_quote(biff_->sound_file_.c_str()));
+			vec[1]=std::string(s.str());
+			std::string command=gb_substitute(biff_->sound_command_,"sv",vec);
+
 			command += " &";
 			system (command.c_str());
 		}

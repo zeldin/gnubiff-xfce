@@ -37,6 +37,7 @@
 #include "biff.h"
 #include "mailbox.h"
 #include "nls.h"
+#include "support.h"
 
 /* "C" bindings */
 extern "C" {
@@ -559,17 +560,12 @@ Preferences::on_test_sound (GtkWidget *widget)
 		std::stringstream s;
 		s << gfloat (gtk_range_get_value (GTK_RANGE (get ("volume_scale"))))/100.0;
 		std::string command = gtk_entry_get_text (GTK_ENTRY(get("command_entry")));
-		guint i;
-		while ((i = command.find ("%s")) != std::string::npos) {
-			command.erase (i, 2);
-			gchar *quoted=g_shell_quote(biff_->sound_file_.c_str());
-			command.insert(i,quoted);
-			g_free(quoted);
-		}
-		while ((i = command.find ("%v")) != std::string::npos) {
-			command.erase (i, 2);
-			command.insert(i, s.str());
-		}
+
+		std::vector<std::string> vec(2);
+		vec[0]=std::string(g_shell_quote(biff_->sound_file_.c_str()));
+		vec[1]=std::string(s.str());
+		command=gb_substitute(command,"sv",vec);
+
 		command += " &";
 		system (command.c_str());
 	}
