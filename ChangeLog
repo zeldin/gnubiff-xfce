@@ -20,6 +20,8 @@ Version 2.1.1
    - Added decoding.cc to POTFILES.in
    - Bugfix: Setting mailbox status to old after new mail is displayed (thanks
      to Byron Foster for providing a patch)
+   - Bugfix: Quick test for new mail while idling is not enogh (IMAP4; thanks
+        to Byron Foster for providing a patch)
 
 Version 2.1.0
  * Nicolas Rougier

@@ -333,36 +333,16 @@ Imap4::fetch_status (void)
 		}
 	}
 
+	// Determine new mailbox status
 	if (buffer.empty())
 		status_ = MAILBOX_EMPTY;
-
-	// Quick test (when there were really no change at all)
-	else if (buffer == saved_)
-		status_ = MAILBOX_OLD;
-
-	// Quick test (if there are only more mail than previously)
-	else if (buffer.size() > saved_.size())
+	else if (contains_new<int>(buffer, saved_))
 		status_ = MAILBOX_NEW;
-
-	// Slow test (same size because it may happen we read one
-	// email from elsewhere but there is also a new one)
-	else {
+	else
 		status_ = MAILBOX_OLD;
-		guint i, j;
-		for (i=0; i<buffer.size(); i++) {
-			for (j=0; j<saved_.size(); j++) {
-				if (buffer[i] == saved_[j])
-					break;
-			}
-			if (j == saved_.size()) {
-				status_ = MAILBOX_NEW;
-				break;
-			}
-		}
-	}
+	saved_ = buffer;
 
 	// We're done
-	saved_ = buffer;
 	cnt=1+preventDoS_additionalLines_;
 	while ((socket_->read (line) > 0) && (cnt--))
 		if (line.find (tag()) != std::string::npos)
@@ -581,11 +561,10 @@ Imap4::fetch_header (void)
 			parse (mail, MAIL_UNREAD);
 		}
 
-
 		// We restore status
 		status_ = saved_status;
 
-		if ((unread_ != new_unread_) && (new_unread_.size() > 0))
+		if (contains_new<header>(new_unread_, unread_))
 			status_ = MAILBOX_NEW;
 		else
 			status_ = MAILBOX_OLD;
@@ -593,8 +572,7 @@ Imap4::fetch_header (void)
 		unread_ = new_unread_;
 		seen_ = new_seen_;
 
-
-		// Is server idleable ?
+		// Is server idleable?
 		if (idleable_) {
 			// When in idle state, we won't exit this thread function
 			// so we have to, update applet in the meantime
@@ -622,7 +600,7 @@ Imap4::fetch_header (void)
 			// Wait for new mail and block thread at this point
 			if (!socket_->read (line)) break;
 
-			// Do we lost lock ?
+			// Did we lost lock?
 			if (line.find ("* BYE") == 0) break;
 
 			line = std::string ("DONE") +std::string ("\r\n");
@@ -632,7 +610,7 @@ Imap4::fetch_header (void)
 			cnt=preventDoS_additionalLines_;
 			do {
 				if (!socket_->read (line)) break;
-				// Do we lost lock ?
+				// Did we lost lock?
 				if (line.find ("* BYE") == 0) break;
 			} while ((line.find (tag()+"OK") != 0) && (cnt--));
 			if (!cnt)

@@ -150,8 +150,7 @@ protected:
 
 	static class Authentication *ui_auth_;			// ui to get username & password
 	static GStaticMutex			ui_auth_mutex_;		// Lock to avoid conflicts
-
-
+	template<class T> static gboolean contains_new (std::vector<T> newlist, std::vector<T> oldlist); // Comparing newlist to oldlist for new elements
 
 public:
 	// ========================================================================
@@ -248,6 +247,58 @@ public:
 	guint &hidden (int i)								{return hidden_[i];}
 	guint hiddens (void)								{return hidden_.size();}
 };
+
+/**
+ * Determine if an element is contained in {\em newlist} that is not in
+ * {\em oldlist}.  We use this function to determine if {\em newlist} contains
+ * an element that is not in {\em oldlist}.  This method is necessary for
+ * checking for new unique mail messages from a prior check since mail count
+ * alone is not enough information.  For example, last check mail count may be
+ * 3 and new mail count may be 3, but the user has read one mail message, and
+ * a new mail message has been received since the last check.  By mail count
+ * alone it appears that we have NOT received a new mail.  Returns true if
+ * {\em newlist} contains at least one header that is not in {\em oldlist},
+ * false otherwise.
+ *
+ * TODO: This would be more complete if we used the message UID in the case of
+ * IMAP. But good enough.
+ *
+ * @param  newlist   C++ vector of {\em class T} elements
+ * @param  oldlist   C++ vector of {\em class T} elements
+ * @return           Boolean indicating whether there are elements in
+ *                   {\em newlist} that are not in {\em oldlist}
+ */
+template<class T> gboolean 
+Mailbox::contains_new (std::vector<T> newlist, std::vector<T> oldlist)
+{
+	// If newlist is larger then oldlist then we know newlist contains
+	// elements not in oldlist. Fast check.
+	if (newlist.size() > oldlist.size())
+		return true;
+       
+	// If the two lists are exactly the same, then we know there are no
+	// new elements in newlist.
+	if (newlist == oldlist)
+		return false;
+       
+	for (guint i=0; i< newlist.size(); i++) {
+		gboolean foundmatch = false;
+		for (guint j=0; j < oldlist.size(); j++) {
+			if (newlist[i] == oldlist[j]) {
+				foundmatch = true;
+				break;
+			}
+		}
+
+		// We did not find a match for newlist[i] in oldlist, so at least
+		// newlist[i] is not in oldlist.
+		if (!foundmatch)
+			return true;
+	}
+
+	// newlist does not contain any headers that are not already in oldlist
+	return false;
+}
 
 /**
  * Maximum number of lines to be read from the mail body. This value should be

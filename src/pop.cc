@@ -150,34 +150,13 @@ Pop::fetch_status (void)
 		buffer.push_back (uidl);
 	}
 
-	// Find mailbox status by comparing saved uidl list with the new one
+	// Determine new mailbox status
 	if (buffer.empty())
 		status_ = MAILBOX_EMPTY;
-
-	// Quick test (when there were really no change at all)
-	else if (buffer == saved_)
-		status_ = MAILBOX_OLD;
-	
-	// Quick test (if there are only more mail than previously)
-	else if (buffer.size() > saved_.size())
+	else if (contains_new<std::string>(buffer, saved_))
 		status_ = MAILBOX_NEW;
-
-	// Slow test (same size because it may happen we read one
-	// email from elsewhere but there is also a new one)
-	else {
+	else
 		status_ = MAILBOX_OLD;
-		guint i, j;
-		for (i=0; i<buffer.size(); i++) {
-			for (j=0; j<saved_.size(); j++) {
-				if (buffer[i] == saved_[j])
-					break;
-			}
-			if (j == saved_.size()) {
-				status_ = MAILBOX_NEW;
-				break;
-			}
-		}
-	}
 	saved_ = buffer;
 
 	// LOGOUT
