@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 14:10+0100\n"
+"POT-Creation-Date: 2005-03-04 15:17+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -85,30 +85,38 @@ msgstr "Kon thread niet aanmaken: %s\n"
 msgid "mailbox %d"
 msgstr "Postvak"
 
-#: ../src/mailbox.cc:560
+#: ../src/mailbox.cc:562
 #, fuzzy
 msgid "<no sender>"
 msgstr "<geen verzender gevonden>"
 
-#: ../src/mailbox.cc:571
+#: ../src/mailbox.cc:573
 #, fuzzy
 msgid "<no subject>"
 msgstr "<geen onderwerp gevonden>"
 
-#: ../src/mailbox.cc:582
+#: ../src/mailbox.cc:584
 #, fuzzy
 msgid "<no date>"
 msgstr "<geen datum gevonden>"
 
-#: ../src/mailbox.cc:590
+#: ../src/mailbox.cc:592
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:624
+#: ../src/mailbox.cc:626
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:670
+#: ../src/mailbox.cc:673
+msgid "[Malformed multipart message]"
+msgstr ""
+
+#: ../src/mailbox.cc:681
+msgid "[Can't find first part's beginning in the multipart message]"
+msgstr ""
+
+#: ../src/mailbox.cc:732
 #, c-format
 msgid "[This mail hasn't a supported content type: \"%s/%s\"]"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 14:10+0100\n"
+"POT-Creation-Date: 2005-03-04 15:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,27 +83,35 @@ msgstr ""
 msgid "mailbox %d"
 msgstr ""
 
-#: ../src/mailbox.cc:560
+#: ../src/mailbox.cc:562
 msgid "<no sender>"
 msgstr ""
 
-#: ../src/mailbox.cc:571
+#: ../src/mailbox.cc:573
 msgid "<no subject>"
 msgstr ""
 
-#: ../src/mailbox.cc:582
+#: ../src/mailbox.cc:584
 msgid "<no date>"
 msgstr ""
 
-#: ../src/mailbox.cc:590
+#: ../src/mailbox.cc:592
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:624
+#: ../src/mailbox.cc:626
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:670
+#: ../src/mailbox.cc:673
+msgid "[Malformed multipart message]"
+msgstr ""
+
+#: ../src/mailbox.cc:681
+msgid "[Can't find first part's beginning in the multipart message]"
+msgstr ""
+
+#: ../src/mailbox.cc:732
 #, c-format
 msgid "[This mail hasn't a supported content type: \"%s/%s\"]"
 msgstr ""

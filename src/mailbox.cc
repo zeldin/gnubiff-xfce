@@ -522,7 +522,7 @@ Mailbox::lookup_local (Mailbox &oldmailbox)
 //  unread array (depending if it's spam or if it is internally marked as seen)
 // ================================================================================
 void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
-					 PartInfo *pi)
+					 PartInfo *pi, Header *hh, guint pos)
 {
 	Header h;
 	gboolean status = true; // set to false if mail should not be stored
@@ -532,21 +532,23 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 	// Information about the mail obtained before?
 	if (pi != NULL)
 		partinfo = *pi;
+	if (hh != NULL)
+		h = *hh;
 
 	// Parse header
-	guint i;
-	for (i = 0; i < len; i++) {
+	for (; pos < len; pos++) {
 		// Beginning of body? (header and body are separated by an empty line)
-		if (mail[i].empty())
+		if (mail[pos].empty())
 			break;
 
 		// Only header lines are handled now
 		// Remove folding in header (see RFC 2822 2.2.2 & 2.2.3.)
- 		std::string line = mail[i];
- 		if (mail[i].empty() == false)
-			while ((i+1 < len) && (mail[i+1].size() > 0)
-				   && ((mail[i+1].at(0) == ' ') || (mail[i+1].at(0) == '\t')))
- 				line += mail[++i];
+ 		std::string line = mail[pos];
+ 		if (mail[pos].empty() == false)
+			while ((pos+1 < len) && (mail[pos+1].size() > 0)
+				   && ((mail[pos+1].at(0) == ' ')
+					   || (mail[pos+1].at(0) == '\t')))
+ 				line += mail[++pos];
 
 		std::string line_down = ascii_strdown (line);
 
@@ -612,15 +614,15 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 
 		// Content Transfer Encoding (see RFC 2045 6.)
 		if (line.find ("Content-Transfer-Encoding:") == 0) {
-			guint pos = 26; // size of "Content-Transfer-Encoding:"
+			guint cte_pos = 26; // size of "Content-Transfer-Encoding:"
 
 			// Ignore whitespace
-			while ((pos < line.size())
-				   && ((line[pos] == ' ') || (line[pos] == '\t')))
-				pos++;
+			while ((cte_pos < line.size())
+				   && ((line[cte_pos] == ' ') || (line[cte_pos] == '\t')))
+				cte_pos++;
 
 			// Get Token
-			if (!get_mime_token (line, partinfo.encoding_, pos)) {
+			if (!get_mime_token (line, partinfo.encoding_, cte_pos)) {
 				h.add_to_body (_("[Cannot parse content transfer encoding header line]"));
 				continue;
 			}
@@ -651,19 +653,79 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		partinfo.encoding_ = "7bit";
 
 	// Decode mail body (may change length of mail)
-	decode_body (mail, partinfo.encoding_, i);
+	decode_body (mail, partinfo.encoding_, pos);
 	len = mail.size ();
 
+	// Content type: multipart/mixed and multipart/alternative
+	// Because we only have the first lines of the message we have to take the
+	// first part whether it is displayable for gnubiff or not.
+	// See RFC 2046
+	if ((partinfo.type_ == "multipart")
+		&& ((partinfo.subtype_ == "mixed")
+			|| (partinfo.subtype_ == "alternative"))) {
+		gboolean ok = true;
+
+		// Get boundary
+		std::string boundary;
+		if (partinfo.parameters_.find("boundary")!=partinfo.parameters_.end())
+			boundary = "--" + partinfo.parameters_["boundary"];
+		else {
+			h.body (_("[Malformed multipart message]"));
+			ok = false;
+		}
+
+		// Wait for boundary
+		while (ok && (pos < len) && (mail[pos].find (boundary) != 0))
+			pos++;
+		if (ok && (pos++ == len)) {
+			h.body (_("[Can't find first part's beginning in the multipart message]"));
+			ok = false;
+		}
+		else if (ok) {
+			// Save line in which the first part begins	
+			guint saved_pos = pos;
+
+			// Wait for boundary (may be not present if we have too few lines)
+			while ((pos < len) && (mail[pos].find (boundary) != 0))
+				pos++;
+
+			// Remove any trailing lines
+			if (pos < len)
+				mail.erase (mail.begin()+pos, mail.end());
+
+			// Remove multipart information from information about displayed
+			// part
+			partinfo.type_ = "";
+			partinfo.subtype_ = "";
+			partinfo.encoding_ = "";
+			partinfo.parameters_.clear ();
+
+			// Parse first part of multipart message
+			parse (mail, uid, &partinfo, &h, saved_pos);
+
+			// No need to parse rest of mail
+			return;
+		}
+	}
+
+	// If the stored header body is not empty we have inserted an error message
+	// Change the content type to "text/plain"
+	if (h.body().size() > 0) {
+		partinfo.type_ = "text";
+		partinfo.subtype_ = "plain";
+	}
+
 	// Content type: text/plain
-	if ((partinfo.type_ == "text") && (partinfo.subtype_ == "plain")) {
+	if ((partinfo.type_ == "text") && (partinfo.subtype_ == "plain")
+		&& (h.body().size() == 0)) {
 		// Get mail body
 		guint j = 0;
-		while ((j < biff_->value_uint("popup_body_lines")) && (++i < len)) {
+		while ((j < biff_->value_uint("popup_body_lines")) && (++pos < len)) {
 			if (j++)
 				h.add_to_body ("\n");
-			h.add_to_body (mail[i]);
+			h.add_to_body (mail[pos]);
 		}
-		if ((j == biff_->value_uint ("popup_body_lines")) && (i+2 < len))
+		if ((j == biff_->value_uint ("popup_body_lines")) && (pos+2 < len))
 			h.add_to_body ("\n...");
 	}
 	else {

@@ -24,6 +24,7 @@ Version 2.1.2
    - Bugfix: Bugs regarding the word "mail" (thanks to Clytie Siddall for
         reporting this bug)
    - Added Clytie Siddall to contributors
+   - Feature: Support for "multipart/mixed" and "multipart/alternative" mails
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

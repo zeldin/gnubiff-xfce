@@ -209,7 +209,7 @@ Gnubiff_Options::add_options_general (void)
 		"Minimum number of body lines of a mail to be read. If the mail's "
 		"body is shorter then the whole body is read. If supported by the "
 		"protocol gnubiff tries to read exactly this number of lines.",
-								 12));
+								 25));
 	// EXPERT_SHOW_TAB
 	const static gchar *s5[] = {"expert_vbox", NULL};
 	add_option (new Option_Bool ("expert_show_tab", OPTGRP_GENERAL,

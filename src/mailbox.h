@@ -152,7 +152,8 @@ public:
 	void mail_displayed (void);
 	void parse (std::vector<std::string> &mail,		// parse a mail
 				std::string uid = std::string(""),
-				class PartInfo *pi = NULL);
+				class PartInfo *pi = NULL, class Header *hh = NULL,
+				guint pos = 0);
 
 	// ========================================================================
 	//  access

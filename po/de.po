@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 14:10+0100\n"
-"PO-Revision-Date: 2005-03-04 14:15+0100\n"
+"POT-Creation-Date: 2005-03-04 15:17+0100\n"
+"PO-Revision-Date: 2005-03-04 15:15+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -84,27 +84,35 @@ msgstr "[%d] Kann Thread nicht erzeugen: %s"
 msgid "mailbox %d"
 msgstr "Briefkasten %d"
 
-#: ../src/mailbox.cc:560
+#: ../src/mailbox.cc:562
 msgid "<no sender>"
 msgstr "<Kein Absender>"
 
-#: ../src/mailbox.cc:571
+#: ../src/mailbox.cc:573
 msgid "<no subject>"
 msgstr "<Kein Betreff>"
 
-#: ../src/mailbox.cc:582
+#: ../src/mailbox.cc:584
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
-#: ../src/mailbox.cc:590
+#: ../src/mailbox.cc:592
 msgid "[Cannot parse content type header line]"
 msgstr "[Kann die Kopfzeile mit dem Inhaltstyp nicht parsen]"
 
-#: ../src/mailbox.cc:624
+#: ../src/mailbox.cc:626
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Kann die Kopfzeile mit der Kodierung nicht parsen]"
 
-#: ../src/mailbox.cc:670
+#: ../src/mailbox.cc:673
+msgid "[Malformed multipart message]"
+msgstr "[Missgebildete Multipart-Nachricht]"
+
+#: ../src/mailbox.cc:681
+msgid "[Can't find first part's beginning in the multipart message]"
+msgstr "[Kann den ersten Teil der Multipart-Nachricht nicht finden]"
+
+#: ../src/mailbox.cc:732
 #, c-format
 msgid "[This mail hasn't a supported content type: \"%s/%s\"]"
 msgstr "[Diese Nachricht besitzt keinen unterstützten Inhaltstyp: »%s/%s«]"
