@@ -49,20 +49,20 @@
  *              characters of {\em str}, nul-terminated
  */
 gchar* 
-gb_utf8_strndup(const gchar *str, gsize n)
+gb_utf8_strndup (const gchar *str, gsize n)
 {
     // No String
-	if (str==NULL)
+	if (str == NULL)
 		return NULL;
 
 	// Find the first character not to be copied
-	gsize i=0;
-	const gchar *lastpos=str;
-	while ((i++<n)&&(*lastpos))
-		lastpos=g_utf8_next_char(lastpos);
+	gsize i = 0;
+	const gchar *lastpos = str;
+	while ((i++ < n) && (*lastpos))
+		lastpos = g_utf8_next_char (lastpos);
 
-	gsize len=lastpos-str;
-	return g_strndup(str,MAX(len,n));
+	gsize len = lastpos-str;
+	return g_strndup (str, MAX (len,n));
 }
 
 /**

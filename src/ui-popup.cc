@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -213,7 +213,6 @@ Popup::update (void)
 {
 	GtkListStore *store;
 	GtkTreeIter iter;
-	gchar *buffer;
 	static std::vector <gchar *> saved_strings;
   
 	// Get tree store and clear it
@@ -283,24 +282,15 @@ Popup::update (void)
 			size = 1;
 
 		// Subject
-		buffer = decode_headerline ((*h)->subject());
-		gchar *subject;
-		subject = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_subject")));
-		g_free (buffer);
+		gchar *subject = gb_utf8_strndup ((*h)->subject().c_str(), std::max<guint> (size, biff_->value_uint ("popup_size_subject")));
 		saved_strings.push_back (subject);
 
 		// Date
-		buffer = decode_headerline ((*h)->date());
-		gchar *date;
-		date = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_date")));
-		g_free (buffer);
+		gchar *date = gb_utf8_strndup ((*h)->date().c_str(), std::max<guint> (size, biff_->value_uint ("popup_size_date")));
 		saved_strings.push_back (date);
 
 		// Sender
-		buffer = decode_headerline ((*h)->sender());
-		gchar *sender;
-		sender = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_sender")));
-		g_free (buffer);
+		gchar *sender = gb_utf8_strndup ((*h)->sender().c_str(), std::max<guint> (size, biff_->value_uint ("popup_size_sender")));
 		saved_strings.push_back (sender);
 
 		// Mail identifier
@@ -525,37 +515,30 @@ Popup::on_select (GtkTreeSelection *selection)
 
 
 		GtkWidget *view = get("textview");
-		GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(view));
 		GtkTextIter iter;
 		gtk_text_buffer_set_text (buffer, "", -1);
 		gtk_text_buffer_get_iter_at_offset (buffer, &iter, 0);
 
+		gchar *markup;
+
 		// Sender
-		text = decode_headerline (selected_header_.sender());
-		if (text) {
-			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
-			gtk_label_set_markup (GTK_LABEL(get("from")), markup);
-			g_free (markup);
-			g_free (text);
-		}
+		markup = g_markup_printf_escaped ("<small>%s</small>",
+										  selected_header_.sender().c_str());
+		gtk_label_set_markup (GTK_LABEL(get("from")), markup);
+		g_free (markup);
 
 		// Subject
-		text = decode_headerline (selected_header_.subject());
-		if (text) {
-			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
-			gtk_label_set_markup (GTK_LABEL(get("subject")), markup);
-			g_free (markup);
-			g_free (text);
-		}
+		markup = g_markup_printf_escaped ("<small>%s</small>",
+										  selected_header_.subject().c_str());
+		gtk_label_set_markup (GTK_LABEL(get("subject")), markup);
+		g_free (markup);
 
 		// Date
-		text = decode_headerline (selected_header_.date());
-		if (text) {
-			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
-			gtk_label_set_markup (GTK_LABEL(get("date")), markup);
-			g_free (markup);
-			g_free (text);
-		}
+		markup = g_markup_printf_escaped ("<small>%s</small>",
+										  selected_header_.date().c_str());
+		gtk_label_set_markup (GTK_LABEL(get("date")), markup);
+		g_free (markup);
 
 		// Body
 		text = charset_to_utf8 (selected_header_.body(), selected_header_.charset());

@@ -566,19 +566,19 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 
 		// Sender
 		if ((line.find ("From:") == 0) && (line.size() > 6)) {
-			h.sender (line.substr (6));
+			h.sender (decode_headerline (line.substr (6)));
 			continue;
 		}
 
 		// Subject
 		if ((line.find ("Subject:") == 0) && (line.size() > 9)) {
-			h.subject (line.substr (9));
+			h.subject (decode_headerline (line.substr (9)));
 			continue;
 		}
 
 		// Date
 		if ((line.find ("Date:") == 0) && (line.size() > 6)) {
-			h.date (line.substr (6));
+			h.date (decode_headerline (line.substr (6)));
 			continue;
 		}
 

@@ -91,113 +91,95 @@ Decoding::decode_body (std::vector<std::string> &mail, std::string encoding,
  *  =?iso-8859-1?Q?Apr=E8s?=.
  *
  *  @param  line Header line to be decoded
- *  @return      String containing the decoded line (or an error message). This
- *               string must be freed via g_free().
+ *  @return      String containing the decoded line (or an error message).
  **/
-gchar *
-Decoding::decode_headerline (std::string line)
+std::string 
+Decoding::decode_headerline (const std::string line)
 {
 	// A mail header line (sender, subject or date) cannot contain
 	// non-ASCII characters, so first we remove any non-ASCII characters
 	std::string copy;
-	for (guint i=0; i<line.size(); i++)
+	guint len = line.size();
+	for (guint i=0; i < len; i++)
 		if (line[i] >= 0)
 			copy += line[i];
+	len = copy.size();
 
-	gchar *utf8_text = g_locale_to_utf8 ("", -1, 0, 0, 0);
-	gchar *utf8_part = 0;
-	std::string copy_part;
-	std::string charset;
-	char encoding = 0;
-	gchar *buffer = 0;
+	gchar *utf8_part = NULL, encoding = '\0';
+	std::string copy_part, charset, decoded, result;
 
 	// Now we can begin decoding
 	guint i=0;
-	do {
+	while (i < len) {
 		// Charset description (=?iso-ABCD-XY?)
-		if (copy.substr(i,2) == "=?") {
+		if ((i+1 < len) && (copy[i] == '=') && (copy[i+1] == '?')) {
 			// First concatenate the part we got so far (using locale charset)
 			if (copy_part.size() > 0) {
 				utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
-				if (utf8_part) {
-					buffer = g_strconcat (utf8_text, utf8_part, NULL);
-					g_free (utf8_text);
-					g_free (utf8_part);
-					utf8_text = buffer;
-				}
-				copy_part.erase ();
+				if (!utf8_part)
+					return _("[Cannot decode this header line]");
+				result += utf8_part;
+				g_free (utf8_part);
 			}
-			i+=2; 
-			if (i >= copy.size()) {
-				copy_part = _("[Cannot decode this header line]");
-				break;
-			}
+			i += 2; 
+			if (i >= len)
+				return _("[Cannot decode this header line]");
 
 			// Charset description
-			while ((i < copy.size()) && (copy[i] != '?'))
+			charset.erase ();
+			while ((i < len) && (copy[i] != '?'))
 				charset += copy[i++];
 			i++;
 			// End of charset description
 
-			// Encoding description (Q or B. Others ?)
-			if (i >= copy.size()) {
-				copy_part = _("[Cannot decode this header line]");
-				break;
-			}
+			// Encoding description (Q or B)
+			if (i >= len)
+				return _("[Cannot decode this header line]");
 			encoding = copy[i++];
 			i++;
 			// End of encoding description
 
 			// First, get (part of) the encoded string
-			if (i >= copy.size()) {
-				copy_part = _("[Cannot decode this header line]");
-				break;
-			}
+			if (i >= len)
+				return _("[Cannot decode this header line]");
 			copy_part.erase ();
-			while ((i < copy.size()) && (copy.substr(i,2) != "?="))
+			while ((i+1 < len) && !((copy[i] == '?') && (copy[i+1] == '=')))
 				copy_part += copy[i++];
-			if (i >= copy.size()) {
-				copy_part = _("[Cannot decode this header line]");
-				break;
-			} 
+			if (i+1 >= len)
+				return _("[Cannot decode this header line]");
 
 			// Now decode
-			std::string decoded;
-			utf8_part=NULL;
+			utf8_part = NULL;
 			if ((encoding == 'Q') || (encoding == 'q'))
-				decoded=decode_qencoding(copy_part);
+				decoded = decode_qencoding (copy_part);
 			else if ((encoding == 'B') || (encoding == 'b'))
-				decoded=decode_base64(copy_part);
-			else
+				decoded = decode_base64 (copy_part);
+			else { // This must not happen according to the RFC
 				utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
-			if (decoded.size()>0)
-				utf8_part = g_convert (decoded.c_str(), -1, "utf-8", charset.c_str(), 0,0,0);
-			i += 2;
-			// We translate to utf8 what we got
-			if (utf8_part) {
-				buffer = g_strconcat (utf8_text, utf8_part, NULL);
-				g_free (utf8_text);
-				g_free (utf8_part);
-				charset = "";
-				utf8_text = buffer;
 			}
-			copy_part = "";
+			if (decoded.size() > 0)
+				utf8_part = g_convert (decoded.c_str(), -1, "utf-8",
+									   charset.c_str(), 0,0,0);
+			i += 2;
+			if (!utf8_part)
+				return _("[Cannot decode this header line]");
+			result += utf8_part;
+			g_free (utf8_part);
+			copy_part.erase ();
 		}
 		// Normal text
 		else
 			copy_part += copy[i++];
-	} while (i < copy.size());
+	}
 
 	// Last (possible) part
 	utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
 	if (utf8_part) {
-		buffer = g_strconcat (utf8_text, utf8_part, NULL);
-		g_free (utf8_text);
+		result += utf8_part;
 		g_free (utf8_part);
-		utf8_text = buffer;
 	}
 
-	return utf8_text;
+	return result;
 }
 
 /**
