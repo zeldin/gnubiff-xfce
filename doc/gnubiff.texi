@@ -205,42 +205,75 @@ Any omissions in this list are accidental.  Feel free to contact authors
 if you have been left out or some of your contributions are not listed.
 Please keep this list in alphabetical order.
 
+Authors:@*
 @itemize @bullet
-@item Alexis S. L. Carvhalo
-@item Jean-Yves Lefort
-@item Calum Mackay
+@item gnubiff has originally been written by Nicolas Rougier
+@end itemize
+
+
+Developers:@*
+@itemize @bullet
+@item Nicolas Rougier
 @item Robert Sowada
-@item Grzegorz Gotawski
-@item Dries Verachtert
-@item Paul Kuliniewicz
-@item Adam Benjamin
-@item Theodore Tegos
-@item Achim Settelmeier
+@end itemize
+
+
+Maintainers:@*
+@itemize @bullet
 @item Roland Stigge
-@item Barry Skidmore
-@item Jason Lowdermilk
-@item Marc-jano Knopp
-@item Suzan Wassman
-@item Philippe Berger
-@item Earl A. Killian
-@item Chistian Probst
-@item Hans-Ulrich Schaefer
-@item Josh Parsons
-@item Michael Moellney
-@item Dennis Bjorklund
-@item Craig  Agricola
-@item Bernhard Valenti
+@end itemize
+
+
+Translators:@*
+@itemize @bullet
+@item Elros Cyriatan
+@item Stefano Fabri
+@item Nicols Lichtmaler
+@item Michel Robitaille
+@item Nicolas Rougier
+@item Robert Sowada
+@item Roland Stigge
+@end itemize
+
+
+Various contributors:@*
+@itemize @bullet
+@item Craig Agricola
+@item Adam Benjamin
 @item Josh Berdine
-@item Michel Leunen
+@item Philippe Berger
+@item Dennis Bjorklund
 @item Greg Fenton
-@item Cai Yu
-@item Chris Snell
-@item Reid Rivenburgh
-@item Neil Muller
+@item Byron Foster
+@item Grzegorz Gotawski
+@item Earl Killian
+@item Marc-Jano Knopp
+@item Paul Kuliniewicz
+@item Jean-Yves Lefort
+@item Michel Leunen
+@item Jason Lowdermilk
 @item Sascha Ludecke
-@item Richard Torkar
+@item Calum Mackay
+@item Michael Moellney
+@item Sophie Morel
+@item Neil Muller
+@item Josh Parsons
 @item Pete Phillips
+@item Christian Probst
+@item Reid Rivenburgh
+@item Hans-Ulrich Schaefer
+@item Achim Settelmeier
+@item Erik Sittman
+@item Barry Skidmore
+@item Chris Snell
 @item Blaise Tarr
+@item Theodore Tegos
+@item Iulian Tocu
+@item Richard Torkar
+@item Bernhard Valenti
+@item Dries Verachtert
+@item Suzan Wassman
+@item Cai Yu
 @end itemize
 
 @bye

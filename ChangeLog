@@ -12,6 +12,7 @@ Version 2.1.1
    - bugfix: use delay instead of 1 second between FAM retries.
    - bugfix: change preferences ui
    - update: French translation
+   - update: gnubiff.texi
 * Robert Sowada
    - Changed version to 2.1.1, updated spec file
    - Small changes
