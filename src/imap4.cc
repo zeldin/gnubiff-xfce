@@ -281,9 +281,6 @@ Imap4::connect (void) throw (imap_err)
 	std::string line;
 	readline (line);
 
-	// We have no message sequence numbers that could become invalid yet
-	ignore_expunge_ = true;
-
 	// CAPABILITY
 	command_capability(true);
 
@@ -313,7 +310,7 @@ Imap4::fetch_mails (void) throw (imap_err)
 	status_ = MAILBOX_CHECK;
 
 	// SEARCH NOT SEEN
-	std::vector<int> buffer=command_searchnotseen();
+	std::vector<guint> buffer=command_searchnotseen();
 
 	// Get new mails one by one
 	new_unread_.clear();
@@ -867,7 +864,7 @@ Imap4::command_select (void) throw (imap_err)
  * @exception imap_socket_err
  *                     This exception is thrown if a network error occurs.
  */
-std::vector<int> 
+std::vector<guint> 
 Imap4::command_searchnotseen (void) throw (imap_err)
 {
 	// Sending the command
@@ -879,7 +876,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 
 	// Parse server's answer. Should be something like
 	// "* SEARCH 1 2 3 4" or "* SEARCH"
-	std::vector<int> buffer;
+	std::vector<guint> buffer;
 	guint n;
 	while (ss >> n)
 		buffer.push_back (n);
@@ -1557,9 +1554,7 @@ Imap4::readline (std::string &line, gboolean print, gboolean check,
 	else if (test_untagged_response (0, "NO")) { // see RFC 3501 7.1.2
 		g_warning (_("[%d] Warning from server:%s"), uin_,
 				   line.substr(4,line.size()-4).c_str());
-	} // see RFC 3501 7.4.1
-	else if ((!ignore_expunge_) && (test_untagged_response ("EXPUNGE")))
-		throw imap_expunge_err();
+	}
 	return status;
 }
 
