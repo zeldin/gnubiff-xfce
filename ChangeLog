@@ -78,6 +78,8 @@ Version 2.1.0
    - New source files for decoding and converting
    - Separated q-encoding and quoted printable encoding
    - Number of lines (of mail body) to be read is now a constant
+   - Bugfix: Setting file permissions of scripts in configure script
+     (fixes bug #1083485)
 
 Version 2.0.3
   * Roland Stigge:

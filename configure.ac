@@ -121,7 +121,7 @@ AC_CHECK_FUNCS([gethostbyname memset socket strchr strerror strrchr strstr utime
 
 
 ######################################################################
-#                       Internationalisation                         #
+#                       Internationalization                         #
 ######################################################################
 GETTEXT_PACKAGE=gnubiff
 AC_SUBST(GETTEXT_PACKAGE)
@@ -209,6 +209,8 @@ doc/Makefile
 man1/Makefile
 ])
 AC_OUTPUT
+dnl file permissions in config subdirectory
+chmod +x config/mkinstalldirs config/ltmain.sh config/depcomp config/missing config/config.guess config/config.sub config/install-sh
 
 
 echo "--------------------------------------------------------------------------------"
