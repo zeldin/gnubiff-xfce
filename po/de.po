@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-20 00:04+0100\n"
-"PO-Revision-Date: 2005-01-19 23:40+0100\n"
+"PO-Revision-Date: 2005-01-27 18:30+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -643,7 +643,7 @@ msgstr "Soll die Formatierung für die Nachrichten verwendet werden?"
 
 #: ui/preferences.glade.h:51
 msgid "Whether to use geometry"
-msgstr "Soll die Fnesterplatzierung verwendet werden?"
+msgstr "Soll die Fensterplatzierung verwendet werden?"
 
 #: ui/preferences.glade.h:52
 msgid "Whether to use window manager decoration"
