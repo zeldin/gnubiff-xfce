@@ -568,7 +568,7 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 #endif
 	// Read text
 	gint lineno=0, bytes=textsize+3; // ")\r\n" at end of mail
-	while ((bytes>0) && ((socket_->read(line, false) > 0))) {
+	while ((bytes>0) && ((socket_->read(line, false, false) > 0))) {
 		bytes-=line.size()+1; // don't forget to count '\n'!
 		if ((line.size() > 0) && (lineno++<bodyLinesToBeRead_)) {
 			mail.push_back (line.substr(0, line.size()-1));
