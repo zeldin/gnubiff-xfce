@@ -83,6 +83,17 @@ Version 2.1.1
         values for seen mails in the config file invalid
    - mailids are now created by taking uids from server if possible (currently
         only POP3, IMAP4 will follow)
+   - Unread headers are now saved in a map (using the mailid as key)
+   - Save response codes for positive server responses (IMAP4)
+   - Check for the UIDVALIDITY response code for the SELECT command (IMAP4)
+   - Check for the CAPABILITY response code when starting connection. If found
+        there is no need to send the CAPABILITY command (IMAP4)
+   - Support for unique ids when using IMAP4. Deciding whether a mail is new
+        by looking at the unique id instead of the message sequence number.
+        Note: This may lead to inaccurate results if the server does not
+	support UIDVALIDITY (see RFC 3501 2.3.1.1) but is of course not worse
+	than message sequence numbers;-)
+   - Removed contains_new(): No longer needed
 
 Version 2.1.0
  * Nicolas Rougier

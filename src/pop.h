@@ -45,7 +45,7 @@ class Pop : public Mailbox {
 protected:
 	/// Socket to talk to the server
 	class Socket *	 			socket_;
-	/// Vector for the saved unique identifiers of the mails
+	/// Set for the saved unique identifiers of the mails
 	std::set<std::string> 		saved_uid_;
 
 public:

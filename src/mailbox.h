@@ -36,6 +36,7 @@
 #   include <config.h>
 #endif
 #include <glib.h>
+#include <map>
 #include <set>
 #include <string>
 #include "biff.h"
@@ -84,8 +85,6 @@ typedef struct _header {
 	 *  gnubiff creates an own identifier.
 	 *
 	 *  Remark: This identifier must not contain whitespace characters!
-	 *
-	 *  Remark: For IMAP4 gnubiff does not use the unique id yet.
 	 *
 	 *  @see The mail identifier is calculated by the method
 	 *       header::setmailid().
@@ -191,8 +190,12 @@ protected:
 	gboolean					listed_;			// flag for updating mailboxes in preferences
 	gboolean					stopped_;			// flag for stopping mailbox monitor while looking up
 
-	std::vector<header>			unread_;			// collected unread mail
-	std::vector<header>			new_unread_;		// collected unread mail (tmp buffer)
+	/// Mail headers of mails that have not been read yet
+	std::map<std::string, header> unread_;
+	/** Mail headers of mails (of the the present update) that have not been
+	 *  read yet. These headers will be transfered to Mailbox::unread_ once
+	 *  the updated is completed successfully. */
+	std::map<std::string, header> new_unread_;
 	/// Set of gnubiff mail ids of those mails that won't be displayed
 	std::set<std::string>		hidden_;
 	/** Set of gnubiff mail ids of those mails that have already been seen by
@@ -313,9 +316,9 @@ public:
 	void timetag (guint value)							{timetag_ = value;}
 	
 	
-
-	std::vector<header> &unread (void)					{return unread_;}
-	header &unread (int i)								{return unread_[i];}
+	/// Access function to Mailbox::unread_
+	std::map<std::string, header> &unread (void)		{return unread_;}
+	/// Number of unread mails
 	guint unreads (void) {
 		g_mutex_lock (mutex_);
 		guint s = unread_.size();
@@ -326,59 +329,9 @@ public:
 	std::set<std::string> &hidden (void)				{return hidden_;}
 	/// Number of mails that won't be displayed
 	guint hiddens (void)								{return hidden_.size();}
+	/// Access function to Mailbox::seen_
+	std::set<std::string> &seen (void)					{return seen_;}
 };
-
-/**
- * Determine if an element is contained in {\em newlist} that is not in
- * {\em oldlist}.  We use this function to determine if {\em newlist} contains
- * an element that is not in {\em oldlist}.  This method is necessary for
- * checking for new unique mail messages from a prior check since mail count
- * alone is not enough information.  For example, last check mail count may be
- * 3 and new mail count may be 3, but the user has read one mail message, and
- * a new mail message has been received since the last check.  By mail count
- * alone it appears that we have NOT received a new mail.  Returns true if
- * {\em newlist} contains at least one header that is not in {\em oldlist},
- * false otherwise.
- *
- * TODO: This would be more complete if we used the message UID in the case of
- * IMAP. But good enough.
- *
- * @param  newlist   C++ vector of {\em class T} elements
- * @param  oldlist   C++ vector of {\em class T} elements
- * @return           Boolean indicating whether there are elements in
- *                   {\em newlist} that are not in {\em oldlist}
- */
-template<class T> gboolean 
-Mailbox::contains_new (std::vector<T> newlist, std::vector<T> oldlist)
-{
-	// If newlist is larger then oldlist then we know newlist contains
-	// elements not in oldlist. Fast check.
-	if (newlist.size() > oldlist.size())
-		return true;
-       
-	// If the two lists are exactly the same, then we know there are no
-	// new elements in newlist.
-	if (newlist == oldlist)
-		return false;
-       
-	for (guint i=0; i< newlist.size(); i++) {
-		gboolean foundmatch = false;
-		for (guint j=0; j < oldlist.size(); j++) {
-			if (newlist[i] == oldlist[j]) {
-				foundmatch = true;
-				break;
-			}
-		}
-
-		// We did not find a match for newlist[i] in oldlist, so at least
-		// newlist[i] is not in oldlist.
-		if (!foundmatch)
-			return true;
-	}
-
-	// newlist does not contain any headers that are not already in oldlist
-	return false;
-}
 
 /**
  * Maximum number of lines to be read from the mail body. This value should be

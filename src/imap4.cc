@@ -31,6 +31,7 @@
 
 #include "support.h"
 
+#include <algorithm>
 #include <string>
 #include <sstream>
 #include <glib.h>
@@ -223,6 +224,9 @@ Imap4::update_applet(void)
 void 
 Imap4::connect (void) throw (imap_err)
 {
+	// Resetting the tag counter
+	reset_tag();
+
 	// Check standard port
 	if (!use_other_port_)
 		if (authentication_ == AUTH_USER_PASS)
@@ -272,15 +276,13 @@ Imap4::connect (void) throw (imap_err)
 	g_message ("[%d] Connected to %s on port %d",uin_,address_.c_str(),port_);
 #endif
 
-	// Get server's response
+	// Get server's response (maybe we get the CAPABILITY response code)
+	ok_response_codes_.clear ();
 	std::string line;
 	readline (line);
 
-	// Resetting the tag counter
-	reset_tag();
-
 	// CAPABILITY
-	command_capability();
+	command_capability(true);
 
 	// LOGIN
 	command_login();
@@ -309,11 +311,16 @@ Imap4::fetch_mails (void) throw (imap_err)
 
 	// SEARCH NOT SEEN
 	std::vector<int> buffer=command_searchnotseen();
-	
+
 	// Get new mails one by one
 	new_unread_.clear();
 	new_seen_.clear();
+	std::set<std::string> new_saved_uid;
 	for (guint i=0; (i<buffer.size()) && (new_unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
+
+		// FETCH UID
+		std::string uid=uidvalidity_ + command_fetchuid(buffer[i]);
+		new_saved_uid.insert (uid);
 
 		// FETCH header information
 		std::vector<std::string> mail=command_fetchheader(buffer[i]);
@@ -327,17 +334,21 @@ Imap4::fetch_mails (void) throw (imap_err)
 		// Decode and parse mail
 		if (partinfo.part_!="")
 			decode_body (mail, partinfo.encoding_);
-		parse (mail, MAIL_UNREAD);
+		parse (mail, MAIL_UNREAD, uid);
 	}
-	
-	// Set mailbox status
-	if (buffer.empty())
+
+	// Determine new mailbox status
+	if (new_saved_uid.empty ())
 		status_ = MAILBOX_EMPTY;
-	else if (contains_new<header>(new_unread_, unread_))
+	else if (!std::includes(saved_uid_.begin(), saved_uid_.end(),
+							new_saved_uid.begin(), new_saved_uid.end()))
 		status_ = MAILBOX_NEW;
 	else
 		status_ = MAILBOX_OLD;
+	saved_uid_ = new_saved_uid;
 
+	if ((unread_ == new_unread_) && (unread_.size() > 0))
+		status_ = MAILBOX_OLD;
 	unread_ = new_unread_;
 	seen_ = new_seen_;
 }
@@ -396,7 +407,14 @@ Imap4::idle (void) throw (imap_err)
  *          IDLE command instead of polling.
  *    \item LOGINDISABLED: The server wants us not to login.
  * \end{itemize}
+ *
+ * If {\em check_rc} is true first the response codes to untagged OK responses
+ * are checked for a "CAPABILITY" response code. If this is found no command
+ * is sent to the server. Instead the arguments to this response code are
+ * evaluated.
  * 
+ * @param     check_rc Whether to check the response codes first. The default
+ *                     is false.
  * @exception imap_command_err
  *                     This exception is thrown when we get an unexpected
  *                     response.
@@ -406,18 +424,26 @@ Imap4::idle (void) throw (imap_err)
  *                     This exception is thrown if a network error occurs.
  */
 void 
-Imap4::command_capability (void) throw (imap_err)
+Imap4::command_capability (gboolean check_rc) throw (imap_err)
 {
 	std::string line;
 
-	// Sending the command
-	sendline ("CAPABILITY");
+	// Check for CAPABILITY response code
+	if (check_rc)
+		if (ok_response_codes_.find("CAPABILITY") != ok_response_codes_.end())
+			line = " " + ok_response_codes_["CAPABILITY"];
 
-	// Wait for "* CAPABILITY" untagged response
-	line=waitfor_untaggedresponse("CAPABILITY");
+	// If no response code available send the command
+	if (line.size() == 0) {
+		// Sending the command
+		sendline ("CAPABILITY");
 
-	// Getting the acknowledgment
-	waitfor_ack();
+		// Wait for "* CAPABILITY" untagged response
+		line=waitfor_untaggedresponse("CAPABILITY");
+
+		// Getting the acknowledgment
+		waitfor_ack();
+	}
 
 	// Remark: We have a space-separated listing. In order to not match
 	// substrings we have to include the spaces when comparing. To match the
@@ -654,6 +680,42 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 }
 
 /**
+ * Obtain the unique identifier of the mail with sequence number {\em msn}.
+ * This is done by sending the IMAP command "FETCH" to the server.
+ * 
+ * @param     msn      Message sequence number of the mail
+ * @return             Unique id of the mail
+ * @exception imap_command_err
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
+ * @exception imap_dos_err
+ *                     This exception is thrown when a DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+std::string 
+Imap4::command_fetchuid (guint msn) throw (imap_err)
+{
+	std::string line;
+
+	// Message sequence number
+	std::stringstream ss;
+	ss << msn;
+
+	// Send command
+	sendline ("FETCH " +ss.str()+ " (UID)");
+
+	// Wait for "* ... FETCH (UID ...)" untagged response (see RFC 3501 7.4.2)
+	line=waitfor_untaggedresponse(ss.str() + " FETCH (UID ");
+
+	// Get uid
+	line=line.substr(ss.str().size() + 14);
+	guint pos=line.find(")");
+	if ((pos == 0) || (pos == std::string::npos)) throw imap_command_err();
+	return line.substr (0, pos);
+}
+
+/**
  * Sending the IMAP command "IDLE" to the server.
  * This function enters into the idle mode by issueing the imap "IDLE"
  * command, then waits for notifications from the IMAP server.
@@ -800,6 +862,10 @@ Imap4::command_select (void) throw (imap_err)
 	// According to RFC 3501 6.3.1 there must be exactly seven lines
 	// before getting the acknowledgment line.
 	waitfor_ack(msg,7);
+
+	// Check for UIDVALIDITY response code; see RFC 3501 2.3.1.1
+	if (ok_response_codes_.find("UIDVALIDITY") != ok_response_codes_.end())
+		uidvalidity_ = ok_response_codes_["UIDVALIDITY"];
 }
 
 /**
@@ -856,6 +922,8 @@ Imap4::command_searchnotseen (void) throw (imap_err)
  * Reading and discarding input lines from the server's response for the last
  * sent command. If the response is not positive the optional error message
  * {\em msg} is printed and an imap_command_err exception is thrown.
+ * Response codes for "* OK" responses are saved in Imap4::ok_response_codes_,
+ * which is being reset when calling this function.
  *
  * @param     msg      Error message to be printed if we don't get a positive
  *                     response. The default is to print no message.
@@ -874,6 +942,9 @@ void
 Imap4::waitfor_ack (std::string msg, gint num) throw (imap_err)
 {
 	std::string line;
+
+	// Reset server response code map
+	ok_response_codes_.clear ();
 
 	num+=1+preventDoS_additionalLines_;
 	while ((readline (line)) && (num--))
@@ -904,6 +975,9 @@ Imap4::waitfor_ack (std::string msg, gint num) throw (imap_err)
  * with this string, this line is returned. If no such line is read in time and
  * a DoS attack is suspected an imap_dos_err exception is thrown.
  *
+ * Response codes for "* OK" responses are saved in Imap4::ok_response_codes_,
+ * which is being reset when calling this function.
+ *
  * @param     response Untagged response to look for (without the leading "* ")
  * @param     num      Number of lines that are expected to be sent by the
  *                     server before the untagged response. This value is
@@ -919,6 +993,9 @@ Imap4::waitfor_untaggedresponse (std::string response, gint num)
 								 throw (imap_err)
 {
 	std::string line;
+
+	// Reset server response code map
+	ok_response_codes_.clear ();
 
 	// We need to set a limit to lines read (DoS attacks).
 	num+=1+preventDoS_additionalLines_;
@@ -1220,6 +1297,55 @@ Imap4::tag ()
 }
 
 /**
+ * Save the response code from the given server response line.
+ *
+ *
+ * @param line     Response line of the server
+ * @param rc_map   Map for response codes (pairs of atoms and arguments)
+ * @exception imap_command_err
+ *                 This exception is thrown if {\em line} doesn't contain a
+ *                 valid response code.
+ */
+void 
+Imap4::save_response_code (std::string &line,
+						   std::map<std::string,std::string> &rc_map)
+						   throw (imap_err)
+{
+	gboolean is_string = false;
+	guint pos = line.find("["), startpos = pos+1;
+
+	// No response code in line
+	if (pos == std::string::npos) throw imap_command_err();
+
+	// Get end of response code
+	while ((++pos) < line.size()) {
+		if (line[pos] == '"') // FIXME: '"' in strings?
+			is_string = !is_string;
+		if ((line[pos] == ']') && !is_string)
+			break;
+	}
+	if (pos == line.size()) throw imap_command_err();
+
+	// Get atom and (if available) arguments
+	std::string rc=line.substr(startpos, pos-startpos);
+	std::string atom, arg;
+	pos=rc.find(" ");
+	if (pos==std::string::npos)
+		atom = rc;
+	else {
+		atom = rc.substr (0, pos);
+		arg = rc.substr (pos+1);
+	}
+
+	// Save response code
+	rc_map[atom] = arg;
+#ifdef DEBUG
+	g_message ("[%d] Saved response code to untagged response: atom=\"%s\" arg=\"%s\"",
+			   uin_, atom.c_str(), arg.c_str());
+#endif
+}
+
+/**
  * Send an IMAP command.
  * The given {\em command} is prefixed with a unique identifier (obtainable
  * via the Imap::tag() function) and postfixed with "\r\n" and then written to
@@ -1273,6 +1399,10 @@ Imap4::sendline (const std::string command, gboolean print, gboolean check)
  * message is printed and an imap_command_err exception is thrown. If a
  * warning response ("* NO") is found the warning is printed.
  *
+ * If {\em checkline} is true server response codes for "* OK" server responses
+ * are saved in Imap4::ok_response_codes_. No response codes are currently
+ * saved for other responses than "* OK".
+ *
  * Remark: If the mailbox is not checking for new mail and we get a "* BYE"
  * message (when idling for example) an imap_command_err exception is thrown
  * but mailbox status will not be set to MAILBOX_ERROR.
@@ -1322,6 +1452,9 @@ Imap4::readline (std::string &line, gboolean print, gboolean check,
 	if (line.find("* NO") == 0) // see RFC 3501 7.1.2
 		g_warning (_("[%d] Warning from server:%s"), uin_,
 				   line.substr(4,line.size()-4).c_str());
+	// Get server response code if available; see RFC 3501 7.1
+	if (line.find("* OK [") == 0)
+		save_response_code(line, ok_response_codes_);
 	return status;
 }
 

@@ -54,6 +54,16 @@ class Imap4 : public Mailbox {
 	/** Counter for creating the tag of the next IMAP command to be sent to
 	 *  the server. */
 	guint						tagcounter_;
+	/** Value of UIDVALIDITY as sent by the IMAP4 server. This is a response
+	 *  code to the SELECT command. The string is empty if the server does
+	 *  not send it. See also RFC 3501 2.3.1.1.
+	 */
+	std::string					uidvalidity_;
+	/// Set for the saved unique identifiers of the mails
+	std::set<std::string> 		saved_uid_;
+	/** Map of pairs (atom, arg) that represent the last sent server response
+	 *  codes via untagged "* OK" server responses. */
+	std::map<std::string, std::string> ok_response_codes_;
  public:
 	// ========================================================================
 	//  base
@@ -127,11 +137,12 @@ class Imap4 : public Mailbox {
 	gboolean parse_bodystructure (std::string, class PartInfo &,
 								  gboolean toplevel=true);
 	gboolean parse_bodystructure_parameters (std::string, class PartInfo &);
-	void command_capability (void) throw (imap_err);
+	void command_capability (gboolean check_rc = false) throw (imap_err);
 	void command_fetchbody (guint, class PartInfo &,
 							std::vector<std::string> &) throw (imap_err);
 	PartInfo command_fetchbodystructure (guint) throw (imap_err);
 	std::vector<std::string> command_fetchheader (guint) throw (imap_err);
+	std::string command_fetchuid (guint) throw (imap_err);
 	std::string command_idle(gboolean &) throw (imap_err);
 	void command_login (void) throw (imap_err);
 	void command_logout (void) throw (imap_err);
@@ -150,6 +161,8 @@ class Imap4 : public Mailbox {
 	gint readline_ignoreinfo (std::string &, gboolean print=true,
 							  gboolean check=true, gboolean checkline=true)
 							  throw (imap_err);
+	void save_response_code (std::string &,std::map<std::string,std::string> &)
+							 throw (imap_err);
 	void update_applet();
 	void idle() throw (imap_err);
 };

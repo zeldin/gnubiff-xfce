@@ -85,6 +85,7 @@ Mailbox::Mailbox (Biff *biff)
 	timetag_ = 0;
 	hidden_.clear();
 	seen_.clear();
+	unread_.clear();
 	mutex_ = g_mutex_new();
 	monitor_mutex_ = g_mutex_new();
 }
@@ -113,6 +114,7 @@ Mailbox::Mailbox (const Mailbox &other)
 	timetag_= 0;
 	hidden_.clear();
 	seen_.clear();
+	unread_.clear();
 	mutex_ = g_mutex_new();
 	monitor_mutex_ = g_mutex_new();
 }
@@ -560,7 +562,7 @@ void Mailbox::parse (std::vector<std::string> &mail, int status,
 			//
 			h.setmailid (uid);
 			if (hidden_.find (h.mailid_) == hidden_.end ())
-				new_unread_.push_back (h);
+				new_unread_[h.mailid_] = h;
 			new_seen_.insert (h.mailid_);
 #ifdef DEBUG
 			g_message ("[%d] Parsed mail with id \"%s\"", uin_,

@@ -202,11 +202,11 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 	new_seen_.clear();
 
 	std::vector<std::string> mail;
-	std::set<std::string> buffer;
+	std::set<std::string> new_saved_uid;
 	for (guint i=0; i< num; i++) {
 		// UIDL
 		std::string uid=command_uidl (i+start);
-		buffer.insert (uid);
+		new_saved_uid.insert (uid);
 
 		if (statusonly)
 			continue;
@@ -219,14 +219,14 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 	}
 
 	// Determine new mailbox status
-	if (buffer.empty ())
+	if (new_saved_uid.empty ())
 		status_ = MAILBOX_EMPTY;
-	else if (std::includes(saved_uid_.begin(), saved_uid_.end(),
-						   buffer.begin(), buffer.end()))
+	else if (!std::includes(saved_uid_.begin(), saved_uid_.end(),
+						   new_saved_uid.begin(), new_saved_uid.end()))
 		status_ = MAILBOX_NEW;
 	else
 		status_ = MAILBOX_OLD;
-	saved_uid_ = buffer;
+	saved_uid_ = new_saved_uid;
 
 	if ((unread_ == new_unread_) && (unread_.size() > 0))
 		status_ = MAILBOX_OLD;

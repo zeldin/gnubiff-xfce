@@ -249,15 +249,26 @@ Popup::update (void)
 		for (guint i=0; i<biff_->size(); i++)
 			count.push_back (biff_->mailbox(i)->unreads());	
 
-	// Now we populate list
+	// Now we populate the list
 	for (guint j=0; j<biff_->size(); j++) {
-		for (gint i=(gint(biff_->mailbox(j)->unreads())-1); i>(gint(biff_->mailbox(j)->unreads())-1-count[j]); i--) {
+		std::set<std::string>::iterator ie=biff_->mailbox(j)->seen().end();
+		std::set<std::string>::iterator ib=biff_->mailbox(j)->seen().begin();
+		gint cnt=biff_->mailbox(j)->unreads()-1;
+		for (std::set<std::string>::iterator i=ie; i != ib; cnt--) {
+			i--;
+			// Is the mail to be shown?
+			if (biff_->mailbox(j)->hidden().find(*i)
+				!= biff_->mailbox(j)->hidden().end())
+				continue;
+			// Get the header
+			header h = biff_->mailbox(j)->unread()[*i];
+
 			std::stringstream s;
-			s << i+1;
+			s << cnt+1;
 			gtk_list_store_append (store, &iter);
 				
 			// Subject
-			buffer = parse_header (biff_->mailbox(j)->unread(i).subject);
+			buffer = parse_header (h.subject);
 			gchar *subject;
 			if ((biff_->popup_use_format_) && (biff_->subject_size_ > 0))
 				subject = gb_utf8_strndup (buffer, biff_->subject_size_);
@@ -267,7 +278,7 @@ Popup::update (void)
 			saved_strings.push_back (subject);
 
 			// Date
-			buffer = parse_header (biff_->mailbox(j)->unread(i).date);
+			buffer = parse_header (h.date);
 			gchar *date;
 			if ((biff_->popup_use_format_) && (biff_->date_size_ > 0))
 				date = gb_utf8_strndup (buffer, biff_->date_size_);
@@ -277,7 +288,7 @@ Popup::update (void)
 			saved_strings.push_back (date);
 			
 			// Sender
-			buffer = parse_header (biff_->mailbox(j)->unread(i).sender);
+			buffer = parse_header (h.sender);
 			gchar *sender;
 			if ((biff_->popup_use_format_) && (biff_->sender_size_ > 0))
 				sender = gb_utf8_strndup (buffer, biff_->sender_size_);
@@ -286,7 +297,7 @@ Popup::update (void)
 			g_free (buffer);
 			saved_strings.push_back (sender);
 			
-			if (i == (gint(biff_->mailbox(j)->unreads())-1))
+			if (cnt == (gint(biff_->mailbox(j)->unreads())-1))
 				gtk_list_store_set (store, &iter, COLUMN_NAME, biff_->mailbox(j)->name().c_str(), -1);
 			else
 				gtk_list_store_set (store, &iter, COLUMN_NAME, "", -1);
@@ -295,7 +306,7 @@ Popup::update (void)
 								COLUMN_SENDER, sender, 
 								COLUMN_SUBJECT, subject,
 								COLUMN_DATE, date,
-								COLUMN_HEADER, &biff_->mailbox(j)->unread(i),
+								COLUMN_HEADER,&biff_->mailbox(j)->unread()[*i],
 								-1);
 		}
 	}
