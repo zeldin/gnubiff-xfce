@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-20 00:04+0100\n"
+"POT-Creation-Date: 2005-01-31 15:56+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -51,61 +51,51 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:131
-#, fuzzy
-msgid "no mail"
-msgstr "Geen e-mail"
-
-#: src/biff.cc:170
+#: src/biff.cc:125
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Configuratiebestand (%s) niet gevonden!"
 
-#: src/biff.cc:486 src/biff.cc:511 src/biff.cc:531 src/biff.cc:546
-#, c-format
-msgid "Parameter \"%s\" not present, using default value"
-msgstr ""
-
-#: src/biff.cc:494 src/biff.cc:516
-#, c-format
-msgid "Illegal value \"%s\" for parameter \"%s\", using default value"
-msgstr ""
-
-#: src/biff.cc:657
+#: src/biff.cc:491
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
-#: src/biff.cc:682
+#: src/biff.cc:517
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Geen postvak-definitie gevonden in uw .gnubiffrc"
 
-#: src/biff.cc:706
+#: src/biff.cc:541
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/mailbox.cc:63
-#, fuzzy, c-format
-msgid "mailbox %d"
-msgstr "Postvak"
+#: src/biff.cc:564
+#, c-format
+msgid "No protocol specified for mailbox %d"
+msgstr ""
 
-#: src/mailbox.cc:180
+#: src/mailbox.cc:134
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "Kon thread niet aanmaken: %s\n"
 
-#: src/mailbox.cc:482
+#: src/mailbox.cc:231
+#, fuzzy, c-format
+msgid "mailbox %d"
+msgstr "Postvak"
+
+#: src/mailbox.cc:507
 #, fuzzy
 msgid "<no sender>"
 msgstr "<geen verzender gevonden>"
 
-#: src/mailbox.cc:492
+#: src/mailbox.cc:517
 #, fuzzy
 msgid "<no subject>"
 msgstr "<geen onderwerp gevonden>"
 
-#: src/mailbox.cc:502
+#: src/mailbox.cc:527
 #, fuzzy
 msgid "<no date>"
 msgstr "<geen datum gevonden>"
@@ -141,45 +131,45 @@ msgstr "Kan niet lezen van %s op poort %d"
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
 
-#: src/imap4.cc:466
+#: src/imap4.cc:476
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
 #. Create error message
-#: src/imap4.cc:833
+#: src/imap4.cc:843
 #, fuzzy, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/imap4.cc:920
+#: src/imap4.cc:931
 #, fuzzy, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "Kan geen bevestiging opvragen van %s op poort %d"
 
-#: src/imap4.cc:979
+#: src/imap4.cc:990
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: src/imap4.cc:1032
+#: src/imap4.cc:1043
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
 #. see RFC 3501 7.1.5
-#: src/imap4.cc:1598
+#: src/imap4.cc:1609
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.3
-#: src/imap4.cc:1603
+#: src/imap4.cc:1614
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.2
-#: src/imap4.cc:1608
+#: src/imap4.cc:1619
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
@@ -227,6 +217,27 @@ msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 
+#: src/options.cc:261
+#, c-format
+msgid "Unknown option \"%s\""
+msgstr ""
+
+#: src/options.cc:268
+#, c-format
+msgid "Cannot set option \"%s\" to \"%s\""
+msgstr ""
+
+#: src/options.cc:366 src/gui.cc:211
+#, c-format
+msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
+msgstr ""
+"Kon de aangegeven widget (\"%s\") niet vinden in xml structuur (\"%s\")"
+
+#: src/gnubiff_options.cc:121
+#, fuzzy
+msgid "no mail"
+msgstr "Geen e-mail"
+
 #: src/gui.cc:175
 #, c-format
 msgid ""
@@ -244,12 +255,6 @@ msgstr ""
 "\n"
 "Controleer a.u.b. of het pakket juist is geïnstalleerd."
 
-#: src/gui.cc:211
-#, c-format
-msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
-msgstr ""
-"Kon de aangegeven widget (\"%s\") niet vinden in xml structuur (\"%s\")"
-
 #: src/gui.cc:318
 msgid "GUI_connect requires working gmodule"
 msgstr "GUI_connect vereist een werkende gmodule"
@@ -259,16 +264,16 @@ msgstr "GUI_connect vereist een werkende gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Kon signaalbehandelaar '%s' niet vinden."
 
-#: src/ui-applet.cc:136
+#: src/ui-applet.cc:134
 msgid " unknown"
 msgstr ""
 
-#: src/ui-applet.cc:138
+#: src/ui-applet.cc:136
 #, fuzzy
 msgid " error"
 msgstr "fout!"
 
-#: src/ui-applet.cc:143
+#: src/ui-applet.cc:141
 msgid " checking..."
 msgstr " bezig met controleren..."
 
@@ -282,36 +287,36 @@ msgstr "Nieuwe e-mail"
 msgid "No mail"
 msgstr "Geen e-mail"
 
-#: src/ui-preferences.cc:140 src/ui-popup.cc:139
+#: src/ui-preferences.cc:151 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Postvak"
 
-#: src/ui-preferences.cc:154
+#: src/ui-preferences.cc:165
 msgid "Type"
 msgstr ""
 
-#: src/ui-preferences.cc:173
+#: src/ui-preferences.cc:184
 msgid "Status"
 msgstr ""
 
-#: src/ui-preferences.cc:188
+#: src/ui-preferences.cc:199
 msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
+#: src/ui-preferences.cc:211 src/ui-preferences.cc:560
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:490
+#: src/ui-preferences.cc:494
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:500 ui/preferences.glade.h:62
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
+#: src/ui-preferences.cc:511 src/ui-preferences.cc:518
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Bladeren"
@@ -547,186 +552,194 @@ msgid "Developers"
 msgstr ""
 
 #: ui/preferences.glade.h:23
-msgid "Image filename"
+msgid "Expert"
 msgstr ""
 
 #: ui/preferences.glade.h:24
+msgid "Image filename"
+msgstr ""
+
+#: ui/preferences.glade.h:25
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Postvak"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:26
 msgid "Maintainers"
 msgstr ""
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:27
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr ""
 "<small>Maximale aantal\n"
 "te verzamelen berichten</small>"
 
-#: ui/preferences.glade.h:27 ui/popup.glade.h:4
+#: ui/preferences.glade.h:28 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Pop-up"
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:29
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:30
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:31
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:32
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:33
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:34
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:36
 #, fuzzy, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 "Tekst om weer te geven als er geen nieuwe post is; %d is het aantal "
 "berichten."
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:37
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Geluid om af te spelen als nieuwe e-mail is ontvangen"
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:38
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:39
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:40
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:41
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:42
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:43
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:44
+msgid "Value: "
+msgstr ""
+
+#: ui/preferences.glade.h:45
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:46
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Nieuwe e-mail"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:48
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:50
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:52
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:53
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:54
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:55
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:54 ui/properties.glade.h:21
+#: ui/preferences.glade.h:56 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:57
 #, fuzzy
 msgid "_Display for"
 msgstr "Datum weergeven in koppen"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:58
 #, fuzzy
 msgid "_Font:"
 msgstr "Lettertypes "
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:59
 #, fuzzy
 msgid "_Format:"
 msgstr "Lettertypes "
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:60
 msgid "_Restrict collected mail to"
 msgstr ""
 
-#: ui/preferences.glade.h:59
-msgid "_Restrict number to"
-msgstr ""
-
 #: ui/preferences.glade.h:61
-#, fuzzy
-msgid "gnubiff preferences"
-msgstr "Voorkeuren"
-
-#: ui/preferences.glade.h:62
-msgid "header(s)"
+msgid "_Restrict number to"
 msgstr ""
 
 #: ui/preferences.glade.h:63
 #, fuzzy
+msgid "gnubiff preferences"
+msgstr "Voorkeuren"
+
+#: ui/preferences.glade.h:64
+msgid "header(s)"
+msgstr ""
+
+#: ui/preferences.glade.h:65
+#, fuzzy
 msgid "mail(s)"
 msgstr "kmail"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:66
 msgid "second(s)"
 msgstr ""
 

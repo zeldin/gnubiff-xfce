@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-20 00:04+0100\n"
+"POT-Creation-Date: 2005-01-31 15:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,58 +49,49 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:131
-msgid "no mail"
-msgstr ""
-
-#: src/biff.cc:170
+#: src/biff.cc:125
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr ""
 
-#: src/biff.cc:486 src/biff.cc:511 src/biff.cc:531 src/biff.cc:546
-#, c-format
-msgid "Parameter \"%s\" not present, using default value"
-msgstr ""
-
-#: src/biff.cc:494 src/biff.cc:516
-#, c-format
-msgid "Illegal value \"%s\" for parameter \"%s\", using default value"
-msgstr ""
-
-#: src/biff.cc:657
+#: src/biff.cc:491
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr ""
 
-#: src/biff.cc:682
+#: src/biff.cc:517
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 
-#: src/biff.cc:706
+#: src/biff.cc:541
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/mailbox.cc:63
+#: src/biff.cc:564
 #, c-format
-msgid "mailbox %d"
+msgid "No protocol specified for mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:180
+#: src/mailbox.cc:134
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: src/mailbox.cc:482
+#: src/mailbox.cc:231
+#, c-format
+msgid "mailbox %d"
+msgstr ""
+
+#: src/mailbox.cc:507
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:492
+#: src/mailbox.cc:517
 msgid "<no subject>"
 msgstr ""
 
-#: src/mailbox.cc:502
+#: src/mailbox.cc:527
 msgid "<no date>"
 msgstr ""
 
@@ -135,45 +126,45 @@ msgstr ""
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
 
-#: src/imap4.cc:466
+#: src/imap4.cc:476
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
 #. Create error message
-#: src/imap4.cc:833
+#: src/imap4.cc:843
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:920
+#: src/imap4.cc:931
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:979
+#: src/imap4.cc:990
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: src/imap4.cc:1032
+#: src/imap4.cc:1043
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
 #. see RFC 3501 7.1.5
-#: src/imap4.cc:1598
+#: src/imap4.cc:1609
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.3
-#: src/imap4.cc:1603
+#: src/imap4.cc:1614
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.2
-#: src/imap4.cc:1608
+#: src/imap4.cc:1619
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
@@ -221,6 +212,25 @@ msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 
+#: src/options.cc:261
+#, c-format
+msgid "Unknown option \"%s\""
+msgstr ""
+
+#: src/options.cc:268
+#, c-format
+msgid "Cannot set option \"%s\" to \"%s\""
+msgstr ""
+
+#: src/options.cc:366 src/gui.cc:211
+#, c-format
+msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
+msgstr ""
+
+#: src/gnubiff_options.cc:121
+msgid "no mail"
+msgstr ""
+
 #: src/gui.cc:175
 #, c-format
 msgid ""
@@ -232,11 +242,6 @@ msgid ""
 "Please make sure package has been installed correctly."
 msgstr ""
 
-#: src/gui.cc:211
-#, c-format
-msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
-msgstr ""
-
 #: src/gui.cc:318
 msgid "GUI_connect requires working gmodule"
 msgstr ""
@@ -246,15 +251,15 @@ msgstr ""
 msgid "Could not find signal handler '%s'."
 msgstr ""
 
-#: src/ui-applet.cc:136
+#: src/ui-applet.cc:134
 msgid " unknown"
 msgstr ""
 
-#: src/ui-applet.cc:138
+#: src/ui-applet.cc:136
 msgid " error"
 msgstr ""
 
-#: src/ui-applet.cc:143
+#: src/ui-applet.cc:141
 msgid " checking..."
 msgstr ""
 
@@ -266,36 +271,36 @@ msgstr ""
 msgid "No mail"
 msgstr ""
 
-#: src/ui-preferences.cc:140 src/ui-popup.cc:139
+#: src/ui-preferences.cc:151 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr ""
 
-#: src/ui-preferences.cc:154
+#: src/ui-preferences.cc:165
 msgid "Type"
 msgstr ""
 
-#: src/ui-preferences.cc:173
+#: src/ui-preferences.cc:184
 msgid "Status"
 msgstr ""
 
-#: src/ui-preferences.cc:188
+#: src/ui-preferences.cc:199
 msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
+#: src/ui-preferences.cc:211 src/ui-preferences.cc:560
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:490
+#: src/ui-preferences.cc:494
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:500 ui/preferences.glade.h:62
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
+#: src/ui-preferences.cc:511 src/ui-preferences.cc:518
 msgid "Browse for a new mail image"
 msgstr ""
 
@@ -504,163 +509,171 @@ msgid "Developers"
 msgstr ""
 
 #: ui/preferences.glade.h:23
-msgid "Image filename"
+msgid "Expert"
 msgstr ""
 
 #: ui/preferences.glade.h:24
-msgid "Mailboxes"
+msgid "Image filename"
 msgstr ""
 
 #: ui/preferences.glade.h:25
-msgid "Maintainers"
+msgid "Mailboxes"
 msgstr ""
 
 #: ui/preferences.glade.h:26
+msgid "Maintainers"
+msgstr ""
+
+#: ui/preferences.glade.h:27
 msgid "Maximum number of headers to display"
 msgstr ""
 
-#: ui/preferences.glade.h:27 ui/popup.glade.h:4
+#: ui/preferences.glade.h:28 ui/popup.glade.h:4
 msgid "Popup"
 msgstr ""
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:29
 msgid "Popup geometry"
 msgstr ""
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:30
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:31
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:32
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:33
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:34
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:36
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:37
 msgid "The command to run when new mail arrives"
 msgstr ""
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:38
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:39
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:40
 msgid "Time to display popup window"
 msgstr ""
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:41
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:42
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:43
 msgid "Use _geometry:"
 msgstr ""
 
-#: ui/preferences.glade.h:43
-msgid "When _double-clicked:"
-msgstr ""
-
 #: ui/preferences.glade.h:44
-msgid "When _new mail:"
+msgid "Value: "
 msgstr ""
 
 #: ui/preferences.glade.h:45
-msgid "Whether to display a text"
+msgid "When _double-clicked:"
 msgstr ""
 
 #: ui/preferences.glade.h:46
-msgid "Whether to display an image"
+msgid "When _new mail:"
 msgstr ""
 
 #: ui/preferences.glade.h:47
-msgid "Whether to display the popup window"
+msgid "Whether to display a text"
 msgstr ""
 
 #: ui/preferences.glade.h:48
-msgid "Whether to restrict number of displayed headers"
+msgid "Whether to display an image"
 msgstr ""
 
 #: ui/preferences.glade.h:49
-msgid "Whether to show an image"
+msgid "Whether to display the popup window"
 msgstr ""
 
 #: ui/preferences.glade.h:50
-msgid "Whether to use format for header"
+msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
 #: ui/preferences.glade.h:51
-msgid "Whether to use geometry"
+msgid "Whether to show an image"
 msgstr ""
 
 #: ui/preferences.glade.h:52
-msgid "Whether to use window manager decoration"
+msgid "Whether to use format for header"
 msgstr ""
 
 #: ui/preferences.glade.h:53
-msgid "[sender max size]:[subject max size]:[date max size]"
+msgid "Whether to use geometry"
 msgstr ""
 
-#: ui/preferences.glade.h:54 ui/properties.glade.h:21
-msgid "_Browse..."
+#: ui/preferences.glade.h:54
+msgid "Whether to use window manager decoration"
 msgstr ""
 
 #: ui/preferences.glade.h:55
-msgid "_Display for"
+msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:56
-msgid "_Font:"
+#: ui/preferences.glade.h:56 ui/properties.glade.h:21
+msgid "_Browse..."
 msgstr ""
 
 #: ui/preferences.glade.h:57
-msgid "_Format:"
+msgid "_Display for"
 msgstr ""
 
 #: ui/preferences.glade.h:58
-msgid "_Restrict collected mail to"
+msgid "_Font:"
 msgstr ""
 
 #: ui/preferences.glade.h:59
-msgid "_Restrict number to"
+msgid "_Format:"
+msgstr ""
+
+#: ui/preferences.glade.h:60
+msgid "_Restrict collected mail to"
 msgstr ""
 
 #: ui/preferences.glade.h:61
-msgid "gnubiff preferences"
-msgstr ""
-
-#: ui/preferences.glade.h:62
-msgid "header(s)"
+msgid "_Restrict number to"
 msgstr ""
 
 #: ui/preferences.glade.h:63
-msgid "mail(s)"
+msgid "gnubiff preferences"
 msgstr ""
 
 #: ui/preferences.glade.h:64
+msgid "header(s)"
+msgstr ""
+
+#: ui/preferences.glade.h:65
+msgid "mail(s)"
+msgstr ""
+
+#: ui/preferences.glade.h:66
 msgid "second(s)"
 msgstr ""
 

@@ -336,18 +336,13 @@ Properties::on_apply (GtkWidget *widget)
 	if (!mailbox_)
 		return;
 
-	mailbox_->name (gtk_entry_get_text (GTK_ENTRY (get("name_entry"))));
-	// FIXME: need to parse address
-	//	mailbox_->address (gtk_entry_get_text (GTK_ENTRY (get("address_entry"))));
-	mailbox_->username (gtk_entry_get_text (GTK_ENTRY (get("username_entry"))));
-	mailbox_->password (gtk_entry_get_text (GTK_ENTRY (get("password_entry"))));
-	mailbox_->certificate (gtk_entry_get_text (GTK_ENTRY (get("certificate_entry"))));
-	mailbox_->other_port ((guint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("port_spin"))));
-	mailbox_->other_folder (gtk_entry_get_text (GTK_ENTRY (get("mailbox_entry"))));
+	// Save old address for comparing
+	std::string oldaddress = mailbox_->address ();
+
+	// Retrieve all values of the options from the GUI elements
+	mailbox_->gui_get (OPTGRP_MAILBOX, xml_, filename_);
+
 	mailbox_->authentication (selected_auth_);
-	gint minutes = (gint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("minutes_spin")));
-	gint seconds = (gint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("seconds_spin")));
-	mailbox_->delay (minutes*60+seconds);
 
 
 	// Here we need to update or transform mailbox according to several criterion:
@@ -358,7 +353,6 @@ Properties::on_apply (GtkWidget *widget)
 	// First case: type has been set to autodetect, we simply put procotol
 	//             to PROTOCOL_NONE and lookup will be done automatically.
 	if (selected_type_ == TYPE_AUTODETECT) {
-		mailbox_->address (gtk_entry_get_text (GTK_ENTRY (get("address_entry"))));
 		mailbox_->protocol (PROTOCOL_NONE);
 		Mailbox *mailbox = new Mailbox (*mailbox_);
 		preferences_->biff()->replace (mailbox_, mailbox);
@@ -366,20 +360,18 @@ Properties::on_apply (GtkWidget *widget)
 
 	// Second case: type has been set to local
 	if (selected_type_ == TYPE_LOCAL) {
-		std::string newaddress=gtk_entry_get_text (GTK_ENTRY (get("address_entry")));
 		Mailbox *mailbox=NULL;
 
 		if (((mailbox_->protocol() != PROTOCOL_FILE) &&
 			 (mailbox_->protocol() != PROTOCOL_MH) &&
 			 (mailbox_->protocol() != PROTOCOL_MAILDIR))
-			|| (mailbox_->address() == newaddress))
+			|| (mailbox_->address() == oldaddress))
 		{
 			// Something changed. Try to determine type now. This allows
 			// setting the right mailbox now, so the properties dialog will
 			// show the correct mailbox type if the user opens this dialog
 			// before closing the preferences dialog
 			mailbox_->protocol (PROTOCOL_NONE);
-			mailbox_->address(newaddress);
 			// If possible create a correct mailbox, otherwise a generic one
 			// (to force lookup)
 			if (!(mailbox=Mailbox::lookup_local(*mailbox_)))
@@ -390,29 +382,15 @@ Properties::on_apply (GtkWidget *widget)
 
 	// Third case: type is set to imap
 	else if (selected_type_ == TYPE_IMAP) {
-		mailbox_->address (gtk_entry_get_text (GTK_ENTRY (get("address_entry"))));
-
-		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("standard_port_radio")))) {
-			mailbox_->use_other_port (false);
+		if (!mailbox_->use_other_port()) {
 			if ((selected_auth_ == AUTH_SSL) || (selected_auth_ == AUTH_CERTIFICATE))
 				mailbox_->port (993);
 			else
 				mailbox_->port (143);
 		}
-		else {
-			mailbox_->use_other_port (true);
+		else
 			mailbox_->port (mailbox_->other_port());
-		}
 
-		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("standard_mailbox_radio")))) {
-			mailbox_->use_other_folder (false);
-			mailbox_->folder ("INBOX");
-		}
-		else {
-			mailbox_->use_other_folder (true);
-			mailbox_->folder (mailbox_->other_folder());
-		}
-		
 		// Protocol was not imap4 or mailbox was unknown, we change mailbox
 		if ((mailbox_->protocol() != PROTOCOL_IMAP4) || (mailbox_->status() == MAILBOX_UNKNOWN)) {
 			Mailbox *mailbox = new Imap4 (*mailbox_);
@@ -423,18 +401,14 @@ Properties::on_apply (GtkWidget *widget)
 
 	// Fourth case: type is set to pop
 	else if (selected_type_ == TYPE_POP) {
-		mailbox_->address (gtk_entry_get_text (GTK_ENTRY (get("address_entry"))));
-		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("standard_port_radio")))) {
-			mailbox_->use_other_port (false);
+		if (!mailbox_->use_other_port()) {
 			if ((selected_auth_ == AUTH_SSL) || (selected_auth_ == AUTH_CERTIFICATE))
 				mailbox_->port (995);
 			else
 				mailbox_->port (110);
 		}
-		else {
-			mailbox_->use_other_port (true);
+		else
 			mailbox_->port (mailbox_->other_port());
-		}
 
 		if (((mailbox_->protocol() != PROTOCOL_APOP)|| (mailbox_->status() == MAILBOX_UNKNOWN)) && (selected_auth_ == AUTH_APOP)) {
 			Mailbox *mailbox = new Apop (*mailbox_);
@@ -445,9 +419,6 @@ Properties::on_apply (GtkWidget *widget)
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
 	}
-
-
-	mailbox_->address (gtk_entry_get_text (GTK_ENTRY (get("address_entry"))));
 
 	preferences_->synchronize();	
 }
@@ -493,39 +464,12 @@ Properties::update_view (void)
 	if (!mailbox_)
 		return;
 
-	gtk_entry_set_text (GTK_ENTRY (get("name_entry")), mailbox_->name().c_str());
-	gtk_entry_set_text (GTK_ENTRY (get("address_entry")), mailbox_->address().c_str());
-	gtk_entry_set_text (GTK_ENTRY (get("username_entry")), mailbox_->username().c_str());
-	gtk_entry_set_text (GTK_ENTRY (get("password_entry")), mailbox_->password().c_str());
-	gtk_entry_set_text (GTK_ENTRY (get("certificate_entry")), mailbox_->certificate().c_str());
+	// Insert the values of the options into the GUI elements
+	mailbox_->gui_set (OPTGRP_MAILBOX , xml_, filename_);
 
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("port_spin")), mailbox_->other_port());
-	if (mailbox_->use_other_port()) {
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("standard_port_radio")), false);
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("other_port_radio")), true);
-		gtk_widget_set_sensitive (get("port_spin"), true);
-	}
-	else {
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("standard_port_radio")), true);
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("other_port_radio")), false);
-		gtk_widget_set_sensitive (get("port_spin"), false);
-	}
-
-	gtk_entry_set_text (GTK_ENTRY (get("mailbox_entry")), mailbox_->other_folder().c_str());
-	if (mailbox_->use_other_folder()) {
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("standard_mailbox_radio")), false);
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("other_mailbox_radio")), true);
-		gtk_widget_set_sensitive (get("mailbox_entry"), true);
-	}
-	else {
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("standard_mailbox_radio")), true);
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("other_mailbox_radio")), false);
-		gtk_widget_set_sensitive (get("mailbox_entry"), false);
-	}
-
-	gint delay = mailbox_->delay ();
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("seconds_spin")), delay%60);
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("minutes_spin")), delay/60);
+	// Disable and enable certain GUI elements depending on values of some
+	// options
+	mailbox_->gui_show (OPTGRP_MAILBOX, xml_, filename_);
 
 	type_view ();
 }

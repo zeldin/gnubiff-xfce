@@ -57,31 +57,12 @@ Mailbox::Mailbox (Biff *biff)
 	listed_ = false;
 	stopped_ = false;
 
-	// Default parameters
-	uin_ = uin_count_++;
-	protocol_ = PROTOCOL_NONE;
-	gchar *text = g_strdup_printf (_("mailbox %d"), uin_);
-	name_ = text;
-	g_free (text);
-	if (g_getenv ("MAIL"))
-		address_ = g_getenv ("MAIL");
-	else if (g_getenv ("HOSTNAME"))
-		address_ = g_getenv ("HOSTNAME");
-	if (g_get_user_name ())
-		username_ = g_get_user_name ();
-	password_ = "";
-	authentication_ = AUTH_AUTODETECT;
-	port_ = 0;
-	folder_ = "INBOX";
-	certificate_ = "";
-	delay_ = 180;
-	use_idle_ = true;
-	use_other_folder_ = false;
-	other_folder_ = "";
-	use_other_port_ = false;
-	other_port_ = 995;
+	// Add options
+	add_options (OPTGRP_MAILBOX);
 
-	status_ = MAILBOX_UNKNOWN;
+	// Set session specific options
+	value ("uin", uin_count_++);
+
 	timetag_ = 0;
 	mutex_ = g_mutex_new();
 	monitor_mutex_ = g_mutex_new();
@@ -90,24 +71,9 @@ Mailbox::Mailbox (Biff *biff)
 Mailbox::Mailbox (const Mailbox &other)
 {
 	biff_			  = other.biff_;
-	uin_			  = other.uin_;
-	name_			  = other.name_;
-	protocol_		  = other.protocol_;
-	authentication_   = other.authentication_;
-	address_		  = other.address_;
-	username_		  = other.username_;
-	password_		  = other.password_;
-	port_			  = other.port_;
-	folder_			  = other.folder_;
-	certificate_	  = other.certificate_;
-	delay_			  = other.delay_;
-	use_idle_         = other.use_idle_;
-	use_other_folder_ = other.use_other_folder_;
-	other_folder_	  = other.other_folder_;
-	use_other_port_	  = other.use_other_port_;
-	other_port_		  = other.other_port_;
+	add_option (other);
 
-	status_ = MAILBOX_UNKNOWN;
+	status (MAILBOX_UNKNOWN);
 	timetag_= 0;
 	mutex_ = g_mutex_new();
 	monitor_mutex_ = g_mutex_new();
@@ -119,21 +85,9 @@ Mailbox::operator= (const Mailbox &other)
 	if (this == &other)
 		return *this;
 	biff_			  = other.biff_;
-	name_			  = other.name_;
-	protocol_		  = other.protocol_;
-	authentication_   = other.authentication_;
-	address_		  = other.address_;
-	username_		  = other.username_;
-	password_		  = other.password_;
-	port_			  = other.port_;
-	folder_			  = other.folder_;
-	certificate_	  = other.certificate_;
-	delay_			  = other.delay_;
-	use_idle_         = other.use_idle_;
-	use_other_folder_ = other.use_other_folder_;
-	other_folder_	  = other.other_folder_;
-	use_other_port_	  = other.use_other_port_;
-	other_port_		  = other.other_port_;
+	guint saved_uin = value_uint ("uin");
+	add_option (other);
+	value ("uin", saved_uin);
 	return *this;
 }
 
@@ -167,7 +121,7 @@ Mailbox::threaded_start (guint delay)
 		start_delayed_entry_point (this);
 
 #if DEBUG
-	g_message ("[%d] Start fetch in %d second(s)", uin_, delay);
+	g_message ("[%d] Start fetch in %d second(s)", uin(), delay);
 #endif
 }
 
@@ -228,6 +182,80 @@ Mailbox::read (gboolean value)
 	g_mutex_unlock (mutex_);
 }
 
+/**
+ *  This function is called when an option is changed that has the
+ *  OPTFLG_CHANGE flag set.
+ *
+ *  @param option Pointer to the option that is changed.
+ */
+void 
+Mailbox::option_changed (Option *option)
+{
+	if (!option)
+		return;
+
+	// DELAY
+	if (option->name() == "delay") {
+		value ("delay_minutes", ((Option_UInt *)option)->value()/60, false);
+		value ("delay_seconds", ((Option_UInt *)option)->value()%60, false);
+		return;
+	}
+
+	// DELAY_MINUTES, DELAY_SECONDS
+	if ((option->name() == "delay_minutes")
+		|| (option->name() == "delay_seconds")) {
+		guint dly = value_uint("delay_minutes")*60+value_uint("delay_seconds");
+		value ("delay", dly, false);
+		return;
+	}
+
+	// OTHER_FOLDER, USE_OTHER_FOLDER
+	if ((option->name() == "other_folder")
+		|| (option->name() == "use_other_folder")) {
+		if (!value_bool ("use_other_folder"))
+			value ("folder", "INBOX");
+		else
+			value ("folder", value_string ("other_folder"));
+		return;
+	}
+
+	// SEEN
+	if (option->name() == "seen") {
+		((Option_String *)option)->get_values (hidden_);
+		return;
+	}
+
+	// UIN
+	if (option->name() == "uin") {
+		if (value_string("name").size() == 0) {
+			gchar *text = g_strdup_printf (_("mailbox %d"),
+										   ((Option_UInt *)option)->value());
+			value ("name", text);
+			g_free (text);
+		}
+		return;
+	}
+}
+
+/**
+ *  This function is called when an option is to be read that needs updating
+ *  before. These options have to be marked by the OPTFLG_UPDATE flag.
+ *
+ *  @param option Pointer to the option that is to be updated.
+ */
+void 
+Mailbox::option_update (Option *option)
+{
+	if (!option)
+		return;
+
+	// SEEN
+	if (option->name() == "seen") {
+		((Option_String *)option)->set_values (hidden_);
+		return;
+	}
+}
+
 
 // ================================================================================
 //  lookup function to try to guess mailbox status
@@ -265,13 +293,14 @@ Mailbox::lookup (void)
 		return;
 
 #ifdef DEBUG
-	g_message ("[%d] Mailbox \"%s\" type is unknown, looking up...",  uin_, name_.c_str());
+	g_message ("[%d] Mailbox \"%s\" type is unknown, looking up...", uin(),
+			   name().c_str());
 #endif
 
 	Mailbox *mailbox = 0;
 
 	// Local mailbox
-	if (g_path_is_absolute(address_.c_str()))
+	if (g_path_is_absolute (address().c_str()))
 		mailbox=lookup_local(*this);
 	// Distant mailbox
 	else {
@@ -289,31 +318,34 @@ Mailbox::lookup (void)
 		//  4: 110, no ssl
 		//  5: 143, no ssl
 		// Any null port means do not try
-		//                  0      1       2     3     4      5
-		guint    port[6] = {port_, port_,  995,  993,  110,   143};
-		gboolean ssl [6] = {true,  false,  true, true, false, false};
+		//                  0      1       2      3     4      5
+		guint    prt [6] = {port(), port(),   995,  993,   110,   143};
+		gboolean ssl [6] = {true  ,  false,  true, true, false, false};
 
 		// Port is given and authentication uses ssl so we do not try other methods
-		if ((use_other_port_) && ((authentication_ == AUTH_SSL) || (authentication_ == AUTH_CERTIFICATE)))
+		if ((use_other_port()) && ((authentication() == AUTH_SSL)
+								   || (authentication() == AUTH_CERTIFICATE)))
 			for (guint i=1; i<6; i++)
-				port[i] = 0;
+				prt[i] = 0;
 		// Port is given but authentication method is unknown, we only try given port with and without ssl
-		else if ((use_other_port_) && ((authentication_ != AUTH_AUTODETECT)))
+		else if ((use_other_port()) && ((authentication() != AUTH_AUTODETECT)))
 			for (guint i=2; i<6; i++)
-				port[i] = 0;
-		// Standard port is required, we do not use port_
-		else if (!use_other_port_) {
-			port[0] = 0;
-			port[1] = 0;
+				prt[i] = 0;
+		// Standard port is required, we do not use port()
+		else if (!use_other_port()) {
+			prt[0] = 0;
+			prt[1] = 0;
 			// SSL is required, we do not try port 110 & 143
-			if ((authentication_ == AUTH_SSL) || (authentication_ == AUTH_CERTIFICATE)) {
-				port[4] = 0;
-				port[5] = 0;
+			if ((authentication() == AUTH_SSL)
+				|| (authentication() == AUTH_CERTIFICATE)) {
+				prt[4] = 0;
+				prt[5] = 0;
 			}
 			// SSL is forbidden, we do not try port 995 & 993
-			else if ((authentication_ == AUTH_USER_PASS) || (authentication_ == AUTH_APOP)) {
-				port[2] = 0;
-				port[3] = 0;
+			else if ((authentication() == AUTH_USER_PASS)
+					 || (authentication() == AUTH_APOP)) {
+				prt[2] = 0;
+				prt[3] = 0;
 			}
 		}
 
@@ -326,9 +358,11 @@ Mailbox::lookup (void)
 
 			
 
-			if (port[i] && s.open (address_, port[i], (ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS, "", 5)) {
+			if (prt[i] && s.open (address(), prt[i],
+								   (ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS, "", 5)) {
 #ifdef DEBUG
-	            g_message ("[%d] Mailbox \"%s\", port %d opened",  uin_, name_.c_str(), port[i]);
+				g_message ("[%d] Mailbox \"%s\", port %d opened",  uin(),
+						   name().c_str(), prt[i]);
 #endif
 				// Get server greetings
 				s.read (line, true);
@@ -339,17 +373,17 @@ Mailbox::lookup (void)
 #ifdef HAVE_CRYPTO
 					if (line.find ("<") != std::string::npos) {
 						mailbox = new Apop (*this);
-						mailbox->port (port[i]);
+						mailbox->port (prt[i]);
 						mailbox->authentication ((ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS);
-						if ((authentication_ == AUTH_AUTODETECT) && !ssl[i])
-							authentication_ = AUTH_APOP;
+						if ((authentication() == AUTH_AUTODETECT) && !ssl[i])
+							authentication (AUTH_APOP);
 						break;
 					}
 					else
 #endif
 					{
 					    mailbox = new Pop3 (*this);
-						mailbox->port (port[i]);
+						mailbox->port (prt[i]);
 						mailbox->authentication ((ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS);
 						break;
 					}
@@ -359,33 +393,25 @@ Mailbox::lookup (void)
 					s.write ("A001 LOGOUT\r\n");
 					s.close ();
 					mailbox = new Imap4 (*this);
-					mailbox->port (port[i]);
+					mailbox->port (prt[i]);
 					mailbox->authentication ((ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS);
 					break;
 				}
 			}
 		}
-		port_ = port[i];
-		if (authentication_ == AUTH_AUTODETECT) {
+		port (prt[i]);
+		if (authentication() == AUTH_AUTODETECT) {
 			if (ssl[i])
-				authentication_ = AUTH_SSL;
+				authentication (AUTH_SSL);
 			else 
-				authentication_ = AUTH_USER_PASS;
+				authentication (AUTH_USER_PASS);
 		}
 	}
 
 #ifdef DEBUG
 	if (mailbox) {
-		std::string type;
-		switch (mailbox->protocol()) {
-		case PROTOCOL_FILE:		type = "file";		break;
-		case PROTOCOL_MH:		type = "mh";		break;
-		case PROTOCOL_MAILDIR:	type = "maildir";	break;
-		case PROTOCOL_POP3:		type = "pop3";		break;
-		case PROTOCOL_APOP:		type = "apop";		break;
-		case PROTOCOL_IMAP4:	type = "imap4";		break;
-		}
-		g_message ("[%d] Ok, mailbox \"%s\" type is %s, monitoring starting in 3 seconds", uin_, name_.c_str(), type.c_str());
+		std::string type = value_to_string ("protocol", mailbox->protocol());
+		g_message ("[%d] Ok, mailbox \"%s\" type is %s, monitoring starting in 3 seconds", uin(), name().c_str(), type.c_str());
 	}
 #endif
 
@@ -399,7 +425,7 @@ Mailbox::lookup (void)
 	g_mutex_unlock (monitor_mutex_);
 
 #ifdef DEBUG
-	g_message ("[%d] mailbox \"%s\" type is still unknown, retrying in 3 seconds", uin_, name_.c_str());
+	g_message ("[%d] mailbox \"%s\" type is still unknown, retrying in 3 seconds", uin(), name().c_str());
 #endif
 
 	threaded_start (3);
@@ -560,7 +586,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 			}
 			new_seen_.insert (h.mailid());
 #ifdef DEBUG
-			g_message ("[%d] Parsed mail with id \"%s\"", uin_,
+			g_message ("[%d] Parsed mail with id \"%s\"", uin(),
 					   h.mailid().c_str ());
 #endif
 		}
@@ -574,8 +600,8 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 void 
 Mailbox::mail_displayed (void)
 {
-	if (status_ == MAILBOX_NEW)
-		status_ = MAILBOX_OLD;
+	if (status() == MAILBOX_NEW)
+		status (MAILBOX_OLD);
 }
 
 /**
@@ -586,18 +612,18 @@ void
 Mailbox::update_mailbox_status (void)
 {
 	// Determine new mailbox status
-	if (status_ != MAILBOX_CHECK)
+	if (status() != MAILBOX_CHECK)
 		return;
 	if (new_unread_.size() == 0)
-		status_ = MAILBOX_EMPTY;
+		status (MAILBOX_EMPTY);
 	else if (unread_.size() < new_unread_.size())
-		status_ = MAILBOX_NEW;
+		status (MAILBOX_NEW);
 	else if (!std::includes (unread_.begin(), unread_.end(),
 							 new_unread_.begin(), new_unread_.end(),
 							 less_pair_first()))		 
-		status_ = (unread_ == new_unread_) ? MAILBOX_OLD : MAILBOX_NEW;
+		status ((unread_ == new_unread_) ? MAILBOX_OLD : MAILBOX_NEW);
 	else
-		status_ = MAILBOX_OLD;
+		status (MAILBOX_OLD);
 
 	// Remove mails from hidden that are no longer needed
 	std::set<std::string> new_hidden;
@@ -626,7 +652,7 @@ void
 Mailbox::start_checking (void)
 {
 	// Set mailbox status
-	status_ = MAILBOX_CHECK;
+	status (MAILBOX_CHECK);
 
 	// Fetch mails and update status
 	fetch ();
@@ -650,7 +676,7 @@ Mailbox::new_mail(std::string &mailid)
 	// Mail shall not be displayed? -> no need to fetch and parse it
 	if (hidden_.find (mailid) != hidden_.end ()) {
 #ifdef DEBUG
-		g_message ("[%d] Ignore mail with id \"%s\"", uin_, mailid.c_str ());
+		g_message ("[%d] Ignore mail with id \"%s\"", uin(), mailid.c_str ());
 #endif
 		return true;
 	}
@@ -665,61 +691,9 @@ Mailbox::new_mail(std::string &mailid)
 	new_mails_to_be_displayed_.push_back (mailid);
 
 #ifdef DEBUG
-	g_message ("[%d] Already read mail with id \"%s\"", uin_, mailid.c_str ());
+	g_message ("[%d] Already read mail with id \"%s\"", uin(), mailid.c_str());
 #endif
 	return true;
-}
-
-/**
- *  Load the values for the mailbox from the config file.
- */
-void 
-Mailbox::load_data (void)
-{
-	g_mutex_lock (mutex_);
-	biff_->load_para ("protocol", protocol_);
-	biff_->load_para ("authentication", (guint &)authentication_);
-	biff_->load_para ("name", name_);
-	biff_->load_para ("address", address_);
-	biff_->load_para ("username", username_);
-	biff_->load_para ("password", password_);
-	biff_->load_para ("port", port_);
-	biff_->load_para ("folder", folder_);
-	biff_->load_para ("certificate", certificate_);
-	biff_->load_para ("delay", delay_);
-	biff_->load_para ("use_idle", use_idle_);
-	biff_->load_para ("use_other_folder", use_other_folder_);
-	biff_->load_para ("other_folder", other_folder_);
-	biff_->load_para ("use_other_port", use_other_port_);
-	biff_->load_para ("other_port", other_port_);
-	biff_->load_para ("seen", hidden_);
-
-	password_ = decrypt_password (password_, biff_->passtable_);
-	g_mutex_unlock (mutex_);
-}
-
-/**
- *  Save the values for the mailbox to the config file.
- */
-void 
-Mailbox::save_data (void)
-{
-	biff_->save_para ("protocol", protocol_);
-	biff_->save_para ("authentication", (guint)authentication_);
-	biff_->save_para ("name", name_);
-	biff_->save_para ("address", address_);
-	biff_->save_para ("username", username_);
-	biff_->save_para ("password", encrypt_password (password_, biff_->passtable_));
-	biff_->save_para ("port", port_);
-	biff_->save_para ("folder", folder_);
-	biff_->save_para ("certificate", certificate_);
-	biff_->save_para ("delay", delay_);
-	biff_->save_para ("use_idle", use_idle_);
-	biff_->save_para ("use_other_folder", use_other_folder_);
-	biff_->save_para ("other_folder", other_folder_);
-	biff_->save_para ("use_other_port", use_other_port_);
-	biff_->save_para ("other_port", other_port_);
-	biff_->save_para ("seen", hidden_);
 }
 
 /**

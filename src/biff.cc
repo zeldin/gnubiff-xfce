@@ -31,6 +31,7 @@
 
 #include "support.h"
 
+#include <algorithm>
 #include <fcntl.h>
 #include <fstream>
 #include <sstream>
@@ -88,8 +89,7 @@ extern "C" {
 // ================================================================================
 //  base
 // ================================================================================
-Biff::Biff (gint ui_mode,
-			std::string filename)
+Biff::Biff (guint ui_mode, std::string filename)
 {
 	// Get password table from configure option
 #ifdef USE_PASSWORD
@@ -104,76 +104,32 @@ Biff::Biff (gint ui_mode,
 	passtable_ = buffer;
 #endif
 
-	ui_mode_ 	= ui_mode;
-	check_mode_	= AUTOMATIC_CHECK;
+	mutex_ = g_mutex_new ();
 
-	// General
-	use_max_mail_ = true;
-	max_mail_ = 100;
-	use_newmail_command_ = true;
-	newmail_command_ = "play "GNUBIFF_DATADIR"/coin.wav";
-	use_double_command_ = true;
-	double_command_ = "xemacs";
+	// Add options
+	add_options (OPTGRP_ALL & (~OPTGRP_MAILBOX));
 
-	// Applet
-	applet_use_geometry_	= true;
-	applet_geometry_		= "+0+0";
-	applet_use_decoration_	= false;
-	applet_be_sticky_       = false;
-	applet_keep_above_      = false;
-	applet_pager_			= false;
-	applet_font_			= "sans 10";
-	use_newmail_text_		= true;
-	newmail_text_			= "%d";
-	use_newmail_image_		= true;
-	newmail_image_			= GNUBIFF_DATADIR"/tux-awake.png";
-	use_nomail_text_		= true;
-	nomail_text_			= _("no mail");
-	use_nomail_image_		= true;
-	nomail_image_			= GNUBIFF_DATADIR"/tux-sleep.png";
+	// Set session specific options
+	if (filename.size() > 0)
+		value ("config_file", filename);
+	value ("ui_mode", ui_mode);
 
-	// Popup
-	use_popup_				= true;	
-	popup_delay_			= 5;
-	popup_use_geometry_		= true;
-	popup_be_sticky_        = false;
-	popup_keep_above_       = false;
-	popup_pager_			= false;
-	popup_geometry_			= "-0+0";
-	popup_font_				= "sans 10";
-	popup_use_decoration_	= false;
-	popup_use_size_			= true;
-	popup_size_				= 40;
-	popup_use_format_		= true;
-	popup_format ("50:50:50");
-
-	mutex_					= g_mutex_new ();
-
-	// Do we have a valid configuration file?
-	if (!filename.empty())
-		filename_ = filename;
-	else
-	{
-		gchar *filename=g_build_filename(g_get_home_dir (),".gnubiffrc", NULL);
-		filename_ = std::string (filename);
-		g_free(filename);
-	}
-
-	// Does this configuration file exist?
+	// Does the configuration file exist?
 	std::ifstream file;
-	file.open (filename_.c_str());
+	file.open (value_gchar ("config_file"));
 	if (file.is_open()) {
 		file.close();
 		load();
 	}
 	else {
-		g_warning (_("Configuration file (%s) not found !"), filename_.c_str());
+		g_warning (_("Configuration file (%s) not found !"),
+				   value_gchar ("config_file"));
 		mailbox_.push_back (new Mailbox (this));
 	}
 
 	// Applet
 #ifdef USE_GNOME
-	if (ui_mode_ == GNOME_MODE)
+	if (ui_mode == GNOME_MODE)
 		applet_ = new AppletGnome (this);
 	else
 		applet_ = new AppletGtk (this);
@@ -204,29 +160,6 @@ Biff::~Biff (void)
 // ================================================================================
 //  access
 // ================================================================================
-void
-Biff::popup_format (std::string format)
-{
-	std::string copy = format;
-
-	// Remove any non numeric character
-	for (guint i=0; i<copy.size(); i++) 
-		if (!g_ascii_isdigit(copy[i]))
-			copy[i] = ' ';
-
-	std::istringstream strin(copy);
-	strin >> sender_size_ >> subject_size_ >> date_size_;
-
-	// Hard limit on field size
-	if (sender_size_ > 255)
-		sender_size_ = 255;
-	if (subject_size_ > 255)
-		subject_size_ = 255;
-	if (date_size_ > 255)
-		date_size_ = 255;
-
-	popup_format_ = format;
-}
 
 /**
  *  Search in all mailboxes for the mail with id {\em mailid}.
@@ -375,6 +308,47 @@ Biff::password (Mailbox *m)
 	return !m->password().empty();
 }
 
+/**
+ *  This function is called when an option is changed that has the
+ *  OPTFLG_CHANGE flag set.
+ *
+ *  @param option Pointer to the option that is changed.
+ */
+void 
+Biff::option_changed (Option *option)
+{
+	if (!option)
+		return;
+
+	// POPUP_FORMAT
+	if (option->name() == "popup_format") {
+		std::vector<guint> vec;
+		((Option_String *)option)->get_vector (vec, ':');
+		if (vec.size() < 3)
+			return;
+		value ("popup_size_sender", std::min<guint> (vec[0], 255));
+		value ("popup_size_subject", std::min<guint> (vec[1], 255));
+		value ("popup_size_date", std::min<guint> (vec[2], 255));
+		return;
+	}
+
+	// UI_MODE
+	if (option->name() == "ui_mode") {
+		value ("gtk_mode", ((Option_UInt *)option)->value() == GTK_MODE);
+		return;
+	}
+}
+
+/**
+ *  This function is called when an option is to be read that needs updating
+ *  before. These options have to be marked by the OPTFLG_UPDATE flag.
+ *
+ *  @param option Pointer to the option that is to be updated.
+ */
+void 
+Biff::option_update (Option *option)
+{
+}
 
 // ================================================================================
 //  i/o
@@ -408,156 +382,37 @@ Biff::save_endblock(void)
 	g_free(esc);
 	save_blocks.pop_back();
 }
-  	 
-/**
- * Saves the string {\em value} for the option {\em name} to the
- * configuration file.
- *
- * @param  name  name of the option
- * @param  value string to be saved
- */
-void 
-Biff::save_para (const gchar *name, const std::string value)
-{
-	const gchar *fmt="%*s<parameter name=\"%s\"%*svalue=\"%s\"/>\n";
-	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2,"",name,
-									   28-strlen(name)-save_blocks.size()*2,
-									   "",value.c_str());
-	
-	save_file << esc;
-	g_free(esc);
-}
 
 /**
- * Saves the set {\em value} of strings for the option {\em name} to the
- * configuration file. The strings are concatenated and separated by spaces.
+ *  Save all the given parameters into the configuration file.
  *
- * @param  name  name of the option
- * @param  value Set of strings to be saved
+ *  @param map   Map of pairs (name, value) for the parameters to be saved.
+ *  @param block Name of the XML tag that encloses the block of parameters in
+ *               {\em map}. If it's the empty string (this is the default) no
+ *               block is generated.
  */
 void 
-Biff::save_para(const gchar *name, const std::set<std::string> &value)
+Biff::save_parameters (std::map<std::string,std::string> &map,
+					   std::string block)
 {
-	std::stringstream str;
-	for (std::set<std::string>::iterator j=value.begin(); j!=value.end(); j++)
-		str << *j << " ";
-	save_para(name, str.str());
-}
+	const gchar *fmt = "%*s<parameter name=\"%s\"%*svalue=\"%s\"/>\n", *name;
+	gchar *esc;
+	if (block.size () > 0)
+		save_newblock (block.c_str ());
 
-/**
- * Saves the boolean {\em value} for the option {\em name} to the
- * configuration file.
- *
- * @param  name  name of the option
- * @param  value boolean that will be saved
- */
-void 
-Biff::save_para (const gchar *name, gboolean value)
-{
-	value ? save_para (name, "true") : save_para (name, "false");
-}
-  	 
-/**
- * Saves the unsigned integer {\em value} for the option {\em name} to the
- * configuration file.
- *
- * @param  name  name of the option
- * @param  value unsigned integer that will be saved
- */
-void 
-Biff::save_para (const gchar *name, guint value)
-{
-	std::stringstream value_str;
-	value_str << value;
-	save_para (name, value_str.str());
-}
-
-/**
- * Loads the option {\em name} and saves its value in the boolean variable
- * {\em var}.
- *
- * @param name  name of the option
- * @param var   reference to the variable that gets the value
- */
-void 
-Biff::load_para(const gchar *name, gboolean &var)
-{
-	if (buffer_load_.find (std::string(name)) == buffer_load_.end()) {
-		g_warning(_("Parameter \"%s\" not present, using default value"),name);
-		return;
+	std::map<std::string,std::string>::iterator it = map.begin ();
+	while (it != map.end ()) {
+		name = it->first.c_str ();
+		esc = g_markup_printf_escaped(fmt, save_blocks.size()*2, "", name,
+									  28-strlen(name)-save_blocks.size()*2,
+									  "", it->second.c_str ());
+		save_file << esc;
+		g_free(esc);
+		it++;
 	}
-	std::string value = buffer_load_[std::string(name)];
 
-	if ((value == "1") || (value == "true"))
-		var = true;
-	else if ((value == "0") || (value == "false"))
-		var = false;
-	else
-		g_warning (_("Illegal value \"%s\" for parameter \"%s\", using default value"),
-				   buffer_load_[std::string(name)].c_str(), name);
-}
-
-/**
- * Loads the option {\em name} and saves its value in the unsigned integer
- * variable {\em var}.
- *
- * @param name  name of the option
- * @param var   reference to the variable that gets the value
- */
-void 
-Biff::load_para(const gchar *name, guint &var)
-{
-	guint temp;
-
-	if (buffer_load_.find (std::string(name)) == buffer_load_.end()) {
-		g_warning(_("Parameter \"%s\" not present, using default value"),name);
-		return;
-	}
-	std::istringstream strin(buffer_load_[std::string(name)]);
-	if (strin >> temp)
-		var = temp;
-	else
-		g_warning (_("Illegal value \"%s\" for parameter \"%s\", using default value"),
-				   buffer_load_[std::string(name)].c_str(), name);
-}
-
-/**
- * Loads the option {\em name} and saves its value in the string variable
- * {\em var}.
- *
- * @param name  name of the option
- * @param var   reference to the variable that gets the value
- */
-void 
-Biff::load_para(const gchar *name, std::string &var)
-{
-	if (buffer_load_.find (std::string(name)) == buffer_load_.end()) {
-		g_warning(_("Parameter \"%s\" not present, using default value"),name);
-		return;
-	}
-	var = buffer_load_[std::string(name)];
-}
-
-/**
- * Loads the option {\em name} and saves its value in the set of strings
- * variable {\em var}.
- *
- * @param name  name of the option
- * @param var   reference to the variable that gets the value
- */
-void 
-Biff::load_para(const gchar *name, std::set<std::string> &var)
-{
-	if (buffer_load_.find (std::string(name)) == buffer_load_.end()) {
-		g_warning(_("Parameter \"%s\" not present, using default value"),name);
-		return;
-	}
-	std::istringstream strin (buffer_load_[std::string(name)]);
-	std::string value;
-
-	var.clear ();
-	while (strin >> value)
-		var.insert (value);
+	if (block.size () > 0)
+		save_endblock ();
 }
 
 /**
@@ -578,70 +433,41 @@ Biff::save (void)
 	save_blocks.clear();
 	save_file.str(std::string(""));
 	save_file << "<?xml version=\"1.0\"?>" << std::endl;
-
 	save_newblock("configuration-file");
 
-	g_mutex_lock (mutex_);
+
 	// Mailboxes
-	for (unsigned int i=0; i< mailbox_.size(); i++)
-	{
-		save_newblock ("mailbox");
-		mailbox_[i]->save_data ();
-		save_endblock();
+	std::map<std::string,std::string> name_value;
+	g_mutex_lock (mutex_);
+	for (unsigned int i=0; i< mailbox_.size(); i++) {
+		// Encrypt password
+		mailbox_[i]->value ("password", Decoding::encrypt_password (mailbox_[i]->value_string ("password"), passtable_));
+		// Save options
+		mailbox_[i]->to_strings (OPTGRP_MAILBOX, name_value);
+		save_parameters (name_value, "mailbox");
+		// Decrypt password
+		mailbox_[i]->value ("password", Decoding::decrypt_password (mailbox_[i]->value_string ("password"), passtable_));
 	}
 	g_mutex_unlock (mutex_);
 
-	// General
-	save_newblock("general");
-	save_para("use_max_mail",use_max_mail_);
-	save_para("max_mail",max_mail_);
-	save_para("use_newmail_command",use_newmail_command_);
-	save_para("newmail_command",newmail_command_);
-	save_para("use_double_command",use_double_command_);
-	save_para("double_command",double_command_);
-	save_endblock();
-
-	// Applet
-	save_newblock("applet");
-	save_para("applet_use_geometry",applet_use_geometry_);
-	save_para("applet_geometry",applet_geometry_);
-	save_para("applet_be_sticky",applet_be_sticky_);
-	save_para("applet_keep_above",applet_keep_above_);
-	save_para("applet_pager",applet_pager_);
-	save_para("applet_use_decoration",applet_use_decoration_);
-	save_para("applet_font",applet_font_);
-	save_para("use_newmail_text",use_newmail_text_);
-	save_para("newmail_text",newmail_text_);
-	save_para("use_newmail_image",use_newmail_image_);
-	save_para("newmail_image",newmail_image_);
-	save_para("use_nomail_text",use_nomail_text_);
-	save_para("nomail_text",nomail_text_);
-	save_para("use_nomail_image",use_nomail_image_);
-	save_para("nomail_image",nomail_image_);
-	save_endblock();
-
-	// Popup
-	save_newblock("popup");
-	save_para("use_popup",use_popup_);
-	save_para("popup_delay",popup_delay_);
-	save_para("popup_use_geometry",popup_use_geometry_);
-	save_para("popup_geometry",popup_geometry_);
-	save_para("popup_use_decoration",popup_use_decoration_);
-	save_para("popup_be_sticky",popup_be_sticky_);
-	save_para("popup_keep_above",popup_keep_above_);
-	save_para("popup_pager",popup_pager_);
-	save_para("popup_font",popup_font_);
-	save_para("popup_use_size",popup_use_size_);
-	save_para("popup_size",popup_size_);
-	save_para("popup_use_format",popup_use_format_);
-	save_para("popup_format",popup_format_);
-	save_endblock();
+	// Save options common to all mailboxes (each group of options separate)
+	std::map<guint, Option_Group *>::iterator it = groups().begin();
+	while (it != groups().end()) {
+		std::string name = it->second->name ();
+		to_strings (it->first, name_value);
+		it++;
+		// Any options in this group to be saved?
+		if (name_value.empty())
+			continue;
+		save_parameters (name_value, name);
+	}
 
 	// End Header
 	save_endblock();
 
 	// Write Configuration to file
-	int fd=open(filename_.c_str(),O_WRONLY|O_CREAT|O_TRUNC,S_IRUSR|S_IWUSR);
+	int fd = open (value_gchar ("config_file"), O_WRONLY | O_CREAT | O_TRUNC,
+				   S_IRUSR | S_IWUSR);
 	if (fd==-1)
 	    return false;
 	if (write(fd,save_file.str().c_str(),save_file.str().size())==-1)
@@ -659,10 +485,11 @@ Biff::load (void)
 
 	std::ifstream file;
 	std::string line;
-	file.open (filename_.c_str());
+	file.open (value_gchar ("config_file"));
 	if (!file.is_open()) {
 		mailbox_.push_back (new Mailbox (this));
-		g_warning (_("Cannot open your configuration file (%s)"), filename_.c_str());
+		g_warning (_("Cannot open your configuration file (%s)"),
+				   value_gchar ("config_file"));
 		return false;
 	}
 
@@ -687,7 +514,7 @@ Biff::load (void)
 
 	// Check if we got at least one mailbox definition
 	if (mailbox_.size() == 0) {
-		g_warning (_("Found no mailbox definition in your configuration file (%s)"), filename_.c_str());
+		g_warning (_("Found no mailbox definition in your configuration file (%s)"), value_gchar ("config_file"));
 		mailbox_.push_back (new Mailbox (this));
 	}
 
@@ -724,11 +551,21 @@ Biff::xml_end_element (GMarkupParseContext *context,
 {
 	std::string element = element_name;
 
+	// XML elements to be ignored
+	if ((element == "parameter") || (element == "configuration-file"))
+		return;
+
 	// Mailbox
 	if (element == "mailbox") {
-		guint protocol;
+		guint protocol = PROTOCOL_NONE, pos = mailbox_.size();
 
-		load_para ("protocol", protocol);
+		// Need to get protocol first
+		if (buffer_load_.find ("protocol") == buffer_load_.end())
+			g_warning(_("No protocol specified for mailbox %d"), pos);
+		else
+			protocol = string_to_value ("protocol", buffer_load_["protocol"]);
+
+		// Create mailbox
 		switch (protocol) {
 		case PROTOCOL_FILE:
 			mailbox_.push_back (new File (this));
@@ -752,59 +589,15 @@ Biff::xml_end_element (GMarkupParseContext *context,
 			mailbox_.push_back (new Mailbox (this));
 			break;
 		}
-		mailbox_[mailbox_.size()-1]->load_data ();
-	}
 
-	// General
-	else if (element == "general") {
-		load_para ("use_max_mail", use_max_mail_);
-		load_para ("max_mail", max_mail_);
-		load_para ("use_newmail_command", use_newmail_command_);
-		load_para ("newmail_command", newmail_command_);
-		load_para ("use_double_command", use_double_command_);
-		load_para ("double_command", double_command_);
+		// Get options
+		mailbox_[pos]->from_strings (OPTGRP_MAILBOX, buffer_load_);
+		// Decrypt password
+		mailbox_[pos]->value ("password", Decoding::decrypt_password (mailbox_[pos]->value_string ("password"), passtable_));
 	}
-
-	// Applet
-	else if (element == "applet") {
-		load_para ("applet_use_geometry", applet_use_geometry_);
-		load_para ("applet_geometry", applet_geometry_);
-		load_para ("applet_be_sticky", applet_be_sticky_);
-		load_para ("applet_keep_above", applet_keep_above_);
-		load_para ("applet_pager", applet_pager_);
-		load_para ("applet_use_decoration", applet_use_decoration_);
-		load_para ("applet_font", applet_font_);
-		load_para ("use_newmail_text", use_newmail_text_);
-		load_para ("newmail_text", newmail_text_);
-		load_para ("use_newmail_image", use_newmail_image_);
-		load_para ("newmail_image", newmail_image_);
-		load_para ("use_nomail_text", use_nomail_text_);
-		load_para ("nomail_text", nomail_text_);
-		load_para ("use_nomail_image", use_nomail_image_);
-		load_para ("nomail_image", nomail_image_);
-
-		if (!g_file_test (newmail_image_.c_str(), G_FILE_TEST_EXISTS))
-			newmail_image_ = GNUBIFF_DATADIR"/tux-awake.png";
-		if (!g_file_test (nomail_image_.c_str(), G_FILE_TEST_EXISTS))
-			nomail_image_ = GNUBIFF_DATADIR"/tux-sleep.png";
-	}
-
-	// Popup
-	else if (element == "popup") {
-		load_para ("use_popup", use_popup_);
-		load_para ("popup_delay", popup_delay_);
-		load_para ("popup_use_geometry", popup_use_geometry_);
-		load_para ("popup_geometry", popup_geometry_);
-		load_para ("popup_use_decoration", popup_use_decoration_);
-		load_para ("popup_be_sticky", popup_be_sticky_);
-		load_para ("popup_keep_above", popup_keep_above_);
-		load_para ("popup_pager", popup_pager_);
-		load_para ("popup_font", popup_font_);
-		load_para ("popup_use_size", popup_use_size_);
-		load_para ("popup_size", popup_size_);
-		load_para ("popup_use_format", popup_use_format_);
-		load_para ("popup_format", popup_format_);
-	}
+	// Options common to all mailboxes
+	else
+		from_strings (OPTGRP_ALL & (~OPTGRP_MAILBOX), buffer_load_);
 }
 
 void 

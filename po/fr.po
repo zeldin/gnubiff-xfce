@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-20 00:04+0100\n"
+"POT-Creation-Date: 2005-01-31 15:56+0100\n"
 "PO-Revision-Date: 2005-01-19 09:30+0100\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -55,62 +55,51 @@ msgstr "Options de la ligne de commande"
 msgid "Options for debugging:"
 msgstr "Options de déboggage"
 
-#: src/biff.cc:131
-msgid "no mail"
-msgstr "Aucun courrier"
-
-#: src/biff.cc:170
+#: src/biff.cc:125
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Fichier de configuration non trouvé (%s)"
 
-#: src/biff.cc:486 src/biff.cc:511 src/biff.cc:531 src/biff.cc:546
-#, c-format
-msgid "Parameter \"%s\" not present, using default value"
-msgstr "Paramètre \"%s\" non présent, utilitsation de la valeur par défaut"
-
-#: src/biff.cc:494 src/biff.cc:516
-#, c-format
-msgid "Illegal value \"%s\" for parameter \"%s\", using default value"
-msgstr ""
-"Valeur illégale \"%s\" pour le paramètre \"%s\", utilisation de la valzur "
-"par défaut"
-
-#: src/biff.cc:657
+#: src/biff.cc:491
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: src/biff.cc:682
+#: src/biff.cc:517
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Votre fichier de configuration n'as pas de définition de boîte aux lettres (%"
 "s)"
 
-#: src/biff.cc:706
+#: src/biff.cc:541
 msgid "Illegal parameter format in config file"
 msgstr "Format de paramètre illégal dans le fichier de configuration"
 
-#: src/mailbox.cc:63
+#: src/biff.cc:564
 #, c-format
-msgid "mailbox %d"
-msgstr "Boîte aux lettres %d"
+msgid "No protocol specified for mailbox %d"
+msgstr ""
 
-#: src/mailbox.cc:180
+#: src/mailbox.cc:134
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossible de créer le thread: %s"
 
-#: src/mailbox.cc:482
+#: src/mailbox.cc:231
+#, c-format
+msgid "mailbox %d"
+msgstr "Boîte aux lettres %d"
+
+#: src/mailbox.cc:507
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: src/mailbox.cc:492
+#: src/mailbox.cc:517
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: src/mailbox.cc:502
+#: src/mailbox.cc:527
 msgid "<no date>"
 msgstr "<Pas de date>"
 
@@ -145,46 +134,46 @@ msgstr "[%d] Impossible de lire depuis %s sur le port %d"
 msgid "Could not set read timeout on socket: %s"
 msgstr "Impossible de régler le délai sur la socket: %s"
 
-#: src/imap4.cc:466
+#: src/imap4.cc:476
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
 #. Create error message
-#: src/imap4.cc:833
+#: src/imap4.cc:843
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:920
+#: src/imap4.cc:931
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 
-#: src/imap4.cc:979
+#: src/imap4.cc:990
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 "[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\" ni l'acquitement."
 
-#: src/imap4.cc:1032
+#: src/imap4.cc:1043
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\""
 
 #. see RFC 3501 7.1.5
-#: src/imap4.cc:1598
+#: src/imap4.cc:1609
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Le serveur a fermé immédiatement la connexion: %s"
 
 #. see RFC 3501 7.1.3
-#: src/imap4.cc:1603
+#: src/imap4.cc:1614
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Erreur interne sur le serveur ou alors erreur inconnue: %s"
 
 #. see RFC 3501 7.1.2
-#: src/imap4.cc:1608
+#: src/imap4.cc:1619
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Mise en garde du serveur: %s"
@@ -235,6 +224,27 @@ msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
 
+#: src/options.cc:261
+#, c-format
+msgid "Unknown option \"%s\""
+msgstr ""
+
+#: src/options.cc:268
+#, c-format
+msgid "Cannot set option \"%s\" to \"%s\""
+msgstr ""
+
+#: src/options.cc:366 src/gui.cc:211
+#, c-format
+msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
+msgstr ""
+"Impossible de trouver le widget spécifié (\"%s\") dans la structure xml (\"%s"
+"\")"
+
+#: src/gnubiff_options.cc:121
+msgid "no mail"
+msgstr "Aucun courrier"
+
 #: src/gui.cc:175
 #, c-format
 msgid ""
@@ -251,13 +261,6 @@ msgstr ""
 "Chemin: %s\n"
 "Assurez vous que gnubiff a été installé correctement"
 
-#: src/gui.cc:211
-#, c-format
-msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
-msgstr ""
-"Impossible de trouver le widget spécifié (\"%s\") dans la structure xml (\"%s"
-"\")"
-
 #: src/gui.cc:318
 msgid "GUI_connect requires working gmodule"
 msgstr "GUI_connect requiert la librairie gmodule"
@@ -267,15 +270,15 @@ msgstr "GUI_connect requiert la librairie gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Handler '%s' non trouvé."
 
-#: src/ui-applet.cc:136
+#: src/ui-applet.cc:134
 msgid " unknown"
 msgstr "inconnu"
 
-#: src/ui-applet.cc:138
+#: src/ui-applet.cc:136
 msgid " error"
 msgstr "erreur"
 
-#: src/ui-applet.cc:143
+#: src/ui-applet.cc:141
 msgid " checking..."
 msgstr " consultation..."
 
@@ -287,36 +290,36 @@ msgstr "Nouveau courrier"
 msgid "No mail"
 msgstr "Aucun courrier"
 
-#: src/ui-preferences.cc:140 src/ui-popup.cc:139
+#: src/ui-preferences.cc:151 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Boîte aux lettres"
 
-#: src/ui-preferences.cc:154
+#: src/ui-preferences.cc:165
 msgid "Type"
 msgstr "Type"
 
-#: src/ui-preferences.cc:173
+#: src/ui-preferences.cc:184
 msgid "Status"
 msgstr "Status"
 
-#: src/ui-preferences.cc:188
+#: src/ui-preferences.cc:199
 msgid "Security"
 msgstr "Sécurité"
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
+#: src/ui-preferences.cc:211 src/ui-preferences.cc:560
 msgid "No mailbox selected"
 msgstr "Pas de boîte aux lettres séléctionnée"
 
-#: src/ui-preferences.cc:490
+#: src/ui-preferences.cc:494
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:500 ui/preferences.glade.h:62
 msgid "_Stop"
 msgstr "_Stopper"
 
-#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
+#: src/ui-preferences.cc:511 src/ui-preferences.cc:518
 msgid "Browse for a new mail image"
 msgstr "Chercher le fichier image"
 
@@ -540,165 +543,173 @@ msgid "Developers"
 msgstr "Développeurs"
 
 #: ui/preferences.glade.h:23
+msgid "Expert"
+msgstr ""
+
+#: ui/preferences.glade.h:24
 msgid "Image filename"
 msgstr "Image"
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:25
 msgid "Mailboxes"
 msgstr "Boîtes aux lettres"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:26
 msgid "Maintainers"
 msgstr "Mainteneurs"
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:27
 msgid "Maximum number of headers to display"
 msgstr "Nombre maximum de courriers à afficher"
 
-#: ui/preferences.glade.h:27 ui/popup.glade.h:4
+#: ui/preferences.glade.h:28 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Popup"
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:29
 msgid "Popup geometry"
 msgstr "Géométrie du popup"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:30
 msgid "Show _image:"
 msgstr "Afficher l'_image"
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:31
 msgid "Show _text:"
 msgstr "Afficher le _texte"
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:32
 msgid "Show i_mage:"
 msgstr "Afficher l'i_mage"
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:33
 msgid "Show t_ext:"
 msgstr "Afficher le t_exte"
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:34
 msgid "Text to display"
 msgstr "Texte à afficher"
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:36
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr "Texte à afficher (%d est le nombre de courriers)"
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:37
 msgid "The command to run when new mail arrives"
 msgstr "Commande à exécuter lorsqu'il y des nouveaux courriers"
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:38
 msgid "The command to run when the icon is double-clicked"
 msgstr "Commande à exécuter pour un double-click"
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:39
 msgid "The font to use to display information"
 msgstr "Fonte à utiliser"
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:40
 msgid "Time to display popup window"
 msgstr "Durée d'affichage de la fenêtre popup"
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:41
 msgid "Translators"
 msgstr "Traducteurs"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:42
 msgid "Use _decoration"
 msgstr "Utiliser la _décoration"
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:43
 msgid "Use _geometry:"
 msgstr "Utiliser la _géométrie"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:44
+msgid "Value: "
+msgstr ""
+
+#: ui/preferences.glade.h:45
 msgid "When _double-clicked:"
 msgstr "En cas de _double-click"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:46
 msgid "When _new mail:"
 msgstr "_Nouveau courrier:"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:47
 msgid "Whether to display a text"
 msgstr "Afficher un texte ou non"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:48
 msgid "Whether to display an image"
 msgstr "Afficher une image ou non"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:49
 msgid "Whether to display the popup window"
 msgstr "Afficher la fenêtre des entêtes ou non"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:50
 msgid "Whether to restrict number of displayed headers"
 msgstr "Restreindre le nombre d'entêtes ou non"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:51
 msgid "Whether to show an image"
 msgstr "Afficher une image ou non"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:52
 msgid "Whether to use format for header"
 msgstr "Utiliser un format d'entêtes ou non"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:53
 msgid "Whether to use geometry"
 msgstr "Utiliser la géométrie ou non"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:54
 msgid "Whether to use window manager decoration"
 msgstr "Fenêtre des entêtes décorée ou non"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:55
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 "[taille max champs expéditeur]:[taille max champs sujet]:[taille max champs "
 "date]"
 
-#: ui/preferences.glade.h:54 ui/properties.glade.h:21
+#: ui/preferences.glade.h:56 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "_Chercher..."
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:57
 msgid "_Display for"
 msgstr "_Affichage"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:58
 msgid "_Font:"
 msgstr "_Fonte:"
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:59
 msgid "_Format:"
 msgstr "_Format:"
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:60
 msgid "_Restrict collected mail to"
 msgstr "_Restreindre le nombre de mail collectés à"
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:61
 msgid "_Restrict number to"
 msgstr "_Restreindre le nombre à"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:63
 msgid "gnubiff preferences"
 msgstr "gnubiff préferences"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:64
 msgid "header(s)"
 msgstr "entête(s)"
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:65
 msgid "mail(s)"
 msgstr "mèl(s)"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:66
 msgid "second(s)"
 msgstr "seconde(s)"
 
@@ -900,6 +911,14 @@ msgstr "<small><b>Sujet</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "contenu du mèl"
+
+#~ msgid "Parameter \"%s\" not present, using default value"
+#~ msgstr "Paramètre \"%s\" non présent, utilitsation de la valeur par défaut"
+
+#~ msgid "Illegal value \"%s\" for parameter \"%s\", using default value"
+#~ msgstr ""
+#~ "Valeur illégale \"%s\" pour le paramètre \"%s\", utilisation de la valzur "
+#~ "par défaut"
 
 #~ msgid "Whether the window shall appear in pagers"
 #~ msgstr "Afficher la fenêtre dans le pager ou non"

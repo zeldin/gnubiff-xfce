@@ -111,7 +111,7 @@ AppletGtk::create (void)
 	GUI::create();
 	GtkImageAnimation *anim = new GtkImageAnimation (GTK_IMAGE(get("image")));
 	g_object_set_data (G_OBJECT(get("image")), "_animation_", anim);
-	anim->open (biff_->nomail_image_.c_str());
+	anim->open (biff_->value_string ("nomail_image"));
 	anim->start();
 	update();
 	return true;
@@ -134,26 +134,26 @@ AppletGtk::update (gboolean no_popup)
 	GtkImageAnimation *anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("image")), "_animation_");
 	if (unread > 0) {
 		gtk_window_set_title (GTK_WINDOW(get("dialog")), _("New mail"));
-		anim->open (biff_->newmail_image_.c_str());
+		anim->open (biff_->value_string ("newmail_image"));
 		anim->start();
-		if (!biff_->use_newmail_image_)
+		if (!biff_->value_bool ("use_newmail_image"))
 			hide();
 		else
 			show ();
-		if (!biff_->use_newmail_text_)
+		if (!biff_->value_bool ("use_newmail_text"))
 			gtk_widget_hide (get("unread"));
 		else
 			gtk_widget_show (get("unread"));
 	}
 	else {
 		gtk_window_set_title (GTK_WINDOW(get("dialog")), _("No mail"));
-		anim->open (biff_->nomail_image_.c_str());
+		anim->open (biff_->value_string ("nomail_image"));
 		anim->start();
-		if (!biff_->use_nomail_image_)
+		if (!biff_->value_bool ("use_nomail_image"))
 			hide();
 		else
 			show ();
-		if (!biff_->use_nomail_text_)
+		if (!biff_->value_bool ("use_nomail_text"))
 			gtk_widget_hide (get("unread"));
 		else
 			gtk_widget_show (get("unread"));
@@ -174,8 +174,9 @@ AppletGtk::update (gboolean no_popup)
 
 	// Update window manager decorations
 	gboolean decorated = gtk_window_get_decorated (GTK_WINDOW(get("dialog")));
-	if (decorated != biff_->applet_use_decoration_)
-		gtk_window_set_decorated (GTK_WINDOW(get("dialog")), biff_->applet_use_decoration_);
+	if (decorated != biff_->value_bool ("applet_use_decoration"))
+		gtk_window_set_decorated (GTK_WINDOW(get("dialog")),
+								  biff_->value_bool ("applet_use_decoration"));
 	tooltip_update();
 	show();
 
@@ -190,24 +191,22 @@ AppletGtk::show (std::string name)
 	for (unsigned int i=0; i<biff_->size(); i++)
 		unread += biff_->mailbox(i)->unreads();
 
-	if ((unread > 0) && (!biff_->use_newmail_image_))
+	if ((unread > 0) && (!biff_->value_bool ("use_newmail_image")))
 		return;
-	else if (!biff_->use_nomail_image_)
+	else if (!biff_->value_bool ("use_nomail_image"))
 		return;
 
 	GtkWindow *dialog=GTK_WINDOW(get("dialog"));
 	gtk_widget_show (get("dialog"));
-	if (biff_->applet_use_geometry_)
-		gtk_window_parse_geometry (dialog, biff_->applet_geometry_.c_str());
-	if (biff_->applet_be_sticky_)
-		gtk_window_stick(dialog);
+	if (biff_->value_bool ("applet_use_geometry"))
+		gtk_window_parse_geometry (dialog, biff_->value_gchar ("applet_geometry"));
+	if (biff_->value_bool ("applet_be_sticky"))
+		gtk_window_stick (dialog);
 	else
-		gtk_window_unstick(dialog);
-	gtk_window_set_keep_above(dialog, biff_->applet_keep_above_);
-	gtk_window_set_skip_pager_hint (dialog, !biff_->applet_pager_);
+		gtk_window_unstick (dialog);
+	gtk_window_set_keep_above(dialog, biff_->value_bool ("applet_keep_above"));
+	gtk_window_set_skip_pager_hint (dialog,!biff_->value_bool("applet_pager"));
 }
-
-
 
 void
 AppletGtk::tooltip_update (void)
@@ -241,10 +240,10 @@ AppletGtk::on_button_press (GdkEventButton *event)
 
 	// Single right click : popup menu
 	else if (event->button == 3) {
-		if (biff_->use_double_command_)
+		if (biff_->value_bool ("use_double_command"))
 			gtk_widget_set_sensitive (get("menu_start_command"), true);
 		else
-			gtk_widget_set_sensitive (get("menu_start_command"), true);
+			gtk_widget_set_sensitive (get("menu_start_command"), false);
 		gtk_menu_popup (GTK_MENU(get("menu")), NULL, NULL, NULL, NULL, event->button, event->time);
 	}
 	return true;
@@ -254,8 +253,8 @@ AppletGtk::on_button_press (GdkEventButton *event)
 void
 AppletGtk::on_menu_command (void)
 {
-	if ((biff_->use_double_command_) && (!biff_->double_command_.empty())) {
-		std::string command = biff_->double_command_ + " &";
+	if ((biff_->value_bool ("use_double_command")) && (!biff_->value_string ("double_command").empty())) {
+		std::string command = biff_->value_string ("double_command") + " &";
 		system (command.c_str());
 	}
 }

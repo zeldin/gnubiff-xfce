@@ -46,6 +46,9 @@ enum {
   N_COLUMNS
 };
 
+enum { COL_EXP_ID, COL_EXP_NAME, COL_EXP_GROUPNAME, COL_EXP_TYPE,
+	   COL_EXP_VALUE, COL_EXP_N};
+
 #define PREFERENCES(x)	((Preferences *)(x))
 
 
@@ -104,7 +107,13 @@ public:
 	gboolean on_destroy			(GtkWidget *widget,
 								 GdkEvent *event);
 	gboolean on_delete			(GtkWidget *widget,
-								 GdkEvent *event);	
+								 GdkEvent *event);
+
+	/**
+	 * Expert dialog
+	 **/
+	void expert_create (void);
+	void expert_add_option_list (void);
 };
 
 #endif

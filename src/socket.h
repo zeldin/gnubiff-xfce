@@ -43,20 +43,13 @@
 
 #include <glib.h>
 #include <string>
+#include "gnubiff_options.h"
 
 
 const gint	SOCKET_TIMEOUT			=	 2;
 const gint	SOCKET_STATUS_OK		=	 1;
 const gint	SOCKET_STATUS_ERROR		=	 0;
 const gint	SD_CLOSE				=	-1;
-
-const gint	AUTH_AUTODETECT			=	0;
-const gint	AUTH_USER_PASS			=	1;
-const gint	AUTH_APOP				=	2;
-const gint	AUTH_SSL				=	3;
-const gint	AUTH_CERTIFICATE		=	4;
-
-
 
 class Socket {
 

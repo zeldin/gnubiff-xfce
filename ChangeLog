@@ -137,6 +137,7 @@ Version 2.1.1
    - Bugfix: Updating applet/popup when idling (IMAP4), thanks to Byron Foster
 	for reporting this bug
    - Bugfix: Marking mails as read
+   - Feature: Options are now stored in a common container
 
 Version 2.1.0
  * Nicolas Rougier

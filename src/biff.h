@@ -42,83 +42,25 @@
 #include <vector>
 #include <glib.h>
 #include "decoding.h"
+#include "gnubiff_options.h"
 #include "header.h"
-
-/**
- * Constant definitions
- **/
-const guint	GTK_MODE		=	0;
-const guint	GNOME_MODE		=	1;
-const guint	MANUAL_CHECK	=	0;
-const guint	AUTOMATIC_CHECK	=	1;
 
 
 #define BIFF(x)		((Biff *)(x))
 
 
-class Biff {
+class Biff : public Gnubiff_Options {
 
 public:
 	// ================================================================================
 	//  general
 	// ================================================================================
 	std::string		passtable_;					// encryption table
-	guint			ui_mode_;					// GTK or GNOME mode
-	guint			check_mode_;				// gnubiff check mode
-	gboolean		use_max_mail_;				// whether to restrict maximum collected email
-	guint			max_mail_;					// maximum collected email
-	gboolean		use_newmail_command_;		// whether to run a command on new mail
-	std::string		newmail_command_;			// command to run when new mail
-	gboolean		use_double_command_;		// whether to run a command when double clicked
-	std::string		double_command_;			// command to run when double clicked
-	/// Buffer for temporary saving values when loading the config file
-	std::map<std::string,std::string> buffer_load_;
-
-	// ================================================================================
-	//  applet
-	// ================================================================================
-	gboolean		applet_use_geometry_;		// whether applet use geometry
-	std::string		applet_geometry_;			// applet geometry
-	gboolean		applet_use_decoration_;		// whether applet uses decoration
-	gboolean        applet_be_sticky_;          // whether applet should be sticky
-	gboolean        applet_keep_above_;         // whether applet window should be kept always on top
-	gboolean		applet_pager_;				// whether applet should appear in a pager
-	std::string		applet_font_;				// applet font
-	gboolean		use_newmail_text_;			// wheter text is displayed when new mail
-	std::string		newmail_text_;				// applet text when new mail
-	gboolean		use_newmail_image_;			// wheter image is displayed when new mail
-	std::string		newmail_image_;				// applet image filename for new mail
-	gboolean		use_nomail_text_;			// wheter text is displayed when no mail
-	std::string		nomail_text_;				// applet text when no mail
-	gboolean		use_nomail_image_;			// wheter image is displayed when no mail
-	std::string		nomail_image_;				// applet image filename for no mail
-
-	// ================================================================================
-	//  popup
-	// ================================================================================
-	gboolean		use_popup_;					// whether to use popup
-	guint			popup_delay_;				// amount of time to display popup
-	gboolean		popup_use_geometry_;		// whether popup use geometry
-	std::string		popup_geometry_;			// popup geometry
-	gboolean		popup_use_decoration_;		// whether popup uses decoration
-	gboolean        popup_be_sticky_;           // whether popup should be sticky
-	gboolean        popup_keep_above_;          // whether popup window should be kept always on top
-	gboolean		popup_pager_;				// whether popup window should appear in a pager
-	std::string		popup_font_;				// popup font
-	gboolean		popup_use_size_;			// whether popup reestrict number of displayed header
-	guint			popup_size_;				// maximum header to display
-	gboolean		popup_use_format_;			// whether popup use format
-	std::string		popup_format_;				// popup format
-	guint			sender_size_;				// sender field size
-	guint			subject_size_;				// subject field size
-	guint			date_size_;					// date field size
-
 
 protected:
 	// ================================================================================
 	//  internal
 	// ================================================================================
-	std::string						filename_;		// configuration file
 	std::vector<class Mailbox *>	mailbox_;		// mailboxes
 	GMutex *						mutex_;			// access mutex
 	class Authentication			*ui_auth_;		// ui to get username & password
@@ -126,13 +68,14 @@ protected:
 	class Preferences	*			preferences_;	// preferences ui
 	class Popup *					popup_;			// popup ui
 	class Applet *					applet_;		// applet ui
-
+	/// Buffer for temporary saving values when loading the config file
+	std::map<std::string,std::string> buffer_load_;
 
 public:
 	// ================================================================================
 	//  base
 	// ================================================================================
-	Biff (gint ui_mode=GTK_MODE,
+	Biff (guint ui_mode = GTK_MODE,
 		  std::string filename = "");
 	~Biff (void);
 
@@ -141,7 +84,6 @@ public:
 	// ================================================================================
 	guint size (void);
 	gboolean find_mail (std::string mailid, Header &mail);
-	void popup_format (std::string format);
 	class Mailbox * mailbox (guint index);
 	class Mailbox * get (guint uin);
 	class Preferences *preferences (void)		{return preferences_;}
@@ -156,6 +98,8 @@ public:
 	Mailbox *replace (Mailbox *from, Mailbox *to);	// replace a mailbox (from) with another (to)
 	void remove (Mailbox *mailbox);					// remove a mailbox
 	gboolean password (Mailbox *mailbox);		// try to find a password for this mailbox
+	void option_changed (Option *option);
+	void option_update (Option *option);
 
 	// ================================================================================
 	//  i/o
@@ -167,14 +111,8 @@ protected:
 	void save_newblock(const gchar *);
 	void save_endblock(void);
 public:
-	void save_para(const gchar *name, const std::string value);
-	void save_para(const gchar *name, const std::set<std::string> &value);
-	void save_para(const gchar *name, guint value);
-	void save_para(const gchar *name, gboolean value);
-	void load_para(const gchar *name, guint &var);
-	void load_para(const gchar *name, std::string &var);
-	void load_para(const gchar *name, gboolean &var);
-	void load_para(const gchar *name, std::set<std::string> &var);
+	void save_parameters (std::map<std::string,std::string> &map,
+						  std::string block = std::string(""));
 	gboolean save (void);
 	void xml_start_element (GMarkupParseContext *context,
 							const gchar *element_name,

@@ -56,10 +56,12 @@ protected:
 
 	// Converting
 	gchar* utf8_to_imaputf7(const gchar *, gssize);
-
+public:
 	// Password
-	std::string encrypt_password (const std::string &, const std::string &);
-	std::string decrypt_password (const std::string &, const std::string &);
+	static std::string encrypt_password (const std::string &password,
+										 const std::string &passtable);
+	static std::string decrypt_password (const std::string &password,
+										 const std::string &passtable);
 };
 
 #endif

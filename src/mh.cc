@@ -41,12 +41,12 @@
 // ========================================================================	
 Mh::Mh (Biff *biff) : Local (biff)
 {
-	protocol_ = PROTOCOL_MH;
+	value ("protocol", PROTOCOL_MH);
 }
 
 Mh::Mh (const Mailbox &other) : Local (other)
 {
-	protocol_ = PROTOCOL_MH;
+	value ("protocol", PROTOCOL_MH);
 }
 
 Mh::~Mh (void)
@@ -62,12 +62,12 @@ Mh::connect (void)
 {
 	// Build filename (.mh_sequences)
 	std::string filename;
-	gchar *base=g_path_get_basename(address_.c_str());
-	if (base==std::string(".mh_sequences"))
-		filename=address_;
+	gchar *base = g_path_get_basename (address().c_str());
+	if (base == std::string(".mh_sequences"))
+		filename = address ();
 	else
 	{
-		gchar *tmp=g_build_filename(address_.c_str(),".mh_sequences",NULL);
+		gchar *tmp = g_build_filename (address().c_str(),".mh_sequences",NULL);
 		filename=std::string(tmp);
 		g_free(tmp);
 	}
@@ -147,11 +147,11 @@ Mh::fetch (void)
 
 	// Parse unseen sequence
 	if (!connect()) {
-		status_ = MAILBOX_ERROR;
+		status (MAILBOX_ERROR);
 		return;
 	}
 
-	for (guint i=0; (i<saved_.size()) && (new_unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
+	for (guint i=0; (i<saved_.size()) && (new_unread_.size() < (biff_->value_uint ("max_mail"))); i++) {
 		std::string line;
 		std::ifstream file;    
 		std::stringstream s;
@@ -159,9 +159,10 @@ Mh::fetch (void)
 
 		mail.clear();
 
-		gchar *filename=g_build_filename(address_.c_str(),s.str().c_str(),NULL);
+		gchar *filename = g_build_filename (address().c_str(), s.str().c_str(),
+											NULL);
 		file.open (filename);
-        g_free(filename);
+        g_free (filename);
 		if (file.is_open()) {
 			while (!file.eof()) {
 				getline(file, line);

@@ -80,14 +80,14 @@ Pop::~Pop (void)
  *
  * @param delay Time (in seconds) to wait before the new thread will be
  *              created. If {\em delay} is zero (this is the default) the
- *              value of {\em delay_} is taken.
+ *              value of {\em delay()} is taken.
  */
 void 
 Pop::threaded_start (guint delay)
 {
 	// If no delay is given use internal delay
 	if (!delay)
-		delay=delay_;
+		delay=Mailbox::delay();
 
 	Mailbox::threaded_start (delay);
 }
@@ -114,9 +114,9 @@ Pop::start (void) throw (pop_err)
 		// Catch all errors that are un-recoverable and result in
 		// closing the connection, and resetting the mailbox status.
 #if DEBUG
-		g_warning ("[%d] Pop exception: %s", uin_, err.what());
+		g_warning ("[%d] Pop exception: %s", uin(), err.what());
 #endif
-		status_ = MAILBOX_ERROR;
+		status (MAILBOX_ERROR);
 		unread_.clear ();
 		seen_.clear ();
 		new_mails_to_be_displayed_.clear ();
@@ -131,7 +131,7 @@ Pop::start (void) throw (pop_err)
 
 	g_mutex_unlock (monitor_mutex_);
 
-	threaded_start (delay_);
+	threaded_start (delay());
 }
 
 /**
@@ -155,7 +155,7 @@ Pop::fetch (void) throw (pop_err)
 {
 	// Is there a password? Can we obtain it?
 	if (!biff_->password(this)) {
-		g_warning (_("[%d] Empty password"), uin_);
+		g_warning (_("[%d] Empty password"), uin());
 		throw pop_nologin_err();
 	}
 
@@ -191,9 +191,9 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 	// We want to retrieve a maximum of _max_collected_mail uidl
 	// so we have to check the total number and find corresponding
 	// starting index (start).
-	guint start = 1, num = biff_->max_mail_;
-	if ((biff_->use_max_mail_) && (total > biff_->max_mail_))
-		start = 1 + total - biff_->max_mail_;
+	guint start = 1, num = biff_->value_uint ("max_mail");
+	if ((biff_->value_bool ("use_max_mail")) && (total > num))
+		start = 1 + total - num;
 	else
 		num = total;
 
@@ -238,30 +238,30 @@ void
 Pop::connect (void) throw (pop_err)
 {
 	// Autodetection of authentication
-	if (authentication_ == AUTH_AUTODETECT) {
-		guint port = port_;
-		if (!use_other_port_)
-			port = 995;
-		if (!socket_->open (address_, port, AUTH_SSL)) {
-			if (!use_other_port_)
-				port = 110;
-			if (!socket_->open (address_, port, AUTH_USER_PASS))
+	if (authentication() == AUTH_AUTODETECT) {
+		guint prt = port();
+		if (!use_other_port())
+			prt = 995;
+		if (!socket_->open (address(), prt, AUTH_SSL)) {
+			if (!use_other_port())
+				prt = 110;
+			if (!socket_->open (address(), prt, AUTH_USER_PASS))
 				throw pop_socket_err();
 			else {
-				port_ = port;
-				authentication_ = AUTH_USER_PASS;
+				port (prt);
+				authentication (AUTH_USER_PASS);
 				socket_->close();
 			}
 		}
 		else {
-			port_ = port;
-			authentication_ = AUTH_SSL;
+			port (prt);
+			authentication (AUTH_SSL);
 			socket_->close();
 		}
 	}
 
 	// Open socket
-	if (!socket_->open (address_, port_, authentication_, certificate_, 3))
+	if (!socket_->open (address(), port(), authentication(), certificate(), 3))
 		throw pop_socket_err();
 }
 
@@ -337,8 +337,8 @@ Pop::command_top (std::vector<std::string> &mail, guint msg) throw (pop_err)
 	sendline (ss.str ());
 	readline (line, false); // +OK response to TOP
 #ifdef DEBUG
-	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
-			 address_.c_str(), port_);
+	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin(),
+			 address().c_str(), port());
 #endif
 	gint cnt = preventDoS_headerLines_ + bodyLinesToBeRead_ + 1;
 	do {
@@ -505,7 +505,7 @@ Pop::readline (std::string &line, gboolean print, gboolean check,
 	if (!checkline)
 		return status;
 	if (line.find ("-ERR") == 0) {
-		g_warning (_("[%d] Error message from POP3 server:%s"), uin_,
+		g_warning (_("[%d] Error message from POP3 server:%s"), uin(),
 					 line.substr(4,line.size()-4).c_str());
 		// We are still able to logout
 		command_quit ();
@@ -513,7 +513,7 @@ Pop::readline (std::string &line, gboolean print, gboolean check,
 	}
 	if (line.find ("+OK") != 0) {
 		g_warning (_("[%d] Did not get a positive response from POP3 server"),
-				   uin_);
+				   uin());
 		throw pop_command_err();
 	}
 	return status;

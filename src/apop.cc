@@ -53,7 +53,7 @@
  */
 Apop::Apop (Biff *biff) : Pop (biff)
 {
-	protocol_ = PROTOCOL_APOP;
+	value ("protocol", PROTOCOL_APOP);
 }
 
 /**
@@ -64,7 +64,7 @@ Apop::Apop (Biff *biff) : Pop (biff)
  */
 Apop::Apop (const Mailbox &other) : Pop (other)
 {
-	protocol_ = PROTOCOL_APOP;
+	value ("protocol", PROTOCOL_APOP);
 }
 
 /// Destructor
@@ -99,7 +99,7 @@ Apop::connect (void) throw (pop_err)
 	readline (line);
 	guint lt=line.find ("<"), gt=line.find (">");
 	if ((lt == std::string::npos) || (gt == std::string::npos) || (gt < lt)) {
-		g_warning (_("[%d] Your pop server does not seem to accept apop protocol (no timestamp provided)"), uin_);
+		g_warning (_("[%d] Your pop server does not seem to accept apop protocol (no timestamp provided)"), uin());
 		throw pop_command_err ();
 	}
 
@@ -113,17 +113,17 @@ Apop::connect (void) throw (pop_err)
 	MD5_CTX ctx;
 	MD5_Init (&ctx);
 	MD5_Update (&ctx, timestamp.c_str(), timestamp.size());
-	MD5_Update (&ctx, password_.c_str(), password_.size());
+	MD5_Update (&ctx, password().c_str(), password().size());
 	MD5_Final (response, &ctx);
 	for (guint i = 0; i < 16; i++)
 		sprintf (&hex_response[i*2], "%02x", response[i]);
 	hex_response[32] = '\0';
 #else
-	g_warning (_("[%d] Problem with crypto that should have been detected at configure time"), uin_);
+	g_warning (_("[%d] Problem with crypto that should have been detected at configure time"), uin());
 	return 0;
 #endif
 
 	// LOGIN
-	sendline ("APOP " + username_ + " " + std::string (hex_response));
+	sendline ("APOP " + username() + " " + std::string (hex_response));
 	readline (line); // +OK response
 }

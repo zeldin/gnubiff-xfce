@@ -32,6 +32,10 @@ common_sources = \
 	apop.cc					apop.h					\
 	pop3.cc					pop3.h					\
 	\
+	option.cc				option.h				\
+	options.cc				options.h				\
+	gnubiff_options.cc		gnubiff_options.h		\
+	\
 	gui.cc					gui.h					\
 	ui-applet.cc			ui-applet.h				\
 	ui-applet-gtk.cc 		ui-applet-gtk.h			\

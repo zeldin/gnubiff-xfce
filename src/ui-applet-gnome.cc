@@ -148,7 +148,7 @@ AppletGnome::dock (GtkWidget *applet)
 
 	GtkImageAnimation *anim = new GtkImageAnimation (GTK_IMAGE(get("image")));
 	g_object_set_data (G_OBJECT(get("image")), "_animation_", anim);
-	anim->open (biff_->newmail_image_.c_str());
+	anim->open (biff_->value_string ("newmail_image"));
 	anim->start();
 
 	g_signal_connect (G_OBJECT (applet), "enter_notify_event",  GTK_SIGNAL_FUNC (APPLET_GNOME_on_enter), this);
@@ -179,21 +179,21 @@ AppletGnome::update (gboolean no_popup)
 	GtkImageAnimation *anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("image")), "_animation_");
 	// Pick image/animation
 	if (unread > 0) {
-		if (!biff_->use_newmail_image_) {
+		if (!biff_->value_bool ("use_newmail_image")) {
 			gtk_widget_hide (get("image"));
 		}
 		else {
 			gtk_widget_show (get("image"));
-			anim->open (biff_->newmail_image_.c_str());
+			anim->open (biff_->value_string ("newmail_image"));
 		}
 	}
 	else {
-		if (!biff_->use_nomail_image_) {
+		if (!biff_->value_bool ("use_nomail_image")) {
 			gtk_widget_hide (get("image"));
 		}
 		else {
 			gtk_widget_show (get("image"));
-			anim->open (biff_->nomail_image_.c_str());
+			anim->open (biff_->value_string ("nomail_image"));
 		}
 	}
 
@@ -202,7 +202,8 @@ AppletGnome::update (gboolean no_popup)
 	// The panel is oriented horizontally
 	if ((orient == PANEL_APPLET_ORIENT_DOWN) || (orient == PANEL_APPLET_ORIENT_UP)) {
 		gtk_widget_hide (get ("vunread"));
-		if (((unread > 0) && (biff_->use_newmail_text_)) || ((unread == 0) && (biff_->use_nomail_text_)))
+		if (((unread > 0) && (biff_->value_bool ("use_newmail_text")))
+			|| ((unread == 0) && (biff_->value_bool ("use_nomail_text"))))
 			gtk_widget_show (get ("hunread"));
 		else
 			gtk_widget_hide (get ("hunread"));
@@ -214,7 +215,8 @@ AppletGnome::update (gboolean no_popup)
 	// The panel is oriented vertically
 	else {
 		gtk_widget_hide (get ("hunread"));
-		if (((unread > 0) && (biff_->use_newmail_text_)) || ((unread == 0) && (biff_->use_nomail_text_)))
+		if (((unread > 0) && (biff_->value_bool ("use_newmail_text")))
+			|| ((unread == 0) && (biff_->value_bool ("use_nomail_text"))))
 			gtk_widget_show (get ("vunread"));
 		else
 			gtk_widget_hide (get ("vunread"));
@@ -280,8 +282,9 @@ AppletGnome::on_button_press (GdkEventButton *event)
 {
 	// Double left click : start mail app
 	if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1)) {
-		if ((biff_->use_double_command_) && (!biff_->double_command_.empty())) {
-			std::string command = biff_->double_command_ + " &";
+		if ((biff_->value_bool ("use_double_command")) &&
+			 (!biff_->value_string ("double_command").empty ())) {
+			std::string command = biff_->value_string ("double_command")+" &";
 			system (command.c_str());
 		}
 	}
@@ -312,8 +315,9 @@ AppletGnome::on_menu_properties (BonoboUIComponent *uic, const gchar *verbname)
 void
 AppletGnome::on_menu_command (BonoboUIComponent *uic, const gchar *verbname)
 {
-	if ((biff_->use_double_command_) && (!biff_->double_command_.empty())) {
-		std::string command = biff_->double_command_ + " &";
+	if ((biff_->value_bool ("use_double_command")) &&
+		 (!biff_->value_string ("double_command").empty ())) {
+		std::string command = biff_->value_string ("double_command") + " &";
 		system (command.c_str());
 	}
 }

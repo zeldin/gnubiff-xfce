@@ -45,26 +45,6 @@
 #include "header.h"
 #include "socket.h"
 
-
-/**
- * Constant definition
- **/
-const guint	PROTOCOL_NONE			=	0;
-const guint	PROTOCOL_FILE			=	1;
-const guint	PROTOCOL_POP3			=	2;
-const guint	PROTOCOL_IMAP4			=	3;
-const guint	PROTOCOL_MAILDIR		=	4;
-const guint	PROTOCOL_MH				=	5;
-const guint	PROTOCOL_APOP			=	6;
-
-const gint	MAILBOX_ERROR			=	0;
-const gint	MAILBOX_EMPTY			=	1;
-const gint	MAILBOX_OLD				=	2;
-const gint	MAILBOX_NEW				=	3;
-const gint	MAILBOX_CHECK			=	4;
-const gint	MAILBOX_STOP			=	5;
-const gint	MAILBOX_UNKNOWN			=	6;
-
 /** This struct is needed (when using STL algorithms for
  *  std::map<std::string,Header>) for comparisons of
  *  std::pair<std::string,Header> objects. We cannot compare headers so the
@@ -82,50 +62,22 @@ struct less_pair_first : public std::binary_function<std::pair<std::string,Heade
  * Generic mailbox intended as base for implementing mailboxes for a specific
  * protocol. 
  */
-class Mailbox : public Decoding {
+class Mailbox : public Decoding, public Gnubiff_Options {
 
 protected:
 	// ========================================================================
-	//  "real" configuration
-	// ========================================================================
-	std::string					name_;				// displayed name
-	guint						protocol_;			// protocol
-	gint						authentication_;	// authentication method
-	std::string					address_;			// address of mailbox
-	std::string					username_;			// username
-	std::string					password_;			// password
-	guint						port_;				// port
-	std::string					folder_;			// mailbox folder
-	std::string					certificate_;		// certificate file
-	guint						delay_;				// delay between mail check (apop & pop3 only)
-
-	/** Use IDLE command if server supports it. This is usually a good idea.
-	 *  But if multiple clients connect to the same mailbox this can lead to
-	 *  connection errors (depending on the internal server configuration).
-	 *  For users encountering this problem it is better not to use idling but
-	 *  use polling instead. */
-	gboolean                    use_idle_;
-
-	// ========================================================================
-	//  "convenience" configuration
-	// ========================================================================	
-	gboolean					use_other_folder_;	// whether to use other port
-	std::string					other_folder_;		// other mailbox folder
-	gboolean					use_other_port_;	// whether to use other port
-	guint						other_port_;		// other port
-
-	// ========================================================================
 	//  internal stuff
 	// ========================================================================
-	guint						uin_;				// unique identifier number
 	static guint				uin_count_;			// unique identifier number count
 	class Biff *				biff_;				// biff owner
-	gint 						status_;			// status of the mailbox
 	GMutex *					mutex_;				// mutex for thread read access
 	GMutex *					monitor_mutex_;		// mutex for monitor access
 	guint						timetag_;			// tag for delayed start timeout
 	gboolean					listed_;			// flag for updating mailboxes in preferences
 	gboolean					stopped_;			// flag for stopping mailbox monitor while looking up
+
+	void option_changed (Option *option);
+	void option_update (Option *option);
 
 	/// Mail headers of mails that have not been read yet
 	std::map<std::string, Header> unread_;
@@ -204,8 +156,6 @@ public:
 	void update_mailbox_status (void);
 	void start_checking (void);
 	void mail_displayed (void);
-	void load_data (void);
-	void save_data (void);
 	void parse (std::vector<std::string> &mail,		// parse a mail
 				std::string uid = std::string(""));
 
@@ -215,60 +165,76 @@ public:
 
 	gboolean find_mail (std::string mailid, Header &mail);
 
-	const std::string name (void)						{return name_;}
-	void name (const std::string value)					{name_ = value;}
-
-	const guint protocol (void)							{return protocol_;}
-	void protocol (const guint value)					{protocol_ = value;}
-
-	const gint authentication(void)					{return authentication_;}
-	void authentication (const gint value)				{authentication_ = value;}	
-
-	const std::string address (void)					{return address_;}
-	void address (const std::string value)				{address_ = value;}
-
-	const std::string username (void)					{return username_;}
-	void username (const std::string value)				{username_ = value;}
-
-	const std::string password (void)					{return password_;}
-	void password (const std::string value)				{password_ = value;}
-
-	const guint port (void)								{return port_;}
-	void port (const guint value)						{port_ = value;}
-
-	const std::string folder (void)						{return folder_;}
-	void folder (const std::string value)				{folder_ = value;}
-
-	const std::string certificate (void)				{return certificate_;}
-	void certificate (const std::string value)			{certificate_ = value;}
-
-	const guint delay (void)							{return delay_;}
-	void delay (const guint value)						{delay_ = value;}
-
-	/// Access function to Mailbox::use_idle_
-	const gboolean use_idle (void)						{return use_idle_;}
-	/// Access function to Mailbox::use_idle_
-	void use_idle (gboolean value)						{use_idle_ = value;}
-
-	const gboolean use_other_folder (void)				{return use_other_folder_;}
-	void use_other_folder (const gboolean value)		{use_other_folder_ = value;}
-
-	const std::string other_folder (void)				{return other_folder_;}
-	void other_folder (const std::string value)			{other_folder_ = value;}
-
-	const gboolean use_other_port (void)				{return use_other_port_;}
-	void use_other_port (const gboolean value)			{use_other_port_ = value;}
-
-	const guint other_port (void)						{return other_port_;}
-	void other_port (const guint value)					{other_port_ = value;}
-
-	const gint status (void) 							{return status_;}
-	void status (const gint status)						{status_ = status;}
+	/// Access function to mailbox option "name"
+	const std::string name (void)						{return value_string ("name");}
+	/// Access function to mailbox option "name"
+	void name (const std::string val)					{value ("name", val);}
+	/// Access function to mailbox option "protocol"
+	const guint protocol (void)							{return value_uint ("protocol");}
+	/// Access function to mailbox option "protocol"
+	void protocol (const guint val)						{value ("protocol", val);}
+	/// Access function to mailbox option "authentication"
+	const guint authentication (void)					{return value_uint ("authentication");}
+	/// Access function to mailbox option "authentication"
+	void authentication (const guint val)				{value ("authentication", val);}	
+	/// Access function to mailbox option "address"
+	const std::string address (void)					{return value_string ("address");}
+	/// Access function to mailbox option "address"
+	void address (const std::string val)				{value ("address", val);}
+	/// Access function to mailbox option "username"
+	const std::string username (void)					{return value_string ("username");}
+	/// Access function to mailbox option "username"
+	void username (const std::string val)				{value ("username", val);}
+	/// Access function to mailbox option "password"
+	const std::string password (void)					{return value_string ("password");}
+	/// Access function to mailbox option "password"
+	void password (const std::string val)				{value ("password", val);}
+	/// Access function to mailbox option "port"
+	const guint port (void)								{return value_uint ("port");}
+	/// Access function to mailbox option "port"
+	void port (const guint val)							{value ("port", val);}
+	/// Access function to mailbox option "folder"
+	const std::string folder (void)						{return value_string ("folder");}
+	/// Access function to mailbox option "folder"
+	void folder (const std::string val)					{value ("folder",val);}
+	/// Access function to mailbox option "certificate"
+	const std::string certificate (void)				{return value_string ("certificate");}
+	/// Access function to mailbox option "certificate"
+	void certificate (const std::string val)			{value ("certificate", val);}
+	/// Access function to mailbox option "delay"
+	  const guint delay (void)							{return value_uint ("delay");}
+	/// Access function to mailbox option "delay"
+	void delay (const guint val)						{value ("delay", val);}
+	/// Access function to mailbox option "use_idle"
+	const gboolean use_idle (void)						{return value_bool ("use_idle");}
+	/// Access function to mailbox option "use_idle"
+	void use_idle (gboolean val)						{value ("use_idle", val);}
+	/// Access function to mailbox option "use_other_folder"
+	const gboolean use_other_folder (void)				{return value_bool ("use_other_folder");}
+	/// Access function to mailbox option "use_other_folder"
+	void use_other_folder (const gboolean val)			{value ("use_other_folder", val);}
+	/// Access function to mailbox option "other_folder"
+	const std::string other_folder (void)				{return value_string ("other_folder");}
+	/// Access function to mailbox option "other_folder"
+	void other_folder (const std::string val)			{value ("other_folder", val);}
+	/// Access function to mailbox option "use_other_port"
+	const gboolean use_other_port (void)				{return value_bool ("use_other_port");}
+	/// Access function to mailbox option "use_other_port"
+	void use_other_port (const gboolean val)			{value ("use_other_port", val);}
+	/// Access function to mailbox option "other_port"
+	const guint other_port (void)						{return value_uint ("other_port");}
+	/// Access function to mailbox option "other_port"
+	void other_port (const guint val)					{value ("other_port", val);}
+	/// Access function to mailbox option "status"
+	const guint status (void) 							{return value_uint ("status");}
+	/// Access function to mailbox option "status"
+	void status (const guint status)					{value ("status", status);}
 
 	const gboolean listed (void)						{return listed_;}
 	void listed (gboolean value)						{listed_ = value;}
 
-	const guint uin (void)								{return uin_;}
+	/// Access function to mailbox option "uin"
+	const guint uin (void)								{return value_uint ("uin");}
 
 	const guint timetag (void)							{return timetag_;}
 	void timetag (guint value)							{timetag_ = value;}

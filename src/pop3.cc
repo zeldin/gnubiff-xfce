@@ -51,7 +51,7 @@
  */
 Pop3::Pop3 (Biff *biff) : Pop (biff)
 {
-	protocol_ = PROTOCOL_POP3;
+	value ("protocol", PROTOCOL_POP3);
 }
 
 /**
@@ -62,7 +62,7 @@ Pop3::Pop3 (Biff *biff) : Pop (biff)
  */
 Pop3::Pop3 (const Mailbox &other) : Pop (other)
 {
-	protocol_ = PROTOCOL_POP3;
+	value ("protocol", PROTOCOL_POP3);
 }
 
 /// Destructor
@@ -90,11 +90,11 @@ Pop3::connect (void) throw (pop_err)
 	std::string line;
 
 	// Check standard port
-	if (!use_other_port_)
-		if (authentication_ == AUTH_USER_PASS)
-			port_ = 110;
+	if (!use_other_port())
+		if (authentication() == AUTH_USER_PASS)
+			port (110);
 		else
-			port_ = 995;
+			port (995);
 
 	// Open the socket
 	Pop::connect ();
@@ -102,16 +102,16 @@ Pop3::connect (void) throw (pop_err)
 	readline (line); // +OK response
 
 	// LOGIN: username
-	sendline ("USER " + username_);
+	sendline ("USER " + username());
 	readline (line); // +OK response
 
 	// LOGIN: password
-	sendline ("PASS " + password_, false);
+	sendline ("PASS " + password(), false);
 	readline (line); // +OK response
 #ifdef DEBUG
 	// Just in case someone sends me the output: password won't be displayed
 	std::string line_no_password = "PASS (hidden)\r\n";
-	g_message ("[%d] SEND(%s:%d): %s", uin_, address_.c_str(), port_,
+	g_message ("[%d] SEND(%s:%d): %s", uin(), address().c_str(), port(),
 			   line_no_password.c_str());
 #endif
 }

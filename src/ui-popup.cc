@@ -234,10 +234,10 @@ Popup::update (void)
 	guint num_mails = 0;
 	for (guint i = 0; i < biff_->size(); i++)
 		num_mails+= max[i] = biff_->mailbox(i)->mails_to_be_displayed().size();
-	if (num_mails > biff_->popup_size_)
-		num_mails = biff_->popup_size_;
+	if (num_mails > biff_->value_uint ("popup_size"))
+		num_mails = biff_->value_uint ("popup_size");
 
-	if (biff_->popup_use_size_) {
+	if (biff_->value_bool ("popup_use_size")) {
 		guint index = 0, all = 0;
 		while (all < num_mails) {
 			if (count[index] < max[index]) {
@@ -259,34 +259,29 @@ Popup::update (void)
 			Header h = biff_->mailbox(j)->unread()[*i];
 
 			gtk_list_store_append (store, &iter);
-				
+
+			guint size = 255;
+			if (biff_->value_bool ("popup_use_format"))
+				size = 1;
+
 			// Subject
 			buffer = parse_header (h.subject);
 			gchar *subject;
-			if ((biff_->popup_use_format_) && (biff_->subject_size_ > 0))
-				subject = gb_utf8_strndup (buffer, biff_->subject_size_);
-			else
-				subject = gb_utf8_strndup (buffer, 256);
+			subject = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_subject")));
 			g_free (buffer);
 			saved_strings.push_back (subject);
 
 			// Date
 			buffer = parse_header (h.date);
 			gchar *date;
-			if ((biff_->popup_use_format_) && (biff_->date_size_ > 0))
-				date = gb_utf8_strndup (buffer, biff_->date_size_);
-			else
-				date = gb_utf8_strndup (buffer, 256);
+			date = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_date")));
 			g_free (buffer);
 			saved_strings.push_back (date);
 			
 			// Sender
 			buffer = parse_header (h.sender);
 			gchar *sender;
-			if ((biff_->popup_use_format_) && (biff_->sender_size_ > 0))
-				sender = gb_utf8_strndup (buffer, biff_->sender_size_);
-			else
-				sender = gb_utf8_strndup (buffer, 256);
+			sender = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_sender")));
 			g_free (buffer);
 			saved_strings.push_back (sender);
 
@@ -311,26 +306,29 @@ Popup::update (void)
 	}
 
 	// Update window decoration
-	gtk_window_set_decorated (GTK_WINDOW(get("dialog")), biff_->popup_use_decoration_);
+	gtk_window_set_decorated (GTK_WINDOW(get("dialog")),
+							  biff_->value_bool ("popup_use_decoration"));
 
 	// Update fonts
 	GtkWidget *treeview = get("treeview");
 	PangoFontDescription *font;
-	font = pango_font_description_from_string (biff_->popup_font_.c_str());
+	font = pango_font_description_from_string (biff_->value_gchar ("popup_font"));
 	gtk_widget_modify_font (treeview, font);
 	pango_font_description_free (font);
 
-	if ((biff_->popup_use_format_) && (biff_->subject_size_ == 0)) {
-		GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (treeview), COLUMN_SUBJECT);
-		gtk_tree_view_column_set_visible (column, false);
-	}
-	if ((biff_->popup_use_format_) && (biff_->sender_size_ == 0)) {
-		GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (treeview), COLUMN_SENDER);
-		gtk_tree_view_column_set_visible (column, false);
-	}
-	if ((biff_->popup_use_format_) && (biff_->date_size_ == 0)) {
-		GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (treeview), COLUMN_DATE);
-		gtk_tree_view_column_set_visible (column, false);
+	if (biff_->value_bool ("popup_use_format")) {
+		if (biff_->value_uint ("popup_size_subject") == 0) {
+			GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (treeview), COLUMN_SUBJECT);
+			gtk_tree_view_column_set_visible (column, false);
+		}
+		if (biff_->value_uint ("popup_size_sender") == 0) {
+			GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (treeview), COLUMN_SENDER);
+			gtk_tree_view_column_set_visible (column, false);
+		}
+		if (biff_->value_uint ("popup_size_date") == 0) {
+			GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (treeview), COLUMN_DATE);
+			gtk_tree_view_column_set_visible (column, false);
+		}
 	}
 }
 
@@ -345,19 +343,20 @@ Popup::show (std::string name)
 
 	GtkWindow *dialog=GTK_WINDOW(get("dialog"));
 	gtk_window_present (dialog);
-	if (biff_->popup_use_geometry_)
-		gtk_window_parse_geometry (dialog, biff_->popup_geometry_.c_str());
-	if (biff_->popup_be_sticky_)
+	if (biff_->value_bool ("popup_use_geometry"))
+		gtk_window_parse_geometry (dialog, biff_->value_gchar ("popup_geometry"));
+	if (biff_->value_bool ("popup_be_sticky"))
 		gtk_window_stick (dialog);
 	else
 		gtk_window_unstick (dialog);
-	gtk_window_set_keep_above (dialog, biff_->popup_keep_above_);
-	gtk_window_set_skip_pager_hint (dialog, !biff_->popup_pager_);
+	gtk_window_set_keep_above (dialog, biff_->value_bool ("popup_keep_above"));
+	gtk_window_set_skip_pager_hint (dialog,!biff_->value_bool ("popup_pager"));
 
 	g_static_mutex_lock (&timer_mutex_);
 	if (poptag_ > 0) 
 		g_source_remove (poptag_);
-	poptag_ = g_timeout_add (biff_->popup_delay_*1000, POPUP_on_popdown, this);
+	poptag_ = g_timeout_add (biff_->value_uint ("popup_delay")*1000,
+							 POPUP_on_popdown, this);
 	g_static_mutex_unlock (&timer_mutex_);
 
 	if (tree_selection_)
@@ -376,7 +375,7 @@ Popup::on_delete (GtkWidget *widget,
 	poptag_ = 0;
 	g_static_mutex_unlock (&timer_mutex_);
 
-	if (biff_->check_mode_ == AUTOMATIC_CHECK)
+	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
 		if (!GTK_WIDGET_VISIBLE(biff_->preferences()->get()))
 			biff_->applet()->start ();
 	return true;
@@ -391,7 +390,7 @@ Popup::on_popdown (void)
 	g_static_mutex_lock (&timer_mutex_);
 	poptag_ = 0;
 	g_static_mutex_unlock (&timer_mutex_);
-	if (biff_->check_mode_ == AUTOMATIC_CHECK)
+	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
 		if (!GTK_WIDGET_VISIBLE(biff_->preferences()->get()))
 			biff_->applet()->start ();
 	return false;
@@ -423,7 +422,7 @@ Popup::on_button_press (GdkEventButton *event)
 		hide ();
 		gtk_widget_hide (get("popup"));
 		consulting_ = false;
-		if (biff_->check_mode_ == AUTOMATIC_CHECK)
+		if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
 			if (!GTK_WIDGET_VISIBLE(biff_->preferences()->get()))
 				biff_->applet()->start ();
 	}
@@ -460,7 +459,8 @@ Popup::on_leave (GdkEventCrossing *event)
 		g_static_mutex_lock (&timer_mutex_);
 		if (poptag_ > 0)
 			g_source_remove (poptag_);  
-		poptag_ = g_timeout_add (biff_->popup_delay_*1000, POPUP_on_popdown, this);
+		poptag_ = g_timeout_add (biff_->value_uint ("popup_delay")*1000,
+								 POPUP_on_popdown, this);
 		g_static_mutex_unlock (&timer_mutex_);
 	}
 }

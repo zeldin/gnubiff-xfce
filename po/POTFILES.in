@@ -12,6 +12,9 @@ src/mh.cc
 src/pop.cc
 src/apop.cc
 src/pop3.cc
+src/option.cc
+src/options.cc
+src/gnubiff_options.cc
 src/gui.cc
 src/ui-applet.cc	
 src/ui-applet-gtk.cc

@@ -85,7 +85,7 @@ Applet::unread_markup (std::string &text)
 	// Get max collected mail number in a stringstream
 	//  just to have a default string size.
 	std::stringstream smax;
-	smax << biff_->max_mail_;
+	smax << biff_->value_uint ("max_mail");
 
 	// Get number of unread mails
 	guint unread = 0;
@@ -95,22 +95,20 @@ Applet::unread_markup (std::string &text)
 	unreads << std::setfill('0') << std::setw (smax.str().size()) << unread;
 
 	// Applet label (number of mail)
-	text = "<span font_desc=\"";
-	text += biff_->applet_font_;
-	text += "\">";
+	text = "<span font_desc=\"" + biff_->value_string ("applet_font") + "\">";
 
 	std::vector<std::string> vec(1);
 	if (unread == 0) {
-		vec[0]=std::string(unreads.str());
-		text+=gb_substitute(biff_->nomail_text_,"d",vec);
+		vec[0] = std::string (unreads.str());
+		text += gb_substitute (biff_->value_string ("nomail_text"), "d", vec);
 	}
-	else if (unread < biff_->max_mail_) {
-		vec[0]=std::string(unreads.str());
-		text+=gb_substitute(biff_->newmail_text_,"d",vec);
+	else if (unread < biff_->value_uint ("max_mail")) {
+		vec[0] = std::string (unreads.str());
+		text += gb_substitute (biff_->value_string ("newmail_text"), "d", vec);
 	}
 	else {
-		vec[0]=std::string(std::string(smax.str().size(), '+'));
-		text+=gb_substitute(biff_->newmail_text_,"d",vec);
+		vec[0] = std::string (std::string(smax.str().size(), '+'));
+		text += gb_substitute (biff_->value_string ("newmail_text"), "d", vec);
 	}
 	text += "</span>";
 	
@@ -123,7 +121,7 @@ Applet::tooltip_text (void)
 	// Get max collected mail number in a stringstream
 	//  just to have a default string size.
 	std::stringstream smax;
-	smax << biff_->max_mail_;
+	smax << biff_->value_uint ("max_mail");
 
 	std::string tooltip;
 	for (unsigned int i=0; i<biff_->size(); i++) {
@@ -142,7 +140,7 @@ Applet::tooltip_text (void)
 			tooltip += ")";
 			tooltip += _(" checking...");
 		}
-		else if (biff_->mailbox(i)->unreads() >= biff_->max_mail_) {
+		else if (biff_->mailbox(i)->unreads() >= biff_->value_uint ("max_mail")) {
 			tooltip += std::string(smax.str().size(), '+');
 		}
 		else
@@ -171,17 +169,19 @@ Applet::update (gboolean no_popup)
 		unread += biff_->mailbox(i)->unreads();
 	}
 
-	if ((!no_popup) && (newmail == true) && (unread > 0) && (force_popup_ == false) && (biff_->use_newmail_command_)) {
-		std::string command = biff_->newmail_command_ + " &";
+	if ((!no_popup) && (newmail == true) && (unread > 0) && (force_popup_ == false) && (biff_->value_bool ("use_newmail_command"))) {
+		std::string command = biff_->value_string ("newmail_command") + " &";
 		system (command.c_str());
 	}
 
 	// If there are no mails to display then hide popup
-	if ((!no_popup) && !unread && (biff_->use_popup_  || force_popup_)
+	if ((!no_popup) && !unread && (biff_->value_bool ("use_popup") 
+								   || force_popup_)
 		&& biff_->popup())
 		biff_->popup()->hide();
 
-	if ((!no_popup) && unread && ((biff_->use_popup_ && newmail) || (force_popup_))) {
+	if ((!no_popup) && unread && ((biff_->value_bool ("use_popup") && newmail)
+								  || (force_popup_))) {
 		biff_->popup()->update();
 		biff_->popup()->show();
 	}

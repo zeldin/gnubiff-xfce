@@ -41,12 +41,12 @@
 // ========================================================================	
 File::File (Biff *biff) : Local (biff)
 {
-	protocol_ = PROTOCOL_FILE;
+	value ("protocol", PROTOCOL_FILE);
 }
 
 File::File (const Mailbox &other) : Local (other)
 {
-	protocol_ = PROTOCOL_FILE;
+	value ("protocol", PROTOCOL_FILE);
 }
 
 File::~File (void)
@@ -64,8 +64,8 @@ void File::fetch (void)
 	// First we save access time of the mailfile to be able to reset it
 	// before exiting this function because some mail clients (e.g. mutt)
 	// rely on this access time to perform some operations.
-	if (stat (address_.c_str(), &file_stat) != 0) {
-		status_ = MAILBOX_ERROR;
+	if (stat (address().c_str(), &file_stat) != 0) {
+		status (MAILBOX_ERROR);
 		return;
 	}
 	timbuf.actime = file_stat.st_atime;
@@ -74,9 +74,9 @@ void File::fetch (void)
 
 	// Open mailbox for reading
 	std::ifstream file;
-	file.open (address_.c_str());
+	file.open (address().c_str());
 	if (!file.is_open()) {
-		status_ = MAILBOX_ERROR;
+		status (MAILBOX_ERROR);
 		return;
 	}
 
@@ -84,7 +84,7 @@ void File::fetch (void)
 	std::string line; 
 	getline(file, line);
 	mail.push_back (line);
-	while (!file.eof() && (new_unread_.size() < (unsigned int)(biff_->max_mail_))) {
+	while (!file.eof() && (new_unread_.size() < (biff_->value_uint ("max_mail")))) {
 		getline(file, line);
 		// Here we look for a "From " at a beginning of a line indicating
 		// a new mail header. We then parse previous mail, reset mail
@@ -104,5 +104,5 @@ void File::fetch (void)
 	file.close ();
  
 	// Restore access and modification time
-	utime (address_.c_str(), &timbuf);
+	utime (address().c_str(), &timbuf);
 }

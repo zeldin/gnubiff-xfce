@@ -54,7 +54,7 @@
  */
 Imap4::Imap4 (Biff *biff) : Mailbox (biff)
 {
-	protocol_ = PROTOCOL_IMAP4;
+	value ("protocol", PROTOCOL_IMAP4);
 	socket_   = new Socket (this);
 	idleable_ = false;
 	idled_    = false;
@@ -68,7 +68,7 @@ Imap4::Imap4 (Biff *biff) : Mailbox (biff)
  */
 Imap4::Imap4 (const Mailbox &other) : Mailbox (other)
 {
-	protocol_ = PROTOCOL_IMAP4;
+	value ("protocol", PROTOCOL_IMAP4);
 	socket_   = new Socket (this);
 	idleable_ = false;
 	idled_    = false;
@@ -89,7 +89,7 @@ Imap4::~Imap4 (void)
  *
  * @param delay Time (in seconds) to wait before the new thread will be
  *              created. If {\em delay} is zero (this is the default) the
- *              value of {\em delay_} is taken.
+ *              value of {\em delay()} is taken.
  */
 void 
 Imap4::threaded_start (guint delay)
@@ -100,7 +100,7 @@ Imap4::threaded_start (guint delay)
 
 	// If no delay is given use internal delay
 	if (!delay)
-		delay=delay_;
+		delay = Mailbox::delay();
 
 	Mailbox::threaded_start (delay);
 }
@@ -127,10 +127,10 @@ Imap4::start (void)
 		// Catch all errors that are un-recoverable and result in
 		// closing the connection, and resetting the mailbox status.
 #if DEBUG
-		g_warning ("[%d] Imap exception: %s", uin_, err.what());
+		g_warning ("[%d] Imap exception: %s", uin(), err.what());
 #endif
 		if (err.is_mailboxerror()) {
-			status_ = MAILBOX_ERROR;
+			status (MAILBOX_ERROR);
 			unread_.clear ();
 			seen_.clear ();
 			new_mails_to_be_displayed_.clear ();
@@ -144,7 +144,7 @@ Imap4::start (void)
 
 	g_mutex_unlock (monitor_mutex_);
 
-	threaded_start (delay_);
+	threaded_start (delay());
 }
 
 /**
@@ -224,52 +224,53 @@ Imap4::connect (void) throw (imap_err)
 	reset_tag();
 
 	// Check standard port
-	if (!use_other_port_)
-		if (authentication_ == AUTH_USER_PASS)
-			port_ = 143;
+	if (!use_other_port())
+		if (authentication() == AUTH_USER_PASS)
+			port (143);
 		else
-			port_ = 993;
+			port (993);
 
 #ifdef DEBUG
-	g_message ("[%d] Trying to connect to %s on port %d", uin_,
-			   address_.c_str(), port_);
+	g_message ("[%d] Trying to connect to %s on port %d", uin(),
+			   address().c_str(), port());
 #endif
 
 	// Determine authentication
-	if (authentication_ == AUTH_AUTODETECT) {
-		guint port = port_;
-		if (!use_other_port_)
-			port = 993;
-		if (!socket_->open (address_, port, AUTH_SSL)) {
-			if (!use_other_port_)
-				port = 143;
-			if (!socket_->open (address_, port, AUTH_USER_PASS))
+	if (authentication() == AUTH_AUTODETECT) {
+		guint prt = port();
+		if (!use_other_port())
+			prt = 993;
+		if (!socket_->open (address(), prt, AUTH_SSL)) {
+			if (!use_other_port())
+				prt = 143;
+			if (!socket_->open (address(), prt, AUTH_USER_PASS))
 				throw imap_socket_err();
 			else {
-				port_ = port;
-				authentication_ = AUTH_USER_PASS;
+				port (prt);
+				authentication (AUTH_USER_PASS);
 				socket_->close();
 			}
 		}
 		else {
-			port_ = port;
-			authentication_ = AUTH_SSL;
+			port (prt);
+			authentication (AUTH_SSL);
 			socket_->close();
 		}
 	}
 
 	// Open socket
-	if (!socket_->open (address_, port_, authentication_, certificate_, 3))
+	if (!socket_->open (address(), port(), authentication(), certificate(), 3))
 		throw imap_socket_err();
 
 	// Set reads from the socket to time out.	We do this primarily for
 	// the IDLE state.	However, this also prevents reads in general
 	// from blocking forever on connections that have gone bad.	 We
 	// don't let the timeout period be less then 60 seconds.
-	socket_->set_read_timeout(delay_ < 60 ? 60 : delay_);
+	socket_->set_read_timeout(delay() < 60 ? 60 : delay());
 
 #ifdef DEBUG
-	g_message ("[%d] Connected to %s on port %d",uin_,address_.c_str(),port_);
+	g_message ("[%d] Connected to %s on port %d", uin(),
+			   address().c_str(), port());
 #endif
 
 	// Get server's response (maybe we get the CAPABILITY response code)
@@ -374,7 +375,7 @@ Imap4::idle (void) throw (imap_err)
 		waitfor_ack ();
 
 		// Set mailbox status
-		status_ = MAILBOX_CHECK;
+		status (MAILBOX_CHECK);
 
 		// Get mails
 		fetch_mails ();
@@ -505,8 +506,8 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	waitfor_untaggedresponse (msn, "FETCH");
 			
 #ifdef DEBUG
-	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
-			 address_.c_str(), port_);
+	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin(),
+			 address().c_str(), port());
 #endif
 	// Read text
 	gint lineno=0, bytes=textsize+3; // ")\r\n" at end of mail
@@ -579,7 +580,7 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 	parse_bodystructure(response, partinfo);
 #ifdef DEBUG
 	g_print("** Message: [%d] Part=%s size=%d, encoding=%s, charset=%s\n",
-			uin_, partinfo.part_.c_str(), partinfo.size_,
+			uin(), partinfo.part_.c_str(), partinfo.size_,
 			partinfo.encoding_.c_str(),	partinfo.charset_.c_str());
 #endif
 
@@ -619,8 +620,8 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 		
 	// Date, From, Subject and an empty line
 #ifdef DEBUG
-	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
-			 address_.c_str(), port_);
+	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin(),
+			 address().c_str(), port());
 #endif
 	std::string line;
 	gint cnt = 5 + preventDoS_additionalLines_;
@@ -710,7 +711,7 @@ Imap4::command_fetchuid (std::set<guint> msn) throw (imap_err)
  * With inactivity the socket read will timeout periodically waiting for server
  * notifications.  When the timeout occurs we simply issue the IMAP
  * "DONE" command then re-enter the idle mode again.  The timeout
- * occurs every {\em delay_} + 1 minute time.  We perform this timeout
+ * occurs every {\em delay()} + 1 minute time.  We perform this timeout
  * operation so that we periodically test the connection to make sure it
  * is still valid, and to also keep the connection from being closed by
  * keeping the connection active.
@@ -786,12 +787,12 @@ void
 Imap4::command_login (void) throw (imap_err)
 {
 	// Sending the command
-	sendline ("LOGIN \"" + username_ + "\" \"" + password_ + "\"", false);
+	sendline ("LOGIN \"" + username() + "\" \"" + password() + "\"", false);
 
 #ifdef DEBUG
 	// Just in case someone sends me the output: password won't be displayed
-	std::string line = tag() + "LOGIN \"" + username_ + "\" (password) \r\n";
-	g_message ("[%d] SEND(%s:%d): %s", uin_, address_.c_str(), port_,
+	std::string line = tag() + "LOGIN \"" + username() + "\" (password) \r\n";
+	g_message ("[%d] SEND(%s:%d): %s", uin(), address().c_str(), port(),
 			   line.c_str());
 #endif
 
@@ -831,7 +832,7 @@ Imap4::command_logout (void) throw (imap_err)
 void 
 Imap4::command_select (void) throw (imap_err)
 {
-	gchar *buffer=utf8_to_imaputf7 (folder_.c_str(),-1);
+	gchar *buffer=utf8_to_imaputf7 (folder().c_str(),-1);
 	if (!buffer) throw imap_command_err();
 
 	// Send command
@@ -839,15 +840,15 @@ Imap4::command_select (void) throw (imap_err)
 	g_free(buffer);
 
 	// Create error message
-	buffer=g_strdup_printf(_("[%d] Unable to select folder %s on host %s"),
-						   uin_, folder_.c_str(), address_.c_str());
+	buffer = g_strdup_printf (_("[%d] Unable to select folder %s on host %s"),
+							  uin(), folder().c_str(), address().c_str());
 	if (!buffer) throw imap_command_err();
 	std::string msg=std::string(buffer);
-	g_free(buffer);
+	g_free (buffer);
 
 	// According to RFC 3501 6.3.1 there must be exactly seven lines
 	// before getting the acknowledgment line.
-	waitfor_ack(msg,7);
+	waitfor_ack (msg,7);
 
 	// Check for UIDVALIDITY response code; see RFC 3501 2.3.1.1
 	if (ok_response_codes_.find("UIDVALIDITY") != ok_response_codes_.end())
@@ -883,7 +884,8 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	// "* SEARCH 1 2 3 4" or "* SEARCH"
 	std::set<guint> buffer;
 	guint n, cnt=0;
-	while ((ss >> n) && (!biff_->use_max_mail_ || (cnt++ < biff_->max_mail_)))
+	while ((ss >> n) && (!biff_->value_bool ("use_max_mail") ||
+						 (cnt++ < biff_->value_uint ("max_mail"))))
 		buffer.insert (n);
 
 	// Getting the acknowledgment
@@ -927,7 +929,7 @@ Imap4::waitfor_ack (std::string msg, gint num) throw (imap_err)
 	// Error?
 	if (num<0) {
 		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"),
-				   uin_, address_.c_str(), port_);
+				   uin(), address().c_str(), port());
 		throw imap_dos_err();
 	}
 
@@ -986,7 +988,7 @@ Imap4::waitfor_ack_untaggedresponse (std::string key, std::string contbegin,
 
 	if (num < 0) {
 		g_warning (_("[%d] Server doesn't send untagged \"%s\" response or acknowledgment"),
-				   uin_, key.c_str());
+				   uin(), key.c_str());
 		throw imap_dos_err();
 	}
 
@@ -1038,7 +1040,7 @@ Imap4::waitfor_untaggedresponse (guint msn, std::string key,
 		if (test_untagged_response (msn, key, contbegin))
 			return;
 	}
-	g_warning (_("[%d] Server doesn't send untagged \"%s\" response"), uin_,
+	g_warning (_("[%d] Server doesn't send untagged \"%s\" response"), uin(),
 			   key.c_str());
 	throw imap_dos_err();
 }
@@ -1372,7 +1374,7 @@ Imap4::save_response_code (std::map<std::string,std::string> &rc_map)
 	rc_map[atom] = arg;
 #ifdef DEBUG
 	g_message ("[%d] Saved response code to untagged status response: atom=\"%s\" arg=\"%s\"",
-			   uin_, atom.c_str(), arg.c_str());
+			   uin(), atom.c_str(), arg.c_str());
 #endif
 }
 
@@ -1605,16 +1607,16 @@ Imap4::readline (std::string &line, gboolean print, gboolean check,
 		save_response_code(ok_response_codes_);
 	else if (test_untagged_response (0, "BYE")) { // see RFC 3501 7.1.5
 		g_warning (_("[%d] Server closes connection immediately:%s"),
-				   uin_, line.substr(5,line.size()-5).c_str());
-		throw imap_command_err(status_ == MAILBOX_CHECK);
+				   uin(), line.substr(5,line.size()-5).c_str());
+		throw imap_command_err (Mailbox::status() == MAILBOX_CHECK);
 	}
 	else if (test_untagged_response (0, "BAD")) { // see RFC 3501 7.1.3
 		g_warning (_("[%d] Internal server failure or unknown error:%s"),
-				   uin_, line.substr(5,line.size()-5).c_str());
+				   uin(), line.substr(5,line.size()-5).c_str());
 		throw imap_command_err();
 	}
 	else if (test_untagged_response (0, "NO")) { // see RFC 3501 7.1.2
-		g_warning (_("[%d] Warning from server:%s"), uin_,
+		g_warning (_("[%d] Warning from server:%s"), uin(),
 				   line.substr(4,line.size()-4).c_str());
 	}
 	return status;
