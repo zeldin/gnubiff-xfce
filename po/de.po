@@ -32,7 +32,6 @@ msgid "file"
 msgstr "Datei"
 
 #: src/gnubiff.cc:108
-#, fuzzy
 msgid "Skip the configuration process"
 msgstr "Konfiguration überspringen"
 
@@ -60,7 +59,6 @@ msgstr ""
 "von GNU."
 
 #: src/biff.cc:118
-#, fuzzy
 msgid "no mail"
 msgstr "Keine Nachrichten"
 
@@ -85,9 +83,9 @@ msgid "mailbox %d"
 msgstr "Briefkasten %d"
 
 #: src/mailbox.cc:159
-#, fuzzy, c-format
+#, c-format
 msgid "[%d] Unable to create thread: %s"
-msgstr "[%d] Kann Thread nicht erzeugen: %s\n"
+msgstr "[%d] Kann Thread nicht erzeugen: %s"
 
 #: src/mailbox.cc:442
 msgid "<no sender>"
@@ -355,9 +353,8 @@ msgid "Ok"
 msgstr "OK"
 
 #: ui/applet-gtk.glade.h:8
-#, fuzzy
 msgid "Start command"
-msgstr "_Befehl:"
+msgstr "_Befehl ausführen"
 
 #: ui/applet-gtk.glade.h:10
 msgid "gnubiff"
@@ -440,7 +437,6 @@ msgid "Mailboxes"
 msgstr "Briefkästen"
 
 #: ui/preferences.glade.h:18
-#, fuzzy
 msgid "Maximum number of headers to display"
 msgstr "Maximale Anzahl anzuzeigender Nachrichten"
 
@@ -512,23 +508,20 @@ msgid "When _new mail:"
 msgstr "Bei _neuen Nachrichten:"
 
 #: ui/preferences.glade.h:36
-#, fuzzy
 msgid "Whether to display a text"
-msgstr "Popup-_Fenster anzeigen für"
+msgstr "Soll ein Text angezeigt werden?"
 
 #: ui/preferences.glade.h:37
-#, fuzzy
 msgid "Whether to display an image"
-msgstr "Popup-_Fenster anzeigen für"
+msgstr "Soll ein Bild angezeigt werden?"
 
 #: ui/preferences.glade.h:38
-#, fuzzy
 msgid "Whether to display the popup window"
-msgstr "Popup-_Fenster anzeigen für"
+msgstr "Soll ein Popup-Fenster angezeigt werden?"
 
 #: ui/preferences.glade.h:39
 msgid "Whether to restrict number of displayed headers"
-msgstr ""
+msgstr "Soll die Anzahl der anzuzeigenden Nachrichten beschränkt werden?"
 
 #: ui/preferences.glade.h:40
 #, fuzzy
@@ -541,38 +534,32 @@ msgid "Whether to use format for header"
 msgstr "Fenster_platzierung verwenden"
 
 #: ui/preferences.glade.h:42
-#, fuzzy
 msgid "Whether to use geometry"
-msgstr "Fenster_platzierung verwenden"
+msgstr "Soll die Fnesterplatzierung verwendet werden?"
 
 #: ui/preferences.glade.h:43
-#, fuzzy
 msgid "Whether to use window manager decoration"
-msgstr "Popup-Fenster mit Fenstermanager-Dekorationen oder nicht"
+msgstr "Soll das Popup-Fenster mit Fenstermanager-Dekorationen versehen werden?"
 
 #: ui/preferences.glade.h:44
 msgid "[sender max size]:[subject max size]:[date max size]"
-msgstr ""
+msgstr "[Max. Länge des Absenders]:[Max. Länge des Betreffs]:[Max. Länge des Datums]"
 
 #: ui/preferences.glade.h:45 ui/properties.glade.h:23
-#, fuzzy
 msgid "_Browse..."
-msgstr "Auswählen..."
+msgstr "Aus_wählen..."
 
 #: ui/preferences.glade.h:46
-#, fuzzy
 msgid "_Display for"
-msgstr "Da_tum anzeigen"
+msgstr "An_zeigen für"
 
 #: ui/preferences.glade.h:47
-#, fuzzy
 msgid "_Font:"
-msgstr "Por_t:"
+msgstr "_Zeichensatz:"
 
 #: ui/preferences.glade.h:48
-#, fuzzy
 msgid "_Format:"
-msgstr "Protokoll"
+msgstr "_Format der Ausgabe:"
 
 #: ui/preferences.glade.h:49
 msgid "_Restrict collected mail  to"
