@@ -15,6 +15,7 @@ Version 2.1.0
    - Bugfix: Popup was shown on exiting preferences
    - Put back credits back
    - Updated French translations
+   - Fix a bug with IMAP4 idle feature (not recognizing the BYE command)
 
  * Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
    - Gnome version can determine itself if in standalone mode or panel mode

@@ -588,29 +588,34 @@ Imap4::fetch_header (void)
 			// Read acknowledgement
 			if (!socket_->read (line)) break;
 			
-			// Wait for new mail
+			// Wait for new mail and block thread at this point
 			if (!socket_->read (line)) break;
 
-			// Check if we got an ack before going on
-			if (line.find ("* OK") == std::string::npos) break;
+			// Do we lost lock ?
+			if (line.find ("* BYE") == 0) break;
 
 			line = std::string ("DONE") +std::string ("\r\n");
 			if (!socket_->write (line)) idling = false;
 		
+			// Either we got an 
 			do {
 				if (!socket_->read (line)) break;
+				// Do we lost lock ?
+				if (line.find ("* BYE") == 0) break;
 			} while (line.find (tag()+"OK") != 0);
 		}
 		else {
 			// Closing connection
-			if (!send ("LOGOUT\r\n")) break;
+			if (!send ("LOGOUT")) break;
 			socket_->close ();
 			idling = false;
 			idled_ = false;
 		}
 		if (!socket_->status()) break;
 	} while (idling);
+
 	idled_ = false;
+	socket_->close ();
 }
 
 /** 
