@@ -619,8 +619,8 @@ Imap4::fetch_header (void)
 /**
  * Cleanup, then close the connection to the IMAP server.
  */
-void
-Imap4::close()
+void 
+Imap4::close (void)
 {
 	// Closing connection
 	send ("LOGOUT");	
@@ -632,12 +632,12 @@ Imap4::close()
  * either we recieve IMAP notifications (new mail...), or the server
  * terminates for some reason.
  *
- * @throws         imap_err if a problem occurs while processing
+ * @exception      imap_err if a problem occurs while processing
  *                 the idle loop.  Most likely this will be a
  *                 imap_socket_err if we loose connection to the server.
  */
-void
-Imap4::idle() throw (imap_err)
+void 
+Imap4::idle (void) throw (imap_err)
 {
 
 	// currently we will never exit this loop unless an error occurs,
@@ -687,11 +687,11 @@ Imap4::idle() throw (imap_err)
  * keeping the connection active.
  * 
  * @return         Returns the last line recieved from the IMAP server.
- * @throws         imap_err if a problem occurs while processing
+ * @exception      imap_err if a problem occurs while processing
  *                 the idle loop.  Most likely this will be a
  *                 imap_socket_err if we loose connection to the server.
  */
-std::string
+std::string 
 Imap4::idle_renew_loop() throw (imap_err)
 {
 	gboolean idleRenew = false;	 // If we should renew the IDLE again.
