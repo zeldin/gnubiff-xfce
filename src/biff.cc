@@ -440,13 +440,17 @@ Biff::save (void)
 	std::map<std::string,std::string> name_value;
 	g_mutex_lock (mutex_);
 	for (unsigned int i=0; i< mailbox_.size(); i++) {
+#ifdef USE_PASSWORD
 		// Encrypt password
 		mailbox_[i]->value ("password", Decoding::encrypt_password (mailbox_[i]->value_string ("password"), passtable_));
+#endif
 		// Save options
 		mailbox_[i]->to_strings (OPTGRP_MAILBOX, name_value);
 		save_parameters (name_value, "mailbox");
+#ifdef USE_PASSWORD
 		// Decrypt password
 		mailbox_[i]->value ("password", Decoding::decrypt_password (mailbox_[i]->value_string ("password"), passtable_));
+#endif
 	}
 	g_mutex_unlock (mutex_);
 
@@ -592,8 +596,10 @@ Biff::xml_end_element (GMarkupParseContext *context,
 
 		// Get options
 		mailbox_[pos]->from_strings (OPTGRP_MAILBOX, buffer_load_);
+#ifdef USE_PASSWORD
 		// Decrypt password
 		mailbox_[pos]->value ("password", Decoding::decrypt_password (mailbox_[pos]->value_string ("password"), passtable_));
+#endif
 	}
 	// Options common to all mailboxes
 	else

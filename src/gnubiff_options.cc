@@ -331,8 +331,13 @@ Gnubiff_Options::add_options_mailbox (void)
 	add_option (new Option_String ("password", OPTGRP_MAILBOX,
 		"Password of the mailbox. This is needed to login into network "
 		"mailboxes.",
-								   "", OPTFLG_NONE, OPTGUI_ENTRY,
-								   "password_entry"));
+								   "",
+#ifdef USE_PASSWORD
+								   OPTFLG_NONE,
+#else
+								   OPTFLG_NOSAVE,
+#endif
+								   OPTGUI_ENTRY, "password_entry"));
 	// USE_OTHER_PORT
 	const static gchar *s2[] = {"port_spin", NULL};
 	add_option (new Option_Bool ("use_other_port", OPTGRP_MAILBOX,
