@@ -60,6 +60,7 @@ Version 2.1.2
         this bug)
    - Bugfix: Check for crypto lib in autoconf.ac (thanks to Tim Bishop for
         reporting this bug)
+   - Feature: Support for "multipart/signed" mails (without checking signature)
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

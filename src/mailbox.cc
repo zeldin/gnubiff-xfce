@@ -651,10 +651,11 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 	// Content type: multipart/mixed and multipart/alternative
 	// Because we only have the first lines of the message we have to take the
 	// first part whether it is displayable for gnubiff or not.
-	// See RFC 2046
+	// See RFC 2046, RFC 2015 ("multipart/signed")
 	if ((partinfo.type_ == "multipart")
 		&& ((partinfo.subtype_ == "mixed")
-			|| (partinfo.subtype_ == "alternative"))) {
+			|| (partinfo.subtype_ == "alternative")
+			|| (partinfo.subtype_ == "signed"))) {
 		gboolean ok = true;
 
 		// Get boundary
