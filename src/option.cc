@@ -56,6 +56,37 @@ Option::Option (std::string name, guint group, std::string help, guint flags,
 	flags_		= flags;
 }
 
+/**
+ *  Return all flags as a human readable list in a string.
+ *
+ *  @param  sep  Separator between list elements, default is "; "
+ *  @return      List of flags
+ */
+std::string 
+Option::flags_string (std::string sep)
+{
+	std::string result;
+
+	if (flags_ == OPTFLG_NONE)
+		return "none";
+	if (flags_ & OPTFLG_TEST_FILE)
+		result += "only regular filenames allowed" + sep;
+	if (flags_ & OPTFLG_ID_INT_STRICT)
+		result += "only given identifiers allowed" + sep;
+	if (flags_ & OPTFLG_FIXED)
+		result += "option has fixed value" + sep;
+	if (flags_ & OPTFLG_AUTO)
+		result += "option is set automatically" + sep;
+	if (flags_ & OPTFLG_NOSAVE)
+		result += "option is not saved to config file" + sep;
+	if (flags_ & OPTFLG_CHANGE)
+		result += "editing this option may change other options" + sep;
+	if (flags_ & OPTFLG_UPDATE)
+		result += "option is automatically updated each time it is read" + sep;
+	if (flags_ & OPTFLG_STRINGLIST)
+		result += "option is a list" + sep;
+	return result.substr (0, result.size()-2);
+}
 
 Option_UInt::Option_UInt (std::string name, guint group, std::string help,
 						  guint def, guint flags, const guint array_int[],
@@ -182,10 +213,37 @@ Option_UInt::set_gui (std::vector<GtkWidget *> &widgets)
 	}
 }
 
+/**
+ *  Reset the option to the default value.
+ *
+ *  Remark: Instead of calling this function directly better call
+ *  Options::reset(). This function handles flags like OPTFLG_CHANGE!
+ */
 void 
 Option_UInt::reset (void)
 {
 	value_ = default_;
+}
+
+/**
+ *  Return all identifiers to which this option can be set. These will be
+ *  returned as a {\em sep} separated list in a string.
+ *
+ *  @param  sep  List separator, default is " "
+ *  @return      List (in a string) with all identifiers
+ */
+std::string 
+Option_UInt::allowed_ids (std::string sep)
+{
+	std::string result;
+
+	std::map<guint, std::string>::iterator it = int_id_.begin ();
+	while (it != int_id_.end ()) {
+		if (it != int_id_.begin ())
+			result += sep;
+		result += (it++)->second;
+	}
+	return result;
 }
 
 const std::string 
@@ -330,6 +388,12 @@ Option_String::set_gui (std::vector<GtkWidget *> &widgets)
 	}
 }
 
+/**
+ *  Reset the option to the default value.
+ *
+ *  Remark: Instead of calling this function directly better call
+ *  Options::reset(). This function handles flags like OPTFLG_CHANGE!
+ */
 void 
 Option_String::reset (void)
 {

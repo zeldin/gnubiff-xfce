@@ -85,7 +85,7 @@ public:
 	 **/
 	gint open  (std::string hostname = "",
 				gushort port = 0,
-				gint authentication = AUTH_SSL,
+				guint authentication = AUTH_SSL,
 				std::string certificate = "",
 				guint timeout = 5);
 	gint close (void);

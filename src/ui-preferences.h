@@ -115,6 +115,12 @@ public:
 	void expert_create (void);
 	void expert_add_option_list (void);
 	void expert_on_selection (GtkTreeSelection *selection);
+	void expert_ok (void);
+	void expert_reset (void);
+protected:
+	gboolean expert_get_option (class Options *&options,class Option *&option);
+	gboolean expert_get_option (class Options *&options, class Option *&option,
+								GtkTreeIter &treeiter, GtkListStore *&store);
 };
 
 #endif

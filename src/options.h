@@ -50,10 +50,10 @@ public:
 
 	gboolean add_group (Option_Group *group);
 	gboolean add_option (Option *option);
-	gboolean add_option (const Options &options);
+	gboolean add_option (Options &options);
 	Option *find_option (const std::string &name,OptionType type=OPTTYPE_NONE);
 
-	gboolean reset (const std::string &name);
+	gboolean reset (const std::string &name, gboolean respect_change = true);
 	gboolean value (const std::string &name, gboolean value,
 					gboolean respect_change = true);
 	gboolean value (const std::string &name, guint value,
@@ -73,6 +73,10 @@ public:
 	gboolean get_values (const std::string &name, std::set<std::string> &var,
 						 gboolean empty = true,gboolean respect_update = true);
 	const std::string value_to_string (const std::string &name, guint val);
+	std::string to_string (const std::string &name,
+						   gboolean respect_update = true);
+	gboolean from_string (const std::string &name, const std::string value,
+						  gboolean respect_change = true);
 	guint string_to_value (const std::string &name, const std::string &str);
 
 	void to_strings (guint groups, std::map<std::string,std::string> &map,
@@ -87,9 +91,9 @@ public:
 	std::string group_help (guint group) {return groups_[group]->help();};
 	std::string group_name (guint group) {return groups_[group]->name();};
 	/// Access function to Options::groups_
-	std::map<guint, Option_Group *> &groups (void) {return groups_;}
+	std::map<guint, Option_Group *> *groups (void) {return &groups_;}
 	/// Access function to Options::options_
-	void options (std::map<std::string, Option *> &opts) const {opts = options_;}
+	std::map<std::string, Option *> *options (void) {return &options_;}
 protected:
 	/// Iterator
 	typedef std::map<std::string, Option *>::iterator iterator;

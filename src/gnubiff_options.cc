@@ -267,7 +267,7 @@ Gnubiff_Options::add_options_mailbox (void)
 	const static gchar *s4[] = {"autodetect", "user_pass", "apop", "ssl",
 								"certificate", NULL};
 	add_option (new Option_UInt ("authentication", OPTGRP_MAILBOX,
-		"Authentication to be used when connection to the server via the "
+		"Authentication to be used when connecting to the server via the "
 		"internet.",
 								 AUTH_AUTODETECT, OPTFLG_ID_INT_STRICT 
 								 | OPTFLG_FIXED, i4, s4));

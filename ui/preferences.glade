@@ -1517,8 +1517,8 @@
 			  <property name="selectable">False</property>
 			  <property name="xalign">0.5</property>
 			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
+			  <property name="xpad">2</property>
+			  <property name="ypad">2</property>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
@@ -1538,9 +1538,10 @@
 			  <property name="has_frame">True</property>
 			  <property name="invisible_char">*</property>
 			  <property name="activates_default">False</property>
+			  <signal name="activate" handler="PREFERENCES_expert_ok" last_modification_time="Tue, 01 Feb 2005 17:10:52 GMT"/>
 			</widget>
 			<packing>
-			  <property name="padding">0</property>
+			  <property name="padding">2</property>
 			  <property name="expand">True</property>
 			  <property name="fill">True</property>
 			</packing>
@@ -1586,18 +1587,6 @@
 		      <property name="spacing">0</property>
 
 		      <child>
-			<widget class="GtkButton" id="expert_button_ok">
-			  <property name="visible">True</property>
-			  <property name="can_default">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label">gtk-refresh</property>
-			  <property name="use_stock">True</property>
-			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
-			</widget>
-		      </child>
-
-		      <child>
 			<widget class="GtkButton" id="expert_button_reset">
 			  <property name="visible">True</property>
 			  <property name="can_default">True</property>
@@ -1606,6 +1595,20 @@
 			  <property name="use_stock">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
+			  <signal name="clicked" handler="PREFERENCES_expert_reset" last_modification_time="Tue, 01 Feb 2005 15:25:41 GMT"/>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkButton" id="expert_button_ok">
+			  <property name="visible">True</property>
+			  <property name="can_default">True</property>
+			  <property name="can_focus">True</property>
+			  <property name="label">gtk-refresh</property>
+			  <property name="use_stock">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
+			  <signal name="clicked" handler="PREFERENCES_expert_ok" last_modification_time="Tue, 01 Feb 2005 15:26:09 GMT"/>
 			</widget>
 		      </child>
 		    </widget>
@@ -1632,7 +1635,7 @@
 			  <property name="editable">False</property>
 			  <property name="overwrite">False</property>
 			  <property name="accepts_tab">True</property>
-			  <property name="justification">GTK_JUSTIFY_FILL</property>
+			  <property name="justification">GTK_JUSTIFY_LEFT</property>
 			  <property name="wrap_mode">GTK_WRAP_WORD</property>
 			  <property name="cursor_visible">True</property>
 			  <property name="pixels_above_lines">0</property>

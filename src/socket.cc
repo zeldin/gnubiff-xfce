@@ -95,7 +95,7 @@ Socket::~Socket (void)
 gint
 Socket::open (std::string hostname,
 			  gushort port,
-			  gint authentication,
+			  guint authentication,
 			  std::string certificate,
 			  guint timeout)
 {

@@ -451,8 +451,8 @@ Biff::save (void)
 	g_mutex_unlock (mutex_);
 
 	// Save options common to all mailboxes (each group of options separate)
-	std::map<guint, Option_Group *>::iterator it = groups().begin();
-	while (it != groups().end()) {
+	std::map<guint, Option_Group *>::iterator it = groups()->begin();
+	while (it != groups()->end()) {
 		std::string name = it->second->name ();
 		to_strings (it->first, name_value);
 		it++;

@@ -74,14 +74,13 @@ Options::add_option (Option *option)
  *  @return         True if all options could be added successfully.
  */
 gboolean 
-Options::add_option (const Options &options)
+Options::add_option (Options &options)
 {
 	gboolean ok = true;
 
-	std::map<std::string, Option *> opts;
-    options.options (opts);
-	iterator opt =  opts.begin ();
-	while (opt != opts.end ()) {
+	std::map<std::string, Option *> *opts = options.options ();
+	iterator opt =  opts->begin ();
+	while (opt != opts->end ()) {
 		// When we already have the option copy the value, otherwise create
 		// the option	
 		Option *option = find_option (opt->second->name(), OPTTYPE_NONE);
@@ -95,10 +94,19 @@ Options::add_option (const Options &options)
 	return ok;
 }
 
+/**
+ *  Reset the option to the default value. This function handles the
+ *  OPTFLG_CHANGE flag, so use this instead of calling Option::reset()
+ *  directly.
+ *
+ *  @param  name           Name of the option
+ *  @param  respect_change Respect the OPTFLG_CHANGE flag (default is true)
+ *  @return                Success indicator
+ */
 gboolean 
-Options::reset (const std::string &name)
+Options::reset (const std::string &name, gboolean respect_change)
 {
-	Option *option = find_option (name, OPTTYPE_NONE);
+	Option *option = find_option (name);
 	if (option) {
 		option->reset ();
 		if (option->flags() & OPTFLG_CHANGE)
@@ -203,11 +211,12 @@ Options::get_values (const std::string &name, std::set<std::string> &var,
 					 gboolean empty, gboolean respect_update)
 {
 	Option_String *option=(Option_String *) find_option (name, OPTTYPE_STRING);
+	if (!option)
+		return false;
 	if ((option->flags() & OPTFLG_UPDATE) && respect_update)
 		option_update (option);
-	if (option)
-		option->get_values (var, empty);
-	return (option != NULL);
+	option->get_values (var, empty);
+	return true;
 }
 
 const std::string 
@@ -218,6 +227,31 @@ Options::value_to_string (const std::string &name, guint val)
 		return std::string("");
 	return option->value_to_string (val);
 }
+
+std::string 
+Options::to_string (const std::string &name, gboolean respect_update)
+{
+	Option *option = find_option (name);
+	if (!option)
+		return std::string ("");
+	if ((option->flags() & OPTFLG_UPDATE) && respect_update)
+		option_update (option);
+	return option->to_string ();
+}
+
+gboolean 
+Options::from_string (const std::string &name, const std::string value,
+					  gboolean respect_change)
+{
+	Option *option = find_option (name);
+	if (!option)
+		return false;
+	option->from_string (value);
+	if ((option->flags() & OPTFLG_CHANGE) && respect_change)
+		option_changed (option);
+	return true;
+}
+
 
 guint 
 Options::string_to_value (const std::string &name, const std::string &str)
@@ -238,7 +272,7 @@ Options::to_strings (guint groups, std::map<std::string,std::string> &map,
 	iterator opt = options_.begin ();
 	while (opt != options_.end ()) {
 		Option *option = opt->second;
-		if ((groups & option->group ())
+		if (option && (groups & option->group ())
 			&& (!nosave || !(option->flags() & OPTFLG_NOSAVE))) {
 			if (option->flags() & OPTFLG_UPDATE)
 				option_update (option);
@@ -262,7 +296,7 @@ Options::from_strings (guint groups, std::map<std::string,std::string> &map)
 		}
 		else {
 			Option *option = opt->second;
-			if (groups & option->group ()) {
+			if (option && (groups & option->group ())) {
 				if (!(option->from_string (it->second))) {
 					ok = false;
 					g_warning(_("Cannot set option \"%s\" to \"%s\""),
@@ -305,7 +339,7 @@ Options::gui_all (guint whattodo, guint groups, GladeXML *xml,
 	while (opt != options_.end ()) {
 		Option *option = opt->second;
 		opt++;
-		if (!(groups & option->group ()))
+		if (!option || !(groups & option->group ()))
 			continue;
 
 		// Get widgets

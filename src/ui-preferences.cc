@@ -115,6 +115,16 @@ extern "C" {
 	{
 		PREFERENCES(data)->expert_on_selection (selection);
 	}
+
+	void PREFERENCES_expert_ok (GtkWidget *widget, gpointer data)
+	{
+		PREFERENCES(data)->expert_ok ();
+	}
+
+	void PREFERENCES_expert_reset (GtkWidget *widget, gpointer data)
+	{
+		PREFERENCES(data)->expert_reset ();
+	}
 }
 
 
@@ -261,6 +271,11 @@ Preferences::expert_create (void)
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	g_signal_connect (G_OBJECT(selection), "changed",
 					  G_CALLBACK(PREFERENCES_on_selection_expert), this);
+
+	// Help text area
+	GtkTextBuffer *tb = gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview")));
+	gtk_text_buffer_create_tag (tb, "italic","style",PANGO_STYLE_ITALIC,0);
+	gtk_text_buffer_create_tag (tb, "bold", "weight", PANGO_WEIGHT_BOLD,0);
 }
 
 /**
@@ -281,17 +296,17 @@ Preferences::expert_add_option_list (void)
 	// Clear old options
 	gtk_list_store_clear (store);
 
-	std::map<std::string, Option *> opts;
+	Options *opts;
 	std::map<std::string, Option *>::iterator it;
 
 	// Add options
 	for (int i = -1; i < (signed)biff_->size(); i++) {
 		if (i == -1)
-			biff_->options (opts);
+			opts = biff_;
 		else
-			biff_->mailbox(i)->options (opts);
-		it = opts.begin();
-		while (it != opts.end()) {
+			opts = biff_->mailbox(i);
+		it = opts->options()->begin();
+		while (it != opts->options()->end()) {
 			// Create displayed name by concatenating group and name
 			std::string groupname;
 			if (i == -1) {
@@ -310,7 +325,7 @@ Preferences::expert_add_option_list (void)
 								COL_EXP_NAME, it->first.c_str(),
 								COL_EXP_GROUPNAME, groupname.c_str(),
 								COL_EXP_TYPE,it->second->type_string().c_str(),
-								COL_EXP_VALUE, it->second->to_string().c_str(),
+								COL_EXP_VALUE, opts->to_string(it->first).c_str(),
 								-1);
 			it++;
 		}
@@ -590,57 +605,157 @@ Preferences::on_check_changed (GtkWidget *widget)
 void 
 Preferences::expert_on_selection (GtkTreeSelection *selection)
 {
-	GtkTreeIter iter;
+	// Get option
+	Options *opts;
+	Option *option;
+	if (!expert_get_option (opts, option))
+		return;
 
-	if (gtk_tree_selection_get_selected (selection, NULL, &iter)) {
-		// Get selected row	
-		GtkTreeView  *view  = GTK_TREE_VIEW (get ("expert_treeview"));
-		GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-		gint num = -1;
-		gchar *name = NULL;
-		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COL_EXP_ID, &num,
-							COL_EXP_NAME, &name, -1);
+	// Update widgets
+	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")),
+						opts->to_string(option->name()).c_str());
+	gboolean sens = !(option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO));
+	gtk_widget_set_sensitive (get ("expert_button_ok"), sens);
+	gtk_widget_set_sensitive (get ("expert_button_reset"), sens);
+	gtk_widget_set_sensitive (get ("expert_value_entry"), sens);
 
-		// Get option
-		Options *opts;
-		if (num < 0)
-			opts = biff_;
-		else if ((guint)num < biff_->size ())
-			opts = biff_->mailbox(num);
-		else
-			return;
-		Option *option = opts->find_option (name);
-
-		// Update widgets
-		gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")),
-							option->to_string().c_str());
-		gboolean sens = !(option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO));
-		gtk_widget_set_sensitive (get ("expert_button_ok"), sens);
-		gtk_widget_set_sensitive (get ("expert_button_reset"), sens);
-		gtk_widget_set_sensitive (get ("expert_value_entry"), sens);
-
-		// Create help message
-		const gchar *tmp = NULL;
-		GtkTextIter iter;
-		GtkTextBuffer *tb = gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview")));
-		gtk_text_buffer_create_tag (tb, "bold", "weight", PANGO_WEIGHT_BOLD,0);
-		gtk_text_buffer_set_text (tb, "", -1);
-		gtk_text_buffer_get_start_iter (tb, &iter);
-		gtk_text_buffer_insert (tb, &iter, "Option ", -1);
-		gtk_text_buffer_insert_with_tags_by_name (tb, &iter, name, -1, "bold");
-		gtk_text_buffer_insert (tb, &iter, ": ", -1);
-		gtk_text_buffer_insert (tb, &iter, option->help().c_str(), -1);
-		gtk_text_buffer_insert (tb, &iter, "\n\nGroup ", -1);
-		tmp = opts->group_name(option->group()).c_str();
-		gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold");
-		gtk_text_buffer_insert (tb, &iter, ": ", -1);
-		tmp = opts->group_help(option->group()).c_str();
+	// Create help message
+	const gchar *tmp = NULL;
+	GtkTextIter iter;
+	GtkTextBuffer *tb = gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview")));
+	gtk_text_buffer_set_text (tb, "", -1);
+	gtk_text_buffer_get_start_iter (tb, &iter);
+	gtk_text_buffer_insert (tb, &iter, "Option ", -1);
+	tmp = option->name().c_str();
+	gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold");
+	gtk_text_buffer_insert (tb, &iter, ": ", -1);
+	gtk_text_buffer_insert (tb, &iter, option->help().c_str(), -1);
+	gtk_text_buffer_insert (tb, &iter, "\n\nGroup ", -1);
+	tmp = opts->group_name(option->group()).c_str();
+	gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold");
+	gtk_text_buffer_insert (tb, &iter, ": ", -1);
+	tmp = opts->group_help(option->group()).c_str();
+	gtk_text_buffer_insert (tb, &iter, tmp, -1);
+	gtk_text_buffer_insert (tb, &iter, "\n\nDefault value: ", -1);
+	gtk_text_buffer_insert (tb, &iter, option->default_string().c_str(), -1);
+	if (option->type () == OPTTYPE_UINT) {
+		gtk_text_buffer_insert (tb, &iter, "\nAllowed values: ", -1);
+		tmp = ((Option_UInt *)option)->allowed_ids (", ").c_str();
 		gtk_text_buffer_insert (tb, &iter, tmp, -1);
-		gtk_text_buffer_insert (tb, &iter, "\n\nDefault value: ", -1);
-		gtk_text_buffer_insert (tb, &iter,option->default_string().c_str(),-1);
-		if (option->flags() & OPTFLG_ID_INT_STRICT) {
-			gtk_text_buffer_insert (tb, &iter, "\nAllowed values: ", -1);
+		if (!(option->flags () & OPTFLG_ID_INT_STRICT)) {
+			if (*tmp)
+				gtk_text_buffer_insert (tb, &iter, ", ", -1);
+			tmp = "any positive integer";
+			gtk_text_buffer_insert_with_tags_by_name(tb,&iter,tmp,-1,"italic");
 		}
-		gtk_text_buffer_insert (tb, &iter, "\nFlags: ", -1);
 	}
+	gtk_text_buffer_insert (tb, &iter, "\nProperties: ", -1);
+	tmp = option->flags_string().c_str();
+	gtk_text_buffer_insert (tb, &iter, tmp, -1);
+}
+
+/**
+ *  Set the currently selected option to the user given value.
+ */
+void 
+Preferences::expert_ok (void)
+{
+	// Get option
+	Options *opts;
+	Option *option;
+	GtkTreeIter treeiter;
+	GtkListStore *store;
+	if (!expert_get_option (opts, option, treeiter, store))
+		return;
+
+	// Set option
+	const gchar *value;
+	value = gtk_entry_get_text (GTK_ENTRY (get ("expert_value_entry")));
+	opts->from_string (option->name(), value);
+
+	// Update GUI
+	// FIXME: No need to update all GUI widgets!
+	biff_->gui_set (OPTGRP_ALL, xml_, filename_);
+	biff_->gui_show (OPTGRP_ALL, xml_, filename_);
+	gtk_list_store_set (store, &treeiter, COL_EXP_VALUE,
+						opts->to_string(option->name()).c_str(), -1);
+}
+
+/**
+ *  Reset the currently selected option.
+ */
+void 
+Preferences::expert_reset (void)
+{
+	Options *opts;
+	Option *option;
+	if (!expert_get_option (opts, option))
+		return;
+
+	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")),
+						option->default_string().c_str());
+	expert_ok ();
+}
+
+/**
+ *  Get a pointer to the currently selected option.
+ *
+ *  @param  options  Reference where a pointer to the container of the option
+ *                   is returned
+ *  @param  option   Reference where a pointer to the option is returned
+ *  @return          Boolean indicating success
+ */
+gboolean 
+Preferences::expert_get_option (Options *&options, Option *&option)
+{
+  GtkTreeIter treeiter;
+	GtkListStore *store;
+
+	return expert_get_option (options, option, treeiter, store);
+}
+
+/**
+ *  Get a pointer to the currently selected option.
+ *
+ *  @param  options  Reference where a pointer to the container of the option
+ *                   is returned
+ *  @param  option   Reference where a pointer to the option is returned
+ *  @param  treeiter Reference to a GtkTreeIter, where the GtkTreeIter of the
+ *                   list entry of the option is returned
+ *  @param  store    Reference to a GtkListStore, where the selected row is
+ *                   returned
+ *  @return          Boolean indicating success
+ */
+gboolean 
+Preferences::expert_get_option (class Options *&options, class Option *&option,
+								GtkTreeIter &treeiter, GtkListStore *&store)
+{
+	// Get selection
+	GtkTreeView *view  = GTK_TREE_VIEW (get ("expert_treeview"));
+	if (!view)
+		return false;
+	GtkTreeSelection *select=gtk_tree_view_get_selection(GTK_TREE_VIEW (view));
+	if (!select)
+		return false;
+	if (!gtk_tree_selection_get_selected (select, NULL, &treeiter))
+		return false;
+
+	// Get selected row
+	store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
+	if (!store)
+		return false;
+	gint num = -1;
+	gchar *name = NULL;
+	gtk_tree_model_get (GTK_TREE_MODEL(store), &treeiter, COL_EXP_ID, &num,
+						COL_EXP_NAME, &name, -1);
+
+	// Get option
+	if (num < 0)
+		options = biff_;
+	else if ((guint)num < biff_->size ())
+		options = biff_->mailbox(num);
+	else
+		return false;
+	option = options->find_option (name);
+	return true;
 }
