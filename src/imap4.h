@@ -63,7 +63,6 @@ public:
 	void start (void);
 	void fetch (void);
 	gint connect (void);
-	void fetch_status (void);
 	void fetch_header (void);
 
 	class imap_err : public std::exception {};	 // General Imap Exception

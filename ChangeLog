@@ -39,6 +39,7 @@ Version 2.1.1
    - Cleanup of SEARCH NOT SEEN command (IMAP4)
    - Bugfix: Segfaulting in SSL when writing to a closed socket
    - Cleanup of code for obtaining the password for distant mailboxes
+   - Cleanup of code for checking for new mails (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier

@@ -133,14 +133,14 @@ Imap4::start (void)
 void 
 Imap4::fetch (void)
 {
-	// Find out if we have new mail.
-	fetch_status();
+	// Is there a password? Can we obtain it?
+	if (!biff_->password(this)) throw imap_socket_err();
 
-	// If we have new mail, then get the mail header information
-	// such as subject, from, date, etc... for each new mail.
-	// Do we need to check when empty?
-	if ((status_ == MAILBOX_NEW) || (status_ == MAILBOX_EMPTY))
-		fetch_header();
+	// Connection and authentification
+	if (!connect ()) throw imap_socket_err();
+
+	// Set the mailbox status and get headers (if there is new mail)
+	fetch_header();
 	
 	if (idleable_) {
 		idled_ = true;
@@ -304,35 +304,6 @@ Imap4::connect (void)
 		socket_->status(SOCKET_STATUS_OK);
 
 	return 1;
-}
-
-
-void 
-Imap4::fetch_status (void)
-{
-	std::string line;
-	std::vector<int> buffer;
-  
-	// By default we consider to have an error status
-	status_ = MAILBOX_CHECK;
-
-	// Is there a password? Can we obtain it?
-	if (!biff_->password(this)) throw imap_socket_err();
-
-	// Connection and authentification
-	if (!connect ()) throw imap_socket_err();
-
-	// SEARCH NOT SEEN
-	buffer=command_searchnotseen();
-
-	// Determine new mailbox status
-	if (buffer.empty())
-		status_ = MAILBOX_EMPTY;
-	else if (contains_new<int>(buffer, saved_))
-		status_ = MAILBOX_NEW;
-	else
-		status_ = MAILBOX_OLD;
-	saved_ = buffer;
 }
 
 void 
