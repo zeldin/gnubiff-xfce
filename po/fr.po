@@ -161,11 +161,13 @@ msgstr "[%d] Mot de passe vide"
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
-msgstr "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
+msgstr ""
+"[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
 #: src/apop.cc:152
 #, c-format
-msgid "[%d] Problem with crypto that should have been detected at configure time"
+msgid ""
+"[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
@@ -343,7 +345,8 @@ msgid "Start command"
 msgstr "Exécuter la commande"
 
 #: ui/applet-gtk.glade.h:8
-msgid "This program is part of the GNU project, released under the aegis of GNU."
+msgid ""
+"This program is part of the GNU project, released under the aegis of GNU."
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
 #: ui/applet-gtk.glade.h:9
@@ -681,7 +684,8 @@ msgstr "Répertoire standard"
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
-msgstr "Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
+msgstr ""
+"Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
 
 #: ui/properties.glade.h:19
 msgid "Your password on the mail server"
@@ -944,4 +948,3 @@ msgstr "mail content"
 #~ msgstr ""
 #~ "<span size=\"x-small\"><i>Non nécessaire si le serveur possède la "
 #~ "capacité IDLE</i></span>"
-

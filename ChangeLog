@@ -33,6 +33,9 @@ Version 2.1.0
    - Bugfix: display last received mail for each mailbox (up to	popup_size)
    - Bugfix: Take popup_use_size_ into account
    - Bugfix: Use of the decoded charset for imap4
+   - Bugfix: Added a lock for the ui-authentification/ui-certificate access 
+   - Bugfix: Fix a problem with certificate (not taking the HAVE_LIBSSL flag into account)
+   - Buffix: Bad line fixed in apop.
 * Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
    - Gnome version can determine itself if in standalone mode or panel mode
    - Removed "--gtk" option, added "--applet" option in debug mode instead
