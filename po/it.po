@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-24 13:19+0100\n"
+"POT-Creation-Date: 2004-12-26 17:49+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -243,7 +243,7 @@ msgstr "Nessuna casalle di posta selezionata"
 msgid "_Start"
 msgstr "_Avvia"
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:61
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr "_Ferma"
 
@@ -423,12 +423,19 @@ msgid "<b>When no mail</b>"
 msgstr "<b>Generale</b>"
 
 #: ui/preferences.glade.h:8
+#, fuzzy
+msgid ""
+"<small> Released under the aegis of GNU\n"
+" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+msgstr "<small>(C) 2000-2004 Nicolas Rougier</small>"
+
+#: ui/preferences.glade.h:10
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 msgstr ""
 
-#: ui/preferences.glade.h:9
+#: ui/preferences.glade.h:11
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -437,229 +444,222 @@ msgid ""
 "Here is a list of these people:</small>"
 msgstr ""
 
-#: ui/preferences.glade.h:14
-msgid ""
-"<span font_desc=\"24\"><b>Gnubiff 2.1.1</b></span>\n"
-" <small>Released under the aegis of GNU\n"
-" Copyright (c) 2000-2004 Nicolas Rougier</small>"
-msgstr ""
-
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:16
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:17
 #, fuzzy
 msgid "Applet or Biff"
 msgstr "Applet "
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:18
 #, fuzzy
 msgid "B_rowse..."
 msgstr "Sfoglia..."
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:19
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "Scegli il file per il certificato"
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:20
 msgid "Contributors"
 msgstr ""
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:21
 msgid "Credits"
 msgstr "Crediti"
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:22
 msgid "Developers"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:23
 #, fuzzy
 msgid "Image filename"
 msgstr "Dettagli del certificato"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:24
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Casella mail"
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:25
 msgid "Maintainers"
 msgstr ""
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:26
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr "Numero massimoi di email da visualizzare"
 
-#: ui/preferences.glade.h:28 ui/popup.glade.h:4
+#: ui/preferences.glade.h:27 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Notifica"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:28
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:29
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:30
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:31
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:32
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:33
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:35
 #, fuzzy, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 "Testo che deve essere visuallizzato quando non c'è posta, %d è il numero "
 "dei messaggi."
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:36
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Esegui un suono quando la nuova posta è arrivata"
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:37
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:38
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:39
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:40
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:41
 #, fuzzy
 msgid "Use _decoration"
 msgstr "Usa decorazione"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:42
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:43
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:44
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Nuova posta:"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:45
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:46
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:48
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Finestra Biff con dercorazioni del gestore delle finestre o senza"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:50
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:52
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Finestra Biff con dercorazioni del gestore delle finestre o senza"
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:53
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:55 ui/properties.glade.h:21
+#: ui/preferences.glade.h:54 ui/properties.glade.h:21
 #, fuzzy
 msgid "_Browse..."
 msgstr "Sfoglia..."
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:55
 #, fuzzy
 msgid "_Display for"
 msgstr "_Visualizza la data"
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:56
 #, fuzzy
 msgid "_Font:"
 msgstr "Caratteri "
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:57
 #, fuzzy
 msgid "_Format:"
 msgstr "Formato"
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:58
 #, fuzzy
 msgid "_Restrict collected mail to"
 msgstr "Riduci la dimensione del <b>mittente</b> a"
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:59
 #, fuzzy
 msgid "_Restrict number to"
 msgstr "Riduci la dimensione del <b>mittente</b> a"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:61
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Preferenze"
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:62
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:63
 #, fuzzy
 msgid "mail(s)"
 msgstr "kmail"
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:64
 #, fuzzy
 msgid "second(s)"
 msgstr "secondi"
@@ -880,6 +880,10 @@ msgstr "<small><b>Volume</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "contenuto del messaggio"
+
+#, fuzzy
+#~ msgid "<span font_desc=\"24\"><b>Gnubiff 2.1.1</b></span>"
+#~ msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
 
 #, fuzzy
 #~ msgid "date"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-24 13:19+0100\n"
+"POT-Creation-Date: 2004-12-26 17:49+0100\n"
 "PO-Revision-Date: 2004-12-16 23:42+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -248,7 +248,7 @@ msgstr "No se han seleccionado buzones"
 msgid "_Start"
 msgstr "_Comenzar"
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:61
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr "_Detener"
 
@@ -418,6 +418,16 @@ msgid "<b>When no mail</b>"
 msgstr "<b>Cuando no haya correo</b>"
 
 #: ui/preferences.glade.h:8
+#, fuzzy
+msgid ""
+"<small> Released under the aegis of GNU\n"
+" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+msgstr ""
+"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
+" <small>Difundido bajo el auspicio de GNU\n"
+" Copyright (c) 2000-2004 Nicolas Rougier</small> "
+
+#: ui/preferences.glade.h:10
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
@@ -425,7 +435,7 @@ msgstr ""
 "<small>Los errores pueden ser comunicados a <span foreground=\"blue"
 "\">gnubiff-bugs@lists.sourceforge.net</span></small>"
 
-#: ui/preferences.glade.h:9
+#: ui/preferences.glade.h:11
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -439,203 +449,192 @@ msgstr ""
 "  - enviando código\n"
 "Aquí hay una lista de ellos:</small>"
 
-#: ui/preferences.glade.h:14
-#, fuzzy
-msgid ""
-"<span font_desc=\"24\"><b>Gnubiff 2.1.1</b></span>\n"
-" <small>Released under the aegis of GNU\n"
-" Copyright (c) 2000-2004 Nicolas Rougier</small>"
-msgstr ""
-"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
-" <small>Difundido bajo el auspicio de GNU\n"
-" Copyright (c) 2000-2004 Nicolas Rougier</small> "
-
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:16
 msgid "Applet geometry"
 msgstr "Posición del applet"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:17
 msgid "Applet or Biff"
 msgstr "Applet o Biff"
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:18
 msgid "B_rowse..."
 msgstr "_Explorar..."
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:19
 msgid "Browse for an image file"
 msgstr "Buscar un archivo de imagen"
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:20
 msgid "Contributors"
 msgstr "Colaboradores"
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:21
 msgid "Credits"
 msgstr "Créditos"
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:22
 msgid "Developers"
 msgstr "Desarrolladores"
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:23
 msgid "Image filename"
 msgstr "Nombre de archivo de imagen"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:24
 msgid "Mailboxes"
 msgstr "Buzones"
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:25
 msgid "Maintainers"
 msgstr "Mantenimiento"
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:26
 msgid "Maximum number of headers to display"
 msgstr "Número máximo de encabezados a mostrar"
 
-#: ui/preferences.glade.h:28 ui/popup.glade.h:4
+#: ui/preferences.glade.h:27 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Ventana emergente"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:28
 msgid "Popup geometry"
 msgstr "Usar geometría"
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:29
 msgid "Show _image:"
 msgstr "Mostrar _imagen:"
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:30
 msgid "Show _text:"
 msgstr "Mostrar _texto:"
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:31
 msgid "Show i_mage:"
 msgstr "Mostrar i_magen:"
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:32
 msgid "Show t_ext:"
 msgstr "Mostrar t_exto:"
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:33
 msgid "Text to display"
 msgstr "Texto a mostrar"
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:35
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr "Texto a mostrar (%d es el número del nuevo mensaje)"
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:36
 msgid "The command to run when new mail arrives"
 msgstr "Comando a ejecutar cuando llegan nuevos mensajes"
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:37
 msgid "The command to run when the icon is double-clicked"
 msgstr "Comando a ejecutar cuando se hace doble clic sobre el icono"
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:38
 msgid "The font to use to display information"
 msgstr "La fuente a usar para mostrar información"
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:39
 msgid "Time to display popup window"
 msgstr "Tiempo que se muestra la ventana emergente"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:40
 msgid "Translators"
 msgstr "Traductores"
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:41
 msgid "Use _decoration"
 msgstr "Usar _decoración"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:42
 msgid "Use _geometry:"
 msgstr "Usar _geometría:"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:43
 msgid "When _double-clicked:"
 msgstr "Cuando se hace _doble clic:"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:44
 msgid "When _new mail:"
 msgstr "Cuando llega un _nuevo mensaje:"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:45
 msgid "Whether to display a text"
 msgstr "Mostrar un texto o no"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:46
 msgid "Whether to display an image"
 msgstr "Mostrar una imagen o no"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:47
 msgid "Whether to display the popup window"
 msgstr "Mostrar la ventana emergente o no"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:48
 msgid "Whether to restrict number of displayed headers"
 msgstr "Restringir el número de encabezados mostrados o no"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:49
 msgid "Whether to show an image"
 msgstr "Mostrar una imagen o no"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:50
 msgid "Whether to use format for header"
 msgstr "Usar formato en los encabezados o no"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:51
 msgid "Whether to use geometry"
 msgstr "Usar geometría o no"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:52
 msgid "Whether to use window manager decoration"
 msgstr "Ventana emergente con decoración o no"
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:53
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr "[Tamaño del remitente]:[Tamaño del asunto]:[Tamaño de fecha]"
 
-#: ui/preferences.glade.h:55 ui/properties.glade.h:21
+#: ui/preferences.glade.h:54 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "_Explorar..."
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:55
 msgid "_Display for"
 msgstr "Mostrar _durante:"
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:56
 msgid "_Font:"
 msgstr "_Fuente:"
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:57
 msgid "_Format:"
 msgstr "_Formato:"
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:58
 msgid "_Restrict collected mail to"
 msgstr "_Restringir mensajes recolectados a"
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:59
 msgid "_Restrict number to"
 msgstr "Restringir a"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:61
 msgid "gnubiff preferences"
 msgstr "Preferencias"
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:62
 msgid "header(s)"
 msgstr "encabezado(s)"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:63
 msgid "mail(s)"
 msgstr "mensaje(s)"
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:64
 msgid "second(s)"
 msgstr "segundo(s)"
 
@@ -838,3 +837,7 @@ msgstr "<small><b>Asunto</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "contenido del mensaje"
+
+#, fuzzy
+#~ msgid "<span font_desc=\"24\"><b>Gnubiff 2.1.1</b></span>"
+#~ msgstr " <span size=\"x-large\"><b>gnubiff</b></span>"

@@ -15,7 +15,9 @@ Version 2.1.1
    - Updated po files, German translation
    - Bugfix: Parsing local mails could trigger additional FAM events
      resulting in parsing mails another time (->infinite loop, 100% CPU load)
-	
+   - Translating copyright message in credits dialog simplified (po files are
+     now independent of cuurent version)
+
 Version 2.1.0
  * Nicolas Rougier
    - New & simpler interface

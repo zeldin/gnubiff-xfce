@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-24 13:19+0100\n"
+"POT-Creation-Date: 2004-12-26 17:49+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -244,7 +244,7 @@ msgstr ""
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:61
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr ""
 
@@ -429,12 +429,21 @@ msgid "<b>When no mail</b>"
 msgstr "<b>Y</b>"
 
 #: ui/preferences.glade.h:8
+#, fuzzy
+msgid ""
+"<small> Released under the aegis of GNU\n"
+" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+msgstr ""
+"<small>(C) 2000-2004 Nicolas Rougier, Nederlandse vertaling (C) 2004 Elros "
+"Cyriatan</small>"
+
+#: ui/preferences.glade.h:10
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 msgstr ""
 
-#: ui/preferences.glade.h:9
+#: ui/preferences.glade.h:11
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -443,225 +452,218 @@ msgid ""
 "Here is a list of these people:</small>"
 msgstr ""
 
-#: ui/preferences.glade.h:14
-msgid ""
-"<span font_desc=\"24\"><b>Gnubiff 2.1.1</b></span>\n"
-" <small>Released under the aegis of GNU\n"
-" Copyright (c) 2000-2004 Nicolas Rougier</small>"
-msgstr ""
-
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:16
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:17
 #, fuzzy
 msgid "Applet or Biff"
 msgstr "Applet "
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:18
 msgid "B_rowse..."
 msgstr ""
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:19
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "Bladeren voor een certificaatbestand"
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:20
 msgid "Contributors"
 msgstr ""
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:21
 msgid "Credits"
 msgstr "Elros Cyriatan"
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:22
 msgid "Developers"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:23
 msgid "Image filename"
 msgstr ""
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:24
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Postvak"
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:25
 msgid "Maintainers"
 msgstr ""
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:26
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr ""
 "<small>Maximale aantal\n"
 "te verzamelen berichten</small>"
 
-#: ui/preferences.glade.h:28 ui/popup.glade.h:4
+#: ui/preferences.glade.h:27 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Pop-up"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:28
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:29
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:30
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:31
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:32
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:33
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:35
 #, fuzzy, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 "Tekst om weer te geven als er geen nieuwe post is; %d is het aantal "
 "berichten."
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:36
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Geluid om af te spelen als nieuwe e-mail is ontvangen"
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:37
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:38
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:39
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:40
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:41
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:42
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:43
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:44
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Nieuwe e-mail"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:45
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:46
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:48
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:50
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:52
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:53
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:55 ui/properties.glade.h:21
+#: ui/preferences.glade.h:54 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:55
 #, fuzzy
 msgid "_Display for"
 msgstr "Datum weergeven in koppen"
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:56
 #, fuzzy
 msgid "_Font:"
 msgstr "Lettertypes "
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:57
 #, fuzzy
 msgid "_Format:"
 msgstr "Lettertypes "
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:58
 msgid "_Restrict collected mail to"
 msgstr ""
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:59
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:61
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Voorkeuren"
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:62
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:63
 #, fuzzy
 msgid "mail(s)"
 msgstr "kmail"
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:64
 msgid "second(s)"
 msgstr ""
 
@@ -875,6 +877,10 @@ msgstr "<small><b>Geluidssterkte</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "postinhoud"
+
+#, fuzzy
+#~ msgid "<span font_desc=\"24\"><b>Gnubiff 2.1.1</b></span>"
+#~ msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
 
 #, fuzzy
 #~ msgid "date"
