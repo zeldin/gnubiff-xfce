@@ -233,6 +233,10 @@ public:
 
 	/// Access function to mailbox option "uin"
 	const guint uin (void)								{return value_uint ("uin");}
+#ifdef DEBUG
+	/// Access function to Mailbox::uin_count_ (only when debugging is enabled)
+	static guint uin_count (void)						{return uin_count_;}
+#endif
 
 	const guint timetag (void)							{return timetag_;}
 	void timetag (guint value)							{timetag_ = value;}

@@ -34,6 +34,7 @@ Version 2.1.2
         before)
    - Bugfix: Building certificate chain automatically (this fixes debian
         bug #226914)
+   - Bugfix: Don't load config file twice in gnome mode
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

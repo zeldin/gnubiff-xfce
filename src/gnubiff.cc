@@ -174,12 +174,12 @@ int mainGTK (int argc, char **argv) {
 	return 0;
 }
 
-
 #ifdef USE_GNOME
-static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid, gpointer data) {
+static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid,
+										gpointer data)
+{
 	if (!strcmp (iid, "OAFIID:GNOME_gnubiffApplet")) {
 		Biff *biff = new Biff (GNOME_MODE);
-		biff->load();
 		biff->applet()->dock ((GtkWidget *) applet);
 		biff->preferences()->synchronize();
 		biff->applet()->show ();
@@ -192,12 +192,15 @@ static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid, g
 
 int mainGNOME (int argc, char **argv) {
 #if defined(PREFIX) && defined(SYSCONFDIR) && defined(DATADIR) && defined(LIBDIR)
-	gnome_program_init ("gnubiff", "0", LIBGNOMEUI_MODULE, argc, argv, GNOME_PROGRAM_STANDARD_PROPERTIES, NULL);
+	gnome_program_init ("gnubiff", "0", LIBGNOMEUI_MODULE, argc, argv,
+						GNOME_PROGRAM_STANDARD_PROPERTIES, NULL);
 #else
-	gnome_program_init ("gnubiff", "0", LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_NONE);
+	gnome_program_init ("gnubiff", "0", LIBGNOMEUI_MODULE, argc, argv,
+						GNOME_PARAM_NONE);
 #endif
 
-	panel_applet_factory_main ("OAFIID:GNOME_gnubiffApplet_Factory", PANEL_TYPE_APPLET, gnubiff_applet_factory, 0);
+	panel_applet_factory_main ("OAFIID:GNOME_gnubiffApplet_Factory",
+							   PANEL_TYPE_APPLET, gnubiff_applet_factory, 0);
 
 	return 0;
 }
