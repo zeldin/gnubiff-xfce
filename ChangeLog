@@ -21,15 +21,14 @@ Version 2.0.2
  * Robert Sowada:
    - Bugfix: User can no longer make config file invalid by using XML 
      sensitive characters in strings
-   - It is no longer necessary to open a shell for setting file permissions
-   - Bugfix: Setting file permissions is no longer susceptible to race
-     conditions
+   - Bugfixes in setting file permissions
    - File permissions are only set when creating a new config file. So the user
      is able to change to less restrictive permissions if he/she wants to do
      this
    - Bugfix in detection of animation information
    - Bugfixes in detection of local mailbox format
    - Bugfix in mh protocol
+   - Bugfix in handling of sound filename
 
 
 Version 2.0.1

@@ -226,8 +226,9 @@ void Applet::process (void) {
 			guint i;
 			while ((i = command.find ("%s")) != std::string::npos) {
 				command.erase (i, 2);
-				std::string filename = std::string("\"") + biff_->sound_file_ + std::string("\"");
-				command.insert(i, filename);
+				gchar *quoted=g_shell_quote(biff_->sound_file_.c_str());
+				command.insert(i,quoted);
+				g_free(quoted);
 			}
 			while ((i = command.find ("%v")) != std::string::npos) {
 				command.erase (i, 2);
