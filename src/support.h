@@ -22,7 +22,7 @@
 // Revision      : $Revision$
 // Revision date : $Date$
 // Author(s)     : Nicolas Rougier, Robert Sowada
-// Short         : Functions that should be present in glib;-)
+// Short         : Support functions
 //
 // This file is part of gnubiff.
 //
@@ -42,11 +42,31 @@
 #include <string>
 #include <vector>
 
-gchar* gb_utf8_strndup(const gchar *, gsize);
-std::string gb_substitute(std::string, std::string, std::vector<std::string>);
+/**
+ * This class provides various support functions.
+ *
+ * @see In the class Decoding are support functions for decoding, encoding
+ *      and converting.
+ */
+class Support
+{
+protected:
+	// Basic string functions
+	gchar *utf8_strndup (const gchar *str, gsize n);
 
-#define unknown_internal_error() (unknown_internal_error_ (__FILE__, __LINE__, __func__))
+	// Advanced string functions
+	std::string substitute (std::string format, std::string chars,
+							std::vector<std::string> toinsert);
+public:
+	// Debugging
+	static void unknown_internal_error_ (const gchar *file, guint line,
+										 const gchar *func);
+};
 
-void unknown_internal_error_(const gchar *file, guint line, const gchar *func);
+/**
+ *  Print debug information. This function should be called in a situation
+ *  that should never happen to provide more information in a bug report.
+ */
+#define unknown_internal_error() (Support::unknown_internal_error_ (__FILE__, __LINE__, __func__))
 
 #endif

@@ -13,6 +13,7 @@ Version 2.1.4
    - Checked files for incorrect string size type without problems:
         "src/gnubiff_options.*", "src/gui.*", "src/local.*", "src/options.*",
         "src/socket.*" and "src/ui-applet.*"
+   - Cleanup: New class Support (for existing functions in "src/support.cc")
 
 Version 2.1.3		2005-04-03 23:57
  * Robert Sowada

@@ -22,7 +22,7 @@
 // Revision      : $Revision$
 // Revision date : $Date$
 // Author(s)     : Nicolas Rougier, Robert Sowada
-// Short         : Functions that should be present in glib;-)
+// Short         : Support functions
 //
 // This file is part of gnubiff.
 //
@@ -36,6 +36,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "support.h"
 
 /** 
  * Duplicates the first {\em n} characters of a valid utf-8 character array,
@@ -50,7 +51,7 @@
  *              characters of {\em str}, nul-terminated
  */
 gchar* 
-gb_utf8_strndup (const gchar *str, gsize n)
+Support::utf8_strndup (const gchar *str, gsize n)
 {
     // No String
 	if (str == NULL)
@@ -89,8 +90,8 @@ gb_utf8_strndup (const gchar *str, gsize n)
  *                  substituted
  */
 std::string 
-gb_substitute(std::string format, std::string chars,
-			  std::vector<std::string> toinsert)
+Support::substitute(std::string format, std::string chars,
+					std::vector<std::string> toinsert)
 {
 	std::string::size_type pos = 0, cpos, prevpos=0;
 	std::string::size_type len = format.length();
@@ -132,7 +133,8 @@ gb_substitute(std::string format, std::string chars,
  *  @param func  Name of the function in which the error is
  */
 void 
-unknown_internal_error_ (const gchar *file, guint line, const gchar *func)
+Support::unknown_internal_error_ (const gchar *file, guint line,
+								  const gchar *func)
 {
 	std::stringstream ss;
 	utsname uts;

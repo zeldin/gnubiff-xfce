@@ -40,8 +40,10 @@
 #include <vector>
 
 /**
- * This class is intended to provide functions needed for decoding and
- * converting encodings used in mails. 
+ * This class is intended to provide functions needed for decoding,
+ * encoding and converting encodings used in mails.
+ *
+ * @see In the class Support are various other support functions.
  */
 class Decoding
 {

@@ -38,9 +38,10 @@
 #include <string>
 #include <gtk/gtk.h>
 #include <glade/glade.h>
+#include "support.h"
 
 
-class GUI {
+class GUI : public Support {
 
 protected:
 	GladeXML *		xml_;		// interface description using XML/glade-2 file

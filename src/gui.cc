@@ -236,7 +236,7 @@ GUI::create_insert_version (void)
 		const gchar *text = gtk_label_get_label (label);
 		if (!text)
 			continue;
-		std::string newtext = gb_substitute (text, chars, toinsert);
+		std::string newtext = substitute (text, chars, toinsert);
 		gtk_label_set_label (label, newtext.c_str());
 	}
 }

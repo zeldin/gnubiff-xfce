@@ -29,8 +29,6 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#include "support.h"
-
 #include <sstream>
 #include <iomanip>
 #include <cstdio>
@@ -40,6 +38,7 @@
 #include "ui-applet.h"
 #include "ui-popup.h"
 #include "mailbox.h"
+#include "support.h"
 
 
 Applet::Applet (Biff *biff,
@@ -100,15 +99,15 @@ Applet::unread_markup (std::string &text)
 	std::vector<std::string> vec(1);
 	if (unread == 0) {
 		vec[0] = std::string (unreads.str());
-		text += gb_substitute (biff_->value_string ("nomail_text"), "d", vec);
+		text += substitute (biff_->value_string ("nomail_text"), "d", vec);
 	}
 	else if (unread < biff_->value_uint ("max_mail")) {
 		vec[0] = std::string (unreads.str());
-		text += gb_substitute (biff_->value_string ("newmail_text"), "d", vec);
+		text += substitute (biff_->value_string ("newmail_text"), "d", vec);
 	}
 	else {
 		vec[0] = std::string (std::string(smax.str().size(), '+'));
-		text += gb_substitute (biff_->value_string ("newmail_text"), "d", vec);
+		text += substitute (biff_->value_string ("newmail_text"), "d", vec);
 	}
 	text += "</span>";
 	
