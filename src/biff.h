@@ -167,6 +167,8 @@ public:
 
 	/* I/O */
 	gboolean load (void);
+	std::string save_para(const gchar *,std::string,guint indent=4);
+	std::string save_para(const gchar *,gint,guint indent=4);
 	gboolean save (void);
 	void xml_start_element (GMarkupParseContext *context,
 							const gchar *element_name,
