@@ -205,8 +205,12 @@ AC_ARG_ENABLE(expert,
 #                           debug support                            #
 ######################################################################
 AC_ARG_ENABLE(debug,
-[  --enable-debug          turn on debugging [default=no]],
-        AC_DEFINE(DEBUG, 1, [Define to 1 to enable debugging code.]),)
+		[  --enable-debug          turn on debugging [default=no]],
+AC_DEFINE(DEBUG, 1, [Define to 1 to enable debugging code.]),)
+
+AC_CHECK_FILE("CVS", [AC_DEFINE(IS_CVS_VERSION, 1, [Huhu])
+	echo "####1"], [AC_DEFINE(IS_CVS_VERSION, 0, [Hihi])
+		echo "####2"])
 
 
 

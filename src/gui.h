@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -53,6 +53,7 @@ public:
 
 	/* main */
 	virtual gint create (void);
+	void create_insert_version (void);
 	virtual void show (std::string name = "dialog");
 	virtual void hide (std::string name = "dialog");
 	gboolean browse (std::string title,

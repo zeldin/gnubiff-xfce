@@ -1871,7 +1871,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="gnubiff">
 			      <property name="visible">True</property>
-			      <property name="label">&lt;span font_desc=&quot;24&quot;&gt;&lt;b&gt;Gnubiff 2.1.3&lt;/b&gt;&lt;/span&gt;</property>
+			      <property name="label">&lt;span font_desc=&quot;24&quot;&gt;&lt;b&gt;Gnubiff %v %c&lt;/b&gt;&lt;/span&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1892,7 +1892,8 @@
 			  <child>
 			    <widget class="GtkLabel" id="label48">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;small&gt; Released under the aegis of GNU&lt;/small&gt;</property>
+			      <property name="label" translatable="yes">&lt;small&gt; This program is part of the GNU project,
+ released under the aegis of GNU.&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1911,9 +1912,9 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkLabel" id="label35">
+			    <widget class="GtkLabel" id="copyright">
 			      <property name="visible">True</property>
-			      <property name="label">&lt;small&gt;© 2000-2005 Nicolas Rougier&lt;/small&gt;</property>
+			      <property name="label">&lt;small&gt; © 2000-2005 Nicolas Rougier&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>

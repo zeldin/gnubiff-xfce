@@ -207,7 +207,38 @@ GUI::create (void)
 	}
 
 	glade_xml_signal_autoconnect_full (xml_, GUI_connect, this);
+	create_insert_version ();
 	return true;
+}
+
+/**
+ *  Insert version and date information into certain widgets. For widgets
+ *  called "gnubiff" (if existing) the following substitutions are made:
+ *  "%v" is substituted by the version number, "%c" is substituted by "CVS" if
+ *  it's a cvs version of gnubiff and "" otherwise..
+ */
+void 
+GUI::create_insert_version (void)
+{
+	static const gchar *widgets[] = {"gnubiff", NULL};
+	static const std::string chars = "vc";
+	std::vector<std::string> toinsert (2);
+	toinsert[0] = std::string (PACKAGE_VERSION);
+	toinsert[1] = std::string (IS_CVS_VERSION ? "CVS" : "");
+	guint i = 0;
+	while (widgets[i] != NULL) {
+		// Don't use GUI::get() because we don't want warning messages if
+		// the widget doesn't exist
+		GtkLabel *label = GTK_LABEL(glade_xml_get_widget (xml_, widgets[i++]));
+		if (!label)
+			continue;
+		// Substitute
+		const gchar *text = gtk_label_get_label (label);
+		if (!text)
+			continue;
+		std::string newtext = gb_substitute (text, chars, toinsert);
+		gtk_label_set_label (label, newtext.c_str());
+	}
 }
 
 void
@@ -230,7 +261,8 @@ GUI::get (std::string name)
 	GtkWidget *widget = glade_xml_get_widget (xml_, (gchar *) name.c_str());
 	if (!widget)
 		g_warning (_("Cannot find the specified widget (\"%s\")"
-					 " within xml structure (\"%s\")"), name.c_str(), filename_.c_str());
+					 " within xml structure (\"%s\")"), name.c_str(),
+				   filename_.c_str());
 	return widget;
 }
 

@@ -248,6 +248,8 @@ gint
 Preferences::create (void)
 {
 	GUI::create ();
+
+	// Create expert tab
 	expert_create ();
 
 	// Mailboxes list

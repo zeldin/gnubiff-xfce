@@ -153,7 +153,8 @@ unknown_internal_error_ (const gchar *file, guint line, const gchar *func)
 	ss << "line        : " << line << "\n";
 	ss << "function    : " << func << "\n";
 	ss << "date        : " << __DATE__ << " " << __TIME__ << "\n";
-	ss << "gnubiff     : " << PACKAGE_VERSION << "\n";
+	ss << "gnubiff     : " << PACKAGE_VERSION << " ";
+	ss <<                     IS_CVS_VERSION ? "CVS\n" : "\n";
 	ss << "\n";
 	ss << "system      : " << uts.sysname << " " << uts.release << " ";
 	ss <<                     uts.version << " " << uts.machine << "\n";
