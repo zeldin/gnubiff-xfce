@@ -63,6 +63,7 @@ Version 2.1.1
         (IMAP4)
    - Source code for class Imap4 is fully documented now
    - Bugfix: Printing debug messages for sent lines (IMAP4 & POP3)
+   - Feature: Allow the user to forbid idling (no GUI support ATM; IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier

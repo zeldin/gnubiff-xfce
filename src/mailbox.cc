@@ -75,6 +75,7 @@ Mailbox::Mailbox (Biff *biff)
 	folder_ = "INBOX";
 	certificate_ = "";
 	delay_ = 180;
+	use_idle_ = true;
 	use_other_folder_ = false;
 	other_folder_ = "";
 	use_other_port_ = false;
@@ -90,22 +91,23 @@ Mailbox::Mailbox (Biff *biff)
 
 Mailbox::Mailbox (const Mailbox &other)
 {
-	biff_			= other.biff_;
-	uin_			= other.uin_;
-	name_			= other.name_;
-	protocol_		= other.protocol_;
-	authentication_ = other.authentication_;
-	address_		= other.address_;
-	username_		= other.username_;
-	password_		= other.password_;
-	port_			= other.port_;
-	folder_			= other.folder_;
-	certificate_	= other.certificate_;
-	delay_			= other.delay_;
-	use_other_folder_= other.use_other_folder_;
-	other_folder_	= other.other_folder_;
-	use_other_port_	= other.use_other_port_;
-	other_port_		= other.other_port_;
+	biff_			  = other.biff_;
+	uin_			  = other.uin_;
+	name_			  = other.name_;
+	protocol_		  = other.protocol_;
+	authentication_   = other.authentication_;
+	address_		  = other.address_;
+	username_		  = other.username_;
+	password_		  = other.password_;
+	port_			  = other.port_;
+	folder_			  = other.folder_;
+	certificate_	  = other.certificate_;
+	delay_			  = other.delay_;
+	use_idle_         = other.use_idle_;
+	use_other_folder_ = other.use_other_folder_;
+	other_folder_	  = other.other_folder_;
+	use_other_port_	  = other.use_other_port_;
+	other_port_		  = other.other_port_;
 
 	status_ = MAILBOX_UNKNOWN;
 	timetag_= 0;
@@ -120,21 +122,22 @@ Mailbox::operator= (const Mailbox &other)
 {
 	if (this == &other)
 		return *this;
-	biff_			= other.biff_;
-	name_			= other.name_;
-	protocol_		= other.protocol_;
-	authentication_ = other.authentication_;
-	address_		= other.address_;
-	username_		= other.username_;
-	password_		= other.password_;
-	port_			= other.port_;
-	folder_			= other.folder_;
-	certificate_	= other.certificate_;
-	delay_			= other.delay_;
-	use_other_folder_= other.use_other_folder_;
-	other_folder_	= other.other_folder_;
-	use_other_port_	= other.use_other_port_;
-	other_port_		= other.other_port_;
+	biff_			  = other.biff_;
+	name_			  = other.name_;
+	protocol_		  = other.protocol_;
+	authentication_   = other.authentication_;
+	address_		  = other.address_;
+	username_		  = other.username_;
+	password_		  = other.password_;
+	port_			  = other.port_;
+	folder_			  = other.folder_;
+	certificate_	  = other.certificate_;
+	delay_			  = other.delay_;
+	use_idle_         = other.use_idle_;
+	use_other_folder_ = other.use_other_folder_;
+	other_folder_	  = other.other_folder_;
+	use_other_port_	  = other.use_other_port_;
+	other_port_		  = other.other_port_;
 	return *this;
 }
 

@@ -458,6 +458,7 @@ Biff::save (void)
 		save_para("folder",mailbox_[i]->folder());
 		save_para("certificate",mailbox_[i]->certificate());
 		save_para("delay",mailbox_[i]->delay());
+		save_para("use_idle",mailbox_[i]->use_idle());
 		save_para("use_other_folder",mailbox_[i]->use_other_folder());
 		save_para("other_folder",mailbox_[i]->other_folder());
 		save_para("use_other_port",mailbox_[i]->use_other_port());
@@ -680,6 +681,12 @@ Biff::xml_start_element (GMarkupParseContext *context,
 			std::istringstream strin(fmap["value"]);
 			guint value; strin >> value;
 			mailbox_[count_]->delay (value);
+		}
+
+		else if (fmap["name"] == "use_idle") {
+			std::istringstream strin(fmap["value"]);
+			guint value; strin >> value;
+			mailbox_[count_]->use_idle (value);
 		}
 
 		else if (fmap["name"] == "use_other_folder") {

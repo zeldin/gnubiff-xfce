@@ -123,6 +123,12 @@ protected:
 	std::string					folder_;			// mailbox folder
 	std::string					certificate_;		// certificate file
 	guint						delay_;				// delay between mail check (apop & pop3 only)
+	/** Use IDLE command if server supports it. This is usually a good idea.
+	 *  But if multiple clients connect to the same mailbox this can lead to
+	 *  connection errors (depending on the internal server configuration).
+	 *  For users encountering this problem it is better not to use idling but
+	 *  use polling instead. */
+	gboolean                    use_idle_;
 
 	// ========================================================================
 	//  "convenience" configuration
@@ -155,7 +161,7 @@ protected:
 public:
 	// ========================================================================
 	//  base
-	// ========================================================================	
+	// ========================================================================
 	Mailbox (class Biff *biff);
 	Mailbox (const Mailbox &other);
 	Mailbox &operator= (const Mailbox &other);
@@ -164,14 +170,13 @@ public:
 	// ========================================================================
 	//  exceptions
 	// ========================================================================
-
 	/** General exception for mailboxes. This only serves as base for more
 	 *  more specific exceptions. */
 	class mailbox_err : public std::exception {};
 
 	// ========================================================================
 	//  main
-	// ========================================================================	
+	// ========================================================================
 	virtual void threaded_start (guint delay = 0);				// start monitoring in a new thread
 	static gboolean start_delayed_entry_point (gpointer data);	// start thread timeout entry point
 	static void start_entry_point (gpointer data);				// start thread entry point
@@ -217,6 +222,11 @@ public:
 
 	const guint delay (void)							{return delay_;}
 	void delay (const guint value)						{delay_ = value;}
+
+	/// Access function to Mailbox::use_idle_
+	const gboolean use_idle (void)						{return use_idle_;}
+	/// Access function to Mailbox::use_idle_
+	void use_idle (gboolean value)						{use_idle_ = value;}
 
 	const gboolean use_other_folder (void)				{return use_other_folder_;}
 	void use_other_folder (const gboolean value)		{use_other_folder_ = value;}
