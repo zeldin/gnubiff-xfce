@@ -206,6 +206,7 @@ Pop::get_header (void)
 			else
 				mail.push_back ("");
 		} while ((line != ".\r") && (0<cnt--));
+		if (cnt<=0) return;
 #ifdef DEBUG
 		g_print("\n");
 #endif
