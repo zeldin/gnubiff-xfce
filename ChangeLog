@@ -45,6 +45,7 @@ Version 2.0.3
    - Bugfix: Handling of text lines beginning with a dot (IMAP & POP3)
    - Bugfix: Deleting of mailboxes when detecting mailbox format
    - Bugfix: Updating when connection for mailbox detection fails
+   - Bugfix: Using <return> in password entry
    
 
 Version 2.0.2
