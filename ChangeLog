@@ -150,6 +150,7 @@ Version 2.1.1
    - Feature: Option "pref_allow_resize" for resizing preferences window
    - Bugfix: Respect "min_body_lines" for file protocol
    - Bugfixes: Displaying of mail body in popup
+   - Bugfix: Prevent DoS attacks in socket closing function
 
 Version 2.1.0
  * Nicolas Rougier

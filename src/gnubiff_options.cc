@@ -605,4 +605,10 @@ Gnubiff_Options::add_options_security (void)
 		"   * POP3: maximum response line length is 512 (see RFC 1939 3.)\n"
 		"This option is currently used for all network protocols.",
 								 16384));
+	// PREVDOS_CLOSE_SOCKET
+	add_option (new Option_UInt ("prevdos_close_socket", OPTGRP_SECURITY,
+		"Maximum number of lines to be read when the socket for a network "
+		"connection is closed.\n"
+		"This option is used for all network protocols.",
+								 64));
 }
