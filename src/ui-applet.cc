@@ -174,6 +174,10 @@ Applet::update (gboolean no_popup)
 		system (command.c_str());
 	}
 
+	// If there are no mails to display then hide popup
+	if ((!no_popup) && !unread && (biff_->use_popup_  || force_popup_))
+		biff_->popup()->hide();
+
 	if ((!no_popup) && unread && ((biff_->use_popup_ && newmail) || (force_popup_))) {
 		biff_->popup()->update();
 		biff_->popup()->show();
