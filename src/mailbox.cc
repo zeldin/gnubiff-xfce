@@ -529,6 +529,15 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 	guint len = mail.size ();
 	PartInfo partinfo;
 
+	// If we have an uid and this uid is known we do not need to parse the mail
+	if ((uid.size() > 0) && (hidden_.find (uid) != hidden_.end ())) {
+		new_seen_.insert (uid);
+#ifdef DEBUG
+		g_message ("[%d] Ignored mail with id \"%s\"", uin (), uid.c_str ());
+#endif
+		return;
+	}
+
 	// Information about the mail obtained before?
 	if (pi != NULL)
 		partinfo = *pi;

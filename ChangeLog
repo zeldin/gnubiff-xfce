@@ -44,6 +44,7 @@ Version 2.1.2
         (thanks to Phil Shapiro for reporting this bug)
    - Added Phil Shapiro and Nicolas Evrard to contributors
    - Bugfix: Setting defaults for date, subject and from
+   - Bugfix: Don't parse mails that aren't stored anyway
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 
