@@ -37,13 +37,18 @@
 #endif
 #include <glib.h>
 #include <string>
+#include <vector>
 
 class Decoding
 {
 protected:
+	gboolean decode_body (std::vector<std::string> &,std::string);
+
+	// Encodings
 	std::string decode_base64 (const std::string &);
 	std::string decode_qencoding (const std::string &);
 	std::string decode_quotedprintable (const std::string &);
+	std::vector<std::string> decode_quotedprintable (const std::vector<std::string> &, guint pos=0);
 };
 
 #endif

@@ -276,11 +276,9 @@ Imap4::fetch_status (void)
 
 	// Second try: ask to the user
 	if (password_.empty()) {
-		g_static_mutex_lock (&ui_auth_mutex_);
 		gdk_threads_enter ();
 		ui_auth_->select (this);
 		gdk_threads_leave ();
-		g_static_mutex_unlock (&ui_auth_mutex_);
 	}
 
 	// No way, user do not want to help us, we simply return

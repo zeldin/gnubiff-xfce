@@ -30,6 +30,50 @@
 // ========================================================================
 
 #include "decoding.h"
+#include "nls.h"
+
+/** 
+ * Decodes the body of a mail.
+ * The part of the mail's body that will be displayed by gnubiff is decoded.
+ * The encoding is given by the parameter {\em encoding} and must be obtained
+ * before. Currently supported encodings are 7bit, 8bit and quoted-printable.
+ * If called with an unsupported encoding the mail's body is replaced with an
+ * error message.
+ *
+ * @param  mail      C++ vector of C++ strings consisting of the lines of the
+ *                   mail.
+ * @param  encoding  C++ string for the encoding of the mail's body.
+ * @return           Boolean indicating success.
+ */
+gboolean 
+Decoding::decode_body (std::vector<std::string> &mail, std::string encoding)
+{
+	// Skip header
+	guint bodypos=0;
+	while ((bodypos<mail.size()) && (!mail[bodypos].empty()))
+		bodypos++;
+	bodypos++;
+
+	// 7bit, 8bit encoding: nothing to do
+	if ((encoding=="7bit") || (encoding=="8bit") || (encoding=="binary"));
+	// Quoted-Printable
+	else if (encoding=="quoted-printable") {
+		std::vector<std::string> decoded=decode_quotedprintable(mail, bodypos);
+		mail.erase(mail.begin()+bodypos, mail.end());
+		for (guint i=0; i<decoded.size(); i++)
+			mail.push_back(decoded[i]);
+	}
+	// Unknown encoding: Replace body text by a error message
+	else {
+		mail.erase(mail.begin()+bodypos, mail.end());
+		gchar *tmp=g_strdup_printf(_("[The encoding \"%s\" of this mail can't be decoded]"),encoding.c_str());
+		mail.push_back(std::string(tmp));
+		g_free(tmp);
+		return true;
+	}
+
+	return true;
+}
 
 /**
  * Decoding of a base64 encoded string. If the given string
@@ -162,6 +206,51 @@ Decoding::decode_quotedprintable (const std::string &todec)
 				result+=c;
 				break;
 		}
+	}
+	return result;
+}
+
+/**
+ * Decoding of a vector of quoted-printable encoded strings. It is assumed that
+ * each string in the vector {\em todec} represents one line of the
+ * quoted-printable encoded text. Lines that have an invalid encoding are
+ * omitted.
+ *
+ * See RFC 2045 6.7. for the definition of this encoding.
+ *
+ * Note: For mail headers q-encoding is used instead of quoted-printable.
+ *
+ * @param todec  Reference to a C++ vector of C++ strings that will be decoded.
+ * @param pos    Number of the first line in the vector that has to be decoded.
+ *               The default value is 0.
+ * @return       C++ vector of C++ strings consisting of the decoded text
+ */
+std::vector<std::string> 
+Decoding::decode_quotedprintable (const std::vector<std::string> &todec,
+								  guint pos)
+{
+	std::string line;
+	std::vector<std::string> result;
+
+	while (pos<todec.size()) {
+		// Handle soft breaks (see RFC 2045 6.7. (3),(5))
+		line+=todec[pos];
+		gint lpos=line.size()-1;
+		while ((lpos>=0) && ((line[lpos]=='\t') || (line[lpos]==' ')))
+			lpos--;
+		if (lpos<(signed)line.size()-1)
+			line.erase(lpos+1,line.size());
+		if ((line.size()>0) && (line[line.size()-1]=='=')) {
+			line.erase(line.size()-1);
+			if (pos<todec.size()-1) {
+				pos++;
+				continue;
+			}
+		}
+		// Decode line
+		result.push_back(decode_quotedprintable(line));
+		line="";
+		pos++;
 	}
 	return result;
 }
