@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 23:46+0100\n"
+"POT-Creation-Date: 2004-12-07 17:24+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -41,15 +41,6 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/ui-applet-gnome.cc:359
-msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
-msgstr "Copyright (c) 2000-2004 Nicolas Rougier\n"
-
-#: src/ui-applet-gnome.cc:360 ui/applet-gtk.glade.h:9
-msgid ""
-"This program is part of the GNU project, released under the aegis of GNU."
-msgstr ""
-
 #: src/biff.cc:118
 #, fuzzy
 msgid "no mail"
@@ -60,12 +51,12 @@ msgstr "Niente posta"
 msgid "Configuration file (%s) not found !"
 msgstr "File di configurazione (%s) non trovato !"
 
-#: src/biff.cc:401
+#: src/biff.cc:424
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Non riesco ad aprire il tuo file di configurazione (%s)"
 
-#: src/biff.cc:426
+#: src/biff.cc:449
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -77,20 +68,20 @@ msgstr ""
 msgid "mailbox %d"
 msgstr "casella di posta %d"
 
-#: src/mailbox.cc:159
+#: src/mailbox.cc:182
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossibile creare il thread: %s\n"
 
-#: src/mailbox.cc:442
+#: src/mailbox.cc:465
 msgid "<no sender>"
 msgstr "<nessun mittente>"
 
-#: src/mailbox.cc:452
+#: src/mailbox.cc:475
 msgid "<no subject>"
 msgstr "<nessun oggetto>"
 
-#: src/mailbox.cc:462
+#: src/mailbox.cc:485
 msgid "<no date>"
 msgstr "<nessuna data>"
 
@@ -105,17 +96,17 @@ msgstr "[%d] Impossibile connettersi a %s alla porta %d"
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Impossibile caricare il certificato (%s) for %s"
 
-#: src/socket.cc:238
+#: src/socket.cc:236
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Non riesco ad identificare l'host remoto (%s sulla porta %d)"
 
-#: src/socket.cc:305
+#: src/socket.cc:303
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Impossibile scrivere a %s sulla porta %d"
 
-#: src/socket.cc:352
+#: src/socket.cc:350
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Impossibile leggere da %s dalla porta %d"
@@ -130,7 +121,7 @@ msgstr "[%d] Impossibile prendere il riconoscimento da %s alla porta %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossibile connettersi a %s alla porta %d"
 
-#: src/imap4.cc:508
+#: src/imap4.cc:513
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -149,12 +140,12 @@ msgstr "Non riesco ad aprire la directory per la nuova posta (%s)"
 msgid "Cannot open %s."
 msgstr "Non riesco ad aprire %s."
 
-#: src/apop.cc:82
+#: src/apop.cc:86 src/pop3.cc:84
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Password vuota"
 
-#: src/apop.cc:122
+#: src/apop.cc:126
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -163,7 +154,7 @@ msgstr ""
 "[%d] Il tuo server pop non sembra accettare il protocollo apop (nessuna "
 "datazione è stata fornita)"
 
-#: src/apop.cc:146
+#: src/apop.cc:150
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -244,19 +235,19 @@ msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:552
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
 msgid "No mailbox selected"
 msgstr "Nessuna casalle di posta selezionata"
 
-#: src/ui-preferences.cc:487
+#: src/ui-preferences.cc:490
 msgid "_Start"
 msgstr "_Avvia"
 
-#: src/ui-preferences.cc:493 ui/preferences.glade.h:51
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr "_Ferma"
 
-#: src/ui-preferences.cc:504 src/ui-preferences.cc:511
+#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
 msgid "Browse for a new mail image"
 msgstr "Scegli l'immagine per quando c'è nuova posta"
 
@@ -285,7 +276,7 @@ msgstr ""
 msgid "Browse for a file or folder"
 msgstr "Scegli il file"
 
-#: src/ui-properties.cc:322 ui/properties.glade.h:7
+#: src/ui-properties.cc:322 ui/properties.glade.h:5
 #, fuzzy
 msgid "Browse for a certificate file"
 msgstr "Scegli il file per il certificato"
@@ -311,20 +302,16 @@ msgstr "* errore *"
 msgid "Error"
 msgstr "Errore"
 
-#: src/GNOME_gnubiffApplet.xml.h:1
-msgid "About..."
-msgstr "Informazioni su..."
-
-#: src/GNOME_gnubiffApplet.xml.h:2 ui/applet-gtk.glade.h:6
+#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade.h:6
 #, fuzzy
 msgid "Mark mailboxes read"
 msgstr "Segna la posta come letta"
 
-#: src/GNOME_gnubiffApplet.xml.h:3
+#: src/GNOME_gnubiffApplet.xml.h:2
 msgid "Preferences..."
 msgstr "Preferenze..."
 
-#: src/GNOME_gnubiffApplet.xml.h:4
+#: src/GNOME_gnubiffApplet.xml.h:3
 #, fuzzy
 msgid "Run command"
 msgstr "Comando per il suono"
@@ -357,6 +344,11 @@ msgstr "Ok"
 #, fuzzy
 msgid "Start command"
 msgstr "Comando per il suono"
+
+#: ui/applet-gtk.glade.h:9
+msgid ""
+"This program is part of the GNU project, released under the aegis of GNU."
+msgstr ""
 
 #: ui/applet-gtk.glade.h:10
 msgid "gnubiff"
@@ -409,476 +401,385 @@ msgstr "<b>Generale</b>"
 
 #: ui/preferences.glade.h:8
 msgid ""
+"<small>Many people have further contributed to gnubiff by\n"
+"  - reporting problems\n"
+"  - suggesting various improvements\n"
+"  - submitting actual code\n"
+"Here is a list of these people:</small>"
+msgstr ""
+
+#: ui/preferences.glade.h:13
+msgid ""
 "<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
 " <small>Released under the aegis of GNU\n"
 " Copyright (c) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
 
-#: ui/preferences.glade.h:11
+#: ui/preferences.glade.h:16
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:12
+#: ui/preferences.glade.h:17
 #, fuzzy
 msgid "Applet or Biff"
 msgstr "Applet "
 
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:18
 #, fuzzy
 msgid "B_rowse..."
 msgstr "Sfoglia..."
 
-#: ui/preferences.glade.h:14
+#: ui/preferences.glade.h:19
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "Scegli il file per il certificato"
 
-#: ui/preferences.glade.h:15
+#: ui/preferences.glade.h:20
+msgid "Contributors"
+msgstr ""
+
+#: ui/preferences.glade.h:21
 msgid "Credits"
 msgstr "Crediti"
 
-#: ui/preferences.glade.h:16
+#: ui/preferences.glade.h:22
+msgid "Developers"
+msgstr ""
+
+#: ui/preferences.glade.h:23
 #, fuzzy
 msgid "Image filename"
 msgstr "Dettagli del certificato"
 
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:24
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Casella mail"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:25
+msgid "Maintainers"
+msgstr ""
+
+#: ui/preferences.glade.h:26
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr "Numero massimoi di email da visualizzare"
 
-#: ui/preferences.glade.h:19 ui/popup.glade.h:4
+#: ui/preferences.glade.h:27 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Notifica"
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:28
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:29
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:30
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:31
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:32
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:33
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:35
 #, fuzzy, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 "Testo che deve essere visuallizzato quando non c'Ã¨ posta, %d Ã¨ il numero "
 "dei messaggi."
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:36
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Esegui un suono quando la nuova posta Ã¨ arrivata"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:37
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:38
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:39
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:40
+msgid "Translators"
+msgstr ""
+
+#: ui/preferences.glade.h:41
 #, fuzzy
 msgid "Use _decoration"
 msgstr "Usa decorazione"
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:42
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:43
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:44
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Nuova posta:"
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:45
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:46
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:48
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Finestra Biff con dercorazioni del gestore delle finestre o senza"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:50
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:52
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Finestra Biff con dercorazioni del gestore delle finestre o senza"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:53
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:45 ui/properties.glade.h:23
+#: ui/preferences.glade.h:54 ui/properties.glade.h:21
 #, fuzzy
 msgid "_Browse..."
 msgstr "Sfoglia..."
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:55
 #, fuzzy
 msgid "_Display for"
 msgstr "_Visualizza la data"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:56
 #, fuzzy
 msgid "_Font:"
 msgstr "Caratteri "
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:57
 #, fuzzy
 msgid "_Format:"
 msgstr "Formato"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:58
 #, fuzzy
 msgid "_Restrict collected mail to"
 msgstr "Riduci la dimensione del <b>mittente</b> a"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:59
 #, fuzzy
 msgid "_Restrict number to"
 msgstr "Riduci la dimensione del <b>mittente</b> a"
 
-#: ui/preferences.glade.h:52
-#, fuzzy
-msgid ""
-"gnubiff has originally been written by Nicolas Rougier.\n"
-"Many people have further contributed to gnubiff by\n"
-"  * reporting problems\n"
-"  * suggesting various improvements\n"
-"  * submitting actual code.\n"
-"\n"
-"Here is a list of these people in no particular order:\n"
-"  - Robert Sowada\n"
-"  - Roland Stigge\n"
-"  - Jean-Yves Lefort\n"
-"  - Calum Mackay\n"
-"  - Paul Kuliniewicz\n"
-"  - Erik Sittman\n"
-"  - Dries Verachtert\n"
-"  - Grzegorz Gotawski\n"
-"  - Adam Benjamin\n"
-"  - Theodore Tegos\n"
-"  - Achim Settelmeier\n"
-"  - Barry Skidmore\n"
-"  - Jason Lowdermilk\n"
-"  - Marc-jano Knopp\n"
-"  - Suzan Wassman\n"
-"  - Philippe Berger\n"
-"  - Earl A. Killian\n"
-"  - Christian Probst\n"
-"  - Hans-Ulrich Schaefer\n"
-"  - Josh Parsons\n"
-"  - Michael Moellney\n"
-"  - Dennis Bjorklund\n"
-"  - Craig  Agricola\n"
-"  - Bernhard Valenti\n"
-"  - Josh Berdine\n"
-"  - Michel Leunen\n"
-"  - Greg Fenton\n"
-"  - Cai Yu\n"
-"  - Chris Snell\n"
-"  - Reid Rivenburgh\n"
-"  - Neil Muller\n"
-"  - Sascha Ludecke\n"
-"  - Richard Torkar\n"
-"  - Pete Phillips\n"
-"  - Blaise Tarr\n"
-"\n"
-"And of course, there are also translators:\n"
-"  - Roland Stigge, Robert Sowada (de)\n"
-"  - Nicolas Lichtmaier (es)\n"
-"  - Elros Cyriatan (nl)\n"
-"  - Michel Robitaille (fr)\n"
-"  - Eugen Hoanca (ro)\n"
-"  - David Smeringe (sv)\n"
-msgstr ""
-"gnubiff è stato originalmente scritto da Nicolas Rougier.\n"
-"Molte altre persone in seguito hanno contribuito a gnubiff\n"
-"  * segnalando problemi\n"
-"  * suggerendo migliorie varie\n"
-"  * inviando l'attuale codice.\n"
-"\n"
-"Questa è la lista delle persone in nessun ordine particolare:\n"
-"··-·Robert·Sowada\n"
-"··-·Roland·Stigge\n"
-"··-·Jean-Yves·Lefort\n"
-"··-·Calum·Mackay\n"
-"··-·Paul·Kuliniewicz\n"
-"··-·Erik·Sittman\n"
-"··-·Dries·Verachtert\n"
-"··-·Grzegorz·Gotawski\n"
-"··-·Adam·Benjamin\n"
-"··-·Theodore·Tegos\n"
-"··-·Achim·Settelmeier\n"
-"··-·Barry·Skidmore\n"
-"··-·Jason·Lowdermilk\n"
-"··-·Marc-jano·Knopp\n"
-"··-·Suzan·Wassman\n"
-"··-·Philippe·Berger\n"
-"··-·Earl·A.·Killian\n"
-"··-·Christian·Probst\n"
-"··-·Hans-Ulrich·Schaefer\n"
-"··-·Josh·Parsons\n"
-"··-·Michael·Moellney\n"
-"··-·Dennis·Bjorklund\n"
-"··-·Craig··Agricola\n"
-"··-·Bernhard·Valenti\n"
-"··-·Josh·Berdine\n"
-"··-·Michel·Leunen\n"
-"··-·Greg·Fenton\n"
-"··-·Cai·Yu\n"
-"··-·Chris·Snell\n"
-"··-·Reid·Rivenburgh\n"
-"··-·Neil·Muller\n"
-"··-·Sascha·Ludecke\n"
-"··-·Richard·Torkar\n"
-"··-·Pete·Phillips\n"
-"··-·Blaise·Tarr\n"
-"\n"
-"E naturalmente, ci sono anche i traduttori:\n"
-"  - Roland Stigge, Robert Sowada (de)\n"
-"  - Nicolas Lichtmaier (es)\n"
-"  - Elros Cyriatan (nl)\n"
-"  - Michel Robitaille (fr)\n"
-"  - Eugen Hoanca (ro)\n"
-"  - David Smeringe (sv)\n"
-"\n"
-"\n"
-"Se ti piace questo programma mandami una cartolina:\n"
-"    Nicolas Rougier\n"
-"    Campus Scientifique, B.P. 239\n"
-"    F-54506 Vandoeuvre-Les-Nancy Cedex\n"
-"    FRANCE"
-
-#: ui/preferences.glade.h:103
+#: ui/preferences.glade.h:61
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Preferenze"
 
-#: ui/preferences.glade.h:104
+#: ui/preferences.glade.h:62
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:105
+#: ui/preferences.glade.h:63
 #, fuzzy
 msgid "mail(s)"
 msgstr "kmail"
 
-#: ui/preferences.glade.h:106
+#: ui/preferences.glade.h:64
 #, fuzzy
 msgid "second(s)"
 msgstr "secondi"
 
-#: ui/properties.glade.h:1 ui/authentication.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ui/properties.glade.h:2
+#: ui/properties.glade.h:1
 #, fuzzy
 msgid "<b>_Details</b>"
 msgstr "<b>Caselle di posta</b>"
 
-#: ui/properties.glade.h:3
-msgid ""
-"<span size=\"x-small\"><i>Not necessary if mail server supports the IDLE "
-"state</i></span>"
-msgstr ""
-
-#: ui/properties.glade.h:4
+#: ui/properties.glade.h:2
 #, fuzzy
 msgid "A_ddress:"
 msgstr "<b>Indirizzo</b>"
 
-#: ui/properties.glade.h:5
+#: ui/properties.glade.h:3
 #, fuzzy
 msgid "Aut_hentication:"
 msgstr "Autenticazione"
 
-#: ui/properties.glade.h:6
+#: ui/properties.glade.h:4
 #, fuzzy
 msgid "Bro_wse..."
 msgstr "Sfoglia..."
 
-#: ui/properties.glade.h:8
+#: ui/properties.glade.h:6
 #, fuzzy
 msgid "Cer_tificate:"
 msgstr "Certificato:"
 
-#: ui/properties.glade.h:9
+#: ui/properties.glade.h:7
 #, fuzzy
 msgid "Certificate filename"
 msgstr "Dettagli del certificato"
 
-#: ui/properties.glade.h:10
+#: ui/properties.glade.h:8
 msgid "Connection port to connect to server"
 msgstr ""
 
-#: ui/properties.glade.h:11
+#: ui/properties.glade.h:9
 #, fuzzy
 msgid "Connection:"
 msgstr "_Indirizzo:"
 
-#: ui/properties.glade.h:12
+#: ui/properties.glade.h:10
 msgid "Dela_y:"
 msgstr ""
 
-#: ui/properties.glade.h:13
+#: ui/properties.glade.h:11
 #, fuzzy
 msgid "Mailbox folder"
 msgstr "Casella mail"
 
-#: ui/properties.glade.h:14
+#: ui/properties.glade.h:12
 msgid "Mailbox properties"
 msgstr "Proprietà della casa di posta"
 
-#: ui/properties.glade.h:15
+#: ui/properties.glade.h:13
 #, fuzzy
 msgid "Name of the mailbox"
 msgstr "Nome della casella di posta"
 
-#: ui/properties.glade.h:16
+#: ui/properties.glade.h:14
 msgid "Other connection port"
 msgstr ""
 
-#: ui/properties.glade.h:17
+#: ui/properties.glade.h:15
 #, fuzzy
 msgid "Other mailbox folder"
 msgstr "casella di posta %d"
 
-#: ui/properties.glade.h:18
+#: ui/properties.glade.h:16
 msgid "Standard connection port"
 msgstr ""
 
-#: ui/properties.glade.h:19
+#: ui/properties.glade.h:17
 msgid "Standard mailbox folder"
 msgstr ""
 
-#: ui/properties.glade.h:20
-msgid "The amount of time to wait between mail checks"
+#: ui/properties.glade.h:18
+msgid ""
+"The amount of time to wait between mail checks or between retries when "
+"connection is lost"
 msgstr ""
 
-#: ui/properties.glade.h:21
+#: ui/properties.glade.h:19
 #, fuzzy
 msgid "Your password on the mail server"
 msgstr "La tua password sul server"
 
-#: ui/properties.glade.h:22
+#: ui/properties.glade.h:20
 #, fuzzy
 msgid "Your username on the mail server"
 msgstr "Il tuo nome utente sul server"
 
-#: ui/properties.glade.h:24
+#: ui/properties.glade.h:22
 #, fuzzy
 msgid "_Mailbox:"
 msgstr "Casella mail"
 
-#: ui/properties.glade.h:25
+#: ui/properties.glade.h:23
 #, fuzzy
 msgid "_Name:"
 msgstr "N_ome:"
 
-#: ui/properties.glade.h:26 ui/authentication.glade.h:5
+#: ui/properties.glade.h:24 ui/authentication.glade.h:5
 msgid "_Password:"
 msgstr "_Password:"
 
-#: ui/properties.glade.h:27
+#: ui/properties.glade.h:25
 #, fuzzy
 msgid "_Type:"
 msgstr "_Tipo:"
 
-#: ui/properties.glade.h:28 ui/authentication.glade.h:6
+#: ui/properties.glade.h:26 ui/authentication.glade.h:6
 msgid "_Username:"
 msgstr "_Nomeutente:"
 
-#: ui/properties.glade.h:29
+#: ui/properties.glade.h:27
 msgid "_other"
 msgstr ""
 
-#: ui/properties.glade.h:30
+#: ui/properties.glade.h:28
 #, fuzzy
 msgid "file or folder or [ssl:]hostname[:port][:folder]"
 msgstr "nome del file o della cartella"
 
-#: ui/properties.glade.h:31
+#: ui/properties.glade.h:29
 msgid "minutes"
 msgstr ""
 
-#: ui/properties.glade.h:32
+#: ui/properties.glade.h:30
 msgid "othe_r"
 msgstr ""
 
-#: ui/properties.glade.h:33
+#: ui/properties.glade.h:31
 msgid "seconds"
 msgstr "secondi"
 
-#: ui/properties.glade.h:34
+#: ui/properties.glade.h:32
 msgid "stan_dard"
 msgstr ""
 
-#: ui/properties.glade.h:35
+#: ui/properties.glade.h:33
 msgid "stand_ard"
 msgstr ""
+
+#: ui/authentication.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ui/authentication.glade.h:2
 msgid "Authentication"
@@ -973,6 +874,123 @@ msgstr "contenuto del messaggio"
 #, fuzzy
 msgid "subject"
 msgstr "Oggetto"
+
+#~ msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
+#~ msgstr "Copyright (c) 2000-2004 Nicolas Rougier\n"
+
+#~ msgid "About..."
+#~ msgstr "Informazioni su..."
+
+#, fuzzy
+#~ msgid ""
+#~ "gnubiff has originally been written by Nicolas Rougier.\n"
+#~ "Many people have further contributed to gnubiff by\n"
+#~ "  * reporting problems\n"
+#~ "  * suggesting various improvements\n"
+#~ "  * submitting actual code.\n"
+#~ "\n"
+#~ "Here is a list of these people in no particular order:\n"
+#~ "  - Robert Sowada\n"
+#~ "  - Roland Stigge\n"
+#~ "  - Jean-Yves Lefort\n"
+#~ "  - Calum Mackay\n"
+#~ "  - Paul Kuliniewicz\n"
+#~ "  - Erik Sittman\n"
+#~ "  - Dries Verachtert\n"
+#~ "  - Grzegorz Gotawski\n"
+#~ "  - Adam Benjamin\n"
+#~ "  - Theodore Tegos\n"
+#~ "  - Achim Settelmeier\n"
+#~ "  - Barry Skidmore\n"
+#~ "  - Jason Lowdermilk\n"
+#~ "  - Marc-jano Knopp\n"
+#~ "  - Suzan Wassman\n"
+#~ "  - Philippe Berger\n"
+#~ "  - Earl A. Killian\n"
+#~ "  - Christian Probst\n"
+#~ "  - Hans-Ulrich Schaefer\n"
+#~ "  - Josh Parsons\n"
+#~ "  - Michael Moellney\n"
+#~ "  - Dennis Bjorklund\n"
+#~ "  - Craig  Agricola\n"
+#~ "  - Bernhard Valenti\n"
+#~ "  - Josh Berdine\n"
+#~ "  - Michel Leunen\n"
+#~ "  - Greg Fenton\n"
+#~ "  - Cai Yu\n"
+#~ "  - Chris Snell\n"
+#~ "  - Reid Rivenburgh\n"
+#~ "  - Neil Muller\n"
+#~ "  - Sascha Ludecke\n"
+#~ "  - Richard Torkar\n"
+#~ "  - Pete Phillips\n"
+#~ "  - Blaise Tarr\n"
+#~ "\n"
+#~ "And of course, there are also translators:\n"
+#~ "  - Roland Stigge, Robert Sowada (de)\n"
+#~ "  - Nicolas Lichtmaier (es)\n"
+#~ "  - Elros Cyriatan (nl)\n"
+#~ "  - Michel Robitaille (fr)\n"
+#~ "  - Eugen Hoanca (ro)\n"
+#~ "  - David Smeringe (sv)\n"
+#~ msgstr ""
+#~ "gnubiff è stato originalmente scritto da Nicolas Rougier.\n"
+#~ "Molte altre persone in seguito hanno contribuito a gnubiff\n"
+#~ "  * segnalando problemi\n"
+#~ "  * suggerendo migliorie varie\n"
+#~ "  * inviando l'attuale codice.\n"
+#~ "\n"
+#~ "Questa è la lista delle persone in nessun ordine particolare:\n"
+#~ "··-·Robert·Sowada\n"
+#~ "··-·Roland·Stigge\n"
+#~ "··-·Jean-Yves·Lefort\n"
+#~ "··-·Calum·Mackay\n"
+#~ "··-·Paul·Kuliniewicz\n"
+#~ "··-·Erik·Sittman\n"
+#~ "··-·Dries·Verachtert\n"
+#~ "··-·Grzegorz·Gotawski\n"
+#~ "··-·Adam·Benjamin\n"
+#~ "··-·Theodore·Tegos\n"
+#~ "··-·Achim·Settelmeier\n"
+#~ "··-·Barry·Skidmore\n"
+#~ "··-·Jason·Lowdermilk\n"
+#~ "··-·Marc-jano·Knopp\n"
+#~ "··-·Suzan·Wassman\n"
+#~ "··-·Philippe·Berger\n"
+#~ "··-·Earl·A.·Killian\n"
+#~ "··-·Christian·Probst\n"
+#~ "··-·Hans-Ulrich·Schaefer\n"
+#~ "··-·Josh·Parsons\n"
+#~ "··-·Michael·Moellney\n"
+#~ "··-·Dennis·Bjorklund\n"
+#~ "··-·Craig··Agricola\n"
+#~ "··-·Bernhard·Valenti\n"
+#~ "··-·Josh·Berdine\n"
+#~ "··-·Michel·Leunen\n"
+#~ "··-·Greg·Fenton\n"
+#~ "··-·Cai·Yu\n"
+#~ "··-·Chris·Snell\n"
+#~ "··-·Reid·Rivenburgh\n"
+#~ "··-·Neil·Muller\n"
+#~ "··-·Sascha·Ludecke\n"
+#~ "··-·Richard·Torkar\n"
+#~ "··-·Pete·Phillips\n"
+#~ "··-·Blaise·Tarr\n"
+#~ "\n"
+#~ "E naturalmente, ci sono anche i traduttori:\n"
+#~ "  - Roland Stigge, Robert Sowada (de)\n"
+#~ "  - Nicolas Lichtmaier (es)\n"
+#~ "  - Elros Cyriatan (nl)\n"
+#~ "  - Michel Robitaille (fr)\n"
+#~ "  - Eugen Hoanca (ro)\n"
+#~ "  - David Smeringe (sv)\n"
+#~ "\n"
+#~ "\n"
+#~ "Se ti piace questo programma mandami una cartolina:\n"
+#~ "    Nicolas Rougier\n"
+#~ "    Campus Scientifique, B.P. 239\n"
+#~ "    F-54506 Vandoeuvre-Les-Nancy Cedex\n"
+#~ "    FRANCE"
 
 #~ msgid ""
 #~ "\n"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-05 23:46+0100\n"
+"POT-Creation-Date: 2004-12-07 17:24+0100\n"
 "PO-Revision-Date: 2004-12-05 11:12+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -48,15 +48,6 @@ msgstr "Options de la ligne de commande"
 msgid "Options for debugging:"
 msgstr "Options de déboggage"
 
-#: src/ui-applet-gnome.cc:359
-msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
-msgstr "Copyright (c) 2000-2004 Nicolas Rougier\n"
-
-#: src/ui-applet-gnome.cc:360 ui/applet-gtk.glade.h:9
-msgid ""
-"This program is part of the GNU project, released under the aegis of GNU."
-msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
-
 #: src/biff.cc:118
 msgid "no mail"
 msgstr "Aucun courrier"
@@ -66,12 +57,12 @@ msgstr "Aucun courrier"
 msgid "Configuration file (%s) not found !"
 msgstr "Fichier de configuration non trouvé (%s)"
 
-#: src/biff.cc:401
+#: src/biff.cc:424
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: src/biff.cc:426
+#: src/biff.cc:449
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -83,20 +74,20 @@ msgstr ""
 msgid "mailbox %d"
 msgstr "Boîte aux lettres %d"
 
-#: src/mailbox.cc:159
+#: src/mailbox.cc:182
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossible de créer le thread: %s"
 
-#: src/mailbox.cc:442
+#: src/mailbox.cc:465
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: src/mailbox.cc:452
+#: src/mailbox.cc:475
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: src/mailbox.cc:462
+#: src/mailbox.cc:485
 msgid "<no date>"
 msgstr "<Pas de date>"
 
@@ -111,17 +102,17 @@ msgstr "[%d] Impossible de se connecter à %s via le port %d"
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Impossible de charger le certificat (%s) pour %s"
 
-#: src/socket.cc:238
+#: src/socket.cc:236
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Impossible d'identifier l'hôte (%s sur le port %d)"
 
-#: src/socket.cc:305
+#: src/socket.cc:303
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Impossible d'écrire à %s sur le port %d"
 
-#: src/socket.cc:352
+#: src/socket.cc:350
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Impossible de lire depuis %s sur le port %d"
@@ -136,7 +127,7 @@ msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:508
+#: src/imap4.cc:513
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
@@ -155,12 +146,12 @@ msgstr "Inpossible d'ouvrir le répertoire (%s)"
 msgid "Cannot open %s."
 msgstr "Impossible d'ouvrir %s"
 
-#: src/apop.cc:82
+#: src/apop.cc:86 src/pop3.cc:84
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Mot de passe vide"
 
-#: src/apop.cc:122
+#: src/apop.cc:126
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -168,7 +159,7 @@ msgid ""
 msgstr ""
 "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
-#: src/apop.cc:146
+#: src/apop.cc:150
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -245,19 +236,19 @@ msgid "Security"
 msgstr "Sécurité"
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:552
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
 msgid "No mailbox selected"
 msgstr "Pas de boîte aux lettres séléctionnée"
 
-#: src/ui-preferences.cc:487
+#: src/ui-preferences.cc:490
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:493 ui/preferences.glade.h:51
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr "_Stopper"
 
-#: src/ui-preferences.cc:504 src/ui-preferences.cc:511
+#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
 msgid "Browse for a new mail image"
 msgstr "Chercher le fichier image"
 
@@ -287,7 +278,7 @@ msgstr ""
 msgid "Browse for a file or folder"
 msgstr "Chercher une fichier ou un répertoire"
 
-#: src/ui-properties.cc:322 ui/properties.glade.h:7
+#: src/ui-properties.cc:322 ui/properties.glade.h:5
 msgid "Browse for a certificate file"
 msgstr "Chercher un certificat"
 
@@ -312,19 +303,15 @@ msgstr "* erreur *"
 msgid "Error"
 msgstr "Erreur"
 
-#: src/GNOME_gnubiffApplet.xml.h:1
-msgid "About..."
-msgstr "About..."
-
-#: src/GNOME_gnubiffApplet.xml.h:2 ui/applet-gtk.glade.h:6
+#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade.h:6
 msgid "Mark mailboxes read"
 msgstr "Marquer le courrier comme étant lu"
 
-#: src/GNOME_gnubiffApplet.xml.h:3
+#: src/GNOME_gnubiffApplet.xml.h:2
 msgid "Preferences..."
 msgstr "Préférences..."
 
-#: src/GNOME_gnubiffApplet.xml.h:4
+#: src/GNOME_gnubiffApplet.xml.h:3
 msgid "Run command"
 msgstr "Exécuter la commande"
 
@@ -355,6 +342,11 @@ msgstr "Ok"
 #: ui/applet-gtk.glade.h:8
 msgid "Start command"
 msgstr "Exécuter la commande"
+
+#: ui/applet-gtk.glade.h:9
+msgid ""
+"This program is part of the GNU project, released under the aegis of GNU."
+msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
 #: ui/applet-gtk.glade.h:10
 msgid "gnubiff"
@@ -402,6 +394,15 @@ msgstr "<b>Absence de courrier</b>"
 
 #: ui/preferences.glade.h:8
 msgid ""
+"<small>Many people have further contributed to gnubiff by\n"
+"  - reporting problems\n"
+"  - suggesting various improvements\n"
+"  - submitting actual code\n"
+"Here is a list of these people:</small>"
+msgstr ""
+
+#: ui/preferences.glade.h:13
+msgid ""
 "<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
 " <small>Released under the aegis of GNU\n"
 " Copyright (c) 2000-2004 Nicolas Rougier</small>"
@@ -410,422 +411,329 @@ msgstr ""
 " <small>Distribué sous l'égide de  GNU\n"
 " Copyright (c) 2000-2004 Nicolas Rougier</small>"
 
-#: ui/preferences.glade.h:11
+#: ui/preferences.glade.h:16
 msgid "Applet geometry"
 msgstr "Géométrie de l'applet"
 
-#: ui/preferences.glade.h:12
+#: ui/preferences.glade.h:17
 msgid "Applet or Biff"
 msgstr "Appet ou Biff"
 
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:18
 msgid "B_rowse..."
 msgstr "Che_rcher..."
 
-#: ui/preferences.glade.h:14
+#: ui/preferences.glade.h:19
 msgid "Browse for an image file"
 msgstr "Chercher une image"
 
-#: ui/preferences.glade.h:15
+#: ui/preferences.glade.h:20
+msgid "Contributors"
+msgstr ""
+
+#: ui/preferences.glade.h:21
 msgid "Credits"
 msgstr "Remerciements"
 
-#: ui/preferences.glade.h:16
+#: ui/preferences.glade.h:22
+msgid "Developers"
+msgstr ""
+
+#: ui/preferences.glade.h:23
 msgid "Image filename"
 msgstr "Image"
 
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:24
 msgid "Mailboxes"
 msgstr "Boîtes aux lettres"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:25
+msgid "Maintainers"
+msgstr ""
+
+#: ui/preferences.glade.h:26
 msgid "Maximum number of headers to display"
 msgstr "Nombre maximum de courriers à afficher"
 
-#: ui/preferences.glade.h:19 ui/popup.glade.h:4
+#: ui/preferences.glade.h:27 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Popup"
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:28
 msgid "Popup geometry"
 msgstr "Géométrie du popup"
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:29
 msgid "Show _image:"
 msgstr "Afficher l'_image"
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:30
 msgid "Show _text:"
 msgstr "Afficher le _texte"
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:31
 msgid "Show i_mage:"
 msgstr "Afficher l'i_mage"
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:32
 msgid "Show t_ext:"
 msgstr "Afficher le t_exte"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:33
 msgid "Text to display"
 msgstr "Texte à afficher"
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:35
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr "Texte à afficher (%d est le nombre de courriers)"
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:36
 msgid "The command to run when new mail arrives"
 msgstr "Commande à exécuter lorsqu'il y des nouveaux courriers"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:37
 msgid "The command to run when the icon is double-clicked"
 msgstr "Commande à exécuter pour un double-click"
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:38
 msgid "The font to use to display information"
 msgstr "Fonte à utiliser"
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:39
 msgid "Time to display popup window"
 msgstr "Durée d'affichage de la fenêtre popup"
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:40
+msgid "Translators"
+msgstr ""
+
+#: ui/preferences.glade.h:41
 msgid "Use _decoration"
 msgstr "Utiliser la _décoration"
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:42
 msgid "Use _geometry:"
 msgstr "Utiliser la _géométrie"
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:43
 msgid "When _double-clicked:"
 msgstr "En cas de _double-click"
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:44
 msgid "When _new mail:"
 msgstr "_Nouveau courrier:"
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:45
 msgid "Whether to display a text"
 msgstr "Afficher un texte ou non"
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:46
 msgid "Whether to display an image"
 msgstr "Afficher une image ou non"
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:47
 msgid "Whether to display the popup window"
 msgstr "Afficher la fenêtre des entêtes ou non"
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:48
 msgid "Whether to restrict number of displayed headers"
 msgstr "Restreindre le nombre d'entêtes ou non"
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Afficher une image ou non"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:50
 msgid "Whether to use format for header"
 msgstr "Utiliser un format d'entêtes ou non"
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:51
 msgid "Whether to use geometry"
 msgstr "Utiliser la géométrie ou non"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:52
 msgid "Whether to use window manager decoration"
 msgstr "Fenêtre des entêtes décorée ou non"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:53
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 "[taille max champs expéditeur]:[taille max champs sujet]:[taille max champs "
 "date]"
 
-#: ui/preferences.glade.h:45 ui/properties.glade.h:23
+#: ui/preferences.glade.h:54 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "_Chercher..."
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:55
 msgid "_Display for"
 msgstr "_Affichage"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:56
 msgid "_Font:"
 msgstr "_Fonte:"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:57
 msgid "_Format:"
 msgstr "_Format:"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:58
 #, fuzzy
 msgid "_Restrict collected mail to"
 msgstr "_Restreindre le nombre de mail collectés à:"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:59
 msgid "_Restrict number to"
 msgstr "_Restreindre le nombre à"
 
-#: ui/preferences.glade.h:52
-msgid ""
-"gnubiff has originally been written by Nicolas Rougier.\n"
-"Many people have further contributed to gnubiff by\n"
-"  * reporting problems\n"
-"  * suggesting various improvements\n"
-"  * submitting actual code.\n"
-"\n"
-"Here is a list of these people in no particular order:\n"
-"  - Robert Sowada\n"
-"  - Roland Stigge\n"
-"  - Jean-Yves Lefort\n"
-"  - Calum Mackay\n"
-"  - Paul Kuliniewicz\n"
-"  - Erik Sittman\n"
-"  - Dries Verachtert\n"
-"  - Grzegorz Gotawski\n"
-"  - Adam Benjamin\n"
-"  - Theodore Tegos\n"
-"  - Achim Settelmeier\n"
-"  - Barry Skidmore\n"
-"  - Jason Lowdermilk\n"
-"  - Marc-jano Knopp\n"
-"  - Suzan Wassman\n"
-"  - Philippe Berger\n"
-"  - Earl A. Killian\n"
-"  - Christian Probst\n"
-"  - Hans-Ulrich Schaefer\n"
-"  - Josh Parsons\n"
-"  - Michael Moellney\n"
-"  - Dennis Bjorklund\n"
-"  - Craig  Agricola\n"
-"  - Bernhard Valenti\n"
-"  - Josh Berdine\n"
-"  - Michel Leunen\n"
-"  - Greg Fenton\n"
-"  - Cai Yu\n"
-"  - Chris Snell\n"
-"  - Reid Rivenburgh\n"
-"  - Neil Muller\n"
-"  - Sascha Ludecke\n"
-"  - Richard Torkar\n"
-"  - Pete Phillips\n"
-"  - Blaise Tarr\n"
-"\n"
-"And of course, there are also translators:\n"
-"  - Roland Stigge, Robert Sowada (de)\n"
-"  - Nicolas Lichtmaier (es)\n"
-"  - Elros Cyriatan (nl)\n"
-"  - Michel Robitaille (fr)\n"
-"  - Eugen Hoanca (ro)\n"
-"  - David Smeringe (sv)\n"
-msgstr ""
-"gnubiff a été écrit à l'origine par Nicolas Rougier.\n"
-"Beaucoup de personnes ont participé depuis, en\n"
-"  * reportant des problèmes\n"
-"  * suggérant des améliorations\n"
-"  * soumettant du code\n"
-"\n"
-"Voici une liste de ces personnes sans ordre particulier:\n"
-"  - Robert Sowada\n"
-"  - Roland Stigge\n"
-"  - Jean-Yves Lefort\n"
-"  - Calum Mackay\n"
-"  - Paul Kuliniewicz\n"
-"  - Erik Sittman\n"
-"  - Dries Verachtert\n"
-"  - Grzegorz Gotawski\n"
-"  - Adam Benjamin\n"
-"  - Theodore Tegos\n"
-"  - Achim Settelmeier\n"
-"  - Barry Skidmore\n"
-"  - Jason Lowdermilk\n"
-"  - Marc-jano Knopp\n"
-"  - Suzan Wassman\n"
-"  - Philippe Berger\n"
-"  - Earl A. Killian\n"
-"  - Christian Probst\n"
-"  - Hans-Ulrich Schaefer\n"
-"  - Josh Parsons\n"
-"  - Michael Moellney\n"
-"  - Dennis Bjorklund\n"
-"  - Craig  Agricola\n"
-"  - Bernhard Valenti\n"
-"  - Josh Berdine\n"
-"  - Michel Leunen\n"
-"  - Greg Fenton\n"
-"  - Cai Yu\n"
-"  - Chris Snell\n"
-"  - Reid Rivenburgh\n"
-"  - Neil Muller\n"
-"  - Sascha Ludecke\n"
-"  - Richard Torkar\n"
-"  - Pete Phillips\n"
-"  - Blaise Tarr\n"
-"\n"
-"Et bien sûr, il y a aussi les traducteurs:\n"
-"  - Roland Stigge, Robert Sowada (de)\n"
-"  - Nicolas Lichtmaier (es)\n"
-"  - Elros Cyriatan (nl)\n"
-"  - Michel Robitaille (fr)\n"
-"  - Eugen Hoanca (ro)\n"
-"  - David Smeringe (sv)\n"
-
-#: ui/preferences.glade.h:103
+#: ui/preferences.glade.h:61
 msgid "gnubiff preferences"
 msgstr "gnubiff préferences"
 
-#: ui/preferences.glade.h:104
+#: ui/preferences.glade.h:62
 msgid "header(s)"
 msgstr "entête(s)"
 
-#: ui/preferences.glade.h:105
+#: ui/preferences.glade.h:63
 msgid "mail(s)"
 msgstr "mèl(s)"
 
-#: ui/preferences.glade.h:106
+#: ui/preferences.glade.h:64
 msgid "second(s)"
 msgstr "seconde(s)"
 
-#: ui/properties.glade.h:1 ui/authentication.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ui/properties.glade.h:2
+#: ui/properties.glade.h:1
 msgid "<b>_Details</b>"
 msgstr "<b>_Détails</b>"
 
-#: ui/properties.glade.h:3
-msgid ""
-"<span size=\"x-small\"><i>Not necessary if mail server supports the IDLE "
-"state</i></span>"
-msgstr ""
-"<span size=\"x-small\"><i>Non nécessaire si le serveur possède la capacité "
-"IDLE</i></span>"
-
-#: ui/properties.glade.h:4
+#: ui/properties.glade.h:2
 msgid "A_ddress:"
 msgstr "A_dresse:"
 
-#: ui/properties.glade.h:5
+#: ui/properties.glade.h:3
 msgid "Aut_hentication:"
 msgstr "Aut_hentification:"
 
-#: ui/properties.glade.h:6
+#: ui/properties.glade.h:4
 msgid "Bro_wse..."
 msgstr "Che_rcher..."
 
-#: ui/properties.glade.h:8
+#: ui/properties.glade.h:6
 msgid "Cer_tificate:"
 msgstr "Cer_tificat:"
 
-#: ui/properties.glade.h:9
+#: ui/properties.glade.h:7
 msgid "Certificate filename"
 msgstr "Fichier certificat"
 
-#: ui/properties.glade.h:10
+#: ui/properties.glade.h:8
 msgid "Connection port to connect to server"
 msgstr "Port de connexion au serveur"
 
-#: ui/properties.glade.h:11
+#: ui/properties.glade.h:9
 msgid "Connection:"
 msgstr "Connexion:"
 
-#: ui/properties.glade.h:12
+#: ui/properties.glade.h:10
 msgid "Dela_y:"
 msgstr "Déla_i:"
 
-#: ui/properties.glade.h:13
+#: ui/properties.glade.h:11
 msgid "Mailbox folder"
 msgstr "Répertoire de boîtes aux lettres"
 
-#: ui/properties.glade.h:14
+#: ui/properties.glade.h:12
 msgid "Mailbox properties"
 msgstr "Propriété de la boîte aux lettres"
 
-#: ui/properties.glade.h:15
+#: ui/properties.glade.h:13
 msgid "Name of the mailbox"
 msgstr "Nom de la boîte aux lettres"
 
-#: ui/properties.glade.h:16
+#: ui/properties.glade.h:14
 msgid "Other connection port"
 msgstr "Autre port de connexion"
 
-#: ui/properties.glade.h:17
+#: ui/properties.glade.h:15
 msgid "Other mailbox folder"
 msgstr "Autre répertoire"
 
-#: ui/properties.glade.h:18
+#: ui/properties.glade.h:16
 msgid "Standard connection port"
 msgstr "Port de connexion standard"
 
-#: ui/properties.glade.h:19
+#: ui/properties.glade.h:17
 msgid "Standard mailbox folder"
 msgstr "Répertoire standard"
 
-#: ui/properties.glade.h:20
-msgid "The amount of time to wait between mail checks"
+#: ui/properties.glade.h:18
+#, fuzzy
+msgid ""
+"The amount of time to wait between mail checks or between retries when "
+"connection is lost"
 msgstr "Durée d'attente entre deux vérifications"
 
-#: ui/properties.glade.h:21
+#: ui/properties.glade.h:19
 msgid "Your password on the mail server"
 msgstr "Votre mot de passe sur le seveur"
 
-#: ui/properties.glade.h:22
+#: ui/properties.glade.h:20
 msgid "Your username on the mail server"
 msgstr "Votre nom d'utilisateur sur le serveur"
 
-#: ui/properties.glade.h:24
+#: ui/properties.glade.h:22
 msgid "_Mailbox:"
 msgstr "_Boîte aux lettres:"
 
-#: ui/properties.glade.h:25
+#: ui/properties.glade.h:23
 msgid "_Name:"
 msgstr "_Nom:"
 
-#: ui/properties.glade.h:26 ui/authentication.glade.h:5
+#: ui/properties.glade.h:24 ui/authentication.glade.h:5
 msgid "_Password:"
 msgstr "Mot de _passe"
 
-#: ui/properties.glade.h:27
+#: ui/properties.glade.h:25
 msgid "_Type:"
 msgstr "_Type:"
 
-#: ui/properties.glade.h:28 ui/authentication.glade.h:6
+#: ui/properties.glade.h:26 ui/authentication.glade.h:6
 msgid "_Username:"
 msgstr "_Utilisateur:"
 
-#: ui/properties.glade.h:29
+#: ui/properties.glade.h:27
 msgid "_other"
 msgstr "_autre:"
 
-#: ui/properties.glade.h:30
+#: ui/properties.glade.h:28
 msgid "file or folder or [ssl:]hostname[:port][:folder]"
 msgstr "fichier ou répertoire ou [ssl:]hôte[:port][:répertoire]"
 
-#: ui/properties.glade.h:31
+#: ui/properties.glade.h:29
 msgid "minutes"
 msgstr "minutes"
 
-#: ui/properties.glade.h:32
+#: ui/properties.glade.h:30
 msgid "othe_r"
 msgstr "autre"
 
-#: ui/properties.glade.h:33
+#: ui/properties.glade.h:31
 msgid "seconds"
 msgstr "secondes"
 
-#: ui/properties.glade.h:34
+#: ui/properties.glade.h:32
 msgid "stan_dard"
 msgstr "stan_dard"
 
-#: ui/properties.glade.h:35
+#: ui/properties.glade.h:33
 msgid "stand_ard"
 msgstr "stand_ard"
+
+#: ui/authentication.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ui/authentication.glade.h:2
 msgid "Authentication"
@@ -914,3 +822,119 @@ msgstr "mail content"
 #: ui/popup.glade.h:9
 msgid "subject"
 msgstr "Sujet"
+
+#~ msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
+#~ msgstr "Copyright (c) 2000-2004 Nicolas Rougier\n"
+
+#~ msgid "About..."
+#~ msgstr "About..."
+
+#~ msgid ""
+#~ "gnubiff has originally been written by Nicolas Rougier.\n"
+#~ "Many people have further contributed to gnubiff by\n"
+#~ "  * reporting problems\n"
+#~ "  * suggesting various improvements\n"
+#~ "  * submitting actual code.\n"
+#~ "\n"
+#~ "Here is a list of these people in no particular order:\n"
+#~ "  - Robert Sowada\n"
+#~ "  - Roland Stigge\n"
+#~ "  - Jean-Yves Lefort\n"
+#~ "  - Calum Mackay\n"
+#~ "  - Paul Kuliniewicz\n"
+#~ "  - Erik Sittman\n"
+#~ "  - Dries Verachtert\n"
+#~ "  - Grzegorz Gotawski\n"
+#~ "  - Adam Benjamin\n"
+#~ "  - Theodore Tegos\n"
+#~ "  - Achim Settelmeier\n"
+#~ "  - Barry Skidmore\n"
+#~ "  - Jason Lowdermilk\n"
+#~ "  - Marc-jano Knopp\n"
+#~ "  - Suzan Wassman\n"
+#~ "  - Philippe Berger\n"
+#~ "  - Earl A. Killian\n"
+#~ "  - Christian Probst\n"
+#~ "  - Hans-Ulrich Schaefer\n"
+#~ "  - Josh Parsons\n"
+#~ "  - Michael Moellney\n"
+#~ "  - Dennis Bjorklund\n"
+#~ "  - Craig  Agricola\n"
+#~ "  - Bernhard Valenti\n"
+#~ "  - Josh Berdine\n"
+#~ "  - Michel Leunen\n"
+#~ "  - Greg Fenton\n"
+#~ "  - Cai Yu\n"
+#~ "  - Chris Snell\n"
+#~ "  - Reid Rivenburgh\n"
+#~ "  - Neil Muller\n"
+#~ "  - Sascha Ludecke\n"
+#~ "  - Richard Torkar\n"
+#~ "  - Pete Phillips\n"
+#~ "  - Blaise Tarr\n"
+#~ "\n"
+#~ "And of course, there are also translators:\n"
+#~ "  - Roland Stigge, Robert Sowada (de)\n"
+#~ "  - Nicolas Lichtmaier (es)\n"
+#~ "  - Elros Cyriatan (nl)\n"
+#~ "  - Michel Robitaille (fr)\n"
+#~ "  - Eugen Hoanca (ro)\n"
+#~ "  - David Smeringe (sv)\n"
+#~ msgstr ""
+#~ "gnubiff a été écrit à l'origine par Nicolas Rougier.\n"
+#~ "Beaucoup de personnes ont participé depuis, en\n"
+#~ "  * reportant des problèmes\n"
+#~ "  * suggérant des améliorations\n"
+#~ "  * soumettant du code\n"
+#~ "\n"
+#~ "Voici une liste de ces personnes sans ordre particulier:\n"
+#~ "  - Robert Sowada\n"
+#~ "  - Roland Stigge\n"
+#~ "  - Jean-Yves Lefort\n"
+#~ "  - Calum Mackay\n"
+#~ "  - Paul Kuliniewicz\n"
+#~ "  - Erik Sittman\n"
+#~ "  - Dries Verachtert\n"
+#~ "  - Grzegorz Gotawski\n"
+#~ "  - Adam Benjamin\n"
+#~ "  - Theodore Tegos\n"
+#~ "  - Achim Settelmeier\n"
+#~ "  - Barry Skidmore\n"
+#~ "  - Jason Lowdermilk\n"
+#~ "  - Marc-jano Knopp\n"
+#~ "  - Suzan Wassman\n"
+#~ "  - Philippe Berger\n"
+#~ "  - Earl A. Killian\n"
+#~ "  - Christian Probst\n"
+#~ "  - Hans-Ulrich Schaefer\n"
+#~ "  - Josh Parsons\n"
+#~ "  - Michael Moellney\n"
+#~ "  - Dennis Bjorklund\n"
+#~ "  - Craig  Agricola\n"
+#~ "  - Bernhard Valenti\n"
+#~ "  - Josh Berdine\n"
+#~ "  - Michel Leunen\n"
+#~ "  - Greg Fenton\n"
+#~ "  - Cai Yu\n"
+#~ "  - Chris Snell\n"
+#~ "  - Reid Rivenburgh\n"
+#~ "  - Neil Muller\n"
+#~ "  - Sascha Ludecke\n"
+#~ "  - Richard Torkar\n"
+#~ "  - Pete Phillips\n"
+#~ "  - Blaise Tarr\n"
+#~ "\n"
+#~ "Et bien sûr, il y a aussi les traducteurs:\n"
+#~ "  - Roland Stigge, Robert Sowada (de)\n"
+#~ "  - Nicolas Lichtmaier (es)\n"
+#~ "  - Elros Cyriatan (nl)\n"
+#~ "  - Michel Robitaille (fr)\n"
+#~ "  - Eugen Hoanca (ro)\n"
+#~ "  - David Smeringe (sv)\n"
+
+#~ msgid ""
+#~ "<span size=\"x-small\"><i>Not necessary if mail server supports the IDLE "
+#~ "state</i></span>"
+#~ msgstr ""
+#~ "<span size=\"x-small\"><i>Non nécessaire si le serveur possède la "
+#~ "capacité IDLE</i></span>"
