@@ -54,9 +54,14 @@ int mainGNOME (int argc, char **argv);
 
 int main (int argc, char **argv) {
 #ifdef USE_GNOME
-	mainGNOME (argc, argv);
+	// Test for presence of "--oaf-ior-fd" option to determine if gnubiff is
+    // started in gnome panel mode
+ 	for (gint i=0; i<argc; i++)
+		if (std::string(argv[i]).find("--oaf-ior-fd")==0)
+			return mainGNOME (argc, argv);
+ 	return mainGTK (argc, argv);
 #else
-	mainGTK (argc, argv);
+	return mainGTK (argc, argv);
 #endif  
 }
 
@@ -65,11 +70,11 @@ int mainGTK (int argc, char **argv) {
 	poptContext poptcon;
 	int status;
 	char *config_file = 0;
-	int no_configure = false;
+	int no_configure = false, print_version=false;
 	struct poptOption options[] = {
-		{"config",     'c', POPT_ARG_STRING, &config_file,  0, _("configuration file to use"),  _("file")},
-		{"noconfigure",'n', POPT_ARG_NONE,   &no_configure, 0, _("skip the configure process"), NULL},
-		{"gtk", 'g', POPT_ARG_NONE, 0, 0, 0, NULL},
+		{"config",     'c', POPT_ARG_STRING, &config_file,   0, _("configuration file to use"),  _("file")},
+		{"noconfigure",'n', POPT_ARG_NONE,   &no_configure,  0, _("skip the configuration process"), NULL},
+		{"version",    'v', POPT_ARG_NONE,   &print_version, 0, _("print version information and exit"), NULL},
 		POPT_AUTOHELP
 		{NULL, '\0', 0, NULL, 0, NULL, NULL}
 	};
@@ -94,14 +99,19 @@ int mainGTK (int argc, char **argv) {
 	}
 	poptGetNextOpt(poptcon);
 
-#ifndef USE_GNOME
 	// Thread initialization
 	g_thread_init (NULL);
 	gdk_threads_init ();
-#endif
 
-	// GTK inialisation
+	// GTK initialisation
 	gtk_init (&argc, &argv);
+
+	// Print version information if requested and exit
+	if (print_version)
+	{
+		g_print ("gnubiff version "PACKAGE_VERSION"\n");
+		exit (EXIT_SUCCESS);
+	}
 
 	// Create biff with configuration file (or not)
 	Biff *biff;
@@ -159,30 +169,6 @@ int mainGNOME (int argc, char **argv) {
 	// Thread initialization
 	g_thread_init (NULL);
 	gdk_threads_init ();
-
-	// Look for a possible --gtk option
-	for (gint i=0; i<argc; i++) {
-		if ((std::string(argv[i]) == "--gtk") || (std::string(argv[i]) == "-g")) {
-			mainGTK (argc, argv);
-			exit (0);
-		}
-		else if ((std::string(argv[i]) == "--version") || (std::string(argv[i]) == "-v")) {
-			g_print ("gnubiff version "PACKAGE_VERSION"\n");
-			exit (0);
-		}
-		else if ((std::string(argv[i]) == "--help") || (std::string(argv[i]) == "-h")) {
-			g_print (_("\nThis version of gnubiff has been compiled with GNOME support.\n"
-					   "If you want to use the GTK version, type gnubiff --gtk\n"
-					   " then use -c file to specify an alternate configuration file\n"
-					   "      and -n to skip configuration process.\n"
-					   "If you want to use the GNOME version, use gnome panel.\n"
-					   "Have a nice day\n"));
-			exit (0);
-		}
-	}
-	g_warning (_("\nThis version of gnubiff has been compiled with GNOME support.\n"
-				 "If you want to use the GTK version, type gnubiff --gtk.\n"
-				 "Now I will hang forever...\n"));
 
 #if defined(PREFIX) && defined(SYSCONFDIR) && defined(DATADIR) && defined(LIBDIR)
 	gnome_program_init ("gnubiff", "0", LIBGNOMEUI_MODULE, argc, argv, GNOME_PROGRAM_STANDARD_PROPERTIES, NULL);

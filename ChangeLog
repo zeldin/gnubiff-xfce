@@ -8,8 +8,13 @@ Version 2.0.3 (?)
  * Roland Stigge:
    - Updated man page (section 1, "GTK+")
  * Robert Sowada:
-   - Simplified multiline messages
    - Updated german translation, updated po files
+   - Gnome version can determine itself if in standalone mode or panel mode
+   - Removed "--gtk" option
+   - Added "--version" option to all versions of gnubiff
+   - "--help" option handled by "poptPrintHelp" in all versions of gnubiff
+   - Removed messages that are no longer necessary
+   - Bugfix: return value of main
 
 Version 2.0.2
  * Some cosmetic fixes
