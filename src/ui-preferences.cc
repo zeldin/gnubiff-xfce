@@ -692,32 +692,15 @@ Preferences::expert_show_context_menu (GdkEventButton *event)
 	if (option->flags() & OPTFLG_USER_NO_CHANGE)
 		return false;
 
-	// Create menu
-	GtkWidget *menu = gtk_menu_new ();
-	GtkWidget *menuitem;
-	// "Set to default value"
-	menuitem = gtk_menu_item_new_with_label (_("Set to default value"));
-	g_signal_connect (menuitem, "activate",
-					  (GCallback) PREFERENCES_expert_reset, this);
-	gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
-	// "Toggle option"
-	if (option->type() == OPTTYPE_BOOL) {
-		menuitem = gtk_menu_item_new_with_label (_("Toggle option"));
-		g_signal_connect (menuitem, "activate",
-						  (GCallback) PREFERENCES_expert_toggle_option, this);
-		gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
-	}
-	// "Edit option"
-	else {
-		menuitem = gtk_menu_item_new_with_label (_("Edit option"));
-		g_signal_connect (menuitem, "activate",
-						  (GCallback) PREFERENCES_expert_edit_value, this);
-		gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
-	}
+	// Is it a boolean option?
+	gboolean isbl = (option->type() == OPTTYPE_BOOL);
+	GtkWidget *menu_toggle = get ("menu_option_toggleoption");
+	GtkWidget *menu_edit = get ("menu_option_editoption");
+	isbl ? gtk_widget_show (menu_toggle) : gtk_widget_hide (menu_toggle);
+	(!isbl) ? gtk_widget_show (menu_edit) : gtk_widget_hide (menu_edit);
 
 	// Show menu
-	gtk_widget_show_all (menu);
-	gtk_menu_popup (GTK_MENU(menu), NULL, NULL, NULL, NULL,
+	gtk_menu_popup (GTK_MENU(get("menu_option")), NULL, NULL, NULL, NULL,
 					(event != NULL) ? event->button : 0,
 					gdk_event_get_time ((GdkEvent*)event));
 

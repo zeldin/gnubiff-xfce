@@ -54,6 +54,8 @@ Version 2.1.2
    - Bugfix: Updating popup window
    - Bugfix: Executing new mail command (when popup is not to be updated)
    - Bugfix: Checking parameters to callback functions
+   - Update: Expert option dialog popup menus now created via glade
+   - Bugfix: Memory leak when creating popup menu
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 
