@@ -84,7 +84,7 @@ Local::start (void)
 
 	// start monitoring
 	gint status;
-	if (protocol() == PROTOCOL_MAILDIR)
+	if (g_file_test (address().c_str(), G_FILE_TEST_IS_DIR))
 		status = FAMMonitorDirectory (&fam_connection_, address().c_str(),
 									  &fam_request_, NULL);
 	else
@@ -108,18 +108,13 @@ Local::start (void)
 		}
 
 		if ((fam_event_.code == FAMChanged)
-			|| ((fam_event_.code == FAMCreated))) {
+			|| (fam_event_.code == FAMCreated)
+			|| (fam_event_.code == FAMDeleted)) {
 			start_checking ();
 			gdk_threads_enter();
 			biff_->applet()->update();
 			gdk_threads_leave();
-			// Get all pending FAM events. This is necassary because fetching
-			// mail can cause FAM events (e.g. calling utime in file.cc)
-			while (FAMPending(&fam_connection_))
-				if (FAMNextEvent (&fam_connection_, &fam_event_)<0)
-					break;
 		}
-
 		else if (fam_event_.code == FAMAcknowledge)
 			break;
 	}

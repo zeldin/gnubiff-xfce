@@ -460,6 +460,15 @@ Gnubiff_Options::add_options_mailbox (void)
 		"mailboxes.",
 								   username, OPTFLG_NONE, OPTGUI_ENTRY,
 								   "username_entry"));
+	// FILE_RESTORE_ATIME
+	add_option (new Option_Bool ("file_restore_atime", OPTGRP_MAILBOX,
+		"Some mail clients rely on the access time of the mail file for "
+		"doing certain operations. Gnubiff will restore the original "
+		"access and modified time if this option is set to true.\n"
+		"Note: Setting this option to true may result in some new mails not "
+		"being noticed because of race conditions.\n"
+		"This option is used for the file protocol only.",
+								 false));
 }
 
 /// Add options for the appearance of the popup

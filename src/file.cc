@@ -61,17 +61,19 @@ void File::fetch (void)
 {
 	struct stat file_stat;
 	struct utimbuf timbuf;
-  
-	// First we save access time of the mailfile to be able to reset it
-	// before exiting this function because some mail clients (e.g. mutt)
-	// rely on this access time to perform some operations.
-	if (stat (address().c_str(), &file_stat) != 0) {
-		status (MAILBOX_ERROR);
-		return;
-	}
-	timbuf.actime = file_stat.st_atime;
-	timbuf.modtime = file_stat.st_mtime;
 
+	// First we save access time (if the user wants this) of the
+	// mailfile to be able to reset it before exiting this function
+	// because some mail clients (e.g. mutt) rely on this access time
+	// to perform some operations.
+	if (value_bool ("file_restore_atime")) {
+		if (stat (address().c_str(), &file_stat) != 0) {
+			status (MAILBOX_ERROR);
+			return;
+		}
+		timbuf.actime = file_stat.st_atime;
+		timbuf.modtime = file_stat.st_mtime;
+	}
 
 	// Open mailbox for reading
 	std::ifstream file;
@@ -118,7 +120,15 @@ void File::fetch (void)
 
 	// Close mailbox
 	file.close ();
- 
-	// Restore access and modification time
-	utime (address().c_str(), &timbuf);
+
+	// Restore access and modification time (if wanted)
+	if (value_bool ("file_restore_atime")) { 
+		utime (address().c_str(), &timbuf);
+		// Get all pending FAM events. This is necassary because calling utime
+		// causes FAM events. It may result in some new mails not being
+		// noticed because of race conditions.
+		while (FAMPending(&fam_connection_))
+			if (FAMNextEvent (&fam_connection_, &fam_event_)<0)
+				break;
+	}
 }
