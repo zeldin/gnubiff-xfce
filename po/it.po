@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-09 15:57+0100\n"
+"POT-Creation-Date: 2004-12-10 10:17+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -121,7 +121,7 @@ msgstr "[%d] Impossibile prendere il riconoscimento da %s alla porta %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossibile connettersi a %s alla porta %d"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:521
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -293,12 +293,12 @@ msgstr "Oggetto"
 msgid "Date"
 msgstr "Data"
 
-#: src/ui-popup.cc:565 src/ui-popup.cc:577 src/ui-popup.cc:586
-#: src/ui-popup.cc:593
+#: src/ui-popup.cc:571 src/ui-popup.cc:583 src/ui-popup.cc:592
+#: src/ui-popup.cc:599
 msgid "* error *"
 msgstr "* errore *"
 
-#: src/ui-popup.cc:724
+#: src/ui-popup.cc:730
 msgid "Error"
 msgstr "Errore"
 

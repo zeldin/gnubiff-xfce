@@ -13,13 +13,26 @@ Version 2.1.0
    - Better detection of mailbox format
    - Bugfix: IMAP4 idle state test to avoid checking twice
    - Bugfix: Popup was shown on exiting preferences
-   - Put back credits back
+   - Put back credits
    - Updated French translations
    - Fix a bug with IMAP4 idle feature (not recognizing the BYE command)
    - Added a TODO file to keep track of features/bugs to be implemented/fixed
-   - Bugfix: Testing of "\"text\" \"plain\"" was wrong (some servers
-             using upper cases)
- * Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
+   - Bugfix: Testing of "\"text\" \"plain\"" in imap4 parsing was wrong
+             (some servers answer using upper cases letter)
+   - Modified credits apperance in the preferences panel (and remove the
+     about menu from gnome applet popup menu)
+   - Bugfix: socket was closed twice when lock was lost in IDLE state
+   - Bugfix: modify the configure script to have errors if popt or fam
+             libraries not present
+   - Sorted the contributors list
+   - Feature: When adding a mailbox and if one is selected, the new mailbox is
+	      copied from the selected one
+   - Feature: If password is empty, gnubiff try to find by looking at
+              other mailboxes and matching (address/username)
+   - Updated THANKS file
+   - Bugfix: display last received mail for each mailbox (up to	popup_size)
+   - Bugfix: Take popup_use_size_ into account
+* Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
    - Gnome version can determine itself if in standalone mode or panel mode
    - Removed "--gtk" option, added "--applet" option in debug mode instead
    - Added "--version" option to all versions of gnubiff
@@ -47,9 +60,12 @@ Version 2.1.0
      don't get the whole part if it is very long (IMAP)
    - Feature: Message if there is no "text/plain" part (IMAP)
    - Bugfix: Creating different tags for different commands (IMAP)
-  * Robert Sowada
+ * Robert Sowada
    - Updated german translation
    - Various small changes in GUI
+   - Updated "text" "plain" fix of Nicolas to make it safe for future
+     extensions
+   - Get encoding and character set of "text" "plain" part (IMAP4)
 	
 Version 2.0.3
   * Roland Stigge:

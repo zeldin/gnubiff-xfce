@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-09 15:57+0100\n"
+"POT-Creation-Date: 2004-12-10 10:17+0100\n"
 "PO-Revision-Date: 2004-03-11 22:32+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -123,7 +123,7 @@ msgstr ""
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:517
+#: src/imap4.cc:521
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -288,12 +288,12 @@ msgstr ""
 msgid "Date"
 msgstr "Dekorerad"
 
-#: src/ui-popup.cc:565 src/ui-popup.cc:577 src/ui-popup.cc:586
-#: src/ui-popup.cc:593
+#: src/ui-popup.cc:571 src/ui-popup.cc:583 src/ui-popup.cc:592
+#: src/ui-popup.cc:599
 msgid "* error *"
 msgstr ""
 
-#: src/ui-popup.cc:724
+#: src/ui-popup.cc:730
 msgid "Error"
 msgstr ""
 

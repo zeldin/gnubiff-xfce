@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-09 15:57+0100\n"
+"POT-Creation-Date: 2004-12-10 10:17+0100\n"
 "PO-Revision-Date: 2004-12-08 14:33+0100\n"
 "Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
 "Language-Team: Français\n"
@@ -127,7 +127,7 @@ msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:521
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
@@ -294,12 +294,12 @@ msgstr "Sujet"
 msgid "Date"
 msgstr "Date"
 
-#: src/ui-popup.cc:565 src/ui-popup.cc:577 src/ui-popup.cc:586
-#: src/ui-popup.cc:593
+#: src/ui-popup.cc:571 src/ui-popup.cc:583 src/ui-popup.cc:592
+#: src/ui-popup.cc:599
 msgid "* error *"
 msgstr "* erreur *"
 
-#: src/ui-popup.cc:724
+#: src/ui-popup.cc:730
 msgid "Error"
 msgstr "Erreur"
 

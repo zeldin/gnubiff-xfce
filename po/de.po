@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-09 15:57+0100\n"
+"POT-Creation-Date: 2004-12-10 10:17+0100\n"
 "PO-Revision-Date: 2004-12-08 22:50+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -123,7 +123,7 @@ msgstr "[%d] Bekomme keine Bestätigung von »%s« auf Port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kann Ordner »%s« auf dem Server »%s« nicht auswählen"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:521
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Diese Nachricht besitzt keinen Klartext-Abschnitt (\"text/plain\")]"
 
@@ -290,12 +290,12 @@ msgstr "Betreff"
 msgid "Date"
 msgstr "Datum"
 
-#: src/ui-popup.cc:565 src/ui-popup.cc:577 src/ui-popup.cc:586
-#: src/ui-popup.cc:593
+#: src/ui-popup.cc:571 src/ui-popup.cc:583 src/ui-popup.cc:592
+#: src/ui-popup.cc:599
 msgid "* error *"
 msgstr "* Fehler *"
 
-#: src/ui-popup.cc:724
+#: src/ui-popup.cc:730
 msgid "Error"
 msgstr "Fehler"
 

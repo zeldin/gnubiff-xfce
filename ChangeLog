@@ -30,7 +30,8 @@ Version 2.1.0
    - Feature: If password is empty, gnubiff try to find by looking at
               other mailboxes and matching (address/username)
    - Updated THANKS file
-   - Bugfix: display last received mail for each mailbox (up to popup_size)
+   - Bugfix: display last received mail for each mailbox (up to	popup_size)
+   - Bugfix: Take popup_use_size_ into account
 * Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
    - Gnome version can determine itself if in standalone mode or panel mode
    - Removed "--gtk" option, added "--applet" option in debug mode instead
@@ -59,7 +60,6 @@ Version 2.1.0
      don't get the whole part if it is very long (IMAP)
    - Feature: Message if there is no "text/plain" part (IMAP)
    - Bugfix: Creating different tags for different commands (IMAP)
-   - Buggix: Take popup_use_size_ into account
  * Robert Sowada
    - Updated german translation
    - Various small changes in GUI
