@@ -403,9 +403,9 @@ Biff::upgrade_options (void)
 		std::stringstream tmpstr (config_version);
 		guint tmp;
 		tmpstr >> tmp;
-		version  = 100*100*tmp;
+		version  = 1000*1000*tmp;
 		tmpstr >> tmp;
-		version += 100*tmp;
+		version += 1000*tmp;
 		tmpstr >> tmp;
 		version += tmp;
 	}
