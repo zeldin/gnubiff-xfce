@@ -41,9 +41,9 @@ Certificate::Certificate (void) : GUI (GNUBIFF_DATADIR"/certificate.glade")
 {
 #ifdef HAVE_LIBSSL
 	socket_ = 0;
-	certificate_ = 0;
-#endif
+	certificate_ = 0
 	stored_certificate_ = 0;
+#endif
 }
 
 Certificate::~Certificate (void)
@@ -129,8 +129,8 @@ Certificate::on_ok (GtkWidget *widget)
 #ifdef HAVE_LIBSSL
 	stored_certificate_ = certificate_;
 	certificate_ = 0;
-#endif
 	socket_->bypass_certificate (true);
+#endif
 	hide();
 	gtk_main_quit();
 }
@@ -140,9 +140,9 @@ Certificate::on_cancel (GtkWidget *widget)
 {
 #ifdef HAVE_LIBSSL
 	stored_certificate_ = 0;
-	certificate_ = 0;
-#endif
+	certificate_ = 0
 	socket_->bypass_certificate (false);
+#endif
 	hide();
 	gtk_main_quit();
 }
@@ -154,8 +154,8 @@ Certificate::on_destroy (GtkWidget *widget,
 #ifdef HAVE_LIBSSL
 	stored_certificate_ = 0;
 	certificate_ = 0;
-#endif
 	socket_->bypass_certificate (false);
+#endif
 	hide();
 	gtk_main_quit();
 	return TRUE;
@@ -168,8 +168,8 @@ Certificate::on_delete	(GtkWidget *widget,
 #ifdef HAVE_LIBSSL
 	stored_certificate_ = 0;
 	certificate_ = 0;
-#endif
 	socket_->bypass_certificate (false);
+#endif
 	hide();
 	gtk_main_quit();
 	return TRUE;
