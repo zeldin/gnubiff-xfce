@@ -84,7 +84,7 @@ int mainGTK (int argc, char **argv) {
 	int status;
 	char *config_file = 0;
 	int no_configure = false, print_version=false;
-#ifdef DEBUG && USE_GNOME
+#if defined DEBUG && defined USE_GNOME
 	int debug_applet=false;
 
    	static struct poptOption options_debug[] =
@@ -110,7 +110,7 @@ int mainGTK (int argc, char **argv) {
 	{
 	   	{NULL, '\0', POPT_ARG_INCLUDE_TABLE, &options_general, 0,
 		 N_("General command line options:"), NULL },
-#ifdef DEBUG && USE_GNOME
+#if defined DEBUG && defined USE_GNOME
 		{NULL, '\0', POPT_ARG_INCLUDE_TABLE, &options_debug, 0,
 		 N_("Options for debugging:"), NULL },
 #endif
@@ -128,7 +128,7 @@ int mainGTK (int argc, char **argv) {
 	}
 	poptGetNextOpt(poptcon);
 
-#ifdef DEBUG && USE_GNOME
+#if defined DEBUG && defined USE_GNOME
 	if (debug_applet)
 		return mainGNOME(argc,argv);
 #endif
