@@ -63,15 +63,6 @@ Maildir::~Maildir (void)
 void
 Maildir::fetch (void)
 {
-	int saved_status = status();
-
-	// Check for existence of a new mail directory
-	if (!g_file_test (address().c_str(), G_FILE_TEST_IS_DIR)) {
-		g_warning(_("Cannot find new mail directory (%s)"), address().c_str());
-		status (MAILBOX_ERROR);
-		return;
-	}
-
 	// Try to open new mail directory
 	GDir *gdir = g_dir_open (address().c_str(), 0, NULL);
 	if (gdir == NULL) {
@@ -132,7 +123,4 @@ Maildir::fetch (void)
 
 	// Close directory
 	g_dir_close (gdir);
-
-	// Restore status
-	status (saved_status);
 }
