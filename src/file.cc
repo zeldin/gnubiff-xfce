@@ -81,24 +81,33 @@ void File::fetch (void)
 	}
 
 	std::vector<std::string> mail;
-	std::string line; 
-	getline(file, line);
-	mail.push_back (line);
+	std::string line;
+	gboolean header = true; // parsing mail header?
+	guint cnt = 0, max_cnt = 1 + biff_->value_uint ("min_body_lines");
 
 	// Get maximum number of mails to catch
 	guint maxnum = INT_MAX;
 	if (biff_->value_bool ("use_max_mail"))
 		maxnum = biff_->value_uint ("max_mail");
+
 	while (!file.eof() && ((new_unread_.size() < maxnum))) {
 		getline(file, line);
 		// Here we look for a "From " at a beginning of a line indicating
 		// a new mail header. We then parse previous mail, reset mail
 		// vector, store new line in it and go on reading file.
-		if (line.find ("From ", 0) == 0) {
+		if ((line.find ("From ", 0) == 0) && (mail.size() > 0)) {
 			parse (mail);
 			mail.clear();
+			header = true;
 		}
-		mail.push_back (line);
+		if (line.size() == 0) {
+			header = false;
+			cnt = max_cnt;
+		}
+		if ((header) || (cnt > 0)) {
+			cnt--;
+			mail.push_back (line);
+		}
 	}
 	// Do not forget to parse the last one that cannot rely on "From "
 	// from the next mail
