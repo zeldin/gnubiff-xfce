@@ -220,6 +220,7 @@ Maintainers:@*
 
 Translators:@*
 @itemize @bullet
+@item Victor Alonso (es)
 @item Elros Cyriatan (nl)
 @item Stefano Fabri (it)
 @item Nicols Lichtmaler (es)
