@@ -107,7 +107,7 @@ extern "C" {
 	{
 		// FIXME: Do not hardcode page 3
 		if (page_num == 3)
-			PREFERENCES(data)->expert_add_option_list ();
+			PREFERENCES(data)->expert_update_option_list ();
 	}
 
 	void PREFERENCES_on_selection_expert (GtkTreeSelection *selection,
@@ -274,8 +274,6 @@ Preferences::expert_create (void)
 	gtk_tree_view_column_set_sort_column_id(column, COL_EXP_VALUE);
 	gtk_tree_view_append_column (view, column);
 
-	gtk_tree_view_set_search_column (view, COL_EXP_GROUPNAME);
-
 	// Signals
 	GtkTreeSelection *selection = gtk_tree_view_get_selection (view);
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
@@ -286,6 +284,9 @@ Preferences::expert_create (void)
 	GtkTextBuffer *tb = gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview")));
 	gtk_text_buffer_create_tag (tb, "italic","style",PANGO_STYLE_ITALIC,0);
 	gtk_text_buffer_create_tag (tb, "bold", "weight", PANGO_WEIGHT_BOLD,0);
+
+	// Fill list
+	expert_add_option_list ();
 
 	// Empty widgets
 	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")), "");
@@ -380,8 +381,12 @@ Preferences::synchronize (void)
 		}
 	}
 
-	// Insert the values of the options into the GUI elements
+	// Insert the values of the options into the GUI widgets
 	biff_->update_gui (OPTSGUI_SET, OPTGRP_ALL, xml_, filename_);
+
+	// Expert dialog
+	if (biff_->value_bool ("use_expert"))
+		expert_update_option_list ();
 
 	// Stop button
 	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
@@ -588,6 +593,7 @@ Preferences::expert_add_option_list (void)
 		it = opts->options()->begin();
 		while (it != opts->options()->end()) {
 			Option *option = (it++)->second;
+			gint id = -1;
 
 			// Ignore fixed options?
 			if ((option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO)) && !showfixed)
@@ -601,7 +607,8 @@ Preferences::expert_add_option_list (void)
 			}
 			else {
 				std::stringstream ss;
-				ss << "mailbox[" << i << "]/" << option->name();
+				id = opts->value_uint ("uin");
+				ss << "mailbox[" << id << "]/" << option->name();
 				ss >> groupname;
 			}
 
@@ -611,7 +618,7 @@ Preferences::expert_add_option_list (void)
 			// Store value
 			gtk_list_store_append (store, &iter);
 			gtk_list_store_set (store, &iter,
-								COL_EXP_ID, i,
+								COL_EXP_ID, id ,
 								COL_EXP_NAME, option->name().c_str(),
 								COL_EXP_GROUPNAME, groupname.c_str(),
 								COL_EXP_TYPE, option->type_string().c_str(),
@@ -701,41 +708,44 @@ Preferences::expert_ok (void)
 	opts->from_string (option->name(), value);
 
 	// Update GUI
-	if (option->group() != OPTGRP_MAILBOX)
-		biff_->update_gui (OPTSGUI_UPDATE, option, xml_, filename_);
-	// FIXME: Update mailbox GUI widgets if mailbox dialog is shown
+	synchronize ();
+	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == (Mailbox *)opts))
+		properties_->update_view ();
+}
 
-	// Update options list
-	if (option->flags() & OPTFLG_CHANGE) {
-		gchar *name = NULL;
-		gint id = -1;
-		Option *option = NULL;
-		Options *option_opts = NULL;
-		GtkTreeIter iter;
-		gboolean valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL(store),
-														&iter);
-		while (valid) {
-			// Get next option
-			gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COL_EXP_NAME,
-								&name, COL_EXP_ID, &id, -1);
-			if (id<0)
-				option_opts = biff_;
-			else if ((guint)id < biff_->size())
-				option_opts = biff_->mailbox(id);
+/**
+ *  Update all options that are currently listed in the expert dialog.
+ */
+void 
+Preferences::expert_update_option_list ()
+{
+	GtkTreeView  *view  = GTK_TREE_VIEW (get("expert_treeview"));
+	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
+	gchar *name = NULL;
+	gint id = -1;
+	Option *option = NULL;
+	Options *option_opts = NULL;
+	GtkTreeIter iter;
+	gboolean valid=gtk_tree_model_get_iter_first (GTK_TREE_MODEL(store),&iter);
+	while (valid) {
+		// Get next option
+		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COL_EXP_NAME, &name,
+							COL_EXP_ID, &id, -1);
+		if (id<0)
+			option_opts = biff_;
+		else
+			option_opts = biff_->get (id);
+		if (option_opts)
 			option = option_opts->find_option (name);
 
-			// Update option
-			if (option) {
-				const gchar *value = option_opts->to_string(name).c_str();
-				gtk_list_store_set (store, &iter, COL_EXP_VALUE, value, -1);
-			}
-
-			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
+		// Update option
+		if (option) {
+			const gchar *value = option_opts->to_string(name).c_str();
+			gtk_list_store_set (store, &iter, COL_EXP_VALUE, value, -1);
 		}
+
+		valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
 	}
-	else
-		gtk_list_store_set (store, &iter, COL_EXP_VALUE,
-							opts->to_string(option->name()).c_str(), -1);
 }
 
 /**
@@ -798,7 +808,7 @@ Preferences::expert_search (void)
 gboolean 
 Preferences::expert_get_option (Options *&options, Option *&option)
 {
-  GtkTreeIter treeiter;
+	GtkTreeIter treeiter;
 	GtkListStore *store;
 
 	return expert_get_option (options, option, treeiter, store);
@@ -834,17 +844,17 @@ Preferences::expert_get_option (class Options *&options, class Option *&option,
 	store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 	if (!store)
 		return false;
-	gint num = -1;
+	gint id = -1;
 	gchar *name = NULL;
-	gtk_tree_model_get (GTK_TREE_MODEL(store), &treeiter, COL_EXP_ID, &num,
+	gtk_tree_model_get (GTK_TREE_MODEL(store), &treeiter, COL_EXP_ID, &id,
 						COL_EXP_NAME, &name, -1);
 
 	// Get option
-	if (num < 0)
+	if (id < 0)
 		options = biff_;
-	else if ((guint)num < biff_->size ())
-		options = biff_->mailbox(num);
 	else
+		options = biff_->get (id);
+	if (!options)
 		return false;
 	option = options->find_option (name);
 	return true;

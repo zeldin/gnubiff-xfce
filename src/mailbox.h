@@ -165,6 +165,8 @@ public:
 
 	gboolean find_mail (std::string mailid, Header &mail);
 
+	/// Access function to Mailbox::biff_
+	class Biff *biff (void)								{return biff_;}
 	/// Access function to mailbox option "name"
 	const std::string name (void)						{return value_string ("name");}
 	/// Access function to mailbox option "name"
@@ -263,32 +265,5 @@ public:
 	/// Access function to Mailbox::seen_
 	std::set<std::string> &seen (void)					{return seen_;}
 };
-
-/**
- * Maximum number of lines to be read from the mail body. This value should be
- * greater than the value of the lines displayed;-) (see "src/ui-popup.cc").
- */
-const gint bodyLinesToBeRead_=12;
-
-/**
- * To prevent being DoS attacked (see above): Limit for length of a read line.
- * \begin{itemize}
- *    \item SMTP: maximum line length is 1001 (see RFC 2821 4.5.3.1)
- *    \item IMAP: no maximum line length
- *    \item POP3: maximum response line length is 512 (see RFC 1939 3.)
- * \end{itemize}
- */
-const gint preventDoS_lineLength_=16384;
-
-/**
- * To prevent being DoS attacked (see above): For several IMAP4 commands the
- * server's response can consist of more than one line. This constant gives the
- * maximum number of lines being read (additional to the first line) before
- * gnubiff suspects a DoS attack.
- * 
- * Currently this constant is used when reading the response to the following
- * commands: FETCH (BODYSTRUCTURE).
- */
-const gint preventDoS_imap4_multilineResponse_=8;
 
 #endif

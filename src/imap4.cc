@@ -490,11 +490,11 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 
 	// Note: We are only interested in the first lines, there
 	// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
-	// so it is sufficient to get at most 1000*bodyLinesToBeRead_
+	// so it is sufficient to get at most 1000*min_body_lines
 	// bytes.
 	gint textsize=partinfo.size_;
-	if (textsize>1000*bodyLinesToBeRead_)
-		textsize=1000*bodyLinesToBeRead_;
+	if (textsize > 1000 * biff_->value_uint ("min_body_lines"))
+		textsize = 1000 * biff_->value_uint ("min_body_lines");
 	std::stringstream textsizestr;
 	textsizestr << textsize;
 
@@ -513,7 +513,8 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	gint lineno=0, bytes=textsize+3; // ")\r\n" at end of mail
 	while ((bytes>0) && (readline (line, false, true, false))) {
 		bytes-=line.size()+1; // don't forget to count '\n'!
-		if ((line.size() > 0) && (lineno++ < bodyLinesToBeRead_)) {
+		if ((line.size() > 0)
+			&& (lineno++ < biff_->value_uint ("min_body_lines"))) {
 			mail.push_back (line.substr(0, line.size()-1));
 #ifdef DEBUG
 			g_print ("+");
@@ -566,7 +567,7 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 
 	// Get the whole response (may be multiline)
 	response = last_untagged_response_cont_.substr (16); // "(BODYSTRUCTURE ("
-	gint cnt=preventDoS_imap4_multilineResponse_;
+	gint cnt = biff_->value_uint ("prevdos_imap4_multiline");
 	while ((nestlevel=isfinished_fetchbodystructure(line,nestlevel))&&(cnt--)){
 		readline (line, true, true, false);
 		response += line.substr (0, line.size()-1); // trailing '\r'

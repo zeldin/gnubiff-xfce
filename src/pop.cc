@@ -332,7 +332,7 @@ Pop::command_top (std::vector<std::string> &mail, guint msg) throw (pop_err)
 	mail.clear ();
 
 	std::stringstream ss;
-	ss << "TOP " << msg << " " << bodyLinesToBeRead_;
+	ss << "TOP " << msg << " " << biff_->value_uint ("min_body_lines");
 	// Get header and first lines of mail
 	sendline (ss.str ());
 	readline (line, false); // +OK response to TOP
@@ -341,7 +341,7 @@ Pop::command_top (std::vector<std::string> &mail, guint msg) throw (pop_err)
 			 address().c_str(), port());
 #endif
 	gint cnt = biff_->value_uint ("prevdos_header_lines");
-	cnt += bodyLinesToBeRead_ + 1;
+	cnt += biff_->value_uint ("min_body_lines") + 1;
 	do {
 		readline (line, false, true, false);
 		// Remove trailing '\n'

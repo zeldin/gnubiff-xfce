@@ -197,6 +197,12 @@ Gnubiff_Options::add_options_general (void)
 		"Automatic or manual checking for new mails?",
 								 AUTOMATIC_CHECK,
 								 OPTFLG_NOSAVE | OPTFLG_ID_INT_STRICT, i4,s4));
+	// MIN_BODY_LINES
+	add_option (new Option_UInt ("min_body_lines", OPTGRP_GENERAL,
+		"Minimum number of body lines of a mail to be read. If the mail's "
+		"body is shorter then the whole body is read. If supported by the "
+		"protocol gnubiff tries to read exactly this number of lines.",
+								 12));
 	// USE_EXPERT
 	const static gchar *s5[] = {"expert_vbox", NULL};
 	add_option (new Option_Bool ("use_expert", OPTGRP_GENERAL,
@@ -514,7 +520,8 @@ Gnubiff_Options::add_options_security (void)
 	// PREVDOS_ADDITIONAL_LINES
 	add_option (new Option_UInt ("prevdos_additional_lines", OPTGRP_SECURITY,
 		"Maximum number of lines that are read from the network additionally "
-		"to the number of lines that are expected. There are many possible "
+		"to the number of lines that are expected when reading until a "
+		"certain line is sent by the server. There are many possible "
 		"reasons, why the number of lines that are sent is greater than "
         "expected:\n"
 		"   * The server sends information or warning messages (IMAP4 for "
@@ -524,6 +531,11 @@ Gnubiff_Options::add_options_security (void)
 		"   * There is a DoS attack\n"
 		"This option is currently used for the IMAP4 protocol.",
 								 16));
+	// PREVDOS_HEADER_LINES
+	add_option (new Option_UInt ("prevdos_header_lines", OPTGRP_SECURITY,
+		"Maximum number of mail header lines that are read.\n"
+		"This option is currently used for the POP3 protocol.",
+								 2048));
 	// PREVDOS_IGNORE_INFO
 	add_option (new Option_UInt ("prevdos_ignore_info", OPTGRP_SECURITY,
 		"Maximum number of lines that are read from the network when the "
@@ -532,10 +544,22 @@ Gnubiff_Options::add_options_security (void)
 		"warning messages before completion.\n"
 		"This option is currently used for the IMAP4 protocol.",
 								 32));
-
-	// PREVDOS_HEADER_LINES
-	add_option (new Option_UInt ("prevdos_header_lines", OPTGRP_SECURITY,
-		"Maximum number of mail header lines that are read.\n"
-		"This option is currently used for the POP3 protocol.",
-								 2048));
+	// PREVDOS_IMAP4_MULTILINE
+	add_option (new Option_UInt ("prevdos_imap4_multiline", OPTGRP_SECURITY,
+		"Maximum number of lines that are read additional from the network "
+		"when reading the server's response to IMAP4 commands that consist "
+		"of more than one line."
+		"See also the description of the "
+		"\"security/prevdos_additional_lines\" option.\n"
+		"This option is only intended for the IMAP4 protocol.",
+								 8));
+	// PREVDOS_LINE_LENGTH
+	add_option (new Option_UInt ("prevdos_line_length", OPTGRP_SECURITY,
+		"Maximum number of characters per line in mails. The following "
+		"limits are set for the different protocols:\n"
+		"   * SMTP: maximum line length is 1001 (see RFC 2821 4.5.3.1)\n"
+		"   * IMAP4: no maximum line length\n"
+		"   * POP3: maximum response line length is 512 (see RFC 1939 3.)\n"
+		"This option is currently used for all network protocols.",
+								 16384));
 }

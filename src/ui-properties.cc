@@ -417,7 +417,7 @@ Properties::on_apply (GtkWidget *widget)
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
 	}
-	preferences_->synchronize();	
+	preferences_->synchronize();
 }
 
 void

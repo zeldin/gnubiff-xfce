@@ -343,7 +343,7 @@ Socket::read (std::string &line, gboolean print, gboolean check)
 	line = "";
 	status_ = -1;
 
-	gint cnt=1+preventDoS_lineLength_; 
+	gint cnt = 1 + mailbox_->biff()->value_uint ("prevdos_line_length");
 
 	// TEMP_FAILURE_RETRY will re-call the method if the read primitive
 	// is interrupted by a signal.

@@ -114,6 +114,7 @@ public:
 	 **/
 	void expert_create (void);
 	void expert_add_option_list (void);
+	void expert_update_option_list (void);
 	void expert_on_selection (GtkTreeSelection *selection);
 	void expert_ok (void);
 	void expert_reset (void);
