@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -29,7 +29,10 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include <sys/utsname.h>
 #include <glib.h>
+#include <nls.h>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -116,4 +119,48 @@ gb_substitute(std::string format, std::string chars,
 	if (prevpos<len)
 		result.append (format, prevpos, len-prevpos);
 	return result;
+}
+
+/**
+ *  An unknown internal error has been encountered. Print a message that
+ *  asks the user to send a bug report. Print some additional information
+ *  that may be of use.
+ *
+ *  @param file  Source file in which the error is
+ *  @param line  Source line in which the error is
+ *  @param func  Name of the function in which the error is
+ */
+void 
+unknown_internal_error_(const gchar *file, guint line, const gchar *func)
+{
+	std::stringstream ss;
+	utsname uts;
+
+	// Get system information
+	if (uname (&uts) < 0) {
+		uts.sysname[0] = '\0';
+		uts.release[0] = '\0';
+		uts.version[0] = '\0';
+		uts.machine[0] = '\0';
+	}
+
+	// Create error message
+	ss << _("You just found an unknown internal error. Please send a bug "
+			"report to \"gnubiff-bugs@lists.sourceforge.net\".\n\n"
+			"Additional information:\n");
+	ss << "file        : " << file << "\n";
+	ss << "line        : " << line << "\n";
+	ss << "function    : " << func << "\n";
+	ss << "date        : " << __DATE__ << " " << __TIME__ << "\n";
+	ss << "gnubiff     : " << PACKAGE_VERSION << "\n";
+	ss << "\n";
+	ss << "system      : " << uts.sysname << " " << uts.release << " ";
+	ss <<                     uts.version << " " << uts.machine << "\n";
+	ss << "glib        : " << glib_major_version << "." << glib_minor_version;
+	ss <<                     "." << glib_micro_version << "  ,  ";
+	ss <<                     GLIB_MAJOR_VERSION << "." << GLIB_MINOR_VERSION;
+	ss <<                     "." << GLIB_MICRO_VERSION << "\n";
+
+	// Print error message
+	g_warning (ss.str().c_str());
 }

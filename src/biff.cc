@@ -68,21 +68,32 @@ extern "C" {
 								 gpointer data,
 								 GError **error)
 	{
-		BIFF(data)->xml_start_element (context, element_name, attribute_names, attribute_values, error);
+		if (data)
+			BIFF(data)->xml_start_element (context, element_name,
+										   attribute_names, attribute_values,
+										   error);
+		else
+			unknown_internal_error ();
 	}
 	void BIFF_xml_end_element (GMarkupParseContext *context,
 							   const gchar *element_name,
 							   gpointer data,
 							   GError **error)
 	{
-		BIFF(data)->xml_end_element (context, element_name, error);
+		if (data)
+			BIFF(data)->xml_end_element (context, element_name, error);
+		else
+			unknown_internal_error ();
 	}
 
 	void BIFF_xml_error (GMarkupParseContext *context,
 						 GError *error,
 						 gpointer data)
 	{
-		BIFF(data)->xml_error (context, error);
+		if (data)
+			BIFF(data)->xml_error (context, error);
+		else
+			unknown_internal_error ();
 	}
 }
 
@@ -155,19 +166,6 @@ Biff::Biff (guint ui_mode, std::string filename)
 Biff::~Biff (void)
 {
 }
-
-/**
- *  Print a message to send a bug report. This function should be called if
- *  we have an error but do not know why this error has happened. Before
- *  calling this function an error message should be printed.
- */
-void 
-Biff::bug_report_msg (void)
-{
-	g_warning (_("You just encountered a strange error. Please send a bug "
-				 "report to \"gnubiff-bugs@lists.sourceforge.net\"."));
-}
-
 
 // ================================================================================
 //  access
@@ -642,8 +640,7 @@ Biff::xml_start_element (GMarkupParseContext *context,
 	// Test parameters
 	if ((element_name == NULL) || (attribute_names == NULL)
 		|| (attribute_values == NULL)) {
-		g_warning (_("Unknown error while parsing config file"));
-		bug_report_msg ();
+		unknown_internal_error ();
 		return;
 	}
 
@@ -667,6 +664,12 @@ void
 Biff::xml_end_element (GMarkupParseContext *context,
 					   const gchar *element_name, GError **error)
 {
+	// Test parameters
+	if (element_name == NULL) {
+		unknown_internal_error ();
+		return;
+	}
+
 	std::string element = element_name;
 
 	// XML elements to be ignored
