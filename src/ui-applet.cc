@@ -175,21 +175,26 @@ Applet::update (gboolean no_popup)
 		unread += biff_->mailbox(i)->unreads();
 	}
 
+	// New mail command
 	if ((newmail == true) && (unread > 0) && (force_popup_ == false)
 		&& (biff_->value_bool ("use_newmail_command"))) {
 		std::string command = biff_->value_string ("newmail_command") + " &";
 		system (command.c_str());
 	}
 
+	// Update popup
 	if (!no_popup && (biff_->popup())) {
 		// If there are no mails to display then hide popup
 		if (!unread && (biff_->value_bool ("use_popup") || force_popup_))
 			biff_->popup()->hide();
 
+		gboolean vis = GTK_WIDGET_VISIBLE (biff_->popup()->get ("dialog"));
+
 		// Otherwise update and display the popup
-		// Note: Must not test for new mail because popup also needs updating
-		// when some messages were read
-		if (unread && ((biff_->value_bool ("use_popup")) || (force_popup_))) {
+		// Note: Must not test for new mail when popup is shown
+		// because it also needs updating when some messages were read
+		if (unread && ((biff_->value_bool ("use_popup")) || (force_popup_))
+			&& (newmail || vis)) {
 			biff_->popup()->update();
 			biff_->popup()->show();
 		}
