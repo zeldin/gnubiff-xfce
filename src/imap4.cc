@@ -1427,7 +1427,7 @@ Imap4::save_untagged_response (std::string &line) throw (imap_err)
 	guint pos_sep = line.find (" ", pos);
 
 	if (pos_sep == std::string::npos)
-		last_untagged_response_key_ = line.substr (pos, line.size()-pos+1);
+		last_untagged_response_key_ = line.substr (pos, line.size()-pos-1);
 	else {
 		if (pos == pos_sep) throw imap_command_err();
 		last_untagged_response_key_ = line.substr (pos, pos_sep-pos);
