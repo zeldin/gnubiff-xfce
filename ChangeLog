@@ -47,6 +47,9 @@ Version 2.1.2
    - Bugfix: Don't parse mails that aren't stored anyway
    - Added Victor Alonso to translators
    - Cleanup of Socket::close()
+   - Bugfix/Update: Updated various files from the gettext package
+        to version 0.14.1
+   - Updated intltool utilities to version 0.33
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

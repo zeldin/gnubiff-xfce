@@ -133,7 +133,7 @@ Biff::Biff (guint ui_mode, std::string filename)
 		load ();
 	}
 	else {
-		g_warning (_("Configuration file (%s) not found !"),
+		g_warning (_("Configuration file (%s) not found!"),
 				   value_gchar ("config_file"));
 		mailbox_.push_back (new Mailbox (this));
 	}

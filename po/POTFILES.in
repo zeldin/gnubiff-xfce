@@ -26,7 +26,9 @@ src/gtk_image_animation.cc
 src/ui-popup.cc
 src/support.cc
 src/GNOME_gnubiffApplet.xml
+src/GNOME_gnubiffApplet.xml.h
 src/GNOME_gnubiffApplet.server.in
+src/GNOME_gnubiffApplet.server.in.h
 ui/applet-gtk.glade
 ui/applet-gnome.glade
 ui/preferences.glade

@@ -126,10 +126,11 @@ AC_CHECK_FUNCS([gethostbyname memset socket strchr strerror strrchr strstr utime
 GETTEXT_PACKAGE=gnubiff
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE",
-                   [The prefix for our gettext translation domains.])
-ALL_LINGUAS="fr fr_FR fr_CA de nl ro es sv it vi"
+	               [The prefix for our gettext translation domains.])
 AC_PROG_INTLTOOL
 AM_GLIB_GNU_GETTEXT
+AM_GNU_GETTEXT([external])
+
 
 
 ######################################################################
@@ -159,6 +160,8 @@ if test "$gnome" = yes; then
   ], gnome=no)
 fi
 AM_CONDITIONAL(USE_GNOME, test $gnome = yes, Define to 1 if you want to have GNOME support)
+
+
 
 ######################################################################
 #                        Save password option                        #
@@ -194,12 +197,15 @@ AC_ARG_ENABLE(expert,
 	AC_DEFINE(EXPERT_SHOW_NO_TAB, 1, [Define to 1 to disable showing expert tab as default.])
 	expert="$enableval", expert="yes")
 
+
+
 ######################################################################
 #                           debug support                            #
 ######################################################################
 AC_ARG_ENABLE(debug,
 [  --enable-debug          turn on debugging [default=no]],
         AC_DEFINE(DEBUG, 1, [Define to 1 to enable debugging code.]),)
+
 
 
 ##################
@@ -234,7 +240,7 @@ if test "$password" = no; then
 echo " Password saving : no"
 echo "  If you want gnubiff to save password within configuration"
 echo "  file, use ./configure --with-password [--with-password-string=\"any string you like...]\""
-echo "  But be careful, it is highly unsecure, you've been warned !"
+echo "  But be careful, it is highly unsecure, you've been warned!"
 fi
 
 echo " Gnome support   : $gnome"
