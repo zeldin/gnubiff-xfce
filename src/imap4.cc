@@ -772,7 +772,6 @@ Imap4::command_logout (void) throw (imap_err)
 	socket_->close ();
 }
 
-
 /**
  * Sending the IMAP command "SELECT" to the server. The user chosen folder on
  * the server is selected.
