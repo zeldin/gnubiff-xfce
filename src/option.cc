@@ -98,6 +98,18 @@ Option_UInt::to_string (void)
 	return ss.str();
 }
 
+std::string 
+Option_UInt::default_string (void)
+{
+	// Test whether there is an identifier for this value
+	if (int_id_.find (default_) != int_id_.end ())
+		return int_id_[default_];
+
+	std::stringstream ss;
+	ss << default_;
+	return ss.str();
+}
+
 gboolean 
 Option_UInt::from_string (const std::string &value)
 {
@@ -227,6 +239,12 @@ std::string
 Option_String::to_string (void)
 {
 	return value_;
+}
+
+std::string 
+Option_String::default_string (void)
+{
+	return default_;
 }
 
 gboolean 

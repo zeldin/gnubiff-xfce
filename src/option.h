@@ -90,6 +90,7 @@ public:
 	virtual void get_gui (std::vector<GtkWidget *> &widgets) {};
 	virtual void reset (void) {};
 	virtual gboolean is_default (void) {return false;};
+	virtual std::string default_string (void) {return std::string("");};
 	virtual Option *copy (void) {return new Option(*this);};
 
 	/// Access function to Option::flags_
@@ -100,6 +101,8 @@ public:
 	OptionGUI gui (void) const {return gui_;}
 	/// Access function to Option::gui_name_
 	std::string gui_name (void) const {return gui_name_;}
+	/// Access function to Option::help
+	std::string help (void) const {return help_;}
 	/// Access function to Option::name_
 	std::string name (void) const {return name_;}
 	/// Access function to Option::type_
@@ -136,6 +139,7 @@ public:
 
 	std::string type_string (void) {return ((flags_ & OPTFLG_ID_INT_STRICT) ? "enum" : "unsigned int");};
 	std::string to_string (void);
+	std::string default_string (void);
 	gboolean from_string (const std::string &value);
 	void get_gui (std::vector<GtkWidget *> &widgets);
 	void set_gui (std::vector<GtkWidget *> &widgets);
@@ -198,6 +202,7 @@ public:
 
 	std::string type_string (void) {return ((flags_ & OPTFLG_STRINGLIST) ? "list (strings)" : "string");};
 	std::string to_string (void);
+	std::string default_string (void);
 	gboolean from_string (const std::string &value);
 	void get_gui (std::vector<GtkWidget *> &widgets);
 	void set_gui (std::vector<GtkWidget *> &widgets);

@@ -51,6 +51,7 @@ public:
 	gboolean add_group (Option_Group *group);
 	gboolean add_option (Option *option);
 	gboolean add_option (const Options &options);
+	Option *find_option (const std::string &name,OptionType type=OPTTYPE_NONE);
 
 	gboolean reset (const std::string &name);
 	gboolean value (const std::string &name, gboolean value,
@@ -83,7 +84,8 @@ public:
 	void gui_set (guint groups, GladeXML *xml, std::string filename);
 	void gui_show (guint groups, GladeXML *xml, std::string filename);
 
-	std::string group_string (guint group) {return groups_[group]->name();};
+	std::string group_help (guint group) {return groups_[group]->help();};
+	std::string group_name (guint group) {return groups_[group]->name();};
 	/// Access function to Options::groups_
 	std::map<guint, Option_Group *> &groups (void) {return groups_;}
 	/// Access function to Options::options_
@@ -116,7 +118,6 @@ protected:
 	 */
 	virtual void option_update (Option *option) {};
 
-	Option *find_option (const std::string &name, OptionType type);
 private:
 	void gui_all (guint whattodo, guint groups, GladeXML *xml,
 				  const std::string filename);
