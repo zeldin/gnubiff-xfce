@@ -203,11 +203,11 @@ Popup::create (void)
 
 
 /** 
- * Update popup list
+ * Update popup list.
  *   Be careful that we're responsible for freeing memory of updated
  *   field within tree store. Easy solution is to collect every (gchar
  *   *) used in tree store and to free them next time we enter this
- *   function (saved_strings)
+ *   function (saved_strings).
  **/
 void
 Popup::update (void)

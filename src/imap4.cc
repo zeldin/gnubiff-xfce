@@ -591,7 +591,7 @@ Imap4::idle_renew_loop() throw (imap_err)
  *    \item IDLE: If the server has the IDLE capability, gnubiff uses the
  *          IDLE command instead of polling.
  *    \item LOGINDISABLED: The server wants us not to login.
- * \end{\itemize}
+ * \end{itemize}
  * 
  * @exception imap_command_err
  *                     In case of an unexpected server's response or if a
