@@ -63,9 +63,6 @@ Maildir::~Maildir (void)
 void
 Maildir::fetch (void)
 {
-	DIR *dir;
-	struct stat file_stat;
-	struct dirent *dent;
 	int saved_status = status();
   
 	// Build directory name
@@ -82,29 +79,32 @@ Maildir::fetch (void)
 	g_free(base);
 
 	// Check for existence of a new mail directory
-	if ((stat (directory.c_str(), &file_stat) != 0)||(!S_ISDIR(file_stat.st_mode))) {
-		g_warning (_("Cannot find new mail directory (%s)"), directory.c_str());
+	if (!g_file_test (address().c_str(), G_FILE_TEST_IS_DIR)) {
+		g_warning(_("Cannot find new mail directory (%s)"), directory.c_str());
 		status (MAILBOX_ERROR);
 		return;
 	}
 
 	// Try to open new mail directory
-	if ((dir = opendir (directory.c_str())) == NULL) {
-		g_warning (_("Cannot open new mail directory (%s)"), directory.c_str());
+	GDir *gdir = g_dir_open (directory.c_str (), 0, NULL);
+	if (gdir == NULL) {
+		g_warning(_("Cannot open new mail directory (%s)"), directory.c_str());
 		status (MAILBOX_ERROR);
 		return;
 	}
 
 	std::vector<std::string> mail;
-	std::string line; 
+	std::string line;
+	const gchar *d_name;
 	// Read new mails
-	while ((dent = readdir(dir))
+	while ((d_name = g_dir_read_name (gdir))
 		   && (new_unread_.size() < (biff_->value_uint ("max_mail")))) {
-		if (dent->d_name[0]=='.')
+		// Filenames that begin with '.' are no messages in maildir protocol
+		if (d_name[0] == '.')
 			continue;
 
 		std::ifstream file;
-		gchar *tmp = g_build_filename (directory.c_str(), dent->d_name, NULL);
+		gchar *tmp = g_build_filename (directory.c_str(), d_name, NULL);
 		std::string filename(tmp);
 		g_free(tmp);
 
@@ -115,14 +115,16 @@ Maildir::fetch (void)
 				getline(file, line);
 				mail.push_back (line);
 			}
-			parse (mail, dent->d_name);
+			parse (mail, d_name);
 			mail.clear();
 		}
 		else
 			g_warning (_("Cannot open %s."), filename.c_str());
 		file.close();
 	}
-	closedir (dir);
+
+	// Close directory
+	g_dir_close (gdir);
 
 	// Restore status
 	status (saved_status);
