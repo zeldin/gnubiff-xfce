@@ -534,16 +534,17 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		partinfo = *pi;
 	if (hh != NULL)
 		h = *hh;
+	else {
+		// Insert default values
+		h.date (_("<no date>"));
+		h.sender (_("<no sender>"));
+		h.subject (_("<no subject>"));
+	}
 	if ((partinfo.error_.size() > 0) && (h.error().size() == 0))
 		h.error (partinfo.error_);
 
-	// Insert default values
-	h.date (_("<no date>"));
-	h.sender (_("<no sender>"));
-	h.subject (_("<no subject>"));
-
 	// Parse header
-	for (; pos < len; pos++) {
+	for (; (pos < len) && status; pos++) {
 		// Beginning of body? (header and body are separated by an empty line)
 		if (mail[pos].empty())
 			break;
@@ -719,7 +720,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 	h.error_to_body ();
 
 	// Store mail depending on status
-	if (status)
+	if (status) {
 		// Pines trick
 		if (h.subject().find("DON'T DELETE THIS MESSAGE -- FOLDER INTERNAL DATA") == std::string::npos) {
 			// Ok, at this point mail is
@@ -741,6 +742,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 					   h.mailid().c_str ());
 #endif
 		}
+	}
 }
 
 /** 

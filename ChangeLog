@@ -43,6 +43,7 @@ Version 2.1.2
    - Bugfix: Testing popup() for being NULL pointer in "src/applet.cc"
         (thanks to Phil Shapiro for reporting this bug)
    - Added Phil Shapiro and Nicolas Evrard to contributors
+   - Bugfix: Setting defaults for date, subject and from
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 
