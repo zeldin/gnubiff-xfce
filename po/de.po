@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-20 22:49+0100\n"
+"POT-Creation-Date: 2005-02-25 16:46+0100\n"
 "PO-Revision-Date: 2005-02-20 22:50+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -119,17 +119,17 @@ msgstr "[%d] Konnte das Zertifikat »%s« für »%s« nicht laden"
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Kann entfernten Host »%s« auf Port %d nicht identifizieren"
 
-#: ../src/socket.cc:326
+#: ../src/socket.cc:327
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Kann nicht an »%s« auf Port %d schreiben"
 
-#: ../src/socket.cc:388
+#: ../src/socket.cc:389
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Kann nicht von »%s« auf Port %d lesen"
 
-#: ../src/socket.cc:410
+#: ../src/socket.cc:411
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "Kann nicht das Timeout zum Lesen auf dem Socket setzen: %s"
@@ -295,7 +295,8 @@ msgstr "Keine Nachrichten"
 msgid "Mailbox"
 msgstr "Briefkasten"
 
-#: ../src/ui-preferences.cc:222
+#. Column: TYPE
+#: ../src/ui-preferences.cc:222 ../src/ui-preferences.cc:304
 msgid "Type"
 msgstr "Format"
 
@@ -308,32 +309,40 @@ msgid "Security"
 msgstr "Sicherheit"
 
 #. Selection label
-#: ../src/ui-preferences.cc:268 ../src/ui-preferences.cc:592
+#: ../src/ui-preferences.cc:268 ../src/ui-preferences.cc:595
 msgid "No mailbox selected"
 msgstr "Kein Briefkasten ausgewählt"
 
-#: ../src/ui-preferences.cc:526
+#: ../src/ui-preferences.cc:296
+msgid "Option"
+msgstr "Option"
+
+#: ../src/ui-preferences.cc:314
+msgid "Value"
+msgstr "Wert"
+
+#: ../src/ui-preferences.cc:529
 msgid "_Start"
 msgstr "_Start"
 
-#: ../src/ui-preferences.cc:532 ../ui/preferences.glade.h:65
+#: ../src/ui-preferences.cc:535 ../ui/preferences.glade.h:73
 msgid "_Stop"
 msgstr "_Stopp"
 
-#: ../src/ui-preferences.cc:543 ../src/ui-preferences.cc:550
+#: ../src/ui-preferences.cc:546 ../src/ui-preferences.cc:553
 msgid "Browse for a new mail image"
 msgstr "Datei für ein neues Nachrichtenbild wählen"
 
 #. "Set to default value"
-#: ../src/ui-preferences.cc:630
+#: ../src/ui-preferences.cc:636
 msgid "Set to default value"
 msgstr "Auf Standardwert zurücksetzen"
 
-#: ../src/ui-preferences.cc:636
+#: ../src/ui-preferences.cc:642
 msgid "Toggle option"
 msgstr "Option verändern"
 
-#: ../src/ui-preferences.cc:643
+#: ../src/ui-preferences.cc:649
 msgid "Edit option"
 msgstr "Option bearbeiten"
 
@@ -475,30 +484,34 @@ msgid "<b>Commands</b>"
 msgstr "<b>Befehle</b>"
 
 #: ../ui/preferences.glade.h:2
+msgid "<b>Expert editing mode</b>"
+msgstr "<b>Experteneditiermodus</b>"
+
+#: ../ui/preferences.glade.h:3
 msgid "<b>General</b>"
 msgstr "<b>Allgemeines</b>"
 
-#: ../ui/preferences.glade.h:3
+#: ../ui/preferences.glade.h:4
 msgid "<b>Headers</b>"
 msgstr "<b>Nachrichten-Header</b>"
 
-#: ../ui/preferences.glade.h:4
+#: ../ui/preferences.glade.h:5
 msgid "<b>Layout</b>"
 msgstr "<b>Darstellung</b>"
 
-#: ../ui/preferences.glade.h:5
+#: ../ui/preferences.glade.h:6
 msgid "<b>Mailboxes</b>"
 msgstr "<b>Briefkästen</b>"
 
-#: ../ui/preferences.glade.h:6
+#: ../ui/preferences.glade.h:7
 msgid "<b>When new mail</b>"
 msgstr "<b>Bei neuen Nachrichten</b>"
 
-#: ../ui/preferences.glade.h:7
+#: ../ui/preferences.glade.h:8
 msgid "<b>When no mail</b>"
 msgstr "<b>Bei keinen neuen Nachrichten</b>"
 
-#: ../ui/preferences.glade.h:8
+#: ../ui/preferences.glade.h:9
 msgid ""
 "<small> Released under the aegis of GNU\n"
 " Copyright (c) 2000-2005 Nicolas Rougier</small>"
@@ -506,7 +519,7 @@ msgstr ""
 "<small> Veröffentlicht unter der Obhut von GNU\n"
 " © 2000-2005 Nicolas Rougier</small>"
 
-#: ../ui/preferences.glade.h:10
+#: ../ui/preferences.glade.h:11
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
@@ -514,7 +527,7 @@ msgstr ""
 "<small>Fehler sollten an <span foreground=\"blue\">gnubiff-bugs@lists."
 "sourceforge.net</span> gemeldet werden.</small>"
 
-#: ../ui/preferences.glade.h:11
+#: ../ui/preferences.glade.h:12
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -528,47 +541,47 @@ msgstr ""
 "    • Code eingesendet haben.\n"
 "Hier ist eine Liste dieser Personen:</small>"
 
-#: ../ui/preferences.glade.h:16
+#: ../ui/preferences.glade.h:17
 msgid "Applet geometry"
 msgstr "Platzierungseinstellungen für das Applet"
 
-#: ../ui/preferences.glade.h:17
+#: ../ui/preferences.glade.h:18
 msgid "Applet or Biff"
 msgstr "Applet _oder Biff"
 
-#: ../ui/preferences.glade.h:18
+#: ../ui/preferences.glade.h:19
 msgid "B_rowse..."
 msgstr "Aus_wählen..."
 
-#: ../ui/preferences.glade.h:19
+#: ../ui/preferences.glade.h:20
 msgid "Browse for an image file"
 msgstr "Wähle Bilddatei"
 
-#: ../ui/preferences.glade.h:20
+#: ../ui/preferences.glade.h:21
 msgid "Contributors"
 msgstr "Mit_wirkende"
 
-#: ../ui/preferences.glade.h:21
+#: ../ui/preferences.glade.h:22
 msgid "Credits"
 msgstr "_Danksagungen"
 
-#: ../ui/preferences.glade.h:22
+#: ../ui/preferences.glade.h:23
 msgid "Developers"
 msgstr "_Entwickler"
 
-#: ../ui/preferences.glade.h:23
+#: ../ui/preferences.glade.h:24
 msgid "Expert"
 msgstr "E_xperte"
 
-#: ../ui/preferences.glade.h:24
+#: ../ui/preferences.glade.h:25
 msgid "Image filename"
 msgstr "Dateiname des ausgewählten Bildes"
 
-#: ../ui/preferences.glade.h:25
+#: ../ui/preferences.glade.h:26
 msgid "List all options."
 msgstr "Liste alle Optionen."
 
-#: ../ui/preferences.glade.h:26
+#: ../ui/preferences.glade.h:27
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on it's value."
@@ -576,27 +589,27 @@ msgstr ""
 "Liste aller Optionen, ihrer Typen und gegenwärtigen Werte. Um eine Option zu "
 "bearbeiten, einen Doppelklick auf ihren Wert ausführen."
 
-#: ../ui/preferences.glade.h:27
+#: ../ui/preferences.glade.h:28
 msgid "Mailboxes"
 msgstr "_Briefkästen"
 
-#: ../ui/preferences.glade.h:28
+#: ../ui/preferences.glade.h:29
 msgid "Maintainers"
 msgstr "_Maintainer"
 
-#: ../ui/preferences.glade.h:29
+#: ../ui/preferences.glade.h:30
 msgid "Maximum number of headers to display"
 msgstr "Maximale Anzahl anzuzeigender Nachrichten"
 
-#: ../ui/preferences.glade.h:30 ../ui/popup.glade.h:4
+#: ../ui/preferences.glade.h:31 ../ui/popup.glade.h:4
 msgid "Popup"
 msgstr "_Popup"
 
-#: ../ui/preferences.glade.h:31
+#: ../ui/preferences.glade.h:32
 msgid "Popup geometry"
 msgstr "Platzierungseinstellungen für das Popup-Fenster"
 
-#: ../ui/preferences.glade.h:32
+#: ../ui/preferences.glade.h:33
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
@@ -604,148 +617,186 @@ msgstr ""
 "Nach denjenigen (der angezeigten) Optionen suchen, die den String im "
 "Texteingabefeld enthalten."
 
-#: ../ui/preferences.glade.h:33
+#: ../ui/preferences.glade.h:34
 msgid "Show _image:"
 msgstr "B_ild anzeigen:"
 
-#: ../ui/preferences.glade.h:34
+#: ../ui/preferences.glade.h:35
 msgid "Show _text:"
 msgstr "_Text anzeigen:"
 
-#: ../ui/preferences.glade.h:35
+#: ../ui/preferences.glade.h:36
 msgid "Show i_mage:"
 msgstr "B_ild anzeigen:"
 
-#: ../ui/preferences.glade.h:36
+#: ../ui/preferences.glade.h:37
 msgid "Show t_ext:"
 msgstr "_Text anzeigen:"
 
-#: ../ui/preferences.glade.h:37
+#: ../ui/preferences.glade.h:38
 msgid "String to be searched for."
 msgstr "String, nach dem gensucht werden soll."
 
-#: ../ui/preferences.glade.h:38
+#: ../ui/preferences.glade.h:39
 msgid "Text to display"
 msgstr "Anzuzeigender Text"
 
-#: ../ui/preferences.glade.h:40
+#: ../ui/preferences.glade.h:41
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 "Anzuzeigender Text bei neuen Nachrichten (»%d« bezeichnet die Anzahl der "
 "Nachrichten)."
 
-#: ../ui/preferences.glade.h:41
+#: ../ui/preferences.glade.h:42
 msgid "The command to run when new mail arrives"
 msgstr "Auszuführender Befehl bei Ankunft neuer Nachrichten"
 
-#: ../ui/preferences.glade.h:42
+#: ../ui/preferences.glade.h:43
 msgid "The command to run when the icon is double-clicked"
 msgstr "Auszuführender Befehl bei Doppelklick auf das Piktogramm"
 
-#: ../ui/preferences.glade.h:43
+#. The option's descriptions are in English only! This may be included in a translation of this text.
+#: ../ui/preferences.glade.h:45
+msgid ""
+"The editing dialog for all options that gnubiff uses internally can be "
+"enabled here. So it is possible to change the value of options for which no "
+"gui widgets are provided. A short description for each option is provided.\n"
+"<b>Warning:</b> Changing these options may cause gnubiff to act not properly "
+"or result in security problems."
+msgstr ""
+"Der Editierdialog für alle Optionen, die von Gnubiff intern verwendet "
+"werden, kann hier aktiviert werden. So ist es möglich, Optionen zu ändern, "
+"für die auf der Benutzeroberfläche keine Editiermöglichkeiten zur Verfügung "
+"stehen. Eine kurze (englischsprachige) Beschreibung für jede Option wird "
+"angegeben.\n"
+"<b>Warnung:</b> Das Ändern dieser Optionen kann dazu führen, dass sich "
+"Gnubiff nicht vernünftig verhält, oder dass sich Sicherheitsprobleme ergeben."
+
+#: ../ui/preferences.glade.h:47
 msgid "The font to use to display information"
 msgstr "Zeichensatz um Informationen darzustellen"
 
-#: ../ui/preferences.glade.h:44
+#: ../ui/preferences.glade.h:48
 msgid "Time to display popup window"
 msgstr "Zeit, die das Popup-Fenster dargestellt wird"
 
-#: ../ui/preferences.glade.h:45
+#: ../ui/preferences.glade.h:49
 msgid "Translators"
 msgstr "_Übersetzer"
 
-#: ../ui/preferences.glade.h:46
+#: ../ui/preferences.glade.h:50
 msgid "Use _decoration"
 msgstr "F_ensterdekoration verwenden"
 
-#: ../ui/preferences.glade.h:47
+#: ../ui/preferences.glade.h:51
 msgid "Use _geometry:"
 msgstr "_Fensterplatzierung verwenden:"
 
-#: ../ui/preferences.glade.h:48
+#: ../ui/preferences.glade.h:52
 msgid "When _double-clicked:"
 msgstr "Bei Doppel_klick:"
 
-#: ../ui/preferences.glade.h:49
+#: ../ui/preferences.glade.h:53
 msgid "When _new mail:"
 msgstr "Bei _neuen Nachrichten:"
 
-#: ../ui/preferences.glade.h:50
+#: ../ui/preferences.glade.h:54
+msgid "Whether options can be edited in expert mode"
+msgstr "Sollen Optionen im Expertenmodus editiert werden können?"
+
+#: ../ui/preferences.glade.h:55
 msgid "Whether to display a text"
 msgstr "Soll ein Text angezeigt werden?"
 
-#: ../ui/preferences.glade.h:51
+#: ../ui/preferences.glade.h:56
 msgid "Whether to display an image"
 msgstr "Soll ein Bild angezeigt werden?"
 
-#: ../ui/preferences.glade.h:52
+#: ../ui/preferences.glade.h:57
 msgid "Whether to display the popup window"
 msgstr "Soll ein Popup-Fenster angezeigt werden?"
 
-#: ../ui/preferences.glade.h:53
+#: ../ui/preferences.glade.h:58
 msgid "Whether to restrict number of displayed headers"
 msgstr "Soll die Anzahl der anzuzeigenden Nachrichten beschränkt werden?"
 
-#: ../ui/preferences.glade.h:54
+#: ../ui/preferences.glade.h:59
 msgid "Whether to show an image"
 msgstr "Soll ein Bild angezeigt werden?"
 
-#: ../ui/preferences.glade.h:55
+#: ../ui/preferences.glade.h:60
+msgid ""
+"Whether to show the expert tab. Note: Disabling this option can only be "
+"reversed by editing the config file manually!"
+msgstr ""
+"Soll der Expertenreiter angezeigt werden? Beachte: Das Deaktivieren dieser "
+"Option kann nur durch manuelles Editieren der Konfigurationsdatei rückgängig "
+"gemacht werden!"
+
+#: ../ui/preferences.glade.h:61
 msgid "Whether to use format for header"
 msgstr "Soll die Formatierung für die Nachrichten verwendet werden?"
 
-#: ../ui/preferences.glade.h:56
+#: ../ui/preferences.glade.h:62
 msgid "Whether to use geometry"
 msgstr "Soll die Fensterplatzierung verwendet werden?"
 
-#: ../ui/preferences.glade.h:57
+#: ../ui/preferences.glade.h:63
 msgid "Whether to use window manager decoration"
 msgstr ""
 "Soll das Popup-Fenster mit Fenstermanager-Dekorationen versehen werden?"
 
-#: ../ui/preferences.glade.h:58
+#: ../ui/preferences.glade.h:64
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 "[Max. Länge des Absenders]:[Max. Länge des Betreffs]:[Max. Länge des Datums]"
 
-#: ../ui/preferences.glade.h:59 ../ui/properties.glade.h:21
+#: ../ui/preferences.glade.h:65 ../ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "Aus_wählen..."
 
-#: ../ui/preferences.glade.h:60
+#: ../ui/preferences.glade.h:66
 msgid "_Display for"
 msgstr "A_nzeigen für"
 
-#: ../ui/preferences.glade.h:61
+#: ../ui/preferences.glade.h:67
+msgid "_Edit options in expert mode"
+msgstr "Optionen im _Expertenmodus editieren"
+
+#: ../ui/preferences.glade.h:68
 msgid "_Font:"
 msgstr "_Zeichensatz:"
 
-#: ../ui/preferences.glade.h:62
+#: ../ui/preferences.glade.h:69
 msgid "_Format:"
 msgstr "For_mat der Ausgabe:"
 
-#: ../ui/preferences.glade.h:63
+#: ../ui/preferences.glade.h:70
 msgid "_Restrict collected mail to"
 msgstr "An_zahl einzusammelnder Nachrichten beschränken auf"
 
-#: ../ui/preferences.glade.h:64
+#: ../ui/preferences.glade.h:71
 msgid "_Restrict number to"
 msgstr "Anzahl einschr_änken auf"
 
-#: ../ui/preferences.glade.h:66
+#: ../ui/preferences.glade.h:72
+msgid "_Show expert tab"
+msgstr "Expertenreiter an_zeigen"
+
+#: ../ui/preferences.glade.h:74
 msgid "gnubiff preferences"
 msgstr "Einstellungen für Gnubiff"
 
-#: ../ui/preferences.glade.h:67
+#: ../ui/preferences.glade.h:75
 msgid "header(s)"
 msgstr "Nachrichten"
 
-#: ../ui/preferences.glade.h:68
+#: ../ui/preferences.glade.h:76
 msgid "mail(s)"
 msgstr "Nachrichten"
 
-#: ../ui/preferences.glade.h:69
+#: ../ui/preferences.glade.h:77
 msgid "second(s)"
 msgstr "Sekunden"
 

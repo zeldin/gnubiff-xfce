@@ -293,13 +293,16 @@ Preferences::expert_create (void)
 	// Column: NAME
 	rend = gtk_cell_renderer_text_new ();
 	g_object_set (rend, "style", PANGO_STYLE_ITALIC, NULL);
-	column = gtk_tree_view_column_new_with_attributes ("Option", rend, "text", COL_EXP_GROUPNAME, "style-set", COL_EXP_NAME_ITALIC, NULL);
+	column = gtk_tree_view_column_new_with_attributes (_("Option"), rend,
+				"text", COL_EXP_GROUPNAME, "style-set", COL_EXP_NAME_ITALIC,
+				NULL);
 	gtk_tree_view_column_set_resizable (column, false);
 	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_GROUPNAME);
 	gtk_tree_view_append_column (expert_treeview, column);
 
 	// Column: TYPE
-	column = gtk_tree_view_column_new_with_attributes ("Type", gtk_cell_renderer_text_new(), "text", COL_EXP_TYPE, NULL);
+	column = gtk_tree_view_column_new_with_attributes (_("Type"),
+				gtk_cell_renderer_text_new(), "text", COL_EXP_TYPE, NULL);
 	gtk_tree_view_column_set_resizable (column, false);
 	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_TYPE);
 	gtk_tree_view_append_column (expert_treeview, column);
@@ -308,8 +311,8 @@ Preferences::expert_create (void)
 	rend = gtk_cell_renderer_text_new ();
 	g_signal_connect(rend, "edited",
 					 (GCallback) PREFERENCES_expert_option_edited, this);
-	expert_col_value = gtk_tree_view_column_new_with_attributes ("Value", rend,
-				"text", COL_EXP_VALUE, "editable", COL_EXP_EDITABLE,
+	expert_col_value = gtk_tree_view_column_new_with_attributes (_("Value"),
+				rend, "text", COL_EXP_VALUE, "editable", COL_EXP_EDITABLE,
 				"editable-set", COL_EXP_EDITABLE, NULL);
 	gtk_tree_view_column_set_resizable (expert_col_value, false);
 	gtk_tree_view_column_set_sort_column_id (expert_col_value, COL_EXP_VALUE);
@@ -598,6 +601,9 @@ Preferences::on_selection (GtkTreeSelection *selection)
 void
 Preferences::on_check_changed (GtkWidget *widget)
 {
+	// Need to update "expert_edit_options" option immediately
+	biff_->update_gui (OPTSGUI_GET, biff_->find_option ("expert_edit_options"),
+					   xml_, filename_);
 	// Disable and enable certain GUI elements depending on values of some
 	// options
 	biff_->update_gui (OptionsGUI (OPTSGUI_SENSITIVE | OPTSGUI_SHOW),

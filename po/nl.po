@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-20 22:49+0100\n"
+"POT-Creation-Date: 2005-02-25 16:46+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -123,17 +123,17 @@ msgstr "Kan niet met %s verbinden op poort %d"
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "Kan niet schrijven naar %s op poort %d"
 
-#: ../src/socket.cc:326
+#: ../src/socket.cc:327
 #, fuzzy, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "Kan niet schrijven naar %s op poort %d"
 
-#: ../src/socket.cc:388
+#: ../src/socket.cc:389
 #, fuzzy, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "Kan niet lezen van %s op poort %d"
 
-#: ../src/socket.cc:410
+#: ../src/socket.cc:411
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
@@ -298,7 +298,8 @@ msgstr "Geen e-mail"
 msgid "Mailbox"
 msgstr "Postvak"
 
-#: ../src/ui-preferences.cc:222
+#. Column: TYPE
+#: ../src/ui-preferences.cc:222 ../src/ui-preferences.cc:304
 msgid "Type"
 msgstr ""
 
@@ -311,33 +312,42 @@ msgid "Security"
 msgstr ""
 
 #. Selection label
-#: ../src/ui-preferences.cc:268 ../src/ui-preferences.cc:592
+#: ../src/ui-preferences.cc:268 ../src/ui-preferences.cc:595
 msgid "No mailbox selected"
 msgstr ""
 
-#: ../src/ui-preferences.cc:526
+#: ../src/ui-preferences.cc:296
+#, fuzzy
+msgid "Option"
+msgstr "Opties"
+
+#: ../src/ui-preferences.cc:314
+msgid "Value"
+msgstr ""
+
+#: ../src/ui-preferences.cc:529
 msgid "_Start"
 msgstr ""
 
-#: ../src/ui-preferences.cc:532 ../ui/preferences.glade.h:65
+#: ../src/ui-preferences.cc:535 ../ui/preferences.glade.h:73
 msgid "_Stop"
 msgstr ""
 
-#: ../src/ui-preferences.cc:543 ../src/ui-preferences.cc:550
+#: ../src/ui-preferences.cc:546 ../src/ui-preferences.cc:553
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Bladeren"
 
 #. "Set to default value"
-#: ../src/ui-preferences.cc:630
+#: ../src/ui-preferences.cc:636
 msgid "Set to default value"
 msgstr ""
 
-#: ../src/ui-preferences.cc:636
+#: ../src/ui-preferences.cc:642
 msgid "Toggle option"
 msgstr ""
 
-#: ../src/ui-preferences.cc:643
+#: ../src/ui-preferences.cc:649
 msgid "Edit option"
 msgstr ""
 
@@ -487,36 +497,40 @@ msgid "<b>Commands</b>"
 msgstr "<b>Y</b>"
 
 #: ../ui/preferences.glade.h:2
+msgid "<b>Expert editing mode</b>"
+msgstr ""
+
+#: ../ui/preferences.glade.h:3
 #, fuzzy
 msgid "<b>General</b>"
 msgstr "<b>Y</b>"
 
-#: ../ui/preferences.glade.h:3
+#: ../ui/preferences.glade.h:4
 #, fuzzy
 msgid "<b>Headers</b>"
 msgstr "<b>Y</b>"
 
-#: ../ui/preferences.glade.h:4
+#: ../ui/preferences.glade.h:5
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "<b>Y</b>"
 
-#: ../ui/preferences.glade.h:5
+#: ../ui/preferences.glade.h:6
 #, fuzzy
 msgid "<b>Mailboxes</b>"
 msgstr "Postvak"
 
-#: ../ui/preferences.glade.h:6
+#: ../ui/preferences.glade.h:7
 #, fuzzy
 msgid "<b>When new mail</b>"
 msgstr "<b>Y</b>"
 
-#: ../ui/preferences.glade.h:7
+#: ../ui/preferences.glade.h:8
 #, fuzzy
 msgid "<b>When no mail</b>"
 msgstr "<b>Y</b>"
 
-#: ../ui/preferences.glade.h:8
+#: ../ui/preferences.glade.h:9
 #, fuzzy
 msgid ""
 "<small> Released under the aegis of GNU\n"
@@ -525,13 +539,13 @@ msgstr ""
 "<small>(C) 2000-2004 Nicolas Rougier, Nederlandse vertaling (C) 2004 Elros "
 "Cyriatan</small>"
 
-#: ../ui/preferences.glade.h:10
+#: ../ui/preferences.glade.h:11
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 msgstr ""
 
-#: ../ui/preferences.glade.h:11
+#: ../ui/preferences.glade.h:12
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -540,242 +554,270 @@ msgid ""
 "Here is a list of these people:</small>"
 msgstr ""
 
-#: ../ui/preferences.glade.h:16
+#: ../ui/preferences.glade.h:17
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Geen afmeting"
 
-#: ../ui/preferences.glade.h:17
+#: ../ui/preferences.glade.h:18
 #, fuzzy
 msgid "Applet or Biff"
 msgstr "Applet "
 
-#: ../ui/preferences.glade.h:18
+#: ../ui/preferences.glade.h:19
 msgid "B_rowse..."
 msgstr ""
 
-#: ../ui/preferences.glade.h:19
+#: ../ui/preferences.glade.h:20
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "Bladeren voor een certificaatbestand"
 
-#: ../ui/preferences.glade.h:20
+#: ../ui/preferences.glade.h:21
 msgid "Contributors"
 msgstr ""
 
-#: ../ui/preferences.glade.h:21
+#: ../ui/preferences.glade.h:22
 msgid "Credits"
 msgstr "Elros Cyriatan"
 
-#: ../ui/preferences.glade.h:22
+#: ../ui/preferences.glade.h:23
 msgid "Developers"
 msgstr ""
 
-#: ../ui/preferences.glade.h:23
+#: ../ui/preferences.glade.h:24
 msgid "Expert"
 msgstr ""
 
-#: ../ui/preferences.glade.h:24
+#: ../ui/preferences.glade.h:25
 msgid "Image filename"
 msgstr ""
 
-#: ../ui/preferences.glade.h:25
+#: ../ui/preferences.glade.h:26
 msgid "List all options."
 msgstr ""
 
-#: ../ui/preferences.glade.h:26
+#: ../ui/preferences.glade.h:27
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on it's value."
 msgstr ""
 
-#: ../ui/preferences.glade.h:27
+#: ../ui/preferences.glade.h:28
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Postvak"
 
-#: ../ui/preferences.glade.h:28
+#: ../ui/preferences.glade.h:29
 msgid "Maintainers"
 msgstr ""
 
-#: ../ui/preferences.glade.h:29
+#: ../ui/preferences.glade.h:30
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr ""
 "<small>Maximale aantal\n"
 "te verzamelen berichten</small>"
 
-#: ../ui/preferences.glade.h:30 ../ui/popup.glade.h:4
+#: ../ui/preferences.glade.h:31 ../ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Pop-up"
 
-#: ../ui/preferences.glade.h:31
+#: ../ui/preferences.glade.h:32
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Geen afmeting"
 
-#: ../ui/preferences.glade.h:32
+#: ../ui/preferences.glade.h:33
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr ""
 
-#: ../ui/preferences.glade.h:33
+#: ../ui/preferences.glade.h:34
 msgid "Show _image:"
 msgstr ""
 
-#: ../ui/preferences.glade.h:34
+#: ../ui/preferences.glade.h:35
 msgid "Show _text:"
 msgstr ""
 
-#: ../ui/preferences.glade.h:35
+#: ../ui/preferences.glade.h:36
 msgid "Show i_mage:"
 msgstr ""
 
-#: ../ui/preferences.glade.h:36
+#: ../ui/preferences.glade.h:37
 msgid "Show t_ext:"
 msgstr ""
 
-#: ../ui/preferences.glade.h:37
+#: ../ui/preferences.glade.h:38
 msgid "String to be searched for."
 msgstr ""
 
-#: ../ui/preferences.glade.h:38
+#: ../ui/preferences.glade.h:39
 msgid "Text to display"
 msgstr ""
 
-#: ../ui/preferences.glade.h:40
+#: ../ui/preferences.glade.h:41
 #, fuzzy, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 "Tekst om weer te geven als er geen nieuwe post is; %d is het aantal "
 "berichten."
 
-#: ../ui/preferences.glade.h:41
+#: ../ui/preferences.glade.h:42
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Geluid om af te spelen als nieuwe e-mail is ontvangen"
 
-#: ../ui/preferences.glade.h:42
+#: ../ui/preferences.glade.h:43
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ../ui/preferences.glade.h:43
+#. The option's descriptions are in English only! This may be included in a translation of this text.
+#: ../ui/preferences.glade.h:45
+msgid ""
+"The editing dialog for all options that gnubiff uses internally can be "
+"enabled here. So it is possible to change the value of options for which no "
+"gui widgets are provided. A short description for each option is provided.\n"
+"<b>Warning:</b> Changing these options may cause gnubiff to act not properly "
+"or result in security problems."
+msgstr ""
+
+#: ../ui/preferences.glade.h:47
 msgid "The font to use to display information"
 msgstr ""
 
-#: ../ui/preferences.glade.h:44
+#: ../ui/preferences.glade.h:48
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ../ui/preferences.glade.h:45
+#: ../ui/preferences.glade.h:49
 msgid "Translators"
 msgstr ""
 
-#: ../ui/preferences.glade.h:46
+#: ../ui/preferences.glade.h:50
 msgid "Use _decoration"
 msgstr ""
 
-#: ../ui/preferences.glade.h:47
+#: ../ui/preferences.glade.h:51
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Geen afmeting"
 
-#: ../ui/preferences.glade.h:48
+#: ../ui/preferences.glade.h:52
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ../ui/preferences.glade.h:49
+#: ../ui/preferences.glade.h:53
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Nieuwe e-mail"
 
-#: ../ui/preferences.glade.h:50
+#: ../ui/preferences.glade.h:54
+msgid "Whether options can be edited in expert mode"
+msgstr ""
+
+#: ../ui/preferences.glade.h:55
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ../ui/preferences.glade.h:51
+#: ../ui/preferences.glade.h:56
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ../ui/preferences.glade.h:52
+#: ../ui/preferences.glade.h:57
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ../ui/preferences.glade.h:53
+#: ../ui/preferences.glade.h:58
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ../ui/preferences.glade.h:54
+#: ../ui/preferences.glade.h:59
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ../ui/preferences.glade.h:55
+#: ../ui/preferences.glade.h:60
+msgid ""
+"Whether to show the expert tab. Note: Disabling this option can only be "
+"reversed by editing the config file manually!"
+msgstr ""
+
+#: ../ui/preferences.glade.h:61
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Geen afmeting"
 
-#: ../ui/preferences.glade.h:56
+#: ../ui/preferences.glade.h:62
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Geen afmeting"
 
-#: ../ui/preferences.glade.h:57
+#: ../ui/preferences.glade.h:63
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ../ui/preferences.glade.h:58
+#: ../ui/preferences.glade.h:64
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ../ui/preferences.glade.h:59 ../ui/properties.glade.h:21
+#: ../ui/preferences.glade.h:65 ../ui/properties.glade.h:21
 msgid "_Browse..."
-msgstr ""
-
-#: ../ui/preferences.glade.h:60
-#, fuzzy
-msgid "_Display for"
-msgstr "Datum weergeven in koppen"
-
-#: ../ui/preferences.glade.h:61
-#, fuzzy
-msgid "_Font:"
-msgstr "Lettertypes "
-
-#: ../ui/preferences.glade.h:62
-#, fuzzy
-msgid "_Format:"
-msgstr "Lettertypes "
-
-#: ../ui/preferences.glade.h:63
-msgid "_Restrict collected mail to"
-msgstr ""
-
-#: ../ui/preferences.glade.h:64
-msgid "_Restrict number to"
 msgstr ""
 
 #: ../ui/preferences.glade.h:66
 #, fuzzy
-msgid "gnubiff preferences"
-msgstr "Voorkeuren"
+msgid "_Display for"
+msgstr "Datum weergeven in koppen"
 
 #: ../ui/preferences.glade.h:67
-msgid "header(s)"
+msgid "_Edit options in expert mode"
 msgstr ""
 
 #: ../ui/preferences.glade.h:68
 #, fuzzy
+msgid "_Font:"
+msgstr "Lettertypes "
+
+#: ../ui/preferences.glade.h:69
+#, fuzzy
+msgid "_Format:"
+msgstr "Lettertypes "
+
+#: ../ui/preferences.glade.h:70
+msgid "_Restrict collected mail to"
+msgstr ""
+
+#: ../ui/preferences.glade.h:71
+msgid "_Restrict number to"
+msgstr ""
+
+#: ../ui/preferences.glade.h:72
+msgid "_Show expert tab"
+msgstr ""
+
+#: ../ui/preferences.glade.h:74
+#, fuzzy
+msgid "gnubiff preferences"
+msgstr "Voorkeuren"
+
+#: ../ui/preferences.glade.h:75
+msgid "header(s)"
+msgstr ""
+
+#: ../ui/preferences.glade.h:76
+#, fuzzy
 msgid "mail(s)"
 msgstr "kmail"
 
-#: ../ui/preferences.glade.h:69
+#: ../ui/preferences.glade.h:77
 msgid "second(s)"
 msgstr ""
 
@@ -1287,9 +1329,6 @@ msgstr "postinhoud"
 
 #~ msgid "No sound when new mail has arrived"
 #~ msgstr "Geen geluid als nieuwe e-mail is aangekomen"
-
-#~ msgid "Options"
-#~ msgstr "Opties"
 
 #~ msgid "Pick a color for applet font"
 #~ msgstr "Kies een kleur voor het applet-lettertype"
