@@ -894,7 +894,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	// "* SEARCH 1 2 3 4" or "* SEARCH"
 	std::set<guint> buffer;
 	guint n, cnt=0;
-	while ((ss >> n) && (cnt++ < biff_->max_mail_))
+	while ((ss >> n) && (!biff_->use_max_mail_ || (cnt++ < biff_->max_mail_)))
 		buffer.insert (n);
 
 	// Getting the acknowledgment

@@ -109,6 +109,7 @@ Version 2.1.1
 	(IMAP4)
    - Change: biff->max_mail_ is now the number of message sequence numbers
         that are obtained from the server (IMAP4)
+   - Bugfix: Respect biff_->use_max_mail_ (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier
