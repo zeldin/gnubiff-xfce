@@ -6,12 +6,12 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: gnubiff 2.0.1\n"
+"Project-Id-Version: gnubiff 2.0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-14 22:55+0200\n"
-"PO-Revision-Date: 2004-09-07 21:22+0200\n"
+"POT-Creation-Date: 2004-10-18 12:02+0200\n"
+"PO-Revision-Date: 2004-10-19 20:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
-"Language-Team: Dutch <vertaling@nl.linux.org>\n"
+"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -42,8 +42,7 @@ msgstr "Als u de GTK-versie wilt gebruiken, typ gnubiff --gtk\n"
 
 #: src/gnubiff.cc:176
 msgid " then use -c file to specify an alternate configuration file\n"
-msgstr ""
-" gebruik dan -c BESTAND om een alternatief configuratiebestand aan te geven\n"
+msgstr " gebruik dan -c BESTAND om een alternatief configuratiebestand aan te geven\n"
 
 #: src/gnubiff.cc:177
 msgid "      and -n to skip configuration process\n"
@@ -74,11 +73,8 @@ msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
 msgstr "Copyright (c) 2000-2004 Nicolas Rougier\n"
 
 #: src/ui-applet-gnome.cc:359 ui/applet-gtk.glade.h:9
-msgid ""
-"This program is part of the GNU project, released under the aegis of GNU."
-msgstr ""
-"Dit programma maakt deel uit van het GNU-project, en wordt uitgegeven onder "
-"de bescherming van GNU."
+msgid "This program is part of the GNU project, released under the aegis of GNU."
+msgstr "Dit programma maakt deel uit van het GNU-project, en wordt uitgegeven onder de bescherming van GNU."
 
 #: src/biff.cc:153
 #, c-format
@@ -179,19 +175,13 @@ msgstr "[%d] Leeg wachtwoord"
 
 #: src/apop.cc:93
 #, c-format
-msgid ""
-"[%d] Your pop server does not seem to accept apop protocol (no timestamp "
-"provided)"
-msgstr ""
-"[%d] Uw pop-server lijkt het apop-protocol niet te accepteren (geen "
-"tijdsstempel gegeven)"
+msgid "[%d] Your pop server does not seem to accept apop protocol (no timestamp provided)"
+msgstr "[%d] Uw pop-server lijkt het apop-protocol niet te accepteren (geen tijdsstempel gegeven)"
 
 #: src/apop.cc:122
 #, c-format
-msgid ""
-"[%d] Problem with crypto that should have been detected at configure time"
-msgstr ""
-"[%d] Probleem met cryptografie dat bij configuratie had moeten zijn gevonden"
+msgid "[%d] Problem with crypto that should have been detected at configure time"
+msgstr "[%d] Probleem met cryptografie dat bij configuratie had moeten zijn gevonden"
 
 #: src/gui.cc:174
 #, c-format
@@ -213,8 +203,7 @@ msgstr ""
 #: src/gui.cc:210
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
-msgstr ""
-"Kon de aangegeven widget (\"%s\") niet vinden in xml structuur (\"%s\")"
+msgstr "Kon de aangegeven widget (\"%s\") niet vinden in xml structuur (\"%s\")"
 
 #: src/gui.cc:317
 msgid "GUI_connect requires working gmodule"
@@ -245,44 +234,44 @@ msgstr "Nieuwe post"
 msgid "No mail"
 msgstr "Geen post"
 
-#: src/ui-preferences.cc:140 src/ui-popup.cc:139
+#: src/ui-preferences.cc:141 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Postvak"
 
-#: src/ui-preferences.cc:159
+#: src/ui-preferences.cc:160
 msgid "Format"
 msgstr "Formaat"
 
-#: src/ui-preferences.cc:168
+#: src/ui-preferences.cc:169
 msgid "Status"
 msgstr "Status"
 
-#: src/ui-preferences.cc:176
+#: src/ui-preferences.cc:177
 msgid "Poll time"
 msgstr "Polstijd"
 
 #. Selection label
-#: src/ui-preferences.cc:193 src/ui-preferences.cc:634
+#: src/ui-preferences.cc:194 src/ui-preferences.cc:635
 msgid "No mailbox selected"
 msgstr "Geen postvak gekozen"
 
-#: src/ui-preferences.cc:534
+#: src/ui-preferences.cc:535
 msgid "_Start"
 msgstr "_Starten"
 
-#: src/ui-preferences.cc:540 ui/preferences.glade.h:76
+#: src/ui-preferences.cc:541 ui/preferences.glade.h:76
 msgid "_Stop"
 msgstr "_Stoppen"
 
-#: src/ui-preferences.cc:550
+#: src/ui-preferences.cc:551
 msgid "Browse for a sound"
 msgstr "Bladeren voor geluid"
 
-#: src/ui-preferences.cc:576 ui/preferences.glade.h:16
+#: src/ui-preferences.cc:577 ui/preferences.glade.h:16
 msgid "Browse for a mail application"
 msgstr "Bladeren voor e-mail toepassing"
 
-#: src/ui-preferences.cc:583 src/ui-preferences.cc:596
+#: src/ui-preferences.cc:584 src/ui-preferences.cc:597
 msgid "Browse for a new mail image"
 msgstr "Bladeren voor nieuwe-post afbeelding"
 
@@ -298,12 +287,8 @@ msgstr "Kan de identiteit van %s niet als een vertrouwde site vaststellen.\n"
 
 #: src/ui-certificate.cc:76
 #, c-format
-msgid ""
-"Either site's certificate is incomplete or you're connected to a site "
-"pretending to be %s, possibly to obtain your password"
-msgstr ""
-"Ofwel het certificaat van uw site is onvolledig of u bent verbonden met een "
-"site die zich voordoet als %s, mogelijk om uw wachtwoord te verkrijgen"
+msgid "Either site's certificate is incomplete or you're connected to a site pretending to be %s, possibly to obtain your password"
+msgstr "Ofwel het certificaat van uw site is onvolledig of u bent verbonden met een site die zich voordoet als %s, mogelijk om uw wachtwoord te verkrijgen"
 
 #: src/ui-properties.cc:170 ui/properties.glade.h:2
 msgid "Browse for a location"
@@ -480,9 +465,8 @@ msgid "Credits"
 msgstr "Ontwikkelaars"
 
 #: ui/preferences.glade.h:21
-#, fuzzy
 msgid "Display header window when new mail has arrived"
-msgstr "Pop-up venster _weergeven als nieuwe e-mail is aangekomen"
+msgstr "Koppenvenster weergeven als nieuwe e-mail is aangekomen"
 
 #: ui/preferences.glade.h:22
 msgid "Display popup window _for"
@@ -525,17 +509,12 @@ msgid "Mailboxes"
 msgstr "Postvakken"
 
 #: ui/preferences.glade.h:32
-msgid ""
-"Maximum number of displayed headers (you know, if you have a screen with a "
-"finite display area...)"
-msgstr ""
-"Maximale aantal weergegeven berichtkoppen (zoals u weet is de grootte van uw "
-"scherm beperkt...)"
+msgid "Maximum number of displayed headers (you know, if you have a screen with a finite display area...)"
+msgstr "Maximale aantal weergegeven berichtkoppen (zoals u weet is de grootte van uw scherm beperkt...)"
 
 #: ui/preferences.glade.h:33
-#, fuzzy
 msgid "Maximum number of email to collect"
-msgstr "Ma_ximale aantal te verzamelen berichten:"
+msgstr "Maximale hoeveelheid e-mail om te verzamelen"
 
 #: ui/preferences.glade.h:34
 msgid "Maximum number of email to display"
@@ -593,23 +572,20 @@ msgstr "Voorkeuren"
 msgid ""
 "Released under the GNU general public license\n"
 "(c) 2000-2004 Nicolas Rougier\n"
-"<span size=\"small\" color=\"blue\">Special thanks to Robert Sowada and "
-"Roland Stigge for their help</span>"
+"<span size=\"small\" color=\"blue\">Special thanks to Robert Sowada and Roland Stigge for their help</span>"
 msgstr ""
 "Uitgebracht onder de GNU general public license\n"
 "(c) 2000-2004<b> Nicolas Rougier\n"
-"<span size=\"small\" color=\"blue\">Speciale dank aan Robert Sowada en "
-"Roland Stigge voor hun hulp</span>"
+"<span size=\"small\" color=\"blue\">Speciale dank aan Robert Sowada en Roland Stigge voor hun hulp</span>"
 
 #: ui/preferences.glade.h:50
 msgid "Sound filename to play"
-msgstr ""
+msgstr "Geluidsbestand om af te spelen"
 
 #: ui/preferences.glade.h:52
 #, no-c-format
 msgid "Sound play command (%s is the soundfile, %v is the volume)"
-msgstr ""
-"Geluidsafspeelopdracht (%s is het geluidsbestand, %v de geluidssterkte)"
+msgstr "Geluidsafspeelopdracht (%s is het geluidsbestand, %v de geluidssterkte)"
 
 #: ui/preferences.glade.h:53
 msgid "Sound when new mail has arrived"
@@ -628,23 +604,18 @@ msgid "Test"
 msgstr "Testen"
 
 #: ui/preferences.glade.h:57
-#, fuzzy
 msgid "Test sound"
-msgstr "_Geen geluid"
+msgstr "Geluid testen"
 
 #: ui/preferences.glade.h:59
-#, fuzzy, no-c-format
-msgid ""
-"Text to be displayed when new mail is present, %d is the number of mails. "
-"Valid XML must be entered, pango markup may be used."
-msgstr "Tekst om weer te geven bij nieuwe post; %d is het aantal berichten."
+#, no-c-format
+msgid "Text to be displayed when new mail is present, %d is the number of mails. Valid XML must be entered, pango markup may be used."
+msgstr "Tekst om weer te geven bij nieuwe post; %d is het aantal berichten. Er moet geldige XML worden ingevoerd, waarbij Pango-opmaak mag worden gebruikt."
 
 #: ui/preferences.glade.h:61
-#, fuzzy, no-c-format
-msgid ""
-"Text to be displayed when no mail is present, %d is the number of mails. "
-"Valid XML must be entered, pango markup may be used."
-msgstr "Tekst om weer te geven bij nieuwe post; %d is het aantal berichten."
+#, no-c-format
+msgid "Text to be displayed when no mail is present, %d is the number of mails. Valid XML must be entered, pango markup may be used."
+msgstr "Tekst om weer te geven als er geen nieuwe post is; %d is het aantal berichten. Er moet geldige XML worden ingevoerd, waarbij Pango-opmaak mag worden gebruikt."
 
 #: ui/preferences.glade.h:62
 msgid "Type:"
@@ -664,8 +635,7 @@ msgstr "Afbeelding gebruiken"
 
 #: ui/preferences.glade.h:66
 msgid "Use of no image implies no applet window for GTK version"
-msgstr ""
-"Geen afbeelding gebruiken impliceert voor de GTK-versie geen appletvenster"
+msgstr "Geen afbeelding gebruiken impliceert voor de GTK-versie geen appletvenster"
 
 #: ui/preferences.glade.h:67
 msgid "Use text"
@@ -859,12 +829,8 @@ msgid "play %s -v %v"
 msgstr "play %s -v %v"
 
 #: ui/preferences.glade.h:144
-msgid ""
-"pop3 and imap4 without ssl send passwords in clear. Checking this option "
-"prevents gnubiff from using them."
-msgstr ""
-"pop3 en imap4 zonder ssl verzenden wachtwoorden ongecodeerd (onbeveiligd). "
-"Het aanvinken van deze optie zorgt dat gnubiff deze niet gebruikt."
+msgid "pop3 and imap4 without ssl send passwords in clear. Checking this option prevents gnubiff from using them."
+msgstr "pop3 en imap4 zonder ssl verzenden wachtwoorden ongecodeerd (onbeveiligd). Het aanvinken van deze optie zorgt dat gnubiff deze niet gebruikt."
 
 #: ui/preferences.glade.h:145 ui/properties.glade.h:28
 msgid "seconds"
@@ -915,12 +881,8 @@ msgid "P_ort:"
 msgstr "_Poort:"
 
 #: ui/properties.glade.h:13
-msgid ""
-"Port to connect (usually POP3: 110, IMAP4: 143, POP3 over SSL: 995, IMAP4 "
-"over SSL: 993)"
-msgstr ""
-"Poort om mee te verbinden (meestal POP3: 110, IMAP4: 143, POP3 over SSL: "
-"995, IMAP4 over SSL: 993)"
+msgid "Port to connect (usually POP3: 110, IMAP4: 143, POP3 over SSL: 995, IMAP4 over SSL: 993)"
+msgstr "Poort om mee te verbinden (meestal POP3: 110, IMAP4: 143, POP3 over SSL: 995, IMAP4 over SSL: 993)"
 
 #: ui/properties.glade.h:14
 msgid "Server certificate, leave blank if you do not want to use one"
