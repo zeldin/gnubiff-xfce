@@ -140,6 +140,8 @@ Version 2.1.1
    - Feature: Options are now stored in a common container
    - Feature: Expert dialog for editing all options
    - Feature: Searching for options in expert dialog
+   - Feature: Security settings available as options, no longer fixed
+        constants
 
 Version 2.1.0
  * Nicolas Rougier

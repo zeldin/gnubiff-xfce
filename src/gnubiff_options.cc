@@ -57,6 +57,9 @@ Gnubiff_Options::add_options (guint groups)
 
 	if (groups & OPTGRP_POPUP)
 		add_options_popup ();
+
+	if (groups & OPTGRP_SECURITY)
+		add_options_security ();
 }
 
 void 
@@ -164,18 +167,6 @@ Gnubiff_Options::add_options_general (void)
 		"Filename of the configuration file.",
 								   filename, OPTFLG_NOSAVE));
 	g_free(filename);
-	// USE_MAX_MAIL  (FIXME?: -> OPTGRP_SECURITY)
-	const static gchar *s1[] = {"max_mail_spin", NULL};
-	add_option (new Option_Bool ("use_max_mail", OPTGRP_GENERAL,
-		"Shall there be any restriction to the number of mails that are "
-		"collected?",
-								 true, OPTFLG_NONE, OPTGUI_TOGGLE,
-								 "max_mail_check", s1));
-	// MAX_MAIL      (FIXME?: -> OPTGRP_SECURITY)
-	add_option (new Option_UInt ("max_mail", OPTGRP_GENERAL,
-		"The maximum number of mails that are to be collected.",
-								 100, OPTFLG_NONE, OPTGUI_SPIN,
-								 "max_mail_spin"));
 	// NEWMAIL_COMMAND_ENTRY
 	const static gchar *s2[] = {"newmail_command_entry", NULL};
 	add_option (new Option_Bool ("use_newmail_command", OPTGRP_GENERAL,
@@ -493,4 +484,58 @@ Gnubiff_Options::add_options_popup (void)
 		"corresponding property.",
 								   "50:50:50", OPTFLG_CHANGE, OPTGUI_ENTRY,
 								   "popup_format_entry"));
+	// POPUP_BODY_LINES
+	add_option (new Option_UInt ("popup_body_lines", OPTGRP_POPUP,
+		"Maximum number of mail body lines that will be displayed in the "
+		"popup.",
+								 10));
+}
+
+void 
+Gnubiff_Options::add_options_security (void)
+{
+	add_group (new Option_Group ("security", OPTGRP_SECURITY,
+		"Options that affect security issues. Most of these options help "
+        "gnubiff in deciding whether it is DoS attacked or not."));
+
+	// USE_MAX_MAIL
+	const static gchar *s1[] = {"max_mail_spin", NULL};
+	add_option (new Option_Bool ("use_max_mail", OPTGRP_SECURITY,
+		"Shall there be any restriction to the number of mails that are "
+		"collected?",
+								 true, OPTFLG_NONE, OPTGUI_TOGGLE,
+								 "max_mail_check", s1));
+	// MAX_MAIL
+	add_option (new Option_UInt ("max_mail", OPTGRP_SECURITY,
+		"The maximum number of mails that will be collected per update and "
+		"mailbox.",
+								 100, OPTFLG_NONE, OPTGUI_SPIN,
+								 "max_mail_spin"));
+	// PREVDOS_ADDITIONAL_LINES
+	add_option (new Option_UInt ("prevdos_additional_lines", OPTGRP_SECURITY,
+		"Maximum number of lines that are read from the network additionally "
+		"to the number of lines that are expected. There are many possible "
+		"reasons, why the number of lines that are sent is greater than "
+        "expected:\n"
+		"   * The server sends information or warning messages (IMAP4 for "
+		"example; see RFC 3501 7.1.1 and 7.1.2)\n"
+		"   * There exist extensions to the protocols\n"
+		"   * The server may implement a protocol not correctly\n"
+		"   * There is a DoS attack\n"
+		"This option is currently used for the IMAP4 protocol.",
+								 16));
+	// PREVDOS_IGNORE_INFO
+	add_option (new Option_UInt ("prevdos_ignore_info", OPTGRP_SECURITY,
+		"Maximum number of lines that are read from the network when the "
+		"server is expected to need a lot of time to complete a command (the "
+		"IMAP4 \"IDLE\" command for example) but may send information and "
+		"warning messages before completion.\n"
+		"This option is currently used for the IMAP4 protocol.",
+								 32));
+
+	// PREVDOS_HEADER_LINES
+	add_option (new Option_UInt ("prevdos_header_lines", OPTGRP_SECURITY,
+		"Maximum number of mail header lines that are read.\n"
+		"This option is currently used for the POP3 protocol.",
+								 2048));
 }

@@ -562,8 +562,9 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 			do {
 				h.body += mail[i++] + std::string("\n");
 				j++;
-			} while ((j<10) && (i < mail.size()));
-			if (j == 10)
+			} while ((j < biff_->value_uint ("popup_body_lines"))
+					 && (i < mail.size()));
+			if (j == biff_->value_uint ("popup_body_lines"))
 				h.body += std::string("...");
 		}
 	}

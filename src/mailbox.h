@@ -271,38 +271,6 @@ public:
 const gint bodyLinesToBeRead_=12;
 
 /**
- * In some situations we need to read a certain number of lines from the
- * network to get the line we want. Unfortunately this number may vary in
- * reality because of the following reasons:
- * \begin{itemize}
- *    \item The server sends information or warning messages (see RFC 3501
- *          7.1.1 and 7.1.2)
- *    \item There is no limit for the response
- *    \item There exist different extensions to the protocols
- *    \item Not all servers implement protocols correctly
- *    \item There is a DoS attack
- * \end{itemize}
- * To prevent being DoS attacked we need to set a limit of additional lines
- * that are being read. This is done by the following constant.
- */
-const gint preventDoS_additionalLines_=16;
-
-/**
- * To prevent being DoS attacked (see above): This constant is used when the
- * server is expected to need a lot of time to complete a command (the IMAP
- * "IDLE" command for example) but may send information and warning messages
- * before completion. This constant gives the maximum number of such messages
- * before gnubiff assumes a DoS attack. 
- */
-const gint preventDoS_ignoreinfo_=32;
-
-/**
- * To prevent being DoS attacked (see above): Maximum number of header lines
- * being read. This is currently only used for POP3.
- */
-const gint preventDoS_headerLines_=2048;
-
-/**
  * To prevent being DoS attacked (see above): Limit for length of a read line.
  * \begin{itemize}
  *    \item SMTP: maximum line length is 1001 (see RFC 2821 4.5.3.1)
