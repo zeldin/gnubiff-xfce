@@ -212,7 +212,8 @@ Mailbox::option_changed (Option *option)
 	// OTHER_FOLDER, USE_OTHER_FOLDER
 	if ((option->name() == "other_folder")
 		|| (option->name() == "use_other_folder")) {
-		if (!value_bool ("use_other_folder"))
+		if ((!value_bool ("use_other_folder"))
+			|| (value_string("other_folder").size() == 0))
 			value ("folder", "INBOX");
 		else
 			value ("folder", value_string ("other_folder"));

@@ -710,6 +710,7 @@ Preferences::expert_ok (void)
 		gchar *name = NULL;
 		gint id = -1;
 		Option *option = NULL;
+		Options *option_opts = NULL;
 		GtkTreeIter iter;
 		gboolean valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL(store),
 														&iter);
@@ -718,13 +719,14 @@ Preferences::expert_ok (void)
 			gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COL_EXP_NAME,
 								&name, COL_EXP_ID, &id, -1);
 			if (id<0)
-				option = biff_->find_option (name);
+				option_opts = biff_;
 			else if ((guint)id < biff_->size())
-				option = biff_->mailbox(id)->find_option (name);
+				option_opts = biff_->mailbox(id);
+			option = option_opts->find_option (name);
 
 			// Update option
 			if (option) {
-				const gchar *value = opts->to_string(option->name()).c_str();
+				const gchar *value = option_opts->to_string(name).c_str();
 				gtk_list_store_set (store, &iter, COL_EXP_VALUE, value, -1);
 			}
 
