@@ -416,7 +416,7 @@ Biff::upgrade_options (void)
 		g_message (_("Successfully converted all options."));
 	else {
 		options_bad = options_bad.substr (0, options_bad.size()-2);
-		g_message (_("Successfully converted some options. The following "
+		g_warning (_("Successfully converted some options. The following "
 					 "options must be updated manually: %s."),
 				   options_bad.c_str());
 	}
