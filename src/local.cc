@@ -120,7 +120,10 @@ Local::start (void)
 
 	// Ok, we got an error, just retry monitoring
 	if (status != 1) {
-		sleep (1);
+#if DEBUG
+		g_message ("[%d] FAM error, start fetch in %d second(s)", uin_, delay_);
+#endif
+		sleep (delay_);
 		start ();
 	}
 }

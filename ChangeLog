@@ -9,6 +9,9 @@ Version 2.1.1
    - bugfix: gui, biff geometry field was sensitive when in gnome mode
    - bugfix: password automatic finding, misplaced mutex lock
    - bugfix: password automatic finding, port was no taken into account
+   - bugfix: use delay instead of 1 second between FAM retries.
+   - bugfix: change preferences ui
+   - update: French translation
 * Robert Sowada
    - Changed version to 2.1.1, updated spec file
    - Small changes

@@ -207,6 +207,7 @@ Preferences::create (void)
 		gtk_widget_set_sensitive (get("applet_keepabove_check"), false);
 	}
 
+
 	return true;
 }
 

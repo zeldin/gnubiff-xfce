@@ -271,7 +271,7 @@
 		  <child>
 		    <widget class="GtkEntry" id="address_entry">
 		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">file or folder or [ssl:]hostname[:port][:folder]</property>
+		      <property name="tooltip" translatable="yes">file or folder or hostname</property>
 		      <property name="can_focus">True</property>
 		      <property name="editable">True</property>
 		      <property name="visibility">True</property>
