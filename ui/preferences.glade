@@ -1474,6 +1474,78 @@
 		  <property name="spacing">0</property>
 
 		  <child>
+		    <widget class="GtkHBox" id="hbox5">
+		      <property name="visible">True</property>
+		      <property name="homogeneous">False</property>
+		      <property name="spacing">0</property>
+
+		      <child>
+			<widget class="GtkButton" id="expert_new">
+			  <property name="border_width">2</property>
+			  <property name="visible">True</property>
+			  <property name="tooltip" translatable="yes">List all options.</property>
+			  <property name="can_focus">True</property>
+			  <property name="label">gtk-new</property>
+			  <property name="use_stock">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
+			  <signal name="clicked" handler="PREFERENCES_expert_new" last_modification_time="Tue, 01 Feb 2005 22:05:37 GMT"/>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkEntry" id="expert_search_entry">
+			  <property name="visible">True</property>
+			  <property name="tooltip" translatable="yes">String to be searched for.</property>
+			  <property name="can_focus">True</property>
+			  <property name="editable">True</property>
+			  <property name="visibility">True</property>
+			  <property name="max_length">0</property>
+			  <property name="text" translatable="yes"></property>
+			  <property name="has_frame">True</property>
+			  <property name="invisible_char">*</property>
+			  <property name="activates_default">False</property>
+			  <signal name="activate" handler="PREFERENCES_expert_search" last_modification_time="Tue, 01 Feb 2005 22:06:03 GMT"/>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">True</property>
+			  <property name="fill">True</property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkButton" id="expert_search_button">
+			  <property name="border_width">2</property>
+			  <property name="visible">True</property>
+			  <property name="tooltip" translatable="yes">Search for those (displayed) options that contain the string in the text entry.</property>
+			  <property name="can_focus">True</property>
+			  <property name="label">gtk-find</property>
+			  <property name="use_stock">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
+			  <signal name="clicked" handler="PREFERENCES_expert_search" last_modification_time="Tue, 01 Feb 2005 22:06:23 GMT"/>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
+		      </child>
+		    </widget>
+		    <packing>
+		      <property name="padding">0</property>
+		      <property name="expand">False</property>
+		      <property name="fill">True</property>
+		    </packing>
+		  </child>
+
+		  <child>
 		    <widget class="GtkScrolledWindow" id="scrolledwindow2">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
@@ -1485,6 +1557,7 @@
 		      <child>
 			<widget class="GtkTreeView" id="expert_treeview">
 			  <property name="visible">True</property>
+			  <property name="tooltip" translatable="yes">List of options, their type and current value.</property>
 			  <property name="can_focus">True</property>
 			  <property name="headers_visible">True</property>
 			  <property name="rules_hint">False</property>
@@ -1530,6 +1603,7 @@
 		      <child>
 			<widget class="GtkEntry" id="expert_value_entry">
 			  <property name="visible">True</property>
+			  <property name="tooltip" translatable="yes">Here the value of the currently selected option can be edited.</property>
 			  <property name="can_focus">True</property>
 			  <property name="editable">True</property>
 			  <property name="visibility">True</property>
@@ -1541,7 +1615,7 @@
 			  <signal name="activate" handler="PREFERENCES_expert_ok" last_modification_time="Tue, 01 Feb 2005 17:10:52 GMT"/>
 			</widget>
 			<packing>
-			  <property name="padding">2</property>
+			  <property name="padding">0</property>
 			  <property name="expand">True</property>
 			  <property name="fill">True</property>
 			</packing>
@@ -1588,7 +1662,9 @@
 
 		      <child>
 			<widget class="GtkButton" id="expert_button_reset">
+			  <property name="border_width">2</property>
 			  <property name="visible">True</property>
+			  <property name="tooltip" translatable="yes">Reset option to default value.</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label">gtk-undo</property>
@@ -1602,6 +1678,7 @@
 		      <child>
 			<widget class="GtkButton" id="expert_button_ok">
 			  <property name="visible">True</property>
+			  <property name="tooltip" translatable="yes">Set option to value in text entry.</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label">gtk-refresh</property>
@@ -1650,7 +1727,7 @@
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
-		      <property name="expand">False</property>
+		      <property name="expand">True</property>
 		      <property name="fill">True</property>
 		    </packing>
 		  </child>

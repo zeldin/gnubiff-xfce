@@ -117,6 +117,7 @@ public:
 	void expert_on_selection (GtkTreeSelection *selection);
 	void expert_ok (void);
 	void expert_reset (void);
+	void expert_search (void);
 protected:
 	gboolean expert_get_option (class Options *&options,class Option *&option);
 	gboolean expert_get_option (class Options *&options, class Option *&option,

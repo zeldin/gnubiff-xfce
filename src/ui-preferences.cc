@@ -125,6 +125,16 @@ extern "C" {
 	{
 		PREFERENCES(data)->expert_reset ();
 	}
+
+	void PREFERENCES_expert_search (GtkWidget *widget, gpointer data)
+	{
+		PREFERENCES(data)->expert_search ();
+	}
+
+	void PREFERENCES_expert_new (GtkWidget *widget, gpointer data)
+	{
+		PREFERENCES(data)->expert_add_option_list ();
+	}
 }
 
 
@@ -282,71 +292,6 @@ Preferences::expert_create (void)
 	gtk_widget_set_sensitive (get ("expert_button_ok"), false);
 	gtk_widget_set_sensitive (get ("expert_button_reset"), false);
 	gtk_widget_set_sensitive (get ("expert_value_entry"), false);
-}
-
-/**
- *  Update list of options. Put all options and their values into the list.
- *
- *  @param widget Expert dialog vbox widget
- */
-void
-Preferences::expert_add_option_list (void)
-{
-	// General options regarding expert dialog
-	if (!biff_->value_bool ("use_expert"))
-		return;
-	gboolean showfixed = biff_->value_bool ("expert_show_fixed");
-
-	GtkTreeView  *view  = GTK_TREE_VIEW (get("expert_treeview"));
-	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-	GtkTreeIter iter;
-
-	// Clear old options
-	gtk_list_store_clear (store);
-
-	Options *opts;
-	std::map<std::string, Option *>::iterator it;
-
-	// Add options
-	for (int i = -1; i < (signed)biff_->size(); i++) {
-		if (i == -1)
-			opts = biff_;
-		else
-			opts = biff_->mailbox(i);
-		it = opts->options()->begin();
-		while (it != opts->options()->end()) {
-			Option *option = (it++)->second;
-
-			// Ignore fixed options?
-			if ((option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO)) && !showfixed)
-				continue;
-
-			// Create displayed name by concatenating group and name
-			std::string groupname;
-			if (i == -1) {
-				groupname  = biff_->group_name (option->group());
-				groupname += "/" + option->name();
-			}
-			else {
-				std::stringstream ss;
-				ss << "mailbox[" << i << "]/" << option->name();
-				ss >> groupname;
-			}
-
-			// Get value
-			const gchar *value = opts->to_string(option->name()).c_str();
-
-			// Store value
-			gtk_list_store_append (store, &iter);
-			gtk_list_store_set (store, &iter,
-								COL_EXP_ID, i,
-								COL_EXP_NAME, option->name().c_str(),
-								COL_EXP_GROUPNAME, groupname.c_str(),
-								COL_EXP_TYPE, option->type_string().c_str(),
-								COL_EXP_VALUE, value,
-								-1);
-		}
-	}
 }
 
 void
@@ -613,6 +558,69 @@ Preferences::on_check_changed (GtkWidget *widget)
 }
 
 /**
+ *  Update list of options. Put all options and their values into the list.
+ */
+void 
+Preferences::expert_add_option_list (void)
+{
+	// General options regarding expert dialog
+	if (!biff_->value_bool ("use_expert"))
+		return;
+	gboolean showfixed = biff_->value_bool ("expert_show_fixed");
+
+	GtkTreeView  *view  = GTK_TREE_VIEW (get("expert_treeview"));
+	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
+	GtkTreeIter iter;
+
+	// Clear old options
+	gtk_list_store_clear (store);
+
+	Options *opts;
+	std::map<std::string, Option *>::iterator it;
+
+	// Add options
+	for (int i = -1; i < (signed)biff_->size(); i++) {
+		if (i == -1)
+			opts = biff_;
+		else
+			opts = biff_->mailbox(i);
+		it = opts->options()->begin();
+		while (it != opts->options()->end()) {
+			Option *option = (it++)->second;
+
+			// Ignore fixed options?
+			if ((option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO)) && !showfixed)
+				continue;
+
+			// Create displayed name by concatenating group and name
+			std::string groupname;
+			if (i == -1) {
+				groupname  = biff_->group_name (option->group());
+				groupname += "/" + option->name();
+			}
+			else {
+				std::stringstream ss;
+				ss << "mailbox[" << i << "]/" << option->name();
+				ss >> groupname;
+			}
+
+			// Get value
+			const gchar *value = opts->to_string(option->name()).c_str();
+
+			// Store value
+			gtk_list_store_append (store, &iter);
+			gtk_list_store_set (store, &iter,
+								COL_EXP_ID, i,
+								COL_EXP_NAME, option->name().c_str(),
+								COL_EXP_GROUPNAME, groupname.c_str(),
+								COL_EXP_TYPE, option->type_string().c_str(),
+								COL_EXP_VALUE, value,
+								-1);
+		}
+	}
+}
+
+/**
  *  This function has to be called if an option is selected. All the widgets
  *  are updated.
  *
@@ -712,6 +720,39 @@ Preferences::expert_reset (void)
 	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")),
 						option->default_string().c_str());
 	expert_ok ();
+}
+
+/**
+ *  Search for those (displayed) options that contain the string in the search
+ *  entry widget.
+ */
+void 
+Preferences::expert_search (void)
+{
+	// Get relevant information
+	const gchar *search;
+	search = gtk_entry_get_text (GTK_ENTRY (get ("expert_search_entry")));
+	gboolean value_search = biff_->value_bool ("expert_search_values");
+	GtkTreeView  *view  = GTK_TREE_VIEW (get("expert_treeview"));
+	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
+	GtkTreeIter iter;
+	gboolean valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL(store),
+													&iter);
+
+	// Test each option
+	while (valid) {
+		// Get text
+		gchar *name, *value;
+		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COL_EXP_GROUPNAME,
+							&name, COL_EXP_VALUE, &value, -1);
+		// Look for string
+		if ((std::string(name).find(search) == std::string::npos)
+			&& (!value_search
+				|| (std::string(value).find(search) == std::string::npos)))
+			valid = gtk_list_store_remove (store, &iter);
+		else
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
+	}
 }
 
 /**

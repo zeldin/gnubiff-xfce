@@ -138,6 +138,8 @@ Version 2.1.1
 	for reporting this bug
    - Bugfix: Marking mails as read
    - Feature: Options are now stored in a common container
+   - Feature: Expert dialog for editing all options
+   - Feature: Searching for options in expert dialog
 
 Version 2.1.0
  * Nicolas Rougier
