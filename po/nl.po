@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 23:36+0100\n"
+"POT-Creation-Date: 2005-01-20 00:04+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -299,19 +299,19 @@ msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:572
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:506
+#: src/ui-preferences.cc:490
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:512 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:523 src/ui-preferences.cc:530
+#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Bladeren"
@@ -495,7 +495,7 @@ msgstr "<b>Y</b>"
 #, fuzzy
 msgid ""
 "<small> Released under the aegis of GNU\n"
-" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+" Copyright (c) 2000-2005 Nicolas Rougier</small>"
 msgstr ""
 "<small>(C) 2000-2004 Nicolas Rougier, Nederlandse vertaling (C) 2004 Elros "
 "Cyriatan</small>"

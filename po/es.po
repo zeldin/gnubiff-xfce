@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 23:36+0100\n"
+"POT-Creation-Date: 2005-01-20 00:04+0100\n"
 "PO-Revision-Date: 2004-12-16 23:42+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -303,19 +303,19 @@ msgid "Security"
 msgstr "Seguridad"
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:572
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
 msgid "No mailbox selected"
 msgstr "No se han seleccionado buzones"
 
-#: src/ui-preferences.cc:506
+#: src/ui-preferences.cc:490
 msgid "_Start"
 msgstr "_Comenzar"
 
-#: src/ui-preferences.cc:512 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr "_Detener"
 
-#: src/ui-preferences.cc:523 src/ui-preferences.cc:530
+#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
 msgid "Browse for a new mail image"
 msgstr "Buscar una imagen para correo nuevo"
 
@@ -484,7 +484,7 @@ msgstr "<b>Cuando no haya correo</b>"
 #, fuzzy
 msgid ""
 "<small> Released under the aegis of GNU\n"
-" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+" Copyright (c) 2000-2005 Nicolas Rougier</small>"
 msgstr ""
 "<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
 " <small>Difundido bajo el auspicio de GNU\n"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 23:36+0100\n"
+"POT-Creation-Date: 2005-01-20 00:04+0100\n"
 "PO-Revision-Date: 2005-01-19 09:30+0100\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -304,19 +304,19 @@ msgid "Security"
 msgstr "Sécurité"
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:572
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
 msgid "No mailbox selected"
 msgstr "Pas de boîte aux lettres séléctionnée"
 
-#: src/ui-preferences.cc:506
+#: src/ui-preferences.cc:490
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:512 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr "_Stopper"
 
-#: src/ui-preferences.cc:523 src/ui-preferences.cc:530
+#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
 msgid "Browse for a new mail image"
 msgstr "Chercher le fichier image"
 
@@ -481,9 +481,10 @@ msgid "<b>When no mail</b>"
 msgstr "<b>Absence de courrier</b>"
 
 #: ui/preferences.glade.h:8
+#, fuzzy
 msgid ""
 "<small> Released under the aegis of GNU\n"
-" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+" Copyright (c) 2000-2005 Nicolas Rougier</small>"
 msgstr ""
 " <small>Distribué sous l'égide de  GNU\n"
 " Copyright (c) 2000-2004 Nicolas Rougier</small>"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 23:36+0100\n"
+"POT-Creation-Date: 2005-01-20 00:04+0100\n"
 "PO-Revision-Date: 2005-01-17 22:04+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -293,19 +293,19 @@ msgid "Security"
 msgstr "Säkerhet"
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:572
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
 msgid "No mailbox selected"
 msgstr "Ingen brevlåda vald"
 
-#: src/ui-preferences.cc:506
+#: src/ui-preferences.cc:490
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:512 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr "_Stop"
 
-#: src/ui-preferences.cc:523 src/ui-preferences.cc:530
+#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
 msgid "Browse for a new mail image"
 msgstr "Bläddra efter en ny meddelandebild"
 
@@ -474,7 +474,7 @@ msgstr "<b>Vid inga meddelanden</b>"
 #, fuzzy
 msgid ""
 "<small> Released under the aegis of GNU\n"
-" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+" Copyright (c) 2000-2005 Nicolas Rougier</small>"
 msgstr ""
 "<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
 "<small> Släppt i skydd av GNU\n"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 23:36+0100\n"
+"POT-Creation-Date: 2005-01-20 00:04+0100\n"
 "PO-Revision-Date: 2005-01-19 23:40+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -296,19 +296,19 @@ msgid "Security"
 msgstr "Sicherheit"
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:572
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
 msgid "No mailbox selected"
 msgstr "Kein Briefkasten ausgewählt"
 
-#: src/ui-preferences.cc:506
+#: src/ui-preferences.cc:490
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:512 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr "_Stopp"
 
-#: src/ui-preferences.cc:523 src/ui-preferences.cc:530
+#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
 msgid "Browse for a new mail image"
 msgstr "Datei für ein neues Nachrichtenbild wählen"
 
@@ -475,10 +475,10 @@ msgstr "<b>Bei keinen neuen Nachrichten</b>"
 #: ui/preferences.glade.h:8
 msgid ""
 "<small> Released under the aegis of GNU\n"
-" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+" Copyright (c) 2000-2005 Nicolas Rougier</small>"
 msgstr ""
 "<small> Veröffentlicht unter der Obhut von GNU\n"
-" © 2000-2004 Nicolas Rougier</small>"
+" © 2000-2005 Nicolas Rougier</small>"
 
 #: ui/preferences.glade.h:10
 msgid ""
@@ -894,4 +894,3 @@ msgstr "<small><b>Betreff</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "Nachrichtentext"
-
