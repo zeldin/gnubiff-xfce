@@ -53,9 +53,23 @@ int mainGNOME (int argc, char **argv);
 
 
 int main (int argc, char **argv) {
+	// Initialize i18n support
+	setlocale (LC_ALL, "");
+#ifdef ENABLE_NLS
+	bindtextdomain (GETTEXT_PACKAGE, GNUBIFF_LOCALEDIR);
+#   ifdef HAVE_BIND_TEXTDOMAIN_CODESET
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+#   endif
+	textdomain (GETTEXT_PACKAGE);
+#endif
+
+	// Thread initialization
+	g_thread_init (NULL);
+	gdk_threads_init ();
+
 #ifdef USE_GNOME
 	// Test for presence of "--oaf-ior-fd" option to determine if gnubiff is
-    // started in gnome panel mode
+	// started in gnome panel mode
  	for (gint i=0; i<argc; i++)
 		if (std::string(argv[i]).find("--oaf-ior-fd")==0)
 			return mainGNOME (argc, argv);
@@ -65,29 +79,44 @@ int main (int argc, char **argv) {
 #endif  
 }
 
-
 int mainGTK (int argc, char **argv) {
 	poptContext poptcon;
 	int status;
 	char *config_file = 0;
 	int no_configure = false, print_version=false;
-	struct poptOption options[] = {
-		{"config",     'c', POPT_ARG_STRING, &config_file,   0, _("configuration file to use"),  _("file")},
-		{"noconfigure",'n', POPT_ARG_NONE,   &no_configure,  0, _("skip the configuration process"), NULL},
-		{"version",    'v', POPT_ARG_NONE,   &print_version, 0, _("print version information and exit"), NULL},
-		POPT_AUTOHELP
-		{NULL, '\0', 0, NULL, 0, NULL, NULL}
+#ifdef DEBUG && USE_GNOME
+	int debug_applet=false;
+
+   	static struct poptOption options_debug[] =
+	{
+	   	{"applet",'\0', POPT_ARG_NONE,   &debug_applet,  0,
+		 N_("start gnome applet from command line"), NULL},
+		POPT_TABLEEND
+	};
+#endif
+
+	static struct poptOption options_general[] =
+	{
+	   	{"config",      'c' , POPT_ARG_STRING, &config_file,   0,
+		 N_("configuration file to use"),  N_("file")},
+		{"noconfigure", 'n' , POPT_ARG_NONE,   &no_configure,  0,
+		 N_("skip the configuration process"), NULL},
+		{"version",     'v' , POPT_ARG_NONE,   &print_version, 0,
+		 N_("print version information and exit"), NULL},
+		POPT_TABLEEND
 	};
 
-	// Initialize i18n support
-	setlocale (LC_ALL, "");
-#ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, GNUBIFF_LOCALEDIR);
-#    ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-#    endif
-	textdomain (PACKAGE_NAME);
+	static struct poptOption options[] =
+	{
+	   	{NULL, '\0', POPT_ARG_INCLUDE_TABLE, &options_general, 0,
+		 N_("General command line options:"), NULL },
+#ifdef DEBUG && USE_GNOME
+		{NULL, '\0', POPT_ARG_INCLUDE_TABLE, &options_debug, 0,
+		 N_("Options for debugging:"), NULL },
 #endif
+		POPT_AUTOHELP
+		POPT_TABLEEND
+	};
 
 	// Parse command line
 	poptcon = poptGetContext ("gnubiff", argc,  (const char **) argv, options, 0);
@@ -99,10 +128,11 @@ int mainGTK (int argc, char **argv) {
 	}
 	poptGetNextOpt(poptcon);
 
-	// Thread initialization
-	g_thread_init (NULL);
-	gdk_threads_init ();
-
+#ifdef DEBUG && USE_GNOME
+	if (debug_applet)
+		return mainGNOME(argc,argv);
+#endif
+	
 	// GTK initialisation
 	gtk_init (&argc, &argv);
 
@@ -156,20 +186,6 @@ static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid, g
 }
 
 int mainGNOME (int argc, char **argv) {
-	// Initialize i18n support
-	setlocale (LC_ALL, "");
-#ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, GNUBIFF_LOCALEDIR);
-#   ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-#   endif
-	textdomain (GETTEXT_PACKAGE);
-#endif
-
-	// Thread initialization
-	g_thread_init (NULL);
-	gdk_threads_init ();
-
 #if defined(PREFIX) && defined(SYSCONFDIR) && defined(DATADIR) && defined(LIBDIR)
 	gnome_program_init ("gnubiff", "0", LIBGNOMEUI_MODULE, argc, argv, GNOME_PROGRAM_STANDARD_PROPERTIES, NULL);
 #else

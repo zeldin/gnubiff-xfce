@@ -10,11 +10,12 @@ Version 2.0.3 (?)
  * Robert Sowada:
    - Updated german translation, updated po files
    - Gnome version can determine itself if in standalone mode or panel mode
-   - Removed "--gtk" option
+   - Removed "--gtk" option, added "--applet" option in debug mode instead
    - Added "--version" option to all versions of gnubiff
    - "--help" option handled by "poptPrintHelp" in all versions of gnubiff
    - Removed messages that are no longer necessary
    - Bugfix: return value of main
+   - Output of "--help" restructured
 
 Version 2.0.2
  * Some cosmetic fixes
