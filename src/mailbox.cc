@@ -364,30 +364,26 @@ Mailbox::lookup (void)
 				if (line.find("+OK") == 0) {
 					s.write ("QUIT\r\n");
 					s.close();
-					if (line.find ("<") != std::string::npos) {
 #ifdef HAVE_CRYPTO
+					if (line.find ("<") != std::string::npos) {
 						mailbox = new Apop (*this);
 						mailbox->port (port[i]);
 						mailbox->authentication ((ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS);
 						if ((authentication_ == AUTH_AUTODETECT) && !ssl[i])
 							authentication_ = AUTH_APOP;
-#else
-					    mailbox = new Pop3 (*this);
-						mailbox->port (port[i]);
-						mailbox->authentication ((ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS);
-#endif
 						break;
 					}
-					else {
+					else
+#endif
+					{
 					    mailbox = new Pop3 (*this);
 						mailbox->port (port[i]);
 						mailbox->authentication ((ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS);
 						break;
 					}
 				}
-				else if ((line.find ("IMAP4") != std::string::npos) ||
-						 (line.find ("Imap4") != std::string::npos) ||
-						 (line.find ("imap4") != std::string::npos))	{
+				else if ((line.find("* OK") == 0)
+						 || (line.find("* PREAUTH")== 0)) {
 					s.write ("A001 LOGOUT\r\n");
 					s.close ();
 					mailbox = new Imap4 (*this);
