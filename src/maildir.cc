@@ -98,12 +98,13 @@ Maildir::fetch (void)
 	std::vector<std::string> mail;
 	std::string line; 
 	// Read new mails
-	while ((dent = readdir(dir)) && (new_unread_.size() < (biff_->value_uint ("max_mail")))) {
+	while ((dent = readdir(dir))
+		   && (new_unread_.size() < (biff_->value_uint ("max_mail")))) {
 		if (dent->d_name[0]=='.')
 			continue;
 
 		std::ifstream file;
-		gchar *tmp=g_build_filename(directory.c_str(),dent->d_name,NULL);
+		gchar *tmp = g_build_filename (directory.c_str(), dent->d_name, NULL);
 		std::string filename(tmp);
 		g_free(tmp);
 
@@ -114,7 +115,7 @@ Maildir::fetch (void)
 				getline(file, line);
 				mail.push_back (line);
 			}
-			parse (mail);
+			parse (mail, dent->d_name);
 			mail.clear();
 		}
 		else
