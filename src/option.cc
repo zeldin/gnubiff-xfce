@@ -317,25 +317,85 @@ Option_String::from_string (const std::string &value)
 	return true;
 }
 
+/**
+ *  Set the value of the option. This is done by creating a space separated
+ *  list of all the strings in the set {\em values}. If {\em empty} is true
+ *  the old value of the option will be overwritten, otherwise the new
+ *  strings are appended. Empty strings will not be stored.
+ *
+ *  Note: Do not use this function directly, use the function
+ *  Options::set_values() instead. Then the OPTFLG_CHANGE flag will be
+ *  respected.
+ *
+ *  Note: The character '\' is used as escape character, so "\x" as substring
+ *  in the stored option will be transformed to 'x' when obtaining the values
+ *  via Option_String::get_values() for any character 'x'. This is needed for
+ *  storing spaces and '\' itself.
+ *
+ *  @param  values         New strings to add to the option's value
+ *  @param  empty          Shall the option be erased before appending (the
+ *                         default is true)?
+ */
 void 
 Option_String::set_values (const std::set<std::string> &values, gboolean empty)
 {
 	std::set<std::string>::iterator i = values.begin ();
 	if (empty)
 		value_ = std::string("");
-	while (i != values.end())
-		value_ += *(i++) + " ";
+	while (i != values.end()) {
+		std::string str = *(i++);
+		guint len = str.size();
+		if (len == 0)
+			continue;
+		for (guint j = 0; j < len ; j++) {
+			if ((str[j] == ' ') || (str[j] == '\\'))
+				value_ += '\\';
+			value_ += str[j];
+		}
+		value_ += ' ';
+	}
 }
 
+/**
+ *  Get the value of the option. The option's value is
+ *  treated as a space separated list of strings. Each string in this list
+ *  is returned in the set {\em var}. If {\em empty} is true the this set
+ *  will be emptied before obtaining the values, otherwise the new strings
+ *  are inserted in {\em var} in addition to the strings that are in this set
+ *  before calling this function.
+ *
+ *  Note: Do not use this function directly, use the function
+ *  Options::get_values() instead. Then the OPTFLG_UPDATE flag will be
+ *  respected.
+ *
+ *  @param  values         Set in which the strings will be returned
+ *  @param  empty          Shall the set {\em var} be erased before inserting
+ *                         the strings (the default is true)?
+ *
+ *  @see See the description of Option_String::set_values() for the handling
+ *       of the '\' character.
+ */
 void 
 Option_String::get_values (std::set<std::string> &values, gboolean empty)
 {
 	if (empty)
 		values.clear ();
 
-	std::stringstream ss (value_);
 	std::string tmp;
-	while (ss >> tmp)
+	guint len = value_.size();
+	for (guint j = 0; j < len; j++) {
+		if ((value_[j] == ' ') && (tmp.size() > 0)) {
+			values.insert (tmp);
+			tmp = "";
+			continue;
+		}
+		if ((value_[j] == '\\') && (j == len-1))
+			continue;
+		if (value_[j] == '\\')
+			j++;
+		tmp += value_[j];
+	}
+	if (tmp.size() > 0)
 		values.insert (tmp);
 }
 

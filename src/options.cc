@@ -304,7 +304,8 @@ Options::value_uint (const std::string &name, gboolean respect_update)
  *  Set the value of the string option {\em name}. This is done by creating
  *  a space separated list of all the strings in the set {\em values}. If
  *  {\em empty} is true the old value of the option will be overwritten,
- *  otherwise the new strings are appended.
+ *  otherwise the new strings are appended. Empty strings will not be
+ *  stored.
  *
  *  Note: This function handles the OPTFLG_CHANGE flag, so use this
  *  function instead of setting the value directly.

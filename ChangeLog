@@ -2,12 +2,18 @@ gnubiff -- History of visible changes.
 
 Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
-Please send gnubiff bug reports to Nicolas.Rougier@loria.fr.
+Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
 Version 2.1.2
  * Robert Sowada
    - Changed version to 2.1.2, updated spec file
    - Cleanup: Complete documentation of functions in "src/options.cc"
+   - Bugfix: Allow storing of strings that contain spaces in string list
+        options
+   - Bugfix: Email address for bugs updated in "ChangeLog", "configure.ac",
+        "NEWS"
+ * Roland Stigge
+   - Bugfix: Encoding of "po/fr.po"
 
 Version 2.1.1
  * Nicolas Rougier
@@ -19,7 +25,7 @@ Version 2.1.1
    - update: French translation
    - update: gnubiff.texi
    - bugfix: Remove use of the pseudo-capability greeting message in IMAP4
-* Robert Sowada
+ * Robert Sowada
    - Changed version to 2.1.1, updated spec file
    - Small changes
    - Marked strings for internationalization (type & authentication menu)
