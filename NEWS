@@ -5,30 +5,18 @@ See the end for copying conditions.
 Please send gnubiff bug reports to Nicolas.Rougier@loria.fr.
 
 Version 2.1.1
- * Nicolas Rougier
-   - bugfix: gui, biff geometry field was sensitive when in gnome mode
-   - bugfix: password automatic finding, misplaced mutex lock
-   - bugfix: password automatic finding, port was no taken into account
-   - bugfix: use delay instead of 1 second between FAM retries.
-* Robert Sowada
-   - Changed version to 2.1.1, updated spec file
-   - Small changes
-   - Marked strings for internationalization (type & authentication menu)
-   - Updated po files, German translation
-   - Bugfix: Parsing local mails could trigger additional FAM events
-     resulting in parsing mails another time (->infinite loop, 100% CPU load)
-   - Translating copyright message in credits dialog simplified (po files are
-     now independent of cuurent version)
-   - Added decoding.cc to POTFILES.in
-   - Bugfix: Setting mailbox status to old after new mail is displayed (thanks
-     to Byron Foster for providing a patch)
-   - Bugfix: Quick test for new mail while idling is not enogh (IMAP4; thanks
-        to Byron Foster for providing a patch)
-   - Added Byron Foster to Contributors
-   - Bugfix: Don't crash if server's response is not valid (IMAP4; thanks to
-        Calum Mackay for reporting this bug)
-   - Feature: Applet and Popup now can be set to be sticky and be kept above all
-        other windows
+Major bugfix release. Many thanks to Byron Foster and Calum Mackay for their
+help in creating this release. Changes:
+ * Many bug fixes
+ * Review of network code
+ * Applet and Popup window can be set to be sticky, kept above all other
+   windows and not appear in pagers
+ * Idling can be disabled (IMAP4)
+ * Mails are now only fetched once per session
+ * Out of the box support for FreeBSD (thanks to Tim Bishop)
+ * Expert editing mode for all options provided by gnubiff (including internal
+   options)
+ * Sorting order of headers in popup can be configured
 
 Version 2.1.0
  * Nicolas Rougier

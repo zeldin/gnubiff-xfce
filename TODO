@@ -1,19 +1,9 @@
 
-Version 2.1.1:
+Version 2.1.2:
 --------------
 
 To do:
 
-- Double check the autodetect feature
 - Uniformize functions comments (I really liked your way of commenting
   functions Robert so I will try to do that for remaining sources)
-
-
-Done:
-
-- Displayed last headers (instead of first) in popup when there are too many messages
-- Put credits back
-- Update Developpers/Maintainers in the credits panel
-- Check FAM availability within configure.ac
-- Implement the poll feature if no FAM available:
-- When no kernel monitor is running, fam implements the poll feature
+- Fix bugs ;-)
