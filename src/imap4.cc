@@ -708,24 +708,20 @@ Imap4::idle_renew_loop() throw (imap_err)
 		// Wait for new mail and block thread at this point
 		gint status = socket_->read (line);
 		if (status == SOCKET_TIMEOUT) {
-		
 			// We timed out, so we want to loop, and issue IDLE again.
 			idleRenew = true;
 
-			if (!socket_->write (std::string("DONE\r\n"))) {
+			if (!socket_->write (std::string("DONE\r\n")))
 				throw imap_socket_err();
-			}
 
 			status = socket_->read (line);
-			if (line == "")
-			{
-				// At this point we know the connection is probably bad.	The
+			if (line == "") {
+				// At this point we know the connection is probably bad.  The
 				// socket has not been torn down yet, but the read has timed
-				// out again, with no recieved data.
+				// out again, with no received data.
 				throw imap_socket_err();
 			}
-			if (line.find ("OK IDLE") == std::string::npos)
-			{
+			if (line.find ("OK IDLE") == std::string::npos)	{
 				// We may receive email notification before the server
 				// receives the DONE command, in which case we would get
 				// something like "XXX EXISTS" here before "OK IDLE".
@@ -735,12 +731,9 @@ Imap4::idle_renew_loop() throw (imap_err)
 				idleRenew = false;
 			}
 		}
-		else if (status != SOCKET_STATUS_OK) {
+		else if (status != SOCKET_STATUS_OK)
 			throw imap_socket_err();
-		}
-		
-	}
-	while (idleRenew);
+	} while (idleRenew);
 
 	return line;
 }
