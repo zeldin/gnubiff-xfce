@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
 "POT-Creation-Date: 2005-04-02 10:56+0200\n"
-"PO-Revision-Date: 2005-03-23 13:25+0100\n"
+"PO-Revision-Date: 2005-04-04 13:23+0200\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,7 @@ msgstr "[Impossible de décoder cette ligne]"
 #: src/decoding.cc:607
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
-msgstr ""
-"[Impossible de convertir le jeu de caractères (fr \"%s\" vers \"utf-8\")]"
+msgstr "[Impossible de convertir le jeu de caractères (fr \"%s\" vers \"utf-8\")]"
 
 #: src/gnubiff.cc:98
 msgid "Start gnome applet from command line"
@@ -217,8 +216,7 @@ msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 #: src/imap4.cc:978
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
-msgstr ""
-"[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\" ni l'acquitement."
+msgstr "[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\" ni l'acquitement."
 
 #: src/imap4.cc:1031
 #, c-format
@@ -270,13 +268,11 @@ msgstr "[%d] Aucune réponse positive du serveur POP3"
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
-msgstr ""
-"[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
+msgstr "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
 #: src/apop.cc:124
 #, c-format
-msgid ""
-"[%d] Problem with crypto that should have been detected at configure time"
+msgid "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
@@ -495,18 +491,19 @@ msgstr "A propos"
 
 #: ui/applet-gtk.glade:173
 msgid "_Quit"
-msgstr ""
+msgstr "_Quitter"
 
 #: ui/applet-gtk.glade:193
 msgid "About gnubiff"
 msgstr "A propos de gnubiff"
 
 #: ui/applet-gtk.glade:255 ui/preferences.glade:1895
-#, fuzzy
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
-msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
+msgstr ""
+"<small>Ce programme fait partie du projet GNU\n"
+"il est distribué sous l'égide de GNU.</small>"
 
 #: ui/applet-gtk.glade:363
 msgid "Ok"
@@ -927,8 +924,7 @@ msgstr "secondes"
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
-msgstr ""
-"Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
+msgstr "Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
 
 #: ui/properties.glade:767
 msgid "Dela_y:"
@@ -1034,23 +1030,3 @@ msgstr "<small><b>Sujet</b></small>"
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Date</b></small>"
 
-#, fuzzy
-#~ msgid ""
-#~ "<small> This program is part of the GNU project,\n"
-#~ " released under the aegis of GNU.</small>"
-#~ msgstr ""
-#~ "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
-
-#, fuzzy
-#~ msgid "<span size=\"xx-large\"><b>Gnubiff %v %c</b></span>"
-#~ msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
-
-#~ msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
-#~ msgstr "<small>(C) 2000-2004 Nicolas Rougier</small>"
-
-#~ msgid ""
-#~ "<small> Released under the aegis of GNU\n"
-#~ " Copyright (c) 2000-2005 Nicolas Rougier</small>"
-#~ msgstr ""
-#~ " <small>Distribué sous l'égide de  GNU\n"
-#~ " Copyright (c) 2000-200 Nicolas Rougier</small>"
