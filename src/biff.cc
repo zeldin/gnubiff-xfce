@@ -377,7 +377,7 @@ Biff::save_newblock(const gchar *name)
  * Ends the last opened block of options in the configuration file.
  */
 void 
-Biff::save_endblock()
+Biff::save_endblock(void)
 {
 	const gchar *fmt="%*s</%s>\n";
 	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2-2,"",

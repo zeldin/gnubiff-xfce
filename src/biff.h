@@ -163,23 +163,24 @@ protected:
 	std::vector<const gchar *> save_blocks;
 	std::stringstream save_file;
 	void save_newblock(const gchar *);
-	void save_endblock();
+	void save_endblock(void);
 public:
-	void save_para(const gchar *, const std::string);
-	void save_para(const gchar *, const std::set<std::string> &);
-	void save_para(const gchar *, guint);
-	void save_para(const gchar *, gboolean);
-	void load_para(const gchar *, guint &);
-	void load_para(const gchar *, std::string &);
-	void load_para(const gchar *, gboolean &);
-	void load_para(const gchar *, std::set<std::string> &);
+	void save_para(const gchar *name, const std::string value);
+	void save_para(const gchar *name, const std::set<std::string> &value);
+	void save_para(const gchar *name, guint value);
+	void save_para(const gchar *name, gboolean value);
+	void load_para(const gchar *name, guint &var);
+	void load_para(const gchar *name, std::string &var);
+	void load_para(const gchar *name, gboolean &var);
+	void load_para(const gchar *name, std::set<std::string> &var);
 	gboolean save (void);
 	void xml_start_element (GMarkupParseContext *context,
 							const gchar *element_name,
 							const gchar **attribute_names,
 							const gchar **attribute_values,
 							GError **error);
-	void xml_end_element (GMarkupParseContext *, const gchar *, GError **);
+	void xml_end_element (GMarkupParseContext *context,
+						  const gchar *element_name, GError **error);
 	void xml_error (GMarkupParseContext *context,
 					GError *error);
 };
