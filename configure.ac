@@ -191,7 +191,8 @@ AM_CONDITIONAL(PASSWORD_STRING, test "$password" = yes)
 ######################################################################
 AC_ARG_ENABLE(expert,
 [  --disable-expert        disable showing expert tab as default, [default=yes]],
-	AC_DEFINE(EXPERT_SHOW_NO_TAB, 1, [Define to 1 to disable showing expert tab as default.]),)
+	AC_DEFINE(EXPERT_SHOW_NO_TAB, 1, [Define to 1 to disable showing expert tab as default.])
+	expert="$enableval", expert="yes")
 
 ######################################################################
 #                           debug support                            #
@@ -221,8 +222,8 @@ chmod +x config/mkinstalldirs config/ltmain.sh config/depcomp config/missing con
 
 echo "--------------------------------------------------------------------------------"
 if test "$password" = yes; then
-	echo " Password saving: yes"
-	echo " Password string: $pstring"
+	echo " Password saving : yes"
+	echo " Password string : $pstring"
 	if test "x$pstring" = "x"; then
 		echo "  WARNING: You've not defined a string to encrypt password (--with-password-string)"
 		echo "           Default string will be used but it is less secure than using your own."
@@ -230,19 +231,21 @@ if test "$password" = yes; then
 fi
 
 if test "$password" = no; then
-echo " Password saving: no"
+echo " Password saving : no"
 echo "  If you want gnubiff to save password within configuration"
 echo "  file, use ./configure --with-password [--with-password-string=\"any string you like...]\""
 echo "  But be careful, it is highly unsecure, you've been warned !"
 fi
 
-echo " Gnome support: $gnome"
+echo " Gnome support   : $gnome"
 if test "$gnome" = "yes"; then
   if test "$prefix" != "`pkg-config libpanelapplet-2.0 --variable=prefix`"; then
     echo "  WARNING: prefix should be "`pkg-config libpanelapplet-2.0 --variable=prefix`
     echo "           but it is currently set to $prefix"
   fi
 fi
+
+echo " Expert tab      : $expert"
 
 echo ""
 echo " Just type 'make' and then 'make install' to install gnubiff"

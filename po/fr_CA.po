@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-25 16:46+0100\n"
+"POT-Creation-Date: 2005-02-26 18:51+0100\n"
 "PO-Revision-Date: 2005-01-19 09:30+0100\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -248,7 +248,7 @@ msgstr ""
 "Impossible de trouver le widget spécifié (\"%s\") dans la structure xml (\"%s"
 "\")"
 
-#: ../src/gnubiff_options.cc:124
+#: ../src/gnubiff_options.cc:130
 msgid "no mail"
 msgstr "Aucun courrier"
 
