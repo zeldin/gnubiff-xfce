@@ -127,6 +127,7 @@ Version 2.1.1
    - Feature: Gnubiff applet and/or popup may appear in pagers or not
    - Bugfix: Remove mail ids from hidden_ that are no longer in seen_
    - Simplified code for loading config file
+   - Error messages for errors when loading config file
 
 Version 2.1.0
  * Nicolas Rougier

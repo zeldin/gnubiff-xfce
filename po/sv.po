@@ -7,13 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-22 19:16+0100\n"
+"POT-Creation-Date: 2005-01-18 14:53+0100\n"
 "PO-Revision-Date: 2005-01-17 22:04+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: src/decoding.cc:70
+#, c-format
+msgid "[The encoding \"%s\" of this mail can't be decoded]"
+msgstr ""
 
 #: src/gnubiff.cc:98
 msgid "Start gnome applet from command line"
@@ -43,116 +48,181 @@ msgstr "Vanliga kommandoradsinställningar"
 msgid "Options for debugging:"
 msgstr "Inställningar för avlusning:"
 
-#: src/biff.cc:119
+#: src/biff.cc:131
 msgid "no mail"
 msgstr "Inga meddelanden"
 
-#: src/biff.cc:155
+#: src/biff.cc:170
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Konfigurationsfil (%s) hittades inte !"
 
-#: src/biff.cc:500
+#: src/biff.cc:464 src/biff.cc:489 src/biff.cc:509 src/biff.cc:524
+#, c-format
+msgid "Parameter \"%s\" not present, using default value"
+msgstr ""
+
+#: src/biff.cc:472 src/biff.cc:494
+#, c-format
+msgid "Illegal value \"%s\" for parameter \"%s\", using default value"
+msgstr ""
+
+#: src/biff.cc:635
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan inte öppna din konfigurationsfil (%s)"
 
-#: src/biff.cc:525
+#: src/biff.cc:660
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Hittade ingen brevlådedefinition i din konfigureringsfil (%s)"
 
-#: src/mailbox.cc:71
+#: src/biff.cc:684
+msgid "Illegal parameter format in config file"
+msgstr ""
+
+#: src/mailbox.cc:63
 #, c-format
 msgid "mailbox %d"
 msgstr "Brevlåda %d"
 
-#: src/mailbox.cc:185
+#: src/mailbox.cc:180
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Kan inte skapa tråd: %s"
 
-#: src/mailbox.cc:472
+#: src/mailbox.cc:483
 msgid "<no sender>"
 msgstr "<ingen avsändare>"
 
-#: src/mailbox.cc:482
+#: src/mailbox.cc:493
 msgid "<no subject>"
 msgstr "<inget ämne>"
 
-#: src/mailbox.cc:492
+#: src/mailbox.cc:503
 msgid "<no date>"
 msgstr "<Inget datum>"
 
-#: src/socket.cc:121 src/socket.cc:150 src/socket.cc:178 src/socket.cc:186
-#: src/socket.cc:194 src/socket.cc:206 src/socket.cc:230 src/socket.cc:238
+#: src/socket.cc:122 src/socket.cc:151 src/socket.cc:179 src/socket.cc:187
+#: src/socket.cc:195 src/socket.cc:207 src/socket.cc:231 src/socket.cc:239
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Kan inte ansluta till %s på port %d"
 
-#: src/socket.cc:216
+#: src/socket.cc:217
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Misslyckades att ladda certifikat (%s) for %s"
 
-#: src/socket.cc:251
+#: src/socket.cc:252
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Kan inte identifiera fjärrvärd (%s på port %d)"
 
-#: src/socket.cc:318
+#: src/socket.cc:326
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Kan inte skriva till %s på port %d"
 
-#: src/socket.cc:365
+#: src/socket.cc:388
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Kan inte läsa från %s på port %d"
 
-#: src/imap4.cc:190 src/imap4.cc:210
+#: src/socket.cc:410
 #, c-format
-msgid "[%d] Unable to get acknowledgment from %s on port %d"
-msgstr "[%d] Kan inte få godkännande från %s på port %d"
+msgid "Could not set read timeout on socket: %s"
+msgstr ""
 
-#: src/imap4.cc:252
+#: src/imap4.cc:465
+msgid "[This mail has no \"text/plain\" part]"
+msgstr "[Det här meddelandet har ingen \"text/plain\"-del]"
+
+#. Create error message
+#: src/imap4.cc:832
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kan inte välja mapp %s hos värden %s"
 
-#: src/imap4.cc:517
-msgid "[This mail has no \"text/plain\" part]"
-msgstr "[Det här meddelandet har ingen \"text/plain\"-del]"
+#: src/imap4.cc:919
+#, c-format
+msgid "[%d] Unable to get acknowledgment from %s on port %d"
+msgstr "[%d] Kan inte få godkännande från %s på port %d"
 
-#: src/maildir.cc:89
+#: src/imap4.cc:978
+#, c-format
+msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
+msgstr ""
+
+#: src/imap4.cc:1031
+#, c-format
+msgid "[%d] Server doesn't send untagged \"%s\" response"
+msgstr ""
+
+#. see RFC 3501 7.1.5
+#: src/imap4.cc:1597
+#, c-format
+msgid "[%d] Server closes connection immediately:%s"
+msgstr ""
+
+#. see RFC 3501 7.1.3
+#: src/imap4.cc:1602
+#, c-format
+msgid "[%d] Internal server failure or unknown error:%s"
+msgstr ""
+
+#. see RFC 3501 7.1.2
+#: src/imap4.cc:1607
+#, c-format
+msgid "[%d] Warning from server:%s"
+msgstr ""
+
+#: src/maildir.cc:86
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Kan inte hitta nytt brevbibliotek (%s)"
 
-#: src/maildir.cc:96
+#: src/maildir.cc:93
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kan inte öppna nytt brevbibliotek (%s)"
 
-#: src/maildir.cc:126
+#: src/maildir.cc:121
 #, c-format
 msgid "Cannot open %s."
 msgstr "Kan inte öppna %s."
 
-#: src/apop.cc:88 src/pop3.cc:86
+#: src/pop.cc:158
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Tomt lösenord"
 
-#: src/apop.cc:128
+#: src/pop.cc:508
 #, c-format
-msgid "[%d] Your pop server does not seem to accept apop protocol (no timestamp provided)"
-msgstr "[%d] Din pop-server verkar inte acceptera apop-protokoll (ingen tidsstämpel finns)"
+msgid "[%d] Error message from POP3 server:%s"
+msgstr ""
 
-#: src/apop.cc:152
+#: src/pop.cc:515
 #, c-format
-msgid "[%d] Problem with crypto that should have been detected at configure time"
-msgstr "[%d] Problem med kryptering som borde ha upptäckts vid konfigureringstillfället"
+msgid "[%d] Did not get a positive response from POP3 server"
+msgstr ""
+
+#: src/apop.cc:102
+#, c-format
+msgid ""
+"[%d] Your pop server does not seem to accept apop protocol (no timestamp "
+"provided)"
+msgstr ""
+"[%d] Din pop-server verkar inte acceptera apop-protokoll (ingen tidsstämpel "
+"finns)"
+
+#: src/apop.cc:122
+#, c-format
+msgid ""
+"[%d] Problem with crypto that should have been detected at configure time"
+msgstr ""
+"[%d] Problem med kryptering som borde ha upptäckts vid "
+"konfigureringstillfället"
 
 #: src/gui.cc:175
 #, c-format
@@ -174,7 +244,8 @@ msgstr ""
 #: src/gui.cc:211
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
-msgstr "Kan inte hitta den angivna widgeten (\"%s\") inuti xml-strukturen (\"%s\")"
+msgstr ""
+"Kan inte hitta den angivna widgeten (\"%s\") inuti xml-strukturen (\"%s\")"
 
 #: src/gui.cc:318
 msgid "GUI_connect requires working gmodule"
@@ -222,19 +293,19 @@ msgid "Security"
 msgstr "Säkerhet"
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:572
 msgid "No mailbox selected"
 msgstr "Ingen brevlåda vald"
 
-#: src/ui-preferences.cc:490
+#: src/ui-preferences.cc:506
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:61
+#: src/ui-preferences.cc:512 ui/preferences.glade.h:66
 msgid "_Stop"
 msgstr "_Stop"
 
-#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
+#: src/ui-preferences.cc:523 src/ui-preferences.cc:530
 msgid "Browse for a new mail image"
 msgstr "Bläddra efter en ny meddelandebild"
 
@@ -250,8 +321,34 @@ msgstr "Kan inte verifiera identiteten för %s som en betrodd plats.\n"
 
 #: src/ui-certificate.cc:76
 #, c-format
-msgid "Either site's certificate is incomplete or you're connected to a site pretending to be %s, possibly to obtain your password"
-msgstr "Antingen är platsens certifikat ofullständigt eller så är du uppkopplad mot en plats som låtsas vara %s, troligen för att få tag på ditt lösenord."
+msgid ""
+"Either site's certificate is incomplete or you're connected to a site "
+"pretending to be %s, possibly to obtain your password"
+msgstr ""
+"Antingen är platsens certifikat ofullständigt eller så är du uppkopplad mot "
+"en plats som låtsas vara %s, troligen för att få tag på ditt lösenord."
+
+#: src/ui-properties.cc:125 src/ui-properties.cc:152
+msgid "Autodetect"
+msgstr ""
+
+#: src/ui-properties.cc:126
+#, fuzzy
+msgid "File or Folder"
+msgstr "_Fil eller mapp"
+
+#: src/ui-properties.cc:154
+msgid "User/Pass"
+msgstr ""
+
+#: src/ui-properties.cc:156
+msgid "Encrypted User/Pass (apop)"
+msgstr ""
+
+#: src/ui-properties.cc:160
+#, fuzzy
+msgid "SSL with certificate"
+msgstr "Bläddra efter certifikatet"
 
 #: src/ui-properties.cc:316
 msgid "Browse for a file or folder"
@@ -273,12 +370,12 @@ msgstr "Ämne"
 msgid "Date"
 msgstr "Datum"
 
-#: src/ui-popup.cc:571 src/ui-popup.cc:583 src/ui-popup.cc:592
-#: src/ui-popup.cc:599
+#: src/ui-popup.cc:585 src/ui-popup.cc:597 src/ui-popup.cc:606
+#: src/ui-popup.cc:613
 msgid "* error *"
 msgstr "* fel *"
 
-#: src/ui-popup.cc:652
+#: src/ui-popup.cc:666
 msgid "Error"
 msgstr "Fel"
 
@@ -327,8 +424,11 @@ msgid "Start command"
 msgstr "Startkommando"
 
 #: ui/applet-gtk.glade.h:8
-msgid "This program is part of the GNU project, released under the aegis of GNU."
-msgstr "Det här programmet är en del av GNU-projektet, och är släppt under GNUs rättighetsskydd."
+msgid ""
+"This program is part of the GNU project, released under the aegis of GNU."
+msgstr ""
+"Det här programmet är en del av GNU-projektet, och är släppt under GNUs "
+"rättighetsskydd."
 
 #: ui/applet-gtk.glade.h:10
 msgid "tooltip"
@@ -371,10 +471,24 @@ msgid "<b>When no mail</b>"
 msgstr "<b>Vid inga meddelanden</b>"
 
 #: ui/preferences.glade.h:8
-msgid "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-bugs@lists.sourceforge.net</span></small>"
-msgstr "<small>Fel bör rapporteras till <span foreground=\"blue\">gnubiff-bugs@lists.sourceforge.net</span></small>"
+#, fuzzy
+msgid ""
+"<small> Released under the aegis of GNU\n"
+" Copyright (c) 2000-2004 Nicolas Rougier</small>"
+msgstr ""
+"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
+"<small> Släppt i skydd av GNU\n"
+"Copyright (c) 2000-2004 Nicolas Rougier</small>"
 
-#: ui/preferences.glade.h:9
+#: ui/preferences.glade.h:10
+msgid ""
+"<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
+"bugs@lists.sourceforge.net</span></small>"
+msgstr ""
+"<small>Fel bör rapporteras till <span foreground=\"blue\">gnubiff-bugs@lists."
+"sourceforge.net</span></small>"
+
+#: ui/preferences.glade.h:11
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -388,202 +502,218 @@ msgstr ""
 "  - skickat in faktiskt kod\n"
 "Här är en lista på dessa personer:</small>"
 
-#: ui/preferences.glade.h:14
-msgid ""
-"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
-" <small>Released under the aegis of GNU\n"
-" Copyright (c) 2000-2004 Nicolas Rougier</small>"
-msgstr ""
-"<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
-"<small> Släppt i skydd av GNU\n"
-"Copyright (c) 2000-2004 Nicolas Rougier</small>"
-
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:16
 msgid "Applet geometry"
 msgstr "Appletens geometri"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:17
 msgid "Applet or Biff"
 msgstr "Applet eller Biff"
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:18
 msgid "B_rowse..."
 msgstr "Blädd_ra..."
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:19
 msgid "Browse for an image file"
 msgstr "Bläddra efter en bildfil"
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:20
 msgid "Contributors"
 msgstr "Bidragare"
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:21
 msgid "Credits"
 msgstr "Tack"
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:22
 msgid "Developers"
 msgstr "Utvecklare"
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:23
 msgid "Image filename"
 msgstr "Bildfilnamn"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:24
 msgid "Mailboxes"
 msgstr "Brevlådor"
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:25
 msgid "Maintainers"
 msgstr "Underhållare"
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:26
 msgid "Maximum number of headers to display"
 msgstr "Högsta antal huvud som skall visas"
 
-#: ui/preferences.glade.h:28 ui/popup.glade.h:4
+#: ui/preferences.glade.h:27 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Poppupp"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:28
 msgid "Popup geometry"
 msgstr "Popuppgeometri"
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:29
 msgid "Show _image:"
 msgstr "Visa b_ild:"
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:30
 msgid "Show _text:"
 msgstr "Visa _text:"
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:31
 msgid "Show i_mage:"
 msgstr "Visa b_ild:"
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:32
 msgid "Show t_ext:"
 msgstr "Visa t_ext:"
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:33
 msgid "Text to display"
 msgstr "Text att visa"
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:35
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr "Text som skall visas (%d är antalet nya meddelanden)"
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:36
 msgid "The command to run when new mail arrives"
 msgstr "Kommando att köra när nya meddelanden anländer"
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:37
 msgid "The command to run when the icon is double-clicked"
 msgstr "Kommando att köra när ikonen dubbelklickas"
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:38
 msgid "The font to use to display information"
 msgstr "Typsnitt att använda för att visa information"
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:39
 msgid "Time to display popup window"
 msgstr "Tid att visa poppuppfönster"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:40
 msgid "Translators"
 msgstr "Översättare"
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:41
 msgid "Use _decoration"
 msgstr "Använd _dekorering"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:42
 msgid "Use _geometry:"
 msgstr "Använd _geometri"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:43
 msgid "When _double-clicked:"
 msgstr "Vid dubbelklick:"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:44
 msgid "When _new mail:"
 msgstr "Vid _nya meddelanden:"
 
+#: ui/preferences.glade.h:45
+#, fuzzy
+msgid "Whether the window shall appear in pagers"
+msgstr "Ifall fönsterhanterarens dekorationer skall användas"
+
 #: ui/preferences.glade.h:46
+#, fuzzy
+msgid "Whether the window shall be displayed on all desktops"
+msgstr "Ifall antal visade huvud skall begränsas"
+
+#: ui/preferences.glade.h:47
+msgid "Whether the window shall be kept above all other windows"
+msgstr ""
+
+#: ui/preferences.glade.h:48
 msgid "Whether to display a text"
 msgstr "Ifall en text skall visas"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:49
 msgid "Whether to display an image"
 msgstr "Ifall en bild skall visas"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:50
 msgid "Whether to display the popup window"
 msgstr "Ifall poppuppfönstret skall visas"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:51
 msgid "Whether to restrict number of displayed headers"
 msgstr "Ifall antal visade huvud skall begränsas"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:52
 msgid "Whether to show an image"
 msgstr "Ifall en bild skall visas"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:53
 msgid "Whether to use format for header"
 msgstr "Ifall format skall användas för huvud"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:54
 msgid "Whether to use geometry"
 msgstr "Ifall geometri skall användas"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:55
 msgid "Whether to use window manager decoration"
 msgstr "Ifall fönsterhanterarens dekorationer skall användas"
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:56
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr "[maxstorlek avsändare]:[maxstorlek ämne]:[maxstorlek datum]"
 
-#: ui/preferences.glade.h:55 ui/properties.glade.h:21
+#: ui/preferences.glade.h:57
+msgid "_Appear in pager"
+msgstr ""
+
+#: ui/preferences.glade.h:58
+msgid "_Be sticky"
+msgstr ""
+
+#: ui/preferences.glade.h:59 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "_Bläddra..."
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:60
 msgid "_Display for"
 msgstr "_Visa för"
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:61
 msgid "_Font:"
 msgstr "T_ypsnitt:"
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:62
 msgid "_Format:"
 msgstr "_Format"
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:63
+msgid "_Keep above"
+msgstr ""
+
+#: ui/preferences.glade.h:64
 msgid "_Restrict collected mail to"
 msgstr "Beg_ränsa samlade e-post till"
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:65
 msgid "_Restrict number to"
 msgstr "Beg_ränsa antal till"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:67
 msgid "gnubiff preferences"
 msgstr "gnubiffinställningar"
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:68
 msgid "header(s)"
 msgstr "huvud(en)"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:69
 msgid "mail(s)"
 msgstr "meddelande(n)"
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:70
 msgid "second(s)"
 msgstr "sekund(er)"
 
@@ -652,8 +782,12 @@ msgid "Standard mailbox folder"
 msgstr "Standardbrevlådemapp"
 
 #: ui/properties.glade.h:18
-msgid "The amount of time to wait between mail checks or between retries when connection is lost"
-msgstr "Den vänttid som skall vara mellan e-postkontroll, eller återanslutningsförsök när anslutningen tappas"
+msgid ""
+"The amount of time to wait between mail checks or between retries when "
+"connection is lost"
+msgstr ""
+"Den vänttid som skall vara mellan e-postkontroll, eller "
+"återanslutningsförsök när anslutningen tappas"
 
 #: ui/properties.glade.h:19
 msgid "Your password on the mail server"
@@ -688,8 +822,9 @@ msgid "_other"
 msgstr "a_ndra "
 
 #: ui/properties.glade.h:28
-msgid "file or folder or [ssl:]hostname[:port][:folder]"
-msgstr "Fil, mapp eller [ssl:]värdnamn[:port][:mapp]"
+#, fuzzy
+msgid "file or folder or hostname"
+msgstr "Fil eller mappnamn"
 
 #: ui/properties.glade.h:29
 msgid "minutes"
@@ -783,6 +918,9 @@ msgstr "<small><b>Ämne</b></small>"
 msgid "mail content"
 msgstr "meddelandeinnehåll"
 
+#~ msgid "file or folder or [ssl:]hostname[:port][:folder]"
+#~ msgstr "Fil, mapp eller [ssl:]värdnamn[:port][:mapp]"
+
 #~ msgid ""
 #~ "\n"
 #~ "This version of gnubiff has been compiled with GNOME support\n"
@@ -794,7 +932,8 @@ msgstr "meddelandeinnehåll"
 #~ msgstr "Skriv gnubiff --gtk om du vill använda GTK-versionen\n"
 
 #~ msgid " then use -c file to specify an alternate configuration file\n"
-#~ msgstr " använd sedan -c fil för att specifiera en alternativ konfigurationsfil\n"
+#~ msgstr ""
+#~ " använd sedan -c fil för att specifiera en alternativ konfigurationsfil\n"
 
 #~ msgid "      and -n to skip configuration process\n"
 #~ msgstr "      och -n för att hoppa över konfigurationsprocessen\n"
@@ -914,8 +1053,12 @@ msgstr "meddelandeinnehåll"
 #~ msgid "Mail application to launch via popup menu."
 #~ msgstr "Brevprogram att starta via popuppmenyn."
 
-#~ msgid "Maximum number of displayed headers (you know, if you have a screen with a finite display area...)"
-#~ msgstr "Högsta antal visade rubriker (du vet, om du har en skärm med begränsad visningsyta...)"
+#~ msgid ""
+#~ "Maximum number of displayed headers (you know, if you have a screen with "
+#~ "a finite display area...)"
+#~ msgstr ""
+#~ "Högsta antal visade rubriker (du vet, om du har en skärm med begränsad "
+#~ "visningsyta...)"
 
 #~ msgid "Maximum size of the sender field in popup window"
 #~ msgstr "Största storlek för avsändarfältet i poppuppfönster"
@@ -953,11 +1096,13 @@ msgstr "meddelandeinnehåll"
 #~ msgid ""
 #~ "Released under the GNU general public license\n"
 #~ "(c) 2000-2004 Nicolas Rougier\n"
-#~ "<span size=\"small\" color=\"blue\">Special thanks to Robert Sowada and Roland Stigge for their help</span>"
+#~ "<span size=\"small\" color=\"blue\">Special thanks to Robert Sowada and "
+#~ "Roland Stigge for their help</span>"
 #~ msgstr ""
 #~ "Släppt under GNU general public license\n"
 #~ "(c) 2000-2004 Nicolas Rougier\n"
-#~ "<span size=\"small\" color=\"blue\">Ett speciellt tack till Robert Sowada och Roland Stigge för deras hjälp</span>"
+#~ "<span size=\"small\" color=\"blue\">Ett speciellt tack till Robert Sowada "
+#~ "och Roland Stigge för deras hjälp</span>"
 
 #~ msgid "Sound play command (%s is the soundfile, %v is the volume)"
 #~ msgstr "Ljudspelningskommando (%s är ljudfilen, %v är volymen)"
@@ -978,7 +1123,8 @@ msgstr "meddelandeinnehåll"
 #~ msgstr "Använd bild"
 
 #~ msgid "Use of no image implies no applet window for GTK version"
-#~ msgstr "Användande av inga bilder innebär inget appletfönster för GTK-version "
+#~ msgstr ""
+#~ "Användande av inga bilder innebär inget appletfönster för GTK-version "
 
 #~ msgid "Use text"
 #~ msgstr "Använd text"
@@ -1144,17 +1290,18 @@ msgstr "meddelandeinnehåll"
 #~ msgid "play %s -v %v"
 #~ msgstr "spela %s -v %v"
 
-#~ msgid "pop3 and imap4 without ssl send passwords in clear. Checking this option prevents gnubiff from using them."
-#~ msgstr "pop3 och imap4 utan ssl skickar lösenord i klartext. Markera detta val för att förhindra gnubiff från att använda dom."
+#~ msgid ""
+#~ "pop3 and imap4 without ssl send passwords in clear. Checking this option "
+#~ "prevents gnubiff from using them."
+#~ msgstr ""
+#~ "pop3 och imap4 utan ssl skickar lösenord i klartext. Markera detta val "
+#~ "för att förhindra gnubiff från att använda dom."
 
 #~ msgid "thunderbird"
 #~ msgstr "thunderbird"
 
 #~ msgid "xemacs "
 #~ msgstr "xemacs "
-
-#~ msgid "Browse for the certificate"
-#~ msgstr "Bläddra efter certifikatet"
 
 #~ msgid "Details"
 #~ msgstr "Detaljer"
@@ -1165,8 +1312,12 @@ msgstr "meddelandeinnehåll"
 #~ msgid "Folder:"
 #~ msgstr "Mapp:"
 
-#~ msgid "Port to connect (usually POP3: 110, IMAP4: 143, POP3 over SSL: 995, IMAP4 over SSL: 993)"
-#~ msgstr "Port att ansluta (vanligen POP3: 110, IMAP4: 143, POP3 över SSL: 995, IMAP4 över SSL: 993)"
+#~ msgid ""
+#~ "Port to connect (usually POP3: 110, IMAP4: 143, POP3 over SSL: 995, IMAP4 "
+#~ "over SSL: 993)"
+#~ msgstr ""
+#~ "Port att ansluta (vanligen POP3: 110, IMAP4: 143, POP3 över SSL: 995, "
+#~ "IMAP4 över SSL: 993)"
 
 #~ msgid "Server certificate, leave blank if you do not want to use one"
 #~ msgstr "Servercertifikat. Lämna tom om du inte vill använda ett"
@@ -1183,17 +1334,11 @@ msgstr "meddelandeinnehåll"
 #~ msgid "_Delay between checks:"
 #~ msgstr "_Fördröjningar mellan kontroller:"
 
-#~ msgid "_File or folder"
-#~ msgstr "_Fil eller mapp"
-
 #~ msgid "_Hostname:"
 #~ msgstr "_Värdnamn:"
 
 #~ msgid "_Network"
 #~ msgstr "_Nätverk"
-
-#~ msgid "file or folder name"
-#~ msgstr "Fil eller mappnamn"
 
 #~ msgid "debug output"
 #~ msgstr "felsökningsutdata"
@@ -1214,8 +1359,12 @@ msgstr "meddelandeinnehåll"
 #~ msgid "Title"
 #~ msgstr "Titel"
 
-#~ msgid "File protocol: for example, your mailbox is held in a file like \"/var/log/login_name\""
-#~ msgstr "Filprotokoll: Exempelvis så kan din mailbox finnas i en fil som heter \"/var/log/login_name\""
+#~ msgid ""
+#~ "File protocol: for example, your mailbox is held in a file like \"/var/"
+#~ "log/login_name\""
+#~ msgstr ""
+#~ "Filprotokoll: Exempelvis så kan din mailbox finnas i en fil som heter \"/"
+#~ "var/log/login_name\""
 
 #~ msgid "mh"
 #~ msgstr "mh"
@@ -1223,8 +1372,12 @@ msgstr "meddelandeinnehåll"
 #~ msgid "maildir"
 #~ msgstr "maildir"
 
-#~ msgid "IMAP4 protocol: your mailbox is held on an IMAP4 server on a remote host. Contact your system admnistrator for setup details."
-#~ msgstr "IMAP4-protokoll: Din brevlåda ligger på en IMAP4-server hos en frärrvärd. Kontakta din systemadministratör för inställningsdetaljer."
+#~ msgid ""
+#~ "IMAP4 protocol: your mailbox is held on an IMAP4 server on a remote host. "
+#~ "Contact your system admnistrator for setup details."
+#~ msgstr ""
+#~ "IMAP4-protokoll: Din brevlåda ligger på en IMAP4-server hos en frärrvärd. "
+#~ "Kontakta din systemadministratör för inställningsdetaljer."
 
 #~ msgid "imap4"
 #~ msgstr "imap4"
@@ -1235,14 +1388,22 @@ msgstr "meddelandeinnehåll"
 #~ msgid "<small>Local</small>"
 #~ msgstr "<small>Lokalt</small>"
 
-#~ msgid "POP3 protocol: your mailbox is held on a POP3 server on a remote host. Contact your system admnistrator for setup details."
-#~ msgstr "POP3-protokoll: Din brevlåda ligger på en POP3-server hos en fjärrvärd. Kontakta din systemadministratör för inställningsdetaljer."
+#~ msgid ""
+#~ "POP3 protocol: your mailbox is held on a POP3 server on a remote host. "
+#~ "Contact your system admnistrator for setup details."
+#~ msgstr ""
+#~ "POP3-protokoll: Din brevlåda ligger på en POP3-server hos en fjärrvärd. "
+#~ "Kontakta din systemadministratör för inställningsdetaljer."
 
 #~ msgid "pop3"
 #~ msgstr "pop3"
 
-#~ msgid "APOP protocol: your mailbox is held on an APOP server on a remote host. Contact your system admnistrator for setup details."
-#~ msgstr "APOP-protokoll: Din brevlåda ligger på en APOP-server hos en fjärrvärd. Kontakta din systemadministratör för inställningsdetaljer."
+#~ msgid ""
+#~ "APOP protocol: your mailbox is held on an APOP server on a remote host. "
+#~ "Contact your system admnistrator for setup details."
+#~ msgstr ""
+#~ "APOP-protokoll: Din brevlåda ligger på en APOP-server hos en fjärrvärd. "
+#~ "Kontakta din systemadministratör för inställningsdetaljer."
 
 #~ msgid "apop"
 #~ msgstr "apop"
@@ -1349,11 +1510,19 @@ msgstr "meddelandeinnehåll"
 #~ msgid "<small><b>Popup</b></small>"
 #~ msgstr "<small><b>Poppupp</b></small>"
 
-#~ msgid "Positive numbers refer to left border, negative numbers refer to right border"
-#~ msgstr "Positiva nummer hänvisar till vänster ramkant, negativa nummer hänvisar till höger ramkant"
+#~ msgid ""
+#~ "Positive numbers refer to left border, negative numbers refer to right "
+#~ "border"
+#~ msgstr ""
+#~ "Positiva nummer hänvisar till vänster ramkant, negativa nummer hänvisar "
+#~ "till höger ramkant"
 
-#~ msgid "Positive numbers refer to top border, negative numbers refer to bottom border"
-#~ msgstr "Positiva nummer hänvisar till övre ramkant. Negativa nummer hänvisar till nedre ramkant"
+#~ msgid ""
+#~ "Positive numbers refer to top border, negative numbers refer to bottom "
+#~ "border"
+#~ msgstr ""
+#~ "Positiva nummer hänvisar till övre ramkant. Negativa nummer hänvisar till "
+#~ "nedre ramkant"
 
 #~ msgid "<small><b>Biff</b></small>"
 #~ msgstr "<small><b>Biff</b></small>"

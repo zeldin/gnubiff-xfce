@@ -77,8 +77,9 @@ typedef struct _header {
 	std::string	date;
 	std::string	body;
 	std::string	charset;
+	/// Position in the mailbox
+	guint		position_;
 	gint		status;
-
 	/**
 	 *  This is a (hopefully) unique identifier for the mail. If supported by
 	 *  the protocol this will be the unique id of the mail that is provided
@@ -102,16 +103,17 @@ typedef struct _header {
 			charset = other.charset;
 			status = other.status;
 			mailid_ = other.mailid_;
+			position_ = other.position_;
 		}
 		return *this;
 	}
 
 	bool operator == (const struct _header &other) const
 	{
-		if ((sender  == other.sender)  && (subject == other.subject) &&
-			(date    == other.date)    && (body    == other.body)    &&
-			(charset == other.charset) && (status  == other.status)  &&
-			(mailid_ == other.mailid_))
+		if ((sender  == other.sender)  && (subject   == other.subject) &&
+			(date    == other.date)    && (body      == other.body)    &&
+			(charset == other.charset) && (status    == other.status)  &&
+			(mailid_ == other.mailid_) && (position_ == other.position_))
 			return true;
 		else
 			return false;

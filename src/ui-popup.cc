@@ -259,8 +259,6 @@ Popup::update (void)
 			// Get the header
 			header h = biff_->mailbox(j)->unread()[*i];
 
-			std::stringstream s;
-			s << cnt;
 			gtk_list_store_append (store, &iter);
 				
 			// Subject
@@ -292,7 +290,9 @@ Popup::update (void)
 				sender = gb_utf8_strndup (buffer, 256);
 			g_free (buffer);
 			saved_strings.push_back (sender);
-			
+
+			std::stringstream s;
+			s << cnt;
 			if (cnt == 1)
 				gtk_list_store_set (store, &iter, COLUMN_NAME, biff_->mailbox(j)->name().c_str(), -1);
 			else

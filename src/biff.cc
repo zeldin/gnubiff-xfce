@@ -460,6 +460,8 @@ Biff::save_para (const gchar *name, guint value)
 void 
 Biff::load_para(const gchar *name, gboolean &var)
 {
+	if (buffer_load_.find (std::string(name)) == buffer_load_.end())
+		g_warning(_("Parameter \"%s\" not present, using default value"),name);
 	std::string value = buffer_load_[std::string(name)];
 
 	if ((value == "1") || (value == "true"))
@@ -467,7 +469,7 @@ Biff::load_para(const gchar *name, gboolean &var)
 	else if ((value == "0") || (value == "false"))
 		var = false;
 	else
-		g_warning (_("Illegal value \"%s\" for parameter \"%s\""),
+		g_warning (_("Illegal value \"%s\" for parameter \"%s\", using default value"),
 				   buffer_load_[std::string(name)].c_str(), name);
 }
 
@@ -483,11 +485,13 @@ Biff::load_para(const gchar *name, guint &var)
 {
 	guint temp;
 
+	if (buffer_load_.find (std::string(name)) == buffer_load_.end())
+		g_warning(_("Parameter \"%s\" not present, using default value"),name);
 	std::istringstream strin(buffer_load_[std::string(name)]);
 	if (strin >> temp)
 		var = temp;
 	else
-		g_warning (_("Illegal value \"%s\" for parameter \"%s\""),
+		g_warning (_("Illegal value \"%s\" for parameter \"%s\", using default value"),
 				   buffer_load_[std::string(name)].c_str(), name);
 }
 
@@ -501,6 +505,8 @@ Biff::load_para(const gchar *name, guint &var)
 void 
 Biff::load_para(const gchar *name, std::string &var)
 {
+	if (buffer_load_.find (std::string(name)) == buffer_load_.end())
+		g_warning(_("Parameter \"%s\" not present, using default value"),name);
 	var = buffer_load_[std::string(name)];
 }
 
@@ -514,6 +520,8 @@ Biff::load_para(const gchar *name, std::string &var)
 void 
 Biff::load_para(const gchar *name, std::set<std::string> &var)
 {
+	if (buffer_load_.find (std::string(name)) == buffer_load_.end())
+		g_warning(_("Parameter \"%s\" not present, using default value"),name);
 	std::istringstream strin (buffer_load_[std::string(name)]);
 	std::string value;
 

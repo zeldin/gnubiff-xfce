@@ -556,6 +556,7 @@ void Mailbox::parse (std::vector<std::string> &mail, int status,
 			//
 			h.setmailid (uid);
 			if (hidden_.find (h.mailid_) == hidden_.end ()) {
+				h.position_ = new_mails_to_be_displayed_.size() + 1;
 				new_unread_[h.mailid_] = h;
 				new_mails_to_be_displayed_.push_back (h.mailid_);
 			}
@@ -594,8 +595,8 @@ Mailbox::update_mailbox_status (void)
 	else if (unread_.size() < new_unread_.size())
 		status_ = MAILBOX_NEW;
 	else if (!std::includes (unread_.begin(), unread_.end(),
-									 new_unread_.begin(), new_unread_.end(),
-									 less_pair_first()))		 
+							 new_unread_.begin(), new_unread_.end(),
+							 less_pair_first()))		 
 		status_ = (unread_ == new_unread_) ? MAILBOX_OLD : MAILBOX_NEW;
 	else
 		status_ = MAILBOX_OLD;
@@ -660,6 +661,7 @@ Mailbox::new_mail(std::string &mailid)
 
 	// Insert known mail into new unread mail map
 	new_unread_[mailid] = unread_[mailid];
+	new_unread_[mailid].position_ = new_mails_to_be_displayed_.size() + 1;
 	new_mails_to_be_displayed_.push_back (mailid);
 
 #ifdef DEBUG
