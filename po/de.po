@@ -500,7 +500,7 @@ msgid ""
 " It is released under the aegis of GNU.</small>"
 msgstr ""
 "<small> Gnubiff ist Teil des GNU-Projekts.\n"
-" Es ist veröffentlicht unter der Obhut von GNU."
+" Es ist veröffentlicht unter der Obhut von GNU.</small>"
 
 #: ui/applet-gtk.glade:363
 msgid "Ok"
