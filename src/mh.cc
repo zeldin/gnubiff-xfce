@@ -151,28 +151,6 @@ Mh::fetch (void)
 		return;
 	}
 
-	// Find mailbox status by comparing saved list with the new one
-	if (saved_.empty()) {
-		status_ = MAILBOX_EMPTY;
-	}
-	else if (buffer == saved_) {
-		status_ = MAILBOX_OLD;
-	}
-	else {
-		status_ = MAILBOX_OLD;
-		guint i, j;
-		for (i=0; i<saved_.size(); i++) {
-			for (j=0; j<buffer.size(); j++) {
-				if (saved_[i] == buffer[j])
-					break;
-			}
-			if (j == buffer.size()) {
-				status_ = MAILBOX_NEW;
-				break;
-			}
-		}
-	}     
-
 	for (guint i=0; (i<saved_.size()) && (new_unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
 		std::string line;
 		std::ifstream file;    

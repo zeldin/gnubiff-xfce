@@ -119,6 +119,7 @@ Pop::start (void) throw (pop_err)
 		status_ = MAILBOX_ERROR;
 		unread_.clear ();
 		seen_.clear ();
+		new_mails_to_be_displayed_.clear ();
 		socket_->close ();
 	}
 
@@ -182,7 +183,6 @@ Pop::fetch (void) throw (pop_err)
 void 
 Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 {
-	std::set<std::string> new_saved_uid;
 	std::map<guint,std::string> msg_uid;
 
 	// STAT
@@ -210,7 +210,6 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 			uid = command_uidl (i+start);
 		else
 			uid = msg_uid[i+start];
-		new_saved_uid.insert (uid);
 
 		if (statusonly)
 			continue;
@@ -225,16 +224,6 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 		// Parse mail
 		parse (mail, MAIL_UNREAD, uid);
 	}
-
-	// Determine new mailbox status
-	if (new_saved_uid.empty ())
-		status_ = MAILBOX_EMPTY;
-	else if (!std::includes(saved_uid_.begin(), saved_uid_.end(),
-						   new_saved_uid.begin(), new_saved_uid.end()))
-		status_ = MAILBOX_NEW;
-	else
-		status_ = MAILBOX_OLD;
-	saved_uid_ = new_saved_uid;
 }
 
 /**

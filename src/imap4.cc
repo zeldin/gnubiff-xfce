@@ -133,6 +133,7 @@ Imap4::start (void)
 			status_ = MAILBOX_ERROR;
 			unread_.clear ();
 			seen_.clear ();
+			new_mails_to_be_displayed_.clear ();
 		}
 		socket_->close ();
 
@@ -198,10 +199,6 @@ Imap4::update_applet(void)
 		biff_->applet()->update();
 		gdk_threads_leave();
 	// }
-
-	// If we have reported the new mail, then set the status to old
-	if (status_ == MAILBOX_NEW)
-		status_ = MAILBOX_OLD;
 }
 
 /**
@@ -305,8 +302,6 @@ Imap4::connect (void) throw (imap_err)
 void 
 Imap4::fetch_mails (void) throw (imap_err)
 {
-	std::set<std::string> new_saved_mailid;
-
 	// SEARCH NOT SEEN
 	std::set<guint> buffer = command_searchnotseen ();
 
@@ -317,7 +312,6 @@ Imap4::fetch_mails (void) throw (imap_err)
 	for (std::set<guint>::iterator i=buffer.begin(); i != buffer.end(); i++) {
 		// Check if mail is already known
 		std::string mailid = uidvalidity_ + msn_uid_[*i];
-		new_saved_mailid.insert (mailid);
 		if (new_mail (mailid))
 			continue;
 
@@ -335,16 +329,6 @@ Imap4::fetch_mails (void) throw (imap_err)
 			decode_body (mail, partinfo.encoding_);
 		parse (mail, MAIL_UNREAD, mailid);
 	}
-
-	// Determine new mailbox status
-	if (new_saved_mailid.empty ())
-		status_ = MAILBOX_EMPTY;
-	else if (!std::includes(saved_mailid_.begin(), saved_mailid_.end(),
-							new_saved_mailid.begin(), new_saved_mailid.end()))
-		status_ = MAILBOX_NEW;
-	else
-		status_ = MAILBOX_OLD;
-	saved_mailid_ = new_saved_mailid;
 }
 
 /**

@@ -36,6 +36,7 @@
 #   include <config.h>
 #endif
 #include <glib.h>
+#include <functional>
 #include <map>
 #include <set>
 #include <string>
@@ -138,6 +139,19 @@ typedef struct _header {
 		}
 	}
 } header;
+
+/** This struct is needed (when using STL algorithms for
+ *  std::map<std::string,header>) for comparisons of
+ *  std::pair<std::string,header> objects. We cannot compare headers so the
+ *  default compare function is not useful for us. */
+struct less_pair_first : public std::binary_function<std::pair<std::string,header>,
+std::pair<std::string,header>, bool> {
+	bool operator()(std::pair<std::string,header> x,
+					std::pair<std::string,header> y) const {
+	  return x.first < y.first;
+	}
+};
+
 
 
 #define MAILBOX(x)					((Mailbox *)(x))
@@ -259,6 +273,7 @@ public:
 	static Mailbox *lookup_local(Mailbox &);        // try to guess mailbox format for a local mailbox
 	gboolean new_mail (std::string &);
 	void start_checking (void);
+	void mail_displayed (void);
 	void parse (std::vector<std::string> &mail,		// parse a mail 
 				int status = -1, std::string uid = std::string(""));
 

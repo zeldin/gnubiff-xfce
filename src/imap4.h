@@ -59,8 +59,6 @@ class Imap4 : public Mailbox {
 	 *  not send it. See also RFC 3501 2.3.1.1.
 	 */
 	std::string					uidvalidity_;
-	/// Set for the saved unique identifiers of the mails
-	std::set<std::string> 		saved_mailid_;
 	/** Map of pairs (atom, arg) that represent the last sent server response
 	 *  codes via untagged "* OK" server responses. */
 	std::map<std::string, std::string> ok_response_codes_;

@@ -567,6 +567,18 @@ void Mailbox::parse (std::vector<std::string> &mail, int status,
 }
 
 /**
+ *  This function is to be called if the mail has been displayed, so status
+ *  can be changed from MAILBOX_NEW to MAILBOX_OLD. If the status isn't
+ *  MAILBOX_NEW nothing is done.
+ */
+void 
+Mailbox::mail_displayed (void)
+{
+	if (status_ == MAILBOX_NEW)
+		status_ = MAILBOX_OLD;
+}
+
+/**
  * Start checking for new messages.
  */
 void 
@@ -581,10 +593,17 @@ Mailbox::start_checking (void)
 	// Fetch mails
 	fetch ();
 
-	// FIXME: Determining the new status of the mailbox should be completely
-	// here. Specific mailboxes need more conformity.
-	if ((unread_ == new_unread_) && (unread_.size() > 0))
-		status_ = MAILBOX_OLD;
+	// Determine new mailbox status
+	if (status_ == MAILBOX_CHECK) {
+		if (unread_.size() == 0)
+			status_ = MAILBOX_EMPTY;
+		else if (!std::includes (unread_.begin(), unread_.end(),
+								 new_unread_.begin(), new_unread_.end(),
+								 less_pair_first()))		 
+			status_ = (unread_ == new_unread_) ? MAILBOX_OLD : MAILBOX_NEW;
+		else
+			status_ = MAILBOX_OLD;
+	}
 
 	// Save obtained values
 	g_mutex_lock (mutex_);
@@ -605,12 +624,14 @@ Mailbox::start_checking (void)
 gboolean 
 Mailbox::new_mail(std::string &mailid)
 {
+	// We have now seen this mail
+	new_seen_.insert (mailid);
+
 	// Mail shall not be displayed? -> no need to fetch and parse it
 	if (hidden_.find (mailid) != hidden_.end ()) {
 #ifdef DEBUG
 		g_message ("[%d] Ignore mail with id \"%s\"", uin_, mailid.c_str ());
 #endif
-		new_seen_.insert (mailid);
 		return true;
 	}
 
@@ -620,7 +641,6 @@ Mailbox::new_mail(std::string &mailid)
 
 	// Insert known mail into new unread mail map
 	new_unread_[mailid] = unread_[mailid];
-	new_seen_.insert (mailid);
 	new_mails_to_be_displayed_.push_back (mailid);
 
 #ifdef DEBUG

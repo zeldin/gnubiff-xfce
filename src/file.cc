@@ -105,11 +105,4 @@ void File::fetch (void)
  
 	// Restore access and modification time
 	utime (address_.c_str(), &timbuf);
-
-	if (new_unread_.size() > 0)
-		status_ = MAILBOX_NEW;
-	else if (new_unread_.size() == 0)
-		status_ = MAILBOX_EMPTY;
-	else
-		status_ = MAILBOX_ERROR;
 }

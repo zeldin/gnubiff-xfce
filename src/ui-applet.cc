@@ -186,5 +186,9 @@ Applet::update (gboolean no_popup)
 		biff_->popup()->show();
 	}
 
+	// Mail has been display now
+	for (unsigned int i=0; i<biff_->size(); i++)
+		biff_->mailbox(i)->mail_displayed ();
+
 	force_popup_ = false;
 }
