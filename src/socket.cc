@@ -105,6 +105,9 @@ Socket::open (std::string hostname,
 		use_ssl_ = true;
 	certificate_ = certificate;
 
+	// Get options' values to avoid periodic lookups
+	prevdos_line_length_=mailbox_->biff()->value_uint ("prevdos_line_length");
+
 	struct sockaddr_in sin;
 	struct hostent *host;
 	struct in_addr address;
@@ -352,7 +355,7 @@ Socket::read (std::string &line, gboolean print, gboolean check)
 	line = "";
 	status_ = -1;
 
-	gint cnt = 1 + mailbox_->biff()->value_uint ("prevdos_line_length");
+	gint cnt = 1 + prevdos_line_length_;
 
 	// TEMP_FAILURE_RETRY will re-call the method if the read primitive
 	// is interrupted by a signal.
