@@ -1,6 +1,6 @@
 Summary: Mail notification program for GNOME 2
 Name: gnubiff
-Version: 1.4.1
+Version: 2.0.2  
 Release: 1
 Copyright: GPL
 Group: X11/Utilities
