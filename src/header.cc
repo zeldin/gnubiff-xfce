@@ -178,7 +178,7 @@ Header::date (const std::string date)
 	static const std::string months = "JanFebMarAprMayJunJulAugSepOctNovDec";
 	ss >> temp;
 	month = months.find (temp);
-	if (((guint)month == std::string::npos) || (month % 3 != 0))
+	if (((std::string::size_type)month == std::string::npos) || (month%3 != 0))
 		month = 0;
 	month = month / 3 + 1;
 	// year
