@@ -19,6 +19,7 @@ Version 2.0.3
    - Bugfix: return value of main
    - Output of "--help" restructured
    - Code for saving the configuration file cleaned up
+   - Bugfix: Autodetection of IMAP
 
 Version 2.0.2
  * Some cosmetic fixes
