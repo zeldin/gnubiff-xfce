@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-03-20 16:51+0100\n"
+"POT-Creation-Date: 2005-03-31 11:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,12 @@ msgstr ""
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr ""
 
-#: src/decoding.cc:120 src/decoding.cc:126 src/decoding.cc:137
-#: src/decoding.cc:144 src/decoding.cc:149 src/decoding.cc:165
+#: src/decoding.cc:122 src/decoding.cc:128 src/decoding.cc:139
+#: src/decoding.cc:146 src/decoding.cc:151 src/decoding.cc:167
 msgid "[Cannot decode this header line]"
 msgstr ""
 
-#: src/decoding.cc:585
+#: src/decoding.cc:607
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
@@ -64,45 +64,45 @@ msgstr ""
 msgid "Configuration file (%s) not found!"
 msgstr ""
 
-#: src/biff.cc:398
+#: src/biff.cc:400
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:400
+#: src/biff.cc:402
 msgid "Trying to convert all options."
 msgstr ""
 
-#: src/biff.cc:426
+#: src/biff.cc:428
 msgid "Successfully converted all options."
 msgstr ""
 
-#: src/biff.cc:429
+#: src/biff.cc:431
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: src/biff.cc:576
+#: src/biff.cc:578
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr ""
 
-#: src/biff.cc:592
+#: src/biff.cc:594
 msgid "Cannot create XML parser for config file"
 msgstr ""
 
-#: src/biff.cc:609
+#: src/biff.cc:611
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 
-#: src/biff.cc:656
+#: src/biff.cc:658
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:685
+#: src/biff.cc:687
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
@@ -117,35 +117,35 @@ msgstr ""
 msgid "mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:548
+#: src/mailbox.cc:563
 msgid "<no date>"
 msgstr ""
 
-#: src/mailbox.cc:549
+#: src/mailbox.cc:564
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:550
+#: src/mailbox.cc:565
 msgid "<no subject>"
 msgstr ""
 
-#: src/mailbox.cc:597
+#: src/mailbox.cc:612
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: src/mailbox.cc:617
+#: src/mailbox.cc:633
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: src/mailbox.cc:665
+#: src/mailbox.cc:682
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:673
+#: src/mailbox.cc:690
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:719
+#: src/mailbox.cc:736
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr ""
@@ -186,58 +186,58 @@ msgstr ""
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
 
+#: src/file.cc:80 src/maildir.cc:142
+#, c-format
+msgid "Cannot open %s."
+msgstr ""
+
 #: src/imap4.cc:466
 msgid "[This message has no part with a supported content type]"
 msgstr ""
 
-#: src/imap4.cc:830
+#: src/imap4.cc:831
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:918
+#: src/imap4.cc:919
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:977
+#: src/imap4.cc:978
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: src/imap4.cc:1030
+#: src/imap4.cc:1031
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
-#: src/imap4.cc:1584
+#: src/imap4.cc:1587
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
-#: src/imap4.cc:1589
+#: src/imap4.cc:1592
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
-#: src/imap4.cc:1594
+#: src/imap4.cc:1597
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
 
-#: src/maildir.cc:86
+#: src/maildir.cc:83
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr ""
 
-#: src/maildir.cc:93
+#: src/maildir.cc:91
 #, c-format
 msgid "Cannot open new mail directory (%s)"
-msgstr ""
-
-#: src/maildir.cc:121
-#, c-format
-msgid "Cannot open %s."
 msgstr ""
 
 #: src/pop.cc:157
@@ -255,14 +255,14 @@ msgstr ""
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr ""
 
-#: src/apop.cc:102
+#: src/apop.cc:103
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
 msgstr ""
 
-#: src/apop.cc:122
+#: src/apop.cc:124
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -278,7 +278,7 @@ msgstr ""
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr ""
 
-#: src/options.cc:665 src/gui.cc:211
+#: src/options.cc:665 src/gui.cc:232
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
@@ -287,7 +287,7 @@ msgstr ""
 msgid "no mail"
 msgstr ""
 
-#: src/gui.cc:175
+#: src/gui.cc:196
 #, c-format
 msgid ""
 "Cannot build the interface.\n"
@@ -298,11 +298,11 @@ msgid ""
 "Please make sure package has been installed correctly."
 msgstr ""
 
-#: src/gui.cc:318
+#: src/gui.cc:339
 msgid "GUI_connect requires working gmodule"
 msgstr ""
 
-#: src/gui.cc:325
+#: src/gui.cc:346
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr ""
@@ -319,64 +319,52 @@ msgstr ""
 msgid " checking..."
 msgstr ""
 
-#: src/ui-applet-gtk.cc:136
+#: src/ui-applet-gtk.cc:163
 msgid "New mail"
 msgstr ""
 
-#: src/ui-applet-gtk.cc:149
+#: src/ui-applet-gtk.cc:176
 msgid "No mail"
 msgstr ""
 
-#: src/ui-preferences.cc:208 src/ui-popup.cc:139
+#: src/ui-preferences.cc:267 src/ui-popup.cc:160
 msgid "Mailbox"
 msgstr ""
 
-#: src/ui-preferences.cc:222 src/ui-preferences.cc:304
+#: src/ui-preferences.cc:281 src/ui-preferences.cc:363
 msgid "Type"
 msgstr ""
 
-#: src/ui-preferences.cc:241
+#: src/ui-preferences.cc:300
 msgid "Status"
 msgstr ""
 
-#: src/ui-preferences.cc:256
+#: src/ui-preferences.cc:315
 msgid "Security"
 msgstr ""
 
-#: src/ui-preferences.cc:268 src/ui-preferences.cc:595
+#: src/ui-preferences.cc:327 src/ui-preferences.cc:654
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:296
+#: src/ui-preferences.cc:355
 msgid "Option"
 msgstr ""
 
-#: src/ui-preferences.cc:314
+#: src/ui-preferences.cc:373
 msgid "Value"
 msgstr ""
 
-#: src/ui-preferences.cc:529
+#: src/ui-preferences.cc:588
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:535 ui/preferences.glade:2930
+#: src/ui-preferences.cc:594 ui/preferences.glade:2930
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:546 src/ui-preferences.cc:553
+#: src/ui-preferences.cc:605 src/ui-preferences.cc:612
 msgid "Browse for a new mail image"
-msgstr ""
-
-#: src/ui-preferences.cc:640
-msgid "Set to default value"
-msgstr ""
-
-#: src/ui-preferences.cc:646
-msgid "Toggle option"
-msgstr ""
-
-#: src/ui-preferences.cc:653
-msgid "Edit option"
 msgstr ""
 
 #: src/ui-authentication.cc:88
@@ -424,19 +412,19 @@ msgstr ""
 msgid "Browse for a certificate file"
 msgstr ""
 
-#: src/ui-popup.cc:151
+#: src/ui-popup.cc:172
 msgid "From"
 msgstr ""
 
-#: src/ui-popup.cc:157
+#: src/ui-popup.cc:178
 msgid "Subject"
 msgstr ""
 
-#: src/ui-popup.cc:163
+#: src/ui-popup.cc:184
 msgid "Date"
 msgstr ""
 
-#: src/support.cc:148
+#: src/support.cc:149
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -476,24 +464,28 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: ui/applet-gtk.glade:181
+#: ui/applet-gtk.glade:173
+msgid "_Quit"
+msgstr ""
+
+#: ui/applet-gtk.glade:193
 msgid "About gnubiff"
 msgstr ""
 
-#: ui/applet-gtk.glade:222
+#: ui/applet-gtk.glade:234
 msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
 msgstr ""
 
-#: ui/applet-gtk.glade:243
+#: ui/applet-gtk.glade:255
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
 
-#: ui/applet-gtk.glade:264
+#: ui/applet-gtk.glade:276
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
 
-#: ui/applet-gtk.glade:350
+#: ui/applet-gtk.glade:362
 msgid "Ok"
 msgstr ""
 
@@ -795,6 +787,18 @@ msgstr ""
 
 #: ui/preferences.glade:2851
 msgid "Credits"
+msgstr ""
+
+#: ui/preferences.glade:2982
+msgid "Set to default value"
+msgstr ""
+
+#: ui/preferences.glade:3003
+msgid "Toggle option"
+msgstr ""
+
+#: ui/preferences.glade:3024
+msgid "Edit option"
 msgstr ""
 
 #: ui/properties.glade:7
