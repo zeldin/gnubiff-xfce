@@ -37,7 +37,7 @@
 #include "ui-authentication.h"
 #include "imap4.h"
 #include "nls.h"
-
+#include "support.h"
 
 
 Imap4::Imap4 (Biff *biff) : Mailbox (biff)
@@ -106,29 +106,42 @@ gint Imap4::connect (void)
 	}
 
 	// SELECT
-	std::string s = std::string("A002 SELECT \"")+ folder_ + std::string ("\"\r\n");
-	if (!socket_->write (s.c_str())) return 0;
+	gboolean check = false;
+	gchar *folder_imaputf7=gb_utf8_to_imaputf7(folder_.c_str(),-1);
+	if (folder_imaputf7)
+	{
+		std::string s = std::string("A002 SELECT \"") + folder_imaputf7
+						+ std::string ("\"\r\n");
+		g_free(folder_imaputf7);
+		if (!socket_->write (s.c_str())) return 0;
 
-	gboolean check = FALSE;
-	while (socket_->read (line)) {
-		if (line.find ("A002 OK") == 0) {
-			check = true;
-			break;
-		}
-		else if (line.find ("A002") == 0)
+		while (socket_->read (line))
 		{
-			socket_->write ("A003 LOGOUT\r\n");
-			socket_->close ();
-			break;
+			if (line.find ("A002 OK") == 0)
+			{
+				check = true;
+				break;
+			}
+			else if (line.find ("A002") == 0)
+			{
+				socket_->write ("A003 LOGOUT\r\n");
+				socket_->close ();
+				break;
+			}
 		}
 	}
+	else
+	{
+		socket_->write ("A002 LOGOUT\r\n");
+		socket_->close ();
+	}
 
-	if (!socket_->status()||!check)
+	if (!socket_->status()||!check||!folder_imaputf7)
 	{
 		socket_->status (SOCKET_STATUS_ERROR);
 		status_ = MAILBOX_ERROR;
-		g_warning (_("[%d] Unable to select folder %s on host %s"), uin_,
-				   folder_.c_str(), hostname_.c_str());
+		g_warning (_("[%d] Unable to select folder %s on host %s"),
+				   uin_, folder_.c_str(), hostname_.c_str());
 		return 0;
 	}
 

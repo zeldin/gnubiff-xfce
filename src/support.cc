@@ -63,6 +63,120 @@ gb_utf8_strndup(const gchar *str, gsize n)
 }
 
 /**
+ * This function converts an utf-8 encoded character array to an imap modified
+ * utf-7 character array. Unfortunately glib function g_convert() can only
+ * convert to regular utf-7 (see RFC 2152) but IMAP needs a modified version
+ * of utf-7 (see RFC 3501 5.1.3).
+ *
+ * If {\em len} is negative then {\em str} must be a nul-terminated valid utf-8
+ * string and the whole string will be converted. If {\em len} is positive
+ * {\em str} must contain at least {\em len} bytes (forming a valid utf-8
+ * string) that will be converted. If the conversion is not successful NULL
+ * will be returned, otherwise a newly allocated nul-terminated character array
+ * containing the converted string will be returned. This array must be freed
+ * using g_free().
+ *
+ * @param  str a valid utf-8 character array, nul-terminated if {\em len} is
+ *             less than zero
+ * @param  len number of characters of {\em str} that should be converted or
+ *             less than zero if {\em str} is nul-terminated
+ * @return     a newly allocated nul-terminated character array or NULL
+ */
+gchar*
+gb_utf8_to_imaputf7(const gchar *str, gssize len)
+{
+	// Modified base64 characters (see RFC 2045, RFC 3501 5.1.3)
+	const char *modbase64="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+						  "abcdefghijklmnopqrstuvwxyz0123456789+,";
+
+	// No String or nothing to do
+	if ((str==NULL) || (len==0))
+		return NULL;
+
+	gchar c=*str;;
+	std::string result;
+	gssize cnt_len=0;
+	gboolean printableascii=true;
+	const gchar *start;
+
+	while (((len<0) && (*str!='\0')) || (cnt_len<len) || (!printableascii))
+	{
+		if (cnt_len!=len)
+			c=*str;
+
+		// End of non (printable) ASCII characters?
+		if (((!printableascii) && (c>='\x20') && (c<='\x7e'))
+			|| (((len<0) && (c=='\0')) || ((cnt_len>=len) && (len>0))))
+		{
+			result+='&';
+
+			// Convert first to UTF-16
+			gsize cnt=0;
+			gchar *utf16=g_convert(start,str-start,"UTF-16BE","UTF-8",
+								   NULL,&cnt,NULL);
+			if (utf16==NULL)
+				return NULL;
+			
+			// Convert to modified BASE64
+			gchar *pos=utf16;
+			while (cnt>0)
+			{
+				gchar b[5]="\0\0\0\0";
+				b[0]=modbase64[(pos[0]&0xfc)>>2];
+				if (cnt==1)
+					b[1]=modbase64[(pos[0]&0x03)<<4];
+				else
+				{
+					b[1]=modbase64[((pos[0]&0x03)<<4)|(pos[1]&0xf0)>>4];
+					if (cnt==2)
+						b[2]=modbase64[(pos[1]&0x0f)<<2];
+					else
+					{
+						b[2]=modbase64[((pos[1]&0x0f)<<2)|(pos[2]&0xc0)>>6];
+						b[3]=modbase64[pos[2]&0x3f];
+					}
+				}
+				result+=b;
+				if (cnt>2)
+					cnt-=3;
+				else
+					cnt=0;
+				pos+=3;
+			}
+
+			g_free(utf16);
+			result+="-";
+			printableascii=true;
+			continue;
+		}
+
+		cnt_len++;
+		str++;
+		  
+		// (Printable) ASCII character?
+		if ((printableascii) && (c>='\x20') && (c<='\x7e'))
+		{
+			result+=c;
+			if (c=='&')
+				result+='-';
+			continue;
+		}
+
+		// End of (printable) ASCII characters?
+		if (printableascii)
+		{
+			printableascii=false;
+			start=str-1;
+			continue;
+		}
+
+		// Another non (printable) ASCII character!
+	}
+
+	return g_strdup(result.c_str());
+}
+
+/**
  * Similar to the printf function all '%'-sequences in {\em format} are
  * substituted with strings of {\em toinsert}. A '%' at the end of {\em format}
  * is erased, '%%' leads to '%' in the return value. The sequence '%x' is
