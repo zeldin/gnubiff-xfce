@@ -63,8 +63,10 @@ protected:
 									   char range = '-');
 
 	// File functions
-	std::string add_file_to_path (const std::string path,
-								  const std::string file);
+	static std::string add_file_to_path (const std::string &path,
+										 const std::string file);
+	static std::string path_get_basename (const std::string &path);
+	static std::string path_get_dirname (const std::string &path);
 public:
 	// Debugging
 	static void unknown_internal_error_ (const gchar *file, guint line,

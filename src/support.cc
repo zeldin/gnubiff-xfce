@@ -224,13 +224,48 @@ Support::numbersequence_to_vector (const std::string &seq,
  *  @return       Resulting path or the empty string in case of an error.
  */
 std::string 
-Support::add_file_to_path (std::string path, std::string file)
+Support::add_file_to_path (const std::string &path, const std::string file)
 {
 	std::string result = std::string ("");
-	gchar *filename = g_build_filename (path.c_str(), file.c_str(), NULL);
-	if (filename)
-		result = std::string (filename);
-	g_free (filename);
+	gchar *newpath = g_build_filename (path.c_str(), file.c_str(), NULL);
+	if (newpath)
+		result = std::string (newpath);
+	g_free (newpath);
+	return result;
+}
+
+/**
+ *  Return the basename of the given path {\em path}.
+ *
+ *  @param  path  Path of which the basename is to be returned.
+ *  @return       Basename of {\em path} or the empty string in case of an
+ *                error
+ */
+std::string 
+Support::path_get_basename (const std::string &path)
+{
+	std::string result = std::string ("");
+	gchar *base = g_path_get_basename (path.c_str());
+	if (base)
+		result = std::string (base);
+	g_free (base);
+	return result;
+}
+
+/**
+ *  Return the directory components of the filename {\em path}.
+ *
+ *  @param path  Path of which the directory components are to be returned
+ *  @return      Directory components of the empty string in case of an error
+ */
+std::string 
+Support::path_get_dirname (const std::string &path)
+{
+	std::string result = std::string ("");
+	gchar *dir = g_path_get_dirname (path.c_str());
+	if (dir)
+		result = std::string (dir);
+	g_free (dir);
 	return result;
 }
 

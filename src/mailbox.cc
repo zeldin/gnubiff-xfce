@@ -486,40 +486,33 @@ Mailbox *
 Mailbox::lookup_local (Mailbox &oldmailbox)
 {
 	Mailbox *mailbox = NULL;
-	const gchar *address = oldmailbox.address().c_str();
-	gchar *base = g_path_get_basename (address);
+	std::string addr = oldmailbox.address ();
+	std::string base = path_get_basename (addr);
 
 	// Is it a directory?
-	if (g_file_test (address, G_FILE_TEST_IS_DIR)) {
-		gchar *mh_seq = g_build_filename (address, ".mh_sequences", NULL);
-		gchar *md_new = g_build_filename (address, "new", NULL);
+	if (g_file_test (addr.c_str(), G_FILE_TEST_IS_DIR)) {
+		std::string file_new = add_file_to_path (addr, "new");
+		std::string file_seq = add_file_to_path (addr, ".mh_sequences");
 
-		if (g_file_test (mh_seq, G_FILE_TEST_IS_REGULAR))
+		if (g_file_test (file_seq.c_str(), G_FILE_TEST_IS_REGULAR))
 			mailbox = new Mh (oldmailbox);
-		else if (std::string(base) == "new")
+		else if (base == "new")
 			mailbox = new Maildir (oldmailbox);
-		else if (g_file_test (md_new, G_FILE_TEST_IS_DIR)) {
+		else if (g_file_test (file_new.c_str(), G_FILE_TEST_IS_DIR)) {
 			mailbox = new Maildir (oldmailbox);
-			mailbox->address (md_new);
+			mailbox->address (file_new);
 		}
-
-		g_free (mh_seq);
-		g_free (md_new);
 	}
 	// Is it a file?
-	else if (g_file_test (address, (G_FILE_TEST_EXISTS))) {
-		if (std::string(base) == ".mh_sequences") {
+	else if (g_file_test (addr.c_str(), G_FILE_TEST_EXISTS)) {
+		if (base == ".mh_sequences") {
 			mailbox = new Mh (oldmailbox);
-			gchar *dirname = g_path_get_dirname (address);
-			if (dirname)
-				mailbox->address (dirname);
-			g_free (dirname);
+			mailbox->address (path_get_dirname (addr));
 		}
 		else
 			mailbox = new File (oldmailbox);
 	}
 
-	g_free(base);
 	return mailbox;
 }
 
