@@ -123,8 +123,6 @@ Local::start (void)
 void Local::stop (void)
 {
 	Mailbox::stop ();
-	g_mutex_lock (monitor_mutex_);
 	if (FAMCONNECTION_GETFD (&fam_connection_)) 
 		FAMCancelMonitor (&fam_connection_, &fam_request_);
-	g_mutex_unlock (monitor_mutex_);
 }
