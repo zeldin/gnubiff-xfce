@@ -34,6 +34,7 @@ Version 2.1.1
         other windows
    - Bugfixes: Better error handling and bad connection handling (IMAP4;
         thanks to Byron Foster for providing a patch)
+   - Bugfix: Corrected test for OK response to IDLE command
 
 Version 2.1.0
  * Nicolas Rougier
