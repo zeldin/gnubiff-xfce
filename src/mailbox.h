@@ -44,6 +44,7 @@
 #include "decoding.h"
 #include "header.h"
 #include "socket.h"
+#include "support.h"
 
 /** This struct is needed (when using STL algorithms for
  *  std::map<std::string,Header>) for comparisons of
@@ -62,7 +63,7 @@ struct less_pair_first : public std::binary_function<std::pair<std::string,Heade
  * Generic mailbox intended as base for implementing mailboxes for a specific
  * protocol. 
  */
-class Mailbox : public Decoding, public Gnubiff_Options {
+class Mailbox : public Decoding, public Gnubiff_Options, public Support {
 
 protected:
 	// ========================================================================

@@ -97,8 +97,8 @@ Support::substitute(std::string format, std::string chars,
 	std::string::size_type len = format.length();
 	std::string result("");
 
-	while ((pos < len) && (pos=format.find("%",prevpos)) != std::string::npos)
-    {
+	while ((pos < len)
+		   && (pos = format.find("%", prevpos)) != std::string::npos) {
 		if (prevpos < pos)
 			result.append (format, prevpos, pos-prevpos);
 		prevpos = pos+2;
@@ -121,6 +121,98 @@ Support::substitute(std::string format, std::string chars,
 	if (prevpos<len)
 		result.append (format, prevpos, len-prevpos);
 	return result;
+}
+
+/**
+ *  Convert sequence of strictly positive numbers (given as a string) into a
+ *  vector. The sequence is to be given as a {\em sep} separated list of
+ *  numbers and ranges of numbers.  Whitespace and newline characters are
+ *  ignored (unless the {\em sep} or {\em range} are such a character).
+ *
+ *  Example: "1, 5, 6-9, 12, 4-1, 3, 5" gives [1,5,6,7,8,9,12,3,5]
+ *
+ *  @param  seq    List of numbers and ranges to convert
+ *  @param  vec    Vector in which the numbers of the sequence are returned
+ *                 if the return value is true, otherwise the value of
+ *                 {\em vec} will be undetermined
+ *  @param  empty  If true the vector will be cleared before parsing the
+ *                 sequence (the default is true)
+ *  @param  sep    Character to be used for separating list entries (default
+ *                 is ',')
+ *  @param  range  Character to be used for ranges (default is '-')
+ *  @return        Boolean indicating success
+ */
+gboolean 
+Support::numbersequence_to_vector (const std::string &seq,
+								   std::vector<guint> &vec, gboolean empty,
+								   char sep, char range)
+{
+	std::string::size_type len = seq.length(), pos = 0;
+	guint inf_bound = 0, sup_bound = 0;
+
+	// Clear vector if wished by the user
+	if (empty)
+		vec.clear ();
+
+	while (pos < len) {
+		char c = seq[pos++];
+
+		// Got a digit?
+		if (g_ascii_isdigit (c)) {
+			// Do we already have a number?
+			if (sup_bound > 0)
+				return false;
+			// Get number
+			sup_bound = c - '0';
+			while ((pos < len) && (g_ascii_isdigit (seq[pos])))
+				sup_bound = 10*sup_bound + (seq[pos++] - '0');
+			continue;
+		}
+
+		// Range indicator?
+		if (c == range) {
+			// Test for "num-num-num" format error
+			if (inf_bound > 0)
+				return false;
+			inf_bound = sup_bound;
+			sup_bound = 0;
+			continue;
+		}
+
+		// Separator?
+		if (c == sep) {
+			// No number at all or no end of range given
+			if (sup_bound == 0)
+				return false;
+			// Convert single number to range
+			if (inf_bound == 0)
+				inf_bound = sup_bound;
+			// Add numbers to vector
+			for (guint i = inf_bound; i <= sup_bound; i++)
+				vec.push_back (i);
+			inf_bound = 0;
+			sup_bound = 0;
+			continue;
+		}
+
+		// Ignore whitespace and newlines
+		if ((c == ' ') || (c == '\t') || (c == '\n') || (c == '\r'))
+			continue;
+
+		// Other character
+		return false;
+	}
+
+	// Add last number/range
+	if (sup_bound == 0)
+		return true;
+	// Convert single number to range
+	if (inf_bound == 0)
+		inf_bound = sup_bound;
+	// Add numbers
+	for (guint i = inf_bound; i <= sup_bound; i++)
+		vec.push_back (i);
+	return true;
 }
 
 /**

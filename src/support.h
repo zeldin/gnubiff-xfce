@@ -57,6 +57,11 @@ protected:
 	// Advanced string functions
 	std::string substitute (std::string format, std::string chars,
 							std::vector<std::string> toinsert);
+	gboolean numbersequence_to_vector (const std::string &seq,
+									   std::vector<guint> &vec,
+									   gboolean empty = true, char sep = ',',
+									   char range = '-');
+
 public:
 	// Debugging
 	static void unknown_internal_error_ (const gchar *file, guint line,

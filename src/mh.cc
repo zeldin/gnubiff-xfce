@@ -73,59 +73,18 @@ Mh::connect (void)
 	if (!file.is_open ())
 		return false;
 
-	//  Parse mh sequences and try to find unseen sequence
+	// Parse mh sequences and try to find unseen sequence
+	saved_.clear();
 	while (!file.eof()) {
 		std::string line;
 		getline (file, line);
 
 		// Got it!
-		if (line.find("unseen:") != std::string::npos) {
-			saved_.clear();
-
-			// Analyze of the unseen sequence  whick looks like:
-			//  unseen: 1-3, 7, 9-13, 16, 19
-			// Note: size of "unseen:" is 7
-			std::string::size_type i = line.find ("unseen:") + 7;
-
-			// Start parsing line looking for digit, range indicator,
-			// number separator
-			guint inf_bound = 0;
-			guint sup_bound = 0;
-
-			while (i < line.size()) {
-				// Got a digit ?
-				if (isdigit (line[i])) {
-					do {
-						inf_bound *= 10;
-						inf_bound += (line[i]-'0');
-						i++;
-					} while ((i < line.size()) && (isdigit(line[i])));
-				}
-				// Range indicator ?
-				else if (line[i] == '-') {
-					i++;
-					sup_bound = 0;
-					do {
-						sup_bound *= 10;
-						sup_bound += (line[i]-'0');
-						i++;
-					} while ((i < line.size()) && (isdigit(line[i])));
-					for (guint j=inf_bound; j<=sup_bound; j++)
-						saved_.push_back (j);
-					inf_bound = 0;
-					sup_bound = 0;
-				}
-				// End of a number
-				else {
-					if (inf_bound > 0) {
-						saved_.push_back (inf_bound);
-						inf_bound = 0;
-					}
-					i++;
-				}
-			}
-			if (inf_bound > 0)
-				saved_.push_back (inf_bound);
+		if (line.find("unseen:") == 0) {
+			line = line.substr (7); // size of "unseen:" is 7
+			if (!numbersequence_to_vector (line, saved_))
+				return false;
+			break;
 		}
 	}
 
