@@ -558,6 +558,7 @@ void Mailbox::parse (std::vector<std::string> &mail, int status,
 			if (hidden_.find (h.mailid_) == hidden_.end ())
 				new_unread_[h.mailid_] = h;
 			new_seen_.insert (h.mailid_);
+			new_mails_to_be_displayed_.push_back (h.mailid_);
 #ifdef DEBUG
 			g_message ("[%d] Parsed mail with id \"%s\"", uin_,
 					   h.mailid_.c_str ());
@@ -602,7 +603,7 @@ Mailbox::start_checking (void)
 gboolean 
 Mailbox::new_mail(std::string &mailid)
 {
-	// Mail shall be not displayed? -> no need to fetch and parse it
+	// Mail shall not be displayed? -> no need to fetch and parse it
 	if (hidden_.find (mailid) != hidden_.end ()) {
 #ifdef DEBUG
 		g_message ("[%d] Ignore mail with id \"%s\"", uin_, mailid.c_str ());
@@ -610,15 +611,15 @@ Mailbox::new_mail(std::string &mailid)
 		new_seen_.insert (mailid);
 		return true;
 	}
-	new_mails_to_be_displayed_.push_back (mailid);
 
-	// Mail known?
+	// Mail unknown?
 	if (unread_.find (mailid) == unread_.end ())
 		return false;
 
 	// Insert known mail into new unread mail map
 	new_unread_[mailid] = unread_[mailid];
 	new_seen_.insert (mailid);
+	new_mails_to_be_displayed_.push_back (mailid);
 
 #ifdef DEBUG
 	g_message ("[%d] Already read mail with id \"%s\"", uin_, mailid.c_str ());
