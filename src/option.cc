@@ -344,10 +344,10 @@ Option_String::set_values (const std::set<std::string> &values, gboolean empty)
 		value_ = std::string("");
 	while (i != values.end()) {
 		std::string str = *(i++);
-		guint len = str.size();
+		std::string::size_type len = str.size ();
 		if (len == 0)
 			continue;
-		for (guint j = 0; j < len ; j++) {
+		for (std::string::size_type j = 0; j < len ; j++) {
 			if ((str[j] == ' ') || (str[j] == '\\'))
 				value_ += '\\';
 			value_ += str[j];
@@ -382,9 +382,9 @@ Option_String::get_values (std::set<std::string> &values, gboolean empty)
 		values.clear ();
 
 	std::string tmp;
-	guint len = value_.size();
+	std::string::size_type len = value_.size();
 
-	guint pos = 0;
+	std::string::size_type pos = 0;
 	while (pos < len) {
 		// Remove spaces
 		while ((pos < len) && (value_[pos] == ' '))
