@@ -16,7 +16,8 @@ Version 2.0.2
  * Bug fix in apop.cc (debug message)
  * Mail count added in gtk applet window title
  * Nicolas Rougier
-   - Some fixes for FreeBSD  (missing include, string::clear replaced by string::erase)
+   - Some fixes for FreeBSD
+   - Imap4 bug when copying from another mailbox (folder_ was set to "INBOX")
  * Roland Stigge:
    - updated po/{nl,de}.po
    - finally fixed g++-3.4 compile error (Debian bug #271288)
