@@ -87,10 +87,52 @@ Decoding::decode_base64 (const std::string &todec)
 }
 
 /**
+ * Decoding of a q-encoded strings. Q-Encoding is similar to quoted-printable
+ * encoding and is used in mail headers. See RFC 2047 4.2. for a definition.
+ * If the given string {\em todec} is not valid an empty string is returned.
+ *
+ * @param  todec  Reference to a C++ string to be decoded
+ * @return        C++ string consisting of the decoded string {\em todec}
+ */
+std::string 
+Decoding::decode_qencoding (const std::string &todec)
+{
+	guint pos=0,len=todec.length();
+	std::string result;
+	gint decoded;
+
+	while (pos<len)
+	{
+		switch (gchar c=todec.at(pos++))
+		{
+			case '=':
+				pos+=2;
+				if (pos>len)
+					return result;
+				if ((decoded=g_ascii_xdigit_value(todec.at(pos-1)))<0)
+					return std::string("");
+				if ((decoded+=16*g_ascii_xdigit_value(todec.at(pos-2)))<0)
+					return std::string("");
+				result+=decoded;
+				break;
+			case '_':
+				result+=' ';
+				break;
+			default:
+				result+=c;
+				break;
+		}
+	}
+	return result;
+}
+
+/**
  * Decoding of a quoted-printable encoded string. This string must consist of
  * exactly one line (there is no handling of soft breaks etc., see
  * RFC 2045 6.7. (3)-(5)). If the given string {\em todec} is not valid an
  * empty string is returned.
+ *
+ * Note: For mail headers q-encoding is used instead of quoted-printable.
  *
  * @param  todec  Reference to a C++ string to be decoded
  * @return        C++ string consisting of the decoded string {\em todec}
@@ -115,9 +157,6 @@ Decoding::decode_quotedprintable (const std::string &todec)
 				if ((decoded+=16*g_ascii_xdigit_value(todec.at(pos-2)))<0)
 					return std::string("");
 				result+=decoded;
-				break;
-			case '_':
-				result+=' ';
 				break;
 			default:
 				result+=c;

@@ -73,6 +73,7 @@ Version 2.1.0
    - Error message for mails in unknown enoding (IMAP4)
    - Bugfix: base64 decoding now rejects invalid encoded strings
    - New source files for decoding and converting
+   - Separated q-encoding and quoted printable encoding
 
 Version 2.0.3
   * Roland Stigge:

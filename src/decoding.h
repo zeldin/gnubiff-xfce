@@ -42,6 +42,7 @@ class Decoding
 {
 protected:
 	std::string decode_base64 (const std::string &);
+	std::string decode_qencoding (const std::string &);
 	std::string decode_quotedprintable (const std::string &);
 };
 

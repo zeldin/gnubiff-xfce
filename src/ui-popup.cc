@@ -604,7 +604,7 @@ Popup::parse_header (std::string text)
 			std::string decoded;
 			utf8_part=NULL;
 			if ((encoding == 'Q') || (encoding == 'q'))
-				decoded=decode_quotedprintable(copy_part);
+				decoded=decode_qencoding(copy_part);
 			else if ((encoding == 'B') || (encoding == 'b'))
 				decoded=decode_base64(copy_part);
 			else
