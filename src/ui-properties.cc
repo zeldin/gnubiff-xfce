@@ -436,7 +436,7 @@ Properties::on_apply (GtkWidget *widget)
 			mailbox_->port (mailbox_->other_port());
 		}
 
-		if (((mailbox_->protocol() != PROTOCOL_APOP) && (selected_auth_ == AUTH_APOP)) || (mailbox_->status() == MAILBOX_UNKNOWN)) {
+		if (((mailbox_->protocol() != PROTOCOL_APOP)|| (mailbox_->status() == MAILBOX_UNKNOWN)) && (selected_auth_ == AUTH_APOP)) {
 			Mailbox *mailbox = new Apop (*mailbox_);
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
