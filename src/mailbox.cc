@@ -574,7 +574,7 @@ Mailbox::start_checking (void)
 	// While checking no one else must have read access: Too many things are
 	// changing.
 	// NOTE: When idling etc. while checking, this lock must be freed
-	g_mutex_lock (mutex_);
+//	g_mutex_lock (mutex_);
 
 	// Initialization
 	status_ = MAILBOX_CHECK;
@@ -594,7 +594,7 @@ Mailbox::start_checking (void)
 	unread_ = new_unread_;
 	seen_ = new_seen_;
 
-	g_mutex_unlock (mutex_);
+//	g_mutex_unlock (mutex_);
 }
 
 /**
