@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-27 14:31+0100\n"
+"POT-Creation-Date: 2005-03-04 11:16+0100\n"
 "PO-Revision-Date: 2005-02-27 10:47+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../src/decoding.cc:70
+#: ../src/decoding.cc:77
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[L'encodage \"%s\" ne peut être décodé]"
@@ -64,8 +64,8 @@ msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
-"Votre fichier de configuration n'as pas de définition de boîte aux lettres "
-"(%s)"
+"Votre fichier de configuration n'as pas de définition de boîte aux lettres (%"
+"s)"
 
 #: ../src/biff.cc:559
 msgid "Illegal parameter format in config file"
@@ -86,17 +86,30 @@ msgstr "[%d] Impossible de créer le thread: %s"
 msgid "mailbox %d"
 msgstr "Boîte aux lettres %d"
 
-#: ../src/mailbox.cc:541
+#: ../src/mailbox.cc:558
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: ../src/mailbox.cc:551
+#: ../src/mailbox.cc:569
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: ../src/mailbox.cc:561
+#: ../src/mailbox.cc:580
 msgid "<no date>"
 msgstr "<Pas de date>"
+
+#: ../src/mailbox.cc:587
+msgid "[Cannot parse content type header line]"
+msgstr ""
+
+#: ../src/mailbox.cc:621
+msgid "[Cannot parse content transfer encoding header line]"
+msgstr ""
+
+#: ../src/mailbox.cc:684
+#, c-format
+msgid "[This mail hasn't a supported content type: \"%s/%s\"]"
+msgstr ""
 
 #. Otherwise: Ignore it and print error message
 #: ../src/header.cc:133
@@ -136,47 +149,46 @@ msgstr "[%d] Impossible de lire depuis %s sur le port %d"
 msgid "Could not set read timeout on socket: %s"
 msgstr "Impossible de régler le délai sur la socket: %s"
 
-#: ../src/imap4.cc:468
+#: ../src/imap4.cc:466
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
 #. Create error message
-#: ../src/imap4.cc:837
+#: ../src/imap4.cc:830
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: ../src/imap4.cc:925
+#: ../src/imap4.cc:918
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 
-#: ../src/imap4.cc:984
+#: ../src/imap4.cc:977
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
-"[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\" ni "
-"l'acquitement."
+"[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\" ni l'acquitement."
 
-#: ../src/imap4.cc:1037
+#: ../src/imap4.cc:1030
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\""
 
 #. see RFC 3501 7.1.5
-#: ../src/imap4.cc:1603
+#: ../src/imap4.cc:1584
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Le serveur a fermé immédiatement la connexion: %s"
 
 #. see RFC 3501 7.1.3
-#: ../src/imap4.cc:1608
+#: ../src/imap4.cc:1589
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Erreur interne sur le serveur ou alors erreur inconnue: %s"
 
 #. see RFC 3501 7.1.2
-#: ../src/imap4.cc:1613
+#: ../src/imap4.cc:1594
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Mise en garde du serveur: %s"
@@ -227,22 +239,22 @@ msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
 
-#: ../src/options.cc:308
+#: ../src/options.cc:506
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr "Option inconnue \"%s\""
 
-#: ../src/options.cc:315
+#: ../src/options.cc:513
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Impossible de mettre l'option \"%s\" à \"%s\""
 
-#: ../src/options.cc:467 ../src/gui.cc:211
+#: ../src/options.cc:665 ../src/gui.cc:211
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
-"Impossible de trouver le widget spécifié (\"%s\") dans la structure xml "
-"(\"%s\")"
+"Impossible de trouver le widget spécifié (\"%s\") dans la structure xml (\"%s"
+"\")"
 
 #: ../src/gnubiff_options.cc:130
 msgid "no mail"
@@ -468,8 +480,7 @@ msgstr "Exécuter la commande"
 #: ../ui/applet-gtk.glade.h:8
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
-msgstr ""
-"Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
+msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
 #: ../ui/applet-gtk.glade.h:10
 msgid "tooltip"
@@ -528,8 +539,8 @@ msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 msgstr ""
-"<small>Les bogues doivent etre reportés à <span foreground=\"blue"
-"\">gnubiff-bugs@lists.sourceforge.net</span></small>"
+"<small>Les bogues doivent etre reportés à <span foreground=\"blue\">gnubiff-"
+"bugs@lists.sourceforge.net</span></small>"
 
 #: ../ui/preferences.glade.h:12
 msgid ""
@@ -586,9 +597,10 @@ msgid "List all options."
 msgstr "Liste des options"
 
 #: ../ui/preferences.glade.h:27
+#, fuzzy
 msgid ""
 "List of options, their type and current values. To edit an option "
-"doubleclick on it's value."
+"doubleclick on its value."
 msgstr ""
 "List des options, leur type and leur valeurs courantes. Pour éditer une "
 "option, double-cliquer sur sa valeur."
@@ -665,9 +677,9 @@ msgid ""
 "<b>Warning:</b> Changing these options may cause gnubiff to act not properly "
 "or result in security problems."
 msgstr ""
-"L'éditeur d'options que gnubiff utilise de façon interne peut être "
-"activé ici de façon à pouvoir changer certaines options \"cachées\". Une "
-"coure description de chaque option est fournie. <b>Attention</b>Changer ces "
+"L'éditeur d'options que gnubiff utilise de façon interne peut être activé "
+"ici de façon à pouvoir changer certaines options \"cachées\". Une coure "
+"description de chaque option est fournie. <b>Attention</b>Changer ces "
 "options peut provoquer des erreurs ou bien des problèmes de sécurité."
 
 #: ../ui/preferences.glade.h:47
@@ -727,8 +739,8 @@ msgid ""
 "Whether to show the expert tab. Note: Disabling this option can only be "
 "reversed by editing the config file manually!"
 msgstr ""
-"Afficher le mode expert. Note: Enlever ce mode ne peut se fait qu'en "
-"éditant le fichier de configuration manuellement."
+"Afficher le mode expert. Note: Enlever ce mode ne peut se fait qu'en éditant "
+"le fichier de configuration manuellement."
 
 #: ../ui/preferences.glade.h:61
 msgid "Whether to use format for header"
