@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 18:50+0100\n"
+"POT-Creation-Date: 2004-12-14 11:34+0100\n"
 "PO-Revision-Date: 2004-12-08 22:50+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -65,29 +65,29 @@ msgstr "Kann die Konfigurationsdatei »%s« nicht öffnen!"
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Keine Briefkastendefinition in der Konfigurationsdatei »%s« gefunden!"
 
-#: src/mailbox.cc:68
+#: src/mailbox.cc:71
 #, c-format
 msgid "mailbox %d"
 msgstr "Briefkasten %d"
 
-#: src/mailbox.cc:182
+#: src/mailbox.cc:185
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Kann Thread nicht erzeugen: %s"
 
-#: src/mailbox.cc:460
+#: src/mailbox.cc:463
 msgid "<no sender>"
 msgstr "<Kein Absender>"
 
-#: src/mailbox.cc:470
+#: src/mailbox.cc:473
 msgid "<no subject>"
 msgstr "<Kein Betreff>"
 
-#: src/mailbox.cc:480
+#: src/mailbox.cc:483
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
-#: src/mailbox.cc:575
+#: src/mailbox.cc:578
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Das Encoding »%s« dieser Nachricht kann nicht dekodiert werden]"
@@ -128,7 +128,7 @@ msgstr "[%d] Bekomme keine Bestätigung von »%s« auf Port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kann Ordner »%s« auf dem Server »%s« nicht auswählen"
 
-#: src/imap4.cc:516
+#: src/imap4.cc:517
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Diese Nachricht besitzt keinen Klartext-Abschnitt (\"text/plain\")]"
 
@@ -147,12 +147,12 @@ msgstr "Kann neues Mail-Verzeichnis nicht öffnen (»%s«)."
 msgid "Cannot open %s."
 msgstr "Kann »%s« nicht öffnen."
 
-#: src/apop.cc:86 src/pop3.cc:84
+#: src/apop.cc:88 src/pop3.cc:86
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Leeres Passwort"
 
-#: src/apop.cc:126
+#: src/apop.cc:128
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -161,7 +161,7 @@ msgstr ""
 "[%d] Der POP-Server scheint das APOP-Protokoll nicht zu akzeptieren (kein "
 "Zeitstempel bereitgestellt)"
 
-#: src/apop.cc:150
+#: src/apop.cc:152
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -300,7 +300,7 @@ msgstr "Datum"
 msgid "* error *"
 msgstr "* Fehler *"
 
-#: src/ui-popup.cc:729
+#: src/ui-popup.cc:652
 msgid "Error"
 msgstr "Fehler"
 

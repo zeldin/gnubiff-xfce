@@ -66,13 +66,15 @@ protected:
 	gboolean			use_ssl_;
 	std::string			certificate_;
 # ifdef HAVE_LIBSSL
-	SSL_CTX *			context_;
-	SSL *				ssl_;
-	gboolean			bypass_certificate_;
-	class Certificate *	ui_certificate_;
+	SSL_CTX *					context_;
+	SSL *						ssl_;
+	gboolean					bypass_certificate_;
+	static class Certificate *	ui_cert_;
+	static GStaticMutex			ui_cert_mutex_;		// Lock to avoid conflicts
 # endif
 	gint				sd_;
 	gint				status_;
+
 	static GStaticMutex	hostname_mutex_;
 
 

@@ -49,6 +49,7 @@
 // ========================================================================	
 guint Mailbox::uin_count_ = 1;
 Authentication *Mailbox::ui_auth_ = 0;
+GStaticMutex Mailbox::ui_auth_mutex_ = G_STATIC_MUTEX_INIT;
 
 
 // ========================================================================
@@ -59,8 +60,10 @@ Mailbox::Mailbox (Biff *biff)
 	biff_ = biff;
 	listed_ = false;
 	stopped_ = false;
+	g_static_mutex_lock (&ui_auth_mutex_);
 	if (ui_auth_ == 0)
 		ui_auth_ = new Authentication ();
+	g_static_mutex_unlock (&ui_auth_mutex_);
 
 	// Default parameters
 	uin_ = uin_count_++;

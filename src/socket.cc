@@ -47,8 +47,18 @@
 #include "nls.h"
 
 
+// ========================================================================
+//  Static features
+// ========================================================================	
 GStaticMutex Socket::hostname_mutex_  = G_STATIC_MUTEX_INIT;
+#ifdef HAVE_LIBSSL
+Certificate *Socket::ui_cert_ = 0;
+GStaticMutex Socket::ui_cert_mutex_ = G_STATIC_MUTEX_INIT;
+#endif
 
+// ========================================================================
+//  base
+// ========================================================================	
 Socket::Socket (Mailbox *mailbox)
 {
 	mailbox_ = mailbox;
@@ -68,7 +78,10 @@ Socket::Socket (Mailbox *mailbox)
 	SSL_load_error_strings();
 	context_ = SSL_CTX_new (SSLv23_client_method());
 	bypass_certificate_ = false;
-	ui_certificate_ = new Certificate ();
+	g_static_mutex_lock (&ui_cert_mutex_);
+	if (ui_cert_ == 0)
+		ui_cert_ = new Certificate ();
+	g_static_mutex_unlock (&ui_cert_mutex_);
 #endif
 }
 
@@ -227,7 +240,9 @@ Socket::open (std::string hostname,
 		}
 
 		if ((certificate_.size() > 0) && (SSL_get_verify_result(ssl_) != X509_V_OK)) {
-			ui_certificate_->select (this);
+			g_static_mutex_lock (&ui_cert_mutex_);
+			ui_cert_->select (this);
+			g_static_mutex_unlock (&ui_cert_mutex_);
 			if (!bypass_certificate_) {
 				SSL_free (ssl_);
 				ssl_ = NULL;

@@ -149,6 +149,8 @@ protected:
 	std::vector<guint>			new_seen_;			// mails already seen (tmp buffer)
 
 	static class Authentication *ui_auth_;			// ui to get username & password
+	static GStaticMutex			ui_auth_mutex_;		// Lock to avoid conflicts
+
 
 
 public:

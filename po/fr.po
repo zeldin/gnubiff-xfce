@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 18:50+0100\n"
+"POT-Creation-Date: 2004-12-14 11:34+0100\n"
 "PO-Revision-Date: 2004-12-08 14:33+0100\n"
 "Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
 "Language-Team: Français\n"
@@ -69,29 +69,29 @@ msgstr ""
 "Votre fichier de configuration n'as pas de définition de boîte aux lettres (%"
 "s)"
 
-#: src/mailbox.cc:68
+#: src/mailbox.cc:71
 #, c-format
 msgid "mailbox %d"
 msgstr "Boîte aux lettres %d"
 
-#: src/mailbox.cc:182
+#: src/mailbox.cc:185
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossible de créer le thread: %s"
 
-#: src/mailbox.cc:460
+#: src/mailbox.cc:463
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: src/mailbox.cc:470
+#: src/mailbox.cc:473
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: src/mailbox.cc:480
+#: src/mailbox.cc:483
 msgid "<no date>"
 msgstr "<Pas de date>"
 
-#: src/mailbox.cc:575
+#: src/mailbox.cc:578
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr ""
@@ -132,7 +132,7 @@ msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:516
+#: src/imap4.cc:517
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
@@ -151,12 +151,12 @@ msgstr "Inpossible d'ouvrir le répertoire (%s)"
 msgid "Cannot open %s."
 msgstr "Impossible d'ouvrir %s"
 
-#: src/apop.cc:86 src/pop3.cc:84
+#: src/apop.cc:88 src/pop3.cc:86
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Mot de passe vide"
 
-#: src/apop.cc:126
+#: src/apop.cc:128
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -164,7 +164,7 @@ msgid ""
 msgstr ""
 "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
-#: src/apop.cc:150
+#: src/apop.cc:152
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -304,7 +304,7 @@ msgstr "Date"
 msgid "* error *"
 msgstr "* erreur *"
 
-#: src/ui-popup.cc:729
+#: src/ui-popup.cc:652
 msgid "Error"
 msgstr "Erreur"
 
