@@ -12,6 +12,7 @@ Version 2.1.0
      (no more polling for file/folder protocols)
    - Better detection of mailbox format
    - Bugfix: IMAP4 idle state test to avoid checking twice
+   - Bugfix: Popup was shown on exiting preferences
 
  * Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
    - Gnome version can determine itself if in standalone mode or panel mode

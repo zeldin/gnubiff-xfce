@@ -57,7 +57,7 @@ public:
 	// ========================================================================	
 	void start (guint delay=0);						// start monitoring
 	void stop  (void);								// stop monitoring
-	virtual void update (void) = 0;					// update applet
+	virtual void update (gboolean no_popup = false);// update applet
 	virtual void dock (GtkWidget *applet) {};		// dock applet
 
 	guint       unread_markup (std::string &text);	// build unread markup string

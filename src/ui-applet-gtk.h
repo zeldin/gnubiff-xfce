@@ -38,17 +38,23 @@
 class AppletGtk : public Applet {
 
  public:
-	/* base */
+	// ========================================================================
+	//  base
+	// ========================================================================	
 	AppletGtk (class Biff *biff);
 	~AppletGtk (void);
 
-	/* main */
-	void update (void);
+	// ========================================================================
+	//  main
+	// ========================================================================	
+	void update (gboolean no_popup = false);
 	gint create (void);
 	void show (std::string name = "dialog");
 	void tooltip_update (void);
 
-	/* callbacks */
+	// ========================================================================
+	//  callbacks
+	// ========================================================================	
 	gboolean on_button_press (GdkEventButton *event);
 	void on_menu_command (void);
 	void on_menu_mark (void);

@@ -157,7 +157,7 @@ int mainGTK (int argc, char **argv) {
 
 	// Show setup panel or start gnubiff directly
 	if (no_configure) {
-		biff->applet()->update();
+		biff->applet()->update(true);
 		biff->applet()->show();
 		if (biff->check_mode_ == AUTOMATIC_CHECK)
 			biff->applet()->start (3);
@@ -183,7 +183,7 @@ static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid, g
 		biff->applet()->dock ((GtkWidget *) applet);
 		biff->preferences()->synchronize();
 		biff->applet()->show ();
-		biff->applet()->update ();
+		biff->applet()->update (true);
 		if (biff->check_mode_ == AUTOMATIC_CHECK)
 			biff->applet()->start (3);
 	}

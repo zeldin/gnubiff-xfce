@@ -168,7 +168,7 @@ Applet::tooltip_text (void)
 
 
 void
-Applet::update (void)
+Applet::update (gboolean no_popup)
 {
 #ifdef DEBUG
 	g_message ("Applet update");
@@ -182,12 +182,12 @@ Applet::update (void)
 		unread += biff_->mailbox(i)->unreads();
 	}
 
-	if ((newmail == true) && (unread > 0) && (force_popup_ == false) && ( biff_->use_newmail_command_)) {
+	if ((!no_popup) && (newmail == true) && (unread > 0) && (force_popup_ == false) && (biff_->use_newmail_command_)) {
 		std::string command = biff_->newmail_command_ + " &";
 		system (command.c_str());
 	}
 
-	if (unread && ((biff_->use_popup_ && newmail) || (force_popup_))) {
+	if ((!no_popup) && unread && ((biff_->use_popup_ && newmail) || (force_popup_))) {
 		biff_->popup()->update();
 		biff_->popup()->show();
 	}

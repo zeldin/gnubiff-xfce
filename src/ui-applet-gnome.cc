@@ -171,13 +171,13 @@ AppletGnome::dock (GtkWidget *applet)
 }
 
 void
-AppletGnome::update (void)
+AppletGnome::update (gboolean no_popup)
 {
 	// Is there another update going on ?
 	if (!g_mutex_trylock (update_mutex_))
 		return;
 
-	Applet::update ();
+	Applet::update (no_popup);
 
 	std::string text;
 	guint unread = unread_markup (text);

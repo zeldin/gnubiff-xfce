@@ -45,19 +45,25 @@ protected:
 	GtkWidget *		about_;
 
 public:
-	/* base */
+	// ========================================================================
+	//  base
+	// ========================================================================	
 	AppletGnome (class Biff *biff);
 	~AppletGnome (void);
 
-	/* main */
+	// ========================================================================
+	//  main
+	// ========================================================================	
 	PanelApplet *panelapplet() {return(PANEL_APPLET(applet_));};
 	void dock (GtkWidget *applet);
-	void update (void);
+	void update (gboolean no_popup = false);
 	void show (std::string name = "dialog");
 	void hide (std::string name = "dialog");
 	void tooltip_update (void);
 
-	/* callbacks */
+	// ========================================================================
+	//  callbacks
+	// ========================================================================	
 	gboolean on_button_press (GdkEventButton *event);
 	void on_menu_properties (BonoboUIComponent *uic, const gchar *verbname);
 	void on_menu_command (BonoboUIComponent *uic, const gchar *verbname);
