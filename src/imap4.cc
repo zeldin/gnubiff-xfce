@@ -100,9 +100,6 @@ Imap4::threaded_start (guint delay)
 	// If no delay is given use internal delay
 	if (!delay)
 		delay=delay_;
-#if DEBUG
-	g_message ("[%d] Start fetch in %d second(s)", uin_, delay);
-#endif
 
 	Mailbox::threaded_start (delay);
 }
@@ -307,7 +304,7 @@ Imap4::connect (void) throw (imap_err)
 void 
 Imap4::fetch_mails (void) throw (imap_err)
 {
-	// Status will be restored in the end if no problem occured
+	// We are checking for mails now
 	status_ = MAILBOX_CHECK;
 
 	// SEARCH NOT SEEN
@@ -1234,7 +1231,7 @@ Imap4::tag ()
  * otherwise (if {\em check} is false) error handling is left to the caller of
  * this function.
  *
- * @param command  IMAP command as a C++ string
+ * @param command  IMAP command to be sent
  * @param print    Shall the sent command be printed in debug mode?
  *                 The default is true.
  * @param check    Shall the return value of the Socket::write() command be
@@ -1248,7 +1245,7 @@ Imap4::tag ()
  *                 This exception is thrown if a network error occurs.
  */
 gint 
-Imap4::sendline (std::string command, gboolean print, gboolean check)
+Imap4::sendline (const std::string command, gboolean print, gboolean check)
 				 throw (imap_err)
 {
 	// Create new tag

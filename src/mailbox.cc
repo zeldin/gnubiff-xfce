@@ -169,6 +169,10 @@ Mailbox::threaded_start (guint delay)
 	//  or later (delay is given in seconds) ?
 	else
 		start_delayed_entry_point (this);
+
+#if DEBUG
+	g_message ("[%d] Start fetch in %d second(s)", uin_, delay);
+#endif
 }
 
 gboolean

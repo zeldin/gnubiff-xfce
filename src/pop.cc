@@ -42,58 +42,72 @@
 // ========================================================================
 //  base
 // ========================================================================	
+/**
+ * Constructor. The mailbox for one of the IMAP protocols is created from
+ * scratch.
+ *
+ * @param biff Pointer to the instance of Gnubiff.
+ */
 Pop::Pop (Biff *biff) : Mailbox (biff)
 {
 	socket_ = new Socket (this);
 }
 
+/**
+ * Constructor. The mailbox for one of the POP protocols is created by taking
+ * the attributes of the existing mailbox {\em other}.
+ *
+ * @param other Mailbox from which the attributes are taken.
+ */
 Pop::Pop (const Mailbox &other) : Mailbox (other)
 {
 	socket_ = new Socket (this);
 }
 
+/// Destructor
 Pop::~Pop (void)
 {
+	delete socket_;
 }
 
 // ========================================================================
 //  main
 // ========================================================================	
-void
+/**
+ * Make a note to start monitoring in a new thread. If there is already a note
+ * or if we are in idle state nothing is done.
+ *
+ * @param delay Time (in seconds) to wait before the new thread will be
+ *              created. If {\em delay} is zero (this is the default) the
+ *              value of {\em delay_} is taken.
+ */
+void 
 Pop::threaded_start (guint delay)
 {
-	stopped_ = false;
+	// If no delay is given use internal delay
+	if (!delay)
+		delay=delay_;
 
-	// Is there already a timeout ?
-	if (timetag_)
-		return;
-
-	// Do we want to start using given delay ?
-	if (delay)
-		timetag_ = g_timeout_add (delay*1000, start_delayed_entry_point, this);
-	//  or internal delay ?
-	else
-		timetag_ = g_timeout_add (delay_*1000, start_delayed_entry_point, this);
+	Mailbox::threaded_start (delay);
 }
 
-void
-Pop::start (void)
+/**
+ * Method to be called by a new thread for monitoring the mailbox. The status
+ * of the mailbox will be updated, new mails fetched and idle state entered
+ * (if the server does allow this). Before exiting creating of a new thread
+ * for monitoring is noted down.
+ *
+ * Remark: In this function all exceptions are catched that are thrown when
+ * sending POP commands or receiving response from the server.
+ */
+void 
+Pop::start (void) throw (pop_err)
 {
 	if (!g_mutex_trylock (monitor_mutex_))
 		return;
-	fetch ();
-	g_mutex_unlock (monitor_mutex_);
 
-	threaded_start (delay_);
-}
-
-void
-Pop::fetch (void)
-{
 	try {
-		fetch_status();
-		if ((status_ == MAILBOX_NEW) || (status_ == MAILBOX_EMPTY))
-			fetch_header();
+		fetch ();
 	}
 	catch (pop_err& err) {
 		// Catch all errors that are un-recoverable and result in
@@ -112,21 +126,95 @@ Pop::fetch (void)
 		biff_->applet()->update();
 		gdk_threads_leave();
 	}
+
+	g_mutex_unlock (monitor_mutex_);
+
+	threaded_start (delay_);
 }
 
-void
-Pop::fetch_status (void)
+/**
+ * Connect to the mailbox, get unread mails and update mailbox status.
+ * If the password for the mailbox isn't already known, it is obtained (if
+ * possible). When leaving this function gnubiff will logout from the server.
+ *
+ * @exception pop_command_err
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
+ * @exception pop_dos_err
+ *                     This exception is thrown when a DoS attack is suspected.
+ * @exception pop_nologin_err
+ *                     The server doesn't want us to login or the user doesn't
+ *                     provide a password.
+ * @exception pop_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+void 
+Pop::fetch (void) throw (pop_err)
 {
-	status_ = MAILBOX_CHECK;
+	// Is there a password? Can we obtain it?
+	if (!biff_->password(this)) {
+		g_warning (_("[%d] Empty password"), uin_);
+		throw pop_nologin_err();
+	}
 
 	// Connection and authentification
-	if (!connect())	return;
+	connect();
+
+	fetch_mails ();
+
+	// QUIT
+	command_quit();
+}
+
+/**
+ * Get the first lines of the unread mails and update the status of the
+ * mailbox.
+ *
+ * @exception pop_command_err
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
+ * @exception pop_dos_err
+ *                     This exception is thrown when a DoS attack is suspected.
+ * @exception pop_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+void 
+Pop::fetch_mails (gboolean statusonly) throw (pop_err)
+{
+	// We are checking for mails now
+	status_ = MAILBOX_CHECK;
 
 	// STAT
 	guint total = command_stat ();
 
-	// UIDL for each message
-	std::vector<std::string> buffer = command_uidl (total);
+	// We want to retrieve a maximum of _max_collected_mail uidl
+	// so we have to check the total number and find corresponding
+	// starting index (start).
+	guint start = 1, num = biff_->max_mail_;
+	if (total > biff_->max_mail_)
+		start = 1 + total - biff_->max_mail_;
+	else
+		num = total;
+
+	// Fetch mails
+	new_unread_.clear();
+	new_seen_.clear();
+	std::vector<std::string> mail;
+	std::vector<std::string> buffer;
+
+	for (guint i=0; i< num; i++) {
+		// UIDL
+		buffer.push_back(command_uidl (i+start));
+
+		if (statusonly)
+			continue;
+
+		// TOP
+		command_top (mail, start + i);
+
+		// Parse mail
+		parse (mail, MAIL_UNREAD);
+	}
 
 	// Determine new mailbox status
 	if (buffer.empty())
@@ -137,87 +225,49 @@ Pop::fetch_status (void)
 		status_ = MAILBOX_OLD;
 	saved_ = buffer;
 
-	// QUIT
-	command_quit ();
-}
-
-void
-Pop::fetch_header (void)
-{
-	std::string line;
-	int saved_status = status_;
-  
-	// Status will be restored in the end if no problem occured
-	status_ = MAILBOX_CHECK;
-
-	// Connection and authentification
-	if (!connect()) return;
-
-	// STAT
-	guint total = command_stat ();
-
-	// We want to retrieve a maximum of _max_collected_mail 
-	// so we have to check total number and find corresponding
-	// starting index (start).
-	guint n;
-	guint start;
-	if (total > biff_->max_mail_) {
-		n = biff_->max_mail_;
-		start = 1 + total - biff_->max_mail_;
-	}
-	else {
-		n = total;
-		start = 1;
-	}
-
-	// Fetch mails
-	new_unread_.clear();
-	new_seen_.clear();
-	std::vector<std::string> mail;
-	for (guint i=0; i < n; i++) {
-		std::stringstream s;
-		s << (i+start) << " " << bodyLinesToBeRead_;
-		mail.clear();
-		// Get header and first lines of mail (see constant bodyLinesToBeRead_)
-		sendline ("TOP " + s.str());
-		readline (line, false); // + OK response to TOP
-#ifdef DEBUG
-		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
-				 address_.c_str(), port_);
-#endif
-
-		gint cnt = preventDoS_headerLines_ + bodyLinesToBeRead_ + 1;
-		do {
-			readline (line, false, true, false);
-			if (line.size() > 1) {
-				mail.push_back (line.substr(0, line.size()-1));
-#ifdef DEBUG
-				g_print ("+");
-#endif
-			}
-			else
-				mail.push_back ("");
-		} while ((line != ".\r") && (cnt--));
-		if (cnt < 0) throw pop_dos_err();
-#ifdef DEBUG
-		g_print("\n");
-#endif
-		mail.pop_back();
-		parse (mail, MAIL_UNREAD);
-	}
-
-	// QUIT
-	command_quit();
-
-	// Restore status
-	status_ = saved_status;
-
-	// Last check for mailbox status
 	if ((unread_ == new_unread_) && (unread_.size() > 0))
 		status_ = MAILBOX_OLD;
-
 	unread_ = new_unread_;
 	seen_ = new_seen_;
+}
+
+/**
+ * Opening the socket for the connection to the server. If authentication is
+ * set to autodetection before this is done. Login to the server is handled
+ * by the methods Pop3::connect() or Apop::connect().
+ *
+ * @exception pop_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+void 
+Pop::connect (void) throw (pop_err)
+{
+	// Autodetection of authentication
+	if (authentication_ == AUTH_AUTODETECT) {
+		guint port = port_;
+		if (!use_other_port_)
+			port = 995;
+		if (!socket_->open (address_, port, AUTH_SSL)) {
+			if (!use_other_port_)
+				port = 110;
+			if (!socket_->open (address_, port, AUTH_USER_PASS))
+				throw pop_socket_err();
+			else {
+				port_ = port;
+				authentication_ = AUTH_USER_PASS;
+				socket_->close();
+			}
+		}
+		else {
+			port_ = port;
+			authentication_ = AUTH_SSL;
+			socket_->close();
+		}
+	}
+
+	// Open socket
+	if (!socket_->open (address_, port_, authentication_, certificate_, 3))
+		throw pop_socket_err();
 }
 
 /**
@@ -267,47 +317,84 @@ Pop::command_stat (void) throw (pop_err)
 }
 
 /**
- * Sending for each message that will be obtained the POP3 command "UIDL" to
- * get its unique id.
+ * Sending the POP3 command "TOP" to get the header and the first lines of a
+ * mail.
  *
- * @param  total       Total number of messages on the server
- * @return             C++ vector with the unique ids
+ * @param  mail        Lines of the obtained mail in a vector
+ * @param  msg         Message number of the mail in question
  * @exception pop_command_err
  *                     This exception is thrown if there is an error in the
  *                     server's response.
  * @exception pop_socket_err
  *                     This exception is thrown if a network error occurs.
  */
-std::vector<std::string> 
-Pop::command_uidl (guint total) throw (pop_err)
+void 
+Pop::command_top (std::vector<std::string> &mail, guint msg) throw (pop_err)
 {
-	std::string line, uidl, dummy;
+	std::string line;
 
-	// We want to retrieve a maximum of _max_collected_mail uidl
-	// so we have to check the total number and find corresponding
-	// starting index (start).
-	guint start = 1, n = biff_->max_mail_;
-	if (total > biff_->max_mail_)
-		start = 1 + total - biff_->max_mail_;
-	else
-		n = total;
+	// Clear old mail
+	mail.clear ();
 
-	// Retrieve uidl one by one to avoid to get all of them
-	std::vector<std::string> buffer;
-	buffer.clear();
-	for (guint i=0; i< n; i++) {
-		std::stringstream s;
-		s << (i+start);
-		sendline ("UIDL " + s.str());
-		readline (line);
-		// line is "+OK msg uidl" (see RFC 1939 7.)
-		std::stringstream ss(line.substr(4));
-		ss >> dummy >> uidl;
-		if (dummy != s.str()) throw pop_command_err ();
-		if ((uidl.size() > 70) || (uidl.size() == 0)) throw pop_command_err ();
-		buffer.push_back (uidl);
-	}
-	return buffer;
+	std::stringstream ss;
+	ss << "TOP " << msg << " " << bodyLinesToBeRead_;
+	// Get header and first lines of mail
+	sendline (ss.str ());
+	readline (line, false); // +OK response to TOP
+#ifdef DEBUG
+	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
+			 address_.c_str(), port_);
+#endif
+	gint cnt = preventDoS_headerLines_ + bodyLinesToBeRead_ + 1;
+	do {
+		readline (line, false, true, false);
+		// Remove trailing '\n'
+		if (line.size() > 0) {
+			if (line[0]!='.')
+				mail.push_back (line.substr(0, line.size()-1));
+			else // Note: We know line.size()>1 in this case
+				mail.push_back (line.substr(0, line.size()-2));
+#ifdef DEBUG
+			g_print ("+");
+#endif
+		}
+		else throw pop_command_err ();
+	} while ((line != ".\r") && (cnt--));
+	if (cnt < 0) throw pop_dos_err();
+#ifdef DEBUG
+	g_print("\n");
+#endif
+	// Remove ".\r" line
+	mail.pop_back();
+}
+
+/**
+ * Sending the POP3 command "UIDL" to get the unique id for a mail.
+ *
+ * @param  msg         Message number of the mail in question
+ * @return             unique id as a C++ String
+ * @exception pop_command_err
+ *                     This exception is thrown if there is an error in the
+ *                     server's response.
+ * @exception pop_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+std::string 
+Pop::command_uidl (guint msg) throw (pop_err)
+{
+	std::string line, uid, dummy;
+
+	std::stringstream ss_msg;
+	ss_msg << msg;
+	sendline ("UIDL " + ss_msg.str ());
+	readline (line); // line is "+OK msg uidl" (see RFC 1939 7.)
+
+	std::stringstream ss(line.substr(4));
+	ss >> dummy >> uid;
+	if (dummy != ss_msg.str()) throw pop_command_err ();
+	if ((uid.size() > 70) || (uid.size() == 0)) throw pop_command_err ();
+
+	return uid;
 }
 
 /**
@@ -332,7 +419,7 @@ Pop::command_uidl (guint total) throw (pop_err)
  *                 This exception is thrown if a network error occurs.
  */
 gint 
-Pop::sendline (std::string line, gboolean print, gboolean check)
+Pop::sendline (const std::string line, gboolean print, gboolean check)
 			   throw (pop_err)
 {
 	gint status=socket_->write (line + "\r\n", print);

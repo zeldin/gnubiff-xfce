@@ -58,70 +58,31 @@ Apop::Apop (const Mailbox &other) : Pop (other)
 
 Apop::~Apop (void)
 {
-	delete socket_;
 }
 
 // ========================================================================
 //  main
 // ========================================================================	
-int
-Apop::connect (void)
+void 
+Apop::connect (void) throw (pop_err)
 {
 	std::string line;
 
-	// Is there a password? Can we obtain it?
-	if (!biff_->password(this)) {
-		status_ = MAILBOX_ERROR;
-		g_warning (_("[%d] Empty password"), uin_);
-		return 0;
-	}
+	// Open the socket
+	Pop::connect ();
 
-	// connection
-	if (authentication_ == AUTH_AUTODETECT) {
-		guint port = port_;
-		if (!use_other_port_)
-			port = 995;
-		if (!socket_->open (address_, port, AUTH_SSL)) {
-			if (!use_other_port_)
-				port = 110;
-			if (!socket_->open (address_, port, AUTH_USER_PASS)) {
-				status_ = MAILBOX_ERROR;
-				return 0;
-			}
-			else {
-				port_ = port;
-				authentication_ = AUTH_USER_PASS;
-				socket_->close();
-			}
-		}
-		else {
-			port_ = port;
-			authentication_ = AUTH_SSL;
-			socket_->close();
-		}
-	}
-
-	if (!socket_->open (address_, port_, authentication_, certificate_, 3)) {
-		status_ = MAILBOX_ERROR;
-		return 0;
-	}
-
-
-	// Does server supports apop protocol ?
+	// Does the server support the apop protocol?
 	//  if so, answer should be something like:
 	//  +OK POP3 server ready <1896.697170952@dbc.mtview.ca.us>
 	readline (line);
-	if (line.find ("<") == std::string::npos) {
+	guint lt=line.find ("<"), gt=line.find (">");
+	if ((lt == std::string::npos) || (gt == std::string::npos) || (gt < lt)) {
 		g_warning (_("[%d] Your pop server does not seem to accept apop protocol (no timestamp provided)"), uin_);
-		socket_->status (SOCKET_STATUS_ERROR);
-		status_ = MAILBOX_ERROR;
-		return 0;
+		throw pop_command_err ();
 	}
 
 	// Get time stamp from server
-	std::string timestamp = line.substr (line.find ("<"));
-	timestamp = timestamp.substr (0, timestamp.find (">")+1);
-
+	std::string timestamp = line.substr (lt, gt-lt+1);
 
 	// Build message if MD5 library available
 	char hex_response[33];
@@ -143,6 +104,4 @@ Apop::connect (void)
 	// LOGIN
 	sendline ("APOP " + username_ + " " + std::string (hex_response));
 	readline (line); // +OK response
-
-	return 1;
 }

@@ -43,7 +43,7 @@
 class Imap4 : public Mailbox {
 
  protected:
-	/// Socket to talk to server
+	/// Socket to talk to the server
 	class Socket *				socket_;
 	/// Does the server support the IDLE capability?
 	gboolean					idleable_;
@@ -143,7 +143,7 @@ class Imap4 : public Mailbox {
 										  throw (imap_err);
 	void reset_tag();
 	std::string tag();
-	gint sendline (std::string,gboolean print=true, gboolean check=true)
+	gint sendline (const std::string, gboolean print=true, gboolean check=true)
 				   throw (imap_err);
 	gint readline (std::string &, gboolean print=true, gboolean check=true,
 				   gboolean checkline=true) throw (imap_err);

@@ -61,7 +61,7 @@ Version 2.1.1
         responses (IMAP4)
    - Don't stop idling when the server sends information and warning messages
         (IMAP4)
-   - Source code for class Imap4 is fully documented now
+   - Source code for class Imap4, Pop is fully documented now
    - Bugfix: Printing debug messages for sent lines (IMAP4 & POP3)
    - Feature: Allow the user to forbid idling (no GUI support ATM; IMAP4)
    - Added exception handling to POP3
@@ -71,7 +71,10 @@ Version 2.1.1
    - Bugfix: Allow mail lines to begin with "-ERR" (POP3)
    - Bugfix: Don't treat "* BYE" messages by server as mailbox error when not
         checking for mail (IMAP4)
-   - Bugfix/Cleanup of QUIT, STAT, UIDL commands (POP3)
+   - Bugfix/Cleanup of QUIT, STAT, UIDL and TOP commands (POP3)
+   - Bugfix: Mail lines beginning with '.' (POP3, was fixed in 2.0.x)
+   - fetch_mails() instead of fetch_status() and fetch_header (POP3 & IMAP4)
+   - Bugfix: Error handling when getting timestamp (APOP)
 
 Version 2.1.0
  * Nicolas Rougier

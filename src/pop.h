@@ -42,8 +42,10 @@
  */
 class Pop : public Mailbox {
 protected:
-	class Socket *	 			socket_;		// socket to talk to server
-	std::vector<std::string> 	saved_;			// saved uidl's
+	/// Socket to talk to the server
+	class Socket *	 			socket_;
+	/// Vector for the saved unique identifiers of the mails
+	std::vector<std::string> 	saved_;
 
 public:
 	// ========================================================================
@@ -73,24 +75,28 @@ public:
 	class pop_command_err : public pop_err {};
 	/// This exception is thrown when a DoS attack is suspected. 
 	class pop_dos_err : public pop_err {};
+	/** This exception is thrown when login because the user provides no
+	 *  password. */
+	class pop_nologin_err : public pop_err {};
+
 
 	// ========================================================================
 	//  main
 	// ========================================================================	
 	virtual void threaded_start (guint delay = 0);
-	void start (void);
-	void fetch (void);
-	virtual int connect (void) = 0;
-	void fetch_status (void);
-	void fetch_header (void);
+	void start (void) throw (pop_err);
+	void fetch (void) throw (pop_err);
+	virtual void connect (void) throw (pop_err);
+	void fetch_mails (gboolean statusonly = false) throw (pop_err);
 
  protected:
 	void command_quit (void) throw (pop_err);
 	guint command_stat (void) throw (pop_err);
-	std::vector<std::string> command_uidl (guint) throw (pop_err);
+	void command_top (std::vector<std::string> &, guint) throw (pop_err);
+	std::string command_uidl (guint) throw (pop_err);
 	gint readline (std::string &, gboolean print=true, gboolean check=true,
 				   gboolean checkline=true) throw (pop_err);
-	gint sendline (std::string, gboolean print=true, gboolean check=true)
+	gint sendline (const std::string, gboolean print=true, gboolean check=true)
 				   throw (pop_err);
 };
 
