@@ -228,9 +228,9 @@ Popup::update (void)
 	saved_strings.clear();
 
 	// At this point we have to display popup_size headers that are
-	// present in the different mailboxes, knowing that last receveid
-	// mail are at the end of each mailbox. We then need to compute
-	// the exact number of mail to display for each mailbox.
+	// present in the different mailboxes, knowing that last received
+	// mail is at the end of each mailbox. We then need to compute
+	// the exact number of mails to display for each mailbox.
 	std::vector <gint> count;
 
 	if (biff_->popup_use_size_) {
