@@ -274,28 +274,27 @@ Mailbox::lookup (void)
 	Mailbox *mailbox = 0;
 
 	// Local mailbox
-	if (address_[0] == '/') {
-		std::string address = address_;
+	if (g_path_is_absolute(address_.c_str())) {
+		gchar *base=g_path_get_basename(address_.c_str());
 
-		// Strip terminal '/' (if any)
-		if (address[address.size()-1] == '/')
-			address = address.substr (0, address.size()-1);
+		// Is it a directory?
+		if (g_file_test (address_.c_str(), G_FILE_TEST_IS_DIR)) {
+			gchar *mh_seq=g_build_filename(address_.c_str(),".mh_sequences",NULL);
+			gchar *md_new=g_build_filename(address_.c_str(),"new",NULL);
 
-		// Is it a directory ?
-		if (g_file_test (address.c_str(), G_FILE_TEST_IS_DIR)) {
-			std::string mh_sequence = address + "/.mh_sequences";
-			std::string maildir_new = address + "/new";
-
-			if (g_file_test (mh_sequence.c_str(), G_FILE_TEST_EXISTS))
+			if (g_file_test (mh_seq, G_FILE_TEST_IS_REGULAR))
 				mailbox = new Mh (*this);
-			else if (address.find ("new") != std::string::npos)
+			else if (base=="new")
 				mailbox = new Maildir (*this);
-			else if (g_file_test (maildir_new.c_str(), G_FILE_TEST_IS_DIR))
+			else if (g_file_test (md_new, G_FILE_TEST_IS_DIR))
 				mailbox = new Maildir (*this);
+			
+			g_free(mh_seq);
+			g_free(md_new);
 		}
-		// Is it a file
-		else if (g_file_test (address.c_str(), (G_FILE_TEST_EXISTS))) {
-			if (address.find (".mh_sequences") != std::string::npos)
+		// Is it a file?
+		else if (g_file_test (address_.c_str(), (G_FILE_TEST_EXISTS))) {
+			if (base==std::string(".mh_sequences"))
 				mailbox = new Mh (*this);
 			else
 				mailbox = new File (*this);
