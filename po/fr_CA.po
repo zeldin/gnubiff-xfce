@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-14 11:34+0100\n"
-"PO-Revision-Date: 2004-12-08 14:33+0100\n"
+"POT-Creation-Date: 2004-12-14 12:14+0100\n"
+"PO-Revision-Date: 2004-12-14 12:16+0100\n"
 "Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
 "Language-Team: Français\n"
 "MIME-Version: 1.0\n"
@@ -94,30 +94,30 @@ msgstr "<Pas de date>"
 #: src/mailbox.cc:578
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
-msgstr ""
+msgstr "[L'encodage \"%s\" du mèl ne peut pas etre décodé]"
 
-#: src/socket.cc:108 src/socket.cc:137 src/socket.cc:165 src/socket.cc:173
-#: src/socket.cc:181 src/socket.cc:193 src/socket.cc:217 src/socket.cc:225
+#: src/socket.cc:121 src/socket.cc:150 src/socket.cc:178 src/socket.cc:186
+#: src/socket.cc:194 src/socket.cc:206 src/socket.cc:230 src/socket.cc:238
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Impossible de se connecter à %s via le port %d"
 
-#: src/socket.cc:203
+#: src/socket.cc:216
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Impossible de charger le certificat (%s) pour %s"
 
-#: src/socket.cc:236
+#: src/socket.cc:251
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Impossible d'identifier l'hôte (%s sur le port %d)"
 
-#: src/socket.cc:303
+#: src/socket.cc:318
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Impossible d'écrire à %s sur le port %d"
 
-#: src/socket.cc:350
+#: src/socket.cc:365
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Impossible de lire depuis %s sur le port %d"
@@ -161,13 +161,11 @@ msgstr "[%d] Mot de passe vide"
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
-msgstr ""
-"[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
+msgstr "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
 #: src/apop.cc:152
 #, c-format
-msgid ""
-"[%d] Problem with crypto that should have been detected at configure time"
+msgid "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
@@ -345,8 +343,7 @@ msgid "Start command"
 msgstr "Exécuter la commande"
 
 #: ui/applet-gtk.glade.h:8
-msgid ""
-"This program is part of the GNU project, released under the aegis of GNU."
+msgid "This program is part of the GNU project, released under the aegis of GNU."
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
 #: ui/applet-gtk.glade.h:9
@@ -684,8 +681,7 @@ msgstr "Répertoire standard"
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
-msgstr ""
-"Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
+msgstr "Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
 
 #: ui/properties.glade.h:19
 msgid "Your password on the mail server"
@@ -948,3 +944,4 @@ msgstr "mail content"
 #~ msgstr ""
 #~ "<span size=\"x-small\"><i>Non nécessaire si le serveur possède la "
 #~ "capacité IDLE</i></span>"
+

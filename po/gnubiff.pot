@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-14 11:34+0100\n"
+"POT-Creation-Date: 2004-12-14 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,28 +90,28 @@ msgstr ""
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr ""
 
-#: src/socket.cc:108 src/socket.cc:137 src/socket.cc:165 src/socket.cc:173
-#: src/socket.cc:181 src/socket.cc:193 src/socket.cc:217 src/socket.cc:225
+#: src/socket.cc:121 src/socket.cc:150 src/socket.cc:178 src/socket.cc:186
+#: src/socket.cc:194 src/socket.cc:206 src/socket.cc:230 src/socket.cc:238
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr ""
 
-#: src/socket.cc:203
+#: src/socket.cc:216
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr ""
 
-#: src/socket.cc:236
+#: src/socket.cc:251
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr ""
 
-#: src/socket.cc:303
+#: src/socket.cc:318
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr ""
 
-#: src/socket.cc:350
+#: src/socket.cc:365
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr ""
