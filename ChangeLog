@@ -46,6 +46,7 @@ Version 2.1.3
    - Bugfix: Monitoring the correct directory by FAM (maildir; thanks to
         Alexis S. L. Carvalho for reporting this and previous maildir bugs)
    - Bugfix: Reading messages (mh)
+   - Added Alexis S. L. Carvalho to contributors
 
 Version 2.1.2		2005-03-26 17:28
  * Robert Sowada

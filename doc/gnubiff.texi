@@ -240,6 +240,7 @@ Various contributors:@*
 @item Josh Berdine
 @item Philippe Berger
 @item Dennis Bjorklund
+@item Alexis S. L. Carvalho
 @item Nicolas Evrard
 @item Greg Fenton
 @item Byron Foster
