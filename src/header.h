@@ -158,7 +158,6 @@ public:
 		}
 	};
 
-	// FIXME: Date comparisions should not be string based!
 	/// Comparing the date of two headers
 	struct compare_date : public bin_fun_
 	{
@@ -168,7 +167,6 @@ public:
 		}
 	};
 
-	// FIXME: Date comparisions should not be string based!
 	/// Comparing the date of two headers (reversed)
 	struct compare_date_rev : public bin_fun_
 	{
