@@ -40,7 +40,6 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <signal.h>
 
 #include "ui-certificate.h"
 #include "mailbox.h"
@@ -349,16 +348,20 @@ Socket::read (std::string &line,
 	errno = 0;
 #ifdef HAVE_LIBSSL
 	if (use_ssl_) {
-		while ((0<cnt--) && ((status = SSL_read (ssl_, &buffer, 1)) > 0) && (buffer != '\n'))
+		while ((0<cnt--)
+			   && ((status=TEMP_FAILURE_RETRY(SSL_read (ssl_, &buffer, 1)))>0)
+			   && (buffer != '\n'))
 			line += buffer;
 	}
 	else
 #endif
 	{
-		while ((0<cnt--) && ((status = ::read (sd_, &buffer, 1)) > 0) && (buffer != '\n'))
+		while ((0<cnt--)
+			   && ((status=TEMP_FAILURE_RETRY(::read (sd_, &buffer, 1))) > 0)
+			   && (buffer != '\n'))
 			line += buffer;
 	}
-	
+
 	if (errno == EAGAIN)
 		status_ = SOCKET_TIMEOUT;
 	else if ((status > 0) && (cnt>=0))
@@ -419,16 +422,9 @@ Socket::read (std::string &line,
 void 
 Socket::set_read_timeout(gint timeout)
 {
-	// Ignore SIGCHLD so launching external processes does not disturb
-	// read from the sockets.	 This is put in this routine because
-	// setting the socket timeout seems to cause SIGCHLD to interrupt
-	// reads.
-	sigignore(SIGCHLD);
-
 	struct timeval tv;
 	tv.tv_sec = timeout;
 	tv.tv_usec = 0;
 	if (setsockopt(sd_, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) == -1)
 		g_error("Could not set read timeout on socket: %s", strerror(errno));
 }
-
