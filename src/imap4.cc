@@ -521,10 +521,10 @@ Imap4::fetch_header (void)
 
 				// Note: We are only interested in the first lines, there
 				// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
-				// so it is sufficient to get at most 1000*linesToBeRead_
+				// so it is sufficient to get at most 1000*bodyLinesToBeRead_
 				// bytes.
-				if (textsize>1000*linesToBeRead_)
-					textsize=1000*linesToBeRead_;
+				if (textsize>1000*bodyLinesToBeRead_)
+					textsize=1000*bodyLinesToBeRead_;
 				std::stringstream textsizestr;
 				textsizestr << textsize;
 				line = "FETCH "+s.str()+" (BODY.PEEK["+partinfo.part+"]<0.";
@@ -545,7 +545,7 @@ Imap4::fetch_header (void)
 				gint lineno=0,bytes=textsize+3; // ")\r\n" at end of mail
 				while ((bytes>0) && ((socket_->read(line, false) > 0))) {
 					bytes-=line.size()+1; // don't forget to count '\n'!
-					if ((line.size() > 0) && (lineno++<linesToBeRead_)) {
+					if ((line.size() > 0) && (lineno++<bodyLinesToBeRead_)) {
 						mail.push_back (line.substr(0, line.size()-1));
 #ifdef DEBUG
 						g_print ("+");
