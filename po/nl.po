@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-06 22:04+0100\n"
+"POT-Creation-Date: 2005-02-20 22:49+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -16,235 +16,236 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/decoding.cc:70
+#: ../src/decoding.cc:70
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr ""
 
-#: src/gnubiff.cc:98
+#: ../src/gnubiff.cc:98
 msgid "Start gnome applet from command line"
 msgstr ""
 
-#: src/gnubiff.cc:106
+#: ../src/gnubiff.cc:106
 #, fuzzy
 msgid "Configuration file to use"
 msgstr "configuratiebestand om te gebruiken"
 
-#: src/gnubiff.cc:106
+#: ../src/gnubiff.cc:106
 msgid "file"
 msgstr "bestand"
 
-#: src/gnubiff.cc:108
+#: ../src/gnubiff.cc:108
 #, fuzzy
 msgid "Skip the configuration process"
 msgstr "configuratieproces overslaan"
 
-#: src/gnubiff.cc:110
+#: ../src/gnubiff.cc:110
 msgid "Print version information and exit"
 msgstr ""
 
-#: src/gnubiff.cc:117
+#: ../src/gnubiff.cc:117
 msgid "General command line options:"
 msgstr ""
 
-#: src/gnubiff.cc:120
+#: ../src/gnubiff.cc:120
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:125
+#: ../src/biff.cc:125
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Configuratiebestand (%s) niet gevonden!"
 
-#: src/biff.cc:495
+#: ../src/biff.cc:509
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
-#: src/biff.cc:521
+#: ../src/biff.cc:535
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Geen postvak-definitie gevonden in uw .gnubiffrc"
 
-#: src/biff.cc:545
+#: ../src/biff.cc:559
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:568
+#: ../src/biff.cc:582
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:134
+#: ../src/mailbox.cc:134
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "Kon thread niet aanmaken: %s\n"
 
-#: src/mailbox.cc:231
+#: ../src/mailbox.cc:265
 #, fuzzy, c-format
 msgid "mailbox %d"
 msgstr "Postvak"
 
-#: src/mailbox.cc:507
+#: ../src/mailbox.cc:541
 #, fuzzy
 msgid "<no sender>"
 msgstr "<geen verzender gevonden>"
 
-#: src/mailbox.cc:517
+#: ../src/mailbox.cc:551
 #, fuzzy
 msgid "<no subject>"
 msgstr "<geen onderwerp gevonden>"
 
-#: src/mailbox.cc:527
+#: ../src/mailbox.cc:561
 #, fuzzy
 msgid "<no date>"
 msgstr "<geen datum gevonden>"
 
 #. Otherwise: Ignore it and print error message
-#: src/header.cc:133
+#: ../src/header.cc:133
 #, c-format
 msgid "Can't sort mails by \"%s\""
 msgstr ""
 
-#: src/socket.cc:122 src/socket.cc:151 src/socket.cc:179 src/socket.cc:187
-#: src/socket.cc:195 src/socket.cc:207 src/socket.cc:231 src/socket.cc:239
+#: ../src/socket.cc:122 ../src/socket.cc:151 ../src/socket.cc:179
+#: ../src/socket.cc:187 ../src/socket.cc:195 ../src/socket.cc:207
+#: ../src/socket.cc:231 ../src/socket.cc:239
 #, fuzzy, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/socket.cc:217
+#: ../src/socket.cc:217
 #, fuzzy, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/socket.cc:252
+#: ../src/socket.cc:252
 #, fuzzy, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "Kan niet schrijven naar %s op poort %d"
 
-#: src/socket.cc:326
+#: ../src/socket.cc:326
 #, fuzzy, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "Kan niet schrijven naar %s op poort %d"
 
-#: src/socket.cc:388
+#: ../src/socket.cc:388
 #, fuzzy, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "Kan niet lezen van %s op poort %d"
 
-#: src/socket.cc:410
+#: ../src/socket.cc:410
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
 
-#: src/imap4.cc:475
+#: ../src/imap4.cc:468
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
 #. Create error message
-#: src/imap4.cc:844
+#: ../src/imap4.cc:837
 #, fuzzy, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/imap4.cc:932
+#: ../src/imap4.cc:925
 #, fuzzy, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "Kan geen bevestiging opvragen van %s op poort %d"
 
-#: src/imap4.cc:991
+#: ../src/imap4.cc:984
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: src/imap4.cc:1044
+#: ../src/imap4.cc:1037
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
 #. see RFC 3501 7.1.5
-#: src/imap4.cc:1610
+#: ../src/imap4.cc:1603
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.3
-#: src/imap4.cc:1615
+#: ../src/imap4.cc:1608
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.2
-#: src/imap4.cc:1620
+#: ../src/imap4.cc:1613
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
 
-#: src/maildir.cc:86
+#: ../src/maildir.cc:86
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Kan nieuwe e-mail map niet vinden (%s)"
 
-#: src/maildir.cc:93
+#: ../src/maildir.cc:93
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kan nieuwe e-mail map niet openen (%s)"
 
-#: src/maildir.cc:121
+#: ../src/maildir.cc:121
 #, c-format
 msgid "Cannot open %s."
 msgstr "Kan %s niet openen."
 
-#: src/pop.cc:157
+#: ../src/pop.cc:157
 #, c-format
 msgid "[%d] Empty password"
 msgstr ""
 
-#: src/pop.cc:508
+#: ../src/pop.cc:508
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr ""
 
-#: src/pop.cc:515
+#: ../src/pop.cc:515
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr ""
 
-#: src/apop.cc:102
+#: ../src/apop.cc:102
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
 msgstr ""
 
-#: src/apop.cc:122
+#: ../src/apop.cc:122
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 
-#: src/options.cc:308
+#: ../src/options.cc:308
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr ""
 
-#: src/options.cc:315
+#: ../src/options.cc:315
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr ""
 
-#: src/options.cc:451 src/gui.cc:211
+#: ../src/options.cc:464 ../src/gui.cc:211
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
 "Kon de aangegeven widget (\"%s\") niet vinden in xml structuur (\"%s\")"
 
-#: src/gnubiff_options.cc:124
+#: ../src/gnubiff_options.cc:124
 #, fuzzy
 msgid "no mail"
 msgstr "Geen e-mail"
 
-#: src/gui.cc:175
+#: ../src/gui.cc:175
 #, c-format
 msgid ""
 "Cannot build the interface.\n"
@@ -261,261 +262,261 @@ msgstr ""
 "\n"
 "Controleer a.u.b. of het pakket juist is geïnstalleerd."
 
-#: src/gui.cc:318
+#: ../src/gui.cc:318
 msgid "GUI_connect requires working gmodule"
 msgstr "GUI_connect vereist een werkende gmodule"
 
-#: src/gui.cc:325
+#: ../src/gui.cc:325
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr "Kon signaalbehandelaar '%s' niet vinden."
 
-#: src/ui-applet.cc:134
+#: ../src/ui-applet.cc:134
 msgid " unknown"
 msgstr ""
 
-#: src/ui-applet.cc:136
+#: ../src/ui-applet.cc:136
 #, fuzzy
 msgid " error"
 msgstr "fout!"
 
-#: src/ui-applet.cc:141
+#: ../src/ui-applet.cc:141
 msgid " checking..."
 msgstr " bezig met controleren..."
 
-#: src/ui-applet-gtk.cc:136
+#: ../src/ui-applet-gtk.cc:136
 #, fuzzy
 msgid "New mail"
 msgstr "Nieuwe e-mail"
 
-#: src/ui-applet-gtk.cc:149
+#: ../src/ui-applet-gtk.cc:149
 #, fuzzy
 msgid "No mail"
 msgstr "Geen e-mail"
 
-#: src/ui-preferences.cc:210 src/ui-popup.cc:139
+#: ../src/ui-preferences.cc:208 ../src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Postvak"
 
-#: src/ui-preferences.cc:224
+#: ../src/ui-preferences.cc:222
 msgid "Type"
 msgstr ""
 
-#: src/ui-preferences.cc:243
+#: ../src/ui-preferences.cc:241
 msgid "Status"
 msgstr ""
 
-#: src/ui-preferences.cc:258
+#: ../src/ui-preferences.cc:256
 msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:270 src/ui-preferences.cc:589
+#: ../src/ui-preferences.cc:268 ../src/ui-preferences.cc:592
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:523
+#: ../src/ui-preferences.cc:526
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:529 ui/preferences.glade.h:65
+#: ../src/ui-preferences.cc:532 ../ui/preferences.glade.h:65
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:540 src/ui-preferences.cc:547
+#: ../src/ui-preferences.cc:543 ../src/ui-preferences.cc:550
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Bladeren"
 
 #. "Set to default value"
-#: src/ui-preferences.cc:627
+#: ../src/ui-preferences.cc:630
 msgid "Set to default value"
 msgstr ""
 
-#: src/ui-preferences.cc:633
+#: ../src/ui-preferences.cc:636
 msgid "Toggle option"
 msgstr ""
 
-#: src/ui-preferences.cc:640
+#: ../src/ui-preferences.cc:643
 msgid "Edit option"
 msgstr ""
 
-#: src/ui-authentication.cc:88
+#: ../src/ui-authentication.cc:88
 #, c-format
 msgid "Please enter your username and password for mailbox '%s'"
 msgstr ""
 
-#: src/ui-certificate.cc:75
+#: ../src/ui-certificate.cc:75
 #, c-format
 msgid "Unable to verify the identity of %s as a trusted site.\n"
 msgstr ""
 
-#: src/ui-certificate.cc:76
+#: ../src/ui-certificate.cc:76
 #, c-format
 msgid ""
 "Either site's certificate is incomplete or you're connected to a site "
 "pretending to be %s, possibly to obtain your password"
 msgstr ""
 
-#: src/ui-properties.cc:125 src/ui-properties.cc:152
+#: ../src/ui-properties.cc:125 ../src/ui-properties.cc:152
 msgid "Autodetect"
 msgstr ""
 
-#: src/ui-properties.cc:126
+#: ../src/ui-properties.cc:126
 #, fuzzy
 msgid "File or Folder"
 msgstr "Postvak"
 
-#: src/ui-properties.cc:154
+#: ../src/ui-properties.cc:154
 msgid "User/Pass"
 msgstr ""
 
-#: src/ui-properties.cc:156
+#: ../src/ui-properties.cc:156
 msgid "Encrypted User/Pass (apop)"
 msgstr ""
 
-#: src/ui-properties.cc:160
+#: ../src/ui-properties.cc:160
 #, fuzzy
 msgid "SSL with certificate"
 msgstr "Bladeren voor een certificaatbestand"
 
-#: src/ui-properties.cc:316
+#: ../src/ui-properties.cc:316
 #, fuzzy
 msgid "Browse for a file or folder"
 msgstr "Bladeren"
 
-#: src/ui-properties.cc:322 ui/properties.glade.h:5
+#: ../src/ui-properties.cc:322 ../ui/properties.glade.h:5
 #, fuzzy
 msgid "Browse for a certificate file"
 msgstr "Bladeren voor een certificaatbestand"
 
-#: src/ui-popup.cc:151
+#: ../src/ui-popup.cc:151
 msgid "From"
 msgstr ""
 
-#: src/ui-popup.cc:157
+#: ../src/ui-popup.cc:157
 msgid "Subject"
 msgstr ""
 
-#: src/ui-popup.cc:163
+#: ../src/ui-popup.cc:163
 #, fuzzy
 msgid "Date"
 msgstr "Versierd"
 
-#: src/ui-popup.cc:612 src/ui-popup.cc:624 src/ui-popup.cc:633
-#: src/ui-popup.cc:640
+#: ../src/ui-popup.cc:612 ../src/ui-popup.cc:624 ../src/ui-popup.cc:633
+#: ../src/ui-popup.cc:640
 #, fuzzy
 msgid "* error *"
 msgstr "fout!"
 
-#: src/ui-popup.cc:693
-#, fuzzy
-msgid "Error"
-msgstr "fout!"
+#: ../src/ui-popup.cc:704
+#, c-format
+msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
+msgstr ""
 
-#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade.h:5
+#: ../src/GNOME_gnubiffApplet.xml.h:1 ../ui/applet-gtk.glade.h:5
 #, fuzzy
 msgid "Mark mailboxes read"
 msgstr "Berichten als gelezen markeren"
 
-#: src/GNOME_gnubiffApplet.xml.h:2
+#: ../src/GNOME_gnubiffApplet.xml.h:2
 msgid "Preferences..."
 msgstr "Voorkeuren..."
 
-#: src/GNOME_gnubiffApplet.xml.h:3
+#: ../src/GNOME_gnubiffApplet.xml.h:3
 #, fuzzy
 msgid "Run command"
 msgstr "Opdracht voor geluid"
 
-#: src/GNOME_gnubiffApplet.server.in.h:1
+#: ../src/GNOME_gnubiffApplet.server.in.h:1
 #, fuzzy
 msgid "Mail notification program"
 msgstr "Een postwaarschuwingsprogramma"
 
-#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade.h:9
+#: ../src/GNOME_gnubiffApplet.server.in.h:2 ../ui/applet-gtk.glade.h:9
 msgid "gnubiff"
 msgstr "gnubiff"
 
-#: ui/applet-gtk.glade.h:1
+#: ../ui/applet-gtk.glade.h:1
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
 "<small>(C) 2000-2004 Nicolas Rougier, Nederlandse vertaling (C) 2004 Elros "
 "Cyriatan</small>"
 
-#: ui/applet-gtk.glade.h:2
+#: ../ui/applet-gtk.glade.h:2
 msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
 msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
 
-#: ui/applet-gtk.glade.h:3
+#: ../ui/applet-gtk.glade.h:3
 msgid "About"
 msgstr "Info"
 
-#: ui/applet-gtk.glade.h:4
+#: ../ui/applet-gtk.glade.h:4
 msgid "About gnubiff"
 msgstr "Over gnubiff"
 
-#: ui/applet-gtk.glade.h:6
+#: ../ui/applet-gtk.glade.h:6
 msgid "Ok"
 msgstr "OK"
 
-#: ui/applet-gtk.glade.h:7
+#: ../ui/applet-gtk.glade.h:7
 #, fuzzy
 msgid "Start command"
 msgstr "Opdracht voor geluid"
 
-#: ui/applet-gtk.glade.h:8
+#: ../ui/applet-gtk.glade.h:8
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
 
-#: ui/applet-gtk.glade.h:10
+#: ../ui/applet-gtk.glade.h:10
 msgid "tooltip"
 msgstr "werktip"
 
-#: ui/applet-gnome.glade.h:1
+#: ../ui/applet-gnome.glade.h:1
 msgid "00"
 msgstr "00"
 
-#: ui/applet-gnome.glade.h:2
+#: ../ui/applet-gnome.glade.h:2
 msgid "Applet"
 msgstr "Applet"
 
-#: ui/preferences.glade.h:1
+#: ../ui/preferences.glade.h:1
 #, fuzzy
 msgid "<b>Commands</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:2
+#: ../ui/preferences.glade.h:2
 #, fuzzy
 msgid "<b>General</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:3
+#: ../ui/preferences.glade.h:3
 #, fuzzy
 msgid "<b>Headers</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:4
+#: ../ui/preferences.glade.h:4
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:5
+#: ../ui/preferences.glade.h:5
 #, fuzzy
 msgid "<b>Mailboxes</b>"
 msgstr "Postvak"
 
-#: ui/preferences.glade.h:6
+#: ../ui/preferences.glade.h:6
 #, fuzzy
 msgid "<b>When new mail</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:7
+#: ../ui/preferences.glade.h:7
 #, fuzzy
 msgid "<b>When no mail</b>"
 msgstr "<b>Y</b>"
 
-#: ui/preferences.glade.h:8
+#: ../ui/preferences.glade.h:8
 #, fuzzy
 msgid ""
 "<small> Released under the aegis of GNU\n"
@@ -524,13 +525,13 @@ msgstr ""
 "<small>(C) 2000-2004 Nicolas Rougier, Nederlandse vertaling (C) 2004 Elros "
 "Cyriatan</small>"
 
-#: ui/preferences.glade.h:10
+#: ../ui/preferences.glade.h:10
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 msgstr ""
 
-#: ui/preferences.glade.h:11
+#: ../ui/preferences.glade.h:11
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -539,456 +540,460 @@ msgid ""
 "Here is a list of these people:</small>"
 msgstr ""
 
-#: ui/preferences.glade.h:16
+#: ../ui/preferences.glade.h:16
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:17
+#: ../ui/preferences.glade.h:17
 #, fuzzy
 msgid "Applet or Biff"
 msgstr "Applet "
 
-#: ui/preferences.glade.h:18
+#: ../ui/preferences.glade.h:18
 msgid "B_rowse..."
 msgstr ""
 
-#: ui/preferences.glade.h:19
+#: ../ui/preferences.glade.h:19
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "Bladeren voor een certificaatbestand"
 
-#: ui/preferences.glade.h:20
+#: ../ui/preferences.glade.h:20
 msgid "Contributors"
 msgstr ""
 
-#: ui/preferences.glade.h:21
+#: ../ui/preferences.glade.h:21
 msgid "Credits"
 msgstr "Elros Cyriatan"
 
-#: ui/preferences.glade.h:22
+#: ../ui/preferences.glade.h:22
 msgid "Developers"
 msgstr ""
 
-#: ui/preferences.glade.h:23
+#: ../ui/preferences.glade.h:23
 msgid "Expert"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ../ui/preferences.glade.h:24
 msgid "Image filename"
 msgstr ""
 
-#: ui/preferences.glade.h:25
+#: ../ui/preferences.glade.h:25
 msgid "List all options."
 msgstr ""
 
-#: ui/preferences.glade.h:26
+#: ../ui/preferences.glade.h:26
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on it's value."
 msgstr ""
 
-#: ui/preferences.glade.h:27
+#: ../ui/preferences.glade.h:27
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Postvak"
 
-#: ui/preferences.glade.h:28
+#: ../ui/preferences.glade.h:28
 msgid "Maintainers"
 msgstr ""
 
-#: ui/preferences.glade.h:29
+#: ../ui/preferences.glade.h:29
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr ""
 "<small>Maximale aantal\n"
 "te verzamelen berichten</small>"
 
-#: ui/preferences.glade.h:30 ui/popup.glade.h:4
+#: ../ui/preferences.glade.h:30 ../ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Pop-up"
 
-#: ui/preferences.glade.h:31
+#: ../ui/preferences.glade.h:31
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:32
+#: ../ui/preferences.glade.h:32
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr ""
 
-#: ui/preferences.glade.h:33
+#: ../ui/preferences.glade.h:33
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:34
+#: ../ui/preferences.glade.h:34
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:35
+#: ../ui/preferences.glade.h:35
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:36
+#: ../ui/preferences.glade.h:36
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:37
+#: ../ui/preferences.glade.h:37
 msgid "String to be searched for."
 msgstr ""
 
-#: ui/preferences.glade.h:38
+#: ../ui/preferences.glade.h:38
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:40
+#: ../ui/preferences.glade.h:40
 #, fuzzy, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 "Tekst om weer te geven als er geen nieuwe post is; %d is het aantal "
 "berichten."
 
-#: ui/preferences.glade.h:41
+#: ../ui/preferences.glade.h:41
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Geluid om af te spelen als nieuwe e-mail is ontvangen"
 
-#: ui/preferences.glade.h:42
+#: ../ui/preferences.glade.h:42
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:43
+#: ../ui/preferences.glade.h:43
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:44
+#: ../ui/preferences.glade.h:44
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:45
+#: ../ui/preferences.glade.h:45
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade.h:46
+#: ../ui/preferences.glade.h:46
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:47
+#: ../ui/preferences.glade.h:47
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:48
+#: ../ui/preferences.glade.h:48
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:49
+#: ../ui/preferences.glade.h:49
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Nieuwe e-mail"
 
-#: ui/preferences.glade.h:50
+#: ../ui/preferences.glade.h:50
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:51
+#: ../ui/preferences.glade.h:51
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:52
+#: ../ui/preferences.glade.h:52
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:53
+#: ../ui/preferences.glade.h:53
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:54
+#: ../ui/preferences.glade.h:54
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ui/preferences.glade.h:55
+#: ../ui/preferences.glade.h:55
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:56
+#: ../ui/preferences.glade.h:56
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:57
+#: ../ui/preferences.glade.h:57
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ui/preferences.glade.h:58
+#: ../ui/preferences.glade.h:58
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:59 ui/properties.glade.h:21
+#: ../ui/preferences.glade.h:59 ../ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:60
+#: ../ui/preferences.glade.h:60
 #, fuzzy
 msgid "_Display for"
 msgstr "Datum weergeven in koppen"
 
-#: ui/preferences.glade.h:61
+#: ../ui/preferences.glade.h:61
 #, fuzzy
 msgid "_Font:"
 msgstr "Lettertypes "
 
-#: ui/preferences.glade.h:62
+#: ../ui/preferences.glade.h:62
 #, fuzzy
 msgid "_Format:"
 msgstr "Lettertypes "
 
-#: ui/preferences.glade.h:63
+#: ../ui/preferences.glade.h:63
 msgid "_Restrict collected mail to"
 msgstr ""
 
-#: ui/preferences.glade.h:64
+#: ../ui/preferences.glade.h:64
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade.h:66
+#: ../ui/preferences.glade.h:66
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Voorkeuren"
 
-#: ui/preferences.glade.h:67
+#: ../ui/preferences.glade.h:67
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:68
+#: ../ui/preferences.glade.h:68
 #, fuzzy
 msgid "mail(s)"
 msgstr "kmail"
 
-#: ui/preferences.glade.h:69
+#: ../ui/preferences.glade.h:69
 msgid "second(s)"
 msgstr ""
 
-#: ui/properties.glade.h:1
+#: ../ui/properties.glade.h:1
 #, fuzzy
 msgid "<b>_Details</b>"
 msgstr "Postvak"
 
-#: ui/properties.glade.h:2
+#: ../ui/properties.glade.h:2
 #, fuzzy
 msgid "A_ddress:"
 msgstr "<b>X</b>"
 
-#: ui/properties.glade.h:3
+#: ../ui/properties.glade.h:3
 msgid "Aut_hentication:"
 msgstr ""
 
-#: ui/properties.glade.h:4
+#: ../ui/properties.glade.h:4
 msgid "Bro_wse..."
 msgstr ""
 
-#: ui/properties.glade.h:6
+#: ../ui/properties.glade.h:6
 msgid "Cer_tificate:"
 msgstr ""
 
-#: ui/properties.glade.h:7
+#: ../ui/properties.glade.h:7
 msgid "Certificate filename"
 msgstr ""
 
-#: ui/properties.glade.h:8
+#: ../ui/properties.glade.h:8
 msgid "Connection port to connect to server"
 msgstr ""
 
-#: ui/properties.glade.h:9
+#: ../ui/properties.glade.h:9
 msgid "Connection:"
 msgstr ""
 
-#: ui/properties.glade.h:10
+#: ../ui/properties.glade.h:10
 msgid "Dela_y:"
 msgstr ""
 
-#: ui/properties.glade.h:11
+#: ../ui/properties.glade.h:11
 #, fuzzy
 msgid "Mailbox folder"
 msgstr "Postvak"
 
-#: ui/properties.glade.h:12
+#: ../ui/properties.glade.h:12
 #, fuzzy
 msgid "Mailbox properties"
 msgstr "Postvak configuratie"
 
-#: ui/properties.glade.h:13
+#: ../ui/properties.glade.h:13
 #, fuzzy
 msgid "Name of the mailbox"
 msgstr "Volgende postvak"
 
-#: ui/properties.glade.h:14
+#: ../ui/properties.glade.h:14
 msgid "Other connection port"
 msgstr ""
 
-#: ui/properties.glade.h:15
+#: ../ui/properties.glade.h:15
 #, fuzzy
 msgid "Other mailbox folder"
 msgstr "Postvak"
 
-#: ui/properties.glade.h:16
+#: ../ui/properties.glade.h:16
 msgid "Standard connection port"
 msgstr ""
 
-#: ui/properties.glade.h:17
+#: ../ui/properties.glade.h:17
 msgid "Standard mailbox folder"
 msgstr ""
 
-#: ui/properties.glade.h:18
+#: ../ui/properties.glade.h:18
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
 msgstr ""
 
-#: ui/properties.glade.h:19
+#: ../ui/properties.glade.h:19
 msgid "Your password on the mail server"
 msgstr ""
 
-#: ui/properties.glade.h:20
+#: ../ui/properties.glade.h:20
 msgid "Your username on the mail server"
 msgstr ""
 
-#: ui/properties.glade.h:22
+#: ../ui/properties.glade.h:22
 #, fuzzy
 msgid "_Mailbox:"
 msgstr "Postvak"
 
-#: ui/properties.glade.h:23
+#: ../ui/properties.glade.h:23
 #, fuzzy
 msgid "_Name:"
 msgstr "Naam:"
 
-#: ui/properties.glade.h:24 ui/authentication.glade.h:4
+#: ../ui/properties.glade.h:24 ../ui/authentication.glade.h:4
 msgid "_Password:"
 msgstr ""
 
-#: ui/properties.glade.h:25
+#: ../ui/properties.glade.h:25
 msgid "_Type:"
 msgstr ""
 
-#: ui/properties.glade.h:26 ui/authentication.glade.h:5
+#: ../ui/properties.glade.h:26 ../ui/authentication.glade.h:5
 msgid "_Username:"
 msgstr ""
 
-#: ui/properties.glade.h:27
+#: ../ui/properties.glade.h:27
 msgid "_other"
 msgstr ""
 
-#: ui/properties.glade.h:28
+#: ../ui/properties.glade.h:28
 #, fuzzy
 msgid "file or folder or hostname"
 msgstr "Postvak"
 
-#: ui/properties.glade.h:29
+#: ../ui/properties.glade.h:29
 msgid "minutes"
 msgstr ""
 
-#: ui/properties.glade.h:30
+#: ../ui/properties.glade.h:30
 msgid "othe_r"
 msgstr ""
 
-#: ui/properties.glade.h:31
+#: ../ui/properties.glade.h:31
 msgid "seconds"
 msgstr ""
 
-#: ui/properties.glade.h:32
+#: ../ui/properties.glade.h:32
 msgid "stan_dard"
 msgstr ""
 
-#: ui/properties.glade.h:33
+#: ../ui/properties.glade.h:33
 msgid "stand_ard"
 msgstr ""
 
-#: ui/authentication.glade.h:1
+#: ../ui/authentication.glade.h:1
 msgid "Authentication"
 msgstr ""
 
-#: ui/authentication.glade.h:2
+#: ../ui/authentication.glade.h:2
 msgid "Your password on the server"
 msgstr ""
 
-#: ui/authentication.glade.h:3
+#: ../ui/authentication.glade.h:3
 msgid "Your username on the server"
 msgstr ""
 
-#: ui/certificate.glade.h:1
+#: ../ui/certificate.glade.h:1
 #, fuzzy
 msgid "<b>Address</b>"
 msgstr "<b>X</b>"
 
-#: ui/certificate.glade.h:2
+#: ../ui/certificate.glade.h:2
 #, fuzzy
 msgid "<b>Issued To</b>"
 msgstr "<b>Y</b>"
 
-#: ui/certificate.glade.h:3
+#: ../ui/certificate.glade.h:3
 msgid "Accept"
 msgstr ""
 
-#: ui/certificate.glade.h:4
+#: ../ui/certificate.glade.h:4
 msgid "Cannot certify server"
 msgstr ""
 
-#: ui/certificate.glade.h:5
+#: ../ui/certificate.glade.h:5
 msgid "Certificate details"
 msgstr ""
 
-#: ui/certificate.glade.h:6
+#: ../ui/certificate.glade.h:6
 msgid "Common Name"
 msgstr ""
 
-#: ui/certificate.glade.h:7
+#: ../ui/certificate.glade.h:7
 msgid "Country"
 msgstr ""
 
-#: ui/certificate.glade.h:8
+#: ../ui/certificate.glade.h:8
 msgid "Locality"
 msgstr ""
 
-#: ui/certificate.glade.h:9
+#: ../ui/certificate.glade.h:9
 msgid "Organization"
 msgstr ""
 
-#: ui/certificate.glade.h:10
+#: ../ui/certificate.glade.h:10
 msgid "Organization Unit"
 msgstr ""
 
-#: ui/certificate.glade.h:11
+#: ../ui/certificate.glade.h:11
 msgid "State or Province"
 msgstr ""
 
-#: ui/popup.glade.h:1
+#: ../ui/popup.glade.h:1
 #, fuzzy
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Applet</b></small>"
 
-#: ui/popup.glade.h:2
+#: ../ui/popup.glade.h:2
 #, fuzzy
 msgid "<small><b>From</b></small>"
 msgstr "<small><b>Geluidssterkte</b></small>"
 
-#: ui/popup.glade.h:3
+#: ../ui/popup.glade.h:3
 #, fuzzy
 msgid "<small><b>Subject</b></small>"
 msgstr "<small><b>Geluidssterkte</b></small>"
 
-#: ui/popup.glade.h:5
+#: ../ui/popup.glade.h:5
 msgid "mail content"
 msgstr "postinhoud"
+
+#, fuzzy
+#~ msgid "Error"
+#~ msgstr "fout!"
 
 #, fuzzy
 #~ msgid "Whether the window shall appear in pagers"

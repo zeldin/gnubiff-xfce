@@ -149,6 +149,7 @@ Version 2.1.1
    - Bugfix: Respect "use_max_mail" for file protocol
    - Feature: Option "pref_allow_resize" for resizing preferences window
    - Bugfix: Respect "min_body_lines" for file protocol
+   - Bugfixes: Displaying of mail body in popup
 
 Version 2.1.0
  * Nicolas Rougier

@@ -592,13 +592,15 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 			status = false;
 		else if ((mail[i].empty()) && h.body().empty()) {
 			guint j = 0;
-			do {
-				h.add_to_body (mail[i++] + "\n");
-				j++;
-			} while ((j < biff_->value_uint ("popup_body_lines"))
-					 && (i < mail.size()));
-			if (j == biff_->value_uint ("popup_body_lines"))
-				h.add_to_body ("...");
+			while ((j < biff_->value_uint ("popup_body_lines"))
+				   && (++i < mail.size())) {
+				if (j++)
+					h.add_to_body ("\n");
+				h.add_to_body (mail[i]);
+			}
+			if ((j == biff_->value_uint ("popup_body_lines"))
+				&& (i+2 < mail.size()))
+				h.add_to_body ("\n...");
 		}
 	}
 

@@ -474,7 +474,7 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	}
 
 	// Insert character set into header
-	if (partinfo.charset_!="") {
+	if (partinfo.charset_ != "") {
 		line = "Content-type: " + partinfo.mimetype_ + "; charset=";
 		line+= partinfo.charset_;
 		mail.insert (mail.begin(), line);

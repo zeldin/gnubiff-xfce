@@ -680,7 +680,18 @@ Popup::parse_header (std::string text)
 	return utf8_text;
 }
 
-gchar *
+/**
+ *  Convert the string {\em text} from the character set {\em charset} to
+ *  utf-8. If no character set is given the string is assumed to be in the
+ *  C runtime character set. If the string cannot be converted a error message
+ *  is returned.
+ *
+ *  @param  text     String to be converted
+ *  @param  charset  Character set of the string {\em text} or empty
+ *  @return          Converted string or error message (as character array).
+ *                   This string has to be freed with g_free().
+ */
+gchar * 
 Popup::convert (std::string text, std::string charset)
 {
 	gchar *utf8 = (char *) text.c_str();
@@ -689,8 +700,12 @@ Popup::convert (std::string text, std::string charset)
 	else
 		utf8 = g_locale_to_utf8 (text.c_str(), -1, 0, 0, 0);
 
-	if (!utf8)
-		utf8 = g_locale_to_utf8 (_("Error"), -1, 0, 0, 0);
+	if (!utf8) {
+		gchar *tmp = g_strdup_printf (_("[Cannot convert character sets (from \"%s\" to \"utf-8\")]"),
+									  charset.empty() ? "C" : charset.c_str());
+		utf8 = g_locale_to_utf8 (tmp, -1, 0, 0, 0);
+		g_free (tmp);
+	}
 
 	return utf8;
 }
