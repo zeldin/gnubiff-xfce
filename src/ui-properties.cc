@@ -409,8 +409,8 @@ Properties::on_apply (GtkWidget *widget)
 			mailbox_->folder (mailbox_->other_folder());
 		}
 		
-		// Protocol was not imap4, we change mailbox
-		if (mailbox_->protocol() != PROTOCOL_IMAP4) {
+		// Protocol was not imap4 or mailbox was unknown, we change mailbox
+		if ((mailbox_->protocol() != PROTOCOL_IMAP4) || (mailbox_->status() == MAILBOX_UNKNOWN)) {
 			Mailbox *mailbox = new Imap4 (*mailbox_);
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
@@ -432,11 +432,11 @@ Properties::on_apply (GtkWidget *widget)
 			mailbox_->port (mailbox_->other_port());
 		}
 
-		if ((mailbox_->protocol() != PROTOCOL_APOP) && (selected_auth_ == AUTH_APOP)) {
+		if (((mailbox_->protocol() != PROTOCOL_APOP) && (selected_auth_ == AUTH_APOP)) || (mailbox_->status() == MAILBOX_UNKNOWN)) {
 			Mailbox *mailbox = new Apop (*mailbox_);
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
-		else if ((mailbox_->protocol() != PROTOCOL_POP3)) {
+		else if ((mailbox_->protocol() != PROTOCOL_POP3) || (mailbox_->status() == MAILBOX_UNKNOWN)) {
 			Mailbox *mailbox = new Pop3 (*mailbox_);
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
