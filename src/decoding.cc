@@ -345,8 +345,8 @@ Decoding::decode_qencoding (const std::string &todec)
 		switch (gchar c = todec.at(pos++))
 		{
 			case '=':
-				pos+=2;
-				if (pos>len)
+				pos += 2;
+				if (pos > len)
 					return result;
 				if ((decoded  = g_ascii_xdigit_value(todec.at(pos-1))) < 0)
 					return std::string("");
@@ -383,7 +383,7 @@ Decoding::decode_quotedprintable (const std::string &todec)
 	std::string result;
 	gint decoded;
 
-	while (pos<len)
+	while (pos < len)
 	{
 		switch (gchar c=todec.at(pos++))
 		{
@@ -451,6 +451,25 @@ Decoding::decode_quotedprintable (const std::vector<std::string> &todec,
 }
 
 /**
+ *  This function converts an utf-8 encoded string to an imap modified
+ *  utf-7 string. If the conversion is not successful an empty string is
+ *  returned.
+ *
+ *  @param  str  Valid utf-8 encoded string to be converted
+ *  @return      Converted string or empty string
+ */
+std::string 
+Decoding::utf8_to_imaputf7 (const std::string str)
+{
+	gchar *buffer = utf8_to_imaputf7 (str.c_str(), -1);
+	if (!buffer)
+		return std::string ("");
+	std::string result = std::string (buffer);
+	g_free(buffer);
+	return result;
+}
+
+/**
  * This function converts an utf-8 encoded character array to an imap modified
  * utf-7 character array. Unfortunately glib function g_convert() can only
  * convert to regular utf-7 (see RFC 2152) but IMAP needs a modified version
@@ -471,7 +490,7 @@ Decoding::decode_quotedprintable (const std::vector<std::string> &todec,
  * @return     a newly allocated nul-terminated character array or NULL
  */
 gchar* 
-Decoding::utf8_to_imaputf7(const gchar *str, gssize len)
+Decoding::utf8_to_imaputf7 (const gchar *str, gssize len)
 {
 	// Modified base64 characters (see RFC 2045, RFC 3501 5.1.3)
 	const char *modbase64="ABCDEFGHIJKLMNOPQRSTUVWXYZ"

@@ -820,14 +820,14 @@ Imap4::command_logout (void) throw (imap_err)
 void 
 Imap4::command_select (void) throw (imap_err)
 {
-	gchar *buffer = utf8_to_imaputf7 (folder().c_str(), -1);
-	if (!buffer) throw imap_command_err();
+	std::string folder_imaputf7 = utf8_to_imaputf7 (folder());
+	if (folder_imaputf7.size() == 0) throw imap_command_err();
 
 	// Send command
-	sendline (std::string("SELECT \"") + buffer + "\"");
-	g_free(buffer);
+	sendline (std::string("SELECT \"") + folder_imaputf7 + "\"");
 
 	// Create error message
+	gchar *buffer;
 	buffer = g_strdup_printf (_("[%d] Unable to select folder %s on host %s"),
 							  uin(), folder().c_str(), address().c_str());
 	if (!buffer) throw imap_command_err();
