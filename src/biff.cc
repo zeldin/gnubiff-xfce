@@ -229,7 +229,7 @@ Biff::lookup (void)
 }
 
 
-void
+gboolean
 Biff::lookup (Mailbox *mailbox)
 {
 	g_mutex_lock (lookup_mutex_);
@@ -238,9 +238,10 @@ Biff::lookup (Mailbox *mailbox)
 		if (mailbox_[i] == mailbox) {
 			lookup (i);
 			g_mutex_unlock (lookup_mutex_);
-			return;
+			return mailbox!=mailbox_[i];
 		}
 	g_mutex_unlock (lookup_mutex_);
+	return false;
 }
 
 void
@@ -285,25 +286,22 @@ Biff::lookup (guint index)
 		// If "properties" currently displays mailbox_[index]
 		//  we have to make it display the new mailbox
 		if (preferences_->properties()->mailbox() == mailbox_[index])
-			{
-				gdk_threads_enter();
-				preferences_->properties()->select (mailbox);
-				gdk_threads_leave();
-			}
+		{
+			gdk_threads_enter();
+			preferences_->properties()->select (mailbox);
+			gdk_threads_leave();
+		}
 		
 		// Delete old mailbox and replace it with the new one
-		// Problem: Can't delete old mailbox at this moment because this
-		// thread returns to it when this function ends. It must be deleted
-		// later. ATM: Memory Leak
-//		Mailbox *old_mailbox = mailbox_[index];
+		Mailbox *old_mailbox = mailbox_[index];
 		mailbox_[index] = mailbox;
-//		delete old_mailbox;
+		delete old_mailbox;
 	}
 	gdk_threads_enter();
 	preferences_->synchronize();
 	gdk_threads_leave();
 
-	if ((mailbox) && (mailbox->protocol() != PROTOCOL_NONE) && (check_mode_ == AUTOMATIC_CHECK))
+	if ((mailbox) && (check_mode_ == AUTOMATIC_CHECK))
 		mailbox->watch_on (mailbox->polltime());
 }
 

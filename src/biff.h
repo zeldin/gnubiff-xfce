@@ -162,7 +162,7 @@ public:
 	void remove (guint uin);						// remove mailbox identified by its uin
 	void add (Mailbox *mailbox);					// add a new mailbox
 	void lookup (void);								// lookup format of all mailboxes
-	void lookup (Mailbox *mailbox);					// lookup format of a specific mailbox
+	gboolean lookup (Mailbox *mailbox);				// lookup format of a specific mailbox
 	void lookup (guint index);						// lookup format of a specific mailbox
 	void lookup_thread (void);						// lookup thread
 
