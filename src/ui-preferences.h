@@ -47,7 +47,7 @@ enum {
 };
 
 enum { COL_EXP_ID, COL_EXP_NAME, COL_EXP_GROUPNAME, COL_EXP_TYPE,
-	   COL_EXP_VALUE, COL_EXP_N};
+	   COL_EXP_VALUE, COL_EXP_NAME_ITALIC, COL_EXP_N};
 
 #define PREFERENCES(x)	((Preferences *)(x))
 
@@ -115,6 +115,8 @@ public:
 	void expert_create (void);
 	void expert_add_option_list (void);
 	void expert_update_option_list (void);
+	void expert_update_option (const gchar *name, class Options *options,
+							   GtkListStore *store, GtkTreeIter *iter);
 	void expert_on_selection (GtkTreeSelection *selection);
 	void expert_ok (void);
 	void expert_reset (void);

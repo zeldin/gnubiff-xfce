@@ -247,17 +247,21 @@ Preferences::expert_create (void)
 	if (!biff_->value_bool ("use_expert"))
 		return;
 
-	GtkListStore *store = gtk_list_store_new (COL_EXP_N, G_TYPE_INT,
-											  G_TYPE_STRING, G_TYPE_STRING,
-											  G_TYPE_STRING, G_TYPE_STRING);
+	GtkListStore *store;
+	store = gtk_list_store_new (COL_EXP_N, G_TYPE_INT, G_TYPE_STRING,
+								G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+								G_TYPE_INT);
 	GtkTreeView *view = GTK_TREE_VIEW (get("expert_treeview"));
 	gtk_tree_view_set_model (view, GTK_TREE_MODEL(store));
-	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view), TRUE);
+	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view), true);
 
 	GtkTreeViewColumn *column;
+	GtkCellRenderer *rend;
 
 	// Column: NAME
-	column = gtk_tree_view_column_new_with_attributes ("Option", gtk_cell_renderer_text_new(), "text", COL_EXP_GROUPNAME, NULL);
+	rend = gtk_cell_renderer_text_new ();
+	g_object_set(rend, "style", PANGO_STYLE_ITALIC, NULL);
+	column = gtk_tree_view_column_new_with_attributes ("Option", rend, "text", COL_EXP_GROUPNAME, "style-set", COL_EXP_NAME_ITALIC, NULL);
 	gtk_tree_view_column_set_resizable (column, false);
 	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_GROUPNAME);
 	gtk_tree_view_append_column (view, column);
@@ -612,18 +616,15 @@ Preferences::expert_add_option_list (void)
 				ss >> groupname;
 			}
 
-			// Get value
-			const gchar *value = opts->to_string(option->name()).c_str();
-
-			// Store value
+			// Store fixed and variable values
 			gtk_list_store_append (store, &iter);
 			gtk_list_store_set (store, &iter,
 								COL_EXP_ID, id ,
 								COL_EXP_NAME, option->name().c_str(),
 								COL_EXP_GROUPNAME, groupname.c_str(),
 								COL_EXP_TYPE, option->type_string().c_str(),
-								COL_EXP_VALUE, value,
 								-1);
+			expert_update_option (option->name().c_str(), opts, store, &iter);
 		}
 	}
 }
@@ -723,7 +724,6 @@ Preferences::expert_update_option_list ()
 	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 	gchar *name = NULL;
 	gint id = -1;
-	Option *option = NULL;
 	Options *option_opts = NULL;
 	GtkTreeIter iter;
 	gboolean valid=gtk_tree_model_get_iter_first (GTK_TREE_MODEL(store),&iter);
@@ -735,17 +735,41 @@ Preferences::expert_update_option_list ()
 			option_opts = biff_;
 		else
 			option_opts = biff_->get (id);
-		if (option_opts)
-			option = option_opts->find_option (name);
 
 		// Update option
-		if (option) {
-			const gchar *value = option_opts->to_string(name).c_str();
-			gtk_list_store_set (store, &iter, COL_EXP_VALUE, value, -1);
-		}
+		expert_update_option (name, option_opts, store, &iter);
 
 		valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
 	}
+}
+
+/**
+ *  Update variable properties of a option in the list of all options.
+ *
+ *  @param  name    Name of the option
+ *  @param  options Container of the option
+ *  @param  store   GtkListStore for all options
+ *  @param  iter    Iterator for option's line in the list
+ */
+void 
+Preferences::expert_update_option (const gchar *name, Options *options,
+						   GtkListStore *store, GtkTreeIter *iter)
+{
+	Option *option = NULL;
+
+	// Get option
+	if (options)
+		option = options->find_option (name);
+	if (!option)
+		return;
+
+	// Update option
+	const gchar *value = options->to_string(name).c_str();
+	gboolean italic = (!(option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO))) && (!option->is_default ()) && (biff_->value_bool ("expert_hilite_changed"));
+	gtk_list_store_set (store, iter,
+						COL_EXP_VALUE, value,
+						COL_EXP_NAME_ITALIC, italic,
+						-1);
 }
 
 /**

@@ -162,7 +162,7 @@ Gnubiff_Options::add_options_general (void)
 		"General options."));
 
 	// CONFIG_FILE
-	gchar *filename=g_build_filename(g_get_home_dir (),".gnubiffrc", NULL);
+	gchar *filename = g_build_filename (g_get_home_dir (),".gnubiffrc", NULL);
 	add_option (new Option_String ("config_file", OPTGRP_GENERAL,
 		"Filename of the configuration file.",
 								   filename, OPTFLG_NOSAVE));
@@ -220,6 +220,11 @@ Gnubiff_Options::add_options_general (void)
 		"option name and value if this option is true, otherwise examine "
 		"only the option name?",
 								 false));
+	// EXPERT_HILITE_CHANGED
+	add_option (new Option_Bool ("expert_hilite_changed", OPTGRP_GENERAL,
+		"Shall all options that have not their default values and are "
+		"editable by the user be highlighted?",
+								 true));
 }
 
 void 
