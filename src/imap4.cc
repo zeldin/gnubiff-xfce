@@ -344,8 +344,8 @@ Imap4::fetch_mails (void)
 		command_fetchbody (buffer[i], partinfo, mail);
 
 		// Decode and parse mail
-		if (partinfo.part!="")
-			decode_body (mail, partinfo.encoding);
+		if (partinfo.part_!="")
+			decode_body (mail, partinfo.encoding_);
 		parse (mail, MAIL_UNREAD);
 	}
 	
@@ -559,31 +559,31 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	ss << msn;
 
 	// Do we have to get any plain text?
-	if (partinfo.part=="") {
+	if (partinfo.part_=="") {
 		mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
 		return;
 	}
-	else if (partinfo.size == 0) {
+	else if (partinfo.size_ == 0) {
 		mail.push_back(std::string(""));
 		return;
 	}
 
 	// Insert character set into header
-	if (partinfo.charset!="")
-		mail.insert (mail.begin(), std::string("charset=") + partinfo.charset + std::string(";"));
+	if (partinfo.charset_!="")
+		mail.insert (mail.begin(), std::string("charset=") + partinfo.charset_ + std::string(";"));
 
 	// Note: We are only interested in the first lines, there
 	// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
 	// so it is sufficient to get at most 1000*bodyLinesToBeRead_
 	// bytes.
-	gint textsize=partinfo.size;
+	gint textsize=partinfo.size_;
 	if (textsize>1000*bodyLinesToBeRead_)
 		textsize=1000*bodyLinesToBeRead_;
 	std::stringstream textsizestr;
 	textsizestr << textsize;
 
 	// Send command
-	line = "FETCH " + ss.str() + " (BODY.PEEK[" + partinfo.part + "]<0.";
+	line = "FETCH " + ss.str() + " (BODY.PEEK[" + partinfo.part_ + "]<0.";
 	line+= textsizestr.str() + ">)";
 	if (!send(line)) throw imap_socket_err();
 			
@@ -673,8 +673,8 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 	parse_bodystructure(line,partinfo);
 #ifdef DEBUG
 	g_print("** Part %s size=%d, encoding=%s, charset=%s\n",
-			partinfo.part.c_str(), partinfo.size, partinfo.encoding.c_str(),
-			partinfo.charset.c_str());
+			partinfo.part_.c_str(), partinfo.size_, partinfo.encoding_.c_str(),
+			partinfo.charset_.c_str());
 #endif
 
 	// Getting the acknowledgment
@@ -902,15 +902,15 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 					case 1: // MIME type
 						if (value!="text")
 							return false;
-						partinfo.mimetype=value;
+						partinfo.mimetype_=value;
 						break;
 					case 2: // MIME type
 						if (value!="plain")
 							return false;
-						partinfo.mimetype+="/"+value;
+						partinfo.mimetype_+="/"+value;
 						break;
 					case 6:	// Encoding
-						partinfo.encoding=value;
+						partinfo.encoding_=value;
 						break;
 				}
 			}
@@ -954,9 +954,9 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 				std::stringstream ss;
 				ss << block;
 				if (toplevel)
-					partinfo.part=ss.str();
+					partinfo.part_=ss.str();
 				else
-					partinfo.part=ss.str()+std::string(".")+partinfo.part;
+					partinfo.part_=ss.str()+std::string(".")+partinfo.part_;
 				return true;
 			}
 			// List of parameter/value pairs? (3rd block)
@@ -980,8 +980,8 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 			{
 				std::stringstream ss;
 				ss << structure.substr(startpos,pos-startpos).c_str();
-				ss >> partinfo.size;
-				partinfo.part=std::string("1");
+				ss >> partinfo.size_;
+				partinfo.part_=std::string("1");
 				return true;
 			}
 			continue;
@@ -1000,9 +1000,6 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
  * the only parameter we are interested in is the character set.
  * If the parameter is not in the list an empty string is returned as value for
  * this parameter.
- *
- * Note: Because we converted to lower case before the values of certain
- * parameters are not very useful (e.g. filenames).
  *
  * @param  list      C++ String containing the parameter/value list. This is a
  *                   (converted to lower case) substring of the result of the
@@ -1049,7 +1046,7 @@ Imap4::parse_bodystructure_parameters (std::string list, PartInfo &partinfo)
 
 			// Look for parameters we need
 			if (parameter=="charset")
-				partinfo.charset=value;
+				partinfo.charset_=value;
 			continue;
 		}
 

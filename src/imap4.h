@@ -46,7 +46,7 @@ class Imap4 : public Mailbox {
 	class Socket *				socket_;		// socket to talk to server
 	std::vector<int>			saved_;			// saved uidl's
 	gboolean					idleable_;		// does server support the IDLE capability?
-	gboolean					idled_;			// Is the  server currently idled
+	gboolean					idled_;			// Is the server currently idled
 
 	std::string					tag_;			// Tag created for the last sent IMAP command
 	guint						tagcounter_;	// Counter for creating the next tag
@@ -109,15 +109,15 @@ class PartInfo
 	/** Part identifier as needed for the IMAP command FETCH (see
 	 *  RFC 3501 6:4:5). This is the part of the mail that will be displayed
 	 * by gnubiff (if possible). */
-	std::string part;
+	std::string part_;
 	/// MIME type of this part. Currently only "text/plain" is supported.
-	std::string mimetype;
+	std::string mimetype_;
 	/// Encoding of this part. Currently supported encodings are 7bit, 8bit, binary and quoted-printable.
-	std::string encoding;
+	std::string encoding_;
 	/// Character set of this part
-	std::string charset;
+	std::string charset_;
 	/// Size of this part in bytes
-	gint size;
+	gint size_;
 };
 
 #endif
