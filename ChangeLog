@@ -38,6 +38,7 @@ Version 2.1.2
    - Cleanup: Get "prevdos_line_length" option only once per connect not once
         per line
    - Bugfix: Displaying error messages instead of mail body
+   - Bugfix: Illegal parameters to callback function while parsing config file
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

@@ -151,9 +151,21 @@ Biff::Biff (guint ui_mode, std::string filename)
 	ui_auth_ = new Authentication ();
 }
 
-
+/// Destructor
 Biff::~Biff (void)
 {
+}
+
+/**
+ *  Print a message to send a bug report. This function should be called if
+ *  we have an error but do not know why this error has happened. Before
+ *  calling this function an error message should be printed.
+ */
+void 
+Biff::bug_report_msg (void)
+{
+	g_warning (_("You just encountered a strange error. Please send a bug "
+				 "report to \"gnubiff-bugs@lists.sourceforge.net\"."));
 }
 
 
@@ -582,14 +594,16 @@ Biff::load (void)
 
 	g_mutex_lock (mutex_);
 	while ((!getline(file, line).eof()) && (status))
-		status = g_markup_parse_context_parse (context, line.c_str(), line.size(), 0);
+		status = g_markup_parse_context_parse (context, line.c_str(),
+											   line.size(), 0);
 	g_mutex_unlock (mutex_);
 
 	g_markup_parse_context_free (context);
 
 	// Check if we got at least one mailbox definition
 	if (mailbox_.size() == 0) {
-		g_warning (_("Found no mailbox definition in your configuration file (%s)"), value_gchar ("config_file"));
+		g_warning (_("Found no mailbox definition in your configuration "
+					 "file (%s)"), value_gchar ("config_file"));
 		mailbox_.push_back (new Mailbox (this));
 	}
 
@@ -602,19 +616,38 @@ Biff::load (void)
 	return true;
 }
 
-void
+/**
+ *  Callback function when parsing the config file. This function is called
+ *  when a new XML tag is parsed.
+ *
+ *  @param context          FIXME!
+ *  @param element_name     Name of the XML tag
+ *  @param attribute_name   array with the names of the attributes for the tag
+ *  @param attribute_values array with the values of the attributes for the tag
+ *  @param error            FIXME!
+ */
+void 
 Biff::xml_start_element (GMarkupParseContext *context,
 						 const gchar *element_name,
 						 const gchar **attribute_names,
 						 const gchar **attribute_values,
 						 GError **error)
 {
+	// Test parameters
+	if ((element_name == NULL) || (attribute_names == NULL)
+		|| (attribute_values == NULL)) {
+		g_warning (_("Unknown error while parsing config file"));
+		bug_report_msg ();
+		return;
+	}
+
+	// All tags with the exception of the "parameter" tag start new 
 	if (std::string (element_name) != "parameter")
 		buffer_load_.clear ();
 	else {
 		std::map<std::string,std::string> temp;
 
-		for (guint i = 0; attribute_names[i]; i++)
+		for (guint i = 0; attribute_names[i] != 0; i++)
 			temp[attribute_names[i]] = attribute_values[i];
 		if (temp["name"].empty ()) {
 			g_warning (_("Illegal parameter format in config file"));
