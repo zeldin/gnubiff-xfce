@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gnubiff 2.0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-06 17:21+0100\n"
+"POT-Creation-Date: 2004-11-16 14:28+0100\n"
 "PO-Revision-Date: 2004-10-19 09:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -134,10 +134,14 @@ msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr ""
 "[%d] Incapable d'obtenir un accusé réception à partir de %s sur le port %d"
 
-#: src/imap4.cc:130
+#: src/imap4.cc:147
 #, fuzzy, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Incapable d'établir la connexion avec %s sur le port %d"
+
+#: src/imap4.cc:400
+msgid "[This mail has no \"text/plain\" part]"
+msgstr ""
 
 #: src/maildir.cc:83 src/maildir.cc:144
 #, c-format

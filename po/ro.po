@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-06 17:21+0100\n"
+"POT-Creation-Date: 2004-11-16 14:28+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -133,9 +133,13 @@ msgstr ""
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:130
+#: src/imap4.cc:147
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
+msgstr ""
+
+#: src/imap4.cc:400
+msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
 #: src/maildir.cc:83 src/maildir.cc:144
