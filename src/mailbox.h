@@ -78,9 +78,7 @@ protected:
 
 	void option_changed (Option *option);
 	void option_update (Option *option);
-	gboolean parse_contenttype (std::string line, std::string &type,
-								std::string &subtype,
-								std::map<std::string, std::string> &map);
+	gboolean parse_contenttype (std::string line, class PartInfo &partinfo);
 
 	/// Mail headers of mails that have not been read yet
 	std::map<std::string, Header> unread_;

@@ -537,6 +537,11 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 	if ((partinfo.error_.size() > 0) && (h.error().size() == 0))
 		h.error (partinfo.error_);
 
+	// Insert default values
+	h.date (_("<no date>"));
+	h.sender (_("<no sender>"));
+	h.subject (_("<no subject>"));
+
 	// Parse header
 	for (; pos < len; pos++) {
 		// Beginning of body? (header and body are separated by an empty line)
@@ -554,63 +559,37 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 
 		std::string line_down = ascii_strdown (line);
 
+		// Sender, Subject, Date:
+		// There should be a whitespace (space or tab) after "From:",
+		// "Subject:" or "Date:"
+
 		// Sender
-		// There should be a whitespace or a tab after "From:", so we look
-		// for "From:" and get string beginning at 6
-		if (line.find ("From:") == 0) {
-			if (line.size() > 6)
-				h.sender (line.substr (6));
-			else
-				h.sender (_("<no sender>"));
+		if ((line.find ("From:") == 0) && (line.size() > 6)) {
+			h.sender (line.substr (6));
 			continue;
 		}
 
 		// Subject
-		// There should a whitespace or a tab after "Subject:", so we look
-		// for "Subject:" and get string beginning at 9
-		if (line.find ("Subject:") == 0) {
-			if (line.size() > 9)
-				h.subject (line.substr (9));
-			else
-				h.subject (_("<no subject>"));
+		if ((line.find ("Subject:") == 0) && (line.size() > 9)) {
+			h.subject (line.substr (9));
 			continue;
 		}
 
 		// Date
-		// There should a whitespace or a tab after "Date:", so we look
-		// for "Date:" and get string beginning at 6
-		if (line.find ("Date:") == 0) {
-			if (line.size() > 6)
-				h.date (line.substr (6));
-			else
-				h.date (_("<no date>"));
+		if ((line.find ("Date:") == 0) && (line.size() > 6)) {
+			h.date (line.substr (6));
 			continue;
 		}
 
 		// Content Type
 		if (line.find ("Content-Type:") == 0) {
-			if (!parse_contenttype (line, partinfo.type_, partinfo.subtype_,
-									partinfo.parameters_)) {
+			if (!parse_contenttype (line, partinfo)) {
 				h.error (_("[Cannot parse content type header line]"));
 #ifdef DEBUG
 				g_message ("[%d] Cannot parse content type header line: %s",
 						   uin(), line.c_str());
 #endif
-				continue;
 			}
-
-#ifdef DEBUG
-			std::string dbg="[%d] Parsed content type header line: mimetype=";
-			dbg += partinfo.type_ + "/" + partinfo.subtype_;
-			std::map<std::string, std::string>::iterator it;
-			it = partinfo.parameters_.begin ();
-			while (it != partinfo.parameters_.end()) {
-				dbg += std::string(" (") + it->first.c_str() + " = "
-				  		+ it->second.c_str() + ")";
-				it++;
-			}
-			g_message (dbg.c_str(), uin());
-#endif
 			continue;
 		}
 
@@ -632,7 +611,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		}
 
 		// Status
-	    if ((line.find ("Status: R") == 0) && (uid.size()>0))
+	    if (line.find ("Status: R") == 0)
 			status = false;
 		else if (line.find ("X-Mozilla-Status: 0001") == 0)
 			status = false;
@@ -717,17 +696,17 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 	// Content type: text/plain
 	else if ((partinfo.type_ == "text") && (partinfo.subtype_ == "plain")) {
 		// Get mail body
-		guint j = 0;
-		while ((j < biff_->value_uint("popup_body_lines")) && (++pos < len)) {
+		guint j = 0, pdl = biff_->value_uint("popup_body_lines");
+		while ((j < pdl) && (++pos < len)) {
 			if (j++)
 				h.add_to_body ("\n");
 			h.add_to_body (mail[pos]);
 		}
-		if ((j == biff_->value_uint ("popup_body_lines")) && (pos+2 < len))
+		if ((j == pdl) && (pos+2 < len))
 			h.add_to_body ("\n...");
 	}
 	else {
-		gchar *tmp = g_strdup_printf (_("[This message has no supported "
+		gchar *tmp = g_strdup_printf (_("[This message has a not supported "
 										"content type: \"%s/%s\"]"),
 									  partinfo.type_.c_str(),
 									  partinfo.subtype_.c_str());
@@ -766,24 +745,19 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 
 /** 
  *  Parses the "Content-Type:" line in a mail header. Only if true is
- *  returned {\em type}, {\em subtype} and {\em map} will have defined
- *  values. The parameters will be added to the map {\em map}, this map
- *  will not be cleared before. As attributes are always case insensitive
- *  they will be normalized to be in lower case. See also RFC 2045 5.1. for
- *  the syntax of the content type header field.
+ *  returned the attributes of {\em partinfo} will have defined values. The
+ *  parameters will be added to the map in partinfo, this map will be
+ *  cleared before. As attributes are always case insensitive they will be
+ *  normalized to be in lower case. See also RFC 2045 5.1. for the syntax
+ *  of the content type header field.
  *
- *  @param  line    Line from the mail header (folding already removed)
- *  @param  type    Here the type of the mail's content type will be returned
- *  @param  subtype Here the subtype of the mail's content type will be
- *                  returned
- *  @param  map     Here the parameters will be returned as pairs (attribute,
- *                  value).
- *  @return         Boolean indicating success.
+ *  @param  line     Line from the mail header (folding already removed)
+ *  @param  partinfo Reference to a PartInfo class in which all obtained
+ *                   information will be returned
+ *  @return          Boolean indicating success.
  */
 gboolean 
-Mailbox::parse_contenttype (std::string line, std::string &type,
-							std::string &subtype,
-							std::map<std::string, std::string> &map)
+Mailbox::parse_contenttype (std::string line, class PartInfo &partinfo)
 {
 	// Non alphanumeric characters allowed in tokens
 	const static std::string token_ok = "!#$%&'*+-._`{|}~";
@@ -794,8 +768,9 @@ Mailbox::parse_contenttype (std::string line, std::string &type,
 	line = line.substr (13);
 
 	// Initialize
-	type = "";
-	subtype = "";
+	partinfo.type_ = "";
+	partinfo.subtype_ = "";
+	partinfo.parameters_.clear ();
 
 	guint len = line.size(), pos = 0;
 	// Ignore whitespace
@@ -803,7 +778,7 @@ Mailbox::parse_contenttype (std::string line, std::string &type,
 		pos++;
 
 	// Get type
-	if (!get_mime_token (line, type, pos))
+	if (!get_mime_token (line, partinfo.type_, pos))
 		return false;
 
 	// Separator '/' between type and subtype
@@ -811,7 +786,7 @@ Mailbox::parse_contenttype (std::string line, std::string &type,
 		return false;
 
 	// Get subtype
-	if (!get_mime_token (line, subtype, pos))
+	if (!get_mime_token (line, partinfo.subtype_, pos))
 		return false;
 
 	// Get parameters
@@ -868,8 +843,21 @@ Mailbox::parse_contenttype (std::string line, std::string &type,
 				return false;
 
 		// Insert pair (attribute, value) into map
-		map[attr] = value;
+		partinfo.parameters_[attr] = value;
 	}
+
+#ifdef DEBUG
+	std::string dbg="[%d] Parsed content type header line: mimetype=";
+	dbg += partinfo.type_ + "/" + partinfo.subtype_;
+	std::map<std::string, std::string>::iterator it;
+	it = partinfo.parameters_.begin ();
+	while (it != partinfo.parameters_.end()) {
+		dbg += std::string(" (") + it->first.c_str() + " = "
+				+ it->second.c_str() + ")";
+		it++;
+	}
+	g_message (dbg.c_str(), uin());
+#endif
 
 	return true;
 }
