@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -602,8 +602,12 @@ void
 Preferences::on_check_changed (GtkWidget *widget)
 {
 	// Need to update "expert_edit_options" option immediately
-	biff_->update_gui (OPTSGUI_GET, biff_->find_option ("expert_edit_options"),
-					   xml_, filename_);
+	if (std::string(gtk_widget_get_name(widget))=="expert_edit_options_check"){
+		biff_->update_gui (OPTSGUI_GET,
+						   biff_->find_option ("expert_edit_options"), xml_,
+						   filename_);
+		synchronize ();
+	}
 	// Disable and enable certain GUI elements depending on values of some
 	// options
 	biff_->update_gui (OptionsGUI (OPTSGUI_SENSITIVE | OPTSGUI_SHOW),

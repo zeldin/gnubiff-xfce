@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-26 18:51+0100\n"
+"POT-Creation-Date: 2005-02-27 14:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -229,7 +229,7 @@ msgstr ""
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr ""
 
-#: ../src/options.cc:464 ../src/gui.cc:211
+#: ../src/options.cc:467 ../src/gui.cc:211
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
@@ -321,15 +321,15 @@ msgid "Browse for a new mail image"
 msgstr ""
 
 #. "Set to default value"
-#: ../src/ui-preferences.cc:636
+#: ../src/ui-preferences.cc:640
 msgid "Set to default value"
 msgstr ""
 
-#: ../src/ui-preferences.cc:642
+#: ../src/ui-preferences.cc:646
 msgid "Toggle option"
 msgstr ""
 
-#: ../src/ui-preferences.cc:649
+#: ../src/ui-preferences.cc:653
 msgid "Edit option"
 msgstr ""
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-26 18:51+0100\n"
+"POT-Creation-Date: 2005-02-27 14:31+0100\n"
 "PO-Revision-Date: 2005-02-20 22:50+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -234,7 +234,7 @@ msgstr "Unbekannte Option »%s«"
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Kann Option »%s« nicht auf »%s« setzen"
 
-#: ../src/options.cc:464 ../src/gui.cc:211
+#: ../src/options.cc:467 ../src/gui.cc:211
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
@@ -334,15 +334,15 @@ msgid "Browse for a new mail image"
 msgstr "Datei für ein neues Nachrichtenbild wählen"
 
 #. "Set to default value"
-#: ../src/ui-preferences.cc:636
+#: ../src/ui-preferences.cc:640
 msgid "Set to default value"
 msgstr "Auf Standardwert zurücksetzen"
 
-#: ../src/ui-preferences.cc:642
+#: ../src/ui-preferences.cc:646
 msgid "Toggle option"
 msgstr "Option verändern"
 
-#: ../src/ui-preferences.cc:649
+#: ../src/ui-preferences.cc:653
 msgid "Edit option"
 msgstr "Option bearbeiten"
 
@@ -635,7 +635,7 @@ msgstr "_Text anzeigen:"
 
 #: ../ui/preferences.glade.h:38
 msgid "String to be searched for."
-msgstr "String, nach dem gensucht werden soll."
+msgstr "String, nach dem gesucht werden soll."
 
 #: ../ui/preferences.glade.h:39
 msgid "Text to display"

@@ -379,8 +379,11 @@ Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 	while (ss >> gui_name)
 		widgets.push_back (get_widget (gui_name.c_str(), xml, file));
 
-	if (whattodo & OPTSGUI_GET)
+	if (whattodo & OPTSGUI_GET) {
 		option->get_gui (widgets);
+		if ((option->flags() & OPTFLG_CHANGE))
+			option_changed (option);
+	}
 
 	if (whattodo & OPTSGUI_SET)
 		option->set_gui (widgets);

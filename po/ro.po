@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-26 18:51+0100\n"
+"POT-Creation-Date: 2005-02-27 14:31+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -231,7 +231,7 @@ msgstr ""
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr ""
 
-#: ../src/options.cc:464 ../src/gui.cc:211
+#: ../src/options.cc:467 ../src/gui.cc:211
 #, fuzzy, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Nu am putut gãsi widgetul specificat (\"%s\") în structura de tree xml"
@@ -331,15 +331,15 @@ msgid "Browse for a new mail image"
 msgstr "Rãsfoire(browse) dupã fiºier"
 
 #. "Set to default value"
-#: ../src/ui-preferences.cc:636
+#: ../src/ui-preferences.cc:640
 msgid "Set to default value"
 msgstr ""
 
-#: ../src/ui-preferences.cc:642
+#: ../src/ui-preferences.cc:646
 msgid "Toggle option"
 msgstr ""
 
-#: ../src/ui-preferences.cc:649
+#: ../src/ui-preferences.cc:653
 msgid "Edit option"
 msgstr ""
 

@@ -159,6 +159,8 @@ Version 2.1.1
    - Feature: Print whether expert tab will be shown at the end of configure
    - Updated gnubiff.texi file
    - Include an additional file to support FreeBSD 4 (thanks to Tim Bishop)
+   - Bugfix: Handling of "expert_edit_options" option
+   - Bugfix: Respect OPTFLG_CHANGE when getting option's value from gui
 
 Version 2.1.0
  * Nicolas Rougier
