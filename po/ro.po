@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-27 21:10+0200\n"
+"POT-Creation-Date: 2004-10-28 16:01+0200\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -15,22 +15,34 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/gnubiff.cc:75
+#: src/gnubiff.cc:93
+msgid "start gnome applet from command line"
+msgstr ""
+
+#: src/gnubiff.cc:101
 #, fuzzy
 msgid "configuration file to use"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: src/gnubiff.cc:75
+#: src/gnubiff.cc:101
 msgid "file"
 msgstr "fiºier"
 
-#: src/gnubiff.cc:76
+#: src/gnubiff.cc:103
 #, fuzzy
 msgid "skip the configuration process"
 msgstr "omitere a procesului de configurare"
 
-#: src/gnubiff.cc:77
+#: src/gnubiff.cc:105
 msgid "print version information and exit"
+msgstr ""
+
+#: src/gnubiff.cc:112
+msgid "General command line options:"
+msgstr ""
+
+#: src/gnubiff.cc:115
+msgid "Options for debugging:"
 msgstr ""
 
 #: src/ui-applet-gnome.cc:358
