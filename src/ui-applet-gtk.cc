@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -50,48 +50,75 @@ extern "C" {
 							  GdkEventCrossing *event,
 							  gpointer data)
 	{
-		((AppletGtk *) data)->tooltip_update ();
+		if (data)
+			((AppletGtk *) data)->tooltip_update ();
+		else
+			unknown_internal_error ();
 	}
 
 	gboolean APPLET_GTK_on_button_press (GtkWidget *widget,
 										 GdkEventButton *event,
 										 gpointer data)
 	{
-		return ((AppletGtk *) data)->on_button_press (event);
+		if (data)
+			return ((AppletGtk *) data)->on_button_press (event);
+		else
+			unknown_internal_error ();
+		return false;
 	}
 
 	void APPLET_GTK_on_menu_command (GtkWidget *widget,
 									 gpointer data)
 	{
-		((AppletGtk *) data)->on_menu_command ();
+		if (data)
+			((AppletGtk *) data)->on_menu_command ();
+		else
+			unknown_internal_error ();
 	}
 
 	void APPLET_GTK_on_menu_mark (GtkWidget *widget,
 								  gpointer data)
 	{
-		((AppletGtk *) data)->on_menu_mark ();
+		if (data)
+			((AppletGtk *) data)->on_menu_mark ();
+		else
+			unknown_internal_error ();
 	}
+
 	void APPLET_GTK_on_menu_preferences (GtkWidget *widget,
 										 gpointer data)
 	{
-		((AppletGtk *) data)->on_menu_preferences ();
+		if (data)
+			((AppletGtk *) data)->on_menu_preferences ();
+		else
+			unknown_internal_error ();
 	}
+
 	void APPLET_GTK_on_menu_about (GtkWidget *widget,
 								   gpointer data)
 	{
-		((AppletGtk *) data)->on_menu_about ();
+		if (data)
+			((AppletGtk *) data)->on_menu_about ();
+		else
+			unknown_internal_error ();
 	}
 	
 	void APPLET_GTK_on_menu_quit (GtkWidget *widget,
 								  gpointer data)
 	{
-		((AppletGtk *) data)->on_menu_quit ();
+		if (data)
+			((AppletGtk *) data)->on_menu_quit ();
+		else
+			unknown_internal_error ();
 	}
 
 	void APPLET_GTK_on_hide_about (GtkWidget *widget,
 								   gpointer data)
 	{
-		((AppletGtk *) data)->on_hide_about ();
+		if (data)
+			((AppletGtk *) data)->on_hide_about ();
+		else
+			unknown_internal_error ();
 	}
 }
 
@@ -219,17 +246,17 @@ AppletGtk::tooltip_update (void)
 gboolean
 AppletGtk::on_button_press (GdkEventButton *event)
 {
-	// Double left click : start mail app
+	// Double left click: start mail app
 	if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1))
 		on_menu_command ();
 
-	// Single left click : force mail check
+	// Single left click: force mail check
 	else if (event->button == 1) {
 		force_popup_ = true;
 		update ();
 	}
 
-	// Single middle click : mark mails as read
+	// Single middle click: mark mails as read
 	else if (event->button == 2) {
 		for (unsigned int i=0; i<biff_->size(); i++)
 			biff_->mailbox(i)->read();
@@ -238,13 +265,14 @@ AppletGtk::on_button_press (GdkEventButton *event)
 		update();
 	}
 
-	// Single right click : popup menu
+	// Single right click: popup menu
 	else if (event->button == 3) {
 		if (biff_->value_bool ("use_double_command"))
 			gtk_widget_set_sensitive (get("menu_start_command"), true);
 		else
 			gtk_widget_set_sensitive (get("menu_start_command"), false);
-		gtk_menu_popup (GTK_MENU(get("menu")), NULL, NULL, NULL, NULL, event->button, event->time);
+		gtk_menu_popup (GTK_MENU(get("menu")), NULL, NULL, NULL, NULL,
+						event->button, event->time);
 	}
 	return true;
 }
