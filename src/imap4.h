@@ -41,6 +41,8 @@ class Imap4 : public Mailbox {
 protected:
 	class Socket *			socket_;
 	std::vector<int>		saved_;
+	std::string parse_bodystructure (std::string, gint &,
+									 gboolean toplevel=true);
 
 public:
 	/* Base */

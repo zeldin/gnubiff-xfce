@@ -30,8 +30,14 @@ Version 2.0.3
      SELECT, SEARCH, FETCH commands anticipated
    - Bugfix: User set value for maximum number of mail to be collected is now
      respected (IMAP)
-   - Bugfix: Fetching mails is no longer stopped if "A004 OK" is in the
-     subject, date or from line of a mail
+   - Bugfix: Fetching mails is no longer stopped if certain strings are in
+     mail or mail header (IMAP)
+   - Bugfix: First lines of email content are now displayed (IMAP)
+   - Bugfix: Displaying mails that do not end with a newline (IMAP)
+   - Feature: Only get first "text/plain" part of mail, not the whole mail;
+     don't get the whole part if it is very long (IMAP)
+   - Feature: Message if there is no "text/plain" part (IMAP)
+   
 
 Version 2.0.2
  * Some cosmetic fixes

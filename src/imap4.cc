@@ -317,7 +317,7 @@ Imap4::get_header (void)
 		s << buffer[i];
 		mail.clear();
 
-		std::string line = std::string ("A004 FETCH ") + s.str() + std::string (" (FLAGS BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])\r\n");
+		std::string line = std::string ("A004 FETCH ") + s.str() + std::string (" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])\r\n");
 		if (!socket_->write (line)) return;
 
 		// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
@@ -353,46 +353,99 @@ Imap4::get_header (void)
 #endif
 		if ((!socket_->status()) || (cnt<0)) return;
 
-		// Remove two last lines which are an empty line and a line with a
-		// closing parenthesis
-		mail.pop_back();
+		// Remove last line (should contain a closing parenthesis). Note: We
+		// need the (hopefully empty;-) line before because it separates
+		// header and mail text
 		mail.pop_back();
 
 
-		line = std::string ("A005 FETCH ") + s.str() + std::string (" (FLAGS BODY.PEEK[TEXT])\r\n");
+		// FETCH BODYSTRUCTURE
+		line = std::string ("A007 FETCH ") + s.str() + std::string (" (BODYSTRUCTURE)\r\n");
 		if (!socket_->write (line)) return;
 
-		// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
+		// Response should be: "* s FETCH (BODYSTRUC..." (see RFC 3501 7.4.2)
 		cnt=1+preventDoS_additionalLines_;
 		while (((socket_->read(line) > 0)) && (cnt--))
-			if (line.find ("* "+s.str()+" FETCH") == 0)
+			if (line.find ("* "+s.str()+" FETCH (BODYSTRUCTURE (") == 0)
 				break;
 		if ((!socket_->status()) || (cnt<0)) return;
+		if (line.substr(line.size()-2) != ")\r")
+			return;
 
-		if (!socket_->read (line,false)) return;
+		// Remove first and last part
+		line=line.substr(25+s.str().size(),line.size()-28-s.str().size());
+
+		// Get Part of Mail that contains "text/plain" (if any exists) and
+		// size of this text
+		gint textsize;
+		std::string part=parse_bodystructure(line,textsize);
+
+		// Read end of command
+		cnt=1+preventDoS_additionalLines_;
+		while (((socket_->read(line, false) > 0)) && (cnt--)) {
+			if (line.find ("A007 OK") == 0)
+				break;
+			if (line.find ("A007") == 0) {
+				socket_->write ("A005 LOGOUT\r\n");
+				socket_->close ();
+				return;
+			}
+		}
+		if ((!socket_->status()) || (cnt<0)) return;
+
+
+		// FETCH BODY.PEEK
+		// Is there any plain text?
+		if (part=="")
+			mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
+		else
+		{
+			// Note: We are only interested in the first 12 lines, there are at
+			// most 1001 characters per line (see RFC 2821 4.5.3.1), so it is
+			// sufficient to get at most 12012 bytes.
+			if (textsize>12012)
+				textsize=12012;
+			std::stringstream textsizestr;
+			textsizestr << textsize;
+			line = std::string ("A005 FETCH ") + s.str() + std::string (" (BODY.PEEK[") + part + std::string ("]<0.") + textsizestr.str() + std::string (">)\r\n");
+			if (!socket_->write (line)) return;
+
+			// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
+			cnt=1+preventDoS_additionalLines_;
+			while (((socket_->read(line) > 0)) && (cnt--))
+				if (line.find ("* "+s.str()+" FETCH") == 0)
+					break;
+			if ((!socket_->status()) || (cnt<0)) return;
+
 #ifdef DEBUG
-		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, hostname_.c_str(), port_);
+			g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, hostname_.c_str(), port_);
 #endif
-		guint j = 0;
-		while (line.find ("A005 OK") == std::string::npos) {
-			if (j < 13) {
-				if (line.size() > 0) {
+			// Read text
+			guint lineno=0;
+			gint bytes=textsize+3; // ")\r\n" at end of mail
+			while ((bytes>0) && ((socket_->read(line, false) > 0))) {
+				bytes-=line.size()+1; // don't forget to count '\n'!
+				if ((line.size() > 0) && (lineno++<12)) {
 					mail.push_back (line.substr(0, line.size()-1));
 #ifdef DEBUG
 					g_print ("+");
 #endif
 				}
-				j++;
 			}
-			if (!socket_->read (line, false)) return;
+			if ((!socket_->status()) || (bytes<0)) return;
+			// Remove ")\r" from last line ('\n' removed before)
+			mail.pop_back();
+			if (line.size()>1)
+				mail.push_back (line.substr(0, line.size()-2));
+			// Read end of command
+			if (!(socket_->read(line, false))) return;
+			if (line.find ("A005 OK") != 0) return;
 		}
 #ifdef DEBUG
-		g_print("\n");
+		g_print ("\n");
 #endif
+		if (!socket_->status()) return;
 
-		// Remove two last lines which are an empty line and a line with a closing parenthesis
-		mail.pop_back();
-		mail.pop_back();
 		parse (mail, MAIL_UNREAD);
 	}
 
@@ -410,4 +463,126 @@ Imap4::get_header (void)
 
 	unread_ = new_unread_;
 	seen_ = new_seen_;
+}
+
+/** 
+ * Parse the body structure of a mail.
+ * This function parses the result {\em structure} of a
+ * "FETCH ... (BODYSTRUCTURE)" IMAP command. It returns the part of the mail
+ * body containing the first "text/plain" section. If no such section exists
+ * (or in case of an error) an empty string is returned.
+ *
+ * @param  structure C++ String containing the result of the IMAP command
+ *                   (without "* ... FETCH (BODYSTRUCTURE (" and the trailing
+ *                   ')')
+ * @param  size      Reference to an integer, in which the size of the returned
+ *                   part is returned. If an empty string is returned this
+ *                   value is not defined.
+ * @param  toplevel  Boolean (default value is true). This is true if it is the
+ *                   toplevel call of this function, false if it is called
+ *                   recursively.
+ * @return           C++ String containing the first "text/plain" part or an
+ *                   empty string
+ */
+std::string
+Imap4::parse_bodystructure (std::string structure,gint &size,gboolean toplevel)
+{
+	gint len=structure.size(),pos=0,block=1,nestlevel=0,startpos=0;
+	gboolean multipart=false;
+
+	// Multipart? -> Parse recursively
+	if (structure.at(0)=='(')
+		multipart=true;
+	else
+	{
+		// One part only! Is it text/plain?
+		if (structure.find("\"text\" \"plain\" ") != 0)
+			return std::string("");
+		pos=15;
+		block=3;
+	}
+
+	// Length is in the 7th block:-(
+	while (pos<len)
+	{
+		gchar c=structure.at(pos++);
+
+		// String (FIXME: '"' inside of strings?)
+		if (c=='"')
+		{
+			if ((multipart) && (nestlevel==0))
+				return std::string("");
+			while ((pos<len) && (structure.at(pos++)!='"'));
+			continue;
+		}
+
+		// Next Block
+		if (c==' ')
+		{
+			if (nestlevel==0)
+				block++;
+			if ((block>7) && (!multipart))
+				return std::string("");
+			while ((pos<len) && (structure.at(pos)==' '))
+				pos++;
+			continue;
+		}
+
+		// Nested "( ... )" block begins
+		if (c=='(')
+		{
+			if ((multipart) && (nestlevel==0))
+				startpos=pos-1;
+			nestlevel++;
+			continue;
+		}
+
+		// Nested "( ... )" block ends
+		if (c==')')
+		{
+			nestlevel--;
+			if (nestlevel<0)
+				return std::string("");
+			if ((nestlevel==0) && (multipart))
+			{
+				gint textsize=0;
+				std::string part=structure.substr(startpos+1,pos-startpos-2);
+				std::string result=parse_bodystructure(part,textsize,false);
+				if (result.empty())
+					continue;
+				size=textsize;
+				std::stringstream ss;
+				ss << block;
+				if (toplevel)
+					return ss.str();
+				return ss.str()+std::string(".")+result;
+			}
+			continue;
+		}
+
+		// Alphanumerical character
+		if (g_ascii_isalnum(c))
+		{
+			if ((multipart) && (nestlevel==0))
+				return std::string("");
+			if (!multipart)
+				startpos=pos-2;
+			while ((pos<len) && (g_ascii_isalnum(structure.at(pos))))
+				pos++;
+			// Block with size information?
+			if ((block==7) && (nestlevel==0) && (!multipart))
+			{
+				std::stringstream ss;
+				ss << structure.substr(startpos,pos-startpos).c_str();
+				ss >> size;
+				return std::string("1");
+			}
+			continue;
+		}
+
+		// Otherwise: Error!
+		return std::string("");
+	}
+	// At end and no length found: Error!
+	return std::string("");
 }
