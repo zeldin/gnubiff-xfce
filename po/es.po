@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-29 13:37+0200\n"
+"POT-Creation-Date: 2004-11-06 17:21+0100\n"
 "PO-Revision-Date: 2003-12-11 15:45+0300\n"
 "Last-Translator: Nicolás Lichtmaier <niqueco@hotmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -54,22 +54,22 @@ msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
 
-#: src/biff.cc:153
+#: src/biff.cc:157
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "archivo de configuración a usar"
 
-#: src/biff.cc:222 src/mailbox.cc:270
+#: src/biff.cc:226 src/mailbox.cc:270
 #, c-format
 msgid "Unable to create lookup thread: %s\n"
 msgstr ""
 
-#: src/biff.cc:462
+#: src/biff.cc:506
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "archivo de configuración a usar"
 
-#: src/biff.cc:484
+#: src/biff.cc:528
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "archivo de configuración a usar"
@@ -84,20 +84,20 @@ msgstr "Sin mensajes"
 msgid "[%d] Unable to create thread: %s\n"
 msgstr ""
 
-#: src/mailbox.cc:364 src/mailbox.cc:371
+#: src/mailbox.cc:355 src/mailbox.cc:362
 #, fuzzy
 msgid "Mailbox format is unknown"
 msgstr "Formato de la carpeta / protocolo"
 
-#: src/mailbox.cc:399
+#: src/mailbox.cc:390
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:409
+#: src/mailbox.cc:400
 msgid "<no subject>"
 msgstr ""
 
-#: src/mailbox.cc:419
+#: src/mailbox.cc:410
 msgid "<no date>"
 msgstr ""
 
@@ -122,14 +122,19 @@ msgstr ""
 msgid "[%d] Unable to write to %s on port %d"
 msgstr ""
 
-#: src/socket.cc:299
+#: src/socket.cc:301
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:100
+#: src/imap4.cc:104
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
+msgstr ""
+
+#: src/imap4.cc:130
+#, c-format
+msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
 #: src/maildir.cc:83 src/maildir.cc:144
@@ -142,7 +147,7 @@ msgstr ""
 msgid "Cannot open new mail directory (%s)"
 msgstr ""
 
-#: src/maildir.cc:177
+#: src/maildir.cc:181
 #, c-format
 msgid "Cannot open %s."
 msgstr ""

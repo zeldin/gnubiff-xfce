@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-29 13:37+0200\n"
+"POT-Creation-Date: 2004-11-06 17:21+0100\n"
 "PO-Revision-Date: 2004-09-18 08:22+0200\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -56,22 +56,22 @@ msgstr ""
 "Det här programmet är en del av GNU-projektet, och är släppt under GNUs "
 "rättighetsskydd."
 
-#: src/biff.cc:153
+#: src/biff.cc:157
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Konfigurationsfil (%s) hittades inte !"
 
-#: src/biff.cc:222 src/mailbox.cc:270
+#: src/biff.cc:226 src/mailbox.cc:270
 #, c-format
 msgid "Unable to create lookup thread: %s\n"
 msgstr "Kan inte skapa utsökningstråd: %s\n"
 
-#: src/biff.cc:462
+#: src/biff.cc:506
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan inte öppna din konfigurationsfil (%s)"
 
-#: src/biff.cc:484
+#: src/biff.cc:528
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Hittade ingen brevlådedefinition i din konfigureringsfil (%s)"
@@ -86,19 +86,19 @@ msgstr "Brevlåda %d"
 msgid "[%d] Unable to create thread: %s\n"
 msgstr "[%d] Kan inte skapa tråd: %s\n"
 
-#: src/mailbox.cc:364 src/mailbox.cc:371
+#: src/mailbox.cc:355 src/mailbox.cc:362
 msgid "Mailbox format is unknown"
 msgstr "Brevlådans format är okänt"
 
-#: src/mailbox.cc:399
+#: src/mailbox.cc:390
 msgid "<no sender>"
 msgstr "<ingen avsändare>"
 
-#: src/mailbox.cc:409
+#: src/mailbox.cc:400
 msgid "<no subject>"
 msgstr "<inget ämne>"
 
-#: src/mailbox.cc:419
+#: src/mailbox.cc:410
 msgid "<no date>"
 msgstr "<Inget datum>"
 
@@ -123,15 +123,20 @@ msgstr "[%d] Kan inte identifiera fjärrvärd (%s på port %d)"
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Kan inte skriva till %s på port %d"
 
-#: src/socket.cc:299
+#: src/socket.cc:301
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Kan inte läsa från %s på port %d"
 
-#: src/imap4.cc:100
+#: src/imap4.cc:104
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Kan inte få godkännande från %s på port %d"
+
+#: src/imap4.cc:130
+#, fuzzy, c-format
+msgid "[%d] Unable to select folder %s on host %s"
+msgstr "[%d] Kan inte ansluta till %s på port %d"
 
 #: src/maildir.cc:83 src/maildir.cc:144
 #, c-format
@@ -143,7 +148,7 @@ msgstr "Kan inte hitta nytt brevbibliotek (%s)"
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kan inte öppna nytt brevbibliotek (%s)"
 
-#: src/maildir.cc:177
+#: src/maildir.cc:181
 #, c-format
 msgid "Cannot open %s."
 msgstr "Kan inte öppna %s."

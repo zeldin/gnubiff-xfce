@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-29 13:37+0200\n"
+"POT-Creation-Date: 2004-11-06 17:21+0100\n"
 "PO-Revision-Date: 2004-10-18 12:04+0200\n"
 "Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
 "Language-Team: Français\n"
@@ -58,22 +58,22 @@ msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
-#: src/biff.cc:153
+#: src/biff.cc:157
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Fichier de configuration non trouvé (%s)"
 
-#: src/biff.cc:222 src/mailbox.cc:270
+#: src/biff.cc:226 src/mailbox.cc:270
 #, c-format
 msgid "Unable to create lookup thread: %s\n"
 msgstr "Impossible de créer le thread: %s\n"
 
-#: src/biff.cc:462
+#: src/biff.cc:506
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: src/biff.cc:484
+#: src/biff.cc:528
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -90,19 +90,19 @@ msgstr "Boîte aux lettres %d"
 msgid "[%d] Unable to create thread: %s\n"
 msgstr "[%d] Impossible de créer le thread: %s\n"
 
-#: src/mailbox.cc:364 src/mailbox.cc:371
+#: src/mailbox.cc:355 src/mailbox.cc:362
 msgid "Mailbox format is unknown"
 msgstr "Format de boîte aux lettres inconnu"
 
-#: src/mailbox.cc:399
+#: src/mailbox.cc:390
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: src/mailbox.cc:409
+#: src/mailbox.cc:400
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: src/mailbox.cc:419
+#: src/mailbox.cc:410
 msgid "<no date>"
 msgstr "<Pas de date>"
 
@@ -127,15 +127,20 @@ msgstr "[%d] Impossible d'identifier l'hôte (%s sur le port %d)"
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Impossible d'écrire à %s sur le port %d"
 
-#: src/socket.cc:299
+#: src/socket.cc:301
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Impossible de lire depuis %s sur le port %d"
 
-#: src/imap4.cc:100
+#: src/imap4.cc:104
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
+
+#: src/imap4.cc:130
+#, fuzzy, c-format
+msgid "[%d] Unable to select folder %s on host %s"
+msgstr "[%d] Impossible de se connecter à %s via le port %d"
 
 #: src/maildir.cc:83 src/maildir.cc:144
 #, c-format
@@ -147,7 +152,7 @@ msgstr "Impossible de trouver le répertoire (%s)"
 msgid "Cannot open new mail directory (%s)"
 msgstr "Inpossible d'ouvrir le répertoire (%s)"
 
-#: src/maildir.cc:177
+#: src/maildir.cc:181
 #, c-format
 msgid "Cannot open %s."
 msgstr "Impossible d'ouvrir %s"
