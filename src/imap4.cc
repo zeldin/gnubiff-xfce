@@ -482,8 +482,11 @@ Imap4::fetch_header (void)
 			if (line.substr(line.size()-2) != ")\r")
 				return;
 
-			// Remove first and last part
+			// Remove first and last part, change to lower case
 			line=line.substr(25+s.str().size(),line.size()-28-s.str().size());
+			gchar *lowercase=g_utf8_strdown(line.c_str(),-1);
+			line=std::string(lowercase);
+			g_free(lowercase);
 
 			// Get Part of Mail that contains "text/plain" (if any exists) and
 			// size of this text
@@ -627,7 +630,8 @@ Imap4::fetch_header (void)
  *
  * @param  structure C++ String containing the result of the IMAP command
  *                   (without "* ... FETCH (BODYSTRUCTURE (" and the trailing
- *                   ')')
+ *                   ')'). This string must be converted to lower case before
+ *                   calling this function!
  * @param  size      Reference to an integer, in which the size of the returned
  *                   part is returned. If an empty string is returned this
  *                   value is not defined.
@@ -649,8 +653,7 @@ Imap4::parse_bodystructure (std::string structure,gint &size,gboolean toplevel)
 	else
 	{
 		// One part only! Is it text/plain?
-		if ((structure.find("\"text\" \"plain\" ") != 0) &&
-			(structure.find("\"TEXT\" \"PLAIN\" ") != 0))
+		if (structure.find("\"text\" \"plain\" ") != 0)
 			return std::string("");
 		pos=15;
 		block=3;

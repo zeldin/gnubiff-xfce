@@ -50,6 +50,8 @@ Version 2.1.0
   * Robert Sowada
    - Updated german translation
    - Various small changes in GUI
+   - Updated "text" "plain" fix of Nicolas to make it safe for future
+     extensions
 	
 Version 2.0.3
   * Roland Stigge:
