@@ -655,7 +655,7 @@ msgstr ""
 
 #: ui/preferences.glade.h:57
 msgid "_Appear in pager"
-msgstr "E_rscheinung im Pager"
+msgstr "E_rscheinen im Pager"
 
 #: ui/preferences.glade.h:58
 msgid "_Be sticky"
