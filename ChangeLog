@@ -69,6 +69,8 @@ Version 2.1.0
    - Get encoding and character set of "text" "plain" part (IMAP4)
    - Updated intltool utilities to version 0.32.1
    - Ported local and distant mailbox detection code from 2.0.3 to 2.1.0
+   - Decoding of quotedprintable encoded mails (IMAP4)
+   - Error message for mails in unknown enoding (IMAP4)
 	
 Version 2.0.3
   * Roland Stigge:

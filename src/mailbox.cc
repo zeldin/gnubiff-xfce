@@ -541,3 +541,62 @@ void Mailbox::parse (std::vector<std::string> &mail, int status)
 			new_seen_.push_back (mailid);
 		}
 }
+
+
+gboolean 
+Mailbox::decode_body (std::vector<std::string> &mail, std::string encoding)
+{
+	// Skip header
+	guint bodypos=0;
+	while ((bodypos<mail.size()) && (!mail[bodypos].empty()))
+		bodypos++;
+	bodypos++;
+
+	// 7bit, 8bit encoding: nothing to do
+	if ((encoding=="7bit") || (encoding=="8bit"));
+	else if (encoding=="quoted-printable")
+		for (guint i=bodypos;i<mail.size();i++)
+			mail[i]=decode_quotedprintable(mail[i]);
+	// Unknown encoding: Replace body text by a error message
+	else {
+		mail.erase(mail.begin()+bodypos, mail.end());
+		gchar *tmp=g_strdup_printf(_("[The encoding \"%s\" of this mail can't be decoded]"),encoding.c_str());
+		mail.push_back(std::string(tmp));
+		g_free(tmp);
+		return true;
+	}
+
+	return true;
+}
+
+std::string 
+Mailbox::decode_quotedprintable (std::string todec)
+{
+	guint pos=0,len=todec.length();
+	std::string result;
+	gint decoded;
+
+	while (pos<len)
+	{
+		switch (gchar c=todec.at(pos++))
+		{
+			case '=':
+				pos+=2;
+				if (pos>len)
+					return result;
+				if ((decoded=g_ascii_xdigit_value(todec.at(pos-1)))<0)
+					break;
+				if ((decoded+=16*g_ascii_xdigit_value(todec.at(pos-2)))<0)
+					break;
+				result+=decoded;
+				break;
+			case '_':
+				result+=' ';
+				break;
+			default:
+				result+=c;
+				break;
+		}
+	}
+	return result;
+}

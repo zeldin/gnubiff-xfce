@@ -173,6 +173,8 @@ public:
 	void lookup (void);								// try to guess mailbox format
 	void parse (std::vector<std::string> &mail,		// parse a mail 
 				int status = -1);
+	gboolean decode_body (std::vector<std::string> &,std::string); // decode mail body
+	std::string decode_quotedprintable (std::string);
 
 	// ========================================================================
 	//  access
