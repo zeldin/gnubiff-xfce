@@ -70,12 +70,22 @@ public:
 	// ========================================================================
 	//  Internal stuff
 	// ========================================================================	
-	std::string parse_bodystructure (std::string, gint &, std::string &,
-									 std::string &, gboolean toplevel=true);
-	gboolean parse_bodystructure_parameters (std::string, std::string &);
+	gboolean parse_bodystructure (std::string, class PartInfo &,
+								  gboolean toplevel=true);
+	gboolean parse_bodystructure_parameters (std::string, class PartInfo &);
 	void reset_tag();
 	std::string tag();
 	gint send(std::string,gboolean debug=true);
+};
+
+class PartInfo
+{
+ public:
+	std::string part;
+	std::string mimetype;
+	std::string encoding;
+	std::string charset;
+	gint size;
 };
 
 #endif

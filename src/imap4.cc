@@ -497,10 +497,14 @@ Imap4::fetch_header (void)
 
 			// Get Part of Mail that contains "text/plain" (if any exists) and
 			// size of this text, encoding, charset
-			gint textsize;
-			std::string encoding,charset;
-			std::string part=parse_bodystructure(line,textsize,encoding,
-												 charset);
+			PartInfo partinfo;
+			parse_bodystructure(line,partinfo);
+			gint textsize=partinfo.size;
+#ifdef DEBUG
+			g_print("** Part %s size=%d, encoding=%s, charset=%s\n",
+					partinfo.part.c_str(), partinfo.size,
+					partinfo.encoding.c_str(), partinfo.charset.c_str());
+#endif
 
 			// Read end of command
 			cnt=1+preventDoS_additionalLines_;
@@ -513,7 +517,7 @@ Imap4::fetch_header (void)
 
 			// FETCH BODY.PEEK
 			// Is there any plain text?
-			if (part=="")
+			if (partinfo.part=="")
 				mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
 			else if (textsize == 0)
 				mail.push_back(std::string(""));
@@ -525,7 +529,7 @@ Imap4::fetch_header (void)
 					textsize=12000;
 				std::stringstream textsizestr;
 				textsizestr << textsize;
-				line = "FETCH " + s.str() + " (BODY.PEEK[" + part + "]<0.";
+				line = "FETCH "+s.str()+" (BODY.PEEK["+partinfo.part+"]<0.";
 				line+= textsizestr.str() + ">)";
 				if (!send(line)) return;
 
@@ -636,32 +640,27 @@ Imap4::fetch_header (void)
 /** 
  * Parse the body structure of a mail.
  * This function parses the result {\em structure} of a
- * "FETCH ... (BODYSTRUCTURE)" IMAP command. It returns the part of the mail
- * body containing the first "text/plain" section. If no such section exists
- * (or in case of an error) an empty string is returned.
+ * "FETCH ... (BODYSTRUCTURE)" IMAP command. It returns (via the reference
+ * parameter {\em partinfo} the part of the mail body containing the first
+ * "text/plain" section and information about this part. If no such section
+ * exists (or in case of an error) false is returned.
  *
  * @param  structure C++ String containing the result of the IMAP command
  *                   (without "* ... FETCH (BODYSTRUCTURE (" and the trailing
  *                   ')'). This string must be converted to lower case before
  *                   calling this function!
- * @param  size      Reference to an integer, in which the size of the
- *                   part is returned. If an empty string is returned this
- *                   value is not defined.
- * @param  encoding  Reference to a C++ String, in which the encoding of the
- *                   part is returned. If an empty string is returned this
- *                   value is not defined.
- * @param  charset   Reference to a C++ String, in which the character set of
- *                   the part is returned. If an empty string is returned this
- *                   value is not defined.
+ * @param  partinfo  Reference to a PartInfo structure. If true is
+ *                   returned the structure will contain the information about
+ *                   the selected part (part, size, encoding, charset,
+ *                   mimetype)
  * @param  toplevel  Boolean (default value is true). This is true if it is the
  *                   toplevel call of this function, false if it is called
  *                   recursively.
  * @return           C++ String containing the first "text/plain" part or an
  *                   empty string
  */
-std::string 
-Imap4::parse_bodystructure (std::string structure, gint &size,
-							std::string &encoding, std::string &charset,
+gboolean 
+Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 							gboolean toplevel)
 {
 	gint len=structure.size(),pos=0,block=1,nestlevel=0,startpos=0;
@@ -670,14 +669,6 @@ Imap4::parse_bodystructure (std::string structure, gint &size,
 	// Multipart? -> Parse recursively
 	if (structure.at(0)=='(')
 		multipart=true;
-	else
-	{
-		// One part only! Is it text/plain?
-		if (structure.find("\"text\" \"plain\" ") != 0)
-			return std::string("");
-		pos=15;
-		block=3;
-	}
 
 	// Length is in the 7th block:-(
 	while (pos<len)
@@ -689,13 +680,33 @@ Imap4::parse_bodystructure (std::string structure, gint &size,
 		{
 			// When in multipart only the last entry is allowed to be a string
 			if ((multipart) && (nestlevel==0))
-				return std::string("");
+				return false;
 			// Get the string
 			gint oldpos=pos;
 			while ((pos<len) && (structure.at(pos++)!='"'));
-			// 6th block is the encoding
-			if ((block==6) && (nestlevel==0) && (!multipart))
-				encoding=structure.substr(oldpos,pos-oldpos-1);
+			if ((nestlevel==0) && (!multipart))
+			{
+				std::string value=structure.substr(oldpos,pos-oldpos-1);
+				gchar *lowercase=g_utf8_strdown(value.c_str(),-1);
+				value=std::string(lowercase);
+				g_free(lowercase);
+				switch (block)
+				{
+					case 1: // MIME type
+						if (value!="text")
+							return false;
+						partinfo.mimetype=value;
+						break;
+					case 2: // MIME type
+						if (value!="plain")
+							return false;
+						partinfo.mimetype+="/"+value;
+						break;
+					case 6:	// Encoding
+						partinfo.encoding=value;
+						break;
+				}
+			}
 			continue;
 		}
 
@@ -705,7 +716,7 @@ Imap4::parse_bodystructure (std::string structure, gint &size,
 			if (nestlevel==0)
 				block++;
 			if ((block>7) && (!multipart))
-				return std::string("");
+				return false;
 			while ((pos<len) && (structure.at(pos)==' '))
 				pos++;
 			continue;
@@ -725,28 +736,26 @@ Imap4::parse_bodystructure (std::string structure, gint &size,
 		{
 			nestlevel--;
 			if (nestlevel<0)
-				return std::string("");
+				return false;
 			// Content of block
 			std::string content=structure.substr(startpos+1,pos-startpos-2);
 			// One part of a multipart message?
 			if ((nestlevel==0) && (multipart))
 			{
-				gint textsize=0;
-				std::string result=parse_bodystructure(content,textsize,
-													   encoding,charset,false);
-				if (result.empty())
+				if (!parse_bodystructure(content,partinfo,false))
 					continue;
-				size=textsize;
 				std::stringstream ss;
 				ss << block;
 				if (toplevel)
-					return ss.str();
-				return ss.str()+std::string(".")+result;
+					partinfo.part=ss.str();
+				else
+					partinfo.part=ss.str()+std::string(".")+partinfo.part;
+				return true;
 			}
 			// List of parameter/value pairs? (3rd block)
 			if ((nestlevel==0) && (!multipart) && (block==3))
-				if (!parse_bodystructure_parameters(content,charset))
-					return std::string("");
+				if (!parse_bodystructure_parameters(content,partinfo))
+					return false;
 			continue;
 		}
 
@@ -754,7 +763,7 @@ Imap4::parse_bodystructure (std::string structure, gint &size,
 		if (g_ascii_isalnum(c))
 		{
 			if ((multipart) && (nestlevel==0))
-				return std::string("");
+				return false;
 			if (!multipart)
 				startpos=pos-2;
 			while ((pos<len) && (g_ascii_isalnum(structure.at(pos))))
@@ -764,23 +773,24 @@ Imap4::parse_bodystructure (std::string structure, gint &size,
 			{
 				std::stringstream ss;
 				ss << structure.substr(startpos,pos-startpos).c_str();
-				ss >> size;
-				return std::string("1");
+				ss >> partinfo.size;
+				partinfo.part=std::string("1");
+				return true;
 			}
 			continue;
 		}
 
 		// Otherwise: Error!
-		return std::string("");
+		return false;
 	}
 	// At end and no length found: Error!
-	return std::string("");
+	return false;
 }
 
 /** 
  * Parse the list of parameter/value pairs of a part of a mail.
  * This list is the third block of the body structure of this part. Currently
- * the only parameter we are interested in is the character set {\em charset}.
+ * the only parameter we are interested in is the character set.
  * If the parameter is not in the list an empty string is returned as value for
  * this parameter.
  *
@@ -790,18 +800,17 @@ Imap4::parse_bodystructure (std::string structure, gint &size,
  * @param  list      C++ String containing the parameter/value list. This is a
  *                   (converted to lower case) substring of the result of the
  *                   IMAP "FETCH ... (BODYSTRUCTURE) command).
- * @param  charset   Reference to a C++ String, in which the character set of
- *                   the part is returned.
+ * @param  partinfo  Reference to a PartInfo structure. If true is
+ *                   returned the structure will contain the information about
+ *                   the selected part (part, size, encoding, charset,
+ *                   mimetype)
  * @return           Boolean indicating success or failure.
  */
-gboolean
-Imap4::parse_bodystructure_parameters (std::string list, std::string &charset)
+gboolean 
+Imap4::parse_bodystructure_parameters (std::string list, PartInfo &partinfo)
 {
 	gint len=list.size(),pos=0,stringcnt=1;
 	std::string parameter;
-
-	// Default values
-	charset=std::string("");
 
 	while (pos<len)
 	{
@@ -829,7 +838,7 @@ Imap4::parse_bodystructure_parameters (std::string list, std::string &charset)
 			}
 			// Look for parameters we need
 			if (parameter=="charset")
-				charset=value;
+				partinfo.charset=value;
 			continue;
 		}
 
