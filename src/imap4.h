@@ -68,7 +68,7 @@ class Imap4 : public Mailbox {
 	// ========================================================================
 
 	/// General exception for IMAP mailbox. 
-	class imap_err : public std::exception {};
+	class imap_err : public mailbox_err {};
 	/** Exception for a socket connection failure. Usually this is thrown when
 	 *  reading or writing. */
 	class imap_socket_err : public imap_err {};
@@ -151,7 +151,9 @@ class PartInfo
 	std::string part_;
 	/// MIME type of this part. Currently only "text/plain" is supported.
 	std::string mimetype_;
-	/// Encoding of this part. Currently supported encodings are 7bit, 8bit, binary and quoted-printable.
+	/** Encoding of this part. Currently supported encodings are 7bit, 8bit and
+	 *  quoted-printable. Encodings yet to be supported are binary and base64.
+	 */
 	std::string encoding_;
 	/// Character set of this part
 	std::string charset_;

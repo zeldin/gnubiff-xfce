@@ -103,7 +103,10 @@ typedef struct _header {
 
 #define MAILBOX(x)					((Mailbox *)(x))
 
-
+/**
+ * Generic mailbox intended as base for implementing mailboxes for a specific
+ * protocol. 
+ */
 class Mailbox : public Decoding {
 
 protected:
@@ -157,6 +160,14 @@ public:
 	Mailbox (const Mailbox &other);
 	Mailbox &operator= (const Mailbox &other);
 	virtual ~Mailbox (void);
+
+	// ========================================================================
+	//  exceptions
+	// ========================================================================
+
+	/** General exception for mailboxes. This only serves as base for more
+	 *  more specific exceptions. */
+	class mailbox_err : public std::exception {};
 
 	// ========================================================================
 	//  main

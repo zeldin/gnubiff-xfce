@@ -55,7 +55,7 @@ Decoding::decode_body (std::vector<std::string> &mail, std::string encoding)
 	bodypos++;
 
 	// 7bit, 8bit encoding: nothing to do
-	if ((encoding=="7bit") || (encoding=="8bit") || (encoding=="binary"));
+	if ((encoding=="7bit") || (encoding=="8bit")); // || (encoding=="binary"));
 	// Quoted-Printable
 	else if (encoding=="quoted-printable") {
 		std::vector<std::string> decoded=decode_quotedprintable(mail, bodypos);
