@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-08 14:31+0100\n"
+"POT-Creation-Date: 2004-12-08 22:52+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -293,12 +293,12 @@ msgstr "Oggetto"
 msgid "Date"
 msgstr "Data"
 
-#: src/ui-popup.cc:554 src/ui-popup.cc:566 src/ui-popup.cc:575
-#: src/ui-popup.cc:582
+#: src/ui-popup.cc:565 src/ui-popup.cc:577 src/ui-popup.cc:586
+#: src/ui-popup.cc:593
 msgid "* error *"
 msgstr "* errore *"
 
-#: src/ui-popup.cc:713
+#: src/ui-popup.cc:724
 msgid "Error"
 msgstr "Errore"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-08 14:31+0100\n"
+"POT-Creation-Date: 2004-12-08 22:52+0100\n"
 "PO-Revision-Date: 2004-03-11 22:32+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -288,12 +288,12 @@ msgstr ""
 msgid "Date"
 msgstr "Dekorerad"
 
-#: src/ui-popup.cc:554 src/ui-popup.cc:566 src/ui-popup.cc:575
-#: src/ui-popup.cc:582
+#: src/ui-popup.cc:565 src/ui-popup.cc:577 src/ui-popup.cc:586
+#: src/ui-popup.cc:593
 msgid "* error *"
 msgstr ""
 
-#: src/ui-popup.cc:713
+#: src/ui-popup.cc:724
 msgid "Error"
 msgstr ""
 
