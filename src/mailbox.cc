@@ -227,21 +227,22 @@ Mailbox::option_changed (Option *option)
 
 		// Standard ports
 		if (!value_bool ("use_other_port")) {
-			// Note: If authentication is autodetection port will be set when
-			// updating. This should be done before.
-			switch (value_uint ("protocol")) {
+			guint auth = authentication();
+			switch (protocol ()) {
 			case PROTOCOL_IMAP4:
-				newport = (authentication() == AUTH_USER_PASS) ? 143 : 993;
+				newport = (auth == AUTH_USER_PASS) ? 143 : 993;
 				break;
 			case PROTOCOL_POP3:
-				newport = (authentication() == AUTH_USER_PASS) ? 110 : 995;
+				newport = (auth == AUTH_USER_PASS) ? 110 : 995;
 				break;
 			case PROTOCOL_APOP:
-				newport = 110;
+				newport = (auth == AUTH_APOP) ? 110 : 995;
 				break;
 			default:
 				break;
 			}
+			if (auth == AUTH_AUTODETECT)
+				newport = 0;
 		}
 		// User given port
 		else

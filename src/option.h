@@ -69,6 +69,9 @@ const guint OPTFLG_UPDATE = 64;
 /// The option is a space separated list of strings (string)
 const guint OPTFLG_STRINGLIST = 128;
 
+/// Option cannot be changed by the user
+const guint OPTFLG_USER_NO_CHANGE = OPTFLG_FIXED | OPTFLG_AUTO;
+
 enum OptionType {OPTTYPE_NONE = 0, OPTTYPE_UINT, OPTTYPE_STRING, OPTTYPE_BOOL};
 
 enum OptionGUI {OPTGUI_NONE = 0, OPTGUI_TOGGLE, OPTGUI_SPIN, OPTGUI_ENTRY,

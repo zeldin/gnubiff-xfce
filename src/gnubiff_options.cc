@@ -281,7 +281,11 @@ Gnubiff_Options::add_options_mailbox (void)
 								"certificate", "-", NULL};
 	add_option (new Option_UInt ("authentication", OPTGRP_MAILBOX,
 		"Authentication to be used when connecting to the server via the "
-		"internet.",
+		"internet.\n"
+		"Attention: Don't use autodetection if you don't want your password "
+		"to be sent over the network in clear. There may be a "
+		"man-in-the-middle attack resulting in gnubiff sending the password "
+		"in clear even if your server supports APOP or SSL.",
 								 AUTH_AUTODETECT,
 								 OPTFLG_CHANGE | OPTFLG_ID_INT_STRICT, i4,s4));
 	// CERTIFICATE
@@ -328,7 +332,7 @@ Gnubiff_Options::add_options_mailbox (void)
 	// FOLDER
 	add_option (new Option_String ("folder", OPTGRP_MAILBOX,
 		"Folder to be used when accessing an Imap4 server.",
-								   "INBOX", OPTFLG_AUTO));
+								   "INBOX", OPTFLG_AUTO | OPTFLG_NOSAVE));
 	// PASSWORD
 	add_option (new Option_String ("password", OPTGRP_MAILBOX,
 		"Password of the mailbox. This is needed to login into network "
@@ -355,8 +359,10 @@ Gnubiff_Options::add_options_mailbox (void)
 								   "port_spin"));
 	// PORT
 	add_option (new Option_UInt ("port", OPTGRP_MAILBOX,
-		"Port to be used when connecting to the server via the internet.",
-								 995, OPTFLG_AUTO));
+		"Port to be used when connecting to the server via the internet. "
+		"If authentication is set to autodetect this option will be set "
+		"when the mailbox is connected for the first time.",
+								 995, OPTFLG_AUTO | OPTFLG_NOSAVE));
 	// PROTOCOL
 	add_option (new Option_UInt ("protocol", OPTGRP_MAILBOX,
 		"Protocol to be used by the mailbox.",
