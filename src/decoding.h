@@ -48,19 +48,24 @@ class Decoding
 protected:
 	// Mail body and header
 	gboolean decode_body (std::vector<std::string> &mail, std::string encoding,
-						  guint bodypos = 0, gboolean skip_header = true);
+						  std::string::size_type bodypos = 0,
+						  gboolean skip_header = true);
 	std::string decode_headerline (const std::string line);
-	gboolean get_quotedstring (std::string line, std::string &str, guint &pos,
+	gboolean get_quotedstring (std::string line, std::string &str,
+							   std::string::size_type &pos,
 							   gchar quoted = '"', gboolean test_start = true,
 							   gboolean end_ok = false);
-	gboolean get_mime_token (std::string line, std::string &str, guint &pos,
+	gboolean get_mime_token (std::string line, std::string &str,
+							 std::string::size_type &pos,
 							 gboolean lowercase = true);
 
 	// Encodings
 	std::string decode_base64 (const std::string &);
 	std::string decode_qencoding (const std::string &);
 	std::string decode_quotedprintable (const std::string &);
-	std::vector<std::string> decode_quotedprintable (const std::vector<std::string> &, guint pos=0);
+	std::vector<std::string> decode_quotedprintable (
+				const std::vector<std::string> &,
+				std::string::size_type pos=0);
 
 	// Converting
 	gchar* utf8_to_imaputf7 (const gchar *, gssize);

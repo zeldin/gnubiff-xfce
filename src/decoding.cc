@@ -53,7 +53,7 @@
  */
 gboolean 
 Decoding::decode_body (std::vector<std::string> &mail, std::string encoding,
-					   guint bodypos, gboolean skip_header)
+					   std::string::size_type bodypos, gboolean skip_header)
 {
 	// Skip header
 	if (skip_header) {
@@ -68,13 +68,15 @@ Decoding::decode_body (std::vector<std::string> &mail, std::string encoding,
 	else if (encoding=="quoted-printable") {
 		std::vector<std::string> decoded=decode_quotedprintable(mail, bodypos);
 		mail.erase(mail.begin()+bodypos, mail.end());
-		for (guint i=0; i<decoded.size(); i++)
+		for (std::string::size_type i = 0; i < decoded.size(); i++)
 			mail.push_back(decoded[i]);
 	}
 	// Unknown encoding: Replace body text by a error message
 	else {
 		mail.erase (mail.begin()+bodypos, mail.end());
-		gchar *tmp = g_strdup_printf (_("[The encoding \"%s\" of this mail can't be decoded]"), encoding.c_str());
+		gchar *tmp = g_strdup_printf (_("[The encoding \"%s\" of this mail "
+										"can't be decoded]"),
+									  encoding.c_str());
 		mail.push_back (std::string(tmp));
 		g_free (tmp);
 		return false;
@@ -99,8 +101,8 @@ Decoding::decode_headerline (const std::string line)
 	// A mail header line (sender, subject or date) cannot contain
 	// non-ASCII characters, so first we remove any non-ASCII characters
 	std::string copy;
-	guint len = line.size();
-	for (guint i=0; i < len; i++)
+	std::string::size_type len = line.size();
+	for (std::string::size_type i = 0; i < len; i++)
 		if (line[i] >= 0)
 			copy += line[i];
 	len = copy.size();
@@ -109,7 +111,7 @@ Decoding::decode_headerline (const std::string line)
 	std::string copy_part, charset, decoded, result;
 
 	// Now we can begin decoding
-	guint i=0;
+	std::string::size_type i = 0;
 	while (i < len) {
 		// Charset description (=?iso-ABCD-XY?)
 		if ((i+1 < len) && (copy[i] == '=') && (copy[i+1] == '?')) {
@@ -210,10 +212,11 @@ Decoding::decode_headerline (const std::string line)
  *  @return            Boolean indicating success
  */
 gboolean 
-Decoding::get_quotedstring (std::string line, std::string &str, guint &pos,
-							gchar quoted, gboolean test_start, gboolean end_ok)
+Decoding::get_quotedstring (std::string line, std::string &str,
+							std::string::size_type &pos, gchar quoted,
+							gboolean test_start, gboolean end_ok)
 {
-	guint len = line.size ();
+	std::string::size_type len = line.size ();
 	str = std::string ("");
 	if (pos >= len)
 		return false;
@@ -250,13 +253,13 @@ Decoding::get_quotedstring (std::string line, std::string &str, guint &pos,
  *  @return            Boolean indicating success
  */
 gboolean 
-Decoding::get_mime_token (std::string line, std::string &str, guint &pos,
-						  gboolean lowercase)
+Decoding::get_mime_token (std::string line, std::string &str,
+						  std::string::size_type &pos, gboolean lowercase)
 {
 	// Non alphanumeric characters allowed in tokens
 	const static std::string token_ok = "!#$%&'*+-._`{|}~";
 
-	guint len = line.size();
+	std::string::size_type len = line.size();
 	while ((pos < len) && ((g_ascii_isalnum(line[pos]))
 						   || (token_ok.find(line[pos]) != std::string::npos)))
 		str += line[pos++];
@@ -290,34 +293,34 @@ Decoding::decode_base64 (const std::string &todec)
 	};
 #   define BASE64(c) (index_64[(unsigned char)(todec[c]) & 0x7F])
 	std::string result;
-	guint pos=0, len=todec.length();
+	std::string::size_type pos = 0, len = todec.length();
 
-	if (len%4!=0)
+	if (len%4 != 0)
 		return std::string("");
 
-	while (pos+3<len) {
+	while (pos+3 < len) {
 		if ((todec[pos]&0x80) || (todec[pos+1]&0x80) || (todec[pos+2]&0x80)
 			|| (todec[pos+3]&0x80) || (index_64[(int)todec[pos]]<0)
 			|| (index_64[(int)todec[pos+1]]<0))
 			return std::string("");
-		result+=(char)((BASE64(pos) << 2) | (BASE64(pos+1) >> 4));
-		if (todec[pos+2]=='=')
+		result += (gchar)((BASE64(pos) << 2) | (BASE64(pos+1) >> 4));
+		if (todec[pos+2] == '=')
 			if ((todec[pos+3]=='=') && (pos+4==len) && (!(BASE64(pos+1)&15)))
 				return result;
 			else
 				return std::string("");
 		if (index_64[(int)todec[pos+2]]<0)
 			return std::string("");
-		result+=(char)(((BASE64(pos+1) & 0xf) << 4) | (BASE64(pos+2) >> 2));
-		if (todec[pos+3]=='=')
-			if ((pos+4==len) && (!(BASE64(pos+2)&3)))
+		result += (gchar)(((BASE64(pos+1) & 0xf) << 4) | (BASE64(pos+2) >> 2));
+		if (todec[pos+3] == '=')
+			if ((pos+4 == len) && (!(BASE64(pos+2)&3)))
 				return result;
 			else
 				return std::string("");
 		if (index_64[(int)todec[pos+3]]<0)
 			return std::string("");
-		result+=(char)(((BASE64(pos+2) & 0x3) << 6) | BASE64(pos+3));
-		pos+=4;
+		result += (gchar)(((BASE64(pos+2) & 0x3) << 6) | BASE64(pos+3));
+		pos += 4;
 	}
 	return result;
 }
@@ -333,29 +336,29 @@ Decoding::decode_base64 (const std::string &todec)
 std::string 
 Decoding::decode_qencoding (const std::string &todec)
 {
-	guint pos=0,len=todec.length();
+	std::string::size_type pos = 0, len = todec.length();
 	std::string result;
 	gint decoded;
 
-	while (pos<len)
+	while (pos < len)
 	{
-		switch (gchar c=todec.at(pos++))
+		switch (gchar c = todec.at(pos++))
 		{
 			case '=':
 				pos+=2;
 				if (pos>len)
 					return result;
-				if ((decoded=g_ascii_xdigit_value(todec.at(pos-1)))<0)
+				if ((decoded  = g_ascii_xdigit_value(todec.at(pos-1))) < 0)
 					return std::string("");
-				if ((decoded+=16*g_ascii_xdigit_value(todec.at(pos-2)))<0)
+				if ((decoded += 16*g_ascii_xdigit_value(todec.at(pos-2))) < 0)
 					return std::string("");
-				result+=decoded;
+				result += decoded;
 				break;
 			case '_':
-				result+=' ';
+				result += ' ';
 				break;
 			default:
-				result+=c;
+				result += c;
 				break;
 		}
 	}
@@ -376,7 +379,7 @@ Decoding::decode_qencoding (const std::string &todec)
 std::string 
 Decoding::decode_quotedprintable (const std::string &todec)
 {
-	guint pos=0,len=todec.length();
+	std::string::size_type pos = 0, len = todec.length();
 	std::string result;
 	gint decoded;
 
@@ -385,17 +388,17 @@ Decoding::decode_quotedprintable (const std::string &todec)
 		switch (gchar c=todec.at(pos++))
 		{
 			case '=':
-				pos+=2;
-				if (pos>len)
+				pos += 2;
+				if (pos > len)
 					return result;
-				if ((decoded=g_ascii_xdigit_value(todec.at(pos-1)))<0)
+				if ((decoded  = g_ascii_xdigit_value(todec.at(pos-1))) < 0)
 					return std::string("");
-				if ((decoded+=16*g_ascii_xdigit_value(todec.at(pos-2)))<0)
+				if ((decoded += 16*g_ascii_xdigit_value(todec.at(pos-2))) < 0)
 					return std::string("");
-				result+=decoded;
+				result += decoded;
 				break;
 			default:
-				result+=c;
+				result += c;
 				break;
 		}
 	}
@@ -419,29 +422,29 @@ Decoding::decode_quotedprintable (const std::string &todec)
  */
 std::vector<std::string> 
 Decoding::decode_quotedprintable (const std::vector<std::string> &todec,
-								  guint pos)
+								  std::string::size_type pos)
 {
 	std::string line;
 	std::vector<std::string> result;
 
-	while (pos<todec.size()) {
+	while (pos < todec.size()) {
 		// Handle soft breaks (see RFC 2045 6.7. (3),(5))
-		line+=todec[pos];
-		gint lpos=line.size()-1;
-		while ((lpos>=0) && ((line[lpos]=='\t') || (line[lpos]==' ')))
+		line += todec[pos];
+		std::string::size_type lpos = line.size();
+		while ((lpos>0) && ((line[lpos-1]=='\t') || (line[lpos-1]==' ')))
 			lpos--;
-		if (lpos<(signed)line.size()-1)
-			line.erase(lpos+1,line.size());
-		if ((line.size()>0) && (line[line.size()-1]=='=')) {
-			line.erase(line.size()-1);
-			if (pos<todec.size()-1) {
+		if (lpos < line.size())
+			line.erase (lpos, line.size());
+		if ((line.size() > 0) && (line[line.size()-1] == '=')) {
+			line.erase (line.size()-1);
+			if (pos < todec.size()-1) {
 				pos++;
 				continue;
 			}
 		}
 		// Decode line
-		result.push_back(decode_quotedprintable(line));
-		line="";
+		result.push_back (decode_quotedprintable (line));
+		line = "";
 		pos++;
 	}
 	return result;
@@ -475,19 +478,19 @@ Decoding::utf8_to_imaputf7(const gchar *str, gssize len)
 						  "abcdefghijklmnopqrstuvwxyz0123456789+,";
 
 	// No String or nothing to do
-	if ((str==NULL) || (len==0))
+	if ((str == NULL) || (len == 0))
 		return NULL;
 
-	gchar c=*str;;
+	gchar c = *str;;
 	std::string result;
-	gssize cnt_len=0;
-	gboolean printableascii=true;
+	gssize cnt_len = 0;
+	gboolean printableascii = true;
 	const gchar *start = str;
 
 	while (((len<0) && (*str!='\0')) || (cnt_len<len) || (!printableascii))
 	{
-		if (cnt_len!=len)
-			c=*str;
+		if (cnt_len != len)
+			c = *str;
 
 		// End of non (printable) ASCII characters?
 		if (((!printableascii) && (c>='\x20') && (c<='\x7e'))
@@ -496,42 +499,42 @@ Decoding::utf8_to_imaputf7(const gchar *str, gssize len)
 			result+='&';
 
 			// Convert first to UTF-16
-			gsize cnt=0;
-			gchar *utf16=g_convert(start,str-start,"UTF-16BE","UTF-8",
-								   NULL,&cnt,NULL);
-			if (utf16==NULL)
+			gsize cnt = 0;
+			gchar *utf16 = g_convert(start,str-start,"UTF-16BE","UTF-8",
+									 NULL,&cnt,NULL);
+			if (utf16 == NULL)
 				return NULL;
 			
 			// Convert to modified BASE64
-			gchar *pos=utf16;
-			while (cnt>0)
+			gchar *pos = utf16;
+			while (cnt > 0)
 			{
-				gchar b[5]="\0\0\0\0";
-				b[0]=modbase64[(pos[0]&0xfc)>>2];
-				if (cnt==1)
-					b[1]=modbase64[(pos[0]&0x03)<<4];
+				gchar b[5] = "\0\0\0\0";
+				b[0] = modbase64[(pos[0]&0xfc)>>2];
+				if (cnt == 1)
+					b[1] = modbase64[(pos[0]&0x03)<<4];
 				else
 				{
-					b[1]=modbase64[((pos[0]&0x03)<<4)|(pos[1]&0xf0)>>4];
-					if (cnt==2)
-						b[2]=modbase64[(pos[1]&0x0f)<<2];
+					b[1] = modbase64[((pos[0]&0x03)<<4)|(pos[1]&0xf0)>>4];
+					if (cnt == 2)
+						b[2] = modbase64[(pos[1]&0x0f)<<2];
 					else
 					{
-						b[2]=modbase64[((pos[1]&0x0f)<<2)|(pos[2]&0xc0)>>6];
-						b[3]=modbase64[pos[2]&0x3f];
+						b[2] = modbase64[((pos[1]&0x0f)<<2)|(pos[2]&0xc0)>>6];
+						b[3] = modbase64[pos[2]&0x3f];
 					}
 				}
-				result+=b;
-				if (cnt>2)
-					cnt-=3;
+				result += b;
+				if (cnt > 2)
+					cnt -= 3;
 				else
-					cnt=0;
-				pos+=3;
+					cnt = 0;
+				pos += 3;
 			}
 
-			g_free(utf16);
-			result+="-";
-			printableascii=true;
+			g_free (utf16);
+			result += "-";
+			printableascii = true;
 			continue;
 		}
 
@@ -541,24 +544,24 @@ Decoding::utf8_to_imaputf7(const gchar *str, gssize len)
 		// (Printable) ASCII character?
 		if ((printableascii) && (c>='\x20') && (c<='\x7e'))
 		{
-			result+=c;
-			if (c=='&')
-				result+='-';
+			result += c;
+			if (c == '&')
+				result += '-';
 			continue;
 		}
 
 		// End of (printable) ASCII characters?
 		if (printableascii)
 		{
-			printableascii=false;
-			start=str-1;
+			printableascii = false;
+			start = str-1;
 			continue;
 		}
 
 		// Another non (printable) ASCII character!
 	}
 
-	return g_strdup(result.c_str());
+	return g_strdup (result.c_str ());
 }
 
 /**
@@ -575,7 +578,7 @@ Decoding::utf8_to_imaputf7(const gchar *str, gssize len)
 gchar * 
 Decoding::charset_to_utf8 (std::string text, std::string charset)
 {
-	gchar *utf8 = (char *) text.c_str();
+	gchar *utf8 = (gchar *) text.c_str();
 	if (!charset.empty())
 		utf8 = g_convert (text.c_str(), -1, "utf-8", charset.c_str(), 0,0,0);
 	else
@@ -636,7 +639,7 @@ Decoding::encrypt_password (const std::string &password,
 #ifdef USE_PASSWORD
 	std::stringstream encrypted;
 
-	for (guint j=0; j < password.size(); j++)
+	for (std::string::size_type j = 0; j < password.size(); j++)
 		encrypted << passtable[password[j]/16] << passtable[password[j]%16];
 	return encrypted.str();
 #else
@@ -662,10 +665,9 @@ Decoding::decrypt_password (const std::string &password,
 #ifdef USE_PASSWORD
 	std::stringstream decrypted;
 
-	for (guint i = 0; i+1 < password.size(); i += 2) {
+	for (std::string::size_type i = 0; i+1 < password.size(); i += 2) {
 		char c = 0;
-		guint j;
-		for (j=0; j<16; j++) {
+		for (guint j = 0; j < 16; j++) {
 			if (passtable [j] == password[i])
 				c += j*16;
 			if (passtable [j] == password[i+1])
