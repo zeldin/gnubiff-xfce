@@ -130,7 +130,7 @@ AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE",
 	               [The prefix for our gettext translation domains.])
 AC_PROG_INTLTOOL
-AM_GLIB_GNU_GETTEXT
+#AM_GLIB_GNU_GETTEXT
 AM_GNU_GETTEXT([external])
 
 
