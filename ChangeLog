@@ -5,11 +5,22 @@ See the end for copying conditions.
 Please send gnubiff bug reports to Nicolas.Rougier@loria.fr.
 
 Version 2.1.0
- * New & simpler interface
- * Support of the IDLE state for imap4 (no more polling)
- * Support of the FAM (File Alteration Monitor)
-   (no more polling for file/folder protocols)
- * Better detection of mailbox format
+ * Nicolas Rougier
+   - New & simpler interface
+   - Support of the IDLE state for imap4 (no more polling)
+   - Support of the FAM (File Alteration Monitor)
+     (no more polling for file/folder protocols)
+   - Better detection of mailbox format
+* Robert Sowada / Nicolas Rougier
+   - Gnome version can determine itself if in standalone mode or panel mode
+   - Removed "--gtk" option, added "--applet" option in debug mode instead
+   - Added "--version" option to all versions of gnubiff
+   - "--help" option handled by "poptPrintHelp" in all versions of gnubiff
+   - Removed messages that are no longer necessary
+   - Bugfix: Using <return> in password entry
+   - Bugfix: return value of main
+   - Output of "--help" restructured
+   
 	
 Version 2.0.2
  * Some cosmetic fixes
