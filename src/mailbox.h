@@ -77,6 +77,21 @@ typedef struct _header {
 	std::string	charset;
 	gint		status;
 
+	/**
+	 *  This is a (hopefully) unique identifier for the mail. If supported by
+	 *  the protocol this will be the unique id of the mail that is provided
+	 *  by the server (this is the case for POP3 and IMAP4). Otherwise
+	 *  gnubiff creates an own identifier.
+	 *
+	 *  Remark: This identifier must not contain whitespace characters!
+	 *
+	 *  Remark: For IMAP4 gnubiff does not use the unique id yet.
+	 *
+	 *  @see The mail identifier is calculated by the method
+	 *       header::setmailid().
+	 */
+	std::string mailid_;
+
 	struct _header &operator = (const struct _header &other)
 	{
 		if (this != &other) {
@@ -86,6 +101,7 @@ typedef struct _header {
 			body = other.body;
 			charset = other.charset;
 			status = other.status;
+			mailid_ = other.mailid_;
 		}
 		return *this;
 	}
@@ -94,10 +110,33 @@ typedef struct _header {
 	{
 		if ((sender  == other.sender)  && (subject == other.subject) &&
 			(date    == other.date)    && (body    == other.body)    &&
-			(charset == other.charset) && (status  == other.status))
+			(charset == other.charset) && (status  == other.status)  &&
+			(mailid_ == other.mailid_))
 			return true;
 		else
 			return false;
+	}
+
+	/**
+	 *  Setting the gnubiff mail identifier for this mail header. If a unique
+	 *  identifier {\em uid} is provided it is taken. Otherwise (i.e.
+	 *  {\em uid} is an empty string) it is created by concatenating hash
+	 *  values of the sender, subject and date.
+	 *
+	 *  @param uid Unique identifier for the mail as provided by the protocol
+	 *             (POP3 and IMAP4). The default is the empty string.
+	 */
+	void setmailid (std::string uid = std::string(""))
+	{
+		if (uid.size () > 0)
+			mailid_ = uid;
+		else {
+			std::stringstream ss;
+			ss << g_str_hash (sender.c_str());
+			ss << g_str_hash (subject.c_str());
+			ss << g_str_hash (date.c_str());
+			mailid_ = ss.str ();
+		}
 	}
 } header;
 
@@ -155,14 +194,14 @@ protected:
 	std::vector<header>			unread_;			// collected unread mail
 	std::vector<header>			new_unread_;		// collected unread mail (tmp buffer)
 	/// Set of gnubiff mail ids of those mails that won't be displayed
-	std::set<guint>				hidden_;
+	std::set<std::string>		hidden_;
 	/** Set of gnubiff mail ids of those mails that have already been seen by
 	 *  gnubiff during the last update */
-	std::set<guint>				seen_;
+	std::set<std::string>		seen_;
 	/** Set of gnubiff mail ids of those mails that have already been seen by
 	 *  gnubiff during the present update. These ids will be transfered to
 	 *  Mailbox::seen_ once the update is completed successfully. */
-	std::set<guint>				new_seen_;
+	std::set<std::string>		new_seen_;
 	template<class T> static gboolean contains_new (std::vector<T> newlist, std::vector<T> oldlist); // Comparing newlist to oldlist for new elements
 
 public:
@@ -210,16 +249,16 @@ public:
 	void lookup (void);								// try to guess mailbox format
 	static Mailbox *lookup_local(Mailbox &);        // try to guess mailbox format for a local mailbox
 	void parse (std::vector<std::string> &mail,		// parse a mail 
-				int status = -1);
+				int status = -1, std::string uid = std::string(""));
 
 	// ========================================================================
 	//  access
-	// ========================================================================	
+	// ========================================================================
 	const std::string name (void)						{return name_;}
 	void name (const std::string value)					{name_ = value;}
 
 	const guint protocol (void)							{return protocol_;}
-	void protocol (const guint value)					{protocol_ = value;}	
+	void protocol (const guint value)					{protocol_ = value;}
 
 	const guint authentication(void)					{return authentication_;}
 	void authentication (const guint value)				{authentication_ = value;}	
@@ -284,7 +323,7 @@ public:
 		return s;
 	}
 	/// Access function to Mailbox::hidden_
-	std::set<guint> &hidden (void)						{return hidden_;}
+	std::set<std::string> &hidden (void)				{return hidden_;}
 	/// Number of mails that won't be displayed
 	guint hiddens (void)								{return hidden_.size();}
 };

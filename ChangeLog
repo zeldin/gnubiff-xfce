@@ -79,6 +79,10 @@ Version 2.1.1
    - Bugfix: Error handling when getting timestamp (APOP)
    - substituted std::vector by std::set for saved uids (POP3), hidden mailids,
         seen mailids and new seen mailids
+   - mailids are strings now, no longer integers. Note: This makes the saved
+        values for seen mails in the config file invalid
+   - mailids are now created by taking uids from server if possible (currently
+        only POP3, IMAP4 will follow)
 
 Version 2.1.0
  * Nicolas Rougier

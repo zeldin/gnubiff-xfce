@@ -466,7 +466,8 @@ Mailbox::lookup_local(Mailbox &oldmailbox)
 //  sender/date/subject, to convert strings if necessary and to store the mail in
 //  unread array (depending if it's spam or if it is internally marked as seen)
 // ================================================================================
-void Mailbox::parse (std::vector<std::string> &mail, int status)
+void Mailbox::parse (std::vector<std::string> &mail, int status,
+					 std::string uid)
 {
 	header h;
 	h.status = status;
@@ -557,9 +558,13 @@ void Mailbox::parse (std::vector<std::string> &mail, int status)
 			// so we have to decide what to do with it because we may have already displayed it
 			// and maybe it has been gnubifficaly marked as "seen".
 			//
-			guint mailid = g_str_hash (h.sender.c_str()) ^ g_str_hash (h.subject.c_str()) ^ g_str_hash (h.date.c_str());
-			if (hidden_.find (mailid) == hidden_.end ())
+			h.setmailid (uid);
+			if (hidden_.find (h.mailid_) == hidden_.end ())
 				new_unread_.push_back (h);
-			new_seen_.insert (mailid);
+			new_seen_.insert (h.mailid_);
+#ifdef DEBUG
+			g_message ("[%d] Parsed mail with id \"%s\"", uin_,
+					   h.mailid_.c_str());
+#endif
 		}
 }

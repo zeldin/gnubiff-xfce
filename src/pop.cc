@@ -205,7 +205,8 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 	std::set<std::string> buffer;
 	for (guint i=0; i< num; i++) {
 		// UIDL
-		buffer.insert (command_uidl (i+start));
+		std::string uid=command_uidl (i+start);
+		buffer.insert (uid);
 
 		if (statusonly)
 			continue;
@@ -214,7 +215,7 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 		command_top (mail, start + i);
 
 		// Parse mail
-		parse (mail, MAIL_UNREAD);
+		parse (mail, MAIL_UNREAD, uid);
 	}
 
 	// Determine new mailbox status

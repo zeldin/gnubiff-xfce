@@ -464,7 +464,7 @@ Biff::save (void)
 		save_para("use_other_port",mailbox_[i]->use_other_port());
 		save_para("other_port",mailbox_[i]->other_port());
 		std::stringstream seen;
-		for (std::set<guint>::iterator j = mailbox_[i]->hidden().begin();
+		for (std::set<std::string>::iterator j = mailbox_[i]->hidden().begin();
 			 j != mailbox_[i]->hidden().end(); j++)
 			seen << *j << " ";
 		save_para("seen",seen.str());
@@ -715,7 +715,7 @@ Biff::xml_start_element (GMarkupParseContext *context,
 		else if (fmap["name"] == "seen") {
 			std::istringstream strin (fmap["value"]);
 			mailbox_[count_]->hidden().clear();
-			guint mailid;
+			std::string mailid;
 			while (strin >> mailid)
 				mailbox_[count_]->hidden().insert (mailid);
 		}
