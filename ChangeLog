@@ -89,6 +89,7 @@ Version 2.1.0
    - Ported mh protocol fixes from 2.0.2 to 2.1.0
    - Ported maildir protocol fixes from 2.0.2 to 2.1.0
    - Ported substituting of "%d" from 2.0.2 to 2.1.0
+   - Bugfix: Selecting "File or Folder" or "Autodetect" in properties dialog
 
 Version 2.0.3
   * Roland Stigge:
