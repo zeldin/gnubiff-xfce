@@ -139,8 +139,12 @@ Biff::Biff (gint ui_mode,
 
 	if (!filename.empty())
 		filename_ = filename;
-	else 
-		filename_ = std::string (g_get_home_dir ()) + std::string ("/.gnubiffrc");
+	else
+	{
+		gchar *filename=g_build_filename(g_get_home_dir (),".gnubiffrc", NULL);
+		filename_ = std::string (filename);
+		g_free(filename);
+	}
 
 	// Does configuration file exist ?
 	std::ifstream file;
