@@ -44,6 +44,7 @@ Version 2.1.1
         Foster for providing patches)
    - Bugfix: Some error handling was only done when debugging was activated
    - Bugfix: CAPABILITY command (IMAP4)
+   - Cleanup of code for getting server's acknowledgment (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier

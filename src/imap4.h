@@ -82,6 +82,7 @@ public:
 	gboolean parse_bodystructure_parameters (std::string, class PartInfo &);
 	void command_capability (void) throw (imap_err);
 	std::vector<int> command_searchnotseen (void) throw (imap_err);
+	void command_waitforack (gint num=0) throw (imap_err);
 	void reset_tag();
 	std::string tag();
 	gint send(std::string,gboolean debug=true);

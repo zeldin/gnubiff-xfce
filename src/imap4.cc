@@ -619,16 +619,7 @@ Imap4::command_capability (void) throw (imap_err)
 	idleable_=(line.find (" IDLE ") != std::string::npos);
 
 	// Getting the acknowledgment
-	gint cnt=1+preventDoS_additionalLines_;
-	while ((socket_->read (line) > 0) && (cnt--))
-		if (line.find (tag()) == 0)
-			break;
-	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
-	if (line.find (tag() + "OK") != 0) {
-		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"),
-				   uin_, address_.c_str(), port_);
-		throw imap_command_err();
-	}
+	command_waitforack();
 }
 
 /**
@@ -678,15 +669,43 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 		}
 	}
 
-	// Get end of server's response
-	cnt=1+preventDoS_additionalLines_;
+	// Getting the acknowledgment
+	command_waitforack();
+
+	return buffer;
+}
+
+/**
+ * Reading and discarding input lines from the server's response for the last
+ * sent command. If the response is not positive an {\em imap_command_err}
+ * exception is thrown.
+ * 
+ * @param     cnt      Number of lines that are expected to be sent by the
+ *                     server. This value is needed to help deciding whether
+ *                     we are DoS attacked. The default value is 0.
+ * @exception imap_command_err
+ *                     In case of a negative response from the server
+ *                     or if a network error occurs.
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ */
+void 
+Imap4::command_waitforack (gint cnt) throw (imap_err)
+{
+	std::string line;
+
+	cnt+=1+preventDoS_additionalLines_;
 	while ((socket_->read (line) > 0) && (cnt--))
 		if (line.find (tag()) == 0)
 			break;
 	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
-	if (line.find (tag()+"OK")!=0) throw imap_command_err();
 
-	return buffer;
+	// Print error message and throw exception if response is not positive
+	if (line.find (tag() + "OK") != 0) {
+		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"),
+				   uin_, address_.c_str(), port_);
+		throw imap_command_err();
+	}
 }
 
 /** 
