@@ -27,7 +27,7 @@ Version 2.0.3
    - Bugfix: Handling network writing/reading errors
    - Bugfix/Feature: Support for international Mailbox names for IMAP
    - Security Bugfix: DoS attacks by sending a unterminated response to the
-     SELECT, SEARCH, FETCH commands anticipated
+     SELECT, SEARCH, FETCH (IMAP) and TOP (POP3) commands anticipated
    - Bugfix: User set value for maximum number of mail to be collected is now
      respected (IMAP)
    - Bugfix: Fetching mails is no longer stopped if certain strings are in

@@ -177,6 +177,7 @@ public:
  * In some situations we need to read a certain number of lines from the
  * network to get the line we want. Unfortunately this number may vary in
  * reality because of the following reasons:
+ *  * There is no limit for the response
  *  * There exist different extensions to the protocols
  *  * Not all servers implement protocols correctly
  *  * There is a DoS attack
@@ -186,9 +187,16 @@ public:
 const gint preventDoS_additionalLines_=16;
 
 /**
+ * To prevent being DoS attacked (see above): Maximum number of header lines
+ * being read (POP3).
+ */
+const gint preventDoS_headerLines_=2048;
+
+/**
  * To prevent being DoS attacked (see above): Limit for length of a read line.
  * SMTP: maximum line length is 1001 (see RFC 2821 4.5.3.1)
  * IMAP: no maximum line length
+ * POP3: maximum response line length is 512 (see RFC 1939 3.)
  */
 const gint preventDoS_lineLength_=16384;
 
