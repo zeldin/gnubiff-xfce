@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-14 12:14+0100\n"
+"POT-Creation-Date: 2004-12-16 12:57+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -91,11 +91,6 @@ msgstr "<geen onderwerp gevonden>"
 msgid "<no date>"
 msgstr "<geen datum gevonden>"
 
-#: src/mailbox.cc:578
-#, c-format
-msgid "[The encoding \"%s\" of this mail can't be decoded]"
-msgstr ""
-
 #: src/socket.cc:121 src/socket.cc:150 src/socket.cc:178 src/socket.cc:186
 #: src/socket.cc:194 src/socket.cc:206 src/socket.cc:230 src/socket.cc:238
 #, fuzzy, c-format
@@ -132,7 +127,7 @@ msgstr "Kan geen bevestiging opvragen van %s op poort %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:515
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -323,6 +318,15 @@ msgstr "Voorkeuren..."
 msgid "Run command"
 msgstr "Opdracht voor geluid"
 
+#: src/GNOME_gnubiffApplet.server.in.h:1
+#, fuzzy
+msgid "Mail notification program"
+msgstr "Een postwaarschuwingsprogramma"
+
+#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade.h:9
+msgid "gnubiff"
+msgstr "gnubiff"
+
 #: ui/applet-gtk.glade.h:1
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
@@ -354,10 +358,6 @@ msgstr "Opdracht voor geluid"
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
-
-#: ui/applet-gtk.glade.h:9
-msgid "gnubiff"
-msgstr "gnubiff"
 
 #: ui/applet-gtk.glade.h:10
 msgid "tooltip"
@@ -1254,9 +1254,6 @@ msgstr "postinhoud"
 #~ msgstr ""
 #~ "Uitgebracht onder de GNU general public license.\n"
 #~ "E-Mail controle programma."
-
-#~ msgid "A Mail notification program"
-#~ msgstr "Een postwaarschuwingsprogramma"
 
 #~ msgid "Pick a color for popup background"
 #~ msgstr "Kies een kleur voor de pop-up achtergrond"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-14 12:14+0100\n"
+"POT-Creation-Date: 2004-12-16 12:57+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -85,11 +85,6 @@ msgstr "<nessun oggetto>"
 msgid "<no date>"
 msgstr "<nessuna data>"
 
-#: src/mailbox.cc:578
-#, c-format
-msgid "[The encoding \"%s\" of this mail can't be decoded]"
-msgstr ""
-
 #: src/socket.cc:121 src/socket.cc:150 src/socket.cc:178 src/socket.cc:186
 #: src/socket.cc:194 src/socket.cc:206 src/socket.cc:230 src/socket.cc:238
 #, c-format
@@ -126,7 +121,7 @@ msgstr "[%d] Impossibile prendere il riconoscimento da %s alla porta %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossibile connettersi a %s alla porta %d"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:515
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -321,6 +316,15 @@ msgstr "Preferenze..."
 msgid "Run command"
 msgstr "Comando per il suono"
 
+#: src/GNOME_gnubiffApplet.server.in.h:1
+#, fuzzy
+msgid "Mail notification program"
+msgstr "Un programma per la notifica della posta"
+
+#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade.h:9
+msgid "gnubiff"
+msgstr "gnubiff"
+
 #: ui/applet-gtk.glade.h:1
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
 msgstr "<small>(C) 2000-2004 Nicolas Rougier</small>"
@@ -350,10 +354,6 @@ msgstr "Comando per il suono"
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
-
-#: ui/applet-gtk.glade.h:9
-msgid "gnubiff"
-msgstr "gnubiff"
 
 #: ui/applet-gtk.glade.h:10
 msgid "tooltip"
@@ -1332,9 +1332,6 @@ msgstr "contenuto del messaggio"
 #~ msgstr ""
 #~ "Rilasciato sotta la GNU general public license.\n"
 #~ "Programma di notifica Mail."
-
-#~ msgid "A Mail notification program"
-#~ msgstr "Un programma per la notifica della posta"
 
 #~ msgid "Pick a color for popup background"
 #~ msgstr "Scegli un colore per lo sfondo della notifica"

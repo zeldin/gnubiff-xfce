@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-14 12:14+0100\n"
+"POT-Creation-Date: 2004-12-16 12:57+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -88,11 +88,6 @@ msgstr "Subiect"
 msgid "<no date>"
 msgstr ""
 
-#: src/mailbox.cc:578
-#, c-format
-msgid "[The encoding \"%s\" of this mail can't be decoded]"
-msgstr ""
-
 #: src/socket.cc:121 src/socket.cc:150 src/socket.cc:178 src/socket.cc:186
 #: src/socket.cc:194 src/socket.cc:206 src/socket.cc:230 src/socket.cc:238
 #, c-format
@@ -129,7 +124,7 @@ msgstr ""
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:517
+#: src/imap4.cc:515
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -311,6 +306,15 @@ msgstr ""
 msgid "Run command"
 msgstr "Cântã"
 
+#: src/GNOME_gnubiffApplet.server.in.h:1
+msgid "Mail notification program"
+msgstr ""
+
+#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade.h:9
+#, fuzzy
+msgid "gnubiff"
+msgstr "gbiff2"
+
 #: ui/applet-gtk.glade.h:1
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
@@ -340,11 +344,6 @@ msgstr "Cântã"
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
-
-#: ui/applet-gtk.glade.h:9
-#, fuzzy
-msgid "gnubiff"
-msgstr "gbiff2"
 
 #: ui/applet-gtk.glade.h:10
 msgid "tooltip"

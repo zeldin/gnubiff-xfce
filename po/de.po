@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-14 12:14+0100\n"
+"POT-Creation-Date: 2004-12-16 12:57+0100\n"
 "PO-Revision-Date: 2004-12-08 22:50+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -87,11 +87,6 @@ msgstr "<Kein Betreff>"
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
-#: src/mailbox.cc:578
-#, c-format
-msgid "[The encoding \"%s\" of this mail can't be decoded]"
-msgstr "[Das Encoding »%s« dieser Nachricht kann nicht dekodiert werden]"
-
 #: src/socket.cc:121 src/socket.cc:150 src/socket.cc:178 src/socket.cc:186
 #: src/socket.cc:194 src/socket.cc:206 src/socket.cc:230 src/socket.cc:238
 #, c-format
@@ -128,7 +123,7 @@ msgstr "[%d] Bekomme keine Bestätigung von »%s« auf Port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kann Ordner »%s« auf dem Server »%s« nicht auswählen"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:515
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Diese Nachricht besitzt keinen Klartext-Abschnitt (\"text/plain\")]"
 
@@ -316,6 +311,14 @@ msgstr "_Konfiguration..."
 msgid "Run command"
 msgstr "_Befehl ausführen"
 
+#: src/GNOME_gnubiffApplet.server.in.h:1
+msgid "Mail notification program"
+msgstr "Überwachung von Email-Briefkästen"
+
+#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade.h:9
+msgid "gnubiff"
+msgstr "Gnubiff"
+
 #: ui/applet-gtk.glade.h:1
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
 msgstr "<small>© 2000-2004 Nicolas Rougier</small>"
@@ -346,10 +349,6 @@ msgid ""
 msgstr ""
 "Dieses Programm ist Teil des GNU-Projekts, veröffentlicht unter der Ägide "
 "von GNU."
-
-#: ui/applet-gtk.glade.h:9
-msgid "gnubiff"
-msgstr "gnubiff"
 
 #: ui/applet-gtk.glade.h:10
 msgid "tooltip"
@@ -815,6 +814,9 @@ msgstr "<small><b>Betreff</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "Nachrichtentext"
+
+#~ msgid "[The encoding \"%s\" of this mail can't be decoded]"
+#~ msgstr "[Das Encoding »%s« dieser Nachricht kann nicht dekodiert werden]"
 
 #~ msgid "aaaaa"
 #~ msgstr "aaaaa"

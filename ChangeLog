@@ -80,6 +80,7 @@ Version 2.1.0
    - Number of lines (of mail body) to be read is now a constant
    - Bugfix: Setting file permissions of scripts in configure script
      (fixes bug #1083485)
+   - Marked strings for translation (GNOME menu entries)
 
 Version 2.0.3
   * Roland Stigge:

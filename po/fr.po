@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-14 12:14+0100\n"
+"POT-Creation-Date: 2004-12-16 12:57+0100\n"
 "PO-Revision-Date: 2004-12-14 12:16+0100\n"
 "Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
 "Language-Team: Français\n"
@@ -91,11 +91,6 @@ msgstr "<Pas de sujet>"
 msgid "<no date>"
 msgstr "<Pas de date>"
 
-#: src/mailbox.cc:578
-#, c-format
-msgid "[The encoding \"%s\" of this mail can't be decoded]"
-msgstr "[L'encodage \"%s\" du mèl ne peut pas etre décodé]"
-
 #: src/socket.cc:121 src/socket.cc:150 src/socket.cc:178 src/socket.cc:186
 #: src/socket.cc:194 src/socket.cc:206 src/socket.cc:230 src/socket.cc:238
 #, c-format
@@ -132,7 +127,7 @@ msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:517
+#: src/imap4.cc:515
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
@@ -320,6 +315,14 @@ msgstr "Préférences..."
 msgid "Run command"
 msgstr "Exécuter la commande"
 
+#: src/GNOME_gnubiffApplet.server.in.h:1
+msgid "Mail notification program"
+msgstr ""
+
+#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade.h:9
+msgid "gnubiff"
+msgstr "gnubiff"
+
 #: ui/applet-gtk.glade.h:1
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
 msgstr "<small>(C) 2000-2004 Nicolas Rougier</small>"
@@ -348,10 +351,6 @@ msgstr "Exécuter la commande"
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
-
-#: ui/applet-gtk.glade.h:9
-msgid "gnubiff"
-msgstr "gnubiff"
 
 #: ui/applet-gtk.glade.h:10
 msgid "tooltip"
@@ -814,6 +813,9 @@ msgstr "<small><b>Sujet</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "mail content"
+
+#~ msgid "[The encoding \"%s\" of this mail can't be decoded]"
+#~ msgstr "[L'encodage \"%s\" du mèl ne peut pas etre décodé]"
 
 #~ msgid "aaaaa"
 #~ msgstr "aaaaa"
