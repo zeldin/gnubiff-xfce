@@ -1,15 +1,15 @@
 # German translation of gnubiff
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2003,2004 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnubiff package.
 # Roland Stigge <stigge@antcom.de>, 2003, 2004.
 # Robert Sowada <sowadart@users.sourceforge.net>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnubiff 2.0.2\n"
+"Project-Id-Version: gnubiff 2.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-14 22:55+0200\n"
-"PO-Revision-Date: 2004-10-14 22:30+0200\n"
+"POT-Creation-Date: 2004-10-26 21:36+0200\n"
+"PO-Revision-Date: 2004-10-26 22:00+0200\n"
 "Last-Translator: Robert Sowada <sowadart@users.sourceforge.net>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -31,46 +31,33 @@ msgstr "Konfiguration überspringen"
 #: src/gnubiff.cc:174
 msgid ""
 "\n"
-"This version of gnubiff has been compiled with GNOME support\n"
+"This version of gnubiff has been compiled with GNOME support.\n"
+"If you want to use the GTK version, type gnubiff --gtk\n"
+" then use -c file to specify an alternate configuration file\n"
+"      and -n to skip configuration process.\n"
+"If you want to use the GNOME version, use gnome panel.\n"
+"Have a nice day\n"
 msgstr ""
 "\n"
-"Diese Version von gnubiff wurde mit GNOME-Unterstützung übersetzt\n"
-
-#: src/gnubiff.cc:175 src/gnubiff.cc:184
-msgid "If you want to use the GTK version, type gnubiff --gtk\n"
-msgstr ""
-"Wenn Sie die GTK-Version verwenden wollen, geben Sie »gnubiff --gtk« ein\n"
-
-#: src/gnubiff.cc:176
-msgid " then use -c file to specify an alternate configuration file\n"
-msgstr ""
+"Diese Version von gnubiff wurde mit Gnome-Unterstützung übersetzt.\n"
+"Wenn Sie die GTK-Version verwenden wollen, geben Sie »gnubiff --gtk« ein.\n"
 " Mit »-c <Datei>« können Sie dann eine alternative Konfigurationsdatei "
 "angeben,\n"
-
-#: src/gnubiff.cc:177
-msgid "      and -n to skip configuration process\n"
-msgstr " mit »-n« den Konfigurationsprozess überspringen.\n"
-
-#: src/gnubiff.cc:178
-msgid "If you want to use the GNOME version, use gnome panel\n"
-msgstr ""
-"Wenn Sie die GNOME-Version verwenden wollen, benutzen Sie das GNOME-Panel\n"
-
-#: src/gnubiff.cc:179
-msgid "Have a nice day\n"
-msgstr "Auf Wiedersehen\n"
+" mit »-n« den Konfigurationsprozess überspringen.\n"
+"Wenn Sie die Gnome-Version verwenden wollen, benutzen Sie das GNOME-Panel.\n"
+"Auf Wiedersehen!\n"
 
 #: src/gnubiff.cc:183
 msgid ""
 "\n"
-"This version of gnubiff has been compiled with GNOME support"
+"This version of gnubiff has been compiled with GNOME support.\n"
+"If you want to use the GTK version, type gnubiff --gtk.\n"
+"Now I will hang forever...\n"
 msgstr ""
 "\n"
-"Diese Version von gnubiff wurde mit GNOME-Unterstützung übersetzt"
-
-#: src/gnubiff.cc:185
-msgid "Now I will hang forever...\n"
-msgstr "Dieser Prozess hängt jetzt dauerhaft...\n"
+"Diese Version von gnubiff wurde mit Gnome-Unterstützung übersetzt.\n"
+"Wenn Sie die GTK-Version verwenden wollen, geben Sie »gnubiff --gtk« ein.\n"
+"Dieser Prozess hängt jetzt dauerhaft...\n"
 
 #: src/ui-applet-gnome.cc:358
 msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
@@ -251,44 +238,44 @@ msgstr "Neue Nachrichten"
 msgid "No mail"
 msgstr "Keine Nachrichten"
 
-#: src/ui-preferences.cc:140 src/ui-popup.cc:139
+#: src/ui-preferences.cc:141 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Briefkasten"
 
-#: src/ui-preferences.cc:159
+#: src/ui-preferences.cc:160
 msgid "Format"
 msgstr "Protokoll"
 
-#: src/ui-preferences.cc:168
+#: src/ui-preferences.cc:169
 msgid "Status"
 msgstr "Status"
 
-#: src/ui-preferences.cc:176
+#: src/ui-preferences.cc:177
 msgid "Poll time"
 msgstr "Abfrageintervall"
 
 #. Selection label
-#: src/ui-preferences.cc:193 src/ui-preferences.cc:634
+#: src/ui-preferences.cc:194 src/ui-preferences.cc:635
 msgid "No mailbox selected"
 msgstr "Kein Briefkasten ausgewählt"
 
-#: src/ui-preferences.cc:534
+#: src/ui-preferences.cc:535
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:540 ui/preferences.glade.h:76
+#: src/ui-preferences.cc:541 ui/preferences.glade.h:76
 msgid "_Stop"
 msgstr "_Stopp"
 
-#: src/ui-preferences.cc:550
+#: src/ui-preferences.cc:551
 msgid "Browse for a sound"
 msgstr "Klang wählen"
 
-#: src/ui-preferences.cc:576 ui/preferences.glade.h:16
+#: src/ui-preferences.cc:577 ui/preferences.glade.h:16
 msgid "Browse for a mail application"
 msgstr "Mail-Programm wählen"
 
-#: src/ui-preferences.cc:583 src/ui-preferences.cc:596
+#: src/ui-preferences.cc:584 src/ui-preferences.cc:597
 msgid "Browse for a new mail image"
 msgstr "Bild für neue Mail wählen"
 
@@ -1042,3 +1029,4 @@ msgstr "Popup"
 #: ui/popup.glade.h:2
 msgid "mail content"
 msgstr "Nachrichteninhalt"
+

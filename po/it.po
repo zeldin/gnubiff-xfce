@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-14 22:55+0200\n"
+"POT-Creation-Date: 2004-10-26 21:36+0200\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -26,43 +26,21 @@ msgstr "salta il processo di configurazione"
 #: src/gnubiff.cc:174
 msgid ""
 "\n"
-"This version of gnubiff has been compiled with GNOME support\n"
+"This version of gnubiff has been compiled with GNOME support.\n"
+"If you want to use the GTK version, type gnubiff --gtk\n"
+" then use -c file to specify an alternate configuration file\n"
+"      and -n to skip configuration process.\n"
+"If you want to use the GNOME version, use gnome panel.\n"
+"Have a nice day\n"
 msgstr ""
-"\n"
-"Questa versione di gnubiff è stata comiplate con il supporto per Gnome\n"
-
-#: src/gnubiff.cc:175 src/gnubiff.cc:184
-msgid "If you want to use the GTK version, type gnubiff --gtk\n"
-msgstr "se vuoi usare la versione Gtk, digita gnubiff --gtk\n"
-
-#: src/gnubiff.cc:176
-msgid " then use -c file to specify an alternate configuration file\n"
-msgstr ""
-" poi usa -c file per specificare un file di configurazione alternativo\n"
-
-#: src/gnubiff.cc:177
-msgid "      and -n to skip configuration process\n"
-msgstr "      e -n per saltare il processo di configurazione\n"
-
-#: src/gnubiff.cc:178
-msgid "If you want to use the GNOME version, use gnome panel\n"
-msgstr "se vuoi usare la versione GNOME, usa il panello di gnome\n"
-
-#: src/gnubiff.cc:179
-msgid "Have a nice day\n"
-msgstr "Buongiorno\n"
 
 #: src/gnubiff.cc:183
 msgid ""
 "\n"
-"This version of gnubiff has been compiled with GNOME support"
+"This version of gnubiff has been compiled with GNOME support.\n"
+"If you want to use the GTK version, type gnubiff --gtk.\n"
+"Now I will hang forever...\n"
 msgstr ""
-"\n"
-"Questa version di gnubiff è stata compilata con il supporto per GNOME"
-
-#: src/gnubiff.cc:185
-msgid "Now I will hang forever...\n"
-msgstr "Adesso mi blocchero per sempre   \n"
 
 #: src/ui-applet-gnome.cc:358
 msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
@@ -244,44 +222,44 @@ msgstr "Nuova posta"
 msgid "No mail"
 msgstr "Niente posta"
 
-#: src/ui-preferences.cc:140 src/ui-popup.cc:139
+#: src/ui-preferences.cc:141 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Casella mail"
 
-#: src/ui-preferences.cc:159
+#: src/ui-preferences.cc:160
 msgid "Format"
 msgstr "Formato"
 
-#: src/ui-preferences.cc:168
+#: src/ui-preferences.cc:169
 msgid "Status"
 msgstr "Sato"
 
-#: src/ui-preferences.cc:176
+#: src/ui-preferences.cc:177
 msgid "Poll time"
 msgstr "Intervallo di controllo"
 
 #. Selection label
-#: src/ui-preferences.cc:193 src/ui-preferences.cc:634
+#: src/ui-preferences.cc:194 src/ui-preferences.cc:635
 msgid "No mailbox selected"
 msgstr "Nessuna casalle di posta selezionata"
 
-#: src/ui-preferences.cc:534
+#: src/ui-preferences.cc:535
 msgid "_Start"
 msgstr "_Avvia"
 
-#: src/ui-preferences.cc:540 ui/preferences.glade.h:76
+#: src/ui-preferences.cc:541 ui/preferences.glade.h:76
 msgid "_Stop"
 msgstr "_Ferma"
 
-#: src/ui-preferences.cc:550
+#: src/ui-preferences.cc:551
 msgid "Browse for a sound"
 msgstr "Scegli il file sonoro"
 
-#: src/ui-preferences.cc:576 ui/preferences.glade.h:16
+#: src/ui-preferences.cc:577 ui/preferences.glade.h:16
 msgid "Browse for a mail application"
 msgstr "Scegli l'applicazione di posta tramite file"
 
-#: src/ui-preferences.cc:583 src/ui-preferences.cc:596
+#: src/ui-preferences.cc:584 src/ui-preferences.cc:597
 msgid "Browse for a new mail image"
 msgstr "Scegli l'immagine per quando c'è nuova posta"
 
@@ -1039,6 +1017,39 @@ msgstr "Notifica"
 #: ui/popup.glade.h:2
 msgid "mail content"
 msgstr "contenuto del messaggio"
+
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Questa versione di gnubiff è stata comiplate con il supporto per Gnome\n"
+
+#~ msgid "If you want to use the GTK version, type gnubiff --gtk\n"
+#~ msgstr "se vuoi usare la versione Gtk, digita gnubiff --gtk\n"
+
+#~ msgid " then use -c file to specify an alternate configuration file\n"
+#~ msgstr ""
+#~ " poi usa -c file per specificare un file di configurazione alternativo\n"
+
+#~ msgid "      and -n to skip configuration process\n"
+#~ msgstr "      e -n per saltare il processo di configurazione\n"
+
+#~ msgid "If you want to use the GNOME version, use gnome panel\n"
+#~ msgstr "se vuoi usare la versione GNOME, usa il panello di gnome\n"
+
+#~ msgid "Have a nice day\n"
+#~ msgstr "Buongiorno\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support"
+#~ msgstr ""
+#~ "\n"
+#~ "Questa version di gnubiff è stata compilata con il supporto per GNOME"
+
+#~ msgid "Now I will hang forever...\n"
+#~ msgstr "Adesso mi blocchero per sempre   \n"
 
 #~ msgid "%02x"
 #~ msgstr "%02x"

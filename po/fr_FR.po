@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-18 12:02+0200\n"
+"POT-Creation-Date: 2004-10-26 21:36+0200\n"
 "PO-Revision-Date: 2004-10-18 12:04+0200\n"
 "Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
 "Language-Team: Français\n"
@@ -34,49 +34,29 @@ msgstr "Passer l'étape de configuration"
 #: src/gnubiff.cc:174
 msgid ""
 "\n"
-"This version of gnubiff has been compiled with GNOME support\n"
+"This version of gnubiff has been compiled with GNOME support.\n"
+"If you want to use the GTK version, type gnubiff --gtk\n"
+" then use -c file to specify an alternate configuration file\n"
+"      and -n to skip configuration process.\n"
+"If you want to use the GNOME version, use gnome panel.\n"
+"Have a nice day\n"
 msgstr ""
-"\n"
-"Cette version de gnubiff a été compilée pour gnome \n"
-
-#: src/gnubiff.cc:175 src/gnubiff.cc:184
-msgid "If you want to use the GTK version, type gnubiff --gtk\n"
-msgstr "Si vous voulez la version GTK, tapez gnubiff --gtk\n"
-
-#: src/gnubiff.cc:176
-msgid " then use -c file to specify an alternate configuration file\n"
-msgstr "puis utiliser -c fichier pour spécifier un autre fichier de configuration\n"
-
-#: src/gnubiff.cc:177
-msgid "      and -n to skip configuration process\n"
-msgstr "et -n pour passer l'étape de configuration\n"
-
-#: src/gnubiff.cc:178
-msgid "If you want to use the GNOME version, use gnome panel\n"
-msgstr "Si vous voulez la version GNOME, utilisez le panel gnome\n"
-
-#: src/gnubiff.cc:179
-msgid "Have a nice day\n"
-msgstr "Bonjour chez vous\n"
 
 #: src/gnubiff.cc:183
 msgid ""
 "\n"
-"This version of gnubiff has been compiled with GNOME support"
+"This version of gnubiff has been compiled with GNOME support.\n"
+"If you want to use the GTK version, type gnubiff --gtk.\n"
+"Now I will hang forever...\n"
 msgstr ""
-"\n"
-"Cette version de gnubiff a été compilée pour gnome "
-
-#: src/gnubiff.cc:185
-msgid "Now I will hang forever...\n"
-msgstr "Maintenant, je vais me mettre à attendre indéfiniment...\n"
 
 #: src/ui-applet-gnome.cc:358
 msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
 msgstr "Copyright (c) 2000-2004 Nicolas Rougier\n"
 
 #: src/ui-applet-gnome.cc:359 ui/applet-gtk.glade.h:9
-msgid "This program is part of the GNU project, released under the aegis of GNU."
+msgid ""
+"This program is part of the GNU project, released under the aegis of GNU."
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
 #: src/biff.cc:153
@@ -183,11 +163,13 @@ msgstr "[%d] Mot de passe vide"
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
-msgstr "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
+msgstr ""
+"[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
 #: src/apop.cc:122
 #, c-format
-msgid "[%d] Problem with crypto that should have been detected at configure time"
+msgid ""
+"[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
@@ -637,7 +619,8 @@ msgid ""
 "Valid XML must be entered, pango markup may be used."
 msgstr ""
 "Texte à afficher pour le nouveau courrier. %d est le nombre de nouveaux "
-"courriers. Ce doit etre du XML valide et vous pouvez utiliser le marquage pango."
+"courriers. Ce doit etre du XML valide et vous pouvez utiliser le marquage "
+"pango."
 
 #: ui/preferences.glade.h:61
 #, no-c-format
@@ -646,7 +629,8 @@ msgid ""
 "Valid XML must be entered, pango markup may be used."
 msgstr ""
 "Texte à afficher pour le nouveau courrier. %d est le nombre de nouveaux "
-"courriers.Ce doit etre du XML valide et vous pouvez utiliser le marquage pango."
+"courriers.Ce doit etre du XML valide et vous pouvez utiliser le marquage "
+"pango."
 
 #: ui/preferences.glade.h:62
 msgid "Type:"
@@ -1035,3 +1019,36 @@ msgstr "Popup"
 msgid "mail content"
 msgstr "mail content"
 
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Cette version de gnubiff a été compilée pour gnome \n"
+
+#~ msgid "If you want to use the GTK version, type gnubiff --gtk\n"
+#~ msgstr "Si vous voulez la version GTK, tapez gnubiff --gtk\n"
+
+#~ msgid " then use -c file to specify an alternate configuration file\n"
+#~ msgstr ""
+#~ "puis utiliser -c fichier pour spécifier un autre fichier de "
+#~ "configuration\n"
+
+#~ msgid "      and -n to skip configuration process\n"
+#~ msgstr "et -n pour passer l'étape de configuration\n"
+
+#~ msgid "If you want to use the GNOME version, use gnome panel\n"
+#~ msgstr "Si vous voulez la version GNOME, utilisez le panel gnome\n"
+
+#~ msgid "Have a nice day\n"
+#~ msgstr "Bonjour chez vous\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support"
+#~ msgstr ""
+#~ "\n"
+#~ "Cette version de gnubiff a été compilée pour gnome "
+
+#~ msgid "Now I will hang forever...\n"
+#~ msgstr "Maintenant, je vais me mettre à attendre indéfiniment...\n"

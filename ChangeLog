@@ -9,6 +9,7 @@ Version 2.0.3 (?)
    - Updated man page (section 1, "GTK+")
  * Robert Sowada:
    - Simplified multiline messages
+   - Updated german translation, updated po files
 
 Version 2.0.2
  * Some cosmetic fixes

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-14 22:55+0200\n"
+"POT-Creation-Date: 2004-10-26 21:36+0200\n"
 "PO-Revision-Date: 2003-12-11 15:45+0300\n"
 "Last-Translator: Nicolás Lichtmaier <niqueco@hotmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -28,51 +28,23 @@ msgid "skip the configure process"
 msgstr "saltar el proceso de configuración"
 
 #: src/gnubiff.cc:174
-#, fuzzy
 msgid ""
 "\n"
-"This version of gnubiff has been compiled with GNOME support\n"
-msgstr ""
-"\n"
-"Esta versión de gnubiff ha sido compilada con soporte para GNOME"
-
-#: src/gnubiff.cc:175 src/gnubiff.cc:184
-#, fuzzy
-msgid "If you want to use the GTK version, type gnubiff --gtk\n"
-msgstr "Si quiere usar la versión GTK tipee gnubiff --gtk."
-
-#: src/gnubiff.cc:176
-msgid " then use -c file to specify an alternate configuration file\n"
-msgstr ""
-
-#: src/gnubiff.cc:177
-#, fuzzy
-msgid "      and -n to skip configuration process\n"
-msgstr "saltar el proceso de configuración"
-
-#: src/gnubiff.cc:178
-#, fuzzy
-msgid "If you want to use the GNOME version, use gnome panel\n"
-msgstr "Si quiere usar la versión GTK tipee gnubiff --gtk."
-
-#: src/gnubiff.cc:179
-msgid "Have a nice day\n"
+"This version of gnubiff has been compiled with GNOME support.\n"
+"If you want to use the GTK version, type gnubiff --gtk\n"
+" then use -c file to specify an alternate configuration file\n"
+"      and -n to skip configuration process.\n"
+"If you want to use the GNOME version, use gnome panel.\n"
+"Have a nice day\n"
 msgstr ""
 
 #: src/gnubiff.cc:183
 msgid ""
 "\n"
-"This version of gnubiff has been compiled with GNOME support"
+"This version of gnubiff has been compiled with GNOME support.\n"
+"If you want to use the GTK version, type gnubiff --gtk.\n"
+"Now I will hang forever...\n"
 msgstr ""
-"\n"
-"Esta versión de gnubiff ha sido compilada con soporte para GNOME"
-
-#: src/gnubiff.cc:185
-#, fuzzy
-msgid "Now I will hang forever...\n"
-msgstr ""
-"\n"
-"Ahora me colgaré para siempre...\n"
 
 #: src/ui-applet-gnome.cc:358
 msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
@@ -241,46 +213,46 @@ msgstr "Nuevo mensaje"
 msgid "No mail"
 msgstr "Sin mensajes"
 
-#: src/ui-preferences.cc:140 src/ui-popup.cc:139
+#: src/ui-preferences.cc:141 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Carpeta"
 
-#: src/ui-preferences.cc:159
+#: src/ui-preferences.cc:160
 msgid "Format"
 msgstr ""
 
-#: src/ui-preferences.cc:168
+#: src/ui-preferences.cc:169
 msgid "Status"
 msgstr ""
 
-#: src/ui-preferences.cc:176
+#: src/ui-preferences.cc:177
 msgid "Poll time"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:193 src/ui-preferences.cc:634
+#: src/ui-preferences.cc:194 src/ui-preferences.cc:635
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:534
+#: src/ui-preferences.cc:535
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:540 ui/preferences.glade.h:76
+#: src/ui-preferences.cc:541 ui/preferences.glade.h:76
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:550
+#: src/ui-preferences.cc:551
 #, fuzzy
 msgid "Browse for a sound"
 msgstr "Buscar archivo"
 
-#: src/ui-preferences.cc:576 ui/preferences.glade.h:16
+#: src/ui-preferences.cc:577 ui/preferences.glade.h:16
 #, fuzzy
 msgid "Browse for a mail application"
 msgstr "Aplicación de correo "
 
-#: src/ui-preferences.cc:583 src/ui-preferences.cc:596
+#: src/ui-preferences.cc:584 src/ui-preferences.cc:597
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Buscar archivo"
@@ -1039,6 +1011,39 @@ msgstr "Ventanita"
 #: ui/popup.glade.h:2
 msgid "mail content"
 msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Esta versión de gnubiff ha sido compilada con soporte para GNOME"
+
+#, fuzzy
+#~ msgid "If you want to use the GTK version, type gnubiff --gtk\n"
+#~ msgstr "Si quiere usar la versión GTK tipee gnubiff --gtk."
+
+#, fuzzy
+#~ msgid "      and -n to skip configuration process\n"
+#~ msgstr "saltar el proceso de configuración"
+
+#, fuzzy
+#~ msgid "If you want to use the GNOME version, use gnome panel\n"
+#~ msgstr "Si quiere usar la versión GTK tipee gnubiff --gtk."
+
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support"
+#~ msgstr ""
+#~ "\n"
+#~ "Esta versión de gnubiff ha sido compilada con soporte para GNOME"
+
+#, fuzzy
+#~ msgid "Now I will hang forever...\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Ahora me colgaré para siempre...\n"
 
 #~ msgid ""
 #~ "Released under the GNU general public license.\n"
