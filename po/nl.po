@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-08 22:52+0100\n"
+"POT-Creation-Date: 2004-12-09 15:57+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -127,7 +127,7 @@ msgstr "Kan geen bevestiging opvragen van %s op poort %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/imap4.cc:516
+#: src/imap4.cc:517
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 

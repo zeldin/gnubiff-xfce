@@ -59,7 +59,8 @@ Version 2.1.0
      don't get the whole part if it is very long (IMAP)
    - Feature: Message if there is no "text/plain" part (IMAP)
    - Bugfix: Creating different tags for different commands (IMAP)
-  * Robert Sowada
+   - Buggix: Take popup_use_size_ into account
+ * Robert Sowada
    - Updated german translation
    - Various small changes in GUI
    - Updated "text" "plain" fix of Nicolas to make it safe for future

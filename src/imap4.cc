@@ -836,8 +836,9 @@ Imap4::parse_bodystructure_parameters (std::string list, PartInfo &partinfo)
 				parameter=value;
 				continue;
 			}
+
 			// Look for parameters we need
-			if (parameter=="charset")
+			if ((parameter=="charset") || (parameter == "CHARSET"))
 				partinfo.charset=value;
 			continue;
 		}
