@@ -312,14 +312,21 @@ Imap4::get_header (void)
 	new_unread_.clear();
 	new_seen_.clear();
 	std::vector<std::string> mail;
-	for (guint i=0; (i<buffer.size()) && (unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
+	for (guint i=0; (i<buffer.size()) && (new_unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
 		std::stringstream s;
 		s << buffer[i];
 		mail.clear();
 
 		std::string line = std::string ("A004 FETCH ") + s.str() + std::string (" (FLAGS BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])\r\n");
 		if (!socket_->write (line)) return;
-		if (!socket_->read (line)) return;
+
+		// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
+		cnt=1+preventDoS_additionalLines_;
+		while (((socket_->read(line) > 0)) && (cnt--))
+			if (line.find ("* "+s.str()+" FETCH") == 0)
+				break;
+		if ((!socket_->status()) || (cnt<0)) return;
+
 		if (!socket_->read (line,false)) return;
 #ifdef DEBUG
 		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, hostname_.c_str(), port_);
@@ -342,9 +349,15 @@ Imap4::get_header (void)
 		mail.pop_back();
 
 		line = std::string ("A005 FETCH ") + s.str() + std::string (" (FLAGS BODY.PEEK[TEXT])\r\n");
-
 		if (!socket_->write (line)) return;
-		if (!socket_->read (line)) return;
+
+		// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
+		cnt=1+preventDoS_additionalLines_;
+		while (((socket_->read(line) > 0)) && (cnt--))
+			if (line.find ("* "+s.str()+" FETCH") == 0)
+				break;
+		if ((!socket_->status()) || (cnt<0)) return;
+
 		if (!socket_->read (line,false)) return;
 #ifdef DEBUG
 		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, hostname_.c_str(), port_);

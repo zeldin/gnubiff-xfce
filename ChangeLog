@@ -28,6 +28,8 @@ Version 2.0.3
    - Bugfix/Feature: Support for international Mailbox names for IMAP
    - Security Bugfix: DoS attacks by sending a unterminated response to the
      SELECT/SEARCH commands anticipated
+   - Bugfix: User set value for maximum number of mail to be collected is now
+     respected (IMAP)
 
 Version 2.0.2
  * Some cosmetic fixes
