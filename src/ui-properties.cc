@@ -353,9 +353,7 @@ Properties::on_apply (GtkWidget *widget)
 	// Here we need to update or transform mailbox according to several criterion:
 	//  - If type is autodetect we just set protocol to PROTOCOL_NONE and next mail
 	//    check will lookup for mailbox format
-	//  - If type is LOCAL, we also set protocol to PROTOCOL_NONE since we cannot
-	//    yet foresee what is real mailbox format
-	//
+	//  - If type is LOCAL: See below
 
 	// First case: type has been set to autodetect, we simply put procotol
 	//             to PROTOCOL_NONE and lookup will be done automatically.
@@ -366,27 +364,29 @@ Properties::on_apply (GtkWidget *widget)
 		preferences_->biff()->replace (mailbox_, mailbox);
 	}
 
-	// Second case: type has been set to local and protocol was already local, we
-	//              need to know if address has been changed in order to force a
-	//              lookup
+	// Second case: type has been set to local
 	if (selected_type_ == TYPE_LOCAL) {
-		if (((mailbox_->protocol() == PROTOCOL_FILE) ||
-			 (mailbox_->protocol() == PROTOCOL_MH) ||
-			 (mailbox_->protocol() == PROTOCOL_MAILDIR))) {
-			// Address has changed -> force lookup
-			if (mailbox_->address() != gtk_entry_get_text (GTK_ENTRY (get("address_entry"))))
-				mailbox_->protocol (PROTOCOL_NONE);
-			mailbox_->address (gtk_entry_get_text (GTK_ENTRY (get("address_entry"))));
-		}
-		// protocol was not local -> force lookup
-		else {
-			mailbox_->address (gtk_entry_get_text (GTK_ENTRY (get("address_entry"))));
+		std::string newaddress=gtk_entry_get_text (GTK_ENTRY (get("address_entry")));
+		Mailbox *mailbox=NULL;
+
+		if (((mailbox_->protocol() != PROTOCOL_FILE) &&
+			 (mailbox_->protocol() != PROTOCOL_MH) &&
+			 (mailbox_->protocol() != PROTOCOL_MAILDIR))
+			|| (mailbox_->address() == newaddress))
+		{
+			// Something changed. Try to determine type now. This allows
+			// setting the right mailbox now, so the properties dialog will
+			// show the correct mailbox type if the user opens this dialog
+			// before closing the preferences dialog
 			mailbox_->protocol (PROTOCOL_NONE);
-			Mailbox *mailbox = new Mailbox (*mailbox_);
+			mailbox_->address(newaddress);
+			// If possible create a correct mailbox, otherwise a generic one
+			// (to force lookup)
+			if (!(mailbox=Mailbox::lookup_local(mailbox_)))
+				mailbox=new Mailbox (*mailbox_);
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
 	}
-	
 
 	// Third case: type is set to imap
 	else if (selected_type_ == TYPE_IMAP) {
