@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -31,7 +31,7 @@
 
 #include <sstream>
 #include "gtk_image_animation.h"
-
+#include "support.h"
 
 /**
  * "C" binding
@@ -39,33 +39,48 @@
 extern "C" {
 	gboolean GTK_IMAGE_ANIMATION_timeout (gpointer data)
 	{
-		return ((GtkImageAnimation *) data)->timeout ();
+		if (data)
+			return ((GtkImageAnimation *) data)->timeout ();
+		unknown_internal_error ();
+		return false;
 	}
 
 	gboolean GTK_IMAGE_ANIMATION_on_delete (GtkWidget *widget,
 											GdkEvent *event,
 											gpointer data)
 	{
-		return ((GtkImageAnimation *) data)->on_delete ();
+		if (data)
+			return ((GtkImageAnimation *) data)->on_delete ();
+		unknown_internal_error ();
+		return false;
 	}
 
 	gboolean GTK_IMAGE_ANIMATION_on_destroy (GtkWidget *widget,
 											 GdkEvent *event,
 											 gpointer data)
 	{
-		return ((GtkImageAnimation *) data)->on_destroy ();
+		if (data)
+			return ((GtkImageAnimation *) data)->on_destroy ();
+		unknown_internal_error ();
+		return false;
 	}
 
 	void GTK_IMAGE_ANIMATION_on_hide (GtkWidget *widget,
 									  gpointer data)
 	{
-		((GtkImageAnimation *) data)->on_hide ();
+		if (data)
+			((GtkImageAnimation *) data)->on_hide ();
+		else
+			unknown_internal_error ();
 	}
 
 	void GTK_IMAGE_ANIMATION_on_show (GtkWidget *widget,
 									  gpointer data)
 	{
-		((GtkImageAnimation *) data)->on_show ();
+		if (data)
+			((GtkImageAnimation *) data)->on_show ();
+		else
+			unknown_internal_error ();
 	}
 }
 
@@ -324,18 +339,18 @@ GtkImageAnimation::is_animation (void)
 	if (_filename.find('(') == std::string::npos)
 		return false;
 	
-	guint i = _filename.find ('(')+1;
+	std::string::size_type i = _filename.find ('(') + 1;
 	std::string sw, sh;
 	do {
 		sw += _filename[i++];
-	} while ((i<_filename.size()) && (g_ascii_isdigit(_filename[i])));
+	} while ((i < _filename.size()) && (g_ascii_isdigit(_filename[i])));
 
-	if ((i<_filename.size()) && (_filename[i] != 'x'))
+	if ((i < _filename.size()) && (_filename[i] != 'x'))
 		return false;
 	i++;
 	do {
 		sh += _filename[i++];
-	} while ((i<_filename.size()) && (g_ascii_isdigit(_filename[i])));
+	} while ((i < _filename.size()) && (g_ascii_isdigit(_filename[i])));
 	std::stringstream ssw(sw);
 	std::stringstream ssh(sh);
 	guint w, h;
