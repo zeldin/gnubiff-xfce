@@ -120,6 +120,7 @@ Version 2.1.1
         mailboxes
    - Bugfix: Displaying popup data correctly
    - Some additional include files added for FreeBSD
+   - Macro TEMP_FAILURE_RETURN provided for systems that don't have it
 
 Version 2.1.0
  * Nicolas Rougier
