@@ -202,6 +202,15 @@ void
 Mailbox::watch_thread (void) {
 	if (protocol_ == PROTOCOL_NONE) {
 		biff_->lookup (this);
+		if (!g_mutex_trylock (watch_mutex_)) {
+#ifdef DEBUG
+			g_message ("[%d] Cannot lock watch mutex\n", uin_);
+#endif
+			return;
+		}
+		watch_off();
+		biff_->applet()->watch_on();
+		g_mutex_unlock (watch_mutex_);
 		return;
 	}
 

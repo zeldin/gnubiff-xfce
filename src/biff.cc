@@ -292,9 +292,12 @@ Biff::lookup (guint index)
 			}
 		
 		// Delete old mailbox and replace it with the new one
-		Mailbox *old_mailbox = mailbox_[index];
+		// Problem: Can't delete old mailbox at this moment because this
+		// thread returns to it when this function ends. It must be deleted
+		// later. ATM: Memory Leak
+//		Mailbox *old_mailbox = mailbox_[index];
 		mailbox_[index] = mailbox;
-		delete old_mailbox;
+//		delete old_mailbox;
 	}
 	gdk_threads_enter();
 	preferences_->synchronize();

@@ -43,6 +43,8 @@ Version 2.0.3
    - Bugfix: Creating different tags for different commands (IMAP)
    - Update of man page (command line options, version, date)
    - Bugfix: Handling of text lines beginning with a dot (IMAP & POP3)
+   - Bugfix: Mailboxes that are accessed later not deleted (-> memory leak)
+   - Bugfix: Updating when connection for mailbox detection fails
    
 
 Version 2.0.2
