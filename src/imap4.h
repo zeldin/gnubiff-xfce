@@ -37,7 +37,6 @@
 
 #define IMAP4(x)				((Imap4 *)(x))
 
-
 class Imap4 : public Mailbox {
 
 protected:
@@ -79,9 +78,10 @@ public:
 	//	Internal stuff
 	// ========================================================================	
 	gboolean parse_bodystructure (std::string, class PartInfo &,
-									gboolean toplevel=true);
+								  gboolean toplevel=true);
 	gboolean parse_bodystructure_parameters (std::string, class PartInfo &);
 	void command_capability (void) throw (imap_err);
+	PartInfo command_fetchbodystructure (guint) throw (imap_err);
 	std::vector<std::string> command_fetchheader (guint) throw (imap_err);
 	std::vector<int> command_searchnotseen (void) throw (imap_err);
 	void command_waitforack (gint num=0) throw (imap_err);

@@ -313,37 +313,14 @@ Imap4::fetch_header (void)
 		// FETCH header information
 		std::vector<std::string> mail=command_fetchheader(buffer[i]);
 
+		// FETCH BODYSTRUCTURE
+		PartInfo partinfo=command_fetchbodystructure(buffer[i]);
+
 		std::stringstream s;
 		s << buffer[i];
-		
-		// FETCH BODYSTRUCTURE
-		if (!send("FETCH " + s.str() + " (BODYSTRUCTURE)")) throw imap_socket_err();
-		
-		// Response should be: "* s FETCH (BODYSTRUC..." (see RFC 3501 7.4.2)
-		gint cnt=1+preventDoS_additionalLines_;
-		while (((socket_->read(line) > 0)) && (cnt--))
-			if (line.find ("* "+s.str()+" FETCH (BODYSTRUCTURE (") == 0)
-				break;
-		if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
-		if (line.substr(line.size()-2) != ")\r") throw imap_command_err();
-		
-		// Remove first and last part
-		line=line.substr(25+s.str().size(),line.size()-28-s.str().size());
-		
-		// Get Part of Mail that contains "text/plain" (if any exists) and
-		// size of this text, encoding, charset
-		PartInfo partinfo;
-		parse_bodystructure(line,partinfo);
-		gint textsize=partinfo.size;
-#ifdef DEBUG
-		g_print("** Part %s size=%d, encoding=%s, charset=%s\n",
-						partinfo.part.c_str(), partinfo.size,
-						partinfo.encoding.c_str(), partinfo.charset.c_str());
-#endif
-		// Getting the acknowledgment
-		command_waitforack();
-		
+
 		// FETCH BODY.PEEK
+		gint textsize=partinfo.size;
 		// Is there any plain text?
 		if (partinfo.part=="")
 			mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
@@ -366,7 +343,7 @@ Imap4::fetch_header (void)
 			if (!send(line)) throw imap_socket_err();
 			
 			// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
-			cnt=1+preventDoS_additionalLines_;
+			gint cnt=1+preventDoS_additionalLines_;
 			while (((socket_->read(line) > 0)) && (cnt--))
 				if (line.find ("* "+s.str()+" FETCH") == 0)
 					break;
@@ -487,9 +464,8 @@ Imap4::idle (void) throw (imap_err)
  * keeping the connection active.
  * 
  * @return         Returns the last line received from the IMAP server.
- * @exception      imap_err if a problem occurs while processing
- *                 the idle loop.  Most likely this will be a
- *                 imap_socket_err if we loose connection to the server.
+ * @exception imap_socket_err
+ *                 If a network error occurs
  */
 std::string 
 Imap4::idle_renew_loop() throw (imap_err)
@@ -549,10 +525,11 @@ Imap4::idle_renew_loop() throw (imap_err)
  * \end{itemize}
  * 
  * @exception imap_command_err
- *                     In case of an unexpected server's response or if a
- *                     network error occurs.
+ *                     If we get an unexpected server's response
  * @exception imap_dos_err
  *                     If an DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     If a network error occurs
  */
 void 
 Imap4::command_capability (void) throw (imap_err)
@@ -584,6 +561,63 @@ Imap4::command_capability (void) throw (imap_err)
 }
 
 /**
+ * Decide which part from the mail with sequence number {\em msn} we are
+ * interested in. This is done by sending IMAP command
+ * "FETCH {\em msn} (BODYSTRUCTURE)" to the server and parsing the server's
+ * response.
+ *
+ * @param     msn      Unsigned integer for the message sequence number of the
+ *                     mail
+ * @return             Partinfo structure with information of the relevant
+ *                     part of the mail.
+ * @exception imap_command_err
+ *                     If we get an unexpected server's response
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     If a network error occurs
+ */
+class PartInfo 
+Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
+{
+	std::string line;
+
+	// Message sequence number
+	std::stringstream ss;
+	ss << msn;
+
+	// Send command
+	if (!send("FETCH " +ss.str()+ " (BODYSTRUCTURE)")) throw imap_socket_err();
+
+	// Response should be: "* s FETCH (BODYSTRUC..." (see RFC 3501 7.4.2)
+	gint cnt=1+preventDoS_additionalLines_;
+	while (((socket_->read(line) > 0)) && (cnt--))
+		if (line.find ("* " + ss.str() + " FETCH (BODYSTRUCTURE (") == 0)
+			break;
+	if (!socket_->status()) throw imap_socket_err();
+	if (cnt<0) throw imap_dos_err();
+	if (line.substr(line.size()-2) != ")\r") throw imap_command_err();
+
+	// Remove first and last part
+	line=line.substr(25+ss.str().size(),line.size()-28-ss.str().size());
+
+	// Get Part of Mail that contains "text/plain" (if any exists) and
+	// size of this text, encoding, charset
+	PartInfo partinfo;
+	parse_bodystructure(line,partinfo);
+#ifdef DEBUG
+	g_print("** Part %s size=%d, encoding=%s, charset=%s\n",
+			partinfo.part.c_str(), partinfo.size, partinfo.encoding.c_str(),
+			partinfo.charset.c_str());
+#endif
+
+	// Getting the acknowledgment
+	command_waitforack();
+
+	return partinfo;
+}
+
+/**
  * Obtain some header information from the mail with sequence number {\em msn}.
  * The IMAP command "FETCH" is sent to the server in order to obtain the From,
  * Date and Subject of the mail. The last line of the returned header lines
@@ -593,10 +627,11 @@ Imap4::command_capability (void) throw (imap_err)
  *                     mail
  * @return             C++ vector of C++ strings containing the header lines
  * @exception imap_command_err
- *                     In case of an unexpected server's response or if a
- *                     network error occurs.
+ *                     If we get an unexpected server's response
  * @exception imap_dos_err
  *                     If an DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     If a network error occurs
  */
 std::vector<std::string> 
 Imap4::command_fetchheader (guint msn) throw (imap_err)
@@ -661,11 +696,10 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
  * 
  * @return             C++ vector of integers for the message sequence numbers
  *                     of unread messages.
- * @exception imap_command_err
- *                     In case of an unexpected server's response or if a
- *                     network error occurs.
  * @exception imap_dos_err
  *                     If an DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     If a network error occurs
  */
 std::vector<int> 
 Imap4::command_searchnotseen (void) throw (imap_err)
@@ -717,10 +751,11 @@ Imap4::command_searchnotseen (void) throw (imap_err)
  *                     server. This value is needed to help deciding whether
  *                     we are DoS attacked. The default value is 0.
  * @exception imap_command_err
- *                     In case of a negative response from the server
- *                     or if a network error occurs.
+ *                     If we get an unexpected server's response
  * @exception imap_dos_err
  *                     If an DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     If a network error occurs
  */
 void 
 Imap4::command_waitforack (gint cnt) throw (imap_err)
