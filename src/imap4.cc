@@ -363,8 +363,7 @@ Imap4::fetch_header (void)
 			if (line.find ("* "+s.str()+" FETCH (BODYSTRUCTURE (") == 0)
 				break;
 		if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
-		if (line.substr(line.size()-2) != ")\r")
-			throw imap_command_err();
+		if (line.substr(line.size()-2) != ")\r") throw imap_command_err();
 		
 		// Remove first and last part
 		line=line.substr(25+s.str().size(),line.size()-28-s.str().size());
@@ -379,14 +378,8 @@ Imap4::fetch_header (void)
 						partinfo.part.c_str(), partinfo.size,
 						partinfo.encoding.c_str(), partinfo.charset.c_str());
 #endif
-		
-		// Read end of command
-		cnt=1+preventDoS_additionalLines_;
-		while (((socket_->read(line, false) > 0)) && (cnt--))
-			if (line.find (tag()) == 0)
-				break;
-		if ((!socket_->status()) || (cnt<0)) throw imap_socket_err();
-		
+		// Getting the acknowledgment
+		command_waitforack();
 		
 		// FETCH BODY.PEEK
 		// Is there any plain text?
