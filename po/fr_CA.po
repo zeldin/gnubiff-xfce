@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 09:18+0100\n"
+"POT-Creation-Date: 2005-01-19 23:36+0100\n"
 "PO-Revision-Date: 2005-01-19 09:30+0100\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -102,15 +102,15 @@ msgstr "Boîte aux lettres %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossible de créer le thread: %s"
 
-#: src/mailbox.cc:483
+#: src/mailbox.cc:482
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: src/mailbox.cc:493
+#: src/mailbox.cc:492
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: src/mailbox.cc:503
+#: src/mailbox.cc:502
 msgid "<no date>"
 msgstr "<Pas de date>"
 
@@ -312,7 +312,7 @@ msgstr "Pas de boîte aux lettres séléctionnée"
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:512 ui/preferences.glade.h:66
+#: src/ui-preferences.cc:512 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr "_Stopper"
 
@@ -624,104 +624,80 @@ msgid "When _new mail:"
 msgstr "_Nouveau courrier:"
 
 #: ui/preferences.glade.h:45
-msgid "Whether the window shall appear in pagers"
-msgstr "Afficher la fenêtre dans le pager ou non"
-
-#: ui/preferences.glade.h:46
-msgid "Whether the window shall be displayed on all desktops"
-msgstr "Afficher la fenêtre sur tous les bureaux ou non"
-
-#: ui/preferences.glade.h:47
-msgid "Whether the window shall be kept above all other windows"
-msgstr "Afficher la fenêtre par dessus les autres ou non"
-
-#: ui/preferences.glade.h:48
 msgid "Whether to display a text"
 msgstr "Afficher un texte ou non"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:46
 msgid "Whether to display an image"
 msgstr "Afficher une image ou non"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:47
 msgid "Whether to display the popup window"
 msgstr "Afficher la fenêtre des entêtes ou non"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:48
 msgid "Whether to restrict number of displayed headers"
 msgstr "Restreindre le nombre d'entêtes ou non"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:49
 msgid "Whether to show an image"
 msgstr "Afficher une image ou non"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:50
 msgid "Whether to use format for header"
 msgstr "Utiliser un format d'entêtes ou non"
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:51
 msgid "Whether to use geometry"
 msgstr "Utiliser la géométrie ou non"
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:52
 msgid "Whether to use window manager decoration"
 msgstr "Fenêtre des entêtes décorée ou non"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:53
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 "[taille max champs expéditeur]:[taille max champs sujet]:[taille max champs "
 "date]"
 
-#: ui/preferences.glade.h:57
-msgid "_Appear in pager"
-msgstr "_Apparaît dans le pager"
-
-#: ui/preferences.glade.h:58
-msgid "_Be sticky"
-msgstr "Fenêtre _Collante"
-
-#: ui/preferences.glade.h:59 ui/properties.glade.h:21
+#: ui/preferences.glade.h:54 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "_Chercher..."
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:55
 msgid "_Display for"
 msgstr "_Affichage"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:56
 msgid "_Font:"
 msgstr "_Fonte:"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:57
 msgid "_Format:"
 msgstr "_Format:"
 
-#: ui/preferences.glade.h:63
-msgid "_Keep above"
-msgstr "_Garde au dessus"
-
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:58
 msgid "_Restrict collected mail to"
 msgstr "_Restreindre le nombre de mail collectés à"
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:59
 msgid "_Restrict number to"
 msgstr "_Restreindre le nombre à"
 
-#: ui/preferences.glade.h:67
+#: ui/preferences.glade.h:61
 msgid "gnubiff preferences"
 msgstr "gnubiff préferences"
 
-#: ui/preferences.glade.h:68
+#: ui/preferences.glade.h:62
 msgid "header(s)"
 msgstr "entête(s)"
 
-#: ui/preferences.glade.h:69
+#: ui/preferences.glade.h:63
 msgid "mail(s)"
 msgstr "mèl(s)"
 
-#: ui/preferences.glade.h:70
+#: ui/preferences.glade.h:64
 msgid "second(s)"
 msgstr "seconde(s)"
 
@@ -923,3 +899,21 @@ msgstr "<small><b>Sujet</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "contenu du mèl"
+
+#~ msgid "Whether the window shall appear in pagers"
+#~ msgstr "Afficher la fenêtre dans le pager ou non"
+
+#~ msgid "Whether the window shall be displayed on all desktops"
+#~ msgstr "Afficher la fenêtre sur tous les bureaux ou non"
+
+#~ msgid "Whether the window shall be kept above all other windows"
+#~ msgstr "Afficher la fenêtre par dessus les autres ou non"
+
+#~ msgid "_Appear in pager"
+#~ msgstr "_Apparaît dans le pager"
+
+#~ msgid "_Be sticky"
+#~ msgstr "Fenêtre _Collante"
+
+#~ msgid "_Keep above"
+#~ msgstr "_Garde au dessus"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 09:18+0100\n"
+"POT-Creation-Date: 2005-01-19 23:36+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -94,16 +94,16 @@ msgstr "Nici un mail"
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: src/mailbox.cc:483
+#: src/mailbox.cc:482
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:493
+#: src/mailbox.cc:492
 #, fuzzy
 msgid "<no subject>"
 msgstr "Subiect"
 
-#: src/mailbox.cc:503
+#: src/mailbox.cc:502
 msgid "<no date>"
 msgstr ""
 
@@ -298,7 +298,7 @@ msgstr ""
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:512 ui/preferences.glade.h:66
+#: src/ui-preferences.cc:512 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr ""
 
@@ -628,113 +628,87 @@ msgstr "Sunete când vine mail nou"
 
 #: ui/preferences.glade.h:45
 #, fuzzy
-msgid "Whether the window shall appear in pagers"
-msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
-
-#: ui/preferences.glade.h:46
-msgid "Whether the window shall be displayed on all desktops"
-msgstr ""
-
-#: ui/preferences.glade.h:47
-msgid "Whether the window shall be kept above all other windows"
-msgstr ""
-
-#: ui/preferences.glade.h:48
-#, fuzzy
 msgid "Whether to display a text"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:46
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:48
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:50
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Geometrie "
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Geometrie "
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:52
 msgid "Whether to use window manager decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:53
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:57
-msgid "_Appear in pager"
-msgstr ""
-
-#: ui/preferences.glade.h:58
-#, fuzzy
-msgid "_Be sticky"
-msgstr "Persistent(Sticky)"
-
-#: ui/preferences.glade.h:59 ui/properties.glade.h:21
+#: ui/preferences.glade.h:54 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:55
 #, fuzzy
 msgid "_Display for"
 msgstr "Afiºeazã data în headere sau nu"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:56
 #, fuzzy
 msgid "_Font:"
 msgstr "Fonturi "
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:57
 #, fuzzy
 msgid "_Format:"
 msgstr "De la"
 
-#: ui/preferences.glade.h:63
-msgid "_Keep above"
-msgstr ""
-
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:58
 msgid "_Restrict collected mail to"
 msgstr ""
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:59
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade.h:67
+#: ui/preferences.glade.h:61
 msgid "gnubiff preferences"
 msgstr ""
 
-#: ui/preferences.glade.h:68
+#: ui/preferences.glade.h:62
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:69
+#: ui/preferences.glade.h:63
 #, fuzzy
 msgid "mail(s)"
 msgstr "Nici un mail"
 
-#: ui/preferences.glade.h:70
+#: ui/preferences.glade.h:64
 msgid "second(s)"
 msgstr ""
 
@@ -953,6 +927,14 @@ msgstr "Adresã / nume fiºier:"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Whether the window shall appear in pagers"
+#~ msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
+
+#, fuzzy
+#~ msgid "_Be sticky"
+#~ msgstr "Persistent(Sticky)"
 
 #, fuzzy
 #~ msgid "date"

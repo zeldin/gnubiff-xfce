@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 09:18+0100\n"
+"POT-Creation-Date: 2005-01-19 23:36+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -95,17 +95,17 @@ msgstr "Postvak"
 msgid "[%d] Unable to create thread: %s"
 msgstr "Kon thread niet aanmaken: %s\n"
 
-#: src/mailbox.cc:483
+#: src/mailbox.cc:482
 #, fuzzy
 msgid "<no sender>"
 msgstr "<geen verzender gevonden>"
 
-#: src/mailbox.cc:493
+#: src/mailbox.cc:492
 #, fuzzy
 msgid "<no subject>"
 msgstr "<geen onderwerp gevonden>"
 
-#: src/mailbox.cc:503
+#: src/mailbox.cc:502
 #, fuzzy
 msgid "<no date>"
 msgstr "<geen datum gevonden>"
@@ -307,7 +307,7 @@ msgstr ""
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:512 ui/preferences.glade.h:66
+#: src/ui-preferences.cc:512 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr ""
 
@@ -644,114 +644,89 @@ msgstr "Nieuwe e-mail"
 
 #: ui/preferences.glade.h:45
 #, fuzzy
-msgid "Whether the window shall appear in pagers"
-msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
-
-#: ui/preferences.glade.h:46
-msgid "Whether the window shall be displayed on all desktops"
-msgstr ""
-
-#: ui/preferences.glade.h:47
-msgid "Whether the window shall be kept above all other windows"
-msgstr ""
-
-#: ui/preferences.glade.h:48
-#, fuzzy
 msgid "Whether to display a text"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:46
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:48
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:50
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Geen afmeting"
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:52
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:53
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:57
-msgid "_Appear in pager"
-msgstr ""
-
-#: ui/preferences.glade.h:58
-msgid "_Be sticky"
-msgstr ""
-
-#: ui/preferences.glade.h:59 ui/properties.glade.h:21
+#: ui/preferences.glade.h:54 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:55
 #, fuzzy
 msgid "_Display for"
 msgstr "Datum weergeven in koppen"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:56
 #, fuzzy
 msgid "_Font:"
 msgstr "Lettertypes "
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:57
 #, fuzzy
 msgid "_Format:"
 msgstr "Lettertypes "
 
-#: ui/preferences.glade.h:63
-msgid "_Keep above"
-msgstr ""
-
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:58
 msgid "_Restrict collected mail to"
 msgstr ""
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:59
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade.h:67
+#: ui/preferences.glade.h:61
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Voorkeuren"
 
-#: ui/preferences.glade.h:68
+#: ui/preferences.glade.h:62
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:69
+#: ui/preferences.glade.h:63
 #, fuzzy
 msgid "mail(s)"
 msgstr "kmail"
 
-#: ui/preferences.glade.h:70
+#: ui/preferences.glade.h:64
 msgid "second(s)"
 msgstr ""
 
@@ -966,6 +941,10 @@ msgstr "<small><b>Geluidssterkte</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "postinhoud"
+
+#, fuzzy
+#~ msgid "Whether the window shall appear in pagers"
+#~ msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
 
 #, fuzzy
 #~ msgid "<span font_desc=\"24\"><b>Gnubiff 2.1.1</b></span>"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 09:18+0100\n"
+"POT-Creation-Date: 2005-01-19 23:36+0100\n"
 "PO-Revision-Date: 2004-12-16 23:42+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -100,15 +100,15 @@ msgstr "Buzón %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] No se puede crear hilo: %s"
 
-#: src/mailbox.cc:483
+#: src/mailbox.cc:482
 msgid "<no sender>"
 msgstr "<sin remitente>"
 
-#: src/mailbox.cc:493
+#: src/mailbox.cc:492
 msgid "<no subject>"
 msgstr "<sin asunto>"
 
-#: src/mailbox.cc:503
+#: src/mailbox.cc:502
 msgid "<no date>"
 msgstr "<sin fecha>"
 
@@ -311,7 +311,7 @@ msgstr "No se han seleccionado buzones"
 msgid "_Start"
 msgstr "_Comenzar"
 
-#: src/ui-preferences.cc:512 ui/preferences.glade.h:66
+#: src/ui-preferences.cc:512 ui/preferences.glade.h:60
 msgid "_Stop"
 msgstr "_Detener"
 
@@ -626,104 +626,78 @@ msgid "When _new mail:"
 msgstr "Cuando llega un _nuevo mensaje:"
 
 #: ui/preferences.glade.h:45
-#, fuzzy
-msgid "Whether the window shall appear in pagers"
-msgstr "Restringir el número de encabezados mostrados o no"
-
-#: ui/preferences.glade.h:46
-#, fuzzy
-msgid "Whether the window shall be displayed on all desktops"
-msgstr "Restringir el número de encabezados mostrados o no"
-
-#: ui/preferences.glade.h:47
-msgid "Whether the window shall be kept above all other windows"
-msgstr ""
-
-#: ui/preferences.glade.h:48
 msgid "Whether to display a text"
 msgstr "Mostrar un texto o no"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:46
 msgid "Whether to display an image"
 msgstr "Mostrar una imagen o no"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:47
 msgid "Whether to display the popup window"
 msgstr "Mostrar la ventana emergente o no"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:48
 msgid "Whether to restrict number of displayed headers"
 msgstr "Restringir el número de encabezados mostrados o no"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:49
 msgid "Whether to show an image"
 msgstr "Mostrar una imagen o no"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:50
 msgid "Whether to use format for header"
 msgstr "Usar formato en los encabezados o no"
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:51
 msgid "Whether to use geometry"
 msgstr "Usar geometría o no"
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:52
 msgid "Whether to use window manager decoration"
 msgstr "Ventana emergente con decoración o no"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:53
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr "[Tamaño del remitente]:[Tamaño del asunto]:[Tamaño de fecha]"
 
-#: ui/preferences.glade.h:57
-msgid "_Appear in pager"
-msgstr ""
-
-#: ui/preferences.glade.h:58
-msgid "_Be sticky"
-msgstr ""
-
-#: ui/preferences.glade.h:59 ui/properties.glade.h:21
+#: ui/preferences.glade.h:54 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "_Explorar..."
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:55
 msgid "_Display for"
 msgstr "Mostrar _durante:"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:56
 msgid "_Font:"
 msgstr "_Fuente:"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:57
 msgid "_Format:"
 msgstr "_Formato:"
 
-#: ui/preferences.glade.h:63
-msgid "_Keep above"
-msgstr ""
-
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:58
 msgid "_Restrict collected mail to"
 msgstr "_Restringir mensajes recolectados a"
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:59
 msgid "_Restrict number to"
 msgstr "Restringir a"
 
-#: ui/preferences.glade.h:67
+#: ui/preferences.glade.h:61
 msgid "gnubiff preferences"
 msgstr "Preferencias"
 
-#: ui/preferences.glade.h:68
+#: ui/preferences.glade.h:62
 msgid "header(s)"
 msgstr "encabezado(s)"
 
-#: ui/preferences.glade.h:69
+#: ui/preferences.glade.h:63
 msgid "mail(s)"
 msgstr "mensaje(s)"
 
-#: ui/preferences.glade.h:70
+#: ui/preferences.glade.h:64
 msgid "second(s)"
 msgstr "segundo(s)"
 
@@ -927,6 +901,14 @@ msgstr "<small><b>Asunto</b></small>"
 #: ui/popup.glade.h:5
 msgid "mail content"
 msgstr "contenido del mensaje"
+
+#, fuzzy
+#~ msgid "Whether the window shall appear in pagers"
+#~ msgstr "Restringir el número de encabezados mostrados o no"
+
+#, fuzzy
+#~ msgid "Whether the window shall be displayed on all desktops"
+#~ msgstr "Restringir el número de encabezados mostrados o no"
 
 #, fuzzy
 #~ msgid "<span font_desc=\"24\"><b>Gnubiff 2.1.1</b></span>"
