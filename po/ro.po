@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-31 15:56+0100\n"
+"POT-Creation-Date: 2005-02-01 23:44+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -214,17 +214,17 @@ msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 
-#: src/options.cc:261
+#: src/options.cc:295
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr ""
 
-#: src/options.cc:268
+#: src/options.cc:302
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr ""
 
-#: src/options.cc:366 src/gui.cc:211
+#: src/options.cc:423 src/gui.cc:211
 #, fuzzy, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Nu am putut gãsi widgetul specificat (\"%s\") în structura de tree xml"
@@ -278,36 +278,36 @@ msgstr "Mail nou"
 msgid "No mail"
 msgstr "Nici un mail"
 
-#: src/ui-preferences.cc:151 src/ui-popup.cc:139
+#: src/ui-preferences.cc:176 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Mailbox"
 
-#: src/ui-preferences.cc:165
+#: src/ui-preferences.cc:190
 msgid "Type"
 msgstr ""
 
-#: src/ui-preferences.cc:184
+#: src/ui-preferences.cc:209
 msgid "Status"
 msgstr ""
 
-#: src/ui-preferences.cc:199
+#: src/ui-preferences.cc:224
 msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:211 src/ui-preferences.cc:560
+#: src/ui-preferences.cc:236 src/ui-preferences.cc:546
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:494
+#: src/ui-preferences.cc:480
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:500 ui/preferences.glade.h:62
+#: src/ui-preferences.cc:486 ui/preferences.glade.h:69
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:511 src/ui-preferences.cc:518
+#: src/ui-preferences.cc:497 src/ui-preferences.cc:504
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Rãsfoire(browse) dupã fiºier"
@@ -539,190 +539,221 @@ msgid "Expert"
 msgstr ""
 
 #: ui/preferences.glade.h:24
-msgid "Image filename"
+msgid "Here the value of the currently selected option can be edited."
 msgstr ""
 
 #: ui/preferences.glade.h:25
+msgid "Image filename"
+msgstr ""
+
+#: ui/preferences.glade.h:26
+msgid "List all options."
+msgstr ""
+
+#: ui/preferences.glade.h:27
+msgid "List of options, their type and current value."
+msgstr ""
+
+#: ui/preferences.glade.h:28
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Mailbox"
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:29
 msgid "Maintainers"
 msgstr ""
 
-#: ui/preferences.glade.h:27
+#: ui/preferences.glade.h:30
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr ""
 "Titlul mailboxului care va fi afiºat în panelul gnome ºi fereastra de popup"
 
-#: ui/preferences.glade.h:28 ui/popup.glade.h:4
+#: ui/preferences.glade.h:31 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Popup"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:32
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Geometrie "
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:33
+msgid "Reset option to default value."
+msgstr ""
+
+#: ui/preferences.glade.h:34
+msgid ""
+"Search for those (displayed) options that contain the string in the text "
+"entry."
+msgstr ""
+
+#: ui/preferences.glade.h:35
+msgid "Set option to value in text entry."
+msgstr ""
+
+#: ui/preferences.glade.h:36
 #, fuzzy
 msgid "Show _image:"
 msgstr "Afiºeazã titlu"
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:37
 #, fuzzy
 msgid "Show _text:"
 msgstr "Afiºeazã titlu"
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:38
 #, fuzzy
 msgid "Show i_mage:"
 msgstr "Afiºeazã titlu"
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:39
 #, fuzzy
 msgid "Show t_ext:"
 msgstr "Afiºeazã titlu"
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:40
+#, fuzzy
+msgid "String to be searched for."
+msgstr "Font pentru corpul popup-ului"
+
+#: ui/preferences.glade.h:41
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:43
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:44
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Sunet de cântat când a venit mail nou"
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:45
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:46
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Duratã de afiºare a popup-ului (secunde):"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:48
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:49
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:50
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Geometrie "
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "Value: "
 msgstr "Volum:"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:52
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:53
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Sunete când vine mail nou"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:54
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:55
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:56
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:57
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:58
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:59
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Geometrie "
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:60
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Geometrie "
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:61
 msgid "Whether to use window manager decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:62
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:56 ui/properties.glade.h:21
+#: ui/preferences.glade.h:63 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:64
 #, fuzzy
 msgid "_Display for"
 msgstr "Afiºeazã data în headere sau nu"
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:65
 #, fuzzy
 msgid "_Font:"
 msgstr "Fonturi "
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:66
 #, fuzzy
 msgid "_Format:"
 msgstr "De la"
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:67
 msgid "_Restrict collected mail to"
 msgstr ""
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:68
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:70
 msgid "gnubiff preferences"
 msgstr ""
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:71
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:72
 #, fuzzy
 msgid "mail(s)"
 msgstr "Nici un mail"
 
-#: ui/preferences.glade.h:66
+#: ui/preferences.glade.h:73
 msgid "second(s)"
 msgstr ""
 
@@ -1430,10 +1461,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Font to be used for title"
 #~ msgstr "Font pentru tiltul popup-ului"
-
-#, fuzzy
-#~ msgid "Font to be used for body"
-#~ msgstr "Font pentru corpul popup-ului"
 
 #, fuzzy
 #~ msgid "Sans 8"
