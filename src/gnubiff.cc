@@ -171,18 +171,18 @@ int mainGNOME (int argc, char **argv) {
 			exit (0);
 		}
 		else if ((std::string(argv[i]) == "--help") || (std::string(argv[i]) == "-h")) {
-			g_print (_("\nThis version of gnubiff has been compiled with GNOME support\n"));
-			g_print (_("If you want to use the GTK version, type gnubiff --gtk\n"));
-			g_print (_(" then use -c file to specify an alternate configuration file\n"));
-			g_print (_("      and -n to skip configuration process\n"));
-			g_print (_("If you want to use the GNOME version, use gnome panel\n"));
-			g_print (_("Have a nice day\n"));
+			g_print (_("\nThis version of gnubiff has been compiled with GNOME support.\n"
+					   "If you want to use the GTK version, type gnubiff --gtk\n"
+					   " then use -c file to specify an alternate configuration file\n"
+					   "      and -n to skip configuration process.\n"
+					   "If you want to use the GNOME version, use gnome panel.\n"
+					   "Have a nice day\n"));
 			exit (0);
 		}
 	}
-	g_warning (_("\nThis version of gnubiff has been compiled with GNOME support"));
-	g_print   (_("If you want to use the GTK version, type gnubiff --gtk\n"));
-	g_print   (_("Now I will hang forever...\n"));
+	g_warning (_("\nThis version of gnubiff has been compiled with GNOME support.\n"
+				 "If you want to use the GTK version, type gnubiff --gtk.\n"
+				 "Now I will hang forever...\n"));
 
 #if defined(PREFIX) && defined(SYSCONFDIR) && defined(DATADIR) && defined(LIBDIR)
 	gnome_program_init ("gnubiff", "0", LIBGNOMEUI_MODULE, argc, argv, GNOME_PROGRAM_STANDARD_PROPERTIES, NULL);

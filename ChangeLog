@@ -7,7 +7,8 @@ Please send gnubiff bug reports to Nicolas.Rougier@loria.fr.
 Version 2.0.3 (?)
  * Roland Stigge:
    - Updated man page (section 1, "GTK+")
-
+ * Robert Sowada:
+   - Simplified multiline messages
 
 Version 2.0.2
  * Some cosmetic fixes
