@@ -248,7 +248,7 @@ Socket::write (std::string line,
 		g_print ("** Message: [%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
 #endif
 
-	if ((debug) && (!status_)) {
+	if (!status_) {
 		g_warning (_("[%d] Unable to write to %s on port %d"), uin_, hostname_.c_str(), port_);
 		close();
 		mailbox_->status (MAILBOX_ERROR);
@@ -297,14 +297,14 @@ Socket::read (std::string &line,
 	if (debug)
 		g_message ("[%d] RECV(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
 #endif
-	if ((debug) & (!status_)) {
+	if (!status_) {
 		g_warning (_("[%d] Unable to read from %s on port %d"), uin_, hostname_.c_str(), port_);
 		close();
 		mailbox_->status (MAILBOX_ERROR);
 	}
 
 	// Check imap4
-	if (mailbox_->protocol() == PROTOCOL_IMAP4) {
+	if ((mailbox_->protocol() == PROTOCOL_IMAP4) && status_) {
 		if (line.find ("* BYE") == 0) {
 			close();
 			status_ = SOCKET_STATUS_ERROR;
@@ -313,7 +313,8 @@ Socket::read (std::string &line,
 	}
 
 	// Check pop
-	if ((mailbox_->protocol() == PROTOCOL_APOP) || (mailbox_->protocol() == PROTOCOL_POP3)) {
+	if (((mailbox_->protocol() == PROTOCOL_APOP) || 
+		 (mailbox_->protocol() == PROTOCOL_POP3)) && status_) {
 		 if (line.find ("-ERR") == 0) {
 			 close();
 			 status_ = SOCKET_STATUS_ERROR;
