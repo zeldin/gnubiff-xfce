@@ -522,6 +522,9 @@ Imap4::fetch_header (void)
 			else if (textsize == 0)
 				mail.push_back(std::string(""));
 			else {
+				mail.insert (mail.begin(), std::string("charset=") +  partinfo.charset + std::string(";"));
+
+
 				// Note: We are only interested in the first 12 lines, there
 				// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
 				// so it is sufficient to get at most 12000 bytes.
