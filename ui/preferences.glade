@@ -2112,7 +2112,7 @@
 			      <property name="label" translatable="yes">&lt;small&gt;Many people have further contributed to gnubiff by
   - reporting problems
   - suggesting various improvements
-  - subimitting actual code
+  - submitting actual code
 Here is a list of these people:&lt;/small&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
