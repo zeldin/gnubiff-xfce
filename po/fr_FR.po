@@ -1,4 +1,4 @@
-# translation of fr.po to 
+# translation of fr.po to
 # translation of fr.po to Français
 # translation of fr.po to French
 # French translation of gnubiff
@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-07 22:38+0100\n"
-"PO-Revision-Date: 2004-12-05 11:12+0100\n"
-"Last-Translator: \n"
-"Language-Team:  <en@li.org>\n"
+"POT-Creation-Date: 2004-12-08 14:02+0100\n"
+"PO-Revision-Date: 2004-12-08 14:20+0100\n"
+"Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
+"Language-Team: Français\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: src/gnubiff.cc:98
 msgid "Start gnome applet from command line"
@@ -396,6 +396,11 @@ msgid ""
 "  - submitting actual code\n"
 "Here is a list of these people:</small>"
 msgstr ""
+"<small>Beaucoup de personnes ont contribué à gnubiff en:\n"
+"  - reportant des problèmes\n"
+"  - suggérant des améliorations\n"
+"  - soumettant du code\n"
+"Voici une liste de ces personnes:</small>"
 
 #: ui/preferences.glade.h:13
 msgid ""
@@ -425,7 +430,7 @@ msgstr "Chercher une image"
 
 #: ui/preferences.glade.h:20
 msgid "Contributors"
-msgstr ""
+msgstr "Contributeurs"
 
 #: ui/preferences.glade.h:21
 msgid "Credits"
@@ -433,7 +438,7 @@ msgstr "Remerciements"
 
 #: ui/preferences.glade.h:22
 msgid "Developers"
-msgstr ""
+msgstr "Développeurs"
 
 #: ui/preferences.glade.h:23
 msgid "Image filename"
@@ -445,7 +450,7 @@ msgstr "Boîtes aux lettres"
 
 #: ui/preferences.glade.h:25
 msgid "Maintainers"
-msgstr ""
+msgstr "Mainteneurs"
 
 #: ui/preferences.glade.h:26
 msgid "Maximum number of headers to display"
@@ -502,7 +507,7 @@ msgstr "Durée d'affichage de la fenêtre popup"
 
 #: ui/preferences.glade.h:40
 msgid "Translators"
-msgstr ""
+msgstr "Traducteurs"
 
 #: ui/preferences.glade.h:41
 msgid "Use _decoration"
@@ -537,7 +542,6 @@ msgid "Whether to restrict number of displayed headers"
 msgstr "Restreindre le nombre d'entêtes ou non"
 
 #: ui/preferences.glade.h:49
-#, fuzzy
 msgid "Whether to show an image"
 msgstr "Afficher une image ou non"
 
@@ -576,9 +580,8 @@ msgid "_Format:"
 msgstr "_Format:"
 
 #: ui/preferences.glade.h:58
-#, fuzzy
 msgid "_Restrict collected mail to"
-msgstr "_Restreindre le nombre de mail collectés à:"
+msgstr "_Restreindre le nombre de mail collectés à"
 
 #: ui/preferences.glade.h:59
 msgid "_Restrict number to"
@@ -665,11 +668,11 @@ msgid "Standard mailbox folder"
 msgstr "Répertoire standard"
 
 #: ui/properties.glade.h:18
-#, fuzzy
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
-msgstr "Durée d'attente entre deux vérifications"
+msgstr ""
+"Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
 
 #: ui/properties.glade.h:19
 msgid "Your password on the mail server"

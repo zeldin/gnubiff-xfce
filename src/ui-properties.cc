@@ -275,7 +275,7 @@ Properties::on_type_changed (GtkAction *action)
 		auth_view (true);
 		certificate_view (false);
 		mailbox_view (true);
-		delay_view (false);
+		delay_view (true);
 	}
 }
 
@@ -561,7 +561,7 @@ Properties::type_view (void)
 		gtk_widget_set_sensitive (get("browse_address"), false);
 		identity_view (true);
 		details_view (true);
-		delay_view (false);
+		delay_view (true);
 		mailbox_view (true);
 		auth_view (true);
 	}

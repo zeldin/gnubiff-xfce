@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-07 22:38+0100\n"
+"POT-Creation-Date: 2004-12-08 14:02+0100\n"
 "PO-Revision-Date: 2004-12-07 22:42+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -818,4 +818,3 @@ msgstr "Nachrichtentext"
 #: ui/popup.glade.h:9
 msgid "subject"
 msgstr "Betreff"
-

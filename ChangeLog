@@ -13,7 +13,7 @@ Version 2.1.0
    - Better detection of mailbox format
    - Bugfix: IMAP4 idle state test to avoid checking twice
    - Bugfix: Popup was shown on exiting preferences
-   - Put back credits back
+   - Put back credits
    - Updated French translations
    - Fix a bug with IMAP4 idle feature (not recognizing the BYE command)
    - Added a TODO file to keep track of features/bugs to be implemented/fixed
@@ -29,6 +29,7 @@ Version 2.1.0
 	      copied from the selected one
    - Feature: If password is empty, gnubiff try to find by looking at
               other mailboxes and matching (address/username)
+   - Updated THANKS file
 * Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
    - Gnome version can determine itself if in standalone mode or panel mode
    - Removed "--gtk" option, added "--applet" option in debug mode instead
