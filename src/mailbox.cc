@@ -534,6 +534,8 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		partinfo = *pi;
 	if (hh != NULL)
 		h = *hh;
+	if ((partinfo.error_.size() > 0) && (h.error().size() == 0))
+		h.error (partinfo.error_);
 
 	// Parse header
 	for (; pos < len; pos++) {
@@ -589,7 +591,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		if (line.find ("Content-Type:") == 0) {
 			if (!parse_contenttype (line, partinfo.type_, partinfo.subtype_,
 									partinfo.parameters_)) {
-				h.add_to_body (_("[Cannot parse content type header line]"));
+				h.error (_("[Cannot parse content type header line]"));
 #ifdef DEBUG
 				g_message ("[%d] Cannot parse content type header line: %s",
 						   uin(), line.c_str());
@@ -623,7 +625,8 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 
 			// Get Token
 			if (!get_mime_token (line, partinfo.encoding_, cte_pos)) {
-				h.body (_("[Cannot parse content transfer encoding header line]"));
+				h.error (_("[Cannot parse content transfer encoding "
+						   "header line]"));
 				continue;
 			}
 		}
@@ -670,7 +673,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		if (partinfo.parameters_.find("boundary")!=partinfo.parameters_.end())
 			boundary = "--" + partinfo.parameters_["boundary"];
 		else {
-			h.body (_("[Malformed multipart message]"));
+			h.error (_("[Malformed multipart message]"));
 			ok = false;
 		}
 
@@ -678,7 +681,8 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		while (ok && (pos < len) && (mail[pos].find (boundary) != 0))
 			pos++;
 		if (ok && (pos++ == len)) {
-			h.body (_("[Can't find first part's beginning in the multipart message]"));
+			h.error (_("[Can't find first part's beginning in the "
+					   "multipart message]"));
 			ok = false;
 		}
 		else if (ok) {
@@ -708,16 +712,10 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		}
 	}
 
-	// If the stored header body is not empty we have inserted an error message
-	// Change the content type to "text/plain"
-	if (h.body().size() > 0) {
-		partinfo.type_ = "text";
-		partinfo.subtype_ = "plain";
-	}
-
+	// Error message present: No need to parse body
+	if (h.error().size() > 0) {}
 	// Content type: text/plain
-	if ((partinfo.type_ == "text") && (partinfo.subtype_ == "plain")
-		&& (h.body().size() == 0)) {
+	else if ((partinfo.type_ == "text") && (partinfo.subtype_ == "plain")) {
 		// Get mail body
 		guint j = 0;
 		while ((j < biff_->value_uint("popup_body_lines")) && (++pos < len)) {
@@ -729,11 +727,17 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 			h.add_to_body ("\n...");
 	}
 	else {
-		gchar *tmp = g_strdup_printf (_("[This mail hasn't a supported content type: \"%s/%s\"]"), partinfo.type_.c_str(), partinfo.subtype_.c_str());
+		gchar *tmp = g_strdup_printf (_("[This message has no supported "
+										"content type: \"%s/%s\"]"),
+									  partinfo.type_.c_str(),
+									  partinfo.subtype_.c_str());
 		if (tmp)
-			h.add_to_body (std::string (tmp));
+			h.error (std::string (tmp));
 		g_free (tmp);
 	}
+
+	// If there is an error message put it into the body
+	h.error_to_body ();
 
 	// Store mail depending on status
 	if (status)

@@ -50,6 +50,22 @@ Header::operator == (const Header &other) const
 }
 
 /**
+ *  Substitute mail body by error message (if such a message is present).
+ *  If no error message is present nothing is done.
+ */
+void 
+Header::error_to_body (void)
+{
+	if (error_.size() == 0)
+		return;
+
+	// Substitute body by error message and update charset (error messages are
+	// in the charset given by the locale)
+	body (error_);
+	charset ("");
+}
+
+/**
  *  Add some text to the mail's body.
  *
  *  @param text Text to add

@@ -270,6 +270,9 @@ class PartInfo
 	 *  RFC 3501 6:4:5). This is the part of the mail that will be displayed
 	 *  by gnubiff (if possible). */
 	std::string part_;
+	/** Error message. When the mail will be displayed the mail's body is
+	 *  substituted by this message. */
+	std::string error_;
 	/// MIME type
 	std::string type_;
 	/// MIME subtype

@@ -463,9 +463,9 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 
 	// Do we have to get any plain text?
 	if (partinfo.part_ == "") {
-		mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
-		partinfo.type_ = "text";
-		partinfo.subtype_ = "plain";
+		partinfo.error_ = std::string (_("[This message has no part with a "
+										 "supported content type]"));
+		mail.push_back(std::string(""));
 		return;
 	}
 	else if (partinfo.size_ == 0) {

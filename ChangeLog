@@ -37,6 +37,7 @@ Version 2.1.2
    - Bugfix: Don't load config file twice in gnome mode
    - Cleanup: Get "prevdos_line_length" option only once per connect not once
         per line
+   - Bugfix: Displaying error messages instead of mail body
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 
