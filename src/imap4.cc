@@ -50,7 +50,6 @@ Imap4::Imap4 (Biff *biff) : Mailbox (biff)
 Imap4::Imap4 (const Mailbox &other) : Mailbox (other)
 {
 	protocol_ = PROTOCOL_IMAP4;
-	folder_   = "INBOX";
 	socket_   = new Socket (this);
 }
 
