@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-04-02 10:07+0200\n"
+"POT-Creation-Date: 2005-04-02 10:56+0200\n"
 "PO-Revision-Date: 2005-03-31 12:54+0950\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -494,8 +494,8 @@ msgstr "Về gnubiff"
 #: ui/applet-gtk.glade:255 ui/preferences.glade:1895
 #, fuzzy
 msgid ""
-"<small> This program is part of the GNU project,\n"
-" released under the aegis of GNU.</small>"
+"<small> Gnubiff is part of the GNU project.\n"
+" It is released under the aegis of GNU.</small>"
 msgstr ""
 "Chương trình này là phần dự án GNU nên đã phát hành dưới sự che chở của GNU."
 
@@ -1026,6 +1026,14 @@ msgstr "<small><b>Chủ đề</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Ngày</b></small>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<small> This program is part of the GNU project,\n"
+#~ " released under the aegis of GNU.</small>"
+#~ msgstr ""
+#~ "Chương trình này là phần dự án GNU nên đã phát hành dưới sự che chở của "
+#~ "GNU."
 
 #, fuzzy
 #~ msgid "<span size=\"xx-large\"><b>Gnubiff %v %c</b></span>"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.0\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-04-02 10:07+0200\n"
+"POT-Creation-Date: 2005-04-02 10:56+0200\n"
 "PO-Revision-Date: 2005-01-17 22:04+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -492,8 +492,8 @@ msgstr "Om gnubiff"
 #: ui/applet-gtk.glade:255 ui/preferences.glade:1895
 #, fuzzy
 msgid ""
-"<small> This program is part of the GNU project,\n"
-" released under the aegis of GNU.</small>"
+"<small> Gnubiff is part of the GNU project.\n"
+" It is released under the aegis of GNU.</small>"
 msgstr ""
 "Det här programmet är en del av GNU-projektet, och är släppt under GNUs "
 "rättighetsskydd."
@@ -1017,6 +1017,14 @@ msgstr "<small><b>Ämne</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Datum</b></small>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<small> This program is part of the GNU project,\n"
+#~ " released under the aegis of GNU.</small>"
+#~ msgstr ""
+#~ "Det här programmet är en del av GNU-projektet, och är släppt under GNUs "
+#~ "rättighetsskydd."
 
 #, fuzzy
 #~ msgid "<span size=\"xx-large\"><b>Gnubiff %v %c</b></span>"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-04-02 10:07+0200\n"
+"POT-Creation-Date: 2005-04-02 10:56+0200\n"
 "PO-Revision-Date: 2005-03-31 11:05+0200\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -496,11 +496,11 @@ msgstr "Über gnubiff"
 
 #: ui/applet-gtk.glade:255 ui/preferences.glade:1895
 msgid ""
-"<small> This program is part of the GNU project,\n"
-" released under the aegis of GNU.</small>"
+"<small> Gnubiff is part of the GNU project.\n"
+" It is released under the aegis of GNU.</small>"
 msgstr ""
-"<small> Dieses Programm ist Teil des GNU-Projekts,\n"
-" veröffentlicht unter der Ägide von GNU."
+"<small> Gnubiff ist Teil des GNU-Projekts.\n"
+" Es ist veröffentlicht unter der Obhut von GNU."
 
 #: ui/applet-gtk.glade:363
 msgid "Ok"
@@ -1036,6 +1036,13 @@ msgstr "<small><b>Betreff</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Datum</b></small>"
+
+#~ msgid ""
+#~ "<small> This program is part of the GNU project,\n"
+#~ " released under the aegis of GNU.</small>"
+#~ msgstr ""
+#~ "<small> Dieses Programm ist Teil des GNU-Projekts,\n"
+#~ " veröffentlicht unter der Ägide von GNU."
 
 #, fuzzy
 #~ msgid "<span size=\"xx-large\"><b>Gnubiff %v %c</b></span>"
