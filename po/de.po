@@ -140,7 +140,7 @@ msgstr "[%d] Kann den Ordner »%s« auf »%s« nicht auswählen"
 
 #: src/imap4.cc:400
 msgid "[This mail has no \"text/plain\" part]"
-msgstr "[Diese Nachricht besitzt keinen \"text/plain\" (Klartext) Teil]"
+msgstr "[Diese Nachricht besitzt keinen Klartext-Teil (\"text/plain\")]"
 
 #: src/maildir.cc:83 src/maildir.cc:144
 #, c-format
