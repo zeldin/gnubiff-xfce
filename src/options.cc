@@ -33,10 +33,12 @@
 #include "nls.h"
 #include "options.h"
 
+/// Constructor.
 Options::Options ()
 {
 }
 
+/// Destructor.
 Options::~Options ()
 {
 	iterator opt = options_.begin ();
@@ -48,6 +50,14 @@ Options::~Options ()
 		delete (grp++)->second;
 }
 
+/**
+ *  Add the group {\em group} to the set of groups. If there is already a
+ *  group that has the same identifier as {\em group} the old group is left
+ *  unchanged.
+ *
+ *  @param  group  Group to be added
+ *  @return        Boolean indicating success
+ */
 gboolean 
 Options::add_group (Option_Group *group)
 {
@@ -57,6 +67,14 @@ Options::add_group (Option_Group *group)
 	return true;
 }
 
+/**
+ *  Add the option {\em option} to the set of options. If there is already an
+ *  option that has the same name as {\em option} the old option is left
+ *  unchanged.
+ *
+ *  @param  option Option to be added
+ *  @return        Boolean indicating success
+ */
 gboolean 
 Options::add_option (Option *option)
 {
@@ -202,7 +220,7 @@ Options::value (const std::string &name, guint value, gboolean respect_change)
 
 /**
  *  Get the value of the boolean option {\em name}.  This function handles
- *  the OPTFLG_UPDATE flag, so use this function instead of setting the
+ *  the OPTFLG_UPDATE flag, so use this function instead of getting the
  *  value directly.
  *
  *  @param  name           Name of the option to be obtained
@@ -223,7 +241,7 @@ Options::value_bool (const std::string &name, gboolean respect_update)
 
 /**
  *  Get the value of the string option {\em name}.  This function handles
- *  the OPTFLG_UPDATE flag, so use this function instead of setting the
+ *  the OPTFLG_UPDATE flag, so use this function instead of getting the
  *  value directly.
  *
  *  @param  name           Name of the option to be obtained
@@ -246,7 +264,7 @@ Options::value_string (const std::string &name, gboolean respect_update)
 /**
  *  Get the value of the string option {\em name} as a pointer to a
  *  character array.  This function handles the OPTFLG_UPDATE flag, so use
- *  this function instead of setting the value directly.
+ *  this function instead of getting the value directly.
  *
  *  @param  name           Name of the option to be obtained
  *  @param  respect_update Shall the OPTFLG_UPDATE flag be respected (the
@@ -263,7 +281,7 @@ Options::value_gchar (const std::string &name, gboolean respect_update)
 
 /**
  *  Get the value of the unsigned integer option {\em name}.  This function
- *  handles the OPTFLG_UPDATE flag, so use this function instead of setting
+ *  handles the OPTFLG_UPDATE flag, so use this function instead of getting
  *  the value directly.
  *
  *  @param  name           Name of the option to be obtained
@@ -322,7 +340,7 @@ Options::set_values (const std::string &name,
  *  before calling this function.
  *
  *  Note: This function handles the OPTFLG_UPDATE flag, so use this
- *  function instead of setting the value directly.
+ *  function instead of getting the values directly.
  *
  *  @param  name           Name of the option to be obtained
  *  @param  var            Set in which the strings will be returned
@@ -384,6 +402,19 @@ Options::string_to_value (const std::string &name, const std::string &str)
 	return option->string_to_value (str);
 }
 
+/**
+ *  Convert the value of the option {\em name} to a string. This way the
+ *  option's value can be displayed or saved into the config file.
+ *
+ *  Note: This function handles the OPTFLG_UPDATE flag, so use this
+ *  function instead of getting the string directly.
+ *
+ *  @param  name           Name of the option to be converted to a string
+ *  @param  respect_update Shall the OPTFLG_UPDATE flag be respected (the
+ *                         default is true)?
+ *  @return                To a string converted value of the option or an
+ *                         empty string if there is an error
+ */
 std::string 
 Options::to_string (const std::string &name, gboolean respect_update)
 {
@@ -395,6 +426,18 @@ Options::to_string (const std::string &name, gboolean respect_update)
 	return option->to_string ();
 }
 
+/**
+ *  Set the value of the option {\em name}. This is done by converting the
+ *  string {\em value} to a value of the option {\em name}.
+ *
+ *  Note: This function handles the OPTFLG_CHANGE flag, so use this
+ *  function instead of getting the string directly.
+ *
+ *  @param  name           Name of the option to be set
+ *  @param  respect_change Shall the OPTFLG_CHANGE flag be respected (the
+ *                         default is true)?
+ *  @return                Boolean indicating success
+ */
 gboolean 
 Options::from_string (const std::string &name, const std::string value,
 					  gboolean respect_change)
@@ -408,6 +451,20 @@ Options::from_string (const std::string &name, const std::string value,
 	return true;
 }
 
+/**
+ *  Convert all option's values to strings. This way the values can be
+ *  displayed or saved into the config file.
+ *
+ *  Note: This function handles the OPTFLG_UPDATE flag, so use this
+ *  function instead of getting the strings directly.
+ *
+ *  @param  groups         Groups which option's shall be converted
+ *  @param  map            Map in which the pairs (option, value) are returned
+ *  @param  nosave         Shall the OPTFLG_NOSAVE flag be respected (the
+ *                         default is true)?
+ *  @param  empty          Shall the map be cleared before inserting the new
+ *                         pairs (the default is true)?
+ */
 void 
 Options::to_strings (guint groups, std::map<std::string,std::string> &map,
 					 gboolean nosave, gboolean empty)
@@ -428,6 +485,13 @@ Options::to_strings (guint groups, std::map<std::string,std::string> &map,
 	}
 }
 
+/**
+ *  Set all options to the values in the map {\em map}.
+ *
+ *  @param  groups         Groups which option's shall be set
+ *  @param  map            Map of pairs (option, value)
+ *  @return                Boolean indicating success
+ */
 gboolean 
 Options::from_strings (guint groups, std::map<std::string,std::string> &map)
 {
