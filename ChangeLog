@@ -30,6 +30,7 @@ Version 2.1.0
    - Feature: If password is empty, gnubiff try to find by looking at
               other mailboxes and matching (address/username)
    - Updated THANKS file
+   - Bugfix: display last received mail for each mailbox (up to popup_size)
 * Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
    - Gnome version can determine itself if in standalone mode or panel mode
    - Removed "--gtk" option, added "--applet" option in debug mode instead

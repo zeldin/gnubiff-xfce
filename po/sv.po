@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-08 14:02+0100\n"
+"POT-Creation-Date: 2004-12-08 14:31+0100\n"
 "PO-Revision-Date: 2004-03-11 22:32+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -239,7 +239,7 @@ msgstr ""
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:61
 msgid "_Stop"
 msgstr ""
 
@@ -397,6 +397,12 @@ msgstr "<b>Y</b>"
 
 #: ui/preferences.glade.h:8
 msgid ""
+"<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
+"bugs@lists.sourceforge.net</span></small>"
+msgstr ""
+
+#: ui/preferences.glade.h:9
+msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
 "  - suggesting various improvements\n"
@@ -404,223 +410,223 @@ msgid ""
 "Here is a list of these people:</small>"
 msgstr ""
 
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:14
 msgid ""
 "<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
 " <small>Released under the aegis of GNU\n"
 " Copyright (c) 2000-2004 Nicolas Rougier</small>"
 msgstr ""
 
-#: ui/preferences.glade.h:16
+#: ui/preferences.glade.h:17
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Ingen geometri"
 
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:18
 #, fuzzy
 msgid "Applet or Biff"
 msgstr "Applet"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:19
 msgid "B_rowse..."
 msgstr ""
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:20
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "Bläddra efter en certifikatfil."
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:21
 msgid "Contributors"
 msgstr ""
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:22
 msgid "Credits"
 msgstr "Tack"
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:23
 msgid "Developers"
 msgstr ""
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:24
 msgid "Image filename"
 msgstr ""
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:25
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Brevlåda"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:26
 msgid "Maintainers"
 msgstr ""
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:27
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr "<small>Begränsa antal visade rubriker i poppuppfönstret till </small>"
 
-#: ui/preferences.glade.h:27 ui/popup.glade.h:4
+#: ui/preferences.glade.h:28 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Poppupp"
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:29
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Ingen geometri"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:30
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:31
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:32
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:33
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:34
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:36
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:37
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Ljud att spela när nya meddelanden har anlänt"
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:38
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:39
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:40
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Visa poppuppfönster under popptids sekunder"
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:41
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:42
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:43
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Ingen geometri"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:44
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:45
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Göm när inga nya meddelanden finns"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:46
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Visa poppuppfönster under popptids sekunder"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Visa poppuppfönster under popptids sekunder"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:48
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Visa poppuppfönster under popptids sekunder"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:49
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:50
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Biff-fönster med fönsterhanterarens dekorationer eller ej"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Ingen geometri"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:52
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Ingen geometri"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:53
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Biff-fönster med fönsterhanterarens dekorationer eller ej"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:54
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:54 ui/properties.glade.h:21
+#: ui/preferences.glade.h:55 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:56
 #, fuzzy
 msgid "_Display for"
 msgstr "Visa titel"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:57
 #, fuzzy
 msgid "_Font:"
 msgstr "Typsnitt"
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:58
 #, fuzzy
 msgid "_Format:"
 msgstr "Typsnitt"
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:59
 #, fuzzy
 msgid "_Restrict collected mail to"
 msgstr "<small>Begränsa antal visade rubriker i poppuppfönstret till </small>"
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:60
 #, fuzzy
 msgid "_Restrict number to"
 msgstr "<small>Begränsa <b>avsändarstorleken</b> till </small>"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:62
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Inställningar"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:63
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:64
 #, fuzzy
 msgid "mail(s)"
 msgstr "Inga meddelanden"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:65
 msgid "second(s)"
 msgstr ""
 

@@ -227,59 +227,70 @@ Popup::update (void)
 
 	saved_strings.clear();
 
-	unsigned int displayed_header = 0;
+	// At this point we have to display popup_size headers that are
+	// present in the different mailboxes, knowing that last receveid
+	// mail are at the end of each mailbox. We then need to compute
+	// the exact number of mail to display for each mailbox.
+	std::vector <gint> count;
+	for (guint i=0; i<biff_->size(); i++)
+		count.push_back (0);
+	guint index = 0;
+	for (guint i=0; i< biff_->popup_size_; i++) {
+		if (count[index] < gint(biff_->mailbox(index)->unreads()))
+			count[index]++;
+		index++;
+		if (index >= biff_->size())
+			index = 0;
+	}
+
 	// Now we populate list
-
-	for (unsigned int j=0; j<biff_->size(); j++) {
-		for (guint i=0; (i<biff_->mailbox(j)->unreads()); i++) {
-			if (displayed_header < biff_->popup_size_) {
-				std::stringstream s;
-				s << i+1;
-				gtk_list_store_append (store, &iter);
+	for (guint j=0; j<biff_->size(); j++) {
+		for (gint i=(gint(biff_->mailbox(j)->unreads())-1); i>(gint(biff_->mailbox(j)->unreads())-1-count[j]); i--) {
+			std::stringstream s;
+			s << i+1;
+			gtk_list_store_append (store, &iter);
 				
-				// Subject
-				buffer = parse_header (biff_->mailbox(j)->unread(i).subject);
-				gchar *subject;
-				if ((biff_->popup_use_format_) && (biff_->subject_size_ > 0))
-					subject = gb_utf8_strndup (buffer, biff_->subject_size_);
-				else
-					subject = gb_utf8_strndup (buffer, 256);
-				g_free (buffer);
-				saved_strings.push_back (subject);
+			// Subject
+			buffer = parse_header (biff_->mailbox(j)->unread(i).subject);
+			gchar *subject;
+			if ((biff_->popup_use_format_) && (biff_->subject_size_ > 0))
+				subject = gb_utf8_strndup (buffer, biff_->subject_size_);
+			else
+				subject = gb_utf8_strndup (buffer, 256);
+			g_free (buffer);
+			saved_strings.push_back (subject);
 
-				// Date
-				buffer = parse_header (biff_->mailbox(j)->unread(i).date);
-				gchar *date;
-				if ((biff_->popup_use_format_) && (biff_->date_size_ > 0))
-					date = gb_utf8_strndup (buffer, biff_->date_size_);
-				else
-					date = gb_utf8_strndup (buffer, 256);
-				g_free (buffer);
-				saved_strings.push_back (date);
-				
-				// Sender
-				buffer = parse_header (biff_->mailbox(j)->unread(i).sender);
-				gchar *sender;
-				if ((biff_->popup_use_format_) && (biff_->sender_size_ > 0))
-					sender = gb_utf8_strndup (buffer, biff_->sender_size_);
-				else
-					sender = gb_utf8_strndup (buffer, 256);
-				g_free (buffer);
-				saved_strings.push_back (sender);
-
-				if (i == 0)
-					gtk_list_store_set (store, &iter, COLUMN_NAME, biff_->mailbox(j)->name().c_str(), -1);
-				else
-					gtk_list_store_set (store, &iter, COLUMN_NAME, "", -1);
-				gtk_list_store_set (store, &iter,
-									COLUMN_NUMBER, s.str().c_str(),
-									COLUMN_SENDER, sender, 
-									COLUMN_SUBJECT, subject,
-									COLUMN_DATE, date,
-									COLUMN_HEADER, &biff_->mailbox(j)->unread(i),
-									-1);
-				displayed_header++;
-			}
+			// Date
+			buffer = parse_header (biff_->mailbox(j)->unread(i).date);
+			gchar *date;
+			if ((biff_->popup_use_format_) && (biff_->date_size_ > 0))
+				date = gb_utf8_strndup (buffer, biff_->date_size_);
+			else
+				date = gb_utf8_strndup (buffer, 256);
+			g_free (buffer);
+			saved_strings.push_back (date);
+			
+			// Sender
+			buffer = parse_header (biff_->mailbox(j)->unread(i).sender);
+			gchar *sender;
+			if ((biff_->popup_use_format_) && (biff_->sender_size_ > 0))
+				sender = gb_utf8_strndup (buffer, biff_->sender_size_);
+			else
+				sender = gb_utf8_strndup (buffer, 256);
+			g_free (buffer);
+			saved_strings.push_back (sender);
+			
+			if (i == (gint(biff_->mailbox(j)->unreads())-1))
+				gtk_list_store_set (store, &iter, COLUMN_NAME, biff_->mailbox(j)->name().c_str(), -1);
+			else
+				gtk_list_store_set (store, &iter, COLUMN_NAME, "", -1);
+			gtk_list_store_set (store, &iter,
+								COLUMN_NUMBER, s.str().c_str(),
+								COLUMN_SENDER, sender, 
+								COLUMN_SUBJECT, subject,
+								COLUMN_DATE, date,
+								COLUMN_HEADER, &biff_->mailbox(j)->unread(i),
+								-1);
 		}
 	}
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-08 14:02+0100\n"
+"POT-Creation-Date: 2004-12-08 14:31+0100\n"
 "PO-Revision-Date: 2004-12-07 22:42+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -242,7 +242,7 @@ msgstr "Kein Briefkasten ausgewählt"
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:496 ui/preferences.glade.h:61
 msgid "_Stop"
 msgstr "_Stopp"
 
@@ -388,6 +388,12 @@ msgstr "<b>Bei keinen neuen Nachrichten</b>"
 
 #: ui/preferences.glade.h:8
 msgid ""
+"<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
+"bugs@lists.sourceforge.net</span></small>"
+msgstr ""
+
+#: ui/preferences.glade.h:9
+msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
 "  - suggesting various improvements\n"
@@ -400,7 +406,7 @@ msgstr ""
 "    • Code eingesendet haben.\n"
 "Hier ist eine Liste dieser Personen:</small>"
 
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:14
 msgid ""
 "<span font_desc=\"24\"><b>Gnubiff 2.1.0</b></span>\n"
 " <small>Released under the aegis of GNU\n"
@@ -410,196 +416,196 @@ msgstr ""
 " <small>Veröffentlicht unter der Obhut von GNU\n"
 " © 2000-2004 Nicolas Rougier</small>"
 
-#: ui/preferences.glade.h:16
+#: ui/preferences.glade.h:17
 msgid "Applet geometry"
 msgstr "Platzierungseinstellungen für das Applet"
 
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:18
 msgid "Applet or Biff"
 msgstr "_Applet oder Biff"
 
-#: ui/preferences.glade.h:18
+#: ui/preferences.glade.h:19
 msgid "B_rowse..."
 msgstr "Aus_wählen..."
 
-#: ui/preferences.glade.h:19
+#: ui/preferences.glade.h:20
 msgid "Browse for an image file"
 msgstr "Wähle Bilddatei"
 
-#: ui/preferences.glade.h:20
+#: ui/preferences.glade.h:21
 msgid "Contributors"
 msgstr "Mit_wirkende"
 
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:22
 msgid "Credits"
 msgstr "_Danksagungen"
 
-#: ui/preferences.glade.h:22
+#: ui/preferences.glade.h:23
 msgid "Developers"
 msgstr "_Entwickler"
 
-#: ui/preferences.glade.h:23
+#: ui/preferences.glade.h:24
 msgid "Image filename"
 msgstr "Dateiname des ausgewählten Bildes"
 
-#: ui/preferences.glade.h:24
+#: ui/preferences.glade.h:25
 msgid "Mailboxes"
 msgstr "_Briefkästen"
 
-#: ui/preferences.glade.h:25
+#: ui/preferences.glade.h:26
 msgid "Maintainers"
 msgstr "_Maintainer"
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:27
 msgid "Maximum number of headers to display"
 msgstr "Maximale Anzahl anzuzeigender Nachrichten"
 
-#: ui/preferences.glade.h:27 ui/popup.glade.h:4
+#: ui/preferences.glade.h:28 ui/popup.glade.h:4
 msgid "Popup"
 msgstr "_Popup"
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:29
 msgid "Popup geometry"
 msgstr "Platzierungseinstellungen für das Popup-Fenster"
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:30
 msgid "Show _image:"
 msgstr "B_ild anzeigen:"
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:31
 msgid "Show _text:"
 msgstr "_Text anzeigen:"
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:32
 msgid "Show i_mage:"
 msgstr "Bi_ld anzeigen:"
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:33
 msgid "Show t_ext:"
 msgstr "Te_xt anzeigen:"
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:34
 msgid "Text to display"
 msgstr "Anzuzeigender Text"
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:36
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 "Anzuzeigender Text bei neuen Nachrichten (»%d« bezeichnet die Anzahl der "
 "Nachrichten)."
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:37
 msgid "The command to run when new mail arrives"
 msgstr "Auszuführender Befehl bei Ankunft neuer Nachrichten"
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:38
 msgid "The command to run when the icon is double-clicked"
 msgstr "Auszuführender Befehl bei Doppelklick auf das Piktogramm"
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:39
 msgid "The font to use to display information"
 msgstr "Zeichensatz um Informationen darzustellen"
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:40
 msgid "Time to display popup window"
 msgstr "Zeit, die das Popup-Fenster dargestellt wird"
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:41
 msgid "Translators"
 msgstr "_Übersetzer"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:42
 msgid "Use _decoration"
 msgstr "F_ensterdekoration verwenden"
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:43
 msgid "Use _geometry:"
 msgstr "_Fensterplatzierung verwenden:"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:44
 msgid "When _double-clicked:"
 msgstr "Bei D_oppelklick:"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:45
 msgid "When _new mail:"
 msgstr "Bei _neuen Nachrichten:"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:46
 msgid "Whether to display a text"
 msgstr "Soll ein Text angezeigt werden?"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:47
 msgid "Whether to display an image"
 msgstr "Soll ein Bild angezeigt werden?"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:48
 msgid "Whether to display the popup window"
 msgstr "Soll ein Popup-Fenster angezeigt werden?"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:49
 msgid "Whether to restrict number of displayed headers"
 msgstr "Soll die Anzahl der anzuzeigenden Nachrichten beschränkt werden?"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:50
 msgid "Whether to show an image"
 msgstr "Soll ein Bild angezeigt werden?"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:51
 msgid "Whether to use format for header"
 msgstr "Soll die Formatierung für die Nachrichten verwendet werden?"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:52
 msgid "Whether to use geometry"
 msgstr "Soll die Fnesterplatzierung verwendet werden?"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:53
 msgid "Whether to use window manager decoration"
 msgstr ""
 "Soll das Popup-Fenster mit Fenstermanager-Dekorationen versehen werden?"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:54
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 "[Max. Länge des Absenders]:[Max. Länge des Betreffs]:[Max. Länge des Datums]"
 
-#: ui/preferences.glade.h:54 ui/properties.glade.h:21
+#: ui/preferences.glade.h:55 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "Aus_wählen..."
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:56
 msgid "_Display for"
 msgstr "A_nzeigen für"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:57
 msgid "_Font:"
 msgstr "_Zeichensatz:"
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:58
 msgid "_Format:"
 msgstr "F_ormat der Ausgabe:"
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:59
 msgid "_Restrict collected mail to"
 msgstr "An_zahl einzusammelnder Nachrichten beschränken auf"
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:60
 msgid "_Restrict number to"
 msgstr "Anzahl einschr_änken auf"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:62
 msgid "gnubiff preferences"
 msgstr "Einstellungen für Gnubiff"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:63
 msgid "header(s)"
 msgstr "Nachrichten"
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:64
 msgid "mail(s)"
 msgstr "Nachrichten"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:65
 msgid "second(s)"
 msgstr "Sekunden"
 
