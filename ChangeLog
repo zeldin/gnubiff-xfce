@@ -59,6 +59,9 @@ Version 2.1.1
         (IMAP4)
    - Bugfix/Cleanup: Simplified waiting for specified untagged server
         responses (IMAP4)
+   - Don't stop idling when the server sends information and warning messages
+        (IMAP4)
+   - Source code for class Imap4 is fully documented now
 
 Version 2.1.0
  * Nicolas Rougier

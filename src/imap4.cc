@@ -438,8 +438,7 @@ Imap4::command_capability (void) throw (imap_err)
  * Obtain the first lines of the body of the mail with sequence number
  * {\em msn}.
  *
- * @param     msn      Unsigned integer for the message sequence number of the
- *                     mail
+ * @param     msn      Message sequence number of the mail
  * @param     partinfo Partinfo structure with information of the relevant
  *                     part of the mail as returned by
  *                     Imap4::command_fetchbodystructure().
@@ -534,8 +533,7 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
  * "FETCH {\em msn} (BODYSTRUCTURE)" to the server and parsing the server's
  * response.
  *
- * @param     msn      Unsigned integer for the message sequence number of the
- *                     mail
+ * @param     msn      Message sequence number of the mail
  * @return             Partinfo structure with information of the relevant
  *                     part of the mail.
  * @exception imap_command_err
@@ -594,8 +592,7 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
  * Date and Subject of the mail. The last line of the returned header lines
  * should be empty.
  * 
- * @param     msn      Unsigned integer for the message sequence number of the
- *                     mail
+ * @param     msn      Message sequence number of the mail
  * @return             C++ vector of C++ strings containing the header lines
  * @exception imap_command_err
  *                     This exception is thrown when we get an unexpected
@@ -695,7 +692,7 @@ Imap4::command_idle(gboolean &sentdone) throw (imap_err)
 		if (line.find("+ ") != 0) throw imap_command_err();
 
 		// Wait for new mail and block thread at this point
-		gint status = readline (line, true, false, true);
+		gint status = readline_ignoreinfo (line, true, false, true);
 		if (status == SOCKET_TIMEOUT) {
 			// We timed out, so we want to loop, and issue IDLE again.
 			idleRenew = true;
@@ -704,7 +701,7 @@ Imap4::command_idle(gboolean &sentdone) throw (imap_err)
 				throw imap_socket_err();
 			sentdone=true;
 
-			status = readline (line, true, false, true);
+			status = readline_ignoreinfo (line, true, false, true);
 			if (status != SOCKET_STATUS_OK)
 			// If there is another timeout: At this point we know the
 			// connection is probably bad.  The socket has not been torn down
@@ -1323,5 +1320,49 @@ Imap4::readline (std::string &line, gboolean debug, gboolean check,
 	if (line.find("* NO") == 0) // see RFC 3501 7.1.2
 		g_warning (_("[%d] Warning from server:%s"), uin_,
 				   line.substr(4,line.size()-4).c_str());
+	return status;
+}
+
+/**
+ * Read one line from the server and ignore warning and information message
+ * lines.
+ *
+ * @param line      String that contains the read line if the call was
+ *                  successful (i.e. the return value is SOCKET_STATUS_OK),
+ *                  the value is undetermined otherwise
+ * @param debug     Shall the read line be printed in debug mode?
+ *                  The default is true.
+ * @param check     Shall the return value of the Socket::read() command be
+ *                  checked? The default is true.
+ * @param checkline Shall {\em line} be checked for an untagged negative
+ *                  response? The default is true.
+ * @return          Return value of the Socket::read() command, this is always
+ *                  SOCKET_STATUS_OK if {\em check} is true.
+ * @exception imap_command_err
+ *                  This exception is thrown if {\em line} contains a negative
+ *                  untagged response and {\em check} and {\em checkline} are
+ *                  true.
+ * @exception imap_dos_err
+ *                  This exception is thrown when a DoS attack is suspected.
+ * @exception imap_socket_err
+ *                  This exception is thrown if a network error occurs.
+ * @see             The description of the method Imap4::readline() contains a
+ *                  more extensive description of the parameters {\em check}
+ *                  and {\em checkline}.
+ */
+gint 
+Imap4::readline_ignoreinfo (std::string &line, gboolean debug, gboolean check,
+							gboolean checkline) throw (imap_err)
+{
+	gint cnt=1+preventDoS_ignoreinfo_, status;
+
+	do {
+		status=readline (line, debug, check, checkline);
+		// Check for information or warning message
+		if ((line.find("* OK") != 0) && (line.find("* NO") != 0))
+			break;
+	} while ((status==SOCKET_STATUS_OK) && (cnt--));
+	if (cnt<0) throw imap_dos_err();
+
 	return status;
 }

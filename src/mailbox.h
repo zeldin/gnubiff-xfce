@@ -308,7 +308,8 @@ const gint bodyLinesToBeRead_=12;
  * network to get the line we want. Unfortunately this number may vary in
  * reality because of the following reasons:
  * \begin{itemize}
- *    \item The server sends some warning messages (see RFC 3501 7.1.2)
+ *    \item The server sends information or warning messages (see RFC 3501
+ *          7.1.1 and 7.1.2)
  *    \item There is no limit for the response
  *    \item There exist different extensions to the protocols
  *    \item Not all servers implement protocols correctly
@@ -320,8 +321,17 @@ const gint bodyLinesToBeRead_=12;
 const gint preventDoS_additionalLines_=16;
 
 /**
+ * To prevent being DoS attacked (see above): This constant is used when the
+ * server is expected to need a lot of time to complete a command (the IMAP
+ * "IDLE" command for example) but may send information and warning messages
+ * before completion. This constant gives the maximum number of such messages
+ * before gnubiff assumes a DoS attack. 
+ */
+const gint preventDoS_ignoreinfo_=32;
+
+/**
  * To prevent being DoS attacked (see above): Maximum number of header lines
- * being read (POP3).
+ * being read. This is currently only used for POP3.
  */
 const gint preventDoS_headerLines_=2048;
 
