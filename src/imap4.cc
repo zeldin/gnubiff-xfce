@@ -151,7 +151,7 @@ Imap4::fetch (void)
 	if (!biff_->password(this)) throw imap_nologin_err();
 
 	// Connection and authentification
-	if (!connect ()) throw imap_socket_err();
+	connect();
 
 	// Set the mailbox status and get mails (if there is new mail)
 	fetch_mails();
@@ -183,11 +183,24 @@ Imap4::update_applet(void)
 		status_ = MAILBOX_OLD;
 }
 
-gint 
+/**
+ * A connection to the mailbox is established. If this can't be done then an
+ * {\em imap_socket_err} is thrown. Otherwise gnubiff logins, checks
+ * capabilities and selects the user chosen folder on the server.
+ *
+ * @exception imap_command_err
+ *                     If we get an unexpected server's response
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ * @exception imap_nologin_err
+ *                     The server doesn't want us to login or the user doesn't
+ *                     provide a password.
+ * @exception imap_socket_err
+ *                     If a network error occurs
+ */
+void 
 Imap4::connect (void)
 {
-	std::string line;
-
 	// Check standard port
 	if (!use_other_port_)
 		if (authentication_ == AUTH_USER_PASS)
@@ -196,10 +209,11 @@ Imap4::connect (void)
 			port_ = 993;
 
 #ifdef DEBUG
-	g_message ("[%d] Trying to connect to %s on port %d", uin_, address_.c_str(), port_);
+	g_message ("[%d] Trying to connect to %s on port %d", uin_,
+			   address_.c_str(), port_);
 #endif
 
-	// connection
+	// Determine authentication
 	if (authentication_ == AUTH_AUTODETECT) {
 		guint port = port_;
 		if (!use_other_port_)
@@ -207,10 +221,8 @@ Imap4::connect (void)
 		if (!socket_->open (address_, port, AUTH_SSL)) {
 			if (!use_other_port_)
 				port = 143;
-			if (!socket_->open (address_, port, AUTH_USER_PASS)) {
-				status_ = MAILBOX_ERROR;
-				return 0;
-			}
+			if (!socket_->open (address_, port, AUTH_USER_PASS))
+				throw imap_socket_err();
 			else {
 				port_ = port;
 				authentication_ = AUTH_USER_PASS;
@@ -224,10 +236,9 @@ Imap4::connect (void)
 		}
 	}
 
-	if (!socket_->open (address_, port_, authentication_, certificate_, 3)) {
-		status_ = MAILBOX_ERROR;
-		return 0;
-	}
+	// Open socket
+	if (!socket_->open (address_, port_, authentication_, certificate_, 3))
+		throw imap_socket_err();
 
 	// Set reads from the socket to time out.	We do this primarily for
 	// the IDLE state.	However, this also prevents reads in general
@@ -238,7 +249,11 @@ Imap4::connect (void)
 #ifdef DEBUG
 	g_message ("[%d] Connected to %s on port %d", uin_, address_.c_str(), port_);
 #endif
-	if (!(socket_->read (line, true))) return 0;
+
+	// Get server's response
+	std::string line;
+	if (!(socket_->read (line, true))) throw imap_socket_err();
+	if (line.find("* OK") != 0) throw imap_command_err();
 
 	// Resetting the tag counter
 	reset_tag();
@@ -251,8 +266,6 @@ Imap4::connect (void)
 
 	// SELECT
 	command_select();
-
-	return 1;
 }
 
 /**
@@ -314,7 +327,7 @@ void
 Imap4::close (void)
 {
 	// Closing connection
-	send ("LOGOUT");	
+	send ("LOGOUT");
 	socket_->close ();
 }
 
@@ -754,8 +767,7 @@ Imap4::command_select (void) throw (imap_err)
 	gchar *folder_imaputf7=utf8_to_imaputf7(folder_.c_str(),-1);
 
 	// Send command
-	if (folder_imaputf7)
-	{
+	if (folder_imaputf7) {
 		sendok=send(std::string("SELECT \"") + folder_imaputf7 + "\"");
 		g_free(folder_imaputf7);
 	}

@@ -64,7 +64,7 @@ class Imap4 : public Mailbox {
 	virtual void threaded_start (guint delay = 0);
 	void start (void);
 	void fetch (void);
-	gint connect (void);
+	void connect (void);
 	void fetch_mails (void);
 
 	class imap_err : public std::exception {};	 // General Imap Exception
