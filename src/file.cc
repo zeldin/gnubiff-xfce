@@ -84,7 +84,12 @@ void File::fetch (void)
 	std::string line; 
 	getline(file, line);
 	mail.push_back (line);
-	while (!file.eof() && (new_unread_.size() < (biff_->value_uint ("max_mail")))) {
+
+	// Get maximum number of mails to catch
+	guint maxnum = INT_MAX;
+	if (biff_->value_bool ("use_max_mail"))
+		maxnum = biff_->value_uint ("max_mail");
+	while (!file.eof() && ((new_unread_.size() < maxnum))) {
 		getline(file, line);
 		// Here we look for a "From " at a beginning of a line indicating
 		// a new mail header. We then parse previous mail, reset mail
@@ -94,8 +99,8 @@ void File::fetch (void)
 			mail.clear();
 		}
 		mail.push_back (line);
-	};
-	// Do not forget to parse the last one that cannot relies on "From "
+	}
+	// Do not forget to parse the last one that cannot rely on "From "
 	// from the next mail
 	if (mail.size() > 1)
 		parse (mail);

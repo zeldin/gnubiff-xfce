@@ -146,6 +146,7 @@ Version 2.1.1
    - Feature: Context menus for expert dialog
    - Don't save "port" and "folder" to config file (are set automatically by
         other options)
+   - Bugfix: Respect "use_max_mail" for file protocol
 
 Version 2.1.0
  * Nicolas Rougier
