@@ -70,7 +70,8 @@ public:
 	class imap_socket_err : public imap_err {};	 // Socket connection Failure
 												 // usually when reading or writing.
 	class imap_command_err : public imap_err {}; // IMAP command not understood
-												 // or not expected.
+												 // or not expected, or not
+	                                             // responded by OK.
 	class imap_dos_err : public imap_err {};	 // We've been attacked DoS style!
 	
  private:
@@ -80,6 +81,7 @@ public:
 	gboolean parse_bodystructure (std::string, class PartInfo &,
 									gboolean toplevel=true);
 	gboolean parse_bodystructure_parameters (std::string, class PartInfo &);
+	std::vector<int> command_searchnotseen (void) throw (imap_err);
 	void reset_tag();
 	std::string tag();
 	gint send(std::string,gboolean debug=true);

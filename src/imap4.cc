@@ -106,7 +106,7 @@ Imap4::start (void)
 	try
 	{
 		fetch ();
-		send ("LOGOUT");	
+		send ("LOGOUT");
 	}
 	catch (imap_err& err)
 	{
@@ -340,34 +340,7 @@ Imap4::fetch_status (void)
 	if (!connect ()) throw imap_socket_err();
 
 	// SEARCH NOT SEEN
-	if (!send ("SEARCH NOT SEEN")) throw imap_socket_err();
-
-	// We need to set a limit to lines read (DoS Attacks).
-	// Expected response "* SEARCH ..." should be in the next line.
-	gint cnt=1+preventDoS_additionalLines_;
-	while (((socket_->read(line) > 0)) && (cnt--))
-		if (line.find ("* SEARCH") == 0)
-			break;
-	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
-
-
-	// Parse server answer
-	// Should be something like
-	// "* SEARCH 1 2 3 4" or "* SEARCH"
-	// (9 is size of "* SEARCH ")
-	buffer.clear();
-	if (line.size() > 9) {
-		line = line.substr (9);
-		int n = 0;
-		for (guint i=0; i<line.size(); i++) {
-			if (line[i] >= '0' && line[i] <= '9')
-				n = n*10 + int(line[i]-'0');
-			else {
-				buffer.push_back (n);
-				n = 0;
-			}
-		}
-	}
+	buffer=command_searchnotseen();
 
 	// Determine new mailbox status
 	if (buffer.empty())
@@ -377,18 +350,6 @@ Imap4::fetch_status (void)
 	else
 		status_ = MAILBOX_OLD;
 	saved_ = buffer;
-
-	// We're done
-	cnt=1+preventDoS_additionalLines_;
-	while ((socket_->read (line) > 0) && (cnt--))
-		if (line.find (tag()) == 0)
-			break;
-	if ((!socket_->status()) || (cnt<0)) throw imap_socket_err();
-
-	// Connection closing is done at the top level routine fetch
-	// Closing connection
-	// if (!send("LOGOUT")) throw imap_command_err();
-	// socket_->close ();
 }
 
 void 
@@ -396,46 +357,12 @@ Imap4::fetch_header (void)
 {
 	std::string line;
 	std::vector<int> buffer;
-	int saved_status = status_;
 	
 	// Status will be restored in the end if no problem occured
 	status_ = MAILBOX_CHECK;
 
 	// SEARCH NOT SEEN
-	if (!send("SEARCH NOT SEEN")) throw imap_command_err();
-
-	// We need to set a limit to lines read (DoS Attacks).
-	// Expected response "* SEARCH ..." should be in the next line.
-	gint cnt=1+preventDoS_additionalLines_;
-	while (((socket_->read(line) > 0)) && (cnt--))
-		if (line.find ("* SEARCH") == 0)
-			break;
-	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
-	
-	// Parse server answer
-	// Should be something like
-	// "* SEARCH 1 2 3 4" or "* SEARCH"
-	// (9 is size of "* SEARCH ")
-	buffer.clear();
-	if (line.size() > 9) {
-		line = line.substr (9);
-		int n = 0;
-		for (guint i=0; i<line.size(); i++) {
-			if (line[i] >= '0' && line[i] <= '9')
-				n = n*10 + int(line[i]-'0');
-			else {
-				buffer.push_back (n);
-				n = 0;
-			}
-		}
-	}
-	
-	cnt=1+preventDoS_additionalLines_;
-	while ((socket_->read (line) > 0) && (cnt--))
-		if (line.find (tag()) == 0)
-			break;
-	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
-	
+	buffer=command_searchnotseen();
 	
 	// FETCH NOT SEEN
 	new_unread_.clear();
@@ -451,7 +378,7 @@ Imap4::fetch_header (void)
 		if (!send(line)) throw imap_socket_err();
 		
 		// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
-		cnt=1+preventDoS_additionalLines_;
+		gint cnt=1+preventDoS_additionalLines_;
 		while (((socket_->read(line) > 0)) && (cnt--))
 			if (line.find ("* "+s.str()+" FETCH") == 0)
 				break;
@@ -581,10 +508,10 @@ Imap4::fetch_header (void)
 		parse (mail, MAIL_UNREAD);
 	}
 	
-	// We restore status
-	status_ = saved_status;
-	
-	if (contains_new<header>(new_unread_, unread_))
+	// Set mailbox status
+	if (buffer.empty())
+		status_ = MAILBOX_EMPTY;	
+	else if (contains_new<header>(new_unread_, unread_))
 		status_ = MAILBOX_NEW;
 	else
 		status_ = MAILBOX_OLD;
@@ -662,7 +589,7 @@ Imap4::idle (void) throw (imap_err)
  * is still valid, and to also keep the connection from being closed by
  * keeping the connection active.
  * 
- * @return         Returns the last line recieved from the IMAP server.
+ * @return         Returns the last line received from the IMAP server.
  * @exception      imap_err if a problem occurs while processing
  *                 the idle loop.  Most likely this will be a
  *                 imap_socket_err if we loose connection to the server.
@@ -712,6 +639,61 @@ Imap4::idle_renew_loop() throw (imap_err)
 	} while (idleRenew);
 
 	return line;
+}
+
+/**
+ * Sending the IMAP command SEARCH NOT SEEN and parsing the server's response.
+ * 
+ * @return             C++ vector of integers indicating those mails that are
+ *                     still unread.
+ * @exception imap_command_err
+ *                     In case of an unexpected server's response or if a
+ *                     network error occurs.
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ */
+std::vector<int> 
+Imap4::command_searchnotseen (void) throw (imap_err)
+{
+	std::string line;
+
+	if (!send("SEARCH NOT SEEN")) throw imap_command_err();
+
+	// We need to set a limit to lines read (DoS Attacks).
+	// Expected response "* SEARCH ..." should be in the next line.
+	gint cnt=1+preventDoS_additionalLines_;
+	while (((socket_->read(line) > 0)) && (cnt--))
+		if (line.find ("* SEARCH") == 0)
+			break;
+	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
+
+	// Parse server's answer. Should be something like
+	// "* SEARCH 1 2 3 4" or "* SEARCH"
+	// (9 is size of "* SEARCH ")
+	std::vector<int> buffer;
+	buffer.clear();
+	if (line.size() > 9) {
+		line = line.substr (9);
+		int n = 0;
+		for (guint i=0; i<line.size(); i++) {
+			if (line[i] >= '0' && line[i] <= '9')
+				n = n*10 + int(line[i]-'0');
+			else {
+				buffer.push_back (n);
+				n = 0;
+			}
+		}
+	}
+
+	// Get end of server's response
+	cnt=1+preventDoS_additionalLines_;
+	while ((socket_->read (line) > 0) && (cnt--))
+		if (line.find (tag()) == 0)
+			break;
+	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
+	if (line.find (tag()+"OK")!=0) throw imap_command_err();
+
+	return buffer;
 }
 
 /** 
