@@ -286,7 +286,9 @@ Preferences::expert_create (void)
 	rend = gtk_cell_renderer_text_new ();
 	g_signal_connect(rend, "edited",
 					 (GCallback) PREFERENCES_expert_option_edited, this);
-	column = gtk_tree_view_column_new_with_attributes ("Value", rend, "text", COL_EXP_VALUE, "editable", COL_EXP_EDITABLE, "editable-set", COL_EXP_EDITABLE, NULL);
+	column = gtk_tree_view_column_new_with_attributes ("Value", rend,
+				"text", COL_EXP_VALUE, "editable", COL_EXP_EDITABLE,
+				"editable-set", COL_EXP_EDITABLE, NULL);
 	gtk_tree_view_column_set_resizable (column, false);
 	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_VALUE);
 	gtk_tree_view_append_column (view, column);
@@ -699,7 +701,7 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
  *  Update all options that are currently listed in the expert dialog.
  */
 void 
-Preferences::expert_update_option_list ()
+Preferences::expert_update_option_list (void)
 {
 	GtkTreeView  *view  = GTK_TREE_VIEW (get("expert_treeview"));
 	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
@@ -724,6 +726,13 @@ Preferences::expert_update_option_list ()
 		}
 		else
 			valid = gtk_list_store_remove (store, &iter);
+	}
+
+	// Clear widgets if there is no selection
+	GtkTreeSelection *select=gtk_tree_view_get_selection(GTK_TREE_VIEW (view));
+	if ((!select) || (!gtk_tree_selection_count_selected_rows (select))) {
+		gtk_widget_set_sensitive (get ("expert_button_reset"), false);
+		gtk_text_buffer_set_text (gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview"))), "", -1);
 	}
 }
 
@@ -793,6 +802,13 @@ Preferences::expert_search (void)
 			valid = gtk_list_store_remove (store, &iter);
 		else
 			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
+	}
+
+	// Clear widgets if there is no selection
+	GtkTreeSelection *select=gtk_tree_view_get_selection(GTK_TREE_VIEW (view));
+	if ((!select) || (!gtk_tree_selection_count_selected_rows (select))) {
+		gtk_widget_set_sensitive (get ("expert_button_reset"), false);
+		gtk_text_buffer_set_text (gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview"))), "", -1);
 	}
 }
 
