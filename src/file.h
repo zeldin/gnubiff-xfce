@@ -32,24 +32,24 @@
 #ifndef __FILE_H__
 #define __FILE_H__
 
-#include "mailbox.h"
+#include "local.h"
 #include <sys/stat.h>
 
 
-class File : public Mailbox {
-
-protected:
-	struct stat 	last_stat_;			// Last access time of file
+class File : public Local {
 
 public:
-	/* base */
+	// ========================================================================
+	//  base
+	// ========================================================================	
 	File (class Biff *biff);
 	File (const Mailbox &other);
 	~File (void);
 
-	/* mailbox inherited methods */
-	void get_status (void);
-	void get_header (void);
+	// ========================================================================
+	//  base
+	// ========================================================================	
+	void fetch (void);
 };
 
 #endif

@@ -32,26 +32,27 @@
 #ifndef __MH_H__
 #define __MH_H__
 
-#include "mailbox.h"
+#include "local.h"
 
 
-class Mh : public Mailbox {
+class Mh : public Local {
 
 protected:
 	std::vector<guint> 		saved_;			// saved uild's
 
 public:
-	/* base */
+	// ========================================================================
+	//  base
+	// ========================================================================	
 	Mh (class Biff *biff);
 	Mh (const Mailbox &other);
 	~Mh (void);
 
-	/* main */
+	// ========================================================================
+	//  main
+	// ========================================================================	
 	int connect (void);
-
-	/* mailbox inherited methods */
-	void get_status (void);
-	void get_header (void);
+	void fetch (void);
 };
 
 #endif

@@ -29,40 +29,38 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#ifndef __APPLET_H__
-#define __APPLET_H__
+#ifndef __LOCAL_H__
+#define __LOCAL_H__
 
-#include "gui.h"
-#include "biff.h"
+#include "mailbox.h"
+#include <fam.h>
+
+#define LOCAL(x)					((Local *)(x))
 
 
-class Applet : public GUI {
+class Local : public Mailbox {
 
 protected:
-	class Biff *		biff_;
-	GMutex *			process_mutex_;
-	GMutex *			update_mutex_;
-	gboolean			force_popup_;
+	// ========================================================================
+	//  monitoring stuff (using FAM, File Alteration Monitor)
+	// ========================================================================
+	FAMConnection   fam_connection_;
+	FAMRequest      fam_request_;
+	FAMEvent        fam_event_;
 
 public:
 	// ========================================================================
 	//  base
 	// ========================================================================	
-	Applet (class Biff *biff,
-			std::string filename);
-	virtual ~Applet (void);
+	Local (class Biff *biff);
+	Local (const Mailbox &other);
+	virtual ~Local (void);
 
 	// ========================================================================
 	//  main
 	// ========================================================================	
-	void start (guint delay=0);						// start monitoring
-	void stop  (void);								// stop monitoring
-	virtual void update (void) = 0;					// update applet
-	virtual void dock (GtkWidget *applet) {};		// dock applet
-
-	guint       unread_markup (std::string &text);	// build unread markup string
-	std::string tooltip_text (void);				// build tooltip text
-
+	void start (void);								// start method
+	void stop (void);								// stop method
 };
 
 #endif

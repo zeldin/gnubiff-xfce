@@ -33,16 +33,16 @@
 #define __UI_PREFERENCES_H__
 
 #include "gui.h"
+#include "ui-properties.h"
 
 enum {
   COLUMN_UIN,
-  COLUMN_MAILBOX_ICON,
+  COLUMN_MAILBOX_STOCK_ID,
   COLUMN_SSL_ICON,
   COLUMN_MAILBOX,
-  COLUMN_FOREGROUND,
   COLUMN_FORMAT,
-  COLUMN_STATUS,
-  COLUMN_POLLTIME,
+  COLUMN_STATUS_STOCK_ID,
+  COLUMN_SECURITY_STOCK_ID,
   N_COLUMNS
 };
 
@@ -82,6 +82,12 @@ public:
 	class Biff * biff (void) 				{return biff_;}
 	class Mailbox *added (void)				{return added_;}
 	void added (class Mailbox *mailbox)		{added_ = mailbox;}
+	class Mailbox *selected (void)			{return selected_;}
+	void selected (class Mailbox *mailbox)	{
+		selected_ = mailbox;
+		if (properties_)
+			properties_->select (mailbox);
+	}
 
 	/**
 	 * Callbacks
@@ -91,12 +97,10 @@ public:
 	void on_properties			(GtkWidget *widget);
 	void on_stop				(GtkWidget *widget);
 	void on_close				(GtkWidget *widget);
-	void on_browse_sound		(GtkWidget *widget);
-	void on_test_sound			(GtkWidget *widget);
-	void on_browse_mailapp		(GtkWidget *widget);
 	void on_browse_newmail_image(GtkWidget *widget);
 	void on_browse_nomail_image	(GtkWidget *widget);
 	void on_selection			(GtkTreeSelection *selection);
+	void on_check_changed		(GtkWidget *widget);
 	gboolean on_destroy			(GtkWidget *widget,
 								 GdkEvent *event);
 	gboolean on_delete			(GtkWidget *widget,

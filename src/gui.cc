@@ -29,10 +29,11 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include "support.h"
+
 #include <glade/glade.h>
 #include <gmodule.h>
 #include "gtk_image_animation.h"
-#include "nls.h"
 #include "gui.h"
 
 

@@ -3,9 +3,9 @@
       <popup name="button3">
          <menuitem name="Item 1" verb="Props" _label="Preferences..."
                    pixtype="stock" pixname="gtk-properties"/>
-         <menuitem name="Item 2" verb="MailApp" _label="Start mail application"
+         <menuitem name="Item 2" verb="MailApp" _label="Run command"
                    pixtype="stock" pixname="gnome-stock-mail"/>
-         <menuitem name="Item 3" verb="MailRead" _label="Mark email as read"
+         <menuitem name="Item 3" verb="MailRead" _label="Mark mailboxes read"
                    pixtype="stock" pixname="gnome-stock-mail-rpl"/>
          <menuitem name="Item 4" verb="About" _label="About..."
                    pixtype="stock" pixname="gnome-stock-about"/>

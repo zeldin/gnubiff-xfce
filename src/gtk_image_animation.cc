@@ -320,39 +320,35 @@ GtkImageAnimation::stop (void)
 gboolean
 GtkImageAnimation::is_animation (void)
 {
-	// Only the first opening '(' is checked. I hope this is okay. RS
 	// If there is no '(' in name, we consider to have a static image
 	if (_filename.find('(') == std::string::npos)
 		return false;
 	
 	guint i = _filename.find ('(')+1;
 	std::string sw, sh;
-	while ((i<_filename.size()) && (g_ascii_isdigit(_filename[i])))
+	do {
 		sw += _filename[i++];
+	} while ((i<_filename.size()) && (g_ascii_isdigit(_filename[i])));
 
-	if ((i>=_filename.size()) || (_filename[i] != 'x'))
+	if ((i<_filename.size()) && (_filename[i] != 'x'))
 		return false;
 	i++;
-	
-	while ((i<_filename.size()) && (g_ascii_isdigit(_filename[i])))
+	do {
 		sh += _filename[i++];
-	
-	if ((i>=_filename.size()) || (_filename[i] != ')'))
-		return false;
-	
+	} while ((i<_filename.size()) && (g_ascii_isdigit(_filename[i])));
 	std::stringstream ssw(sw);
 	std::stringstream ssh(sh);
 	guint w, h;
 	ssw >> w;
 	ssh >> h;
-	// Is the new "found height" equal to pixbuf height?
-	//  (frames must be horizontally next to each other
-	//   so if a frame width is not pixbuf height, there is a problem)
+	// Is the new "found height" equal to pixbuf height
+	//  (frame must be horizontally next to each other
+	//   so if a frame width is not pixbuf height, there is a problem
 	if (h != (guint) gdk_pixbuf_get_height (_original_pixbuf))
 		return false;
 
-	// Do we have an integer number of frames?
-	if ((w==0)||(gdk_pixbuf_get_width(_original_pixbuf)%w))
+	// Do we have an interger number of frame ?
+	if (gdk_pixbuf_get_width(_original_pixbuf)%w)
 		return false;
 
 	_original_width  = w;

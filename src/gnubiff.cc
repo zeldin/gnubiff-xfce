@@ -29,9 +29,8 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
+#include "support.h"
+
 #include <gtk/gtk.h>
 #include <popt.h>
 
@@ -43,7 +42,6 @@
 #include "biff.h"
 #include "ui-preferences.h"
 #include "ui-applet.h"
-#include "nls.h"
 
 
 
@@ -53,70 +51,36 @@ int mainGNOME (int argc, char **argv);
 
 
 int main (int argc, char **argv) {
-	// Initialize i18n support
-	setlocale (LC_ALL, "");
-#ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, GNUBIFF_LOCALEDIR);
-#   ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-#   endif
-	textdomain (GETTEXT_PACKAGE);
-#endif
-
-	// Thread initialization
-	g_thread_init (NULL);
-	gdk_threads_init ();
-
 #ifdef USE_GNOME
-	// Test for presence of "--oaf-ior-fd" option to determine if gnubiff is
-	// started in gnome panel mode
- 	for (gint i=0; i<argc; i++)
-		if (std::string(argv[i]).find("--oaf-ior-fd")==0)
-			return mainGNOME (argc, argv);
- 	return mainGTK (argc, argv);
+	mainGNOME (argc, argv);
 #else
-	return mainGTK (argc, argv);
+	mainGTK (argc, argv);
 #endif  
 }
+
 
 int mainGTK (int argc, char **argv) {
 	poptContext poptcon;
 	int status;
 	char *config_file = 0;
-	int no_configure = false, print_version=false;
-#if defined DEBUG && defined USE_GNOME
-	int debug_applet=false;
-
-   	static struct poptOption options_debug[] =
-	{
-	   	{"applet",'\0', POPT_ARG_NONE,   &debug_applet,  0,
-		 N_("Start gnome applet from command line"), NULL},
-		POPT_TABLEEND
-	};
-#endif
-
-	static struct poptOption options_general[] =
-	{
-	   	{"config",      'c' , POPT_ARG_STRING, &config_file,   0,
-		 N_("Configuration file to use"),  N_("file")},
-		{"noconfigure", 'n' , POPT_ARG_NONE,   &no_configure,  0,
-		 N_("Skip the configuration process"), NULL},
-		{"version",     'v' , POPT_ARG_NONE,   &print_version, 0,
-		 N_("Print version information and exit"), NULL},
-		POPT_TABLEEND
-	};
-
-	static struct poptOption options[] =
-	{
-	   	{NULL, '\0', POPT_ARG_INCLUDE_TABLE, &options_general, 0,
-		 N_("General command line options:"), NULL },
-#if defined DEBUG && defined USE_GNOME
-		{NULL, '\0', POPT_ARG_INCLUDE_TABLE, &options_debug, 0,
-		 N_("Options for debugging:"), NULL },
-#endif
+	int no_configure = false;
+	struct poptOption options[] = {
+		{"config",     'c', POPT_ARG_STRING, &config_file,  0, _("configuration file to use"),  _("file")},
+		{"noconfigure",'n', POPT_ARG_NONE,   &no_configure, 0, _("skip the configure process"), NULL},
+		{"gtk", 'g', POPT_ARG_NONE, 0, 0, 0, NULL},
 		POPT_AUTOHELP
-		POPT_TABLEEND
+		{NULL, '\0', 0, NULL, 0, NULL, NULL}
 	};
+
+	// Initialize i18n support
+	setlocale (LC_ALL, "");
+#ifdef ENABLE_NLS
+	bindtextdomain (GETTEXT_PACKAGE, GNUBIFF_LOCALEDIR);
+#    ifdef HAVE_BIND_TEXTDOMAIN_CODESET
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+#    endif
+	textdomain (PACKAGE_NAME);
+#endif
 
 	// Parse command line
 	poptcon = poptGetContext ("gnubiff", argc,  (const char **) argv, options, 0);
@@ -128,34 +92,29 @@ int mainGTK (int argc, char **argv) {
 	}
 	poptGetNextOpt(poptcon);
 
-#if defined DEBUG && defined USE_GNOME
-	if (debug_applet)
-		return mainGNOME(argc,argv);
+#ifndef USE_GNOME
+	// Thread initialization
+	g_thread_init (NULL);
+	gdk_threads_init ();
 #endif
-	
+
 	// GTK initialisation
 	gtk_init (&argc, &argv);
-
-	// Print version information if requested and exit
-	if (print_version)
-	{
-		g_print ("gnubiff version "PACKAGE_VERSION"\n");
-		exit (EXIT_SUCCESS);
-	}
 
 	// Create biff with configuration file (or not)
 	Biff *biff;
 	if (config_file)
-		biff = new Biff(GTK_MODE, config_file);
+		biff = new Biff (GTK_MODE, config_file);
 	else
-		biff = new Biff(GTK_MODE);
+		biff = new Biff (GTK_MODE);
+
 
 	// Show setup panel or start gnubiff directly
 	if (no_configure) {
 		biff->applet()->update();
 		biff->applet()->show();
 		if (biff->check_mode_ == AUTOMATIC_CHECK)
-			biff->applet()->watch_on (3);
+			biff->applet()->start (3);
 	}
 	else
 		biff->preferences()->show();
@@ -180,12 +139,50 @@ static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid, g
 		biff->applet()->show ();
 		biff->applet()->update ();
 		if (biff->check_mode_ == AUTOMATIC_CHECK)
-			biff->applet()->watch_on (3);
+			biff->applet()->start (3);
 	}
 	return TRUE;
 }
 
 int mainGNOME (int argc, char **argv) {
+	// Initialize i18n support
+	setlocale (LC_ALL, "");
+#ifdef ENABLE_NLS
+	bindtextdomain (GETTEXT_PACKAGE, GNUBIFF_LOCALEDIR);
+#   ifdef HAVE_BIND_TEXTDOMAIN_CODESET
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+#   endif
+	textdomain (GETTEXT_PACKAGE);
+#endif
+
+	// Thread initialization
+	g_thread_init (NULL);
+	gdk_threads_init ();
+
+	// Look for a possible --gtk option
+	for (gint i=0; i<argc; i++) {
+		if ((std::string(argv[i]) == "--gtk") || (std::string(argv[i]) == "-g")) {
+			mainGTK (argc, argv);
+			exit (0);
+		}
+		else if ((std::string(argv[i]) == "--version") || (std::string(argv[i]) == "-v")) {
+			g_print ("gnubiff version "PACKAGE_VERSION"\n");
+			exit (0);
+		}
+		else if ((std::string(argv[i]) == "--help") || (std::string(argv[i]) == "-h")) {
+			g_print (_("\nThis version of gnubiff has been compiled with GNOME support\n"));
+			g_print (_("If you want to use the GTK version, type gnubiff --gtk\n"));
+			g_print (_(" then use -c file to specify an alternate configuration file\n"));
+			g_print (_("      and -n to skip configuration process\n"));
+			g_print (_("If you want to use the GNOME version, use gnome panel\n"));
+			g_print (_("Have a nice day\n"));
+			exit (0);
+		}
+	}
+	g_warning (_("\nThis version of gnubiff has been compiled with GNOME support"));
+	g_print   (_("If you want to use the GTK version, type gnubiff --gtk\n"));
+	g_print   (_("Now I will hang forever...\n"));
+
 #if defined(PREFIX) && defined(SYSCONFDIR) && defined(DATADIR) && defined(LIBDIR)
 	gnome_program_init ("gnubiff", "0", LIBGNOMEUI_MODULE, argc, argv, GNOME_PROGRAM_STANDARD_PROPERTIES, NULL);
 #else

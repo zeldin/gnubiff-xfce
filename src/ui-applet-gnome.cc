@@ -29,9 +29,7 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#ifdef HAVE_CONFIG_H
-#   include <config.h>
-#endif
+#include "support.h"
 
 #include <sstream>
 #include <cstdio>
@@ -92,11 +90,11 @@ extern "C" {
 		((AppletGnome *) data)->on_menu_properties (uic, verbname);
 	}
 
-	void APPLET_GNOME_on_menu_mail_app (BonoboUIComponent *uic,
-										gpointer data,
-										const gchar *verbname)
+	void APPLET_GNOME_on_menu_command (BonoboUIComponent *uic,
+									   gpointer data,
+									   const gchar *verbname)
 	{
-		((AppletGnome *) data)->on_menu_mail_app (uic, verbname);
+		((AppletGnome *) data)->on_menu_command (uic, verbname);
 	}
 
 	void APPLET_GNOME_on_menu_mail_read (BonoboUIComponent *uic,
@@ -139,7 +137,7 @@ AppletGnome::dock (GtkWidget *applet)
 {
 	static const BonoboUIVerb gnubiffMenuVerbs [] = {
 		BONOBO_UI_VERB ("Props",   APPLET_GNOME_on_menu_properties),
-		BONOBO_UI_VERB ("MailApp", APPLET_GNOME_on_menu_mail_app),
+		BONOBO_UI_VERB ("MailApp", APPLET_GNOME_on_menu_command),
 		BONOBO_UI_VERB ("MailRead", APPLET_GNOME_on_menu_mail_read),
 		BONOBO_UI_VERB ("About",   APPLET_GNOME_on_menu_about), 
 		BONOBO_UI_VERB_END
@@ -159,7 +157,7 @@ AppletGnome::dock (GtkWidget *applet)
 
 	GtkImageAnimation *anim = new GtkImageAnimation (GTK_IMAGE(get("image")));
 	g_object_set_data (G_OBJECT(get("image")), "_animation_", anim);
-	anim->open (biff_->biff_newmail_image_.c_str());
+	anim->open (biff_->newmail_image_.c_str());
 	anim->start();
 
 	g_signal_connect (G_OBJECT (applet), "enter_notify_event",  GTK_SIGNAL_FUNC (APPLET_GNOME_on_enter), this);
@@ -179,6 +177,8 @@ AppletGnome::update (void)
 	if (!g_mutex_trylock (update_mutex_))
 		return;
 
+	Applet::update ();
+
 	std::string text;
 	guint unread = unread_markup (text);
 	gtk_label_set_markup (GTK_LABEL(get ("hunread")), text.c_str());
@@ -188,21 +188,21 @@ AppletGnome::update (void)
 	GtkImageAnimation *anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("image")), "_animation_");
 	// Pick image/animation
 	if (unread > 0) {
-		if (!biff_->biff_use_newmail_image_) {
+		if (!biff_->use_newmail_image_) {
 			gtk_widget_hide (get("image"));
 		}
 		else {
 			gtk_widget_show (get("image"));
-			anim->open (biff_->biff_newmail_image_.c_str());
+			anim->open (biff_->newmail_image_.c_str());
 		}
 	}
 	else {
-		if (!biff_->biff_use_nomail_image_) {
+		if (!biff_->use_nomail_image_) {
 			gtk_widget_hide (get("image"));
 		}
 		else {
 			gtk_widget_show (get("image"));
-			anim->open (biff_->biff_nomail_image_.c_str());
+			anim->open (biff_->nomail_image_.c_str());
 		}
 	}
 
@@ -211,7 +211,7 @@ AppletGnome::update (void)
 	// The panel is oriented horizontally
 	if ((orient == PANEL_APPLET_ORIENT_DOWN) || (orient == PANEL_APPLET_ORIENT_UP)) {
 		gtk_widget_hide (get ("vunread"));
-		if (((unread > 0) && (biff_->biff_use_newmail_text_)) || ((unread == 0) && (biff_->biff_use_nomail_text_)))
+		if (((unread > 0) && (biff_->use_newmail_text_)) || ((unread == 0) && (biff_->use_nomail_text_)))
 			gtk_widget_show (get ("hunread"));
 		else
 			gtk_widget_hide (get ("hunread"));
@@ -223,7 +223,7 @@ AppletGnome::update (void)
 	// The panel is oriented vertically
 	else {
 		gtk_widget_hide (get ("hunread"));
-		if (((unread > 0) && (biff_->biff_use_newmail_text_)) || ((unread == 0) && (biff_->biff_use_nomail_text_)))
+		if (((unread > 0) && (biff_->use_newmail_text_)) || ((unread == 0) && (biff_->use_nomail_text_)))
 			gtk_widget_show (get ("vunread"));
 		else
 			gtk_widget_hide (get ("vunread"));
@@ -239,8 +239,8 @@ AppletGnome::update (void)
 	GdkColor color;
 	GdkPixmap *pixmap = NULL;
 	type = panel_applet_get_background (PANEL_APPLET(applet_), &color, &pixmap);
-	if (pixmap && G_IS_OBJECT(pixmap)) {
-		GtkStyle* style = gtk_style_copy (gtk_widget_get_style (applet_));	
+	if (pixmap && G_IS_OBJECT(pixmap)) {		
+		GtkStyle* style = gtk_style_copy (gtk_widget_get_style (applet_));
 		style->bg_pixmap[0] = pixmap;
 		gtk_widget_set_style (applet_, style);
 		gtk_widget_set_style (get("table"), style);
@@ -289,20 +289,23 @@ AppletGnome::on_button_press (GdkEventButton *event)
 {
 	// Double left click : start mail app
 	if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1)) {
-		std::string command = biff_->mail_app_ + " &";
-		system (command.c_str());
+		if ((biff_->use_double_command_) && (!biff_->double_command_.empty())) {
+			std::string command = biff_->double_command_ + " &";
+			system (command.c_str());
+		}
 	}
 	// Single left click : popup menu
-	else if (event->button == 1)
-		watch();
+	else if (event->button == 1) {
+		force_popup_ = true;
+		update ();
+	}
 	// Single middle click : mark mails as read
 	else if (event->button == 2) {
 		for (unsigned int i=0; i<biff_->size(); i++)
-			biff_->mailbox(i)->mark_all();
+			biff_->mailbox(i)->read();
 		force_popup_ = true;
 		biff_->popup()->hide();
-		biff_->applet()->process();
-		biff_->applet()->update();
+		update();
 	}
 
 	return FALSE;
@@ -311,7 +314,6 @@ AppletGnome::on_button_press (GdkEventButton *event)
 void
 AppletGnome::on_menu_properties (BonoboUIComponent *uic, const gchar *verbname)
 {
-	biff_->applet()->watch_off();
 	biff_->popup()->hide();
 	biff_->preferences()->show();
 	if (about_ != 0)
@@ -319,10 +321,10 @@ AppletGnome::on_menu_properties (BonoboUIComponent *uic, const gchar *verbname)
 }
 
 void
-AppletGnome::on_menu_mail_app (BonoboUIComponent *uic, const gchar *verbname)
+AppletGnome::on_menu_command (BonoboUIComponent *uic, const gchar *verbname)
 {
-	if (!biff_->mail_app_.empty()) {
-		std::string command = biff_->mail_app_ + " &";
+	if ((biff_->use_double_command_) && (!biff_->double_command_.empty())) {
+		std::string command = biff_->double_command_ + " &";
 		system (command.c_str());
 	}
 }
@@ -331,11 +333,10 @@ void
 AppletGnome::on_menu_mail_read (BonoboUIComponent *uic, const gchar *verbname)
 {
 	for (unsigned int i=0; i<biff_->size(); i++)
-		biff_->mailbox(i)->mark_all();
+		biff_->mailbox(i)->read();
 	force_popup_ = true;
 	biff_->popup()->hide();
-	biff_->applet()->process();
-	biff_->applet()->update();
+	update();
 }
 
 void

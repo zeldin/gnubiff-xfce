@@ -32,23 +32,24 @@
 #ifndef __MAILDIR_H__
 #define __MAILDIR_H__
 
-#include "mailbox.h"
+#include "local.h"
 #include <time.h>
 
 
-class Maildir : public Mailbox {
-private:
-	time_t 			last_mtime_;		// last modification time of directory 'new'
+class Maildir : public Local {
 
 public:
-	/* base */
+	// ========================================================================
+	//  base
+	// ========================================================================	
 	Maildir (class Biff *biff);
 	Maildir (const Mailbox &other);
 	~Maildir (void);
 
-	/* mailbox inherited methods */
-	void get_status (void);
-	void get_header (void);
+	// ========================================================================
+	//  main
+	// ========================================================================	
+	void fetch (void);
 };
 
 #endif

@@ -21,7 +21,7 @@
 // File          : $RCSfile$
 // Revision      : $Revision$
 // Revision date : $Date$
-// Author(s)     : Nicolas Rougier, Robert Sowada
+// Author(s)     : Robert Sowada
 // Short         : Functions that should be present in glib;-)
 //
 // This file is part of gnubiff.
@@ -32,12 +32,38 @@
 #ifndef __SUPPORT_H__
 #define __SUPPORT_H__
 
+#ifdef HAVE_CONFIG_H
+#   include "../config/config.h"
+#endif
+
 #include <glib.h>
 #include <string>
 #include <vector>
 
+
+#ifdef ENABLE_NLS
+#  include<libintl.h>
+#  ifndef USE_GNOME
+#    define _(String) dgettext(GETTEXT_PACKAGE,String)
+#  else
+#    include <gnome.h>
+#  endif
+#  ifdef gettext_noop
+#    define N_(String) gettext_noop(String)
+#  else
+#    define N_(String) (String)
+#  endif
+#else
+#  define _(String) (String)
+#  define N_(String) (String)
+#  define textdomain(String) (String)
+#  define gettext(String) (String)
+#  define dgettext(Domain,String) (String)
+#  define dcgettext(Domain,String,Type) (String)
+#  define bindtextdomain(Domain,Directory) (Domain)
+#endif
+
 gchar* gb_utf8_strndup(const gchar *, gsize);
-gchar* gb_utf8_to_imaputf7(const gchar *, gssize);
 std::string gb_substitute(std::string, std::string, std::vector<std::string>);
 
 #endif

@@ -29,6 +29,8 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include "support.h"
+
 #include <sstream>
 #include <cstdio>
 #include <unistd.h>
@@ -42,7 +44,6 @@
 #include "ui-certificate.h"
 #include "mailbox.h"
 #include "socket.h"
-#include "nls.h"
 
 
 GStaticMutex Socket::hostname_mutex_  = G_STATIC_MUTEX_INIT;
@@ -79,12 +80,14 @@ Socket::~Socket (void)
 gint
 Socket::open (std::string hostname,
 			  gushort port,
-			  gboolean use_ssl,
-			  std::string certificate)
+			  gint authentication,
+			  std::string certificate,
+			  guint timeout)
 {
 	hostname_ = hostname;
 	port_ = port;
-	use_ssl_ = use_ssl;
+	if ((authentication == AUTH_SSL) || (authentication == AUTH_CERTIFICATE))
+		use_ssl_ = true;
 	certificate_ = certificate;
 
 	struct sockaddr_in sin;
@@ -103,6 +106,13 @@ Socket::open (std::string hostname,
 		sd_ = SD_CLOSE;
 		g_warning (_("[%d] Unable to connect to %s on port %d"), uin_, hostname_.c_str(), port_);
 		return 0;
+	}
+
+	// Set non-blocking socket if timeout required
+	if (timeout > 0) {
+		int arg = fcntl (sd_, F_GETFL, NULL);
+		arg |= O_NONBLOCK;
+		fcntl (sd_, F_SETFL, arg);
 	}
 
 	// Setting socket info for connection
@@ -133,8 +143,49 @@ Socket::open (std::string hostname,
 	else
 		sin.sin_addr = address;
 
-	// Initiate the connection on the socket
-	if ((connect (sd_, (struct sockaddr *) &sin, sizeof (struct sockaddr_in))) == -1) {
+
+	int res = connect (sd_, (struct sockaddr *) &sin, sizeof (struct sockaddr_in));
+	if ((timeout) && (res < 0)) {
+		if (errno == EINPROGRESS) {
+			int valopt;
+			struct timeval tv;
+			tv.tv_sec = timeout;
+			tv.tv_usec = 0;
+			fd_set myset;
+			FD_ZERO (&myset);
+			FD_SET (sd_, &myset);
+			if (select (sd_+1, NULL, &myset, NULL, &tv) > 0) {
+				socklen_t lon = sizeof (int);
+				getsockopt (sd_, SOL_SOCKET, SO_ERROR, (void*)(&valopt), &lon);
+				if (valopt) {
+					g_static_mutex_unlock (&hostname_mutex_);
+					::close (sd_);
+					sd_ = SD_CLOSE;
+					g_warning (_("[%d] Unable to connect to %s on port %d"), uin_, hostname_.c_str(), port_);
+					return 0;
+				}
+			}
+			else {
+				g_static_mutex_unlock (&hostname_mutex_);
+				::close (sd_);
+				sd_ = SD_CLOSE;
+				g_warning (_("[%d] Unable to connect to %s on port %d"), uin_, hostname_.c_str(), port_);
+				return 0;
+			}
+		}
+		else {
+			g_static_mutex_unlock (&hostname_mutex_);
+			::close (sd_);
+			sd_ = SD_CLOSE;
+			g_warning (_("[%d] Unable to connect to %s on port %d"), uin_, hostname_.c_str(), port_);
+			return 0;
+		}
+		// Set to blocking mode again...
+		int arg = fcntl (sd_, F_GETFL, NULL);
+		arg &= (~O_NONBLOCK);
+		fcntl (sd_, F_SETFL, arg);
+	}
+	else if (res == -1) {
 		g_static_mutex_unlock (&hostname_mutex_);
 		::close (sd_);
 		sd_ = SD_CLOSE;
@@ -148,7 +199,7 @@ Socket::open (std::string hostname,
 	if (use_ssl_) {
 		if (certificate_.size() > 0){
 			if (!SSL_CTX_load_verify_locations (context_, certificate_.c_str(), NULL)) {
-				g_warning(_("[%d] Failed to load certificate (%s) for %s"), uin_, certificate_.c_str(), hostname_.c_str());
+				g_warning(_("[%d] Failed to load certificate (%s) for %s"), uin_, hostname_.c_str(), certificate_.c_str(), hostname_.c_str());
 				::close (sd_);
 				sd_ = SD_CLOSE;
 				return 0;
@@ -158,7 +209,6 @@ Socket::open (std::string hostname,
 		else
 			SSL_CTX_set_verify (context_, SSL_VERIFY_NONE, NULL);
     
-
 		ssl_ = SSL_new (context_);
 		if ((!ssl_) || (SSL_set_fd (ssl_, sd_) == 0)) {
 			::close (sd_);
@@ -176,7 +226,9 @@ Socket::open (std::string hostname,
 		}
 
 		if ((certificate_.size() > 0) && (SSL_get_verify_result(ssl_) != X509_V_OK)) {
+			gdk_threads_enter ();
 			ui_certificate_->select (this);
+			gdk_threads_leave ();
 			if (!bypass_certificate_) {
 				SSL_free (ssl_);
 				ssl_ = NULL;
@@ -248,7 +300,7 @@ Socket::write (std::string line,
 		g_print ("** Message: [%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
 #endif
 
-	if (!status_) {
+	if ((debug) && (!status_)) {
 		g_warning (_("[%d] Unable to write to %s on port %d"), uin_, hostname_.c_str(), port_);
 		close();
 		mailbox_->status (MAILBOX_ERROR);
@@ -263,28 +315,24 @@ Socket::read (std::string &line,
 			  gboolean check)
 {
 	char buffer;
-	int status=0;
+	int status;
 	line = "";
 	status_ = -1;
 
-	gint cnt=1+preventDoS_lineLength_; 
 #ifdef HAVE_LIBSSL
 	if (use_ssl_) {
-		while ((0<cnt--) && ((status = SSL_read (ssl_, &buffer, 1)) > 0)
-			     && (buffer != '\n'))
+		while (((status = SSL_read (ssl_, &buffer, 1)) > 0) && (buffer != '\n'))
 			line += buffer;
-		if ((status > 0) && (cnt>=0))
+		if (status > 0)
 			status_ = SOCKET_STATUS_OK;
 		else
 			status_ = SOCKET_STATUS_ERROR;
 	}
 #endif
 	if (status_ == -1) {
-
-		while ((0<cnt--) && ((status = ::read (sd_, &buffer, 1)) > 0)
-			     && (buffer != '\n'))
+		while (((status = ::read (sd_, &buffer, 1)) > 0) && (buffer != '\n'))
 			line += buffer;
-		if ((status > 0) && (cnt>=0))
+		if (status > 0)
 			status_ = SOCKET_STATUS_OK;
 		else
 			status_ = SOCKET_STATUS_ERROR;
@@ -297,14 +345,15 @@ Socket::read (std::string &line,
 	if (debug)
 		g_message ("[%d] RECV(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
 #endif
-	if (!status_) {
+	if ((debug) & (!status_)) {
 		g_warning (_("[%d] Unable to read from %s on port %d"), uin_, hostname_.c_str(), port_);
 		close();
 		mailbox_->status (MAILBOX_ERROR);
 	}
 
+
 	// Check imap4
-	if ((mailbox_->protocol() == PROTOCOL_IMAP4) && status_) {
+	if (mailbox_->protocol() == PROTOCOL_IMAP4) {
 		if (line.find ("* BYE") == 0) {
 			close();
 			status_ = SOCKET_STATUS_ERROR;
@@ -313,8 +362,7 @@ Socket::read (std::string &line,
 	}
 
 	// Check pop
-	if (((mailbox_->protocol() == PROTOCOL_APOP) || 
-		 (mailbox_->protocol() == PROTOCOL_POP3)) && status_) {
+	if ((mailbox_->protocol() == PROTOCOL_APOP) || (mailbox_->protocol() == PROTOCOL_POP3)) {
 		 if (line.find ("-ERR") == 0) {
 			 close();
 			 status_ = SOCKET_STATUS_ERROR;
@@ -324,3 +372,57 @@ Socket::read (std::string &line,
 	
 	return status_;
 }
+
+
+// void connect_w_to(void) {
+//   int res, valopt;
+//   struct sockaddr_in addr;
+//   long arg;
+//   fd_set myset;
+//   struct timeval tv;
+//   socklen_t lon;
+
+//   // Create socket
+//   soc = socket(AF_INET, SOCK_STREAM, 0);
+
+//   // Set non-blocking
+//   arg = fcntl(soc, F_GETFL, NULL);
+//   arg |= O_NONBLOCK;
+//   fcntl(soc, F_SETFL, arg);
+
+//   // Trying to connect with timeout
+//   addr.sin_family = AF_INET;
+//   addr.sin_port = htons(2000);
+//   addr.sin_addr.s_addr = inet_addr("192.168.0.1");
+//   res = connect(soc, (struct sockaddr *)&addr, sizeof(addr));
+
+//   if (res < 0) {
+//      if (errno == EINPROGRESS) {
+//         tv.tv_sec = 15;
+//         tv.tv_usec = 0;
+//         FD_ZERO(&myset);
+//         FD_SET(soc, &myset);
+//         if (select(soc+1, NULL, &myset, NULL, &tv) > 0) {
+//            lon = sizeof(int);
+//            getsockopt(soc, SOL_SOCKET, SO_ERROR, (void*)(&valopt), &lon);
+//            if (valopt) {
+//               fprintf(stderr, "Error in connection() %d - %s\n", valopt, strerror(valopt));
+//               exit(0);
+//            }
+//         }
+//         else {
+//            fprintf(stderr, "Timeout or error() %d - %s\n", valopt, strerror(valopt));
+//            exit(0);
+//         }
+//      }
+//      else {
+//         fprintf(stderr, "Error connecting %d - %s\n", errno, strerror(errno));
+//         exit(0);
+//      }
+//   }
+//   // Set to blocking mode again...
+//   arg = fcntl(soc, F_GETFL, NULL);
+//   arg &= (~O_NONBLOCK);
+//   fcntl(soc, F_SETFL, arg);
+//   // I hope that is all
+// } 

@@ -44,9 +44,16 @@
 #include <glib.h>
 #include <string>
 
-const int	SOCKET_STATUS_OK		=	 1;
-const int	SOCKET_STATUS_ERROR		=	 0;
-const int	SD_CLOSE				=	-1;
+const gint	SOCKET_STATUS_OK		=	 1;
+const gint	SOCKET_STATUS_ERROR		=	 0;
+const gint	SD_CLOSE				=	-1;
+
+const gint	AUTH_AUTODETECT			=	0;
+const gint	AUTH_USER_PASS			=	1;
+const gint	AUTH_APOP				=	2;
+const gint	AUTH_SSL				=	3;
+const gint	AUTH_CERTIFICATE		=	4;
+
 
 
 class Socket {
@@ -81,8 +88,9 @@ public:
 	 **/
 	gint open  (std::string hostname = "",
 				gushort port = 0,
-				gboolean use_ssl = false,
-				std::string certificate = "");
+				gint authentication = AUTH_SSL,
+				std::string certificate = "",
+				guint timeout = 5);
 	gint close (void);
 	gint write (std::string line,
 				gboolean debug = true);

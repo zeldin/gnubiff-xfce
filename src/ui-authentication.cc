@@ -29,8 +29,10 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include "support.h"
+
 #include <sstream>
-#include "nls.h"
+
 #include "ui-authentication.h"
 #include "mailbox.h"
 
@@ -58,9 +60,7 @@ Authentication::select (Mailbox *mailbox)
 	if (mailbox) {
 		g_mutex_lock (access_mutex_);
 		mailbox_ = mailbox;
-		gdk_threads_enter();
 		show ();
-		gdk_threads_leave();
 	}
 }
 
@@ -76,7 +76,7 @@ Authentication::show (std::string name)
 
 	// 2. using hostname
 	if (id.empty())
-		id = mailbox_->hostname();
+		id = mailbox_->address();
 
 	// 3. using mailbox uin
 	if (id.empty()) {
@@ -97,7 +97,6 @@ Authentication::show (std::string name)
 void
 Authentication::on_ok (GtkWidget *widget)
 {
-	gtk_main_quit();
 	mailbox_->username (gtk_entry_get_text (GTK_ENTRY (get("username_entry"))));
 	mailbox_->password (gtk_entry_get_text (GTK_ENTRY (get("password_entry"))));
 	hide();

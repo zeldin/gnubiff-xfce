@@ -29,20 +29,17 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#ifdef HAVE_CONFIG_H
-#   include <config.h>
-#endif
+#include "support.h"
 
 #include <sstream>
 #include <iomanip>
 #include <cstdio>
 #include <string>
 #include <glib.h>
-#include "support.h"
+
 #include "ui-applet.h"
 #include "ui-popup.h"
 #include "mailbox.h"
-#include "nls.h"
 
 
 Applet::Applet (Biff *biff,
@@ -50,66 +47,47 @@ Applet::Applet (Biff *biff,
 {
 	biff_ = biff;
 	force_popup_ = false;
-	process_mutex_ = g_mutex_new ();
 	update_mutex_ = g_mutex_new ();
 }
 
 Applet::~Applet (void)
 {
-	g_mutex_lock (process_mutex_);
-	g_mutex_unlock (process_mutex_);
-	g_mutex_free (process_mutex_);
 	g_mutex_lock (update_mutex_);
 	g_mutex_unlock (update_mutex_);
 	g_mutex_free (update_mutex_);
 }
 
-void Applet::watch (void)
-{
-	force_popup_ = true;
-	for (unsigned int i=0; i<biff_->size(); i++)
-		biff_->mailbox(i)->watch();
-}
-
-void Applet::watch_now (void)
+void Applet::start (guint delay)
 {
 #ifdef DEBUG
-	g_message ("Starting watching mailboxes");
-#endif
-	force_popup_ = false;
-	for (unsigned int i=0; i<biff_->size(); i++) {
-#ifdef DEBUG
-		g_message ("[%d]: watch() function called", i+1);
-#endif
-		biff_->mailbox(i)->watch();
-	}
-}
-
-void Applet::watch_on (guint delay)
-{
-#ifdef DEBUG
-	g_message ("Watch on");
+	if (delay)
+		g_message ("Start monitoring mailboxes in %d second(s)", delay);
+	else
+		g_message ("Start monitoring mailboxes now");
 #endif
 	for (unsigned int i=0; i<biff_->size(); i++)
-		biff_->mailbox(i)->watch_on (delay);
+		biff_->mailbox(i)->threaded_start (delay);
 }
 
-void Applet::watch_off (void)
+void
+Applet::stop (void)
 {
 #ifdef DEBUG
-	g_message ("Watch off");
+	g_message ("Stop monitoring mailboxes");
 #endif
 	for (unsigned int i=0; i<biff_->size(); i++)
-		biff_->mailbox(i)->watch_off();
+		biff_->mailbox(i)->stop ();
 }
 
-guint Applet::unread_markup (std::string &text) {
+guint
+Applet::unread_markup (std::string &text)
+{
 	// Get max collected mail number in a stringstream
 	//  just to have a default string size.
 	std::stringstream smax;
 	smax << biff_->max_mail_;
 
-	// Get number of unread mails	
+	// Get number of unread mails
 	guint unread = 0;
 	for (unsigned int i=0; i<biff_->size(); i++)
 		unread += biff_->mailbox(i)->unreads();
@@ -117,38 +95,44 @@ guint Applet::unread_markup (std::string &text) {
 	unreads << std::setfill('0') << std::setw (smax.str().size()) << unread;
 
 	// Applet label (number of mail)
-
 	text = "<span font_desc=\"";
-	text += biff_->biff_font_;
-	text += "\">";
-	text += "<span color=\"";
-	text += biff_->biff_font_color_;
+	text += biff_->applet_font_;
 	text += "\">";
 
-	std::vector<std::string> vec(1);
+	std::string ctext;
 	if (unread == 0) {
-		vec[0]=std::string(unreads.str());
-		text+=gb_substitute(biff_->biff_nomail_text_,"d",vec);
+		ctext = biff_->nomail_text_;
+		guint i;
+		while ((i = ctext.find ("%d")) != std::string::npos) {
+			ctext.erase (i, 2);
+			ctext.insert(i, unreads.str());
+		}
 	}
 	else if (unread < biff_->max_mail_) {
-		vec[0]=std::string(unreads.str());
-		text+=gb_substitute(biff_->biff_newmail_text_,"d",vec);
+		ctext = biff_->newmail_text_;
+		guint i;
+		while ((i = ctext.find ("%d")) != std::string::npos) {
+			ctext.erase (i, 2);
+			ctext.insert(i, unreads.str());
+		}
 	}
 	else {
-		vec[0]=std::string(std::string(smax.str().size(), '+'));
-		text+=gb_substitute(biff_->biff_newmail_text_,"d",vec);
+		ctext = biff_->newmail_text_;
+		guint i;
+		while ((i = ctext.find ("%d")) != std::string::npos) {
+			ctext.erase (i, 2);
+			ctext.insert(i, std::string(smax.str().size(), '+'));
+		}
 	}
-	text += "</span></span>";
+	text += ctext;
+	text += "</span>";
 	
 	return unread;
 }
 
-// ================================================================================
-//  Build the unread markup string
-// --------------------------------------------------------------------------------
-//  
-// ================================================================================
-std::string Applet::tooltip_text (void) {
+std::string
+Applet::tooltip_text (void)
+{
 	// Get max collected mail number in a stringstream
 	//  just to have a default string size.
 	std::stringstream smax;
@@ -161,11 +145,11 @@ std::string Applet::tooltip_text (void) {
 		std::stringstream s;
 		s << std::setfill('0') << std::setw (smax.str().size()) << biff_->mailbox(i)->unreads();
 
-		if (biff_->mailbox(i)->status() == MAILBOX_ERROR)
-			tooltip += _("error");
-		else if (biff_->mailbox(i)->status() == MAILBOX_BLOCKED)
-			tooltip += _("blocked (unsecure)");
-		else if (biff_->mailbox(i)->status() == MAILBOX_CHECKING) {
+		if (biff_->mailbox(i)->protocol() == PROTOCOL_NONE)
+			tooltip += _(" unknown");
+		else if (biff_->mailbox(i)->status() == MAILBOX_ERROR)
+			tooltip += _(" error");
+		else if (biff_->mailbox(i)->status() == MAILBOX_CHECK) {
 			tooltip += "(";
 			tooltip += s.str();
 			tooltip += ")";
@@ -182,17 +166,14 @@ std::string Applet::tooltip_text (void) {
 	return tooltip;
 }
 
-// ================================================================================
-//  Process mailbox
-// --------------------------------------------------------------------------------
-//  This function decide what to do with current mailboxes states
-// ================================================================================
-void Applet::process (void) {
-	// Are we already updating applet ?
-	if (!g_mutex_trylock (process_mutex_))
-		return;
-  
-	// Look for status of mailboxes
+
+void
+Applet::update (void)
+{
+#ifdef DEBUG
+	g_message ("Applet update");
+#endif
+
 	gboolean newmail = false;
 	int unread = 0;
 	for (unsigned int i=0; i<biff_->size(); i++) {
@@ -201,34 +182,15 @@ void Applet::process (void) {
 		unread += biff_->mailbox(i)->unreads();
 	}
 
-	// We play sound only if watch was not asked explicitely
-	if ((newmail == true) && (unread > 0) && (force_popup_ == false)) {
-		if (biff_->sound_type_ == SOUND_BEEP) {
-			gdk_beep ();    
-		}
-		else if (biff_->sound_type_ == SOUND_FILE) {
-			std::stringstream s;
-			s << biff_->sound_volume_/100.0f;
-
-			std::vector<std::string> vec(2);
-			vec[0]=std::string(g_shell_quote(biff_->sound_file_.c_str()));
-			vec[1]=std::string(s.str());
-			std::string command=gb_substitute(biff_->sound_command_,"sv",vec);
-
-			command += " &";
-			system (command.c_str());
-		}
+	if ((newmail == true) && (unread > 0) && (force_popup_ == false) && ( biff_->use_newmail_command_)) {
+		std::string command = biff_->newmail_command_ + " &";
+		system (command.c_str());
 	}
 
-	// Check if we display popup window depending on popup value:
-	if (unread && ((biff_->popup_display_ && newmail) || (force_popup_))) {
+	if (unread && ((biff_->use_popup_ && newmail) || (force_popup_))) {
 		biff_->popup()->update();
 		biff_->popup()->show();
 	}
-	else {
-		watch_on();
-	}
 
 	force_popup_ = false;
-	g_mutex_unlock (process_mutex_);
 }

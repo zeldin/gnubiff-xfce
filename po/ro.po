@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-16 14:28+0100\n"
+"POT-Creation-Date: 2004-11-30 15:40+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -15,167 +15,177 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/gnubiff.cc:93
-msgid "Start gnome applet from command line"
-msgstr ""
-
-#: src/gnubiff.cc:101
+#: src/gnubiff.cc:68
 #, fuzzy
-msgid "Configuration file to use"
+msgid "configuration file to use"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: src/gnubiff.cc:101
+#: src/gnubiff.cc:68
 msgid "file"
 msgstr "fiºier"
 
-#: src/gnubiff.cc:103
-#, fuzzy
-msgid "Skip the configuration process"
+#: src/gnubiff.cc:69
+msgid "skip the configure process"
 msgstr "omitere a procesului de configurare"
 
-#: src/gnubiff.cc:105
-msgid "Print version information and exit"
+#: src/gnubiff.cc:173
+msgid ""
+"\n"
+"This version of gnubiff has been compiled with GNOME support\n"
 msgstr ""
 
-#: src/gnubiff.cc:112
-msgid "General command line options:"
+#: src/gnubiff.cc:174 src/gnubiff.cc:183
+msgid "If you want to use the GTK version, type gnubiff --gtk\n"
 msgstr ""
 
-#: src/gnubiff.cc:115
-msgid "Options for debugging:"
+#: src/gnubiff.cc:175
+msgid " then use -c file to specify an alternate configuration file\n"
 msgstr ""
 
-#: src/ui-applet-gnome.cc:358
+#: src/gnubiff.cc:176
+#, fuzzy
+msgid "      and -n to skip configuration process\n"
+msgstr "omitere a procesului de configurare"
+
+#: src/gnubiff.cc:177
+msgid "If you want to use the GNOME version, use gnome panel\n"
+msgstr ""
+
+#: src/gnubiff.cc:178
+msgid "Have a nice day\n"
+msgstr ""
+
+#: src/gnubiff.cc:182
+msgid ""
+"\n"
+"This version of gnubiff has been compiled with GNOME support"
+msgstr ""
+
+#: src/gnubiff.cc:184
+msgid "Now I will hang forever...\n"
+msgstr ""
+
+#: src/ui-applet-gnome.cc:359
 msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
 msgstr ""
 
-#: src/ui-applet-gnome.cc:359 ui/applet-gtk.glade.h:9
+#: src/ui-applet-gnome.cc:360 ui/applet-gtk.glade.h:9
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
 
-#: src/biff.cc:157
+#: src/biff.cc:118
+#, fuzzy
+msgid "no mail"
+msgstr "Nici un mail"
+
+#: src/biff.cc:150
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: src/biff.cc:226 src/mailbox.cc:270
-#, c-format
-msgid "Unable to create lookup thread: %s\n"
-msgstr ""
-
-#: src/biff.cc:506
+#: src/biff.cc:401
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: src/biff.cc:528
+#: src/biff.cc:426
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: src/mailbox.cc:78
+#: src/mailbox.cc:67
 #, fuzzy, c-format
 msgid "mailbox %d"
 msgstr "Nici un mail"
 
-#: src/mailbox.cc:153
+#: src/mailbox.cc:158
 #, c-format
-msgid "[%d] Unable to create thread: %s\n"
+msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: src/mailbox.cc:355 src/mailbox.cc:362
-#, fuzzy
-msgid "Mailbox format is unknown"
-msgstr "Format mailbox / protocol"
-
-#: src/mailbox.cc:390
+#: src/mailbox.cc:441
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:400
+#: src/mailbox.cc:451
 #, fuzzy
 msgid "<no subject>"
 msgstr "Subiect"
 
-#: src/mailbox.cc:410
+#: src/mailbox.cc:461
 msgid "<no date>"
 msgstr ""
 
-#: src/socket.cc:104 src/socket.cc:126 src/socket.cc:141 src/socket.cc:166
-#: src/socket.cc:174
+#: src/socket.cc:107 src/socket.cc:136 src/socket.cc:164 src/socket.cc:172
+#: src/socket.cc:180 src/socket.cc:192 src/socket.cc:216 src/socket.cc:224
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr ""
 
-#: src/socket.cc:151
+#: src/socket.cc:202
 #, fuzzy, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "Nu mã pot conecta la server.\n"
 
-#: src/socket.cc:185
+#: src/socket.cc:237
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr ""
 
-#: src/socket.cc:252
+#: src/socket.cc:304
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr ""
 
-#: src/socket.cc:301
+#: src/socket.cc:349
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:104
+#: src/imap4.cc:176 src/imap4.cc:196
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:147
-#, c-format
-msgid "[%d] Unable to select folder %s on host %s"
+#: src/imap4.cc:444
+msgid "<EMPTY>"
 msgstr ""
 
-#: src/imap4.cc:400
-msgid "[This mail has no \"text/plain\" part]"
-msgstr ""
-
-#: src/maildir.cc:83 src/maildir.cc:144
+#: src/maildir.cc:86
 #, fuzzy, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Nu se poate deschide maildir (%s).\n"
 
-#: src/maildir.cc:90 src/maildir.cc:151
+#: src/maildir.cc:93
 #, fuzzy, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Nu se poate deschide maildir (%s).\n"
 
-#: src/maildir.cc:181
+#: src/maildir.cc:119
 #, fuzzy, c-format
 msgid "Cannot open %s."
 msgstr "Nu se poate deschide maildir (%s).\n"
 
-#: src/apop.cc:77
+#: src/apop.cc:82
 #, c-format
 msgid "[%d] Empty password"
 msgstr ""
 
-#: src/apop.cc:93
+#: src/apop.cc:122
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
 msgstr ""
 
-#: src/apop.cc:122
+#: src/apop.cc:146
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 
-#: src/gui.cc:174
+#: src/gui.cc:175
 #, fuzzy, c-format
 msgid ""
 "Cannot build the interface.\n"
@@ -188,29 +198,29 @@ msgstr ""
 "gbiff2 nu a putut încãrca fiºierul sãu de interfaþã cu utilizatorul (%s).\n"
 "Vã rugãm verificaþi dacã gbiff2 a fost instalat corect."
 
-#: src/gui.cc:210
+#: src/gui.cc:211
 #, fuzzy, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Nu am putut gãsi widgetul specificat (\"%s\") în structura de tree xml"
 
-#: src/gui.cc:317
+#: src/gui.cc:318
 msgid "GUI_connect requires working gmodule"
 msgstr ""
 
-#: src/gui.cc:324
+#: src/gui.cc:325
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr "Nu am putut gãsi semnalul '%s'."
 
-#: src/ui-applet.cc:165
-msgid "error"
+#: src/ui-applet.cc:149
+msgid " unknown"
 msgstr ""
 
-#: src/ui-applet.cc:167
-msgid "blocked (unsecure)"
+#: src/ui-applet.cc:151
+msgid " error"
 msgstr ""
 
-#: src/ui-applet.cc:172
+#: src/ui-applet.cc:156
 msgid " checking..."
 msgstr ""
 
@@ -224,48 +234,36 @@ msgstr "Mail nou"
 msgid "No mail"
 msgstr "Nici un mail"
 
-#: src/ui-preferences.cc:141 src/ui-popup.cc:139
+#: src/ui-preferences.cc:140 src/ui-popup.cc:140
 msgid "Mailbox"
 msgstr "Mailbox"
 
-#: src/ui-preferences.cc:160
-#, fuzzy
-msgid "Format"
-msgstr "De la"
+#: src/ui-preferences.cc:154
+msgid "Type"
+msgstr ""
 
-#: src/ui-preferences.cc:169
+#: src/ui-preferences.cc:173
 msgid "Status"
 msgstr ""
 
-#: src/ui-preferences.cc:177
-#, fuzzy
-msgid "Poll time"
-msgstr "Titlu popup"
+#: src/ui-preferences.cc:188
+msgid "Security"
+msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:194 src/ui-preferences.cc:635
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:552
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:535
+#: src/ui-preferences.cc:487
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:541 ui/preferences.glade.h:76
+#: src/ui-preferences.cc:493 ui/preferences.glade.h:48
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:551
-#, fuzzy
-msgid "Browse for a sound"
-msgstr "Rãsfoire(browse) dupã fiºier"
-
-#: src/ui-preferences.cc:577 ui/preferences.glade.h:16
-#, fuzzy
-msgid "Browse for a mail application"
-msgstr "Aplicaþie mail "
-
-#: src/ui-preferences.cc:584 src/ui-preferences.cc:597
+#: src/ui-preferences.cc:504 src/ui-preferences.cc:511
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Rãsfoire(browse) dupã fiºier"
@@ -287,52 +285,34 @@ msgid ""
 "pretending to be %s, possibly to obtain your password"
 msgstr ""
 
-#: src/ui-properties.cc:170 ui/properties.glade.h:2
+#: src/ui-properties.cc:316
 #, fuzzy
-msgid "Browse for a location"
+msgid "Browse for a file or folder"
 msgstr "Rãsfoire(browse) dupã fiºier"
 
-#: src/ui-properties.cc:176
+#: src/ui-properties.cc:322 ui/properties.glade.h:7
 #, fuzzy
-msgid "Browse for a certificate"
+msgid "Browse for a certificate file"
 msgstr "Rãsfoire(browse) dupã fiºier"
 
-#: src/ui-popup.cc:155
+#: src/ui-popup.cc:152
 msgid "From"
 msgstr "De la"
 
-#: src/ui-popup.cc:163
+#: src/ui-popup.cc:158
 msgid "Subject"
 msgstr "Subiect"
 
-#: src/ui-popup.cc:171
+#: src/ui-popup.cc:164
 msgid "Date"
 msgstr "Data"
 
-#. Sender
-#: src/ui-popup.cc:459
-#, fuzzy
-msgid "From: "
-msgstr "De la"
-
-#. Subject
-#: src/ui-popup.cc:468
-#, fuzzy
-msgid "Subject: "
-msgstr "Subiect"
-
-#. Date
-#: src/ui-popup.cc:477
-#, fuzzy
-msgid "Date: "
-msgstr "Data"
-
-#: src/ui-popup.cc:537 src/ui-popup.cc:549 src/ui-popup.cc:558
-#: src/ui-popup.cc:565
+#: src/ui-popup.cc:548 src/ui-popup.cc:560 src/ui-popup.cc:569
+#: src/ui-popup.cc:576
 msgid "* error *"
 msgstr ""
 
-#: src/ui-popup.cc:696
+#: src/ui-popup.cc:707
 msgid "Error"
 msgstr ""
 
@@ -341,17 +321,18 @@ msgid "About..."
 msgstr ""
 
 #: src/GNOME_gnubiffApplet.xml.h:2 ui/applet-gtk.glade.h:6
-msgid "Mark email as read"
-msgstr ""
+#, fuzzy
+msgid "Mark mailboxes read"
+msgstr "Mailbox"
 
 #: src/GNOME_gnubiffApplet.xml.h:3
 msgid "Preferences..."
 msgstr ""
 
-#: src/GNOME_gnubiffApplet.xml.h:4 ui/applet-gtk.glade.h:8
+#: src/GNOME_gnubiffApplet.xml.h:4
 #, fuzzy
-msgid "Start mail application"
-msgstr "Aplicaþie mail "
+msgid "Run command"
+msgstr "Cântã"
 
 #: ui/applet-gtk.glade.h:1
 msgid "00/00"
@@ -377,6 +358,11 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
+#: ui/applet-gtk.glade.h:8
+#, fuzzy
+msgid "Start command"
+msgstr "Cântã"
+
 #: ui/applet-gtk.glade.h:10
 #, fuzzy
 msgid "gnubiff"
@@ -394,589 +380,388 @@ msgstr ""
 msgid "Applet"
 msgstr "Applet"
 
-#: ui/preferences.glade.h:2
-#, no-c-format
-msgid "%d"
-msgstr ""
-
-#: ui/preferences.glade.h:3
-msgid "'Sender' field maximum size"
-msgstr ""
-
-#: ui/preferences.glade.h:4
-msgid "'Subject' field maximum size"
-msgstr ""
-
-#: ui/preferences.glade.h:5 ui/properties.glade.h:1
+#: ui/preferences.glade.h:1 ui/properties.glade.h:1
 #: ui/authentication.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: ui/preferences.glade.h:6
-msgid "+0+0"
-msgstr ""
+#: ui/preferences.glade.h:2
+#, fuzzy
+msgid "<b>Commands</b>"
+msgstr "Mailbox"
 
-#: ui/preferences.glade.h:7
-msgid "-0+0"
-msgstr ""
-
-#: ui/preferences.glade.h:8
-msgid "<b>Biff window</b>"
-msgstr ""
-
-#: ui/preferences.glade.h:9
-msgid "<b>Font</b>"
-msgstr ""
-
-#: ui/preferences.glade.h:10
+#: ui/preferences.glade.h:3
 #, fuzzy
 msgid "<b>General</b>"
 msgstr "Mailbox"
 
-#: ui/preferences.glade.h:11
+#: ui/preferences.glade.h:4
+#, fuzzy
+msgid "<b>Headers</b>"
+msgstr "Mailbox"
+
+#: ui/preferences.glade.h:5
+#, fuzzy
+msgid "<b>Layout</b>"
+msgstr "Aplicaþie mail "
+
+#: ui/preferences.glade.h:6
 #, fuzzy
 msgid "<b>Mailboxes</b>"
 msgstr "Mailbox"
 
-#: ui/preferences.glade.h:12
-msgid "<b>Popup window</b>"
-msgstr ""
-
-#: ui/preferences.glade.h:13
+#: ui/preferences.glade.h:7
 #, fuzzy
-msgid "<b>Popup</b>"
-msgstr "Aplicaþie mail "
+msgid "<b>When new mail</b>"
+msgstr "Mailbox"
 
-#: ui/preferences.glade.h:14
-msgid "<b>Sound</b>"
-msgstr ""
-
-#: ui/preferences.glade.h:15
-msgid "Advanced"
-msgstr ""
-
-#: ui/preferences.glade.h:17
+#: ui/preferences.glade.h:8
 #, fuzzy
-msgid "Browse for a soundfile"
-msgstr "Rãsfoire(browse) dupã fiºier"
+msgid "<b>When no mail</b>"
+msgstr "Mailbox"
 
-#: ui/preferences.glade.h:18 ui/properties.glade.h:4
-msgid "Browse..."
-msgstr ""
-
-#: ui/preferences.glade.h:19
-msgid "Color:"
-msgstr ""
-
-#: ui/preferences.glade.h:20
-msgid "Credits"
-msgstr "Credite"
-
-#: ui/preferences.glade.h:21
+#: ui/preferences.glade.h:9
 #, fuzzy
-msgid "Display header window when new mail has arrived"
-msgstr "Sunet de cântat când a venit mail nou"
-
-#: ui/preferences.glade.h:22
-#, fuzzy
-msgid "Display popup window _for"
-msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
-
-#: ui/preferences.glade.h:23
-#, fuzzy
-msgid "Display popup window for poptime seconds"
-msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
-
-#: ui/preferences.glade.h:24
-#, fuzzy
-msgid "Do not show any text when new mail"
-msgstr "Nici un sunet când vine mail nou"
-
-#: ui/preferences.glade.h:25
-#, fuzzy
-msgid "Geometry"
+msgid "Applet geometry"
 msgstr "Geometrie "
 
-#: ui/preferences.glade.h:26
-msgid "Layout"
-msgstr ""
-
-#: ui/preferences.glade.h:27
-msgid "Let window manager place window"
-msgstr ""
-
-#: ui/preferences.glade.h:28
-msgid "Ma_ximum number of email to collect:"
-msgstr ""
-
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:10
 #, fuzzy
-msgid "Mail a_pplication:"
-msgstr "Aplicaþie mail "
+msgid "Applet or Biff"
+msgstr "Applet"
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:11
+msgid "B_rowse..."
+msgstr ""
+
+#: ui/preferences.glade.h:12
 #, fuzzy
-msgid "Mail application to launch via popup menu."
-msgstr "Nume aplicaþie mail"
+msgid "Browse for an image file"
+msgstr "Rãsfoire(browse) dupã fiºier"
 
-#: ui/preferences.glade.h:31
+#: ui/preferences.glade.h:13
+msgid "Image filename"
+msgstr ""
+
+#: ui/preferences.glade.h:14
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Mailbox"
 
-#: ui/preferences.glade.h:32
-msgid ""
-"Maximum number of displayed headers (you know, if you have a screen with a "
-"finite display area...)"
+#: ui/preferences.glade.h:15
+#, fuzzy
+msgid "Maximum number of header to display"
 msgstr ""
+"Titlul mailboxului care va fi afiºat în panelul gnome ºi fereastra de popup"
+
+#: ui/preferences.glade.h:16 ui/popup.glade.h:4
+msgid "Popup"
+msgstr "Popup"
+
+#: ui/preferences.glade.h:17
+#, fuzzy
+msgid "Popup geometry"
+msgstr "Geometrie "
+
+#: ui/preferences.glade.h:18
+#, fuzzy
+msgid "Show _image:"
+msgstr "Afiºeazã titlu"
+
+#: ui/preferences.glade.h:19
+#, fuzzy
+msgid "Show _text:"
+msgstr "Afiºeazã titlu"
+
+#: ui/preferences.glade.h:20
+#, fuzzy
+msgid "Show i_mage:"
+msgstr "Afiºeazã titlu"
+
+#: ui/preferences.glade.h:21
+#, fuzzy
+msgid "Show t_ext:"
+msgstr "Afiºeazã titlu"
+
+#: ui/preferences.glade.h:22
+msgid "Text to display"
+msgstr ""
+
+#: ui/preferences.glade.h:24
+#, no-c-format
+msgid "Text to display (%d is the number of new mail)"
+msgstr ""
+
+#: ui/preferences.glade.h:25
+#, fuzzy
+msgid "The command to run when new mail arrives"
+msgstr "Sunet de cântat când a venit mail nou"
+
+#: ui/preferences.glade.h:26
+msgid "The command to run when the icon is double-clicked"
+msgstr ""
+
+#: ui/preferences.glade.h:27
+msgid "The font to use to display information"
+msgstr ""
+
+#: ui/preferences.glade.h:28
+#, fuzzy
+msgid "Time to display popup window"
+msgstr "Duratã de afiºare a popup-ului (secunde):"
+
+#: ui/preferences.glade.h:29
+msgid "Use _decoration"
+msgstr ""
+
+#: ui/preferences.glade.h:30
+#, fuzzy
+msgid "Use _geometry:"
+msgstr "Geometrie "
+
+#: ui/preferences.glade.h:31
+msgid "When _double-clicked:"
+msgstr ""
+
+#: ui/preferences.glade.h:32
+#, fuzzy
+msgid "When _new mail:"
+msgstr "Sunete când vine mail nou"
 
 #: ui/preferences.glade.h:33
-#, fuzzy
-msgid "Maximum number of email to collect"
+msgid "Wheter to display a text"
 msgstr ""
-"Titlul mailboxului care va fi afiºat în panelul gnome ºi fereastra de popup"
 
 #: ui/preferences.glade.h:34
-#, fuzzy
-msgid "Maximum number of email to display"
+msgid "Wheter to display an image"
 msgstr ""
-"Titlul mailboxului care va fi afiºat în panelul gnome ºi fereastra de popup"
 
 #: ui/preferences.glade.h:35
 #, fuzzy
-msgid "Maximum size of the sender field in popup window"
-msgstr "Mãrime maximã a câmpului 'De la' în popup"
+msgid "Wheter to display the popup window"
+msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
 #: ui/preferences.glade.h:36
-msgid "Never send pass_word in clear"
+msgid "Wheter to restrict number of displayed headers"
 msgstr ""
 
 #: ui/preferences.glade.h:37
-#, fuzzy
-msgid "New mail:"
-msgstr "Mail nou"
+msgid "Wheter to show an image "
+msgstr ""
 
 #: ui/preferences.glade.h:38
-#, fuzzy
-msgid "No mail:"
-msgstr "Nici un mail"
+msgid "Wheter to use format for header"
+msgstr ""
 
 #: ui/preferences.glade.h:39
 #, fuzzy
-msgid "No sound when new mail has arrived"
-msgstr "Sunet de cântat când a venit mail nou"
+msgid "Wheter to use geometry"
+msgstr "Geometrie "
 
 #: ui/preferences.glade.h:40
-msgid "Options"
-msgstr "Opþiuni"
-
-#: ui/preferences.glade.h:41
-msgid "Pick a color for applet font"
+msgid "Wheter to use window manager decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:42
-msgid "Pick a color for popup font"
+#: ui/preferences.glade.h:41
+msgid "[sender max size]:[subject max size]:[date max size]"
+msgstr ""
+
+#: ui/preferences.glade.h:42 ui/properties.glade.h:23
+msgid "_Browse..."
 msgstr ""
 
 #: ui/preferences.glade.h:43
-msgid "Pick a font for applet"
-msgstr ""
+#, fuzzy
+msgid "_Display for"
+msgstr "Afiºeazã data în headere sau nu"
 
 #: ui/preferences.glade.h:44
-msgid "Pick a font for popup"
-msgstr ""
+#, fuzzy
+msgid "_Font:"
+msgstr "Fonturi "
 
 #: ui/preferences.glade.h:45
-msgid "Popup window with window manager decorations or not"
-msgstr ""
+#, fuzzy
+msgid "_Format:"
+msgstr "De la"
 
 #: ui/preferences.glade.h:46
-msgid "Preferences"
+msgid "_Restrict collected mail  to"
 msgstr ""
 
 #: ui/preferences.glade.h:47
-#, fuzzy
-msgid ""
-"Released under the GNU general public license\n"
-"(c) 2000-2004 Nicolas Rougier\n"
-"<span size=\"small\" color=\"blue\">Special thanks to Robert Sowada and "
-"Roland Stigge for their help</span>"
+msgid "_Restrict number to"
 msgstr ""
-"Produs sub licenþa publicã generalã GNU.\n"
-"Verificã mailul periodic.\n"
-" Afiºeazã headerele când este primit mail nou."
+
+#: ui/preferences.glade.h:49
+msgid "gnubiff preferences"
+msgstr ""
 
 #: ui/preferences.glade.h:50
+msgid "header(s)"
+msgstr ""
+
+#: ui/preferences.glade.h:51
 #, fuzzy
-msgid "Sound filename to play"
-msgstr "Fiºierul de sunete:"
+msgid "mail"
+msgstr "Nici un mail"
 
 #: ui/preferences.glade.h:52
-#, no-c-format
-msgid "Sound play command (%s is the soundfile, %v is the volume)"
+msgid "second(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:53
+#: ui/properties.glade.h:2
 #, fuzzy
-msgid "Sound when new mail has arrived"
-msgstr "Sunet de cântat când a venit mail nou"
-
-#: ui/preferences.glade.h:54
-#, fuzzy
-msgid "System _beep"
-msgstr "Beep de sistem"
-
-#: ui/preferences.glade.h:55
-#, fuzzy
-msgid "System beep when new mail has arrived"
-msgstr "Beep de sistem când vine mail nou"
-
-#: ui/preferences.glade.h:56
-msgid "Test"
-msgstr ""
-
-#: ui/preferences.glade.h:57
-#, fuzzy
-msgid "Test sound"
-msgstr "Nici un sunet"
-
-#: ui/preferences.glade.h:59
-#, no-c-format
-msgid ""
-"Text to be displayed when new mail is present, %d is the number of mails. "
-"Valid XML must be entered, pango markup may be used."
-msgstr ""
-
-#: ui/preferences.glade.h:61
-#, no-c-format
-msgid ""
-"Text to be displayed when no mail is present, %d is the number of mails. "
-"Valid XML must be entered, pango markup may be used."
-msgstr ""
-
-#: ui/preferences.glade.h:62
-msgid "Type:"
-msgstr ""
-
-#: ui/preferences.glade.h:63
-msgid "Use decoration"
-msgstr ""
-
-#: ui/preferences.glade.h:64
-#, fuzzy
-msgid "Use geometry"
-msgstr "Geometrie "
-
-#: ui/preferences.glade.h:65
-msgid "Use image"
-msgstr ""
-
-#: ui/preferences.glade.h:66
-msgid "Use of no image implies no applet window for GTK version"
-msgstr ""
-
-#: ui/preferences.glade.h:67
-msgid "Use text"
-msgstr ""
-
-#: ui/preferences.glade.h:68
-#, fuzzy
-msgid "_Biff:"
-msgstr "Biff"
-
-#: ui/preferences.glade.h:69
-msgid "_Command:"
-msgstr ""
-
-#: ui/preferences.glade.h:70
-#, fuzzy
-msgid "_Display date"
-msgstr "Afiºeazã data în headere sau nu"
-
-#: ui/preferences.glade.h:71
-#, fuzzy
-msgid "_Display popup window when new mail arrives"
-msgstr "Sunet de cântat când a venit mail nou"
-
-#: ui/preferences.glade.h:72
-#, fuzzy
-msgid "_File:"
-msgstr "Titlu:"
-
-#: ui/preferences.glade.h:73
-#, fuzzy
-msgid "_No sound"
-msgstr "Nici un sunet"
-
-#: ui/preferences.glade.h:74
-#, fuzzy
-msgid "_Popup:"
-msgstr "Popup"
-
-#: ui/preferences.glade.h:75
-#, fuzzy
-msgid "_Sound"
-msgstr "Sunete "
-
-#: ui/preferences.glade.h:77
-#, fuzzy
-msgid "_Volume:"
-msgstr "Volum:"
-
-#: ui/preferences.glade.h:78
-msgid "balsa"
-msgstr ""
-
-#: ui/preferences.glade.h:79
-msgid "characters"
-msgstr ""
-
-#: ui/preferences.glade.h:80
-msgid "emacs"
-msgstr ""
-
-#: ui/preferences.glade.h:81
-msgid "evolution"
-msgstr ""
-
-#: ui/preferences.glade.h:82
-#, fuzzy
-msgid ""
-"gnubiff has originally been written by Nicolas Rougier.\n"
-"Many people have further contributed to gnubiff by\n"
-"  * reporting problems\n"
-"  * suggesting various improvements\n"
-"  * submitting actual code.\n"
-"\n"
-"Here is a list of these people in no particular order:\n"
-"  - Robert Sowada\n"
-"  - Roland Stigge\n"
-"  - Jean-Yves Lefort\n"
-"  - Calum Mackay\n"
-"  - Paul Kuliniewicz\n"
-"  - Erik Sittman\n"
-"  - Dries Verachtert\n"
-"  - Grzegorz Gotawski\n"
-"  - Adam Benjamin\n"
-"  - Theodore Tegos\n"
-"  - Achim Settelmeier\n"
-"  - Barry Skidmore\n"
-"  - Jason Lowdermilk\n"
-"  - Marc-jano Knopp\n"
-"  - Suzan Wassman\n"
-"  - Philippe Berger\n"
-"  - Earl A. Killian\n"
-"  - Christian Probst\n"
-"  - Hans-Ulrich Schaefer\n"
-"  - Josh Parsons\n"
-"  - Michael Moellney\n"
-"  - Dennis Bjorklund\n"
-"  - Craig  Agricola\n"
-"  - Bernhard Valenti\n"
-"  - Josh Berdine\n"
-"  - Michel Leunen\n"
-"  - Greg Fenton\n"
-"  - Cai Yu\n"
-"  - Chris Snell\n"
-"  - Reid Rivenburgh\n"
-"  - Neil Muller\n"
-"  - Sascha Ludecke\n"
-"  - Richard Torkar\n"
-"  - Pete Phillips\n"
-"  - Blaise Tarr\n"
-"\n"
-"And of course, there are also translators:\n"
-"  - Roland Stigge, Robert Sowada (de)\n"
-"  - Nicolas Lichtmaier (es)\n"
-"  - Elros Cyriatan (nl)\n"
-"  - Michel Robitaille (fr)\n"
-"  - Eugen Hoanca (ro)\n"
-"  - David Smeringe (sv)\n"
-"\n"
-"\n"
-"If you like this software, you can send me a post-card to:\n"
-"    Nicolas Rougier\n"
-"    Campus Scientifique, B.P. 239\n"
-"    F-54506 Vandoeuvre-Les-Nancy Cedex\n"
-"    FRANCE"
-msgstr ""
-"gbiff a fost original scris de  Nicolas Rougier.\n"
-"Mulþi oameni au avut contribuþie ulterioarã la gbiff prin\n"
-"    raportarea problemelor\n"
-"    sugerarea îmbunãtãþirilor variate\n"
-"    trimiterea codului actual.\n"
-"\n"
-"Urmeazã o listã cu aceºti oameni fãrã a fi într-o anumitã ordine:\n"
-"  - Jason Lowdermilk\n"
-"  - Marc-jano Knopp\n"
-"  - Suzan Wassman\n"
-"  - Philippe Berger\n"
-"  - Earl A. Killian\n"
-"  - Chistian Probst\n"
-"  - Hans-Ulrich Schaefer\n"
-"  - Josh Parsons\n"
-"  - Michael Moellney\n"
-"  - Dennis Bjorklund\n"
-"  - Craig  Agricola\n"
-"  - Bernhard Valenti\n"
-"  - Josh Berdine\n"
-"  - Michel Leunen\n"
-"  - Greg Fenton\n"
-"  - Cai Yu\n"
-"  - Chris Snell\n"
-"  - Reid Rivenburgh\n"
-"  - Neil Muller\n"
-"  - Sascha Ludecke\n"
-"  - Richard Torkar\n"
-"  - Pete Phillips\n"
-"  - Blaise Tarr\n"
-
-#: ui/preferences.glade.h:139
-#, fuzzy
-msgid "kmail"
-msgstr "Nici un mail"
-
-#: ui/preferences.glade.h:140
-#, fuzzy
-msgid "mozilla -mail"
-msgstr "Nici un mail"
-
-#: ui/preferences.glade.h:141
-#, fuzzy
-msgid "netscape -mail"
-msgstr "Mail necitit"
-
-#: ui/preferences.glade.h:143
-#, no-c-format
-msgid "play %s -v %v"
-msgstr ""
-
-#: ui/preferences.glade.h:144
-msgid ""
-"pop3 and imap4 without ssl send passwords in clear. Checking this option "
-"prevents gnubiff from using them."
-msgstr ""
-
-#: ui/preferences.glade.h:145 ui/properties.glade.h:28
-msgid "seconds"
-msgstr ""
-
-#: ui/preferences.glade.h:146
-msgid "thunderbird"
-msgstr ""
-
-#: ui/preferences.glade.h:147
-msgid "xemacs "
-msgstr ""
+msgid "<b>_Details</b>"
+msgstr "Mailbox"
 
 #: ui/properties.glade.h:3
+msgid ""
+"<span size=\"x-small\"><i>Not necessary if mail server supports the IDLE "
+"state</i></span>"
+msgstr ""
+
+#: ui/properties.glade.h:4
 #, fuzzy
-msgid "Browse for the certificate"
-msgstr "Rãsfoire(browse) dupã fiºier"
+msgid "A_ddress:"
+msgstr "Mailbox"
 
 #: ui/properties.glade.h:5
-msgid "Certificate:"
-msgstr ""
+#, fuzzy
+msgid "Aut_hentication:"
+msgstr "Local:"
 
 #: ui/properties.glade.h:6
-msgid "Details"
-msgstr ""
-
-#: ui/properties.glade.h:7
-msgid "Folder to check on the IMAP4 server"
+msgid "Bro_wse..."
 msgstr ""
 
 #: ui/properties.glade.h:8
-#, fuzzy
-msgid "Folder:"
-msgstr "Titlu:"
+msgid "Cer_tificate:"
+msgstr ""
 
 #: ui/properties.glade.h:9
-#, fuzzy
-msgid "Mailbox properties"
-msgstr "Configuraþie"
+msgid "Certificate filename"
+msgstr ""
 
 #: ui/properties.glade.h:10
-msgid "N_ame:"
+msgid "Connection port to connect to server"
 msgstr ""
 
 #: ui/properties.glade.h:11
 #, fuzzy
-msgid "Name of mailbox"
-msgstr "Mail nou"
+msgid "Connection:"
+msgstr "Local:"
 
 #: ui/properties.glade.h:12
-msgid "P_ort:"
+msgid "Dela_y:"
 msgstr ""
 
 #: ui/properties.glade.h:13
-msgid ""
-"Port to connect (usually POP3: 110, IMAP4: 143, POP3 over SSL: 995, IMAP4 "
-"over SSL: 993)"
-msgstr ""
+#, fuzzy
+msgid "Mailbox folder"
+msgstr "Mailbox"
 
 #: ui/properties.glade.h:14
-msgid "Server certificate, leave blank if you do not want to use one"
-msgstr ""
+#, fuzzy
+msgid "Mailbox properties"
+msgstr "Configuraþie"
 
 #: ui/properties.glade.h:15
-msgid "The hostname or IP address of the server"
-msgstr ""
+#, fuzzy
+msgid "Name of the mailbox"
+msgstr "Mail nou"
 
 #: ui/properties.glade.h:16
-msgid "Time in seconds between each check"
+msgid "Other connection port"
 msgstr ""
 
 #: ui/properties.glade.h:17
-msgid "Use SSL encryption"
+#, fuzzy
+msgid "Other mailbox folder"
+msgstr "Nici un mail"
+
+#: ui/properties.glade.h:18
+msgid "Standard connection port"
 msgstr ""
 
-#: ui/properties.glade.h:18 ui/authentication.glade.h:3
-msgid "Your password on the server"
-msgstr ""
-
-#: ui/properties.glade.h:19 ui/authentication.glade.h:4
-msgid "Your username on the server"
+#: ui/properties.glade.h:19
+msgid "Standard mailbox folder"
 msgstr ""
 
 #: ui/properties.glade.h:20
-msgid "_Delay between checks:"
+msgid "The amount of time to wait between mail checks"
 msgstr ""
 
 #: ui/properties.glade.h:21
-msgid "_File or folder"
+msgid "Your password on the mail server"
 msgstr ""
 
 #: ui/properties.glade.h:22
-msgid "_Hostname:"
+msgid "Your username on the mail server"
 msgstr ""
-
-#: ui/properties.glade.h:23
-#, fuzzy
-msgid "_Location:"
-msgstr "Local:"
 
 #: ui/properties.glade.h:24
 #, fuzzy
-msgid "_Network"
-msgstr "Reþea:"
+msgid "_Mailbox:"
+msgstr "Mailbox"
 
-#: ui/properties.glade.h:25 ui/authentication.glade.h:5
+#: ui/properties.glade.h:25
+#, fuzzy
+msgid "_Name:"
+msgstr "Utilizator:"
+
+#: ui/properties.glade.h:26 ui/authentication.glade.h:5
 #, fuzzy
 msgid "_Password:"
 msgstr "Parolã:"
 
-#: ui/properties.glade.h:26 ui/authentication.glade.h:6
+#: ui/properties.glade.h:27
+msgid "_Type:"
+msgstr ""
+
+#: ui/properties.glade.h:28 ui/authentication.glade.h:6
 #, fuzzy
 msgid "_Username:"
 msgstr "Utilizator:"
 
-#: ui/properties.glade.h:27
-msgid "file or folder name"
+#: ui/properties.glade.h:29
+msgid "_other"
+msgstr ""
+
+#: ui/properties.glade.h:30
+msgid "file or folder or [ssl:]hostname[:port][:folder]"
+msgstr ""
+
+#: ui/properties.glade.h:31
+msgid "minutes"
+msgstr ""
+
+#: ui/properties.glade.h:32
+msgid "othe_r"
+msgstr ""
+
+#: ui/properties.glade.h:33
+msgid "seconds"
+msgstr ""
+
+#: ui/properties.glade.h:34
+msgid "stan_dard"
+msgstr ""
+
+#: ui/properties.glade.h:35
+msgid "stand_ard"
 msgstr ""
 
 #: ui/authentication.glade.h:2
 msgid "Authentication"
+msgstr ""
+
+#: ui/authentication.glade.h:3
+msgid "Your password on the server"
+msgstr ""
+
+#: ui/authentication.glade.h:4
+msgid "Your username on the server"
 msgstr ""
 
 #: ui/certificate.glade.h:1
@@ -1026,16 +811,306 @@ msgid "State or Province"
 msgstr ""
 
 #: ui/popup.glade.h:1
-msgid "Popup"
-msgstr "Popup"
+#, fuzzy
+msgid "<b>Date</b>"
+msgstr "Aplicaþie mail "
 
 #: ui/popup.glade.h:2
+#, fuzzy
+msgid "<b>From</b>"
+msgstr "Mailbox"
+
+#: ui/popup.glade.h:3
+#, fuzzy
+msgid "<b>Subject</b>"
+msgstr "Aplicaþie mail "
+
+#: ui/popup.glade.h:5
+msgid "aaaaa"
+msgstr ""
+
+#: ui/popup.glade.h:6
+#, fuzzy
+msgid "date"
+msgstr "Data"
+
+#: ui/popup.glade.h:7
+#, fuzzy
+msgid "from"
+msgstr "De la"
+
+#: ui/popup.glade.h:8
 msgid "mail content"
 msgstr ""
 
+#: ui/popup.glade.h:9
 #, fuzzy
-#~ msgid "      and -n to skip configuration process\n"
-#~ msgstr "omitere a procesului de configurare"
+msgid "subject"
+msgstr "Subiect"
+
+#, fuzzy
+#~ msgid "From: "
+#~ msgstr "De la"
+
+#, fuzzy
+#~ msgid "Subject: "
+#~ msgstr "Subiect"
+
+#, fuzzy
+#~ msgid "Date: "
+#~ msgstr "Data"
+
+#, fuzzy
+#~ msgid "Mailbox format is unknown"
+#~ msgstr "Format mailbox / protocol"
+
+#, fuzzy
+#~ msgid "Start mail application"
+#~ msgstr "Aplicaþie mail "
+
+#, fuzzy
+#~ msgid "Browse for a location"
+#~ msgstr "Rãsfoire(browse) dupã fiºier"
+
+#, fuzzy
+#~ msgid "Browse for a certificate"
+#~ msgstr "Rãsfoire(browse) dupã fiºier"
+
+#, fuzzy
+#~ msgid "_Popup"
+#~ msgstr "Popup"
+
+#, fuzzy
+#~ msgid "<small>Type</small>"
+#~ msgstr "Adresã / nume fiºier:"
+
+#, fuzzy
+#~ msgid "<small>Status</small>"
+#~ msgstr "Adresã / nume fiºier:"
+
+#, fuzzy
+#~ msgid "<small>Security</small>"
+#~ msgstr "Adresã / nume fiºier:"
+
+#, fuzzy
+#~ msgid "in_box"
+#~ msgstr "Mailbox"
+
+#, fuzzy
+#~ msgid "Browse for a sound"
+#~ msgstr "Rãsfoire(browse) dupã fiºier"
+
+#, fuzzy
+#~ msgid "Browse for a mail application"
+#~ msgstr "Aplicaþie mail "
+
+#, fuzzy
+#~ msgid "Browse for a soundfile"
+#~ msgstr "Rãsfoire(browse) dupã fiºier"
+
+#~ msgid "Credits"
+#~ msgstr "Credite"
+
+#, fuzzy
+#~ msgid "Display popup window for poptime seconds"
+#~ msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
+
+#, fuzzy
+#~ msgid "Do not show any text when new mail"
+#~ msgstr "Nici un sunet când vine mail nou"
+
+#, fuzzy
+#~ msgid "Geometry"
+#~ msgstr "Geometrie "
+
+#, fuzzy
+#~ msgid "Mail a_pplication:"
+#~ msgstr "Aplicaþie mail "
+
+#, fuzzy
+#~ msgid "Mail application to launch via popup menu."
+#~ msgstr "Nume aplicaþie mail"
+
+#, fuzzy
+#~ msgid "Maximum size of the sender field in popup window"
+#~ msgstr "Mãrime maximã a câmpului 'De la' în popup"
+
+#, fuzzy
+#~ msgid "New mail:"
+#~ msgstr "Mail nou"
+
+#, fuzzy
+#~ msgid "No mail:"
+#~ msgstr "Nici un mail"
+
+#, fuzzy
+#~ msgid "No sound when new mail has arrived"
+#~ msgstr "Sunet de cântat când a venit mail nou"
+
+#~ msgid "Options"
+#~ msgstr "Opþiuni"
+
+#, fuzzy
+#~ msgid ""
+#~ "Released under the GNU general public license\n"
+#~ "(c) 2000-2004 Nicolas Rougier\n"
+#~ "<span size=\"small\" color=\"blue\">Special thanks to Robert Sowada and "
+#~ "Roland Stigge for their help</span>"
+#~ msgstr ""
+#~ "Produs sub licenþa publicã generalã GNU.\n"
+#~ "Verificã mailul periodic.\n"
+#~ " Afiºeazã headerele când este primit mail nou."
+
+#, fuzzy
+#~ msgid "Sound when new mail has arrived"
+#~ msgstr "Sunet de cântat când a venit mail nou"
+
+#, fuzzy
+#~ msgid "System _beep"
+#~ msgstr "Beep de sistem"
+
+#, fuzzy
+#~ msgid "System beep when new mail has arrived"
+#~ msgstr "Beep de sistem când vine mail nou"
+
+#, fuzzy
+#~ msgid "_Biff:"
+#~ msgstr "Biff"
+
+#, fuzzy
+#~ msgid "_Display popup window when new mail arrives"
+#~ msgstr "Sunet de cântat când a venit mail nou"
+
+#, fuzzy
+#~ msgid "_File:"
+#~ msgstr "Titlu:"
+
+#, fuzzy
+#~ msgid "_No sound"
+#~ msgstr "Nici un sunet"
+
+#, fuzzy
+#~ msgid "_Sound"
+#~ msgstr "Sunete "
+
+#, fuzzy
+#~ msgid "_Volume:"
+#~ msgstr "Volum:"
+
+#, fuzzy
+#~ msgid ""
+#~ "gnubiff has originally been written by Nicolas Rougier.\n"
+#~ "Many people have further contributed to gnubiff by\n"
+#~ "  * reporting problems\n"
+#~ "  * suggesting various improvements\n"
+#~ "  * submitting actual code.\n"
+#~ "\n"
+#~ "Here is a list of these people in no particular order:\n"
+#~ "  - Robert Sowada\n"
+#~ "  - Roland Stigge\n"
+#~ "  - Jean-Yves Lefort\n"
+#~ "  - Calum Mackay\n"
+#~ "  - Paul Kuliniewicz\n"
+#~ "  - Erik Sittman\n"
+#~ "  - Dries Verachtert\n"
+#~ "  - Grzegorz Gotawski\n"
+#~ "  - Adam Benjamin\n"
+#~ "  - Theodore Tegos\n"
+#~ "  - Achim Settelmeier\n"
+#~ "  - Barry Skidmore\n"
+#~ "  - Jason Lowdermilk\n"
+#~ "  - Marc-jano Knopp\n"
+#~ "  - Suzan Wassman\n"
+#~ "  - Philippe Berger\n"
+#~ "  - Earl A. Killian\n"
+#~ "  - Christian Probst\n"
+#~ "  - Hans-Ulrich Schaefer\n"
+#~ "  - Josh Parsons\n"
+#~ "  - Michael Moellney\n"
+#~ "  - Dennis Bjorklund\n"
+#~ "  - Craig  Agricola\n"
+#~ "  - Bernhard Valenti\n"
+#~ "  - Josh Berdine\n"
+#~ "  - Michel Leunen\n"
+#~ "  - Greg Fenton\n"
+#~ "  - Cai Yu\n"
+#~ "  - Chris Snell\n"
+#~ "  - Reid Rivenburgh\n"
+#~ "  - Neil Muller\n"
+#~ "  - Sascha Ludecke\n"
+#~ "  - Richard Torkar\n"
+#~ "  - Pete Phillips\n"
+#~ "  - Blaise Tarr\n"
+#~ "\n"
+#~ "And of course, there are also translators:\n"
+#~ "  - Roland Stigge, Robert Sowada (de)\n"
+#~ "  - Nicolas Lichtmaier (es)\n"
+#~ "  - Elros Cyriatan (nl)\n"
+#~ "  - Michel Robitaille (fr)\n"
+#~ "  - Eugen Hoanca (ro)\n"
+#~ "  - David Smeringe (sv)\n"
+#~ "\n"
+#~ "\n"
+#~ "If you like this software, you can send me a post-card to:\n"
+#~ "    Nicolas Rougier\n"
+#~ "    Campus Scientifique, B.P. 239\n"
+#~ "    F-54506 Vandoeuvre-Les-Nancy Cedex\n"
+#~ "    FRANCE"
+#~ msgstr ""
+#~ "gbiff a fost original scris de  Nicolas Rougier.\n"
+#~ "Mulþi oameni au avut contribuþie ulterioarã la gbiff prin\n"
+#~ "    raportarea problemelor\n"
+#~ "    sugerarea îmbunãtãþirilor variate\n"
+#~ "    trimiterea codului actual.\n"
+#~ "\n"
+#~ "Urmeazã o listã cu aceºti oameni fãrã a fi într-o anumitã ordine:\n"
+#~ "  - Jason Lowdermilk\n"
+#~ "  - Marc-jano Knopp\n"
+#~ "  - Suzan Wassman\n"
+#~ "  - Philippe Berger\n"
+#~ "  - Earl A. Killian\n"
+#~ "  - Chistian Probst\n"
+#~ "  - Hans-Ulrich Schaefer\n"
+#~ "  - Josh Parsons\n"
+#~ "  - Michael Moellney\n"
+#~ "  - Dennis Bjorklund\n"
+#~ "  - Craig  Agricola\n"
+#~ "  - Bernhard Valenti\n"
+#~ "  - Josh Berdine\n"
+#~ "  - Michel Leunen\n"
+#~ "  - Greg Fenton\n"
+#~ "  - Cai Yu\n"
+#~ "  - Chris Snell\n"
+#~ "  - Reid Rivenburgh\n"
+#~ "  - Neil Muller\n"
+#~ "  - Sascha Ludecke\n"
+#~ "  - Richard Torkar\n"
+#~ "  - Pete Phillips\n"
+#~ "  - Blaise Tarr\n"
+
+#, fuzzy
+#~ msgid "mozilla -mail"
+#~ msgstr "Nici un mail"
+
+#, fuzzy
+#~ msgid "netscape -mail"
+#~ msgstr "Mail necitit"
+
+#, fuzzy
+#~ msgid "Browse for the certificate"
+#~ msgstr "Rãsfoire(browse) dupã fiºier"
+
+#, fuzzy
+#~ msgid "Folder:"
+#~ msgstr "Titlu:"
+
+#, fuzzy
+#~ msgid "_Network"
+#~ msgstr "Reþea:"
+
+#, fuzzy
+#~ msgid "Poll time"
+#~ msgstr "Titlu popup"
 
 #~ msgid "%02x"
 #~ msgstr "%02x"
@@ -1064,10 +1139,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "_Pop time:"
 #~ msgstr "Titlu popup"
-
-#, fuzzy
-#~ msgid "Browse for the file or folder"
-#~ msgstr "Rãsfoire(browse) dupã fiºier"
 
 #, fuzzy
 #~ msgid "Maximum displayed _headers:"
@@ -1129,15 +1200,7 @@ msgstr ""
 #~ msgstr "Adresã / nume fiºier:"
 
 #, fuzzy
-#~ msgid "<small>Port</small>"
-#~ msgstr "Adresã / nume fiºier:"
-
-#, fuzzy
 #~ msgid "<small>Server certificate</small>"
-#~ msgstr "Adresã / nume fiºier:"
-
-#, fuzzy
-#~ msgid "<small>User</small>"
 #~ msgstr "Adresã / nume fiºier:"
 
 #, fuzzy
@@ -1147,10 +1210,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Address of your mailbox"
 #~ msgstr "Adresã mailbox"
-
-#, fuzzy
-#~ msgid "Applet "
-#~ msgstr "Applet"
 
 #, fuzzy
 #~ msgid "Check for new mail every polltime seconds"
@@ -1166,10 +1225,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Do not show any text when no mail"
 #~ msgstr "Imagine utilizabilã când nu este mail"
-
-#, fuzzy
-#~ msgid "Fonts "
-#~ msgstr "Fonturi "
 
 #, fuzzy
 #~ msgid "Image or animation to use when new mail has arrived"
@@ -1199,13 +1254,6 @@ msgstr ""
 
 #~ msgid "Show date in headers or not"
 #~ msgstr "Afiºeazã data în headere sau nu"
-
-#, fuzzy
-#~ msgid "Sound command"
-#~ msgstr "Cântã"
-
-#~ msgid "Sound to play when new mail has arrived"
-#~ msgstr "Sunet de cântat când a venit mail nou"
 
 #~ msgid "Sounds "
 #~ msgstr "Sunete "
@@ -1247,10 +1295,6 @@ msgstr ""
 #~ msgstr "output de debug"
 
 #, fuzzy
-#~ msgid "no mail"
-#~ msgstr "Nici un mail"
-
-#, fuzzy
 #~ msgid "mail: "
 #~ msgstr "Nici un mail"
 
@@ -1287,10 +1331,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Sans 8"
 #~ msgstr "Sunete "
-
-#, fuzzy
-#~ msgid "Hide when no new mail"
-#~ msgstr "Sunete când vine mail nou"
 
 #, fuzzy
 #~ msgid "Show title or not"
@@ -1516,9 +1556,6 @@ msgstr ""
 #~ msgid "Select File"
 #~ msgstr "Selectare Fiºier"
 
-#~ msgid "Time to display popup (seconds):"
-#~ msgstr "Duratã de afiºare a popup-ului (secunde):"
-
 #~ msgid "Time between polls (seconds):"
 #~ msgstr "Interval între verificãri (secunde):"
 
@@ -1546,9 +1583,6 @@ msgstr ""
 #~ msgid "Show popup when new mail or not"
 #~ msgstr "Afiºeazã popup în cazul mailului nou sau nu"
 
-#~ msgid "Show title"
-#~ msgstr "Afiºeazã titlu"
-
 #~ msgid "Show read mail or not"
 #~ msgstr "Afiºeazã cititrea mailului sau nu"
 
@@ -1557,6 +1591,9 @@ msgstr ""
 
 #~ msgid "'From' size"
 #~ msgstr "Mãrime 'De la'"
+
+#~ msgid "Sound file:"
+#~ msgstr "Fiºierul de sunete:"
 
 #~ msgid "Popup body"
 #~ msgstr "Corp popup"

@@ -206,6 +206,7 @@ if you have been left out or some of your contributions are not listed.
 Please keep this list in alphabetical order.
 
 @itemize @bullet
+@item Alexis S. L. Carvhalo
 @item Jean-Yves Lefort
 @item Calum Mackay
 @item Robert Sowada

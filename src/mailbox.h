@@ -38,6 +38,7 @@
 #include <glib.h>
 #include <string>
 #include "biff.h"
+#include "socket.h"
 
 
 /**
@@ -55,12 +56,49 @@ const gint	MAILBOX_ERROR			=	0;
 const gint	MAILBOX_EMPTY			=	1;
 const gint	MAILBOX_OLD				=	2;
 const gint	MAILBOX_NEW				=	3;
-const gint	MAILBOX_CHECKING		=	4;
-const gint	MAILBOX_BLOCKED			=	5;
+const gint	MAILBOX_CHECK			=	4;
+const gint	MAILBOX_STOP			=	5;
 const gint	MAILBOX_UNKNOWN			=	6;
 
 const gint	MAIL_UNREAD				=	0;
 const gint	MAIL_READ				=	1;
+
+
+// ========================================================================
+//  Header type definition
+// ========================================================================
+typedef struct _header {
+	std::string	sender;
+	std::string	subject;
+	std::string	date;
+	std::string	body;
+	std::string	charset;
+	gint		status;
+
+	struct _header &operator = (const struct _header &other)
+	{
+		if (this != &other) {
+			sender = other.sender;
+			subject = other.subject;
+			date = other.date;
+			body = other.body;
+			charset = other.charset;
+			status = other.status;
+		}
+		return *this;
+	}
+
+	bool operator == (const struct _header &other) const
+	{
+		if ((sender  == other.sender)  && (subject == other.subject) &&
+			(date    == other.date)    && (body    == other.body)    &&
+			(charset == other.charset) && (status  == other.status))
+			return true;
+		else
+			return false;
+	}
+} header;
+
 
 #define MAILBOX(x)					((Mailbox *)(x))
 
@@ -68,136 +106,142 @@ const gint	MAIL_READ				=	1;
 class Mailbox {
 
 protected:
-	std::string					name_;			// displayed name
-	guint						protocol_;		// protocol
+	// ========================================================================
+	//  "real" configuration
+	// ========================================================================
+	std::string					name_;				// displayed name
+	guint						protocol_;			// protocol
+	gint						authentication_;	// authentication method
+	std::string					address_;			// address of mailbox
+	std::string					username_;			// username
+	std::string					password_;			// password
+	guint						port_;				// port
+	std::string					folder_;			// mailbox folder
+	std::string					certificate_;		// certificate file
+	guint						delay_;				// delay between mail check (apop & pop3 only)
 
-	gboolean					is_local_;		// is mailbox local ?
-	std::string					location_;		// location
-	std::string					hostname_;		// hostname
-	guint						port_;			// port to connect to
-	std::string					folder_;		// folder to check
+	// ========================================================================
+	//  "convenience" configuration
+	// ========================================================================	
+	gboolean					use_other_folder_;	// whether to use other port
+	std::string					other_folder_;		// other mailbox folder
+	gboolean					use_other_port_;	// whether to use other port
+	guint						other_port_;		// other port
 
-	std::string					username_;		// username
-	std::string					password_;		// password
-	gboolean					use_ssl_;		// use SSL or not
-	std::string					certificate_;	// certificate file
-	guint						polltime_;		// delay between polls
+	// ========================================================================
+	//  internal stuff
+	// ========================================================================
+	guint						uin_;				// unique identifier number
+	static guint				uin_count_;			// unique identifier number count
+	class Biff *				biff_;				// biff owner
+	gint 						status_;			// status of the mailbox
+	GMutex *					mutex_;				// mutex for thread read access
+	GMutex *					monitor_mutex_;		// mutex for monitor access
+	guint						timetag_;			// tag for delayed start timeout
+	gboolean					listed_;			// flag for updating mailboxes in preferences
+	gboolean					stopped_;			// flag for stopping mailbox monitor while looking up
 
-	gboolean					listed_;		// listed or not in ui
-	guint						uin_;			// unique identifier number
-	static guint				uin_count_;		// unique identifier number count
+	std::vector<header>			unread_;			// collected unread mail
+	std::vector<header>			new_unread_;		// collected unread mail (tmp buffer)
+	std::vector<guint>			hidden_;			// mails that won't be displayed
+	std::vector<guint>			seen_;				// mails already seen   
+	std::vector<guint>			new_seen_;			// mails already seen (tmp buffer)
 
-	// Internal stuff
-	class Biff *				biff_;			// biff owner
-	gint						polltag_;		// tag for poll timer
-	GMutex *					object_mutex_;	// mutex for object features access
-	GMutex *					watch_mutex_;	// mutex for watch function control
-	gint 						status_;		// status of the mailbox
-	std::vector<header>			unread_;		// collected unread mail
-	std::vector<header>			new_unread_;	// collected unread mail (tmp buffer)
-	std::vector<guint>			hidden_;		// mails that won't be displayed
-	std::vector<guint>			seen_;			// mails already seen   
-	std::vector<guint>			new_seen_;		// mails already seen (tmp buffer)
+	static class Authentication *ui_auth_;			// ui to get username & password
 
-	static class Authentication *ui_authentication_;// ui to get username & password
 
 public:
-	/* base */
+	// ========================================================================
+	//  base
+	// ========================================================================	
 	Mailbox (class Biff *biff);
 	Mailbox (const Mailbox &other);
 	virtual ~Mailbox (void);
 
-	/* main */
-	virtual void get_status (void);					// get status of mailbox
-	virtual void get_header (void);					// get mail from mailbox
-	void watch (void);								// immediately start watch thread
-	void watch_on (guint delay = 0);				// start automatic watch
-	void watch_off(void);							// stop automatic watch
-	void mark_all (void);							// internally mark all mail as seen
-	gboolean watch_timeout (void);					// timeout
-	void watch_thread (void);						// watch thread method
-	void parse (std::vector<std::string> &mail,		// parse a mail to extract fields
-				int status = -1);					//  and 10 first lines
+	// ========================================================================
+	//  main
+	// ========================================================================	
+	virtual void threaded_start (guint delay = 0);				// start monitoring in a new thread
+	static gboolean start_delayed_entry_point (gpointer data);	// start thread timeout entry point
+	static void start_entry_point (gpointer data);				// start thread entry point
 
-	/* format detection */
-	void lookup (void);								// immediately start lookup thread
-	void lookup_thread (void);						// lookup for mailbox format
+	virtual void start (void);						// start method (to be overidden)
+	virtual void stop (void);						// stop method (to be overidden)
+	virtual void fetch (void);						// fetch headers (if any)
+	void read (gboolean value=true);				// mark/unmark mailbox as read
+	void lookup (void);								// try to guess mailbox format
+	void parse (std::vector<std::string> &mail,		// parse a mail 
+				int status = -1);
 
-
-	/* access*/
+	// ========================================================================
+	//  access
+	// ========================================================================	
 	const std::string name (void)						{return name_;}
-	void name (const std::string name)					{name_ = name;}
+	void name (const std::string value)					{name_ = value;}
 
-	const gboolean is_local (void)						{return is_local_;}
-	void is_local (const gboolean is_local)				{is_local_ = is_local;}
-	const std::string location (void)					{return location_;}
-	void location (const std::string location)			{location_ = location;}
-	const std::string hostname (void)					{return hostname_;}
-	void hostname (const std::string hostname)			{hostname_ = hostname;}
-	const guint port (void)								{return port_;}
-	void port (const guint port)						{port_ = port;}
-	const std::string folder (void)						{return folder_;}
-	void folder (const std::string folder)				{folder_ = folder;}
+	const guint protocol (void)							{return protocol_;}
+	void protocol (const guint value)					{protocol_ = value;}	
+
+	const guint authentication(void)					{return authentication_;}
+	void authentication (const guint value)				{authentication_ = value;}	
+
+	const std::string address (void)					{return address_;}
+	void address (const std::string value)				{address_ = value;}
 
 	const std::string username (void)					{return username_;}
-	void username (const std::string username)			{username_ = username;}
+	void username (const std::string value)				{username_ = value;}
+
 	const std::string password (void)					{return password_;}
-	void password (const std::string password)			{password_ = password;}
+	void password (const std::string value)				{password_ = value;}
+
+	const guint port (void)								{return port_;}
+	void port (const guint value)						{port_ = value;}
+
+	const std::string folder (void)						{return folder_;}
+	void folder (const std::string value)				{folder_ = value;}
+
 	const std::string certificate (void)				{return certificate_;}
-	const gboolean use_ssl (void)						{return use_ssl_;}
-	void use_ssl (const gboolean use_ssl)				{use_ssl_ = use_ssl;}
-	void certificate (const std::string certificate)	{certificate_ = certificate;}
-	const guint polltime (void)							{return polltime_;}
-	void polltime (const guint polltime)				{polltime_ = polltime;}
-	
+	void certificate (const std::string value)			{certificate_ = value;}
+
+	const guint delay (void)							{return delay_;}
+	void delay (const guint value)						{delay_ = value;}
+
+	const gboolean use_other_folder (void)				{return use_other_folder_;}
+	void use_other_folder (const gboolean value)		{use_other_folder_ = value;}
+
+	const std::string other_folder (void)				{return other_folder_;}
+	void other_folder (const std::string value)			{other_folder_ = value;}
+
+	const gboolean use_other_port (void)				{return use_other_port_;}
+	void use_other_port (const gboolean value)			{use_other_port_ = value;}
+
+	const guint other_port (void)						{return other_port_;}
+	void other_port (const guint value)					{other_port_ = value;}
+
 	const gint status (void) 							{return status_;}
 	void status (const gint status)						{status_ = status;}
-	const guint protocol (void)							{return protocol_;}
-	void protocol (const guint protocol)				{protocol_ = protocol;}	
+
 	const gboolean listed (void)						{return listed_;}
-	void listed (gboolean listed)						{listed_ = listed;}
+	void listed (gboolean value)						{listed_ = value;}
+
 	const guint uin (void)								{return uin_;}
+
+	const guint timetag (void)							{return timetag_;}
+	void timetag (guint value)							{timetag_ = value;}
+	
+	
 
 	std::vector<header> &unread (void)					{return unread_;}
 	header &unread (int i)								{return unread_[i];}
-	guint unreads (void)
-	{
-		g_mutex_lock (object_mutex_);
+	guint unreads (void) {
+		g_mutex_lock (mutex_);
 		guint s = unread_.size();
-		g_mutex_unlock (object_mutex_);
+		g_mutex_unlock (mutex_);
 		return s;
 	}
 	std::vector<guint> &hidden (void)					{return hidden_;}
 	guint &hidden (int i)								{return hidden_[i];}
 	guint hiddens (void)								{return hidden_.size();}
-
 };
-
-/**
- * In some situations we need to read a certain number of lines from the
- * network to get the line we want. Unfortunately this number may vary in
- * reality because of the following reasons:
- *  * There is no limit for the response
- *  * There exist different extensions to the protocols
- *  * Not all servers implement protocols correctly
- *  * There is a DoS attack
- * To prevent being DoS attacked we need to set a limit of additional lines
- * that are being read. This is done by the following constant.
- */
-const gint preventDoS_additionalLines_=16;
-
-/**
- * To prevent being DoS attacked (see above): Maximum number of header lines
- * being read (POP3).
- */
-const gint preventDoS_headerLines_=2048;
-
-/**
- * To prevent being DoS attacked (see above): Limit for length of a read line.
- * SMTP: maximum line length is 1001 (see RFC 2821 4.5.3.1)
- * IMAP: no maximum line length
- * POP3: maximum response line length is 512 (see RFC 1939 3.)
- */
-const gint preventDoS_lineLength_=16384;
 
 #endif

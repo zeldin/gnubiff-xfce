@@ -29,94 +29,39 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include "support.h"
+
 #include <fstream>
 #include <sstream>
 #include <sys/stat.h>
 #include <utime.h>
 #include <dirent.h>
+
 #include "maildir.h"
-#include "nls.h"
 
 
-Maildir::Maildir (Biff *biff) : Mailbox (biff)
+// ========================================================================
+//  base
+// ========================================================================	
+Maildir::Maildir (Biff *biff) : Local (biff)
 {
 	protocol_ = PROTOCOL_MAILDIR;
-	last_mtime_ = 0;
 }
 
-Maildir::Maildir (const Mailbox &other) : Mailbox (other)
+Maildir::Maildir (const Mailbox &other) : Local (other)
 {
 	protocol_ = PROTOCOL_MAILDIR;
-	last_mtime_ = 0;
 }
 
 Maildir::~Maildir (void)
 {
 }
 
+// ========================================================================
+//  main
+// ========================================================================	
 void
-Maildir::get_status (void)
-{
-	struct stat file_stat;
-	DIR *dir;
-	struct dirent *dent;
-	int dirsize=0;
-
-	// Default behavior
-	status_ = MAILBOX_CHECKING;
-
-	// Build directory name
-	gchar *base=g_path_get_basename(location_.c_str());
-	std::string directory;
-	if (base==std::string("new"))
-		directory=location_;
-	else
-	{
-		gchar *tmp=g_build_filename(location_.c_str(),"new",NULL);
-		directory=std::string(tmp);
-		g_free(tmp);
-	}
-	g_free(base);
-
-	// Check for existence of a new mail directory
-	if ((stat (directory.c_str(), &file_stat) != 0)||(!S_ISDIR(file_stat.st_mode))) {
-		g_warning (_("Cannot find new mail directory (%s)"), directory.c_str());
-		status_ = MAILBOX_ERROR;
-		return;
-	}
-
-	// Try to open new mail directory
-	if ((dir = opendir (directory.c_str())) == NULL) {
-		g_warning (_("Cannot open new mail directory (%s)"), directory.c_str());
-		status_ = MAILBOX_ERROR;
-		return;
-	}
-
-	// Read number of entries (not counting files beginning with '.',
-	// including "." and "..")
-	while ((dent = readdir(dir)))
-		if (dent->d_name[0] != '.')
-			dirsize++;
-	closedir (dir); 
-
-	// No entry  = no new mail
-	if (dirsize == 0)
-		status_ = MAILBOX_EMPTY;
-	else {
-		// New mail directory has not been modified
-		if (file_stat.st_mtime == last_mtime_)
-			status_ = MAILBOX_OLD;
-		// New mail directory has been modified
-		else
-			status_ = MAILBOX_NEW;
-	}
-
-	// Save new modification time for next time
-	last_mtime_ = file_stat.st_mtime;
-}
-
-void
-Maildir::get_header (void)
+Maildir::fetch (void)
 {
 	DIR *dir;
 	struct stat file_stat;
@@ -124,20 +69,17 @@ Maildir::get_header (void)
 	int saved_status = status_;
   
 	// Status will be restored in the end if no problem occured
-	status_ = MAILBOX_CHECKING;
+	status_ = MAILBOX_CHECK;
 
 	// Build directory name
-	gchar *base=g_path_get_basename(location_.c_str());
 	std::string directory;
-	if (base==std::string("new"))
-		directory=location_;
+	if (address_[address_.size()-1] == '/')
+		directory = address_.substr (0, address_.size()-1);
 	else
-	{
-		gchar *tmp=g_build_filename(location_.c_str(),"new",NULL);
-		directory=std::string(tmp);
-		g_free(tmp);
-	}
-	g_free(base);
+		directory = address_;
+	std::string lastdir = directory.substr (directory.find_last_of ('/'));
+	if (lastdir != "/new")
+		directory += "/new";
 
 	// Check for existence of a new mail directory
 	if ((stat (directory.c_str(), &file_stat) != 0)||(!S_ISDIR(file_stat.st_mode))) {
@@ -162,11 +104,7 @@ Maildir::get_header (void)
 		if (dent->d_name[0]=='.')
 			continue;
 		std::ifstream file;
-
-		gchar *tmp=g_build_filename(directory.c_str(),dent->d_name);
-		std::string filename(tmp);
-		g_free(tmp);
-
+		std::string filename = directory + std::string("/") + std::string (dent->d_name);
 		file.open (filename.c_str());
 		if (file.is_open()) {
 			while (!file.eof()) {
@@ -177,8 +115,9 @@ Maildir::get_header (void)
 			parse (mail);
 			mail.clear();
 		}
-		else
+		else {
 			g_warning (_("Cannot open %s."), filename.c_str());
+		}
 		file.close();
 	}
 	closedir (dir);
@@ -186,7 +125,7 @@ Maildir::get_header (void)
 	// Restore status
 	status_ = saved_status;
 
-	if ((unread_ == new_unread_) && (new_unread_.size() > 0))
+	if ((unread_ == new_unread_) && (unread_.size() > 0))
 		status_ = MAILBOX_OLD;
 
 	unread_ = new_unread_;

@@ -29,8 +29,10 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include "support.h"
+
 #include <sstream>
-#include "nls.h"
+
 #include "ui-certificate.h"
 #include "socket.h"
 
@@ -40,8 +42,8 @@ Certificate::Certificate (void) : GUI (GNUBIFF_DATADIR"/certificate.glade")
 #ifdef HAVE_LIBSSL
 	socket_ = 0;
 	certificate_ = 0;
-	stored_certificate_ = 0;
 #endif
+	stored_certificate_ = 0;
 }
 
 Certificate::~Certificate (void)
@@ -60,9 +62,7 @@ Certificate::select (Socket *socket)
 {
 	if (socket) {
 		socket_ = socket;
-		gdk_threads_enter();
 		show ();
-		gdk_threads_leave();
 	}
 }
 
@@ -129,10 +129,10 @@ Certificate::on_ok (GtkWidget *widget)
 #ifdef HAVE_LIBSSL
 	stored_certificate_ = certificate_;
 	certificate_ = 0;
-	socket_->bypass_certificate (true);
 #endif
+	socket_->bypass_certificate (true);
 	hide();
-	gtk_main_quit ();
+	gtk_main_quit();
 }
 
 void
@@ -141,10 +141,10 @@ Certificate::on_cancel (GtkWidget *widget)
 #ifdef HAVE_LIBSSL
 	stored_certificate_ = 0;
 	certificate_ = 0;
-	socket_->bypass_certificate (false);
 #endif
+	socket_->bypass_certificate (false);
 	hide();
-	gtk_main_quit ();
+	gtk_main_quit();
 }
 
 gboolean
@@ -154,10 +154,10 @@ Certificate::on_destroy (GtkWidget *widget,
 #ifdef HAVE_LIBSSL
 	stored_certificate_ = 0;
 	certificate_ = 0;
-	socket_->bypass_certificate (false);
 #endif
+	socket_->bypass_certificate (false);
 	hide();
-	gtk_main_quit ();
+	gtk_main_quit();
 	return TRUE;
 }
 
@@ -168,9 +168,9 @@ Certificate::on_delete	(GtkWidget *widget,
 #ifdef HAVE_LIBSSL
 	stored_certificate_ = 0;
 	certificate_ = 0;
-	socket_->bypass_certificate (false);
 #endif
+	socket_->bypass_certificate (false);
 	hide();
-	gtk_main_quit ();
+	gtk_main_quit();
 	return TRUE;
 }

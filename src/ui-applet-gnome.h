@@ -60,7 +60,7 @@ public:
 	/* callbacks */
 	gboolean on_button_press (GdkEventButton *event);
 	void on_menu_properties (BonoboUIComponent *uic, const gchar *verbname);
-	void on_menu_mail_app (BonoboUIComponent *uic, const gchar *verbname);
+	void on_menu_command (BonoboUIComponent *uic, const gchar *verbname);
 	void on_menu_mail_read (BonoboUIComponent *uic, const gchar *verbname);
 	void on_menu_about (BonoboUIComponent *uic, const gchar *verbname);
 };

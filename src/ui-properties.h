@@ -34,6 +34,11 @@
 
 #include "gui.h"
 
+const gint	TYPE_AUTODETECT			=	0;
+const gint	TYPE_LOCAL				=	1;
+const gint	TYPE_POP				=	2;
+const gint	TYPE_IMAP				=	3;
+
 #define PROPERTIES(x)	((Properties *)(x))
 
 
@@ -42,9 +47,19 @@ class Properties : public GUI {
 protected:
 	class Preferences *	preferences_;
 	class Mailbox	*	mailbox_;
+	GtkUIManager *		type_manager_;
+	GtkWidget *			type_menu_;
+	GtkUIManager *		auth_manager_;
+	GtkWidget *			auth_menu_;
+	GtkSizeGroup *		group_;
+
+	gint				selected_type_;
+	gint				selected_auth_;
 
 public:
-	/* base */
+	// ========================================================================
+	//  Base
+	// ========================================================================
 	Properties (class Preferences *preferences);
 	~Properties (void);
 
@@ -52,20 +67,43 @@ public:
 	gboolean create (void);
 	void show (std::string name = "dialog");
 
-	/* access */
+	// ========================================================================
+	//  Access
+	// ========================================================================
 	void select (class Mailbox *mailbox);
 	class Mailbox *mailbox (void)			{return mailbox_;}
 
-	/* callbacks */
-	void on_ok					(GtkWidget *widget);
-	void on_apply				(GtkWidget *widget);
-	void on_cancel				(GtkWidget *widget);
-	void on_browse_location		(GtkWidget *widget);
-	void on_browse_certificate	(GtkWidget *widget);
-	gboolean on_destroy 		(GtkWidget *widget,
-								 GdkEvent *event);
-	gboolean on_delete			(GtkWidget *widget,
-								 GdkEvent *event);	
+	// ========================================================================
+	//  GUI modification
+	// ========================================================================
+	void update_view 			(void);
+	void type_view				(void);
+	void set_type 				(gint type);
+	void identity_view			(gboolean visible);
+	void details_view			(gboolean visible);
+	void connection_view		(gboolean visible);
+	void auth_view				(gboolean visible);
+	void certificate_view		(gboolean visible);
+	void mailbox_view			(gboolean visible);
+	void delay_view				(gboolean visible);
+
+	// ========================================================================
+	//  Callbacks
+	// ========================================================================
+	void on_delay					(GtkWidget *widget);
+	void on_port					(GtkWidget *widget);
+	void on_mailbox					(GtkWidget *widget);
+	void on_type_changed			(GtkAction *action);
+	void on_auth_changed			(GtkAction *action);
+	void on_browse_address			(GtkWidget *widget);
+	void on_browse_certificate		(GtkWidget *widget);
+	void on_ok						(GtkWidget *widget);
+	void on_apply					(GtkWidget *widget);
+	void on_cancel					(GtkWidget *widget);
+	gboolean on_destroy 			(GtkWidget *widget,
+									 GdkEvent *event);
+	gboolean on_delete				(GtkWidget *widget,
+									 GdkEvent *event);	
 };
 
 #endif

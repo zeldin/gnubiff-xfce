@@ -34,10 +34,10 @@
 # - The third number is the patch number and it usually will only
 #    refer to releases fixing bugs
 #
-# Current version is 2.0.3
+# Current version is 2.1.0
 
 AC_PREREQ(2.53)
-AC_INIT(gnubiff, 2.0.3, gnubiff-bugs@lists.sourceforge.net)
+AC_INIT(gnubiff, 2.1.0, rougier@loria.fr)
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_SRCDIR([src/gnubiff.cc])
@@ -58,6 +58,7 @@ AC_PROG_MAKE_SET
 #                         Checks for libraries                       #
 ######################################################################
 AC_HAVE_LIBRARY(popt)
+AC_HAVE_LIBRARY(fam)
 AC_HAVE_LIBRARY(ssl)
 AC_CHECK_LIB(crypto, MD5_Init, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions),
                 [AC_CHECK_LIB(ssl, MD5_init, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions))])

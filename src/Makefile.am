@@ -16,10 +16,11 @@ gnome_sources =  \
 common_sources = \
 	gnubiff.cc										\
 	biff.cc					biff.h					\
-							nls.h					\
 	\
 	mailbox.cc				mailbox.h				\
 	socket.cc				socket.h				\
+	support.cc				support.h				\
+	local.cc				local.h					\
 	file.cc					file.h					\
 	imap4.cc				imap4.h					\
 	maildir.cc				maildir.h				\
@@ -36,8 +37,28 @@ common_sources = \
 	ui-certificate.cc		ui-certificate.h		\
 	ui-properties.cc		ui-properties.h			\
 	gtk_image_animation.cc	gtk_image_animation.h 	\
-	ui-popup.cc				ui-popup.h				\
-	support.cc				support.h
+	ui-popup.cc				ui-popup.h
+
+
+## In case of compilation problem, just comment next lines
+## then autoconf/automake/configure/make
+.cc.o:
+	@echo -n "Compiling $<... " 
+	@am__fastdepCXX_TRUE@	if $(CXXCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
+	@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; fi
+	@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+	@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
+	@echo "[OK]" 
+
+gnubiff$(EXEEXT): $(gnubiff_OBJECTS) $(gnubiff_DEPENDENCIES) 
+	@rm -f gnubiff$(EXEEXT)
+	@echo -n "Linking $@ ... "
+	$(CXXLINK) $(gnubiff_LDFLAGS) $(gnubiff_OBJECTS) $(gnubiff_LDADD) $(LIBS)
+	@echo "[OK]"
+
+## End of section to be commented in case of compilation problem
+
 
 if USE_GNOME
 gnubiff_SOURCES = \

@@ -29,9 +29,7 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#ifdef HAVE_CONFIG_H
-#   include <config.h>
-#endif
+#include "support.h"
 
 #include <sstream>
 #include <cstdio>
@@ -42,7 +40,6 @@
 #include "ui-applet-gtk.h"
 #include "ui-popup.h"
 #include "mailbox.h"
-#include "nls.h"
 #include "gtk_image_animation.h"
 
 
@@ -63,10 +60,10 @@ extern "C" {
 		return ((AppletGtk *) data)->on_button_press (event);
 	}
 
-	void APPLET_GTK_on_menu_mail_app (GtkWidget *widget,
-									  gpointer data)
+	void APPLET_GTK_on_menu_command (GtkWidget *widget,
+									 gpointer data)
 	{
-		((AppletGtk *) data)->on_menu_mail_app ();
+		((AppletGtk *) data)->on_menu_command ();
 	}
 
 	void APPLET_GTK_on_menu_mark (GtkWidget *widget,
@@ -114,8 +111,9 @@ AppletGtk::create (void)
 	GUI::create();
 	GtkImageAnimation *anim = new GtkImageAnimation (GTK_IMAGE(get("image")));
 	g_object_set_data (G_OBJECT(get("image")), "_animation_", anim);
-	anim->open (biff_->biff_nomail_image_.c_str());
+	anim->open (biff_->nomail_image_.c_str());
 	anim->start();
+	update();
 	return true;
 }
 
@@ -127,6 +125,8 @@ AppletGtk::update (void)
 	if (!g_mutex_trylock (update_mutex_))
 		return;
 
+	Applet::update();
+
 	std::string text;
 	guint unread = unread_markup (text);
 
@@ -134,26 +134,26 @@ AppletGtk::update (void)
 	GtkImageAnimation *anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("image")), "_animation_");
 	if (unread > 0) {
 		gtk_window_set_title (GTK_WINDOW(get("dialog")), _("New mail"));
-		anim->open (biff_->biff_newmail_image_.c_str());
+		anim->open (biff_->newmail_image_.c_str());
 		anim->start();
-		if (!biff_->biff_use_newmail_image_)
+		if (!biff_->use_newmail_image_)
 			hide();
 		else
 			show ();
-		if (!biff_->biff_use_newmail_text_)
+		if (!biff_->use_newmail_text_)
 			gtk_widget_hide (get("unread"));
 		else
 			gtk_widget_show (get("unread"));
 	}
 	else {
 		gtk_window_set_title (GTK_WINDOW(get("dialog")), _("No mail"));
-		anim->open (biff_->biff_nomail_image_.c_str());
+		anim->open (biff_->nomail_image_.c_str());
 		anim->start();
-		if (!biff_->biff_use_nomail_image_)
+		if (!biff_->use_nomail_image_)
 			hide();
 		else
 			show ();
-		if (!biff_->biff_use_nomail_text_)
+		if (!biff_->use_nomail_text_)
 			gtk_widget_hide (get("unread"));
 		else
 			gtk_widget_show (get("unread"));
@@ -174,8 +174,8 @@ AppletGtk::update (void)
 
 	// Update window manager decorations
 	gboolean decorated = gtk_window_get_decorated (GTK_WINDOW(get("dialog")));
-	if (decorated != biff_->biff_is_decorated_)
-		gtk_window_set_decorated (GTK_WINDOW(get("dialog")), biff_->biff_is_decorated_);
+	if (decorated != biff_->applet_use_decoration_)
+		gtk_window_set_decorated (GTK_WINDOW(get("dialog")), biff_->applet_use_decoration_);
 	tooltip_update();
 	show();
 
@@ -190,14 +190,14 @@ AppletGtk::show (std::string name)
 	for (unsigned int i=0; i<biff_->size(); i++)
 		unread += biff_->mailbox(i)->unreads();
 
-	if ((unread > 0) && (!biff_->biff_use_newmail_image_))
+	if ((unread > 0) && (!biff_->use_newmail_image_))
 		return;
-	else if (!biff_->biff_use_nomail_image_)
+	else if (!biff_->use_nomail_image_)
 		return;
 
 	gtk_widget_show (get("dialog"));
-	if (biff_->biff_use_geometry_)
-		gtk_window_parse_geometry (GTK_WINDOW(get("dialog")), biff_->biff_geometry_.c_str());
+	if (biff_->applet_use_geometry_)
+		gtk_window_parse_geometry (GTK_WINDOW(get("dialog")), biff_->applet_geometry_.c_str());
 }
 
 
@@ -215,28 +215,29 @@ AppletGtk::on_button_press (GdkEventButton *event)
 {
 	// Double left click : start mail app
 	if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1))
-		on_menu_mail_app ();
+		on_menu_command ();
 
 	// Single left click : force mail check
-	else if (event->button == 1)
-		watch();
+	else if (event->button == 1) {
+		force_popup_ = true;
+		update ();
+	}
 
 	// Single middle click : mark mails as read
 	else if (event->button == 2) {
 		for (unsigned int i=0; i<biff_->size(); i++)
-			biff_->mailbox(i)->mark_all();
+			biff_->mailbox(i)->read();
 		force_popup_ = true;
 		biff_->popup()->hide();
-		biff_->applet()->process();
-		biff_->applet()->update();
+		update();
 	}
 
 	// Single right click : popup menu
 	else if (event->button == 3) {
-		if (biff_->mail_app_.empty())
-			gtk_widget_set_sensitive (get("menu_start_mailapp"), false);
+		if (biff_->use_double_command_)
+			gtk_widget_set_sensitive (get("menu_start_command"), true);
 		else
-			gtk_widget_set_sensitive (get("menu_start_mailapp"), true);
+			gtk_widget_set_sensitive (get("menu_start_command"), true);
 		gtk_menu_popup (GTK_MENU(get("menu")), NULL, NULL, NULL, NULL, event->button, event->time);
 	}
 	return true;
@@ -244,10 +245,10 @@ AppletGtk::on_button_press (GdkEventButton *event)
 
 
 void
-AppletGtk::on_menu_mail_app (void)
+AppletGtk::on_menu_command (void)
 {
-	if (!biff_->mail_app_.empty()) {
-		std::string command = biff_->mail_app_ + " &";
+	if ((biff_->use_double_command_) && (!biff_->double_command_.empty())) {
+		std::string command = biff_->double_command_ + " &";
 		system (command.c_str());
 	}
 }
@@ -255,7 +256,6 @@ AppletGtk::on_menu_mail_app (void)
 void
 AppletGtk::on_menu_preferences (void)
 {
-	biff_->applet()->watch_off();
 	biff_->popup()->hide();
 	biff_->preferences()->show();
 }
@@ -264,11 +264,10 @@ void
 AppletGtk::on_menu_mark (void)
 {
 	for (unsigned int i=0; i<biff_->size(); i++)
-		biff_->mailbox(i)->mark_all();
+		biff_->mailbox(i)->read ();
 	force_popup_ = true;
 	biff_->popup()->hide();
-	biff_->applet()->process();
-	biff_->applet()->update();
+	update();
 }
 
 void

@@ -29,15 +29,18 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include "support.h"
+
 #include <sstream>
 #include <cstdio>
 #include <string>
 #include <glib.h>
 #include <math.h>
+
+#include "ui-preferences.h"
+#include "ui-applet.h"
 #include "ui-popup.h"
 #include "mailbox.h"
-#include "nls.h"
-#include "support.h"
 
 
 /**
@@ -116,8 +119,6 @@ Popup::create (void)
 								G_TYPE_STRING,	// Sender
 								G_TYPE_STRING,	// Subject
 								G_TYPE_STRING,	// Date
-								G_TYPE_STRING,	// Font color
-//								G_TYPE_STRING,	// Background color
 								G_TYPE_POINTER); // Pointer to the array element
 	model = GTK_TREE_MODEL (store);
 
@@ -138,40 +139,30 @@ Popup::create (void)
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Mailbox"), renderer,
 													   "text", COLUMN_NAME,
-													   "foreground", COLUMN_FONT_COLOR,
-//													   "cell-background", COLUMN_BACK_COLOR,
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes ("#", renderer,
 													   "text", COLUMN_NUMBER,
-													   "foreground", COLUMN_FONT_COLOR,
-//													   "cell-background", COLUMN_BACK_COLOR,
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("From"), renderer,
 													   "text", COLUMN_SENDER,
-													   "foreground", COLUMN_FONT_COLOR,
-//													   "cell-background", COLUMN_BACK_COLOR,
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Subject"), renderer,
 													   "text", COLUMN_SUBJECT,
-													   "foreground", COLUMN_FONT_COLOR,
-//													   "cell-background", COLUMN_BACK_COLOR,
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Date"), renderer,
 													   "text", COLUMN_DATE,
-													   "foreground", COLUMN_FONT_COLOR,
-//													   "cell-background", COLUMN_BACK_COLOR,
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
   
@@ -199,6 +190,12 @@ Popup::create (void)
 	gtk_text_buffer_create_tag (buffer, "normal",
 								"size", 9 * PANGO_SCALE,
 								NULL);
+
+	// Black frame for the mail content header
+	GdkColor color;
+	gdk_color_parse ("Black", &color);
+	gtk_widget_modify_bg (get("ebox_out"), GTK_STATE_NORMAL, &color);
+	gtk_widget_set_state (get("ebox_in"), GTK_STATE_PRELIGHT);
 
 	// That's it
 	return true;
@@ -232,9 +229,10 @@ Popup::update (void)
 
 	unsigned int displayed_header = 0;
 	// Now we populate list
+
 	for (unsigned int j=0; j<biff_->size(); j++) {
 		for (guint i=0; (i<biff_->mailbox(j)->unreads()); i++) {
-			if (displayed_header < biff_->popup_max_line_) {
+			if (displayed_header < biff_->popup_size_) {
 				std::stringstream s;
 				s << i+1;
 				gtk_list_store_append (store, &iter);
@@ -242,17 +240,30 @@ Popup::update (void)
 				// Subject
 				buffer = parse_header (biff_->mailbox(j)->unread(i).subject);
 				gchar *subject;
-				subject = gb_utf8_strndup (buffer, biff_->popup_max_subject_size_);
+				if ((biff_->popup_use_format_) && (biff_->subject_size_ > 0))
+					subject = gb_utf8_strndup (buffer, biff_->subject_size_);
+				else
+					subject = gb_utf8_strndup (buffer, 256);
 				g_free (buffer);
 				saved_strings.push_back (subject);
 
 				// Date
-				gchar *date = parse_header (biff_->mailbox(j)->unread(i).date);
+				buffer = parse_header (biff_->mailbox(j)->unread(i).date);
+				gchar *date;
+				if ((biff_->popup_use_format_) && (biff_->date_size_ > 0))
+					date = gb_utf8_strndup (buffer, biff_->date_size_);
+				else
+					date = gb_utf8_strndup (buffer, 256);
+				g_free (buffer);
 				saved_strings.push_back (date);
 				
 				// Sender
-				gchar *buffer = parse_header (biff_->mailbox(j)->unread(i).sender);
-				gchar *sender = gb_utf8_strndup (buffer, biff_->popup_max_sender_size_);
+				buffer = parse_header (biff_->mailbox(j)->unread(i).sender);
+				gchar *sender;
+				if ((biff_->popup_use_format_) && (biff_->sender_size_ > 0))
+					sender = gb_utf8_strndup (buffer, biff_->sender_size_);
+				else
+					sender = gb_utf8_strndup (buffer, 256);
 				g_free (buffer);
 				saved_strings.push_back (sender);
 
@@ -265,8 +276,6 @@ Popup::update (void)
 									COLUMN_SENDER, sender, 
 									COLUMN_SUBJECT, subject,
 									COLUMN_DATE, date,
-									COLUMN_FONT_COLOR, biff_->popup_font_color_.c_str(),
-//									COLUMN_BACK_COLOR, biff_->popup_back_color_.c_str(),
 									COLUMN_HEADER, &biff_->mailbox(j)->unread(i),
 									-1);
 				displayed_header++;
@@ -275,7 +284,7 @@ Popup::update (void)
 	}
 
 	// Update window decoration
-	gtk_window_set_decorated (GTK_WINDOW(get("dialog")), biff_->popup_is_decorated_);
+	gtk_window_set_decorated (GTK_WINDOW(get("dialog")), biff_->popup_use_decoration_);
 
 	// Update fonts
 	GtkWidget *treeview = get("treeview");
@@ -284,17 +293,26 @@ Popup::update (void)
 	gtk_widget_modify_font (treeview, font);
 	pango_font_description_free (font);
 
-	// Update date display
-	GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (treeview), COLUMN_DATE);
-	gtk_tree_view_column_set_visible (column, biff_->popup_display_date_);
+	if ((biff_->popup_use_format_) && (biff_->subject_size_ == 0)) {
+		GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (treeview), COLUMN_SUBJECT);
+		gtk_tree_view_column_set_visible (column, false);
+	}
+	if ((biff_->popup_use_format_) && (biff_->sender_size_ == 0)) {
+		GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (treeview), COLUMN_SENDER);
+		gtk_tree_view_column_set_visible (column, false);
+	}
+	if ((biff_->popup_use_format_) && (biff_->date_size_ == 0)) {
+		GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (treeview), COLUMN_DATE);
+		gtk_tree_view_column_set_visible (column, false);
+	}
 }
 
 void
 Popup::show (std::string name)
 {
-	for (unsigned int i=0; i<biff_->size(); i++)
-		biff_->mailbox(i)->watch_off();
-
+	// FIXME ?
+	//	for (unsigned int i=0; i<biff_->size(); i++)
+	//		biff_->applet(i)->stop();
 	tree_selection_ = 0;
 	selected_header_ = 0;
 	consulting_ = false;
@@ -306,7 +324,7 @@ Popup::show (std::string name)
 	g_static_mutex_lock (&timer_mutex_);
 	if (poptag_ > 0) 
 		g_source_remove (poptag_);
-	poptag_ = g_timeout_add (biff_->popup_time_*1000, POPUP_on_popdown, this);
+	poptag_ = g_timeout_add (biff_->popup_delay_*1000, POPUP_on_popdown, this);
 	g_static_mutex_unlock (&timer_mutex_);
 
 	if (tree_selection_)
@@ -326,8 +344,8 @@ Popup::on_delete (GtkWidget *widget,
 	g_static_mutex_unlock (&timer_mutex_);
 
 	if (biff_->check_mode_ == AUTOMATIC_CHECK)
-		for (unsigned int i=0; i<biff_->size(); i++)
-			biff_->mailbox(i)->watch_on();
+		if (!GTK_WIDGET_VISIBLE(biff_->preferences()->get()))
+			biff_->applet()->start ();
 	return true;
 }
 
@@ -341,8 +359,8 @@ Popup::on_popdown (void)
 	poptag_ = 0;
 	g_static_mutex_unlock (&timer_mutex_);
 	if (biff_->check_mode_ == AUTOMATIC_CHECK)
-		for (unsigned int i=0; i<biff_->size(); i++)
-			biff_->mailbox(i)->watch_on();
+		if (!GTK_WIDGET_VISIBLE(biff_->preferences()->get()))
+			biff_->applet()->start ();
 	return false;
 }
 
@@ -373,8 +391,8 @@ Popup::on_button_press (GdkEventButton *event)
 		gtk_widget_hide (get("popup"));
 		consulting_ = false;
 		if (biff_->check_mode_ == AUTOMATIC_CHECK)
-			for (unsigned int i=0; i<biff_->size(); i++)
-				biff_->mailbox(i)->watch_on();
+			if (!GTK_WIDGET_VISIBLE(biff_->preferences()->get()))
+				biff_->applet()->start ();
 	}
 	return false;
 }
@@ -409,7 +427,7 @@ Popup::on_leave (GdkEventCrossing *event)
 		g_static_mutex_lock (&timer_mutex_);
 		if (poptag_ > 0)
 			g_source_remove (poptag_);  
-		poptag_ = g_timeout_add (biff_->popup_time_*1000, POPUP_on_popdown, this);
+		poptag_ = g_timeout_add (biff_->popup_delay_*1000, POPUP_on_popdown, this);
 		g_static_mutex_unlock (&timer_mutex_);
 	}
 }
@@ -423,7 +441,6 @@ Popup::on_select (GtkTreeSelection *selection)
 	tree_selection_ = selection;
 	gchar *text;
 
-   
 	// We get the adress of the selected header by getting field 6 of
 	// the store model where we stored this info
 	if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
@@ -456,31 +473,25 @@ Popup::on_select (GtkTreeSelection *selection)
 		gtk_text_buffer_get_iter_at_offset (buffer, &iter, 0);
 
 		// Sender
-		gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, _("From: "), -1, "bold", NULL);
 		text = parse_header (selected_header_->sender);
 		if (text) {
-			gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, text, -1, "blue", NULL);
+			gtk_label_set_text (GTK_LABEL(get("from")), text);
 			g_free (text);
 		}
-		gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, "\n", -1, "normal", NULL);
 
 		// Subject
-		gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, _("Subject: "), -1, "bold", NULL);
-		text = parse_header(selected_header_->subject);
+		text = parse_header (selected_header_->subject);
 		if (text) {
-			gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, text, -1, "blue", NULL);
+			gtk_label_set_text (GTK_LABEL(get("subject")), text);
 			g_free (text);
 		}
-		gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, "\n", -1, "normal", NULL);
 
 		// Date
-		gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, _("Date: "), -1, "bold",  NULL);
 		text = parse_header(selected_header_->date);
 		if (text) {
-			gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, text, -1, "blue", NULL);
+			gtk_label_set_text (GTK_LABEL(get("date")), text);
 			g_free (text);
 		}
-		gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, "\n\n", -1, "normal", NULL);
 
 		// Body
 		text = convert (selected_header_->body, selected_header_->charset);
@@ -493,7 +504,7 @@ Popup::on_select (GtkTreeSelection *selection)
 
 
 /**
- *   Parse a header line to remove any quoted-printable or base64
+ *  Parse a header line to remove any quoted-printable or base64
  *  encoding. Subject line are kind of special because character set is
  *  encoded within the text For example it can be something like:
  *  =?iso-8859-1?Q?Apr=E8s?=
@@ -530,7 +541,7 @@ Popup::parse_header (std::string text)
 					g_free (utf8_part);
 					utf8_text = buffer;
 				}
-				copy_part.erase();
+				copy_part.clear();
 			}
 			i+=2; 
 			if (i >= copy.size()) {
@@ -558,7 +569,7 @@ Popup::parse_header (std::string text)
 				copy_part = _("* error *");
 				break;
 			}
-			copy_part.erase();
+			copy_part.clear();
 			while ((i < copy.size()) && (copy.substr(i,2) != "?="))
 				copy_part += copy[i++];
 			if (i >= copy.size()) {

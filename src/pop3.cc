@@ -29,6 +29,8 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include "support.h"
+
 #include <string>
 #include <sstream>
 #include <glib.h>
@@ -38,9 +40,10 @@
 #include "ui-authentication.h"
 #include "pop3.h"
 #include "socket.h"
-#include "nls.h"
 
-
+// ========================================================================
+//  base
+// ========================================================================	
 Pop3::Pop3 (Biff *biff) : Pop (biff)
 {
 	protocol_ = PROTOCOL_POP3;
@@ -57,17 +60,19 @@ Pop3::~Pop3 (void)
 }
 
 
+
+// ========================================================================
+//  main
+// ========================================================================	
 int
 Pop3::connect (void)
 {
-	if (biff_->no_clear_password_ && !use_ssl_) {
-		status_  = MAILBOX_BLOCKED;
-		return 0;
-	}
-
 	// show authentication if password is empty
-	if (password_.empty())
-		ui_authentication_->select (this);
+	if (password_.empty()) {
+		gdk_threads_enter ();
+		ui_auth_->select (this);
+		gdk_threads_leave ();
+	}
 
 	// if it is still empty after authentication, just return
 	if (password_.empty()) {
@@ -76,9 +81,39 @@ Pop3::connect (void)
 		return 0;
 	}
 
+	// Check standard port
+	if (!use_other_port_)
+		if (authentication_ == AUTH_USER_PASS)
+			port_ = 110;
+		else
+			port_ = 995;
+
 	// connection
-	if (!socket_->open (hostname_, port_, use_ssl_, certificate_)) {
-		socket_->status (SOCKET_STATUS_ERROR);
+	if (authentication_ == AUTH_AUTODETECT) {
+		guint port = port_;
+		if (!use_other_port_)
+			port = 995;
+		if (!socket_->open (address_, port, AUTH_SSL)) {
+			if (!use_other_port_)
+				port = 110;
+			if (!socket_->open (address_, port, AUTH_USER_PASS)) {
+				status_ = MAILBOX_ERROR;
+				return 0;
+			}
+			else {
+				port_ = port;
+				authentication_ = AUTH_USER_PASS;
+				socket_->close();
+			}
+		}
+		else {
+			port_ = port;
+			authentication_ = AUTH_SSL;
+			socket_->close();
+		}
+	}
+
+	if (!socket_->open (address_, port_, authentication_, certificate_, 3)) {
 		status_ = MAILBOX_ERROR;
 		return 0;
 	}
@@ -94,9 +129,10 @@ Pop3::connect (void)
 	// LOGIN : password
 	line = "PASS " + password_ + std::string ("\r\n");
 
+	// Just in case send someone me the output: password won't be displayed
+	std::string line_no_password = "PASS (hidden)\r\n";
 #ifdef DEBUG
-	// Just in case someone sends me the output: password won't be displayed
-	g_print ("** Message: [%d] SEND(%s:%d): %s", uin_, hostname_.c_str(), port_, "PASS (hidden)\r\n");
+	g_print ("** Message: [%d] SEND(%s:%d): %s", uin_, address_.c_str(), port_, line_no_password.c_str());
 #endif
 
 	if (!socket_->write (line,false)) return 0;

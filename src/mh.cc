@@ -33,15 +33,18 @@
 #include <sstream>
 #include <sys/stat.h>
 #include <utime.h>
+
 #include "mh.h"
 
-
-Mh::Mh (Biff *biff) : Mailbox (biff)
+// ========================================================================
+//  base
+// ========================================================================	
+Mh::Mh (Biff *biff) : Local (biff)
 {
 	protocol_ = PROTOCOL_MH;
 }
 
-Mh::Mh (const Mailbox &other) : Mailbox (other)
+Mh::Mh (const Mailbox &other) : Local (other)
 {
 	protocol_ = PROTOCOL_MH;
 }
@@ -50,21 +53,28 @@ Mh::~Mh (void)
 {
 }
 
+
+// ========================================================================
+//  base
+// ========================================================================	
 int
 Mh::connect (void)
 {
-	// Build filename (.mh_sequences)
 	std::string filename;
-	gchar *base=g_path_get_basename(location_.c_str());
-	if (base==std::string(".mh_sequences"))
-		filename=location_;
-	else
-	{
-		gchar *tmp=g_build_filename(location_.c_str(),".mh_sequences",NULL);
-		filename=std::string(tmp);
-		g_free(tmp);
+	struct stat file_stat;
+
+	// Check for mail directory
+	if ((stat (address_.c_str(), &file_stat) != 0) || (!S_ISDIR(file_stat.st_mode)))
+		return false;
+
+	// Build filename (.mh_sequences)
+	if (address_.find (".mh_sequences") == std::string::npos) {
+		if (address_[address_.size()-1] == '/') 
+			filename = address_.substr (0, address_.size()-1);
+		filename += "/.mh_sequences";
 	}
-	g_free(base);
+	else
+		filename = address_;
 
 	std::ifstream file;
 	file.open (filename.c_str());
@@ -132,18 +142,19 @@ Mh::connect (void)
 }
 
 void
-Mh::get_status (void)
+Mh::fetch (void)
 {
+	std::vector<std::string> mail;
+
 	std::vector<guint> buffer = saved_;
 
-	status_ = MAILBOX_CHECKING;
+	status_ = MAILBOX_CHECK;
 
 	// Parse unseen sequence
 	if (!connect()) {
 		status_ = MAILBOX_ERROR;
 		return;
 	}
-
 
 	// Find mailbox status by comparing saved list with the new one
 	if (saved_.empty()) {
@@ -166,12 +177,6 @@ Mh::get_status (void)
 			}
 		}
 	}     
-}
-
-void
-Mh::get_header (void)
-{
-	std::vector<std::string> mail;
 
 	new_unread_.clear();
 	new_seen_.clear();
@@ -181,13 +186,13 @@ Mh::get_header (void)
 		std::stringstream s;
 		s << saved_[i];
 
+		std::string filename;
+		if (address_[address_.size()-1] != '/')
+			filename = address_ + std::string("/") + s.str();
+		else
+			filename = address_ + s.str();
 		mail.clear();
-
-		gchar *filename=g_build_filename(location_.c_str(),
-										 s.str().c_str(),NULL);
-		file.open (filename);
-        g_free(filename);
-
+		file.open (filename.c_str());
 		if (file.is_open()) {
 			while (!file.eof()) {
 				getline(file, line);
@@ -198,7 +203,7 @@ Mh::get_header (void)
 		}
 	}
 
-	if ((unread_ == new_unread_) && (new_unread_.size() > 0))
+	if ((unread_ == new_unread_) && (unread_.size() > 0))
 		status_ = MAILBOX_OLD;
 
 	unread_ = new_unread_;

@@ -31,79 +31,42 @@
 
 #include <fstream>
 #include <sstream>
-#include <time.h>
 #include <utime.h>
+
 #include "file.h"
 
-File::File (Biff *biff) : Mailbox (biff)
+// ========================================================================
+//  base
+// ========================================================================	
+File::File (Biff *biff) : Local (biff)
 {
 	protocol_ = PROTOCOL_FILE;
-	bzero (&last_stat_, sizeof(last_stat_));
 }
 
-File::File (const Mailbox &other) : Mailbox (other)
+File::File (const Mailbox &other) : Local (other)
 {
 	protocol_ = PROTOCOL_FILE;
-	bzero (&last_stat_, sizeof (last_stat_));
 }
 
 File::~File (void)
 {
 }
 
-void
-File::get_status (void)
-{
-	struct stat file_stat;
-	// To get the status of a mail file we look at modification time and
-	// compare it with the saved one.  This methods is not 100% error
-	// free because a mail client could modify the file in some way and
-	// there would be no new mail at all. In this case, gnubiff would
-	// report new mail while there aren't. This is not a big deal since
-	// the fetch function will try to collect new mail and will realize
-	// there aren't and modify status consequently. It will only slow
-	// gnubiff a bit.
-
-	// Try to get stats on mailbox
-	if (stat (location_.c_str(), &file_stat) != 0) {
-		status_ = MAILBOX_ERROR;
-		return;
-	}
-
-	//
-	// The following rules borrowed from xbiff are used:
-	//
-	// 1) if no mailbox or empty (zero-sized) mailbox mark EMPTY
-	// 2) if read after most recent write mark EMPTY
-	// 3) if same size as last time no change
-	// 4) if change in size mark NEW
-	//
-	if (file_stat.st_size == 0)
-		status_ = MAILBOX_EMPTY;
-	else
-		if (file_stat.st_atime > file_stat.st_mtime)
-			status_ = MAILBOX_EMPTY;
-		else if (file_stat.st_size != last_stat_.st_size)
-			status_ = MAILBOX_NEW;
-
-
-	memcpy (&last_stat_, &file_stat, sizeof (struct stat));
-}
-
-
-void File::get_header (void)
+// ========================================================================
+//  main
+// ========================================================================	
+void File::fetch (void)
 {
 	struct stat file_stat;
 	struct utimbuf timbuf;
-	int saved_status = status_;
   
 	// Status will be restored in the end if no problem occured
-	status_ = MAILBOX_CHECKING;
+	status_ = MAILBOX_CHECK;
 
 	// First we save access time of the mailfile to be able to reset it
 	// before exiting this function because some mail clients (e.g. mutt)
 	// rely on this access time to perform some operations.
-	if (stat (location_.c_str(), &file_stat) != 0) {
+	if (stat (address_.c_str(), &file_stat) != 0) {
 		status_ = MAILBOX_ERROR;
 		return;
 	}
@@ -113,23 +76,14 @@ void File::get_header (void)
 
 	// Open mailbox for reading
 	std::ifstream file;
-	file.open (location_.c_str());
+	file.open (address_.c_str());
 	if (!file.is_open()) {
 		status_ = MAILBOX_ERROR;
 		return;
 	}
 
-	// Try to get mails
-
-	// We should restrict our collect to biff_->_max_header_display and try
-	// to get unread mail in priority. Nonetheless, with this protocol,
-	// we have no way of geeting only unread mail without parsing the
-	// whole mailfile that can be pretty big. So instead of doing that,
-	// we read the file sequentially until we get enough mails knowing
-	// that new mail should be at the beginning of the file.
-	//
-	new_unread_.clear();
-	new_seen_.clear();
+	new_unread_.clear ();
+	new_seen_.clear ();
 	std::vector<std::string> mail;
 	std::string line; 
 	getline(file, line);
@@ -150,23 +104,21 @@ void File::get_header (void)
 	if (mail.size() > 1)
 		parse (mail);
 
-
 	// Close mailbox
 	file.close ();
  
 	// Restore acces and modification time
-	utime (location_.c_str(), &timbuf);
-
-	// Restore status
-	status_ = saved_status;
+	utime (address_.c_str(), &timbuf);
 
 	if ((unread_ == new_unread_) && (new_unread_.size() > 0))
 		status_ = MAILBOX_OLD;
-
-	// Last check in case mailbox empty (because pine leaves one internal data mail)
-	if (new_unread_.size() == 0)
+	else if (new_unread_.size() > 0)
+		status_ = MAILBOX_NEW;
+	else if (new_unread_.size() == 0)
 		status_ = MAILBOX_EMPTY;
+	else
+		status_ = MAILBOX_ERROR;
 
 	unread_ = new_unread_;
-	seen_ = new_seen_;	
+	seen_ = new_seen_;
 }

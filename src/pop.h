@@ -34,25 +34,31 @@
 
 #include "mailbox.h"
 
+#define POP(x)					((Pop *)(x))
+
 
 class Pop : public Mailbox {
-
 protected:
 	class Socket *	 			socket_;		// socket to talk to server
 	std::vector<std::string> 	saved_;			// saved uidl's
 
 public:
-	/* base */
+	// ========================================================================
+	//  base
+	// ========================================================================	
 	Pop (class Biff *biff);
 	Pop (const Mailbox &other);
 	virtual ~Pop (void);
 
-	/* main */
+	// ========================================================================
+	//  main
+	// ========================================================================	
+	virtual void threaded_start (guint delay = 0);
+	void start (void);
+	void fetch (void);
 	virtual int connect (void) = 0;
-
-	/* mailbox inherited methods */
-	virtual void get_status (void);
-	virtual void get_header (void);
+	void fetch_status (void);
+	void fetch_header (void);
 };
 
 #endif

@@ -50,7 +50,7 @@ class AppletGtk : public Applet {
 
 	/* callbacks */
 	gboolean on_button_press (GdkEventButton *event);
-	void on_menu_mail_app (void);
+	void on_menu_command (void);
 	void on_menu_mark (void);
 	void on_menu_preferences (void);
 	void on_menu_about (void);

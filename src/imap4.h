@@ -35,32 +35,34 @@
 #include "mailbox.h"
 #include "socket.h"
 
+#define IMAP4(x)				((Imap4 *)(x))
+
 
 class Imap4 : public Mailbox {
 
-private:
-	std::string tag_;
-	guint tagcounter_;
 protected:
-	class Socket *			socket_;
-	std::vector<int>		saved_;
-	std::string parse_bodystructure (std::string, gint &,
-									 gboolean toplevel=true);
-	void reset_tag();
-	std::string tag();
-	gint send(std::string,gboolean debug=true);
+	class Socket *				socket_;		// socket to talk to server
+	std::vector<int>			saved_;			// saved uidl's
+	gboolean					idleable_;		// does server support the IDLE capability ?
+	gboolean					idled_;			// Is the  server ucrrently idled
+
 public:
-	/* Base */
+	// ========================================================================
+	//  base
+	// ========================================================================	
 	Imap4 (class Biff *owner);
 	Imap4 (const Mailbox &other);
 	~Imap4 (void);
 
-	/* Main */
+	// ========================================================================
+	//  main
+	// ========================================================================	
+	virtual void threaded_start (guint delay = 0);
+	void start (void);
+	void fetch (void);
 	gint connect (void);
-
-	/* Mailbox inherited methods */
-	void get_status (void);
-	void get_header (void);
+	void fetch_status (void);
+	void fetch_header (void);
 };
 
 #endif

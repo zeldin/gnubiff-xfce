@@ -32,10 +32,16 @@
 #include <sstream>
 #include <sys/stat.h>
 #include <utime.h>
+
+#include "ui-applet.h"
+#include "ui-popup.h"
 #include "pop.h"
 #include "socket.h"
 
 
+// ========================================================================
+//  base
+// ========================================================================	
 Pop::Pop (Biff *biff) : Mailbox (biff)
 {
 	socket_ = new Socket (this);
@@ -50,14 +56,57 @@ Pop::~Pop (void)
 {
 }
 
+// ========================================================================
+//  main
+// ========================================================================	
+void
+Pop::threaded_start (guint delay)
+{
+	stopped_ = false;
 
-void Pop::get_status (void)
+	// Is there already a timeout ?
+	if (timetag_)
+		return;
+
+	// Do we want to start using given delay ?
+	if (delay)
+		timetag_ = g_timeout_add (delay*1000, start_delayed_entry_point, this);
+	//  or internal delay ?
+	else
+		timetag_ = g_timeout_add (delay_*1000, start_delayed_entry_point, this);
+}
+
+void
+Pop::start (void)
+{
+	if (!g_mutex_trylock (monitor_mutex_))
+		return;
+	fetch ();
+	g_mutex_unlock (monitor_mutex_);
+
+	threaded_start (delay_);
+}
+
+void
+Pop::fetch (void)
+{
+	fetch_status();
+	if ((status_ == MAILBOX_NEW) || (status_ == MAILBOX_EMPTY))
+		fetch_header();
+
+	if (!GTK_WIDGET_VISIBLE (biff_->popup()->get())) {
+		gdk_threads_enter();
+		biff_->applet()->update();
+		gdk_threads_leave();
+	}
+}
+
+void
+Pop::fetch_status (void)
 {
 	std::string line;
 	std::vector<std::string> buffer;
-  
-	// By default we consider to be in an error status
-	status_ = MAILBOX_CHECKING;
+	status_ = MAILBOX_CHECK;
 
 	// Connection and authentification
 	if (!connect())	return;
@@ -95,7 +144,7 @@ void Pop::get_status (void)
 		if (!socket_->write (line)) return;
 		if (!socket_->read (line, false)) return;
 #ifdef DEBUG
-		g_print ("** Message: [%d] RECV(%s:%d): %s\n", uin_, hostname_.c_str(), port_, line.c_str());
+		g_print ("** Message: [%d] RECV(%s:%d): %s\n", uin_, address_.c_str(), port_, line.c_str());
 #endif
 		sscanf (line.c_str()+4, "%ud %70s\n", &dummy, (char *) &uidl);
 		buffer.push_back (uidl);
@@ -106,9 +155,8 @@ void Pop::get_status (void)
 		status_ = MAILBOX_EMPTY;
 
 	// Quick test (when there were really no change at all)
-	else if (buffer == saved_) {
+	else if (buffer == saved_)
 		status_ = MAILBOX_OLD;
-	}
 	
 	// Quick test (if there are only more mail than previously)
 	else if (buffer.size() > saved_.size())
@@ -132,7 +180,6 @@ void Pop::get_status (void)
 	}
 	saved_ = buffer;
 
-
 	// LOGOUT
 	line = "QUIT\r\n";
 	if (!socket_->write (line)) return;
@@ -143,14 +190,14 @@ void Pop::get_status (void)
 
 
 void
-Pop::get_header (void)
+Pop::fetch_header (void)
 {
 	std::string line;
 	static std::vector<std::string> buffer;
 	int saved_status = status_;
   
 	// Status will be restored in the end if no problem occured
-	status_ = MAILBOX_CHECKING;
+	status_ = MAILBOX_CHECK;
 
 	// Connection and authentification
 	if (!connect()) return;
@@ -188,25 +235,20 @@ Pop::get_header (void)
 		line = "TOP " + s.str() + std::string (" 12\r\n");
 		if (!socket_->write (line)) return;
 #ifdef DEBUG
-		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, hostname_.c_str(), port_);
+		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, address_.c_str(), port_);
 #endif
 		if (!socket_->read (line, false)) return;
-		gint cnt=preventDoS_headerLines_+13;
 		do {
 			if (!socket_->read (line, false)) return;
 			if (line.size() > 1) {
-				if (line.at(0)!='.')
-					mail.push_back (line.substr(0, line.size()-1));
-				else
-					mail.push_back (line.substr(1, line.size()-2));
+				mail.push_back (line.substr(0, line.size()-1));
 #ifdef DEBUG
 				g_print ("+");
 #endif
 			}
 			else
 				mail.push_back ("");
-		} while ((line != ".\r") && (0<cnt--));
-		if (cnt<=0) return;
+		} while (line != ".\r");
 #ifdef DEBUG
 		g_print("\n");
 #endif
@@ -224,7 +266,7 @@ Pop::get_header (void)
 	status_ = saved_status;
 
 	// Last check for mailbox status
-	if ((unread_ == new_unread_) && (new_unread_.size() > 0))
+	if ((unread_ == new_unread_) && (unread_.size() > 0))
 		status_ = MAILBOX_OLD;
 
 	unread_ = new_unread_;

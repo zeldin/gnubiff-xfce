@@ -29,19 +29,30 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#include <cstdio>
+#include "support.h"
+
 #include <sstream>
+
 #include "ui-preferences.h"
 #include "ui-properties.h"
 #include "ui-applet.h"
 #include "gtk_image_animation.h"
 #include "biff.h"
 #include "mailbox.h"
-#include "nls.h"
-#include "support.h"
+
 
 /* "C" bindings */
 extern "C" {
+
+	gboolean PREFERENCES_on_click (GtkWidget *widget,
+								   GdkEventButton *event,
+								   gpointer data)
+	{
+		if ((event->button == 1) && (event->type == GDK_2BUTTON_PRESS))
+			PREFERENCES(data)->on_properties (0);
+		return FALSE;
+	}
+
 	void PREFERENCES_on_add (GtkWidget *widget,
 							 gpointer data)
 	{
@@ -66,24 +77,6 @@ extern "C" {
 		PREFERENCES(data)->on_stop (widget);
 	}
 
-	void PREFERENCES_on_browse_sound (GtkWidget *widget,
-									 gpointer data)
-	{
-		PREFERENCES(data)->on_browse_sound (widget);
-	}
-
-	void PREFERENCES_on_test_sound (GtkWidget *widget,
-									gpointer data)
-	{
-		PREFERENCES(data)->on_test_sound (widget);
-	}
-
-	void PREFERENCES_on_browse_mailapp (GtkWidget *widget,
-										gpointer data)
-	{
-		PREFERENCES(data)->on_browse_mailapp (widget);
-	}
-
 	void PREFERENCES_on_browse_newmail_image (GtkWidget *widget,
 											  gpointer data)
 	{
@@ -101,6 +94,12 @@ extern "C" {
 	{
 		PREFERENCES(data)->on_selection (selection);
 	}
+
+	void PREFERENCES_on_check_changed (GtkWidget *widget,
+								  gpointer data)
+	{
+		PREFERENCES(data)->on_check_changed (widget);
+	}
 }
 
 
@@ -110,6 +109,7 @@ Preferences::Preferences (Biff *biff) : GUI (GNUBIFF_DATADIR"/preferences.glade"
 	biff_ = biff;
 	properties_ = new Properties (this);
 	properties_->create ();
+	selected_ = 0;
 	added_ = 0;
 }
 
@@ -131,8 +131,7 @@ Preferences::create (void)
 											  G_TYPE_STRING,
 											  G_TYPE_STRING,
 											  G_TYPE_STRING,
-											  G_TYPE_STRING,
-											  G_TYPE_INT);
+											  G_TYPE_STRING);
 	GtkTreeView *view = GTK_TREE_VIEW (get("mailboxes_treeview"));
 	gtk_tree_view_set_model (view, GTK_TREE_MODEL(store));
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view), TRUE);
@@ -144,44 +143,51 @@ Preferences::create (void)
 
 	GtkCellRenderer *renderer = gtk_cell_renderer_pixbuf_new ();
 	gtk_tree_view_column_pack_start (column, renderer, FALSE);
-	gtk_tree_view_column_add_attribute (column, renderer, "stock-id", COLUMN_MAILBOX_ICON);
+	gtk_tree_view_column_add_attribute (column, renderer, "stock-id", COLUMN_MAILBOX_STOCK_ID);
 
-	renderer = gtk_cell_renderer_pixbuf_new ();
-	gtk_tree_view_column_pack_start (column, renderer, FALSE);
-	gtk_tree_view_column_add_attribute (column, renderer, "stock-id", COLUMN_SSL_ICON);
-  
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text", COLUMN_MAILBOX);
-	gtk_tree_view_column_add_attribute (column, renderer, "foreground", COLUMN_FOREGROUND);
-  
+	gtk_tree_view_column_set_expand (column, true);
 	gtk_tree_view_append_column (view, column);
 
-	column = gtk_tree_view_column_new_with_attributes (_("Format"),
+	column = gtk_tree_view_column_new_with_attributes (_("Type"),
 													   gtk_cell_renderer_text_new(),
 													   "text", COLUMN_FORMAT,
-													   "foreground", COLUMN_FOREGROUND,
 													   NULL);
 	gtk_tree_view_column_set_resizable(column, FALSE);
 	gtk_tree_view_column_set_sort_column_id(column, COLUMN_FORMAT);
 	gtk_tree_view_append_column (view, column);
 
-	column = gtk_tree_view_column_new_with_attributes (_("Status"),
+	column = gtk_tree_view_column_new_with_attributes ("",
 													   gtk_cell_renderer_pixbuf_new (),
-													   "stock-id", COLUMN_STATUS,
+													   "stock-id", COLUMN_STATUS_STOCK_ID,
 													   NULL);
+	GtkWidget *image = gtk_image_new_from_stock ("gtk-execute", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image);
+	gtk_tree_view_column_set_widget (GTK_TREE_VIEW_COLUMN (column), image);
 	gtk_tree_view_column_set_resizable(column, FALSE);
-	gtk_tree_view_column_set_sort_column_id(column, COLUMN_STATUS);
+	gtk_tree_view_column_set_sort_column_id(column, COLUMN_STATUS_STOCK_ID);
+	gtk_tree_view_append_column (view, column);
+	GtkTooltips *tooltips = gtk_tooltips_new ();
+	gtk_tooltips_set_tip (tooltips, image->parent->parent->parent, _("Status"), "");
+	gtk_tooltips_enable (tooltips);
+
+	column = gtk_tree_view_column_new_with_attributes ("",
+													   gtk_cell_renderer_pixbuf_new (),
+													   "stock-id", COLUMN_SECURITY_STOCK_ID,
+													   NULL);
+	image = gtk_image_new_from_stock ("gtk-dialog-authentication", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image);
+	gtk_tree_view_column_set_widget (GTK_TREE_VIEW_COLUMN (column), image);
+	gtk_tree_view_column_set_resizable (column, FALSE);
+	gtk_tree_view_column_set_sort_column_id (column, COLUMN_SECURITY_STOCK_ID);
 	gtk_tree_view_append_column (view, column);
 
-	column = gtk_tree_view_column_new_with_attributes (_("Poll time"),
-													   gtk_cell_renderer_text_new(),
-													   "text", COLUMN_POLLTIME,
-													   "foreground", COLUMN_FOREGROUND,
-													   NULL);
-	gtk_tree_view_column_set_resizable (column, FALSE);
-	gtk_tree_view_column_set_sort_column_id (column, COLUMN_POLLTIME);
-	gtk_tree_view_append_column (view, column);
+	tooltips = gtk_tooltips_new ();
+	gtk_tooltips_set_tip (tooltips, image->parent->parent->parent, _("Security"), "");
+	gtk_tooltips_enable (tooltips);
+
 
 	gtk_tree_view_set_search_column (view, COLUMN_MAILBOX);
   
@@ -193,11 +199,12 @@ Preferences::create (void)
 	// Selection label
 	gtk_label_set_text (GTK_LABEL(get ("selection")), _("No mailbox selected"));
 
-	// Animations
-	g_object_set_data (G_OBJECT(get("newmail_image")), "_animation_",
-					   new GtkImageAnimation (GTK_IMAGE(get("newmail_image"))));
-	g_object_set_data (G_OBJECT(get("nomail_image")), "_animation_",
-					   new GtkImageAnimation (GTK_IMAGE(get("nomail_image"))));
+	if (biff_->ui_mode_ == GNOME_MODE) {
+		gtk_widget_set_sensitive (get("applet_geometry_check"), false);
+		gtk_widget_set_sensitive (get("applet_geometry_entry"), false);
+		gtk_widget_set_sensitive (get("applet_decoration_check"), false);
+	}
+
 	return true;
 }
 
@@ -207,25 +214,14 @@ Preferences::show (std::string name)
 	if (!xml_)
 		return;
 	synchronize ();
+	biff_->applet()->stop ();
 	gtk_widget_show (get(name));
-	// Stop animation
-	GtkImageAnimation *anim;
-	anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("newmail_image")), "_animation_");
-	anim->start();
-	anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("nomail_image")), "_animation_");
-	anim->start();
 }
 
 void Preferences:: hide (std::string name) {
 	if (!xml_)
 		return;
 	gtk_widget_hide (get(name));
-	// Start animation
-	GtkImageAnimation *anim;
-	anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("newmail_image")), "_animation_");
-	anim->stop();
-	anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("nomail_image")), "_animation_");
-	anim->stop();
 }
 
 
@@ -236,16 +232,18 @@ Preferences::synchronize (class Mailbox *mailbox, GtkListStore *store, GtkTreeIt
 		std::string stock_mailbox = "gtk-network";
 		std::string stock_status  = "gtk-dialog-error";
 
-		if (mailbox->is_local())
+		if ((mailbox->protocol() == PROTOCOL_FILE) ||
+			(mailbox->protocol() == PROTOCOL_MH) ||
+			(mailbox->protocol() == PROTOCOL_MAILDIR))
 			stock_mailbox = "gtk-home";
+		else if (mailbox->protocol() == PROTOCOL_NONE)
+			stock_mailbox ="gtk-dialog-question";
+
 		if (mailbox->status() == MAILBOX_UNKNOWN)
-			stock_status = "gtk-dialog-warning";
-		else if (mailbox->status() == MAILBOX_BLOCKED)
-			stock_status = "gtk-stop";
+			stock_status = "gtk-dialog-question";
 		else if (mailbox->status() != MAILBOX_ERROR)
 			stock_status = "gtk-ok";
 	
-
 		std::string format;
 		switch (mailbox->protocol()) {
 		case PROTOCOL_FILE:
@@ -273,25 +271,17 @@ Preferences::synchronize (class Mailbox *mailbox, GtkListStore *store, GtkTreeIt
 
 		gtk_list_store_set (store, iter,
 							COLUMN_UIN, mailbox->uin(),
-							COLUMN_MAILBOX_ICON, stock_mailbox.c_str(),
+							COLUMN_MAILBOX_STOCK_ID, stock_mailbox.c_str(),
 							COLUMN_MAILBOX, mailbox->name().c_str(),
-							COLUMN_FOREGROUND, "black",
+							COLUMN_SECURITY_STOCK_ID, "gtk-ok",
 							COLUMN_FORMAT, format.c_str(),
-							COLUMN_STATUS, stock_status.c_str(),
-							COLUMN_POLLTIME, mailbox->polltime(),
+							COLUMN_STATUS_STOCK_ID, stock_status.c_str(),
 							-1);
 
-		if ((!mailbox->is_local()) && (mailbox->use_ssl() || mailbox->protocol() == PROTOCOL_APOP)) {
-			gtk_list_store_set (store, iter,
-								COLUMN_SSL_ICON, "gtk-dialog-authentication",
-								-1);
-		}
-		else if (!mailbox->is_local()) {
-			gtk_list_store_set (store, iter,
-								COLUMN_SSL_ICON, "",
-								COLUMN_FOREGROUND, "red",
-								-1);
-		}
+		if (mailbox->protocol() == PROTOCOL_NONE)
+			gtk_list_store_set (store, iter, COLUMN_SECURITY_STOCK_ID, "gtk-dialog-question", -1);
+		else if (mailbox->authentication() == (gint) AUTH_USER_PASS)
+			gtk_list_store_set (store, iter, COLUMN_SECURITY_STOCK_ID, "gtk-no", -1);
 	}
 }
 
@@ -308,7 +298,7 @@ Preferences::synchronize (void)
 	while (valid) {
 		guint uin;
 		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COLUMN_UIN, &uin, -1);
-		Mailbox *mailbox = biff_->find (uin);
+		Mailbox *mailbox = biff_->get (uin);
 		if (mailbox) {
 			synchronize (mailbox, store, &iter);
 			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
@@ -326,63 +316,46 @@ Preferences::synchronize (void)
 		}
 	}
 
-	// Options
-	if (biff_->sound_type_ == SOUND_NONE)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("nosound_check")), true);
-	else if (biff_->sound_type_ == SOUND_BEEP)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("system_beep_check")), true);
-	else
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("sound_check")), true);
-	gtk_entry_set_text (GTK_ENTRY (get("sound_entry")), biff_->sound_file_.c_str());
-	gtk_range_set_value (GTK_RANGE (get ("volume_scale")), biff_->sound_volume_);  
-	gtk_entry_set_text (GTK_ENTRY (get("command_entry")), biff_->sound_command_.c_str());
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("poptime_spin")), biff_->popup_time_);
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("maxmail_spin")), biff_->max_mail_);
-	gtk_entry_set_text (GTK_ENTRY (get("mailapp_entry")), biff_->mail_app_.c_str());
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("display_popup_check")), biff_->popup_display_);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("no_clear_password_check")), biff_->no_clear_password_);
+	// Mailboxes page
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("max_mail_check")), 			biff_->use_max_mail_);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("max_mail_spin")),					biff_->max_mail_);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("newmail_command_check")),		biff_->use_newmail_command_);
+	gtk_entry_set_text (GTK_ENTRY (get("newmail_command_entry")),						biff_->newmail_command_.c_str());
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("double_command_check")),		biff_->use_double_command_);
+	gtk_entry_set_text (GTK_ENTRY (get("double_command_entry")),						biff_->double_command_.c_str());
+	
+	// Applet page
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("applet_geometry_check")), 		biff_->applet_use_geometry_);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("applet_decoration_check")),	biff_->applet_use_decoration_);
+	gtk_entry_set_text (GTK_ENTRY (get("applet_geometry_entry")),						biff_->applet_geometry_.c_str());
+	gtk_font_button_set_font_name (GTK_FONT_BUTTON(get("applet_font_button")),			biff_->applet_font_.c_str());
 
-	// Layout: biff window
-	GtkImageAnimation *anim;
-	anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("newmail_image")), "_animation_");
-	anim->open (biff_->biff_newmail_image_.c_str());
-	anim->start();
-	anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("nomail_image")), "_animation_");
-	anim->open (biff_->biff_nomail_image_.c_str());
-	anim->start();
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("newmail_use_image_check")), biff_->biff_use_newmail_image_);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("newmail_use_text_check")), biff_->biff_use_newmail_text_);
-	gtk_entry_set_text (GTK_ENTRY (get("newmail_image_entry")), biff_->biff_newmail_image_.c_str());
-	gtk_entry_set_text (GTK_ENTRY (get("newmail_text_entry")), biff_->biff_newmail_text_.c_str());
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("nomail_use_image_check")), biff_->biff_use_nomail_image_);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("nomail_use_text_check")), biff_->biff_use_nomail_text_);
-	gtk_entry_set_text (GTK_ENTRY (get("nomail_image_entry")), biff_->biff_nomail_image_.c_str());
-	gtk_entry_set_text (GTK_ENTRY (get("nomail_text_entry")), biff_->biff_nomail_text_.c_str());
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("newmail_text_check")),			biff_->use_newmail_text_);
+	gtk_entry_set_text (GTK_ENTRY (get("newmail_text_entry")),							biff_->newmail_text_.c_str());
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("newmail_image_check")),		biff_->use_newmail_image_);
+	gtk_entry_set_text (GTK_ENTRY (get("newmail_image_entry")),							biff_->newmail_image_.c_str());
 
-	// Layout: popup window
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("max_popup_line_spin")), biff_->popup_max_line_);
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("max_sender_spin")), biff_->popup_max_sender_size_);
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("max_subject_spin")), biff_->popup_max_subject_size_);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("display_date_check")), biff_->popup_display_date_);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("nomail_text_check")),			biff_->use_nomail_text_);
+	gtk_entry_set_text (GTK_ENTRY (get("nomail_text_entry")),							biff_->nomail_text_.c_str());
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("nomail_image_check")),			biff_->use_nomail_image_);
+	gtk_entry_set_text (GTK_ENTRY (get("nomail_image_entry")),							biff_->nomail_image_.c_str());
 
-	// Geometry: font
-	GdkColor color;
-	gdk_color_parse (biff_->popup_font_color_.c_str(), &color);
-	gtk_color_button_set_color (GTK_COLOR_BUTTON (get("popup_font_color")), &color);
-	gdk_color_parse (biff_->biff_font_color_.c_str(), &color);
-	gtk_color_button_set_color (GTK_COLOR_BUTTON (get("biff_font_color")), &color);
-	gtk_font_button_set_font_name (GTK_FONT_BUTTON(get("biff_font")), biff_->biff_font_.c_str());
-	gtk_font_button_set_font_name (GTK_FONT_BUTTON(get("popup_font")), biff_->popup_font_.c_str());	
 
-	// Geometry: popup window
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("popup_use_geometry_check")), biff_->popup_use_geometry_);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("popup_use_decoration_check")), biff_->popup_is_decorated_);
-	gtk_entry_set_text (GTK_ENTRY (get("popup_geometry_entry")), biff_->popup_geometry_.c_str());
+	// Popup page
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("use_popup_check")),			biff_->use_popup_);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("popup_delay_spin")),				biff_->popup_delay_);
 
-	// Geometry: biff window
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("biff_use_geometry_check")), biff_->biff_use_geometry_);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("biff_use_decoration_check")), biff_->biff_is_decorated_);
-	gtk_entry_set_text (GTK_ENTRY (get("biff_geometry_entry")), biff_->biff_geometry_.c_str());
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("popup_geometry_check")),		biff_->popup_use_geometry_);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("popup_decoration_check")),		biff_->popup_use_decoration_);
+	gtk_entry_set_text (GTK_ENTRY (get("popup_geometry_entry")),						biff_->popup_geometry_.c_str());
+	gtk_font_button_set_font_name (GTK_FONT_BUTTON(get("popup_font_button")),			biff_->popup_font_.c_str());
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("popup_size_check")),			biff_->popup_use_size_);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON(get("popup_size_spin")),					biff_->popup_size_);
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("popup_format_check")),			biff_->popup_use_format_);
+	gtk_entry_set_text (GTK_ENTRY (get("popup_format_entry")),							biff_->popup_format_.c_str());
+
 
 	// Stop button
 	if (biff_->check_mode_ == AUTOMATIC_CHECK)
@@ -396,59 +369,44 @@ Preferences::synchronize (void)
 void
 Preferences::apply (void)
 {
-	// Options
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("nosound_check"))))
-		biff_->sound_type_ = SOUND_NONE;
-	else if	(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("system_beep_check"))))
-		biff_->sound_type_ = SOUND_BEEP;
-	else
-		biff_->sound_type_ = SOUND_FILE;
-	biff_->sound_file_ = gtk_entry_get_text (GTK_ENTRY (get("sound_entry")));
-	biff_->sound_volume_ = (guint) gtk_range_get_value (GTK_RANGE (get ("volume_scale")));
-	biff_->sound_command_ = gtk_entry_get_text (GTK_ENTRY (get("command_entry")));
-	biff_->popup_time_ = (guint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("poptime_spin")));
-	biff_->max_mail_ = (guint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("maxmail_spin")));
-	biff_->mail_app_ = gtk_entry_get_text (GTK_ENTRY (get("mailapp_entry")));
-	biff_->popup_display_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("display_popup_check")));
-	biff_->no_clear_password_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("no_clear_password_check")));
+	// Mailboxes page
+	biff_->use_max_mail_        = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("max_mail_check")));
+	biff_->max_mail_            = (guint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("max_mail_spin")));
+	biff_->use_newmail_command_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("newmail_command_check")));
+	biff_->newmail_command_     = gtk_entry_get_text (GTK_ENTRY (get("newmail_command_entry")));
+	biff_->use_double_command_  = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("double_command_check")));
+	biff_->double_command_      = gtk_entry_get_text (GTK_ENTRY (get("double_command_entry")));
 
-	// Layout: biff window
-	biff_->biff_use_newmail_image_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("newmail_use_image_check")));
-	biff_->biff_use_newmail_text_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("newmail_use_text_check")));
-	biff_->biff_newmail_image_ = gtk_entry_get_text (GTK_ENTRY (get("newmail_image_entry")));
-	biff_->biff_newmail_text_ = gtk_entry_get_text (GTK_ENTRY (get("newmail_text_entry")));
-	biff_->biff_use_nomail_image_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("nomail_use_image_check")));
-	biff_->biff_use_nomail_text_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("nomail_use_text_check")));
-	biff_->biff_nomail_image_ = gtk_entry_get_text (GTK_ENTRY (get("nomail_image_entry")));
-	biff_->biff_nomail_text_ = gtk_entry_get_text (GTK_ENTRY (get("nomail_text_entry")));
+	// Applet page
+	biff_->applet_use_geometry_   = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("applet_geometry_check")));
+	biff_->applet_use_decoration_ =	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("applet_decoration_check")));
+	biff_->applet_geometry_       =	gtk_entry_get_text (GTK_ENTRY (get("applet_geometry_entry")));
+	biff_->applet_font_           = gtk_font_button_get_font_name (GTK_FONT_BUTTON(get("applet_font_button")));
 
-	// Layout: popup window
-	biff_->popup_max_line_ = (guint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("max_popup_line_spin")));
-	biff_->popup_max_sender_size_ = (guint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("max_sender_spin")));
-	biff_->popup_max_subject_size_ = (guint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("max_subject_spin")));
-	biff_->popup_display_date_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("display_date_check")));
+	biff_->use_newmail_text_      = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("newmail_text_check")));
+	biff_->newmail_text_          = gtk_entry_get_text (GTK_ENTRY (get("newmail_text_entry")));
+	biff_->use_newmail_image_     = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("newmail_image_check")));
+	biff_->newmail_image_         = gtk_entry_get_text (GTK_ENTRY (get("newmail_image_entry")));
 
-	// Geometry: font
-	char buffer[16];
-	GdkColor color;
-	gtk_color_button_get_color (GTK_COLOR_BUTTON (get("popup_font_color")),  &color);
-	sprintf (buffer, "#%.2x%.2x%.2x", color.red/256, color.green/256, color.blue/256);
-	biff_->popup_font_color_ = buffer;
-	gtk_color_button_get_color (GTK_COLOR_BUTTON (get("biff_font_color")),  &color);
-	sprintf (buffer, "#%.2x%.2x%.2x", color.red/256, color.green/256, color.blue/256);
-	biff_->biff_font_color_ = buffer;
-	biff_->popup_font_ = gtk_font_button_get_font_name (GTK_FONT_BUTTON(get("popup_font")));
-	biff_->biff_font_ = gtk_font_button_get_font_name (GTK_FONT_BUTTON(get("biff_font")));
+	biff_->use_nomail_text_       = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("nomail_text_check")));
+	biff_->nomail_text_           = gtk_entry_get_text (GTK_ENTRY (get("nomail_text_entry")));
+	biff_->use_nomail_image_      = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("nomail_image_check")));
+	biff_->nomail_image_          = gtk_entry_get_text (GTK_ENTRY (get("nomail_image_entry")));
 
-	// Geometry: popup window
-	biff_->popup_use_geometry_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_use_geometry_check")));
-	biff_->popup_is_decorated_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_use_decoration_check")));
-	biff_->popup_geometry_ = gtk_entry_get_text (GTK_ENTRY (get("popup_geometry_entry")));
+	// Popup page
+	biff_->use_popup_             = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("use_popup_check")));
+	biff_->popup_delay_           = (guint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("popup_delay_spin")));
 
-	// Geometry: biff window
-	biff_->biff_use_geometry_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("biff_use_geometry_check")));
-	biff_->biff_is_decorated_ = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("biff_use_decoration_check")));
-	biff_->biff_geometry_ = gtk_entry_get_text (GTK_ENTRY (get("biff_geometry_entry")));
+	biff_->popup_use_geometry_    = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_geometry_check")));
+	biff_->popup_use_decoration_  = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_decoration_check")));
+	biff_->popup_geometry_        = gtk_entry_get_text (GTK_ENTRY (get("popup_geometry_entry")));
+	biff_->popup_font_            = gtk_font_button_get_font_name (GTK_FONT_BUTTON(get("popup_font_button")));
+
+	biff_->popup_use_size_        = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_size_check")));
+	biff_->popup_size_            = (guint) gtk_spin_button_get_value (GTK_SPIN_BUTTON(get("popup_size_spin")));
+
+	biff_->popup_use_format_      = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_format_check")));
+	biff_->popup_format (gtk_entry_get_text (GTK_ENTRY (get("popup_format_entry"))));
 }
 
 void
@@ -485,7 +443,7 @@ Preferences::on_remove (GtkWidget *widget)
 		GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 		guint uin;
 		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COLUMN_UIN, &uin, -1);
-		biff_->remove (uin);
+		biff_->remove (biff_->get(uin));
 		properties_->select (0);
 		synchronize ();
 	}	
@@ -494,18 +452,13 @@ Preferences::on_remove (GtkWidget *widget)
 void
 Preferences::on_properties (GtkWidget *widget)
 {
-	properties_->show();
+	if (selected_)
+		properties_->show();
 }
 
 void
 Preferences::on_close (GtkWidget *widget)
 {
-	// Stop animation
-	GtkImageAnimation *anim;
-	anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("newmail_image")), "_animation_");
-	anim->stop();
-	anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("nomail_image")), "_animation_");
-	anim->stop();
 
 	// Hide properties
 	properties_->hide ();
@@ -513,12 +466,11 @@ Preferences::on_close (GtkWidget *widget)
 	// Apply change & save them
 	apply ();
 	biff_->save ();
-
 	hide();
+	if (biff_->check_mode_ == AUTOMATIC_CHECK)
+		biff_->applet()->start (3);
 	biff_->applet()->update();
 	biff_->applet()->show();
-	if (biff_->check_mode_ == AUTOMATIC_CHECK)
-		biff_->applet()->watch_now();
 }
 
 
@@ -546,74 +498,38 @@ Preferences::on_stop (GtkWidget *widget)
 }
 
 void
-Preferences::on_browse_sound (GtkWidget *widget)
-{
-	browse (_("Browse for a sound"), "sound_entry");
-}
-
-void
-Preferences::on_test_sound (GtkWidget *widget)
-{
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("system_beep_check"))))
-		gdk_beep ();    
-	else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("sound_check")))) {
-		std::stringstream s;
-		s << gfloat (gtk_range_get_value (GTK_RANGE (get ("volume_scale"))))/100.0;
-		std::string command = gtk_entry_get_text (GTK_ENTRY(get("command_entry")));
-
-		std::vector<std::string> vec(2);
-		vec[0]=std::string(g_shell_quote(biff_->sound_file_.c_str()));
-		vec[1]=std::string(s.str());
-		command=gb_substitute(command,"sv",vec);
-
-		command += " &";
-		system (command.c_str());
-	}
-}
-
-void
-Preferences::on_browse_mailapp (GtkWidget *widget)
-{
-	browse (_("Browse for a mail application"), "mailapp_entry");
-}
-
-void
 Preferences::on_browse_newmail_image (GtkWidget *widget)
 {
 	GtkWidget *preview = gtk_image_new ();
-	gboolean result = browse (_("Browse for a new mail image"), "newmail_image_entry", false, preview);
-	if (result == 1) {
-		GtkImageAnimation *anim;
-		anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("newmail_image")), "_animation_");
-		anim->open ((gchar *) gtk_entry_get_text (GTK_ENTRY(get("newmail_image_entry"))));
-		anim->start();
-	}
+	browse (_("Browse for a new mail image"), "newmail_image_entry", false, preview);
 }
 
 void
 Preferences::on_browse_nomail_image (GtkWidget *widget)
 {
 	GtkWidget *preview = gtk_image_new ();
-	gboolean result = browse (_("Browse for a new mail image"), "nomail_image_entry", false, preview);
-	if (result == 1) {
-		GtkImageAnimation *anim;
-		anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("nomail_image")), "_animation_");
-		anim->open ((gchar *) gtk_entry_get_text (GTK_ENTRY(get("nomail_image_entry"))));
-		anim->start();		
-	}
+	browse (_("Browse for a new mail image"), "nomail_image_entry", false, preview);
 }
 
 gboolean
 Preferences::on_destroy (GtkWidget *widget,  GdkEvent *event)
 {
 	hide ();
-	return TRUE;
+	if (biff_->check_mode_ == AUTOMATIC_CHECK)
+		biff_->applet()->start (3);
+	biff_->applet()->update();
+	biff_->applet()->show();
+	return true;
 }
 
 gboolean
 Preferences::on_delete (GtkWidget *widget,  GdkEvent *event)
 {
 	hide ();
+	if (biff_->check_mode_ == AUTOMATIC_CHECK)
+		biff_->applet()->start (3);
+	biff_->applet()->update();
+	biff_->applet()->show();
 	return true;
 }
 
@@ -627,11 +543,46 @@ Preferences::on_selection (GtkTreeSelection *selection)
 		GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 		guint uin;
 		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COLUMN_UIN, &uin, -1);
-		Mailbox *mailbox = biff_->find (uin);
+		Mailbox *mailbox = biff_->get (uin);
 		properties_->select (mailbox);
+		selected_ = mailbox;
 		gtk_label_set_text (GTK_LABEL(get ("selection")), mailbox->name().c_str());
 	}
 	else {
 		gtk_label_set_text (GTK_LABEL(get ("selection")), _("No mailbox selected"));
+		selected_ = 0;
 	}
+}
+
+void
+Preferences::on_check_changed (GtkWidget *widget)
+{
+	gtk_widget_set_sensitive (get("max_mail_spin"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("max_mail_check"))));
+	gtk_widget_set_sensitive (get("newmail_command_entry"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("newmail_command_check"))));
+	gtk_widget_set_sensitive (get("double_command_entry"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("double_command_check"))));
+	gtk_widget_set_sensitive (get("applet_geometry_entry"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("applet_geometry_check"))));
+	gtk_widget_set_sensitive (get("newmail_text_entry"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("newmail_text_check"))));
+	gtk_widget_set_sensitive (get("newmail_image_entry"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("newmail_image_check"))));
+	gtk_widget_set_sensitive (get("newmail_image_browse"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("newmail_image_check"))));
+	gtk_widget_set_sensitive (get("nomail_text_entry"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("nomail_text_check"))));
+	gtk_widget_set_sensitive (get("nomail_image_entry"), 
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("nomail_image_check"))));
+	gtk_widget_set_sensitive (get("nomail_image_browse"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("nomail_image_check"))));
+	gtk_widget_set_sensitive (get("popup_delay_spin"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("use_popup_check"))));
+	gtk_widget_set_sensitive (get("popup_geometry_entry"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_geometry_check"))));
+	gtk_widget_set_sensitive (get("popup_size_spin"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_size_check"))));
+	gtk_widget_set_sensitive (get("popup_format_entry"),
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_format_check"))));
 }

@@ -99,16 +99,17 @@
   </child>
 
   <child>
-    <widget class="GtkImageMenuItem" id="menu_start_mailapp">
+    <widget class="GtkImageMenuItem" id="menu_start_command">
       <property name="visible">True</property>
-      <property name="label" translatable="yes">Start mail application</property>
+      <property name="label" translatable="yes">Start command</property>
       <property name="use_underline">True</property>
-      <signal name="activate" handler="APPLET_GTK_on_menu_mail_app" last_modification_time="Tue, 27 Apr 2004 09:49:41 GMT"/>
+      <signal name="activate" handler="APPLET_GTK_on_menu_command" last_modification_time="Tue, 27 Apr 2004 09:49:41 GMT"/>
 
       <child internal-child="image">
-	<widget class="GtkImage" id="image32">
+	<widget class="GtkImage" id="image36">
 	  <property name="visible">True</property>
-	  <property name="pixbuf">menu_mail_start.png</property>
+	  <property name="stock">gtk-execute</property>
+	  <property name="icon_size">1</property>
 	  <property name="xalign">0.5</property>
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>
@@ -121,14 +122,15 @@
   <child>
     <widget class="GtkImageMenuItem" id="menu_mark_mails">
       <property name="visible">True</property>
-      <property name="label" translatable="yes">Mark email as read</property>
+      <property name="label" translatable="yes">Mark mailboxes read</property>
       <property name="use_underline">True</property>
       <signal name="activate" handler="APPLET_GTK_on_menu_mark" last_modification_time="Tue, 27 Apr 2004 09:49:41 GMT"/>
 
       <child internal-child="image">
-	<widget class="GtkImage" id="image33">
+	<widget class="GtkImage" id="image37">
 	  <property name="visible">True</property>
-	  <property name="pixbuf">menu_mail_read.png</property>
+	  <property name="stock">gtk-remove</property>
+	  <property name="icon_size">1</property>
 	  <property name="xalign">0.5</property>
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>
@@ -146,9 +148,10 @@
       <signal name="activate" handler="APPLET_GTK_on_menu_about" last_modification_time="Tue, 27 Apr 2004 09:49:41 GMT"/>
 
       <child internal-child="image">
-	<widget class="GtkImage" id="image34">
+	<widget class="GtkImage" id="image38">
 	  <property name="visible">True</property>
-	  <property name="pixbuf">menu_about.png</property>
+	  <property name="stock">gtk-dialog-info</property>
+	  <property name="icon_size">1</property>
 	  <property name="xalign">0.5</property>
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>

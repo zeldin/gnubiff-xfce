@@ -29,9 +29,7 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#ifdef HAVE_CONFIG_H
-#   include <config.h>
-#endif
+#include "support.h"
 
 #ifdef HAVE_CRYPTO
 #  include <openssl/md5.h>
@@ -44,9 +42,10 @@
 #include "ui-authentication.h"
 #include "socket.h"
 #include "apop.h"
-#include "nls.h"
 
-
+// ========================================================================
+//  base
+// ========================================================================	
 Apop::Apop (Biff *biff) : Pop (biff)
 {
 	protocol_ = PROTOCOL_APOP;
@@ -62,14 +61,20 @@ Apop::~Apop (void)
 	delete socket_;
 }
 
+// ========================================================================
+//  main
+// ========================================================================	
 int
 Apop::connect (void)
 {
 	std::string line;
 
 	// Check password is not empty
-	if (password_.empty())
-		ui_authentication_->select (this);
+	if (password_.empty()) {
+		gdk_threads_enter ();
+		ui_auth_->select (this);
+		gdk_threads_leave ();
+	}
 
 	if (password_.empty()) {
 		socket_->status(SOCKET_STATUS_ERROR);
@@ -78,12 +83,36 @@ Apop::connect (void)
 		return 0;
 	}
 
-	// Connection
-	if (!socket_->open (hostname_, port_, use_ssl_, certificate_)) {
-		socket_->status (SOCKET_STATUS_ERROR);
+	// connection
+	if (authentication_ == AUTH_AUTODETECT) {
+		guint port = port_;
+		if (!use_other_port_)
+			port = 995;
+		if (!socket_->open (address_, port, AUTH_SSL)) {
+			if (!use_other_port_)
+				port = 110;
+			if (!socket_->open (address_, port, AUTH_USER_PASS)) {
+				status_ = MAILBOX_ERROR;
+				return 0;
+			}
+			else {
+				port_ = port;
+				authentication_ = AUTH_USER_PASS;
+				socket_->close();
+			}
+		}
+		else {
+			port_ = port;
+			authentication_ = AUTH_SSL;
+			socket_->close();
+		}
+	}
+
+	if (!socket_->open (address_, port_, authentication_, certificate_, 3)) {
 		status_ = MAILBOX_ERROR;
 		return 0;
 	}
+
 
 	// Does server supports apop protocol ?
 	//  if so, answer should be something like:
@@ -96,15 +125,10 @@ Apop::connect (void)
 		return 0;
 	}
 
-	
-
 	// Get time stamp from server
 	std::string timestamp = line.substr (line.find ("<"));
 	timestamp = timestamp.substr (0, timestamp.find (">")+1);
 
-#ifdef DEBUG
-	g_message ("[%d] timestamp is %s", uin_, timestamp.c_str());
-#endif
 
 	// Build message if MD5 library available
 	char hex_response[33];
@@ -119,7 +143,7 @@ Apop::connect (void)
 		sprintf (&hex_response[i*2], "%02x", response[i]);
 	hex_response[32] = '\0';
 #else
-	g_message (_("[%d] Problem with crypto that should have been detected at configure time"), uin_);
+	g_message (_("[%d] Problem with crypto that should have been detected at configure time", uin_));
 	return 0;
 #endif
 

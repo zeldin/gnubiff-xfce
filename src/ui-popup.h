@@ -37,6 +37,7 @@
 #endif
 #include "gui.h"
 #include "biff.h"
+#include "mailbox.h"
 
 enum {
 	COLUMN_NAME = 0,
@@ -44,8 +45,6 @@ enum {
 	COLUMN_SENDER,
 	COLUMN_SUBJECT,
 	COLUMN_DATE,
-	COLUMN_FONT_COLOR,
-//	COLUMN_BACK_COLOR,
 	COLUMN_HEADER,
 	COLUMNS
 };

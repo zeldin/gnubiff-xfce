@@ -29,48 +29,37 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include "support.h"
+
 #include "mailbox.h"
+#include "file.h"
+#include "maildir.h"
+#include "mh.h"
+#include "imap4.h"
+#include "pop3.h"
+#include "apop.h"
 #include "biff.h"
 #include "socket.h"
-#include "ui-applet.h"
 #include "ui-authentication.h"
-#include "nls.h"
 
 
-/**
- * "C" binding
- **/
-extern "C" {
-	gpointer MAILBOX_lookup (gpointer data)
-	{
-		MAILBOX(data)->lookup_thread ();
-		return 0;
-	}
-
-	gboolean MAILBOX_watch_timeout (gpointer data)
-	{
-		MAILBOX(data)->watch_timeout ();
-		return false;
-	}
-
-	gpointer MAILBOX_watch (gpointer data)
-	{
-		MAILBOX(data)->watch_thread ();
-		return 0;
-	}
-}
-
+// ========================================================================
+//  Static features
+// ========================================================================	
 guint Mailbox::uin_count_ = 1;
-Authentication *Mailbox::ui_authentication_ = 0;
+Authentication *Mailbox::ui_auth_ = 0;
 
 
+// ========================================================================
+//  base
+// ========================================================================	
 Mailbox::Mailbox (Biff *biff)
 {
 	biff_ = biff;
-
-	if (ui_authentication_ == 0)
-		ui_authentication_ = new Authentication ();
-
+	listed_ = false;
+	stopped_ = false;
+	if (ui_auth_ == 0)
+		ui_auth_ = new Authentication ();
 
 	// Default parameters
 	uin_ = uin_count_++;
@@ -78,297 +67,351 @@ Mailbox::Mailbox (Biff *biff)
 	gchar *text = g_strdup_printf (_("mailbox %d"), uin_);
 	name_ = text;
 	g_free (text);
-	is_local_ = true;
 	if (g_getenv ("MAIL"))
-		location_ = g_getenv ("MAIL");
-	if (g_getenv ("HOSTNAME"))
-		hostname_ = g_getenv ("HOSTNAME");
-	port_ = 110;
-	folder_ = "INBOX";
+		address_ = g_getenv ("MAIL");
+	else if (g_getenv ("HOSTNAME"))
+		address_ = g_getenv ("HOSTNAME");
 	if (g_get_user_name ())
 		username_ = g_get_user_name ();
-	use_ssl_ = 0;
-	polltime_ = 600;
-	status_ = MAILBOX_UNKNOWN;
+	password_ = "";
+	authentication_ = AUTH_AUTODETECT;
+	port_ = 0;
+	folder_ = "INBOX";
+	certificate_ = "";
+	delay_ = 180;
+	use_other_folder_ = false;
+	other_folder_ = "";
+	use_other_port_ = false;
+	other_port_ = 995;
 
-	// Internal stuff
+	status_ = MAILBOX_UNKNOWN;
+	timetag_ = 0;
 	hidden_.clear();
 	seen_.clear();
-	polltag_ = 0;
-	watch_mutex_ = g_mutex_new();
-	object_mutex_ = g_mutex_new();
+	mutex_ = g_mutex_new();
+	monitor_mutex_ = g_mutex_new();
 }
 
 Mailbox::Mailbox (const Mailbox &other)
 {
-	biff_     = other.biff_;
-	uin_      = other.uin_;
-	name_     = other.name_;
-	is_local_ = other.is_local_;
-	location_ = other.location_;
-	hostname_ = other.hostname_;
-	port_     = other.port_;
-	folder_   = other.folder_;
-	username_ = other.username_;
-	password_ = other.password_;
-	polltime_ = other.polltime_;
-	use_ssl_  = other.use_ssl_;
-	certificate_=other.certificate_;
-	protocol_ = other.protocol_;
-	status_   = MAILBOX_UNKNOWN;
+	biff_			= other.biff_;
+	uin_			= other.uin_;
+	name_			= other.name_;
+	protocol_		= other.protocol_;
+	authentication_ = other.authentication_;
+	address_		= other.address_;
+	username_		= other.username_;
+	password_		= other.password_;
+	port_			= other.port_;
+	folder_			= other.folder_;
+	certificate_	= other.certificate_;
+	delay_			= other.delay_;
+	use_other_folder_= other.use_other_folder_;
+	other_folder_	= other.other_folder_;
+	use_other_port_	= other.use_other_port_;
+	other_port_		= other.other_port_;
 
-	// Internal stuff
+	status_ = MAILBOX_UNKNOWN;
+	timetag_= 0;
 	hidden_.clear();
 	seen_.clear();
-	polltag_ = 0;
-	watch_mutex_ = g_mutex_new();
-	object_mutex_ = g_mutex_new();
+	mutex_ = g_mutex_new();
+	monitor_mutex_ = g_mutex_new();
 }
 
 Mailbox::~Mailbox (void)
 {
-	watch_off();
-
-	// We do not delete the object until we can get a grip on mutexes
-	g_mutex_lock (watch_mutex_);
-	g_mutex_unlock (watch_mutex_);
-	g_mutex_free (watch_mutex_);
-	g_mutex_lock (object_mutex_);
-	g_mutex_unlock (object_mutex_);
-	g_mutex_free (object_mutex_);
+	g_mutex_lock (mutex_);
+	g_mutex_unlock (mutex_);
+	g_mutex_free (mutex_);
+	g_mutex_lock (monitor_mutex_);
+	g_mutex_unlock (monitor_mutex_);
+	g_mutex_free (monitor_mutex_);
 }
 
-/**
- * Watch functions
- **/
+// ========================================================================
+//  main
+// ========================================================================	
 void
-Mailbox::watch (void)
+Mailbox::threaded_start (guint delay)
+{
+	stopped_ = false;
+
+	// Is there already a timeout ?
+	if ((delay) && (timetag_))
+		return;
+
+	// Do we want to start now ?
+	if (delay)
+		timetag_ = g_timeout_add (delay*1000, start_delayed_entry_point, this);
+	//  or later (delay is given in seconds) ?
+	else
+		start_delayed_entry_point (this);
+}
+
+gboolean
+Mailbox::start_delayed_entry_point (gpointer data)
 {
 	GError *err = NULL;
-#ifdef DEBUG
-	g_message ("[%d] Attempting to create a thread...", uin_);
-#endif
-	g_thread_create (MAILBOX_watch, this, FALSE, &err);
+	g_thread_create ((GThreadFunc) start_entry_point, data, FALSE, &err);
 	if (err != NULL)  {
-		g_warning (_("[%d] Unable to create thread: %s\n"), uin_, err->message);
+		g_warning (_("[%d] Unable to create thread: %s"), MAILBOX(data)->uin(), err->message);
 		g_error_free (err);
-	} 
-#ifdef DEBUG
-	else
-		g_message ("[%d] Thread creation is ok", uin_);
-#endif
-}
-
-void
-Mailbox::watch_on (guint delay)
-{
-	g_mutex_lock (object_mutex_);
-	if (polltag_ == 0) {
-		if (delay)
-			polltag_ = g_timeout_add (delay*1000, MAILBOX_watch_timeout, this);
-		else
-			polltag_ = g_timeout_add (polltime_*1000, MAILBOX_watch_timeout, this);
 	}
-	g_mutex_unlock (object_mutex_);
-}
-
-void Mailbox::watch_off (void) {
-	g_mutex_lock (object_mutex_);
-	if (polltag_ > 0)
-		g_source_remove (polltag_);
-	polltag_ = 0;
-	g_mutex_unlock (object_mutex_);
-}
-
-void Mailbox::mark_all (void) {
-	g_mutex_lock (object_mutex_);
-	hidden_.clear();
-	hidden_ = seen_;
-	unread_.clear();
-	biff_->save();
-	g_mutex_unlock (object_mutex_);
-}
-
-gboolean Mailbox::watch_timeout (void) {
-	g_thread_create (MAILBOX_watch, this, FALSE, 0);
+	MAILBOX(data)->timetag (0);
 	return false;
 }
 
-/**
- * This function is used within a thread so we need to take care that no other
- * thread has been started before. This is the purpose of the watch mutex
- **/
 void
-Mailbox::watch_thread (void) {
-	// If no protocol is specified try to determine it. If this is successful
-	// the mailbox has been deleted, so return immediately
-	if (protocol_ == PROTOCOL_NONE)
-		if (biff_->lookup (this))
-			return;
-
-	if (!g_mutex_trylock (watch_mutex_)) {
-#ifdef DEBUG
-		g_message ("[%d] Cannot lock watch mutex\n", uin_);
-#endif
-		return;
-	}
-
-#ifdef DEBUG
-	g_message ("[%d] Lock watch mutex\n", uin_);
-#endif
-
-	// Stop automatic watch
-	watch_off();
-
-	// Nobody should access status in write mode but this thread, so we're safe
-	if (protocol_ != PROTOCOL_NONE)
-		get_status();
-	// If Mailbox is still in checking status an error occured
-	if (status_==MAILBOX_CHECKING)
-		status_=MAILBOX_ERROR;
-
-#ifdef DEBUG
-	if (status_ == MAILBOX_ERROR)	
-		g_message ("[%d] MAILBOX ERROR\n", uin_);
-	else if (status_ == MAILBOX_BLOCKED)
-		g_message ("[%d] MAILBOX UNSECURE: BLOCKED\n", uin_);
-	else if (status_ == MAILBOX_OLD)
-		g_message ("[%d] MAILBOX GOT ONLY OLD MAIL\n", uin_);
-	else if (status_ == MAILBOX_EMPTY)
-		g_message ("[%d] MAILBOX IS EMPTY\n", uin_);
-	else
-		g_message ("[%d] MAILBOX GOT NEW MAIL\n", uin_);
-#endif
-
-	// Do we need to get headers ?
-	if (status_ == MAILBOX_EMPTY) {
-		unread_.clear();
-		seen_.clear();
-	}
-	else if ((status_ != MAILBOX_ERROR) && (status_ != MAILBOX_OLD) && (status_ != MAILBOX_BLOCKED))
-		get_header();
-	// If Mailbox is still in checking status an error occured
-	if (status_==MAILBOX_CHECKING)
-		status_=MAILBOX_ERROR;
-
-	gdk_threads_enter();
-	biff_->applet()->process();
-	gdk_threads_leave();
-
-	gdk_threads_enter();
-	biff_->applet()->update();
-	gdk_threads_leave();
-
-	g_mutex_unlock (watch_mutex_);
-#ifdef DEBUG
-	g_message ("[%d] Unlock watch mutex\n", uin_);
-#endif
-	
-	// This line will force a mailbox lookup next time
-	if (status_ == MAILBOX_ERROR)
-		protocol_ = PROTOCOL_NONE;
+Mailbox::start_entry_point (gpointer data)
+{
+	MAILBOX(data)->start();
+}
+void
+Mailbox::start (void)
+{
+	// Since class "Mailbox" is virtual, any monitoring requires first
+	// to autodetect mailbox type. Once it's done, "this" mailbox is
+	// destroyed so we cannot go any further past this point.
+	lookup();
 }
 
+
+void
+Mailbox::stop (void)
+{
+	stopped_ = true;
+	if (timetag_) {
+		g_source_remove (timetag_);
+		timetag_ = 0;
+	}
+}
+
+void
+Mailbox::fetch (void)
+{
+	// nothing to do, this mailbox is virtual
+}
+
+void
+Mailbox::read (gboolean value)
+{
+	if (!g_mutex_trylock (mutex_))
+		return;
+	if (value == true) {
+		hidden_.clear();
+		hidden_ = seen_;
+		unread_.clear();
+		biff_->save();
+	}
+	g_mutex_unlock (mutex_);
+}
+
+
+// ================================================================================
+//  lookup function to try to guess mailbox status
+// --------------------------------------------------------------------------------
+//  There are several hints that help us detect a mailbox format:
+//
+//   1. Does address begins with a '/' ? (File, Mh or Maildir)
+//
+//      1.1 Is the address a directory ? (Mh or Maildir)
+//          1.2.1 If there is a 'new' file within then Maildir
+//                                                else Mh
+//      1.2 Is the address a file ? (File or Mh)
+//          1.2.1 If last address component is '.mh_sequences' then Mh
+//                                                             else File
+//
+//      1.3 Is the address not a file, not a directory then Unknwonw
+//
+//
+//   2. Else (Pop3, Apop or Imap4)
+//
+//      2.1 Does server answer '+OK' (Pop3 or Apop)
+//          2.1.1 If there is angle bracket in server greetings then Apop
+//                                                              else Pop3
+//      2.2 If there is an 'Imap4' in server greetings then Imap4
+//                                                     else Unknown
+//
+// ================================================================================
+//
+// FIXME: stop lookup when displaying preferences 
+//        -> need to interrupt the for loop one way or the other
 void
 Mailbox::lookup (void)
 {
-	GError *err = NULL;
-	g_thread_create (MAILBOX_lookup, this, FALSE, &err);
-	if (err != NULL)  {
-		g_warning (_("Unable to create lookup thread: %s\n"), err->message);
-		g_error_free (err);
-	}
-}
+	if (!g_mutex_trylock (monitor_mutex_))
+		return;
 
-void
-Mailbox::lookup_thread (void)
-{
-	g_mutex_lock (watch_mutex_);
+#ifdef DEBUG
+	g_message ("[%d] Mailbox \"%s\" type is unknown, looking up...",  uin_, name_.c_str());
+#endif
+
+	Mailbox *mailbox = 0;
 
 	// Local mailbox
-	if (is_local ()) {
-		gchar *base=g_path_get_basename(location_.c_str());
+	if (address_[0] == '/') {
+		std::string address = address_;
 
-		// Is it a directory?
-		if (g_file_test (location_.c_str(), G_FILE_TEST_IS_DIR)) {
-			gchar *mh_seq=g_build_filename(location_.c_str(),".mh_sequences",NULL);
-			gchar *md_new=g_build_filename(location_.c_str(),"new",NULL);
+		// Strip terminal '/' (if any)
+		if (address[address.size()-1] == '/')
+			address = address.substr (0, address.size()-1);
 
-			if (g_file_test (mh_seq, G_FILE_TEST_IS_REGULAR))
-   				protocol_ = PROTOCOL_MH;
-		    else if (base==std::string("new"))
-				protocol_ = PROTOCOL_MAILDIR;
-			else if (g_file_test (md_new, G_FILE_TEST_IS_DIR))
-				protocol_ = PROTOCOL_MAILDIR;
+		// Is it a directory ?
+		if (g_file_test (address.c_str(), G_FILE_TEST_IS_DIR)) {
+			std::string mh_sequence = address + "/.mh_sequences";
+			std::string maildir_new = address + "/new";
 
-			g_free(mh_seq);
-			g_free(md_new);
+			if (g_file_test (mh_sequence.c_str(), G_FILE_TEST_EXISTS))
+				mailbox = new Mh (*this);
+			else if (address.find ("new") != std::string::npos)
+				mailbox = new Maildir (*this);
+			else if (g_file_test (maildir_new.c_str(), G_FILE_TEST_IS_DIR))
+				mailbox = new Maildir (*this);
 		}
-		// Is it a file?
-		else if (g_file_test (location_.c_str(), G_FILE_TEST_IS_REGULAR)) {
-			if (base==std::string(".mh_sequences"))
-				protocol_ = PROTOCOL_MH;
+		// Is it a file
+		else if (g_file_test (address.c_str(), (G_FILE_TEST_EXISTS))) {
+			if (address.find (".mh_sequences") != std::string::npos)
+				mailbox = new Mh (*this);
 			else
-				protocol_ = PROTOCOL_FILE;
+				mailbox = new File (*this);
 		}
-		else
-			protocol_ = PROTOCOL_NONE;
-
-		g_free(base);
 	}
 
 	// Distant mailbox
 	else {
 		std::string line;
 		Socket s(this);
-		if (s.open (hostname_, port_, use_ssl_)) {
-			// Get server greeting line
-			s.read (line, true);
 
-			if (line.find("+OK") == 0) {
-				s.write ("QUIT\r\n");
-				s.close();
-				protocol_ = PROTOCOL_POP3;
-				if (line.find ("<") != std::string::npos) {
+		// Ok, at this stage, either the port is given or we have to try
+		// 4 standard ports (pop3:110, imap4:143, spop3:995, simap4:993)
+		// Also, if auth is autodetect we have to try with or without ssl.
+		// So, port is organized as follows:
+		//  0: given port, ssl
+		//  1: given port, no ssl
+		//  2: 995, ssl
+		//  3: 993, ssl
+		//  4: 110, no ssl
+		//  5: 143, no ssl
+		// Any null port means do not try
+		//                  0      1       2     3     4      5
+		guint    port[6] = {port_, port_,  995,  993,  110,   143};
+		gboolean ssl [6] = {true,  false,  true, true, false, false};
+
+		// Port is given and authentication uses ssl so we do not try other methods
+		if ((use_other_port_) && ((authentication_ == AUTH_SSL) || (authentication_ == AUTH_CERTIFICATE)))
+			for (guint i=1; i<6; i++)
+				port[i] = 0;
+		// Port is given but authentication method is unknown, we only try given port with and without ssl
+		else if ((use_other_port_) && ((authentication_ != AUTH_AUTODETECT)))
+			for (guint i=2; i<6; i++)
+				port[i] = 0;
+		// Standard port is required, we do not use port_
+		else if (!use_other_port_) {
+			port[0] = 0;
+			port[1] = 0;
+			// SSL is required, we do not try port 110 & 143
+			if ((authentication_ == AUTH_SSL) || (authentication_ == AUTH_CERTIFICATE)) {
+				port[4] = 0;
+				port[5] = 0;
+			}
+			// SSL is forbidden, we do not try port 995 & 993
+			else if ((authentication_ == AUTH_USER_PASS) || (authentication_ == AUTH_APOP)) {
+				port[2] = 0;
+				port[3] = 0;
+			}
+		}
+
+		guint i;
+		for (i=0; i<6; i++) {
+			if (stopped_) {
+				g_mutex_unlock (monitor_mutex_);
+				return;
+			}
+
+			
+
+			if (port[i] && s.open (address_, port[i], (ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS, "", 5)) {
+#ifdef DEBUG
+	            g_message ("[%d] Mailbox \"%s\", port %d opened",  uin_, name_.c_str(), port[i]);
+#endif
+				// Get server greetings
+				s.read (line, true);
+
+				if (line.find("+OK") == 0) {
+					s.write ("QUIT\r\n");
+					s.close();
+					if (line.find ("<") != std::string::npos) {
 #ifdef HAVE_CRYPTO
-#ifdef HAVE_LIBSSL
-					if (!use_ssl_)
+						mailbox = new Apop (*this);
+						mailbox->port (port[i]);
+						mailbox->authentication ((ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS);
+						if ((authentication_ == AUTH_AUTODETECT) && !ssl[i])
+							authentication_ = AUTH_APOP;
+#else
+					    mailbox = new Pop3 (*this);
+						mailbox->port (port[i]);
+						mailbox->authentication ((ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS);
 #endif
-						protocol_ = PROTOCOL_APOP;
-#endif
+						break;
+					}
+					else {
+					    mailbox = new Pop3 (*this);
+						mailbox->port (port[i]);
+						mailbox->authentication ((ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS);
+						break;
+					}
+				}
+				else if ((line.find ("IMAP4") != std::string::npos) ||
+						 (line.find ("Imap4") != std::string::npos) ||
+						 (line.find ("imap4") != std::string::npos))	{
+					s.write ("A001 LOGOUT\r\n");
+					s.close ();
+					mailbox = new Imap4 (*this);
+					mailbox->port (port[i]);
+					mailbox->authentication ((ssl[i]==true)?AUTH_SSL:AUTH_USER_PASS);
+					break;
 				}
 			}
-			else if ((line.find("* OK") == 0)||(line.find("* PREAUTH")== 0)) {
-				s.write ("A001 LOGOUT\r\n");
-				s.close ();
-				protocol_ = PROTOCOL_IMAP4;
-			}
-			else
-				protocol_ = PROTOCOL_NONE;
 		}
-		else
-			protocol_ = PROTOCOL_NONE;
+		port_ = port[i];
+		if (authentication_ == AUTH_AUTODETECT) {
+			if (ssl[i])
+				authentication_ = AUTH_SSL;
+			else 
+				authentication_ = AUTH_USER_PASS;
+		}
 	}
 
-	if (protocol_ != PROTOCOL_NONE)
-		status_ = MAILBOX_EMPTY;
-	
-	g_mutex_unlock (watch_mutex_);
-}
+#ifdef DEBUG
+	if (mailbox) {
+		std::string type;
+		switch (mailbox->protocol()) {
+		case PROTOCOL_FILE:		type = "file";		break;
+		case PROTOCOL_MH:		type = "mh";		break;
+		case PROTOCOL_MAILDIR:	type = "maildir";	break;
+		case PROTOCOL_POP3:		type = "pop3";		break;
+		case PROTOCOL_APOP:		type = "apop";		break;
+		case PROTOCOL_IMAP4:	type = "imap4";		break;
+		}
+		g_message ("[%d] Ok, mailbox \"%s\" type is %s, monitoring starting in 3 seconds", uin_, name_.c_str(), type.c_str());
+	}
+#endif
 
+	// After replace, "this" is destroyed so we must return immediately
+	if (mailbox) {
+		g_mutex_unlock (monitor_mutex_);
+		biff_->replace (this, mailbox);
+		return;
+	}
 
-void
-Mailbox::get_status (void)
-{
-	g_warning (_("Mailbox format is unknown"));
-	status_ = MAILBOX_ERROR;
-}
+	g_mutex_unlock (monitor_mutex_);
 
-void
-Mailbox::get_header (void)
-{
-	g_warning (_("Mailbox format is unknown"));
-	status_ = MAILBOX_ERROR;
+#ifdef DEBUG
+	g_message ("[%d] mailbox \"%s\" type is still unknown, retrying in 3 seconds", uin_, name_.c_str());
+#endif
+
+	threaded_start (3);
 }
 
 // ================================================================================
@@ -387,7 +430,7 @@ void Mailbox::parse (std::vector<std::string> &mail, int status)
 		gchar *buffer = g_ascii_strdown (mail[i].c_str(), -1);
 		std::string line = buffer;
 		g_free (buffer);
-		
+
 		// Sender
 		// There should be a whitespace or a tab after "From:", so we look
 		// for "From:" and get string beginning at 6
@@ -449,10 +492,11 @@ void Mailbox::parse (std::vector<std::string> &mail, int status)
 			h.status = MAIL_READ;
 		else if ((mail[i].empty()) && h.body.empty()) {
 			guint j = 0;
-			i++; // We are not interested in the empty line
-			while ((j++<10) && (i < mail.size()))
+			do {
 				h.body += mail[i++] + std::string("\n");
-			if ((j == 11) && (i+1<mail.size()))
+				j++;
+			} while ((j<10) && (i < mail.size()));
+			if (j == 10)
 				h.body += std::string("...");
 		}
 	}
