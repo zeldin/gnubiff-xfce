@@ -75,7 +75,11 @@ gint Imap4::connect (void)
 #endif
 
 	// Connection
-	if (!socket_->open (hostname_, port_, use_ssl_, certificate_)) return 0;
+	if (!socket_->open (hostname_, port_, use_ssl_, certificate_)) {
+		socket_->status (SOCKET_STATUS_ERROR);
+		status_ = MAILBOX_ERROR;
+		return 0;
+	}
 
 #ifdef DEBUG
 	g_message ("[%d] Connected to %s on port %d", uin_, hostname_.c_str(), port_);
