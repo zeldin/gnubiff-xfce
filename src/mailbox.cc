@@ -246,7 +246,7 @@ Mailbox::read (gboolean value)
 //          1.2.1 If last address component is '.mh_sequences' then Mh
 //                                                             else File
 //
-//      1.3 Is the address not a file, not a directory then Unknwonw
+//      1.3 Is the address not a file, not a directory then Unknown
 //
 //
 //   2. Else (Pop3, Apop or Imap4)
