@@ -560,10 +560,10 @@ Imap4::command_capability (void) throw (imap_err)
 	std::string line;
 
 	// Sending the command
-	if (!send("CAPABILITY")) throw imap_command_err();
+	if (!send("CAPABILITY")) throw imap_socket_err();
 
 	// Getting server's response
-	if (!(socket_->read (line))) throw imap_command_err();
+	if (!(socket_->read (line))) throw imap_socket_err();
 	if (line.find ("* CAPABILITY") != 0) throw imap_command_err();
 
 	// Getting the acknowledgment
@@ -612,7 +612,7 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 	// Send command
 	std::string line;
 	line="FETCH "+ss.str()+" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])";
-	if (!send(line)) throw imap_command_err();
+	if (!send(line)) throw imap_socket_err();
 		
 	// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
 	gint cnt=1+preventDoS_additionalLines_;
@@ -642,9 +642,10 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 	g_print ("\n");
 #endif
 	// Did an error happen?
-	if ((!socket_->status()) || (mail.size()==0)) throw imap_command_err();
+	if (!socket_->status()) throw imap_socket_err();
 	if (cnt<0) throw imap_dos_err();
-	if (line.find (tag() + "OK") != 0) throw imap_command_err();
+	if ((line.find (tag() + "OK") != 0) || (mail.size()==0))
+		throw imap_command_err();
 		
 	// Remove last line (should contain a closing parenthesis). Note:
 	// We need the (hopefully empty;-) line before because it separates
@@ -672,7 +673,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	std::string line;
 
 	// Sending the command
-	if (!send("SEARCH NOT SEEN")) throw imap_command_err();
+	if (!send("SEARCH NOT SEEN")) throw imap_socket_err();
 
 	// We need to set a limit to lines read (DoS Attacks).
 	// Expected response "* SEARCH ..." should be in the next line.
@@ -680,7 +681,8 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	while (((socket_->read(line) > 0)) && (cnt--))
 		if (line.find ("* SEARCH") == 0)
 			break;
-	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
+	if (!socket_->status()) throw imap_socket_err();
+	if (cnt<0) throw imap_dos_err();
 
 	// Parse server's answer. Should be something like
 	// "* SEARCH 1 2 3 4" or "* SEARCH"
@@ -729,7 +731,8 @@ Imap4::command_waitforack (gint cnt) throw (imap_err)
 	while ((socket_->read (line) > 0) && (cnt--))
 		if (line.find (tag()) == 0)
 			break;
-	if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
+	if (!socket_->status()) throw imap_socket_err();
+	if (cnt<0) throw imap_dos_err();
 
 	// Print error message and throw exception if response is not positive
 	if (line.find (tag() + "OK") != 0) {
