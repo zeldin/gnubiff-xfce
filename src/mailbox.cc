@@ -491,23 +491,30 @@ Mailbox::lookup_local (Mailbox &oldmailbox)
 
 	// Is it a directory?
 	if (g_file_test (address, G_FILE_TEST_IS_DIR)) {
-		gchar *mh_seq=g_build_filename(address,".mh_sequences",NULL);
-		gchar *md_new=g_build_filename(address,"new",NULL);
+		gchar *mh_seq = g_build_filename (address, ".mh_sequences", NULL);
+		gchar *md_new = g_build_filename (address, "new", NULL);
 
 		if (g_file_test (mh_seq, G_FILE_TEST_IS_REGULAR))
 			mailbox = new Mh (oldmailbox);
-		else if (std::string(base)=="new")
+		else if (std::string(base) == "new")
 			mailbox = new Maildir (oldmailbox);
-		else if (g_file_test (md_new, G_FILE_TEST_IS_DIR))
+		else if (g_file_test (md_new, G_FILE_TEST_IS_DIR)) {
 			mailbox = new Maildir (oldmailbox);
+			mailbox->address (md_new);
+		}
 
-		g_free(mh_seq);
-		g_free(md_new);
+		g_free (mh_seq);
+		g_free (md_new);
 	}
 	// Is it a file?
 	else if (g_file_test (address, (G_FILE_TEST_EXISTS))) {
-		if (std::string(base)==".mh_sequences")
+		if (std::string(base) == ".mh_sequences") {
 			mailbox = new Mh (oldmailbox);
+			gchar *dirname = g_path_get_dirname (address);
+			if (dirname)
+				mailbox->address (dirname);
+			g_free (dirname);
+		}
 		else
 			mailbox = new File (oldmailbox);
 	}

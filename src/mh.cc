@@ -61,21 +61,16 @@ int
 Mh::connect (void)
 {
 	// Build filename (.mh_sequences)
-	std::string filename;
-	gchar *base = g_path_get_basename (address().c_str());
-	if (base == std::string(".mh_sequences"))
-		filename = address ();
-	else
-	{
-		gchar *tmp = g_build_filename (address().c_str(),".mh_sequences",NULL);
-		filename=std::string(tmp);
-		g_free(tmp);
-	}
-	g_free(base);
+	gchar *filename = g_build_filename (address().c_str(), ".mh_sequences",
+										NULL);
+	if (!filename)
+		return false;
 
+	// Open file
 	std::ifstream file;
-	file.open (filename.c_str());
-	if (!file.is_open())
+	file.open (filename);
+	g_free (filename);
+	if (!file.is_open ())
 		return false;
 
 	//  Parse mh sequences and try to find unseen sequence
@@ -83,7 +78,7 @@ Mh::connect (void)
 		std::string line;
 		getline (file, line);
 
-		// Got it !
+		// Got it!
 		if (line.find("unseen:") != std::string::npos) {
 			saved_.clear();
 
@@ -127,7 +122,7 @@ Mh::connect (void)
 						inf_bound = 0;
 					}
 					i++;
-				}	    
+				}
 			}
 			if (inf_bound > 0)
 				saved_.push_back (inf_bound);

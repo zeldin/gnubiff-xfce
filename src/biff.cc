@@ -415,12 +415,32 @@ Biff::upgrade_options (void)
 	// Store options that need manual conversion
 	std::string options_bad;
 
+	// Global options
+
 	// Option: MIN_BODY_LINES
 	if (version < 2001002) {
 		if (value_uint ("min_body_lines") == 12)
 			reset ("min_body_lines");
 		else
 			options_bad += "\"min_body_lines\", ";
+	}
+
+	// Mailbox options
+	for (guint i = 0; i < size(); i++) {
+		Mailbox *mb = mailbox(i);
+
+		// Option: ADDRESS (for maildir protocol)
+		if ((version < 2001003) && (mb->protocol() == PROTOCOL_MAILDIR)) {
+			const gchar* address = mb->address().c_str();
+			gchar *base = g_path_get_basename (address);
+			if (base && (std::string(base) != "new")) {
+				gchar *md_new = g_build_filename (address, "new", NULL);
+				if (md_new)
+					mb->address (md_new);
+				g_free (md_new);
+				g_free (base);
+			}
+		}
 	}
 
 	// End message

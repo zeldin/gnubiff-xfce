@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -65,30 +65,17 @@ Maildir::fetch (void)
 {
 	int saved_status = status();
 
-	// Build directory name
-	gchar *base = g_path_get_basename (address().c_str());
-	std::string directory;
-	if (base == std::string("new"))
-		directory = address ();
-	else
-	{
-		gchar *tmp = g_build_filename (address().c_str(), "new", NULL);
-		directory = std::string(tmp);
-		g_free(tmp);
-	}
-	g_free(base);
-
 	// Check for existence of a new mail directory
 	if (!g_file_test (address().c_str(), G_FILE_TEST_IS_DIR)) {
-		g_warning(_("Cannot find new mail directory (%s)"), directory.c_str());
+		g_warning(_("Cannot find new mail directory (%s)"), address().c_str());
 		status (MAILBOX_ERROR);
 		return;
 	}
 
 	// Try to open new mail directory
-	GDir *gdir = g_dir_open (directory.c_str (), 0, NULL);
+	GDir *gdir = g_dir_open (address().c_str(), 0, NULL);
 	if (gdir == NULL) {
-		g_warning(_("Cannot open new mail directory (%s)"), directory.c_str());
+		g_warning(_("Cannot open new mail directory (%s)"), address().c_str());
 		status (MAILBOX_ERROR);
 		return;
 	}
@@ -115,7 +102,7 @@ Maildir::fetch (void)
 			continue;
 
 		std::ifstream file;
-		gchar *tmp = g_build_filename (directory.c_str(), d_name, NULL);
+		gchar *tmp = g_build_filename (address().c_str(), d_name, NULL);
 		std::string filename(tmp);
 		g_free(tmp);
 
