@@ -50,41 +50,62 @@
 extern "C" {
 	gboolean POPUP_on_popdown (gpointer data)
 	{
-		return ((Popup *) data)->on_popdown ();
+		if (data)
+			return ((Popup *) data)->on_popdown ();
+		else
+			unknown_internal_error ();
+		return false;
 	}
 
 	gboolean POPUP_on_button_press (GtkWidget *widget,
 									GdkEventButton *event,
 									gpointer data)
 	{
-		return ((Popup *) data)->on_button_press (event);
+		if (data)
+			return ((Popup *) data)->on_button_press (event);
+		else
+			unknown_internal_error ();
+		return false;
 	}
 
 	gboolean POPUP_on_button_release (GtkWidget *widget,
 									  GdkEventButton *event,
 									  gpointer data)
 	{
-		return ((Popup *) data)->on_button_release (event);
+		if (data)
+			return ((Popup *) data)->on_button_release (event);
+		else
+			unknown_internal_error ();
+		return false;
 	}
 
 	void POPUP_on_enter (GtkWidget *widget,
 						 GdkEventCrossing *event,
 						 gpointer data)
 	{
-		((Popup *) data)->on_enter (event);
+		if (data)
+			((Popup *) data)->on_enter (event);
+		else
+			unknown_internal_error ();
 	}
 
 	void POPUP_on_leave (GtkWidget *widget,
 						 GdkEventCrossing *event,
 						 gpointer data)
 	{
-		((Popup *) data)->on_leave (event);
+		if (data)
+			((Popup *) data)->on_leave (event);
+		else
+			unknown_internal_error ();
 	}
 	
 	void POPUP_on_select (GtkTreeSelection *selection,
 						  gpointer data)
 	{
-		((Popup *) data)->on_select (selection);
+		if (data)
+			((Popup *) data)->on_select (selection);
+		else
+			unknown_internal_error ();
 	}
 }
 

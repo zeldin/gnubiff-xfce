@@ -38,6 +38,7 @@
 #include "biff.h"
 #include "mailbox.h"
 #include "nls.h"
+#include "support.h"
 
 /* "C" bindings */
 extern "C" {
@@ -46,72 +47,107 @@ extern "C" {
 								   GdkEventButton *event,
 								   gpointer data)
 	{
-		if ((event->button == 1) && (event->type == GDK_2BUTTON_PRESS))
-			PREFERENCES(data)->on_properties (0);
-		return FALSE;
+		if (data) {
+			if ((event->button == 1) && (event->type == GDK_2BUTTON_PRESS))
+				PREFERENCES(data)->on_properties (0);
+		}
+		else
+			unknown_internal_error ();
+		return false;
 	}
 
 	void PREFERENCES_on_add (GtkWidget *widget,
 							 gpointer data)
 	{
-		PREFERENCES(data)->on_add (widget);
+		if (data)
+			PREFERENCES(data)->on_add (widget);
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_on_remove (GtkWidget *widget,
 								gpointer data)
 	{
-		PREFERENCES(data)->on_remove (widget);
+		if (data)
+			PREFERENCES(data)->on_remove (widget);
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_on_properties (GtkWidget *widget,
 									gpointer data)
 	{
-		PREFERENCES(data)->on_properties (widget);
+		if (data)
+			PREFERENCES(data)->on_properties (widget);
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_on_stop (GtkWidget *widget,
 							  gpointer data)
 	{
-		PREFERENCES(data)->on_stop (widget);
+		if (data)
+			PREFERENCES(data)->on_stop (widget);
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_on_browse_newmail_image (GtkWidget *widget,
 											  gpointer data)
 	{
-		PREFERENCES(data)->on_browse_newmail_image (widget);
+		if (data)
+			PREFERENCES(data)->on_browse_newmail_image (widget);
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_on_browse_nomail_image (GtkWidget *widget,
 											 gpointer data)
 	{
-		PREFERENCES(data)->on_browse_nomail_image (widget);
+		if (data)
+			PREFERENCES(data)->on_browse_nomail_image (widget);
+		else
+			unknown_internal_error ();
 	}
 	
 	void PREFERENCES_on_selection_changed (GtkTreeSelection *selection,
 										   gpointer data)
 	{
-		PREFERENCES(data)->on_selection (selection);
+		if (data)
+			PREFERENCES(data)->on_selection (selection);
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_on_check_changed (GtkWidget *widget,
 									   gpointer data)
 	{
-		PREFERENCES(data)->on_check_changed (widget);
+		if (data)
+			PREFERENCES(data)->on_check_changed (widget);
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_on_Notebook_switch_page (GtkNotebook *widget,
 											  GtkNotebookPage *page,
 											  gint page_num, gpointer data)
 	{
-		// FIXME: Do not hardcode page 3
-		if (page_num == 3)
-			PREFERENCES(data)->expert_update_option_list ();
+		if (data) {
+			// FIXME: Do not hardcode page 3
+			if (page_num == 3)
+				PREFERENCES(data)->expert_update_option_list ();
+		}
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_on_selection_expert (GtkTreeSelection *selection,
 										  gpointer data)
 	{
-		PREFERENCES(data)->expert_on_selection (selection);
+		if (data)
+			PREFERENCES(data)->expert_on_selection (selection);
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_expert_on_row_activated (GtkTreeView *treeview,
@@ -119,53 +155,76 @@ extern "C" {
 											  GtkTreeViewColumn *col,
 											  gpointer data)
 	{
-		PREFERENCES(data)->expert_toggle_option ();
+		if (data)
+			PREFERENCES(data)->expert_toggle_option ();
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_expert_option_edited  (GtkCellRendererText *cell,
 											gchar *path_string,
 											gchar *new_text, gpointer data)
 	{
-		PREFERENCES(data)->expert_set_selected_option (new_text);
+		if (data)
+			PREFERENCES(data)->expert_set_selected_option (new_text);
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_expert_reset (GtkWidget *widget, gpointer data)
 	{
-		PREFERENCES(data)->expert_set_selected_option (NULL);
+		if (data)
+			PREFERENCES(data)->expert_set_selected_option (NULL);
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_expert_toggle_option (GtkWidget *widget, gpointer data)
 	{
-		PREFERENCES(data)->expert_toggle_option ();
+		if (data)
+			PREFERENCES(data)->expert_toggle_option ();
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_expert_edit_value (GtkWidget *widget, gpointer data)
 	{
-		PREFERENCES(data)->expert_edit_value ();
+		if (data)
+			PREFERENCES(data)->expert_edit_value ();
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_expert_search (GtkWidget *widget, gpointer data)
 	{
-		PREFERENCES(data)->expert_search ();
+		if (data)
+			PREFERENCES(data)->expert_search ();
+		else
+			unknown_internal_error ();
 	}
 
 	void PREFERENCES_expert_new (GtkWidget *widget, gpointer data)
 	{
-		PREFERENCES(data)->expert_add_option_list ();
+		if (data)
+			PREFERENCES(data)->expert_add_option_list ();
+		else
+			unknown_internal_error ();
 	}
 
 	gboolean PREFERENCES_expert_on_button_press (GtkWidget *widget,
 												 GdkEventButton *event,
 												 gpointer data)
 	{
-		// Single click with right mouse button?
-		if (event->type == GDK_BUTTON_PRESS  &&  event->button == 3)
-			return PREFERENCES(data)->expert_show_context_menu (event);
+		if (data) {
+			// Single click with right mouse button?
+			if (event->type == GDK_BUTTON_PRESS  &&  event->button == 3)
+				return PREFERENCES(data)->expert_show_context_menu (event);
+		}
+		else
+			unknown_internal_error ();
 		return false;
 	}
 }
-
-
 
 Preferences::Preferences (Biff *biff) : GUI (GNUBIFF_DATADIR"/preferences.glade")
 {
