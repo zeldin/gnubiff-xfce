@@ -37,7 +37,7 @@
 # Current version is 2.0.3
 
 AC_PREREQ(2.53)
-AC_INIT(gnubiff, 2.0.3, rougier@loria.fr)
+AC_INIT(gnubiff, 2.0.3, gnubiff-bugs@lists.sourceforge.net)
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_SRCDIR([src/gnubiff.cc])
