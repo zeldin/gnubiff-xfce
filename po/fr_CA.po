@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-01 23:44+0100\n"
+"POT-Creation-Date: 2005-02-05 14:42+0100\n"
 "PO-Revision-Date: 2005-01-19 09:30+0100\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -60,23 +60,23 @@ msgstr "Options de déboggage"
 msgid "Configuration file (%s) not found !"
 msgstr "Fichier de configuration non trouvé (%s)"
 
-#: src/biff.cc:491
+#: src/biff.cc:495
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: src/biff.cc:517
+#: src/biff.cc:521
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Votre fichier de configuration n'as pas de définition de boîte aux lettres (%"
 "s)"
 
-#: src/biff.cc:541
+#: src/biff.cc:545
 msgid "Illegal parameter format in config file"
 msgstr "Format de paramètre illégal dans le fichier de configuration"
 
-#: src/biff.cc:564
+#: src/biff.cc:568
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
@@ -102,6 +102,12 @@ msgstr "<Pas de sujet>"
 #: src/mailbox.cc:527
 msgid "<no date>"
 msgstr "<Pas de date>"
+
+#. Otherwise: Ignore it and print error message
+#: src/header.cc:133
+#, c-format
+msgid "Can't sort mails by \"%s\""
+msgstr ""
 
 #: src/socket.cc:122 src/socket.cc:151 src/socket.cc:179 src/socket.cc:187
 #: src/socket.cc:195 src/socket.cc:207 src/socket.cc:231 src/socket.cc:239
@@ -134,46 +140,46 @@ msgstr "[%d] Impossible de lire depuis %s sur le port %d"
 msgid "Could not set read timeout on socket: %s"
 msgstr "Impossible de régler le délai sur la socket: %s"
 
-#: src/imap4.cc:476
+#: src/imap4.cc:475
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
 #. Create error message
-#: src/imap4.cc:843
+#: src/imap4.cc:844
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:931
+#: src/imap4.cc:932
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 
-#: src/imap4.cc:990
+#: src/imap4.cc:991
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 "[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\" ni l'acquitement."
 
-#: src/imap4.cc:1043
+#: src/imap4.cc:1044
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\""
 
 #. see RFC 3501 7.1.5
-#: src/imap4.cc:1609
+#: src/imap4.cc:1610
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Le serveur a fermé immédiatement la connexion: %s"
 
 #. see RFC 3501 7.1.3
-#: src/imap4.cc:1614
+#: src/imap4.cc:1615
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Erreur interne sur le serveur ou alors erreur inconnue: %s"
 
 #. see RFC 3501 7.1.2
-#: src/imap4.cc:1619
+#: src/imap4.cc:1620
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Mise en garde du serveur: %s"
@@ -193,7 +199,7 @@ msgstr "Inpossible d'ouvrir le répertoire (%s)"
 msgid "Cannot open %s."
 msgstr "Impossible d'ouvrir %s"
 
-#: src/pop.cc:158
+#: src/pop.cc:157
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Mot de passe vide"
@@ -224,24 +230,24 @@ msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
 
-#: src/options.cc:295
+#: src/options.cc:308
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr ""
 
-#: src/options.cc:302
+#: src/options.cc:315
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr ""
 
-#: src/options.cc:423 src/gui.cc:211
+#: src/options.cc:451 src/gui.cc:211
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
 "Impossible de trouver le widget spécifié (\"%s\") dans la structure xml (\"%s"
 "\")"
 
-#: src/gnubiff_options.cc:121
+#: src/gnubiff_options.cc:124
 msgid "no mail"
 msgstr "Aucun courrier"
 
@@ -307,19 +313,19 @@ msgid "Security"
 msgstr "Sécurité"
 
 #. Selection label
-#: src/ui-preferences.cc:236 src/ui-preferences.cc:546
+#: src/ui-preferences.cc:236 src/ui-preferences.cc:551
 msgid "No mailbox selected"
 msgstr "Pas de boîte aux lettres séléctionnée"
 
-#: src/ui-preferences.cc:480
+#: src/ui-preferences.cc:485
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:486 ui/preferences.glade.h:69
+#: src/ui-preferences.cc:491 ui/preferences.glade.h:69
 msgid "_Stop"
 msgstr "_Stopper"
 
-#: src/ui-preferences.cc:497 src/ui-preferences.cc:504
+#: src/ui-preferences.cc:502 src/ui-preferences.cc:509
 msgid "Browse for a new mail image"
 msgstr "Chercher le fichier image"
 
@@ -385,12 +391,12 @@ msgstr "Sujet"
 msgid "Date"
 msgstr "Date"
 
-#: src/ui-popup.cc:588 src/ui-popup.cc:600 src/ui-popup.cc:609
-#: src/ui-popup.cc:616
+#: src/ui-popup.cc:612 src/ui-popup.cc:624 src/ui-popup.cc:633
+#: src/ui-popup.cc:640
 msgid "* error *"
 msgstr "* erreur *"
 
-#: src/ui-popup.cc:669
+#: src/ui-popup.cc:693
 msgid "Error"
 msgstr "Erreur"
 

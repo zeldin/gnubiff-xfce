@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-01 23:44+0100\n"
+"POT-Creation-Date: 2005-02-05 14:42+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -55,21 +55,21 @@ msgstr ""
 msgid "Configuration file (%s) not found !"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: src/biff.cc:491
+#: src/biff.cc:495
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: src/biff.cc:517
+#: src/biff.cc:521
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: src/biff.cc:541
+#: src/biff.cc:545
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:564
+#: src/biff.cc:568
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
@@ -95,6 +95,12 @@ msgstr "Subiect"
 
 #: src/mailbox.cc:527
 msgid "<no date>"
+msgstr ""
+
+#. Otherwise: Ignore it and print error message
+#: src/header.cc:133
+#, c-format
+msgid "Can't sort mails by \"%s\""
 msgstr ""
 
 #: src/socket.cc:122 src/socket.cc:151 src/socket.cc:179 src/socket.cc:187
@@ -128,45 +134,45 @@ msgstr ""
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
 
-#: src/imap4.cc:476
+#: src/imap4.cc:475
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
 #. Create error message
-#: src/imap4.cc:843
+#: src/imap4.cc:844
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:931
+#: src/imap4.cc:932
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:990
+#: src/imap4.cc:991
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: src/imap4.cc:1043
+#: src/imap4.cc:1044
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
 #. see RFC 3501 7.1.5
-#: src/imap4.cc:1609
+#: src/imap4.cc:1610
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.3
-#: src/imap4.cc:1614
+#: src/imap4.cc:1615
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.2
-#: src/imap4.cc:1619
+#: src/imap4.cc:1620
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
@@ -186,7 +192,7 @@ msgstr "Nu se poate deschide maildir (%s).\n"
 msgid "Cannot open %s."
 msgstr "Nu se poate deschide maildir (%s).\n"
 
-#: src/pop.cc:158
+#: src/pop.cc:157
 #, c-format
 msgid "[%d] Empty password"
 msgstr ""
@@ -214,22 +220,22 @@ msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 
-#: src/options.cc:295
+#: src/options.cc:308
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr ""
 
-#: src/options.cc:302
+#: src/options.cc:315
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr ""
 
-#: src/options.cc:423 src/gui.cc:211
+#: src/options.cc:451 src/gui.cc:211
 #, fuzzy, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Nu am putut gãsi widgetul specificat (\"%s\") în structura de tree xml"
 
-#: src/gnubiff_options.cc:121
+#: src/gnubiff_options.cc:124
 #, fuzzy
 msgid "no mail"
 msgstr "Nici un mail"
@@ -295,19 +301,19 @@ msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:236 src/ui-preferences.cc:546
+#: src/ui-preferences.cc:236 src/ui-preferences.cc:551
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:480
+#: src/ui-preferences.cc:485
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:486 ui/preferences.glade.h:69
+#: src/ui-preferences.cc:491 ui/preferences.glade.h:69
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:497 src/ui-preferences.cc:504
+#: src/ui-preferences.cc:502 src/ui-preferences.cc:509
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Rãsfoire(browse) dupã fiºier"
@@ -373,12 +379,12 @@ msgstr "Subiect"
 msgid "Date"
 msgstr "Data"
 
-#: src/ui-popup.cc:588 src/ui-popup.cc:600 src/ui-popup.cc:609
-#: src/ui-popup.cc:616
+#: src/ui-popup.cc:612 src/ui-popup.cc:624 src/ui-popup.cc:633
+#: src/ui-popup.cc:640
 msgid "* error *"
 msgstr ""
 
-#: src/ui-popup.cc:669
+#: src/ui-popup.cc:693
 msgid "Error"
 msgstr ""
 

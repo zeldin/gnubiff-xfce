@@ -362,11 +362,11 @@ Biff::option_update (Option *option)
 void 
 Biff::save_newblock(const gchar *name)
 {
-	save_blocks.push_back(name);
-	const gchar *fmt="%*s<%s>\n";
-	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2-2,"",name);
+	save_blocks.push_back (name);
+	const gchar *fmt = "%*s<%s>\n";
+	gchar *esc = g_markup_printf_escaped(fmt,save_blocks.size()*2-2,"",name);
 	save_file << esc;
-	g_free(esc);
+	g_free (esc);
 }
   	 
 /**
@@ -375,12 +375,12 @@ Biff::save_newblock(const gchar *name)
 void 
 Biff::save_endblock(void)
 {
-	const gchar *fmt="%*s</%s>\n";
-	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2-2,"",
-									   save_blocks[save_blocks.size()-1]);
+	const gchar *fmt = "%*s</%s>\n";
+	gchar *esc = g_markup_printf_escaped(fmt, save_blocks.size()*2-2, "",
+										 save_blocks[save_blocks.size()-1]);
 	save_file << esc;
-	g_free(esc);
-	save_blocks.pop_back();
+	g_free (esc);
+	save_blocks.pop_back ();
 }
 
 /**
@@ -542,7 +542,7 @@ Biff::xml_start_element (GMarkupParseContext *context,
 		for (guint i = 0; attribute_names[i]; i++)
 			temp[attribute_names[i]] = attribute_values[i];
 		if (temp["name"].empty ()) {
-			g_warning(_("Illegal parameter format in config file"));
+			g_warning (_("Illegal parameter format in config file"));
 			return;
 		}
 		buffer_load_[temp["name"]] = temp["value"];
