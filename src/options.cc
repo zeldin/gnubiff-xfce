@@ -109,11 +109,12 @@ Options::add_option (Options &options)
 
 /**
  *  Reset the option to the default value. This function handles the
- *  OPTFLG_CHANGE flag, so use this instead of calling Option::reset()
+ *  OPTFLG_CHANGE flag, so use this function instead of calling Option::reset()
  *  directly.
  *
  *  @param  name           Name of the option
- *  @param  respect_change Respect the OPTFLG_CHANGE flag (default is true)
+ *  @param  respect_change Shall the OPTFLG_CHANGE flag be respected (the
+ *                         default is true)?
  *  @return                Success indicator
  */
 gboolean 
@@ -128,6 +129,17 @@ Options::reset (const std::string &name, gboolean respect_change)
 	return (option != NULL);
 }
 
+/**
+ *  Set the value of the boolean option {\em name}. This function handles the
+ *  OPTFLG_CHANGE flag, so use this function instead of setting the value
+ *  directly.
+ *
+ *  @param  name           Name of the option to be changed
+ *  @param  value          New value of the option
+ *  @param  respect_change Shall the OPTFLG_CHANGE flag be respected (the
+ *                         default is true)?
+ *  @return                Boolean indicating success
+ */
 gboolean 
 Options::value (const std::string &name, gboolean value,
 				gboolean respect_change)
@@ -141,6 +153,17 @@ Options::value (const std::string &name, gboolean value,
 	return (option != NULL);
 }
 
+/**
+ *  Set the value of the string option {\em name}. This function handles the
+ *  OPTFLG_CHANGE flag, so use this function instead of setting the value
+ *  directly.
+ *
+ *  @param  name           Name of the option to be changed
+ *  @param  value          New value of the option
+ *  @param  respect_change Shall the OPTFLG_CHANGE flag be respected (the
+ *                         default is true)?
+ *  @return                Boolean indicating success
+ */
 gboolean 
 Options::value (const std::string &name, std::string value,
 				gboolean respect_change)
@@ -154,6 +177,17 @@ Options::value (const std::string &name, std::string value,
 	return (option != NULL);
 }
 
+/**
+ *  Set the value of the unsigned integer option {\em name}. This function
+ *  handles the OPTFLG_CHANGE flag, so use this function instead of setting
+ *  the value directly.
+ *
+ *  @param  name           Name of the option to be changed
+ *  @param  value          New value of the option
+ *  @param  respect_change Shall the OPTFLG_CHANGE flag be respected (the
+ *                         default is true)?
+ *  @return                Boolean indicating success
+ */
 gboolean 
 Options::value (const std::string &name, guint value, gboolean respect_change)
 {
@@ -166,6 +200,16 @@ Options::value (const std::string &name, guint value, gboolean respect_change)
 	return (option != NULL);
 }
 
+/**
+ *  Get the value of the boolean option {\em name}.  This function handles
+ *  the OPTFLG_UPDATE flag, so use this function instead of setting the
+ *  value directly.
+ *
+ *  @param  name           Name of the option to be obtained
+ *  @param  respect_update Shall the OPTFLG_UPDATE flag be respected (the
+ *                         default is true)?
+ *  @return                Value of the option or "false" if there is an error
+ */
 gboolean 
 Options::value_bool (const std::string &name, gboolean respect_update)
 {
@@ -177,6 +221,17 @@ Options::value_bool (const std::string &name, gboolean respect_update)
 	return option->value();
 }
 
+/**
+ *  Get the value of the string option {\em name}.  This function handles
+ *  the OPTFLG_UPDATE flag, so use this function instead of setting the
+ *  value directly.
+ *
+ *  @param  name           Name of the option to be obtained
+ *  @param  respect_update Shall the OPTFLG_UPDATE flag be respected (the
+ *                         default is true)?
+ *  @return                Value of the option or an empty string if there is
+ *                         an error
+ */
 std::string 
 Options::value_string (const std::string &name, gboolean respect_update)
 {
@@ -188,12 +243,34 @@ Options::value_string (const std::string &name, gboolean respect_update)
 	return option->value();
 }
 
+/**
+ *  Get the value of the string option {\em name} as a pointer to a
+ *  character array.  This function handles the OPTFLG_UPDATE flag, so use
+ *  this function instead of setting the value directly.
+ *
+ *  @param  name           Name of the option to be obtained
+ *  @param  respect_update Shall the OPTFLG_UPDATE flag be respected (the
+ *                         default is true)?
+ *  @return                Value of the option or a pointer to an empty string
+ *                         if there is an error
+ */
 const gchar *
 Options::value_gchar (const std::string &name, gboolean respect_update)
 {
 	return value_string(name, respect_update).c_str();
 }
 
+
+/**
+ *  Get the value of the unsigned integer option {\em name}.  This function
+ *  handles the OPTFLG_UPDATE flag, so use this function instead of setting
+ *  the value directly.
+ *
+ *  @param  name           Name of the option to be obtained
+ *  @param  respect_update Shall the OPTFLG_UPDATE flag be respected (the
+ *                         default is true)?
+ *  @return                Value of the option or zero if there is an error
+ */
 guint 
 Options::value_uint (const std::string &name, gboolean respect_update)
 {
@@ -205,6 +282,23 @@ Options::value_uint (const std::string &name, gboolean respect_update)
 	return option->value();
 }
 
+/**
+ *  Set the value of the string option {\em name}. This is done by creating
+ *  a space separated list of all the strings in the set {\em values}. If
+ *  {\em empty} is true the old value of the option will be overwritten,
+ *  otherwise the new strings are appended.
+ *
+ *  Note: This function handles the OPTFLG_CHANGE flag, so use this
+ *  function instead of setting the value directly.
+ *
+ *  @param  name           Name of the option to be changed
+ *  @param  values         New strings to add to the option's value
+ *  @param  empty          Shall the option be erased before appending (the
+ *                         default is true)?
+ *  @param  respect_change Shall the OPTFLG_CHANGE flag be respected (the
+ *                         default is true)?
+ *  @return                Boolean indicating success
+ */
 gboolean 
 Options::set_values (const std::string &name,
 					 const std::set<std::string> &values, gboolean empty,
@@ -219,6 +313,25 @@ Options::set_values (const std::string &name,
 	return (option != NULL);
 }
 
+/**
+ *  Get the value of the string option {\em name}. The option's value is
+ *  treated as a space separated list of strings. Each string in this list
+ *  is returned in the set {\em var}. If {\em empty} is true the this set
+ *  will be emptied before obtaining the values, otherwise the new strings
+ *  are inserted in {\em var} in addition to the strings that are in this set
+ *  before calling this function.
+ *
+ *  Note: This function handles the OPTFLG_UPDATE flag, so use this
+ *  function instead of setting the value directly.
+ *
+ *  @param  name           Name of the option to be obtained
+ *  @param  var            Set in which the strings will be returned
+ *  @param  empty          Shall the set {\em var} be erased before inserting
+ *                         the strings (the default is true)?
+ *  @param  respect_update Shall the OPTFLG_UPDATE flag be respected (the
+ *                         default is true)?
+ *  @return                Boolean indicating success
+ */
 gboolean 
 Options::get_values (const std::string &name, std::set<std::string> &var,
 					 gboolean empty, gboolean respect_update)
@@ -232,6 +345,16 @@ Options::get_values (const std::string &name, std::set<std::string> &var,
 	return true;
 }
 
+/**
+ *  Get the string constant that is equivalent to the value {\em val}. This
+ *  value must be a possible value for the option {\em name}.
+ *
+ *  @param  name           Name of the option
+ *  @param  val            Value to be converted to a string constant
+ *  @return                String constant or an empty string if there is no
+ *                         constant for this value, {\em name} is no unsigned
+ *                         integer option or if there is an error.
+ */
 const std::string 
 Options::value_to_string (const std::string &name, guint val)
 {
@@ -239,6 +362,26 @@ Options::value_to_string (const std::string &name, guint val)
 	if (!option)
 		return std::string("");
 	return option->value_to_string (val);
+}
+
+/**
+ *  Get the value that is equivalent to the string constant {\em str}. This
+ *  constant must be a possible string constant for the option {\em name}.
+ *
+ *  @param  name           Name of the option
+ *  @param  str            String constant to be converted to an unsigned
+ *                         integer
+ *  @return                Integer value or zero if there is not such a string
+ *                         constant, {\em name} is no unsigned integer option
+ *                         or if there is an error.
+ */
+guint 
+Options::string_to_value (const std::string &name, const std::string &str)
+{
+	Option_UInt *option = (Option_UInt *) find_option (name, OPTTYPE_UINT);
+	if (!option)
+		return 0;
+	return option->string_to_value (str);
 }
 
 std::string 
@@ -263,16 +406,6 @@ Options::from_string (const std::string &name, const std::string value,
 	if ((option->flags() & OPTFLG_CHANGE) && respect_change)
 		option_changed (option);
 	return true;
-}
-
-
-guint 
-Options::string_to_value (const std::string &name, const std::string &str)
-{
-	Option_UInt *option = (Option_UInt *) find_option (name, OPTTYPE_UINT);
-	if (!option)
-		return 0;
-	return option->string_to_value (str);
 }
 
 void 
