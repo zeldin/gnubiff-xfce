@@ -130,6 +130,7 @@
 		  <property name="has_frame">True</property>
 		  <property name="invisible_char" translatable="yes">*</property>
 		  <property name="activates_default">False</property>
+		  <signal name="activate" handler="GUI_on_ok" last_modification_time="Sat, 04 Dec 2004 16:46:57 GMT"/>
 		</widget>
 		<packing>
 		  <property name="left_attach">2</property>
