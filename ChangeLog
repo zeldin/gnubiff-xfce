@@ -119,7 +119,7 @@ Version 2.1.1
    - Bugfix: Number of mails to be displayed distributed correctly among the
         mailboxes
    - Bugfix: Displaying popup data correctly
-   - Some additional include files added for FreeBSD
+   - Some additional include files added for FreeBSD (thanks to Tim Bishop)
    - Macro TEMP_FAILURE_RETURN provided for systems that don't have it
    - Bugfix: Once mail is displayed set mailbox status to MAILBOX_OLD
    - Bugfix: Note only those mails for displaying that will be displayed
@@ -128,6 +128,7 @@ Version 2.1.1
    - Bugfix: Remove mail ids from hidden_ that are no longer in seen_
    - Simplified code for loading config file
    - Error messages for errors when loading config file
+   - Bugfix: Segmentation faults when selecting mails in popup while updating
 
 Version 2.1.0
  * Nicolas Rougier

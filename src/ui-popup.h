@@ -46,7 +46,7 @@ enum {
 	COLUMN_SENDER,
 	COLUMN_SUBJECT,
 	COLUMN_DATE,
-	COLUMN_HEADER,
+	COLUMN_MAILID,
 	COLUMNS
 };
 
@@ -56,7 +56,7 @@ protected:
 	class Biff *		biff_;				// Biff owner
 	gint				poptag_;			// Tag for pop timer
 	static GStaticMutex	timer_mutex_;		// Mutex for timer tag access
-	header *			selected_header_;	// Current selected header
+	header				selected_header_;	// Current selected header
 	GtkTreeSelection *	tree_selection_;	// Current tree selection
 	gboolean			consulting_;		// Tag to know if we're consulting a mail
 	gint				x_;					// Last mouse x position known

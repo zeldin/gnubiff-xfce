@@ -285,6 +285,9 @@ public:
 	// ========================================================================
 	//  access
 	// ========================================================================
+
+	gboolean find_mail (std::string mailid, header &mail);
+
 	const std::string name (void)						{return name_;}
 	void name (const std::string value)					{name_ = value;}
 

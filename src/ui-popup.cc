@@ -97,7 +97,6 @@ Popup::Popup (Biff *biff) : GUI (GNUBIFF_DATADIR"/popup.glade")
 	poptag_ = 0;
 	g_static_mutex_unlock (&timer_mutex_);
 	tree_selection_ = 0;
-	selected_header_ = 0;
 	consulting_ = false;
 }
 
@@ -291,6 +290,10 @@ Popup::update (void)
 			g_free (buffer);
 			saved_strings.push_back (sender);
 
+			// Mail identifier
+			gchar *mailid = g_strdup (h.mailid_.c_str());
+			saved_strings.push_back (mailid);
+
 			std::stringstream s;
 			s << cnt;
 			if (cnt == 1)
@@ -302,7 +305,7 @@ Popup::update (void)
 								COLUMN_SENDER, sender, 
 								COLUMN_SUBJECT, subject,
 								COLUMN_DATE, date,
-								COLUMN_HEADER,&biff_->mailbox(j)->unread()[*i],
+								COLUMN_MAILID, mailid,
 								-1);
 		}
 	}
@@ -338,7 +341,6 @@ Popup::show (std::string name)
 	//	for (unsigned int i=0; i<biff_->size(); i++)
 	//		biff_->applet(i)->stop();
 	tree_selection_ = 0;
-	selected_header_ = 0;
 	consulting_ = false;
 
 	GtkWindow *dialog=GTK_WINDOW(get("dialog"));
@@ -476,12 +478,13 @@ Popup::on_select (GtkTreeSelection *selection)
 	// the store model where we stored this info
 	if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
 		gpointer *address;
-		gtk_tree_model_get (model, &iter, COLUMN_HEADER, &address, -1);
-		selected_header_ = (header *) address;
+		gtk_tree_model_get (model, &iter, COLUMN_MAILID, &address, -1);
+		if (!biff_->find_mail(std::string((gchar *)address), (header_ &) selected_header_))
+			return;
 	}
 
 	// If we're in consulting mode, update the text of the (single) mail popup
-	if (consulting_ && selected_header_) {
+	if (consulting_) {
 		// Nop popdown when we're consulting an email
 		g_static_mutex_lock (&timer_mutex_);
 		if (poptag_ > 0)
@@ -504,7 +507,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		gtk_text_buffer_get_iter_at_offset (buffer, &iter, 0);
 
 		// Sender
-		text = parse_header (selected_header_->sender);
+		text = parse_header (selected_header_.sender);
 		if (text) {
 			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
 			gtk_label_set_markup (GTK_LABEL(get("from")), markup);
@@ -513,7 +516,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		}
 
 		// Subject
-		text = parse_header (selected_header_->subject);
+		text = parse_header (selected_header_.subject);
 		if (text) {
 			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
 			gtk_label_set_markup (GTK_LABEL(get("subject")), markup);
@@ -522,7 +525,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		}
 
 		// Date
-		text = parse_header(selected_header_->date);
+		text = parse_header(selected_header_.date);
 		if (text) {
 			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
 			gtk_label_set_markup (GTK_LABEL(get("date")), markup);
@@ -531,7 +534,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		}
 
 		// Body
-		text = convert (selected_header_->body, selected_header_->charset);
+		text = convert (selected_header_.body, selected_header_.charset);
 		if (text) {
 			gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, text, -1, "normal", NULL);
 			g_free (text);

@@ -228,7 +228,29 @@ Biff::popup_format (std::string format)
 	popup_format_ = format;
 }
 
-guint
+/**
+ *  Search in all mailboxes for the mail with id {\em mailid}.
+ *
+ *  @param  mailid  Gnubiff mail identifier of the mail to find
+ *  @param  mail    Here the header of the found mail is returned. If no mail
+ *                  with id {\em mailid} exists, {\em mail} remains unchanged.
+ *  @returns        Boolean indicating if a mail exists or not.
+ */
+gboolean 
+Biff::find_mail (std::string mailid, struct header_ &mail)
+{
+	gboolean ok = false;
+
+	g_mutex_lock (mutex_);
+	for (guint i=0; (i < mailbox_.size()) && !ok; i++)
+		if (mailbox_[i]->find_mail (mailid, (header &)mail))
+			ok = true;
+	g_mutex_unlock (mutex_);
+
+	return ok;
+}
+
+guint 
 Biff::size (void)
 {
 	g_mutex_lock (mutex_);

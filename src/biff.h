@@ -139,6 +139,7 @@ public:
 	//  access
 	// ================================================================================
 	guint size (void);
+	gboolean find_mail (std::string mailid, struct header_ &mail);
 	void popup_format (std::string format);
 	class Mailbox * mailbox (guint index);
 	class Mailbox * get (guint uin);

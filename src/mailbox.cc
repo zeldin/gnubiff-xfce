@@ -721,3 +721,24 @@ Mailbox::save_data (void)
 	biff_->save_para ("other_port", other_port_);
 	biff_->save_para ("seen", hidden_);
 }
+
+/**
+ *  Search the mailbox for the mail with id {\em mailid}.
+ *
+ *  @param  mailid  Gnubiff mail identifier of the mail to find
+ *  @param  mail    Here the header of the found mail is returned. If no mail
+ *                  with id {\em mailid} exists, {\em mail} remains unchanged.
+ *  @returns        Boolean indicating if a mail exists or not.
+ */
+gboolean 
+Mailbox::find_mail (std::string mailid, header &mail)
+{
+	gboolean ok = false;
+
+	g_mutex_lock (mutex_);
+	if (ok = (unread_.find (mailid) != unread_.end ()))
+		mail = unread_[mailid];
+	g_mutex_unlock (mutex_);
+
+	return ok;
+}
