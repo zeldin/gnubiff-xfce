@@ -22,6 +22,8 @@ Version 2.0.3
    - Bugfix: Autodetection of IMAP
    - Bugfix: Failure of select command (IMAP)
    - Bugfix: Failure of opening connection (IMAP)
+   - Security Bugfix: DoS attacks by sending unterminated lines anticipated
+     (if SSL is used, this was fixed for non-SSL connections in 2.0.2)
 
 Version 2.0.2
  * Some cosmetic fixes
