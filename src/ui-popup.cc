@@ -475,21 +475,27 @@ Popup::on_select (GtkTreeSelection *selection)
 		// Sender
 		text = parse_header (selected_header_->sender);
 		if (text) {
-			gtk_label_set_text (GTK_LABEL(get("from")), text);
+			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
+			gtk_label_set_markup (GTK_LABEL(get("from")), markup);
+			g_free (markup);
 			g_free (text);
 		}
 
 		// Subject
 		text = parse_header (selected_header_->subject);
 		if (text) {
-			gtk_label_set_text (GTK_LABEL(get("subject")), text);
+			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
+			gtk_label_set_markup (GTK_LABEL(get("subject")), markup);
+			g_free (markup);
 			g_free (text);
 		}
 
 		// Date
 		text = parse_header(selected_header_->date);
 		if (text) {
-			gtk_label_set_text (GTK_LABEL(get("date")), text);
+			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
+			gtk_label_set_markup (GTK_LABEL(get("date")), markup);
+			g_free (markup);
 			g_free (text);
 		}
 

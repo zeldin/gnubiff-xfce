@@ -77,6 +77,10 @@ Imap4::threaded_start (guint delay)
 	if (timetag_)
 		return;
 
+	// Are we in idle state ?
+	if (idled_)
+		return;
+
 	// Do we want to start using given delay ?
 	if (delay) {
 		timetag_ = g_timeout_add (delay*1000, start_delayed_entry_point, this);
@@ -108,7 +112,7 @@ void
 Imap4::fetch (void)
 {
 	fetch_status();
-	if ((status_ == MAILBOX_NEW) || (status_ == MAILBOX_EMPTY))
+	if ((status_ == MAILBOX_NEW) || (status_ == MAILBOX_EMPTY) || (idleable_))
 		fetch_header();
 
 	if (!GTK_WIDGET_VISIBLE (biff_->popup()->get())) {
@@ -177,7 +181,7 @@ gint Imap4::connect (void)
 	if (!send (line, false)) return 0;
 	if (!(socket_->read (line))) return 0;
 	if (line.find ("IDLE") != std::string::npos)
-		idleable_ = false;
+		idleable_ = true;
 
 	if (!(socket_->read (line))) return 0;
 	if (line.find (tag()+"OK") != 0) {
@@ -578,17 +582,18 @@ Imap4::fetch_header (void)
 				g_source_remove (timetag_);
 			timetag_ = 0;
 			// Entering idle state
+			idled_ = true;
 			line = std::string ("IDLE");
 			if (!send (line)) break;
 		
 			// Read acknowledgement
 			if (!socket_->read (line)) break;
 			
-			// Do we still
-			if (line.find ("* OK") == std::string::npos) break;
-
 			// Wait for new mail
 			if (!socket_->read (line)) break;
+
+			// Check if we got an ack before going on
+			if (line.find ("* OK") == std::string::npos) break;
 
 			line = std::string ("DONE") +std::string ("\r\n");
 			if (!socket_->write (line)) idling = false;
@@ -596,19 +601,17 @@ Imap4::fetch_header (void)
 			do {
 				if (!socket_->read (line)) break;
 			} while (line.find (tag()+"OK") != 0);
-
-		
 		}
 		else {
 			// Closing connection
 			if (!send ("LOGOUT\r\n")) break;
 			socket_->close ();
 			idling = false;
+			idled_ = false;
 		}
 		if (!socket_->status()) break;
 	} while (idling);
-
-	
+	idled_ = false;
 }
 
 /** 

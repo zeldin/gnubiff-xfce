@@ -316,7 +316,7 @@ Socket::read (std::string &line,
 			  gboolean check)
 {
 	char buffer;
-	int status;
+	int status = 0;
 	line = "";
 	status_ = -1;
 

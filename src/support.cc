@@ -97,7 +97,7 @@ gb_utf8_to_imaputf7(const gchar *str, gssize len)
 	std::string result;
 	gssize cnt_len=0;
 	gboolean printableascii=true;
-	const gchar *start;
+	const gchar *start = str;
 
 	while (((len<0) && (*str!='\0')) || (cnt_len<len) || (!printableascii))
 	{

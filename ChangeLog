@@ -11,8 +11,9 @@ Version 2.1.0
    - Support of the FAM (File Alteration Monitor)
      (no more polling for file/folder protocols)
    - Better detection of mailbox format
+   - Bugfix: IMAP4 idle state test to avoid checking twice
 
- * Robert Sowada (adpated by Nicolas Rougier)
+ * Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
    - Gnome version can determine itself if in standalone mode or panel mode
    - Removed "--gtk" option, added "--applet" option in debug mode instead
    - Added "--version" option to all versions of gnubiff
@@ -41,6 +42,52 @@ Version 2.1.0
    - Feature: Message if there is no "text/plain" part (IMAP)
    - Bugfix: Creating different tags for different commands (IMAP)
 
+	
+Version 2.0.3
+  * Roland Stigge:
+    - Updated man page (section 1, "GTK+")
+  * Robert Sowada:
+    - Changed version to 2.0.3
+    - Various small changes and bugfixes
+    - Updated german translation, updated po files
+    - Gnome version can determine itself if in standalone mode or panel mode
+    - Removed "--gtk" option, added "--applet" option in debug mode instead
+    - Added "--version" option to all versions of gnubiff
+    - "--help" option handled by "poptPrintHelp" in all versions of gnubiff
+    - Removed messages that are no longer necessary
+    - Bugfix: return value of main
+    - Output of "--help" restructured
+    - Code for saving the configuration file cleaned up
+    - Bugfix: Autodetection of IMAP
+    - Bugfix: Failure of select command (IMAP)
+    - Bugfix: Failure of opening connection (IMAP)
+    - Security Bugfix: DoS attacks by sending unterminated lines anticipated
+      (if SSL is used, this was fixed for non-SSL connections in 2.0.2)
+    - Bugfix: Handling network writing/reading errors
+    - Bugfix/Feature: Support for international Mailbox names for IMAP
+    - Security Bugfix: DoS attacks by sending a unterminated response to the
+      SELECT, SEARCH, FETCH (IMAP) and TOP (POP3) commands anticipated
+    - Bugfix: User set value for maximum number of mail to be collected is now
+      respected (IMAP)
+    - Bugfix: Fetching mails is no longer stopped if certain strings are in
+      mail or mail header (IMAP)
+    - Bugfix: First lines of email content are now displayed (IMAP)
+    - Bugfix: Displaying mails that do not end with a newline (IMAP)
+    - Feature: Only get first "text/plain" part of mail, not the whole mail;
+      don't get the whole part if it is very long (IMAP)
+    - Feature: Message if there is no "text/plain" part (IMAP)
+    - Bugfix: Setting always status to MAILBOX_ERROR if an error occurs
+      (POP3 & IMAP)
+    - Bugfixes in displaying first lines of mails
+    - Bugfix: Creating different tags for different commands (IMAP)
+    - Update of man page (command line options, version, date)
+    - Bugfix: Handling of text lines beginning with a dot (IMAP & POP3)
+    - Bugfix: Deleting of mailboxes when detecting mailbox format
+    - Bugfix: Updating when connection for mailbox detection fails
+    - Bugfix: Using <return> in password entry
+  * Nicolas Rougier:
+    - Updated french translations
+	
 Version 2.0.2
  * Some cosmetic fixes
  * Bug fix in IMAP4 protocol
