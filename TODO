@@ -6,4 +6,5 @@ To do:
 
 - Uniformize functions comments (I really liked your way of commenting
   functions Robert so I will try to do that for remaining sources)
+- Cleanup Mailbox::parse()
 - Fix bugs ;-)
