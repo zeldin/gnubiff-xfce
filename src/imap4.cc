@@ -487,13 +487,8 @@ Imap4::fetch_header (void)
 			if (line.substr(line.size()-2) != ")\r")
 				return;
 
-			// Remove first and last part, convert to lower case
-			// (Note: We are only interested in information that must be
-			// handled case insensitive)
+			// Remove first and last part
 			line=line.substr(25+s.str().size(),line.size()-28-s.str().size());
-			gchar *lowercase=g_utf8_strdown(line.c_str(),-1);
-			line=std::string(lowercase);
-			g_free(lowercase);
 
 			// Get Part of Mail that contains "text/plain" (if any exists) and
 			// size of this text, encoding, charset
@@ -650,8 +645,7 @@ Imap4::fetch_header (void)
  *
  * @param  structure C++ String containing the result of the IMAP command
  *                   (without "* ... FETCH (BODYSTRUCTURE (" and the trailing
- *                   ')'). This string must be converted to lower case before
- *                   calling this function!
+ *                   ')').
  * @param  partinfo  Reference to a PartInfo structure. If true is
  *                   returned the structure will contain the information about
  *                   the selected part (part, size, encoding, charset,
@@ -836,12 +830,15 @@ Imap4::parse_bodystructure_parameters (std::string list, PartInfo &partinfo)
 			std::string value=list.substr(startpos,pos-startpos-1);
 			if (stringcnt%2)
 			{
-				parameter=value;
+				// Parameter: convert to lower case
+				gchar *lowercase=g_utf8_strdown(value.c_str(),-1);
+				parameter=std::string(lowercase);
+				g_free(lowercase);
 				continue;
 			}
 
 			// Look for parameters we need
-			if ((parameter=="charset") || (parameter == "CHARSET"))
+			if (parameter=="charset")
 				partinfo.charset=value;
 			continue;
 		}
