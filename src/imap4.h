@@ -53,28 +53,49 @@ class Imap4 : public Mailbox {
  public:
 	// ========================================================================
 	//  base
-	// ========================================================================	
+	// ========================================================================
+
 	Imap4 (class Biff *owner);
 	Imap4 (const Mailbox &other);
 	~Imap4 (void);
 
 	// ========================================================================
 	//  main
-	// ========================================================================	
+	// ========================================================================
+
 	virtual void threaded_start (guint delay = 0);
 	void start (void);
 	void fetch (void);
 	void connect (void);
 	void fetch_mails (void);
 
-	class imap_err : public std::exception {};	 // General Imap Exception
-	class imap_socket_err : public imap_err {};	 // Socket connection Failure
-												 // usually when reading or writing.
-	class imap_command_err : public imap_err {}; // IMAP command not understood
-												 // or not expected, or not
-	                                             // responded by OK.
-	class imap_dos_err : public imap_err {};	 // We've been attacked DoS style!
-	class imap_nologin_err : public imap_err {}; // The server or user doesn't want us to login
+	// ========================================================================
+	//  exceptions
+	// ========================================================================
+
+	/// General exception for IMAP mailbox
+	class imap_err : public std::exception {};
+	/// Exception for a socket connection failure (usually when reading or writing)
+	class imap_socket_err : public imap_err {};
+	/** Exception for a problem with a IMAP command. This exception may be
+	 *  thrown in the following situations:
+	 *  \begin{itemize}
+	 *     \item There is an error when creating the line that is to be sent to
+	 *           the server
+	 *     \item There is an unexpected response by the server to the command
+	 *     \item The command is not responded by OK
+	 *  \end{itemize} */
+	class imap_command_err : public imap_err {};
+	/// This exception is thrown when a DoS attack is suspected.
+	class imap_dos_err : public imap_err {};
+	/** This exception is thrown when login isn't possible. This can happen in
+	 *  the following situations:
+	 *  \begin{itemize}
+	 *     \item The server doesn't want us to login (via the LOGINDISABLED
+	 *           capability)
+	 *     \item The user doesn't provide a password
+	 *  \end{itemize} */
+	class imap_nologin_err : public imap_err {};
 	
  private:
 	// ========================================================================
