@@ -7,5 +7,6 @@ To do:
 - Uniformize functions comments (I really liked your way of commenting
   functions Robert so I will try to do that for remaining sources)
 - Cleanup Mailbox::parse()
+- Cleanup Options::update_gui()
 - Fix bugs ;-)
 - Make gnubiff 64bit safe (see debian bug #301853 report by David Mosberger)
