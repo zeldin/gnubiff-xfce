@@ -411,6 +411,21 @@ Mailbox::lookup (void)
 	threaded_start (3);
 }
 
+
+/**
+ * Identification of the type of a local mailbox.
+ * The type of the mailbox that belongs to the (local) address of the given
+ * mailbox {\em oldmailbox} is determined. If this cannot be done, NULL will
+ * be returned. Otherwise a new mailbox of this type is created, the
+ * attributes of {\em oldmailbox} are copied to this mailbox. The return value
+ * is a pointer to this mailbox.
+ *
+ * Note: This is a static function.
+ *
+ * @param  oldmailbox  Mailbox from which the address is taken.
+ * @return             New mailbox of the correct type, or NULL if type cannot
+ *                     be determined.
+ */
 Mailbox * 
 Mailbox::lookup_local(Mailbox *oldmailbox)
 {
