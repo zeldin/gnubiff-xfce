@@ -89,6 +89,7 @@ public:
 	virtual void set_gui (std::vector<GtkWidget *> &widgets) {};
 	virtual void get_gui (std::vector<GtkWidget *> &widgets) {};
 	virtual void reset (void) {};
+	virtual gboolean is_default (void) {return false;};
 	virtual Option *copy (void) {return new Option(*this);};
 
 	/// Access function to Option::flags_
@@ -139,6 +140,7 @@ public:
 	void get_gui (std::vector<GtkWidget *> &widgets);
 	void set_gui (std::vector<GtkWidget *> &widgets);
 	void reset (void);
+	gboolean is_default (void) {return value_ == default_;};
 	Option *copy (void) {return new Option_UInt(*this);};
 
 	/// Access function to Option_UInt::value_
@@ -200,6 +202,7 @@ public:
 	void get_gui (std::vector<GtkWidget *> &widgets);
 	void set_gui (std::vector<GtkWidget *> &widgets);
 	void reset (void);
+	gboolean is_default (void) {return value_ == default_;};
 	Option *copy (void) {return new Option_String(*this);};
 
 	void set_values (const std::set<std::string> &values, gboolean empty=true);

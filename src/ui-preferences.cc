@@ -325,7 +325,7 @@ void Preferences:: hide (std::string name) {
 }
 
 
-void
+void 
 Preferences::synchronize (class Mailbox *mailbox, GtkListStore *store, GtkTreeIter *iter)
 {
 	if (mailbox) {
