@@ -31,6 +31,7 @@
 
 #include <sys/utsname.h>
 #include <glib.h>
+#include <gtk/gtk.h>
 #include <nls.h>
 #include <sstream>
 #include <string>

@@ -71,11 +71,13 @@ AC_CHECK_LIB([fam],[main], ,
     ])
 )
 
-AC_CHECK_LIB([ssl],[main],[],[],[])
+AC_CHECK_LIB([ssl],[main])
 
+AC_CHECK_LIB(crypto, MD5_Init, [
+	AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions)
+	LIBS="$LIBS -lcrypto"], [
+	AC_CHECK_LIB(ssl, MD5_init, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions))])
 
-AC_CHECK_LIB(crypto, MD5_Init, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions),
-                [AC_CHECK_LIB(ssl, MD5_init, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions))])
 GTK_REQUIRED="gtk+-2.0 >= 2.4"
 GDK_PIXBUF_REQUIRED="gdk-pixbuf-2.0 >= 2.4"
 GMODULE_REQUIRED="gmodule-2.0 >= 2.4"
