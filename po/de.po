@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-28 14:24+0100\n"
+"POT-Creation-Date: 2004-12-30 00:06+0100\n"
 "PO-Revision-Date: 2004-12-26 17:50+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -59,12 +59,12 @@ msgstr "Keine Nachrichten"
 msgid "Configuration file (%s) not found !"
 msgstr "Konnte Konfigurationsdatei »%s« nicht finden!"
 
-#: src/biff.cc:522
+#: src/biff.cc:513
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kann die Konfigurationsdatei »%s« nicht öffnen!"
 
-#: src/biff.cc:547
+#: src/biff.cc:538
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Keine Briefkastendefinition in der Konfigurationsdatei »%s« gefunden!"
@@ -112,22 +112,22 @@ msgstr "[%d] Kann entfernten Host »%s« auf Port %d nicht identifizieren"
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Kann nicht an »%s« auf Port %d schreiben"
 
-#: src/socket.cc:365
+#: src/socket.cc:373
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Kann nicht von »%s« auf Port %d lesen"
 
-#: src/imap4.cc:194 src/imap4.cc:214
+#: src/imap4.cc:241 src/imap4.cc:261
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Bekomme keine Bestätigung von »%s« auf Port %d"
 
-#: src/imap4.cc:256
+#: src/imap4.cc:298
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kann Ordner »%s« auf dem Server »%s« nicht auswählen"
 
-#: src/imap4.cc:506
+#: src/imap4.cc:452
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Diese Nachricht besitzt keinen Klartext-Abschnitt (\"text/plain\")]"
 
@@ -758,9 +758,8 @@ msgid "_other"
 msgstr "benu_tzerdefiniert"
 
 #: ui/properties.glade.h:28
-#, fuzzy
 msgid "file or folder or hostname"
-msgstr "Datei, Ordner oder [ssl:]Rechnername[:Port][:Ordner]"
+msgstr "Datei, Ordner oder Rechnername"
 
 #: ui/properties.glade.h:29
 msgid "minutes"

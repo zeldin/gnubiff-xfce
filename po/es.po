@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-28 14:24+0100\n"
+"POT-Creation-Date: 2004-12-30 00:06+0100\n"
 "PO-Revision-Date: 2004-12-16 23:42+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -64,12 +64,12 @@ msgstr "sin mensajes"
 msgid "Configuration file (%s) not found !"
 msgstr "Archivo de configuración (%s) no encontrado !"
 
-#: src/biff.cc:522
+#: src/biff.cc:513
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "No se puede abrir su archivo de configuración (%s)"
 
-#: src/biff.cc:547
+#: src/biff.cc:538
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -119,22 +119,22 @@ msgstr "[%d] No se puede identificar el servidor remoto (%s en el puerto %d)"
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] No se puede escribir en %s en el puerto %d"
 
-#: src/socket.cc:365
+#: src/socket.cc:373
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] No se puede leer desde %s en el puerto %d"
 
-#: src/imap4.cc:194 src/imap4.cc:214
+#: src/imap4.cc:241 src/imap4.cc:261
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d]No se puede obtener confirmación  desde %s en el puerto %d"
 
-#: src/imap4.cc:256
+#: src/imap4.cc:298
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] No se puede seleccionar carpeta %s en el servidor %s"
 
-#: src/imap4.cc:506
+#: src/imap4.cc:452
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Este correo no tiene parte \"text/plain\"]"
 
