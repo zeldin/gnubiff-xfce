@@ -40,6 +40,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <signal.h>
 
 #include "ui-certificate.h"
 #include "mailbox.h"
@@ -370,9 +371,14 @@ Socket::read (std::string &line,
 
 #ifdef DEBUG
 	if (debug)
-		g_message ("[%d] RECV(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
+		if (status_ == SOCKET_TIMEOUT)
+			g_message ("[%d] RECV TIMEOUT(%s:%d)", uin_, hostname_.c_str(), port_);
+		else if (status_ == SOCKET_STATUS_OK)
+			g_message ("[%d] RECV(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
+		else
+			g_message ("[%d] RECV ERROR(%s:%d): %s", uin_, hostname_.c_str(), port_, strerror(status));
 #endif
-	if ((debug) & (status_ == SOCKET_STATUS_ERROR)) {
+	if (status_ == SOCKET_STATUS_ERROR) {
 		g_warning (_("[%d] Unable to read from %s on port %d"), uin_, hostname_.c_str(), port_);
 		close();
 		mailbox_->status (MAILBOX_ERROR);
@@ -404,22 +410,25 @@ Socket::read (std::string &line,
 
 /**
  * Specify a timeout value for read operations on this socket.  Read
- * operations will block until the given time has expired.  if the
+ * operations will block until the given time has expired.  If the
  * {\em gint Socket::read (std::string, gboolean, gboolean)} method
- * returns because of the timeout it will return with {\em
- * SOCKET_TIMEOUT}
+ * returns because of the timeout it will return with {\em SOCKET_TIMEOUT}.
  *
  * @param  timeout   Time in seconds for timeout duration.
  */
 void 
 Socket::set_read_timeout(gint timeout)
 {
+	// Ignore SIGCHLD so launching external processes does not disturb
+	// read from the sockets.	 This is put in this routine because
+	// setting the socket timeout seems to cause SIGCHLD to interrupt
+	// reads.
+	sigignore(SIGCHLD);
+
 	struct timeval tv;
 	tv.tv_sec = timeout;
 	tv.tv_usec = 0;
-	if (setsockopt(sd_, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) == -1) {
-		g_error("Could not set read timeout on socket:	%s", strerror(errno));
-	}
-	
+	if (setsockopt(sd_, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) == -1)
+		g_error("Could not set read timeout on socket: %s", strerror(errno));
 }
 
