@@ -147,6 +147,7 @@ Version 2.1.1
    - Don't save "port" and "folder" to config file (are set automatically by
         other options)
    - Bugfix: Respect "use_max_mail" for file protocol
+   - Feature: Option "pref_allow_resize" for resizing preferences window
 
 Version 2.1.0
  * Nicolas Rougier

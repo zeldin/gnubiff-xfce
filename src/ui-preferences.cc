@@ -432,6 +432,10 @@ Preferences::synchronize (void)
 	else
 		biff_->value ("check_mode", AUTOMATIC_CHECK);
 	on_stop (0);
+
+	// Make preferences dialog resizeable (if this is the user's wish)
+	gtk_window_set_resizable (GTK_WINDOW (get("dialog")),
+							  biff_->value_bool ("pref_allow_resize"));
 }
 
 

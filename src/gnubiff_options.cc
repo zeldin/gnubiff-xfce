@@ -235,6 +235,10 @@ Gnubiff_Options::add_options_general (void)
 		"Shall all options that have not their default values and are "
 		"editable by the user be highlighted?",
 								 true));
+	// PREF_ALLOW_RESIZE
+	add_option (new Option_Bool ("pref_allow_resize", OPTGRP_GENERAL,
+		"Shall it be allowed to resize the preferences dialog window?",
+								 false));
 }
 
 void 
