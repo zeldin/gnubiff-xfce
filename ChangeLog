@@ -21,15 +21,17 @@ Version 2.1.3
         thanks to David Mosberger for reporting this bug
    - Added David Mosberger to contributors
    - Bugfix: Corrected string size types in "src/decoding.*", "src/mailbox.*"
-        "src/apop.*", "src/imap4.*" and "src/support.*" (64bit systems)
+        "src/apop.*", "src/imap4.*", "src/maildir.*" and "src/support.*"
+        (64bit systems)
    - Checked files for incorrect string size type without problems:
-        "src/pop.*" and "src/pop3.*"
+        "src/pop.*", "src/maildir.*", "src/file.*" and "src/pop3.*"
    - Bugfix: Crash in image selecting dialogs (thanks to David Mosberger for
         reporting this bug)
    - Feature: More information in unknown_internal_error() provided
    - Documentation of Mailbox::parse()
    - Bugfix: Throw exception if login line cannot be created (apop)
    - Bugfix: "Quit" menu item (gtk applet)
+   - Bugfix: Respect "use_max_mail" option (mh)
 
 Version 2.1.2		2005-03-26 17:28
  * Robert Sowada

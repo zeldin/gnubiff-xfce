@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -89,13 +89,15 @@ Mh::connect (void)
 
 			// Analyze of the unseen sequence  whick looks like:
 			//  unseen: 1-3, 7, 9-13, 16, 19
-			guint i = line.find("unseen:")+std::string("unseen:").size();
+			// Note: size of "unseen:" is 7
+			std::string::size_type i = line.find ("unseen:") + 7;
 
-			// Start parsing line looking for digit, range indicator, number separator
+			// Start parsing line looking for digit, range indicator,
+			// number separator
 			guint inf_bound = 0;
 			guint sup_bound = 0;
 
-			while (i<line.size()) {
+			while (i < line.size()) {
 				// Got a digit ?
 				if (isdigit (line[i])) {
 					do {
@@ -151,7 +153,12 @@ Mh::fetch (void)
 		return;
 	}
 
-	for (guint i=0; (i<saved_.size()) && (new_unread_.size() < (biff_->value_uint ("max_mail"))); i++) {
+	// Get maximum number of mails to catch
+	guint maxnum = INT_MAX;
+	if (biff_->value_bool ("use_max_mail"))
+		maxnum = biff_->value_uint ("max_mail");
+
+	for (guint i=0; (i<saved_.size()) && (new_unread_.size() < maxnum); i++) {
 		std::string line;
 		std::ifstream file;    
 		std::stringstream s;
