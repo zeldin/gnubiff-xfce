@@ -292,6 +292,11 @@ gint
 Socket::write (std::string line,
 			   gboolean debug)
 {
+	// Do not allow writing to a closed, or invalid socket. This causes
+	// SEGV in SSL.
+	if (sd_ == SD_CLOSE)
+		return SOCKET_STATUS_ERROR;
+
 	status_ = -1;
 
 #ifdef HAVE_LIBSSL
@@ -328,6 +333,11 @@ Socket::read (std::string &line,
 			  gboolean debug,
 			  gboolean check)
 {
+	// Do not allow writing to a closed, or invalid socket. This causes
+	// SEGV in SSL.
+	if (sd_ == SD_CLOSE)
+		return SOCKET_STATUS_ERROR;
+
 	char buffer;
 	int status = 0;
 	line = "";
@@ -335,33 +345,26 @@ Socket::read (std::string &line,
 
 	gint cnt=1+preventDoS_lineLength_; 
 
+	errno = 0;
 #ifdef HAVE_LIBSSL
 	if (use_ssl_) {
-		errno = 0;
 		while ((0<cnt--) && ((status = SSL_read (ssl_, &buffer, 1)) > 0) && (buffer != '\n'))
 			line += buffer;
-		if (errno == EAGAIN)
-			status_ = SOCKET_TIMEOUT;
-		else if ((status > 0) && (cnt>=0))
-			status_ = SOCKET_STATUS_OK;
-		else
-			status_ = SOCKET_STATUS_ERROR;
 	}
+	else
 #endif
-	if (status_ == -1) {
-		errno = 0;
+	{
 		while ((0<cnt--) && ((status = ::read (sd_, &buffer, 1)) > 0) && (buffer != '\n'))
 			line += buffer;
-
-		if (errno == EAGAIN)
-			status_ = SOCKET_TIMEOUT;
-		else if ((status > 0) && (cnt>=0))
-			status_ = SOCKET_STATUS_OK;
-		else
-			status_ = SOCKET_STATUS_ERROR;
 	}
-
-  
+	
+	if (errno == EAGAIN)
+		status_ = SOCKET_TIMEOUT;
+	else if ((status > 0) && (cnt>=0))
+		status_ = SOCKET_STATUS_OK;
+	else
+		status_ = SOCKET_STATUS_ERROR;
+	
 	if (!check)
 		return status_;
 
@@ -369,13 +372,15 @@ Socket::read (std::string &line,
 	if (debug)
 		g_message ("[%d] RECV(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
 #endif
-	if ((debug) & (!status_)) {
+	if ((debug) & (status_ == SOCKET_STATUS_ERROR)) {
 		g_warning (_("[%d] Unable to read from %s on port %d"), uin_, hostname_.c_str(), port_);
 		close();
 		mailbox_->status (MAILBOX_ERROR);
 	}
 
-
+	// NOTE: It would be my take that there should not be mailbox specific
+	// handling in the socket processing.	 -Byron
+	
 	// Check imap4
 	if (mailbox_->protocol() == PROTOCOL_IMAP4) {
 		if (line.find ("* BYE") == 0) {
