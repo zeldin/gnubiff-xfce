@@ -29,8 +29,8 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include <algorithm>
 #include "support.h"
-
 #include "mailbox.h"
 #include "file.h"
 #include "maildir.h"
