@@ -145,8 +145,8 @@ unknown_internal_error_(const gchar *file, guint line, const gchar *func)
 	}
 
 	// Create error message
-	ss << _("You just found an unknown internal error. Please send a bug "
-			"report to \"gnubiff-bugs@lists.sourceforge.net\".\n\n"
+	ss << _("You just found an unknown internal error. Please send a detailed "
+			"bug report to \"gnubiff-bugs@lists.sourceforge.net\".\n\n"
 			"Additional information:\n");
 	ss << "file        : " << file << "\n";
 	ss << "line        : " << line << "\n";
@@ -157,9 +157,13 @@ unknown_internal_error_(const gchar *file, guint line, const gchar *func)
 	ss << "system      : " << uts.sysname << " " << uts.release << " ";
 	ss <<                     uts.version << " " << uts.machine << "\n";
 	ss << "glib        : " << glib_major_version << "." << glib_minor_version;
-	ss <<                     "." << glib_micro_version << "  ,  ";
+	ss <<                     "." << glib_micro_version << " (dyn),  ";
 	ss <<                     GLIB_MAJOR_VERSION << "." << GLIB_MINOR_VERSION;
-	ss <<                     "." << GLIB_MICRO_VERSION << "\n";
+	ss <<                     "." << GLIB_MICRO_VERSION << " (stat)\n";
+	ss << "gtk         : " << gtk_major_version << "." << gtk_minor_version;
+	ss <<                     "." << gtk_micro_version << " (dyn),  ";
+	ss <<                     GTK_MAJOR_VERSION << "." << GTK_MINOR_VERSION;
+	ss <<                     "." << GTK_MICRO_VERSION << " (stat)\n";
 
 	// Print error message
 	g_warning (ss.str().c_str());
