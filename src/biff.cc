@@ -287,11 +287,10 @@ Biff::remove (Mailbox *mailbox)
 }
 
 /**
- * This function tries to guess a mailbox password by looking at other mailboxes.
- * If one of them get same address and same username, then this is reasonable to
- * think they may share the same password. This is typically the case when
- * monitoring several folders on the same mail account.
- *
+ * This function tries to guess a mailbox password by looking at other
+ * mailboxes. If one of them get same address and same username, then this is
+ * reasonable to think they may share the same password. This is typically the
+ * case when monitoring several folders on the same mail account.
  *
  * @param  m        the mailbox missing a password
  * @return          the found password or an empty string if none found
@@ -300,7 +299,8 @@ std::string
 Biff::password (Mailbox *m)
 {	
 #if DEBUG
-	g_message ("[%d] Looking for password for %s:%d", m->uin(), m->address().c_str(), m->port());
+	g_message ("[%d] Looking for password for %s@%s:%d", m->uin(),
+			   m->username().c_str(), m->address().c_str(), m->port());
 #endif
 
 	for (guint i=0; i < size(); i++)
