@@ -28,6 +28,7 @@ common_sources = \
 	imap4.cc				imap4.h					\
 	maildir.cc				maildir.h				\
 	mh.cc					mh.h					\
+	mh_basic.cc				mh_basic.h				\
 	pop.cc					pop.h					\
 	apop.cc					apop.h					\
 	pop3.cc					pop3.h					\

@@ -52,6 +52,7 @@
 #include "file.h"
 #include "maildir.h"
 #include "mh.h"
+#include "mh_basic.h"
 #include "imap4.h"
 #include "pop3.h"
 #include "apop.h"
@@ -715,6 +716,9 @@ Biff::xml_end_element (GMarkupParseContext *context,
 			break;
 		case PROTOCOL_MH:
 			mailbox_.push_back (new Mh (this));
+			break;
+		case PROTOCOL_MH_BASIC:
+			mailbox_.push_back (new Mh_Basic (this));
 			break;
 		case PROTOCOL_MAILDIR:
 			mailbox_.push_back (new Maildir (this));

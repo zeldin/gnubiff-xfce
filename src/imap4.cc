@@ -1201,7 +1201,7 @@ Imap4::parse_bodystructure (std::string structure, PartInfo &partinfo,
 		}
 
 		// Alphanumerical character
-		if (g_ascii_isalnum (c))	{
+		if (g_ascii_isalnum (c)) {
 			if ((multipart) && (nestlevel == 0))
 				return false;
 			if (!multipart)

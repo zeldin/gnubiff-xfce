@@ -31,50 +31,67 @@
 
 #include <fstream>
 #include <sstream>
-#include <sys/stat.h>
-#include <utime.h>
-
 #include "mh.h"
 
 // ========================================================================
 //  base
 // ========================================================================	
-Mh::Mh (Biff *biff) : Local (biff)
+/**
+ * Constructor. The local mailbox for the mh protocol is created from
+ * scratch.
+ *
+ * @param biff Pointer to the instance of Gnubiff.
+ */
+Mh::Mh (Biff *biff) : Mh_Basic (biff)
 {
 	value ("protocol", PROTOCOL_MH);
 }
 
-Mh::Mh (const Mailbox &other) : Local (other)
+/**
+ * Constructor. The local mailbox for the mh protocol is created by
+ * taking the attributes of the existing mailbox {\em other}.
+ *
+ * @param other Mailbox from which the attributes are taken.
+ */
+Mh::Mh (const Mailbox &other) : Mh_Basic (other)
 {
 	value ("protocol", PROTOCOL_MH);
 }
 
+/// Destructor
 Mh::~Mh (void)
 {
 }
 
-
 // ========================================================================
-//  base
+//  main
 // ========================================================================	
-int
-Mh::connect (void)
+
+/**
+ *  Get message numbers of the mails to be parsed. In the mh protocol the
+ *  message numbers of unread mails are stored in the file ".mh_sequences".
+ *
+ *  @param  msn    Reference to a vector in which the message numbers are
+ *                 returned
+ *  @param  empty  Whether the vector shall be emptied before obtaining the
+ *                 message numbers (the default is true)
+ *  @return        Boolean indicating success
+ */
+gboolean 
+Mh::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 {
-	// Build filename (.mh_sequences)
-	gchar *filename = g_build_filename (address().c_str(), ".mh_sequences",
-										NULL);
-	if (!filename)
-		return false;
+	// Empty the vector if wished for
+	if (empty)
+		msn.clear ();
 
 	// Open file
+	std::string filename = add_file_to_path (address (), ".mh_sequences");
 	std::ifstream file;
-	file.open (filename);
-	g_free (filename);
+	file.open (filename.c_str ());
 	if (!file.is_open ())
 		return false;
 
-	// Parse mh sequences and try to find unseen sequence
-	saved_.clear();
+	// Parse mh sequences and try to find the unseen sequence
 	while (!file.eof()) {
 		std::string line;
 		getline (file, line);
@@ -82,7 +99,7 @@ Mh::connect (void)
 		// Got it!
 		if (line.find("unseen:") == 0) {
 			line = line.substr (7); // size of "unseen:" is 7
-			if (!numbersequence_to_vector (line, saved_))
+			if (!numbersequence_to_vector (line, msn))
 				return false;
 			break;
 		}
@@ -92,47 +109,6 @@ Mh::connect (void)
 	file.close();
 
 	return true;
-}
-
-void
-Mh::fetch (void)
-{
-	std::vector<std::string> mail;
-
-	std::vector<guint> buffer = saved_;
-
-	// Parse unseen sequence
-	if (!connect()) {
-		status (MAILBOX_ERROR);
-		return;
-	}
-
-	// Get maximum number of mails to catch
-	guint maxnum = INT_MAX;
-	if (biff_->value_bool ("use_max_mail"))
-		maxnum = biff_->value_uint ("max_mail");
-
-	for (guint i=0; (i<saved_.size()) && (new_unread_.size() < maxnum); i++) {
-		std::string line;
-		std::ifstream file;    
-		std::stringstream s;
-		s << saved_[i];
-
-		mail.clear();
-
-		gchar *filename = g_build_filename (address().c_str(), s.str().c_str(),
-											NULL);
-		file.open (filename);
-        g_free (filename);
-		if (file.is_open()) {
-			while (!file.eof()) {
-				getline(file, line);
-				mail.push_back(line);
-			}
-			parse (mail);
-			file.close();
-		}
-	}
 }
 
 /**
