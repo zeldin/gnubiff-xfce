@@ -447,11 +447,10 @@ void Mailbox::parse (std::vector<std::string> &mail, int status)
 			h.status = MAIL_READ;
 		else if ((mail[i].empty()) && h.body.empty()) {
 			guint j = 0;
-			do {
+			i++; // We are not interested in the empty line
+			while ((j++<10) && (i < mail.size()))
 				h.body += mail[i++] + std::string("\n");
-				j++;
-			} while ((j<10) && (i < mail.size()));
-			if (j == 10)
+			if ((j == 11) && (i+1<mail.size()))
 				h.body += std::string("...");
 		}
 	}

@@ -39,6 +39,7 @@ Version 2.0.3
    - Feature: Message if there is no "text/plain" part (IMAP)
    - Bugfix: Setting always status to MAILBOX_ERROR if an error occurs
      (POP3 & IMAP)
+   - Bugfixes in displaying first lines of mails
    
 
 Version 2.0.2
