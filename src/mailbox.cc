@@ -542,7 +542,19 @@ void Mailbox::parse (std::vector<std::string> &mail, int status)
 		}
 }
 
-
+/** 
+ * Decodes the body of a mail.
+ * The part of the mail's body that will be displayed by gnubiff is decoded.
+ * The encoding is given by the parameter {\em encoding} and must be obtained
+ * before. Currently supported encodings are 7bit, 8bit and quoted-printable.
+ * If called with an unsupported encoding the mail's body is replaced with an
+ * error message.
+ *
+ * @param  mail      C++ vector of C++ strings consisting of the lines of the
+ *                   mail.
+ * @param  encoding  C++ string for the encoding of the mail's body.
+ * @return           Boolean indicating success.
+ */
 gboolean 
 Mailbox::decode_body (std::vector<std::string> &mail, std::string encoding)
 {
@@ -569,6 +581,12 @@ Mailbox::decode_body (std::vector<std::string> &mail, std::string encoding)
 	return true;
 }
 
+/**
+ * Decoding a quoted-printable encoded string. 
+ *
+ * @param  todec  C++ string to be decoded
+ * @return        C++ string with the decoded string {\em todec}
+ */
 std::string 
 Mailbox::decode_quotedprintable (std::string todec)
 {
