@@ -258,20 +258,20 @@ Preferences::expert_create (void)
 
 	// Column: NAME
 	column = gtk_tree_view_column_new_with_attributes ("Option", gtk_cell_renderer_text_new(), "text", COL_EXP_GROUPNAME, NULL);
-	gtk_tree_view_column_set_resizable(column, false);
-	gtk_tree_view_column_set_sort_column_id(column, COL_EXP_GROUPNAME);
+	gtk_tree_view_column_set_resizable (column, false);
+	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_GROUPNAME);
 	gtk_tree_view_append_column (view, column);
 
 	// Column: TYPE
 	column = gtk_tree_view_column_new_with_attributes ("Type", gtk_cell_renderer_text_new(), "text", COL_EXP_TYPE, NULL);
-	gtk_tree_view_column_set_resizable(column, false);
-	gtk_tree_view_column_set_sort_column_id(column, COL_EXP_TYPE);
+	gtk_tree_view_column_set_resizable (column, false);
+	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_TYPE);
 	gtk_tree_view_append_column (view, column);
 
 	// Column: VALUE
 	column = gtk_tree_view_column_new_with_attributes ("Value", gtk_cell_renderer_text_new(), "text", COL_EXP_VALUE, NULL);
-	gtk_tree_view_column_set_resizable(column, false);
-	gtk_tree_view_column_set_sort_column_id(column, COL_EXP_VALUE);
+	gtk_tree_view_column_set_resizable (column, false);
+	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_VALUE);
 	gtk_tree_view_append_column (view, column);
 
 	// Signals

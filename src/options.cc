@@ -408,7 +408,7 @@ Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 					continue;
 				if (whattodo & OPTSGUI_SENSITIVE)
 					gtk_widget_set_sensitive (other, ok);
-				else
+				if (whattodo & OPTSGUI_SHOW)
 					ok ? gtk_widget_show (other) : gtk_widget_hide (other);
 			}
 		}
