@@ -221,6 +221,9 @@ Mailbox::watch_thread (void) {
 
 	// Nobody should access status in write mode but this thread, so we're safe
 	get_status();
+	// If Mailbox is still in checking status an error occured
+	if (status_==MAILBOX_CHECKING)
+		status_=MAILBOX_ERROR;
 
 #ifdef DEBUG
 	if (status_ == MAILBOX_ERROR)	
@@ -242,6 +245,9 @@ Mailbox::watch_thread (void) {
 	}
 	else if ((status_ != MAILBOX_ERROR) && (status_ != MAILBOX_OLD) && (status_ != MAILBOX_BLOCKED))
 		get_header();
+	// If Mailbox is still in checking status an error occured
+	if (status_==MAILBOX_CHECKING)
+		status_=MAILBOX_ERROR;
 
 	gdk_threads_enter();
 	biff_->applet()->process();

@@ -168,10 +168,7 @@ Imap4::get_status (void)
 	if (password_.empty())
 		ui_authentication_->select (this);
 
-	if (password_.empty()) {
-		status_ = MAILBOX_ERROR;
-		return;
-	}
+	if (password_.empty()) return;
 
 	// Connection and authentification
 	if (!connect ()) return;
@@ -261,16 +258,10 @@ Imap4::get_header (void)
 	if (password_.empty())
 		ui_authentication_->select (this);
 
-	if (password_.empty()) {
-		status_ = MAILBOX_ERROR;
-		return;
-	}
+	if (password_.empty()) return;
 
 	// Connection and authentification
-	if (!connect ()) {
-		status_ = MAILBOX_ERROR;
-		return;
-	}
+	if (!connect ()) return;
 
 	// SEARCH NOT SEEN
 	if (!socket_->write ("A003 SEARCH NOT SEEN\r\n")) return;
