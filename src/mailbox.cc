@@ -177,7 +177,6 @@ Mailbox::read (gboolean value)
 	hidden_.clear();
 	hidden_ = seen_;
 	unread_.clear();
-	mails_to_be_displayed_.clear ();
 	biff_->save();
 	g_mutex_unlock (mutex_);
 }
@@ -501,38 +500,38 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 		// Sender
 		// There should be a whitespace or a tab after "From:", so we look
 		// for "From:" and get string beginning at 6
-		if ((mail[i].find ("From:") == 0) && h.sender.empty()) {
+		if ((mail[i].find ("From:") == 0) && h.sender().empty()) {
 			if (mail[i].size() > 6)
-				h.sender = mail[i].substr (6);
+				h.sender (mail[i].substr (6));
 			else
-				h.sender = _("<no sender>");
+				h.sender (_("<no sender>"));
 		}
 
 		// Subject
 		// There should a whitespace or a tab after "Subject:", so we look
 		// for "Subject:" and get string beginning at 9
-		else if ((mail[i].find ("Subject:") == 0) && h.subject.empty()) {
+		else if ((mail[i].find ("Subject:") == 0) && h.subject().empty()) {
 			if (mail[i].size() > 9)
-				h.subject = mail[i].substr (9);
+				h.subject (mail[i].substr (9));
 			else
-				h.subject = _("<no subject>");
+				h.subject (_("<no subject>"));
 		}
 
 		// Date
 		// There should a whitespace or a tab after "Date:", so we look
 		// for "Date:" and get string beginning at 6
-		else if ((mail[i].find ("Date:") == 0) && h.date.empty()) {
+		else if ((mail[i].find ("Date:") == 0) && h.date().empty()) {
 			if (mail[i].size() > 6)
-				h.date = mail[i].substr (6);
+				h.date (mail[i].substr (6));
 			else
-				h.date = _("<no date>");
+				h.date (_("<no date>"));
 		}
 
 		// Charset
 		// FIXME: Currently, this code does not handle the case where a
 		// charset is coded over two or more lines. Question: is is a big
 		// problem ? (is it allowed anyway ?)
-		else if ((line.find ("charset=") != std::string::npos) && h.charset.empty()) {
+		else if ((line.find ("charset=") != std::string::npos) && h.charset().empty()) {
 			// +8 is size of "charset="+1
 			//  (we need that because find will return start of "charset=")
 			std::string charset = line.substr (int(line.find ("charset="))+8);
@@ -545,7 +544,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 				if ((charset[j+1] == ';')  || (charset[j+1] == '\"') ||
 					(charset[j+1] == '\n') || (charset[j+1] == '\t') ||
 					(charset[j+1] == ' ')  || (charset[j+1] == '\0')) {
-					h.charset = charset.substr (0, j+1);
+					h.charset (charset.substr (0, j+1));
 					break;
 				}
 			}
@@ -557,22 +556,22 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 			status = false;
 		else if (line.find ("x-spam-flag: yes") != std::string::npos) 
 			status = false;
-		else if ((mail[i].empty()) && h.body.empty()) {
+		else if ((mail[i].empty()) && h.body().empty()) {
 			guint j = 0;
 			do {
-				h.body += mail[i++] + std::string("\n");
+				h.add_to_body (mail[i++] + "\n");
 				j++;
 			} while ((j < biff_->value_uint ("popup_body_lines"))
 					 && (i < mail.size()));
 			if (j == biff_->value_uint ("popup_body_lines"))
-				h.body += std::string("...");
+				h.add_to_body ("...");
 		}
 	}
 
 	// Store mail depending on status
 	if (status)
 		// Pines trick
-		if (h.subject.find("DON'T DELETE THIS MESSAGE -- FOLDER INTERNAL DATA") == std::string::npos) {
+		if (h.subject().find("DON'T DELETE THIS MESSAGE -- FOLDER INTERNAL DATA") == std::string::npos) {
 			// Ok, at this point mail is
 			//  - not a spam
 			//  - has not been read (R or 0001 status flag)
@@ -582,9 +581,9 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 			//
 			h.mailid (uid);
 			if (hidden_.find (h.mailid()) == hidden_.end ()) {
-				h.position_ = new_mails_to_be_displayed_.size() + 1;
+				h.position (new_unread_.size() + 1);
+				h.mailbox_uin (value_uint ("uin"));
 				new_unread_[h.mailid()] = h;
-				new_mails_to_be_displayed_.push_back (h.mailid());
 			}
 			new_seen_.insert (h.mailid());
 #ifdef DEBUG
@@ -637,14 +636,12 @@ Mailbox::update_mailbox_status (void)
 	g_mutex_lock (mutex_);
 	unread_ = new_unread_;
 	seen_ = new_seen_;
-	mails_to_be_displayed_ = new_mails_to_be_displayed_;
 	hidden_ = new_hidden;
 	g_mutex_unlock (mutex_);
 
 	// Clear sets for next update
 	new_unread_.clear ();
 	new_seen_.clear ();
-	new_mails_to_be_displayed_.clear ();
 }
 
 /**
@@ -689,8 +686,7 @@ Mailbox::new_mail(std::string &mailid)
 
 	// Insert known mail into new unread mail map
 	new_unread_[mailid] = unread_[mailid];
-	new_unread_[mailid].position_ = new_mails_to_be_displayed_.size() + 1;
-	new_mails_to_be_displayed_.push_back (mailid);
+	new_unread_[mailid].position (new_unread_.size());
 
 #ifdef DEBUG
 	g_message ("[%d] Already read mail with id \"%s\"", uin(), mailid.c_str());

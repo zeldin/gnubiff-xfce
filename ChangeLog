@@ -142,6 +142,7 @@ Version 2.1.1
    - Feature: Searching for options in expert dialog
    - Feature: Security settings available as options, no longer fixed
         constants
+   - Feature: Sorting of headers can be configured by the user
 
 Version 2.1.0
  * Nicolas Rougier

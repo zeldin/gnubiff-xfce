@@ -119,7 +119,6 @@ Pop::start (void) throw (pop_err)
 		status (MAILBOX_ERROR);
 		unread_.clear ();
 		seen_.clear ();
-		new_mails_to_be_displayed_.clear ();
 		socket_->close ();
 	}
 

@@ -133,7 +133,6 @@ Imap4::start (void)
 			status (MAILBOX_ERROR);
 			unread_.clear ();
 			seen_.clear ();
-			new_mails_to_be_displayed_.clear ();
 		}
 		socket_->close ();
 
@@ -492,7 +491,7 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
 	// so it is sufficient to get at most 1000*min_body_lines
 	// bytes.
-	gint textsize=partinfo.size_;
+	guint textsize = partinfo.size_;
 	if (textsize > 1000 * biff_->value_uint ("min_body_lines"))
 		textsize = 1000 * biff_->value_uint ("min_body_lines");
 	std::stringstream textsizestr;
@@ -510,8 +509,9 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 			 address().c_str(), port());
 #endif
 	// Read text
-	gint lineno=0, bytes=textsize+3; // ")\r\n" at end of mail
-	while ((bytes>0) && (readline (line, false, true, false))) {
+	guint lineno = 0;
+	gint bytes = textsize + 3; // ")\r\n" at end of mail
+	while ((bytes > 0) && (readline (line, false, true, false))) {
 		bytes-=line.size()+1; // don't forget to count '\n'!
 		if ((line.size() > 0)
 			&& (lineno++ < biff_->value_uint ("min_body_lines"))) {

@@ -495,6 +495,22 @@ Gnubiff_Options::add_options_popup (void)
 		"Maximum number of mail body lines that will be displayed in the "
 		"popup.",
 								 10));
+	// POPUP_SORT_BY
+	add_option (new Option_String ("popup_sort_by", OPTGRP_POPUP,
+		"A space separated list of header properties by which the headers "
+		"in the popup shall be sorted. The headers are sorted first by the "
+		"first given property then by the second and so on. A stable sort "
+		"algorithm is being used. Currently the following properties are "
+		"supported:\n"
+		"   * \"date\": Date when the mail was sent\n"
+		"   * \"mailbox\": Mailbox identifier. If mails from each mailbox "
+        "shall stay together this should be the last given property.\n"
+		"   * \"position\": Position of the mail in the mailbox\n"
+		"   * \"sender\": Sender of the mail\n"
+		"   * \"subject\": Subject of the mail\n"
+		"The sorting order of each property can be reversed by prefixing a "
+		"\"!\".",
+								   "!position mailbox"));
 }
 
 void 

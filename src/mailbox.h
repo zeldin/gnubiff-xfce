@@ -99,15 +99,6 @@ protected:
 	 *  Mailbox::seen_ once the update is completed successfully. */
 	std::set<std::string>		new_seen_;
 
-	/** This vector contains the gnubiff mail ids of all those mails that will
-	 *  be displayed (in the opposite order). */
-	std::vector<std::string>    mails_to_be_displayed_;
-
-	/** Into this vector the gnubiff mail ids of all those mails that will
-	 *  be displayed (in the opposite order) when the current update is
-	 *  finished are inserted. */
-	std::vector<std::string>    new_mails_to_be_displayed_;
-
 public:
 	// ========================================================================
 	//  base
@@ -250,13 +241,6 @@ public:
 		guint s = unread_.size();
 		g_mutex_unlock (mutex_);
 		return s;
-	}
-	/// Access function to Mailbox::mails_to_be_displayed_
-	std::vector<std::string> &mails_to_be_displayed (void) {
-		g_mutex_lock (mutex_);
-		std::vector<std::string> &tmp=mails_to_be_displayed_;
-		g_mutex_unlock (mutex_);
-		return tmp;
 	}
 	/// Access function to Mailbox::hidden_
 	std::set<std::string> &hidden (void)				{return hidden_;}

@@ -226,14 +226,16 @@ Popup::update (void)
 
 	saved_strings.clear();
 
+	// FIXME: The following mailbox accesses should be mutex protected
+
 	// At this point we have to display popup_size headers that are
 	// present in the different mailboxes, knowing that last received
 	// mail is at the end of each mailbox. We then need to compute
 	// the exact number of mails to display for each mailbox.
-	std::vector <guint> count (biff_->size(), 0), max (biff_->size());
+	std::vector<guint> count (biff_->size(), 0), max (biff_->size());
 	guint num_mails = 0;
 	for (guint i = 0; i < biff_->size(); i++)
-		num_mails+= max[i] = biff_->mailbox(i)->mails_to_be_displayed().size();
+		num_mails+= max[i] = biff_->mailbox(i)->unread().size();
 	if (num_mails > biff_->value_uint ("popup_size"))
 		num_mails = biff_->value_uint ("popup_size");
 
@@ -250,59 +252,81 @@ Popup::update (void)
 	else
 		count = max;
 
-	// Now we populate the list
-	for (guint j=0; j < biff_->size(); j++) {
-   		std::vector<std::string>::iterator i=biff_->mailbox(j)->mails_to_be_displayed().end();
-		for (guint cnt=1; cnt <= count[j]; cnt++) {
-			i--;
-			// Get the header
-			Header h = biff_->mailbox(j)->unread()[*i];
-
-			gtk_list_store_append (store, &iter);
-
-			guint size = 255;
-			if (biff_->value_bool ("popup_use_format"))
-				size = 1;
-
-			// Subject
-			buffer = parse_header (h.subject);
-			gchar *subject;
-			subject = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_subject")));
-			g_free (buffer);
-			saved_strings.push_back (subject);
-
-			// Date
-			buffer = parse_header (h.date);
-			gchar *date;
-			date = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_date")));
-			g_free (buffer);
-			saved_strings.push_back (date);
-			
-			// Sender
-			buffer = parse_header (h.sender);
-			gchar *sender;
-			sender = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_sender")));
-			g_free (buffer);
-			saved_strings.push_back (sender);
-
-			// Mail identifier
-			gchar *mailid = g_strdup (h.mailid().c_str());
-			saved_strings.push_back (mailid);
-
-			std::stringstream s;
-			s << cnt;
-			if (cnt == 1)
-				gtk_list_store_set (store, &iter, COLUMN_NAME, biff_->mailbox(j)->name().c_str(), -1);
-			else
-				gtk_list_store_set (store, &iter, COLUMN_NAME, "", -1);
-			gtk_list_store_set (store, &iter,
-								COLUMN_NUMBER, s.str().c_str(),
-								COLUMN_SENDER, sender, 
-								COLUMN_SUBJECT, subject,
-								COLUMN_DATE, date,
-								COLUMN_MAILID, mailid,
-								-1);
+	// Put all the headers to be displayed (and pointers) in a vector
+	std::vector<Header *> ptr_headers;
+	for (guint j = 0; j < biff_->size(); j++) {
+		// Do the following directly in mailbox protected by mutex!
+		std::map<std::string, Header>::iterator ie, i;
+		i  = biff_->mailbox(j)->unread().begin ();
+		ie = biff_->mailbox(j)->unread().end ();
+		guint m = biff_->mailbox(j)->unread().size() - count[j];
+		while (i != ie) {
+			if (i->second.position() > m)
+				ptr_headers.push_back (new Header(i->second));
+			i++;
 		}
+	}
+
+	// Sort headers
+	gboolean mb;
+	mb=Header::sort_headers(ptr_headers,biff_->value_string ("popup_sort_by"));
+
+	// Now we populate the list
+	std::vector<Header *>::iterator h = ptr_headers.begin();
+	std::vector<Header *>::iterator he = ptr_headers.end();
+	std::set<guint> firstmb;
+	while (h != he) {
+		gtk_list_store_append (store, &iter);
+
+		guint size = 255;
+		if (biff_->value_bool ("popup_use_format"))
+			size = 1;
+
+		// Subject
+		buffer = parse_header ((*h)->subject());
+		gchar *subject;
+		subject = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_subject")));
+		g_free (buffer);
+		saved_strings.push_back (subject);
+
+		// Date
+		buffer = parse_header ((*h)->date());
+		gchar *date;
+		date = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_date")));
+		g_free (buffer);
+		saved_strings.push_back (date);
+
+		// Sender
+		buffer = parse_header ((*h)->sender());
+		gchar *sender;
+		sender = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_sender")));
+		g_free (buffer);
+		saved_strings.push_back (sender);
+
+		// Mail identifier
+		gchar *mailid = g_strdup ((*h)->mailid().c_str());
+		saved_strings.push_back (mailid);
+
+		std::stringstream s;
+		s << (*h)->position();
+
+		if ((!mb) || (firstmb.find ((*h)->mailbox_uin()) == firstmb.end())) {
+			// Mark mailbox as visited
+			firstmb.insert ((*h)->mailbox_uin());
+			gtk_list_store_set (store, &iter, COLUMN_NAME, biff_->get((*h)->mailbox_uin())->name().c_str(), -1);
+		}
+		else
+			gtk_list_store_set (store, &iter, COLUMN_NAME, "", -1);
+		gtk_list_store_set (store, &iter,
+							COLUMN_NUMBER, s.str().c_str(),
+							COLUMN_SENDER, sender, 
+							COLUMN_SUBJECT, subject,
+							COLUMN_DATE, date,
+							COLUMN_MAILID, mailid,
+							-1);
+		// Free header and advance to next header
+		delete (*h);
+		h++;
 	}
 
 	// Update window decoration
@@ -507,7 +531,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		gtk_text_buffer_get_iter_at_offset (buffer, &iter, 0);
 
 		// Sender
-		text = parse_header (selected_header_.sender);
+		text = parse_header (selected_header_.sender());
 		if (text) {
 			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
 			gtk_label_set_markup (GTK_LABEL(get("from")), markup);
@@ -516,7 +540,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		}
 
 		// Subject
-		text = parse_header (selected_header_.subject);
+		text = parse_header (selected_header_.subject());
 		if (text) {
 			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
 			gtk_label_set_markup (GTK_LABEL(get("subject")), markup);
@@ -525,7 +549,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		}
 
 		// Date
-		text = parse_header(selected_header_.date);
+		text = parse_header(selected_header_.date());
 		if (text) {
 			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
 			gtk_label_set_markup (GTK_LABEL(get("date")), markup);
@@ -534,7 +558,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		}
 
 		// Body
-		text = convert (selected_header_.body, selected_header_.charset);
+		text = convert (selected_header_.body(), selected_header_.charset());
 		if (text) {
 			gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, text, -1, "normal", NULL);
 			g_free (text);
