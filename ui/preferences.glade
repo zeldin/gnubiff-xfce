@@ -650,7 +650,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="applet_decoration_check">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to use window manager decoration</property>
+			  <property name="tooltip" translatable="yes">Whether to use window manager decoration</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Use _decoration</property>
 			  <property name="use_underline">True</property>
@@ -695,7 +695,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="applet_geometry_check">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to use geometry</property>
+			  <property name="tooltip" translatable="yes">Whether to use geometry</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Use _geometry:</property>
 			  <property name="use_underline">True</property>
@@ -719,7 +719,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="newmail_text_check">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to display a text</property>
+			  <property name="tooltip" translatable="yes">Whether to display a text</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Show _text:</property>
 			  <property name="use_underline">True</property>
@@ -743,7 +743,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="newmail_image_check">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to show an image </property>
+			  <property name="tooltip" translatable="yes">Whether to show an image </property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Show _image:</property>
 			  <property name="use_underline">True</property>
@@ -767,7 +767,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="nomail_text_check">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to display a text</property>
+			  <property name="tooltip" translatable="yes">Whether to display a text</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Show t_ext:</property>
 			  <property name="use_underline">True</property>
@@ -791,7 +791,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="nomail_image_check">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to display an image</property>
+			  <property name="tooltip" translatable="yes">Whether to display an image</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Show i_mage:</property>
 			  <property name="use_underline">True</property>
@@ -1102,7 +1102,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="popup_format_check">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to use format for header</property>
+			  <property name="tooltip" translatable="yes">Whether to use format for header</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">_Format:</property>
 			  <property name="use_underline">True</property>
@@ -1148,7 +1148,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="popup_size_check">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to restrict number of displayed headers</property>
+			  <property name="tooltip" translatable="yes">Whether to restrict number of displayed headers</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">_Restrict number to</property>
 			  <property name="use_underline">True</property>
@@ -1172,7 +1172,7 @@
 		      <child>
 			<widget class="GtkSpinButton" id="popup_size_spin">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Maximum number of header to display</property>
+			  <property name="tooltip" translatable="yes">Maximum number of headers to display</property>
 			  <property name="can_focus">True</property>
 			  <property name="climb_rate">1</property>
 			  <property name="digits">0</property>
@@ -1245,7 +1245,7 @@
 			<widget class="GtkCheckButton" id="popup_decoration_check">
 			  <property name="height_request">20</property>
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to use window manager decoration</property>
+			  <property name="tooltip" translatable="yes">Whether to use window manager decoration</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Use _decoration</property>
 			  <property name="use_underline">True</property>
@@ -1268,7 +1268,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="popup_geometry_check">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to use geometry</property>
+			  <property name="tooltip" translatable="yes">Whether to use geometry</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Use _geometry:</property>
 			  <property name="use_underline">True</property>
@@ -1292,7 +1292,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="use_popup_check">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Wheter to display the popup window</property>
+			  <property name="tooltip" translatable="yes">Whether to display the popup window</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">_Display for</property>
 			  <property name="use_underline">True</property>
