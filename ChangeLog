@@ -23,6 +23,8 @@ Version 2.1.1
    - Bugfix: Quick test for new mail while idling is not enogh (IMAP4; thanks
         to Byron Foster for providing a patch)
    - Added Byron Foster to Contributors
+   - Bugfix: Don't crash if server's response is not valid (IMAP4; thanks to
+        Calum Mackay for reporting this bug)
 
 Version 2.1.0
  * Nicolas Rougier

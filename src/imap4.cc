@@ -457,7 +457,8 @@ Imap4::fetch_header (void)
 #ifdef DEBUG
 			g_print ("\n");
 #endif
-			if ((!socket_->status()) || (cnt<0)) return;
+			// Did an error happen?
+			if ((!socket_->status()) || (cnt<0) || (mail.size()==0)) return;
 
 			// Remove last line (should contain a closing parenthesis). Note:
 			// We need the (hopefully empty;-) line before because it separates
