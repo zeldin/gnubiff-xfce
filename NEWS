@@ -4,6 +4,12 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.1.2
+This is a major bugfix release. Changes:
+* Many bug fixes
+* Improved displaying of messages
+* Vietnamese translation available
+
 Version 2.1.1
 Major bugfix release. Many thanks to Byron Foster and Calum Mackay for their
 help in creating this release. Changes:

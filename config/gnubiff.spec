@@ -1,6 +1,6 @@
 Summary: Mail notification program for GNOME 2
 Name: gnubiff
-Version: 2.1.2
+Version: 2.1.3
 Release: 1
 Copyright: GPL
 Group: X11/Utilities
@@ -49,6 +49,8 @@ make install prefix=$RPM_BUILD_ROOT%{prefix}
 %doc %{prefix}/man/man?/gnubiff*
 
 %changelog
+* Sun Mar 26 2005       sowada <sowadart@gmx.de>
+- RPM specfile for version 2.1.3
 * Sun Feb 27 2005       sowada <sowadart@gmx.de>
 - RPM specfile for version 2.1.2
 * Fri Dec 24 2004       sowada <sowadart@gmx.de>

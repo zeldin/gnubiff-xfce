@@ -4,7 +4,11 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
-Version 2.1.2
+Version 2.1.3
+ * Robert Sowada
+   - Changed version to 2.1.3
+
+Version 2.1.2		2005-03-26 17:28
  * Robert Sowada
    - Changed version to 2.1.2, updated spec file
    - Various small changes
