@@ -3,13 +3,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-26 17:49+0100\n"
+"POT-Creation-Date: 2004-12-26 18:06+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: src/decoding.cc:69
+#, c-format
+msgid "[The encoding \"%s\" of this mail can't be decoded]"
+msgstr ""
 
 #: src/gnubiff.cc:98
 msgid "Start gnome applet from command line"

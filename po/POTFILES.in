@@ -1,3 +1,4 @@
+src/decoding.cc
 src/gnubiff.cc
 src/ui-applet-gnome.cc
 src/biff.cc
