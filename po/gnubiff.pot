@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-05 14:42+0100\n"
+"POT-Creation-Date: 2005-02-06 01:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -277,36 +277,36 @@ msgstr ""
 msgid "No mail"
 msgstr ""
 
-#: src/ui-preferences.cc:176 src/ui-popup.cc:139
+#: src/ui-preferences.cc:186 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr ""
 
-#: src/ui-preferences.cc:190
+#: src/ui-preferences.cc:200
 msgid "Type"
 msgstr ""
 
-#: src/ui-preferences.cc:209
+#: src/ui-preferences.cc:219
 msgid "Status"
 msgstr ""
 
-#: src/ui-preferences.cc:224
+#: src/ui-preferences.cc:234
 msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:236 src/ui-preferences.cc:551
+#: src/ui-preferences.cc:246 src/ui-preferences.cc:567
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:485
+#: src/ui-preferences.cc:501
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:491 ui/preferences.glade.h:69
+#: src/ui-preferences.cc:507 ui/preferences.glade.h:66
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:502 src/ui-preferences.cc:509
+#: src/ui-preferences.cc:518 src/ui-preferences.cc:525
 msgid "Browse for a new mail image"
 msgstr ""
 
@@ -519,197 +519,187 @@ msgid "Expert"
 msgstr ""
 
 #: ui/preferences.glade.h:24
-msgid "Here the value of the currently selected option can be edited."
-msgstr ""
-
-#: ui/preferences.glade.h:25
 msgid "Image filename"
 msgstr ""
 
-#: ui/preferences.glade.h:26
+#: ui/preferences.glade.h:25
 msgid "List all options."
 msgstr ""
 
-#: ui/preferences.glade.h:27
-msgid "List of options, their type and current value."
+#: ui/preferences.glade.h:26
+msgid ""
+"List of options, their type and current values. To edit an option "
+"doubleclick on it's value."
 msgstr ""
 
-#: ui/preferences.glade.h:28
+#: ui/preferences.glade.h:27
 msgid "Mailboxes"
 msgstr ""
 
-#: ui/preferences.glade.h:29
+#: ui/preferences.glade.h:28
 msgid "Maintainers"
 msgstr ""
 
-#: ui/preferences.glade.h:30
+#: ui/preferences.glade.h:29
 msgid "Maximum number of headers to display"
 msgstr ""
 
-#: ui/preferences.glade.h:31 ui/popup.glade.h:4
+#: ui/preferences.glade.h:30 ui/popup.glade.h:4
 msgid "Popup"
 msgstr ""
 
-#: ui/preferences.glade.h:32
+#: ui/preferences.glade.h:31
 msgid "Popup geometry"
 msgstr ""
 
-#: ui/preferences.glade.h:33
+#: ui/preferences.glade.h:32
 msgid "Reset option to default value."
 msgstr ""
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:33
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr ""
 
-#: ui/preferences.glade.h:35
-msgid "Set option to value in text entry."
-msgstr ""
-
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:34
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:35
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:36
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:37
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade.h:40
+#: ui/preferences.glade.h:38
 msgid "String to be searched for."
 msgstr ""
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:39
 msgid "Text to display"
 msgstr ""
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:41
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr ""
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:42
 msgid "The command to run when new mail arrives"
 msgstr ""
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:43
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:44
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:45
 msgid "Time to display popup window"
 msgstr ""
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:46
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:47
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:48
 msgid "Use _geometry:"
 msgstr ""
 
-#: ui/preferences.glade.h:51
-msgid "Value: "
-msgstr ""
-
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:49
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:50
 msgid "When _new mail:"
 msgstr ""
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:51
 msgid "Whether to display a text"
 msgstr ""
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:52
 msgid "Whether to display an image"
 msgstr ""
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:53
 msgid "Whether to display the popup window"
 msgstr ""
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:54
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:55
 msgid "Whether to show an image"
 msgstr ""
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:56
 msgid "Whether to use format for header"
 msgstr ""
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:57
 msgid "Whether to use geometry"
 msgstr ""
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:58
 msgid "Whether to use window manager decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:59
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:63 ui/properties.glade.h:21
+#: ui/preferences.glade.h:60 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:61
 msgid "_Display for"
 msgstr ""
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:62
 msgid "_Font:"
 msgstr ""
 
-#: ui/preferences.glade.h:66
+#: ui/preferences.glade.h:63
 msgid "_Format:"
 msgstr ""
 
-#: ui/preferences.glade.h:67
+#: ui/preferences.glade.h:64
 msgid "_Restrict collected mail to"
 msgstr ""
 
-#: ui/preferences.glade.h:68
+#: ui/preferences.glade.h:65
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade.h:70
+#: ui/preferences.glade.h:67
 msgid "gnubiff preferences"
 msgstr ""
 
-#: ui/preferences.glade.h:71
+#: ui/preferences.glade.h:68
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:72
+#: ui/preferences.glade.h:69
 msgid "mail(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:73
+#: ui/preferences.glade.h:70
 msgid "second(s)"
 msgstr ""
 
