@@ -587,9 +587,11 @@ Mailbox::start_checking (void)
 		status_ = MAILBOX_OLD;
 
 	// Save obtained values
+	g_mutex_lock (mutex_);
 	unread_ = new_unread_;
 	seen_ = new_seen_;
 	mails_to_be_displayed_ = new_mails_to_be_displayed_;
+	g_mutex_unlock (mutex_);
 }
 
 /**
