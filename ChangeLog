@@ -7,7 +7,7 @@ Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 Version 2.1.3
  * Robert Sowada
    - Changed version to 2.1.3
-   - Bugfix: Detecting FAMChanged
+   - Bugfix: Detecting FAMCreated
 
 Version 2.1.2		2005-03-26 17:28
  * Robert Sowada
