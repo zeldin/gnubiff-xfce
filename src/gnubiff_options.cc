@@ -40,6 +40,11 @@ const gchar *Gnubiff_Options::protocol_gchar[] = {
 	"-", "file", "pop3", "imap4", "maildir", "mh", "apop", NULL
 };
 
+/**
+ *  Add options of the given groups.
+ *
+ *  @param  groups  Groups of which the options shall be added.
+ */
 void 
 Gnubiff_Options::add_options (guint groups)
 {
@@ -62,6 +67,7 @@ Gnubiff_Options::add_options (guint groups)
 		add_options_security ();
 }
 
+/// Add options for the appearance of the applet
 void 
 Gnubiff_Options::add_options_applet (void)
 {
@@ -155,6 +161,7 @@ Gnubiff_Options::add_options_applet (void)
 								   "applet_font_button"));
 }
 
+/// Add general options
 void 
 Gnubiff_Options::add_options_general (void)
 {
@@ -257,6 +264,7 @@ Gnubiff_Options::add_options_general (void)
 								 false));
 }
 
+/// Add options that are for information purposes only
 void 
 Gnubiff_Options::add_options_information (void)
 {
@@ -286,6 +294,7 @@ Gnubiff_Options::add_options_information (void)
 								 | OPTFLG_FIXED | OPTFLG_NOSAVE, i2, s2));
 }
 
+/// Add options that are different for each mailbox.
 void 
 Gnubiff_Options::add_options_mailbox (void)
 {
@@ -439,6 +448,7 @@ Gnubiff_Options::add_options_mailbox (void)
 								   "username_entry"));
 }
 
+/// Add options for the appearance of the popup
 void 
 Gnubiff_Options::add_options_popup (void)
 {
@@ -556,6 +566,7 @@ Gnubiff_Options::add_options_popup (void)
 								   "!position mailbox"));
 }
 
+/// Add options that affect security issues.
 void 
 Gnubiff_Options::add_options_security (void)
 {
