@@ -556,7 +556,6 @@ Preferences::on_test_sound (GtkWidget *widget)
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("system_beep_check"))))
 		gdk_beep ();    
 	else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("sound_check")))) {
-		gchar *data = (gchar *) gtk_entry_get_text (GTK_ENTRY(get("sound_entry")));
 		std::stringstream s;
 		s << gfloat (gtk_range_get_value (GTK_RANGE (get ("volume_scale"))))/100.0;
 		std::string command = gtk_entry_get_text (GTK_ENTRY(get("command_entry")));
