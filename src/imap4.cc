@@ -477,7 +477,7 @@ Imap4::command_capability (void) throw (imap_err)
 	if (line.find ("* CAPABILITY") != 0) throw imap_command_err();
 
 	// Getting the acknowledgment
-	command_waitforack();
+	waitforack();
 
 	// Remark: We have a space-separated listing. In order to not match
 	// substrings we have to include the spaces when comparing. To match the
@@ -590,7 +590,7 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 		throw imap_command_err();
 
 	// Getting the acknowledgment
-	command_waitforack();
+	waitforack();
 }
 
 /**
@@ -646,7 +646,7 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 #endif
 
 	// Getting the acknowledgment
-	command_waitforack();
+	waitforack();
 
 	return partinfo;
 }
@@ -754,7 +754,7 @@ Imap4::command_login (void) throw (imap_err)
 #endif
 
 	// Getting the acknowledgment
-	command_waitforack();
+	waitforack();
 }
 
 /**
@@ -790,7 +790,7 @@ Imap4::command_select (void) throw (imap_err)
 
 	// According to RFC 3501 6.3.1 there must be exactly seven lines
 	// before getting the acknowledgment line.
-	command_waitforack(7);
+	waitforack(7);
 }
 
 /**
@@ -844,7 +844,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	}
 
 	// Getting the acknowledgment
-	command_waitforack();
+	waitforack();
 
 	return buffer;
 }
@@ -866,7 +866,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
  *                     This exception is thrown if a network error occurs.
  */
 void 
-Imap4::command_waitforack (gint cnt) throw (imap_err)
+Imap4::waitforack (gint cnt) throw (imap_err)
 {
 	std::string line;
 

@@ -117,7 +117,7 @@ class Imap4 : public Mailbox {
 	void command_login (void) throw (imap_err);
 	std::vector<int> command_searchnotseen (void) throw (imap_err);
 	void command_select (void) throw (imap_err);
-	void command_waitforack (gint num=0) throw (imap_err);
+	void waitforack (gint num=0) throw (imap_err);
 	void reset_tag();
 	std::string tag();
 	gint send(std::string,gboolean debug=true);
