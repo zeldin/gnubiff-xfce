@@ -276,6 +276,12 @@ Preferences::expert_create (void)
 	GtkTextBuffer *tb = gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview")));
 	gtk_text_buffer_create_tag (tb, "italic","style",PANGO_STYLE_ITALIC,0);
 	gtk_text_buffer_create_tag (tb, "bold", "weight", PANGO_WEIGHT_BOLD,0);
+
+	// Empty widgets
+	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")), "");
+	gtk_widget_set_sensitive (get ("expert_button_ok"), false);
+	gtk_widget_set_sensitive (get ("expert_button_reset"), false);
+	gtk_widget_set_sensitive (get ("expert_value_entry"), false);
 }
 
 /**
@@ -286,8 +292,10 @@ Preferences::expert_create (void)
 void
 Preferences::expert_add_option_list (void)
 {
+	// General options regarding expert dialog
 	if (!biff_->value_bool ("use_expert"))
 		return;
+	gboolean showfixed = biff_->value_bool ("expert_show_fixed");
 
 	GtkTreeView  *view  = GTK_TREE_VIEW (get("expert_treeview"));
 	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
@@ -307,27 +315,36 @@ Preferences::expert_add_option_list (void)
 			opts = biff_->mailbox(i);
 		it = opts->options()->begin();
 		while (it != opts->options()->end()) {
+			Option *option = (it++)->second;
+
+			// Ignore fixed options?
+			if ((option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO)) && !showfixed)
+				continue;
+
 			// Create displayed name by concatenating group and name
 			std::string groupname;
 			if (i == -1) {
-				groupname  = biff_->group_name (it->second->group());
-				groupname += "/" + it->first;
+				groupname  = biff_->group_name (option->group());
+				groupname += "/" + option->name();
 			}
 			else {
 				std::stringstream ss;
-				ss << "mailbox[" << i << "]/" << it->first;
+				ss << "mailbox[" << i << "]/" << option->name();
 				ss >> groupname;
 			}
-			// Store values
+
+			// Get value
+			const gchar *value = opts->to_string(option->name()).c_str();
+
+			// Store value
 			gtk_list_store_append (store, &iter);
 			gtk_list_store_set (store, &iter,
 								COL_EXP_ID, i,
-								COL_EXP_NAME, it->first.c_str(),
+								COL_EXP_NAME, option->name().c_str(),
 								COL_EXP_GROUPNAME, groupname.c_str(),
-								COL_EXP_TYPE,it->second->type_string().c_str(),
-								COL_EXP_VALUE, opts->to_string(it->first).c_str(),
+								COL_EXP_TYPE, option->type_string().c_str(),
+								COL_EXP_VALUE, value,
 								-1);
-			it++;
 		}
 	}
 }
@@ -627,29 +644,30 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 	gtk_text_buffer_get_start_iter (tb, &iter);
 	gtk_text_buffer_insert (tb, &iter, "Option ", -1);
 	tmp = option->name().c_str();
-	gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold");
+	gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold", 0);
 	gtk_text_buffer_insert (tb, &iter, ": ", -1);
 	gtk_text_buffer_insert (tb, &iter, option->help().c_str(), -1);
 	gtk_text_buffer_insert (tb, &iter, "\n\nGroup ", -1);
 	tmp = opts->group_name(option->group()).c_str();
-	gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold");
+	gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold", 0);
 	gtk_text_buffer_insert (tb, &iter, ": ", -1);
 	tmp = opts->group_help(option->group()).c_str();
 	gtk_text_buffer_insert (tb, &iter, tmp, -1);
 	gtk_text_buffer_insert (tb, &iter, "\n\nDefault value: ", -1);
 	gtk_text_buffer_insert (tb, &iter, option->default_string().c_str(), -1);
 	if (option->type () == OPTTYPE_UINT) {
-		gtk_text_buffer_insert (tb, &iter, "\nAllowed values: ", -1);
+		gtk_text_buffer_insert (tb, &iter, "\n\nAllowed values: ", -1);
 		tmp = ((Option_UInt *)option)->allowed_ids (", ").c_str();
 		gtk_text_buffer_insert (tb, &iter, tmp, -1);
 		if (!(option->flags () & OPTFLG_ID_INT_STRICT)) {
 			if (*tmp)
 				gtk_text_buffer_insert (tb, &iter, ", ", -1);
 			tmp = "any positive integer";
-			gtk_text_buffer_insert_with_tags_by_name(tb,&iter,tmp,-1,"italic");
+			gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1,
+													  "italic", 0);
 		}
 	}
-	gtk_text_buffer_insert (tb, &iter, "\nProperties: ", -1);
+	gtk_text_buffer_insert (tb, &iter, "\n\nProperties: ", -1);
 	tmp = option->flags_string().c_str();
 	gtk_text_buffer_insert (tb, &iter, tmp, -1);
 }
@@ -674,9 +692,8 @@ Preferences::expert_ok (void)
 	opts->from_string (option->name(), value);
 
 	// Update GUI
-	// FIXME: No need to update all GUI widgets!
-	biff_->gui_set (OPTGRP_ALL, xml_, filename_);
-	biff_->gui_show (OPTGRP_ALL, xml_, filename_);
+	biff_->gui_set (OPTGRP_ALL, xml_, filename_, option);
+	biff_->gui_show (OPTGRP_ALL, xml_, filename_, option);
 	gtk_list_store_set (store, &treeiter, COL_EXP_VALUE,
 						opts->to_string(option->name()).c_str(), -1);
 }

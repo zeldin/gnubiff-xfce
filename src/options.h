@@ -84,9 +84,12 @@ public:
 	gboolean from_strings (guint groups,
 						   std::map<std::string,std::string> &map);
 
-	void gui_get (guint groups, GladeXML *xml, std::string filename);
-	void gui_set (guint groups, GladeXML *xml, std::string filename);
-	void gui_show (guint groups, GladeXML *xml, std::string filename);
+	void gui_get (guint groups, GladeXML *xml, std::string filename,
+				  Option *option = NULL);
+	void gui_set (guint groups, GladeXML *xml, std::string filename,
+				  Option *option = NULL);
+	void gui_show (guint groups, GladeXML *xml, std::string filename,
+				   Option *option = NULL);
 
 	std::string group_help (guint group) {return groups_[group]->help();};
 	std::string group_name (guint group) {return groups_[group]->name();};
@@ -125,6 +128,8 @@ protected:
 private:
 	void gui_all (guint whattodo, guint groups, GladeXML *xml,
 				  const std::string filename);
+	void gui_all (guint whattodo, guint groups, GladeXML *xml,
+				  const std::string filename, Option *option);
 };
 
 #endif

@@ -312,22 +312,37 @@ Options::from_strings (guint groups, std::map<std::string,std::string> &map)
 }
 
 void 
-Options::gui_get (guint groups, GladeXML *xml, std::string filename)
+Options::gui_get (guint groups, GladeXML *xml, std::string filename,
+				  Option *option)
 {
-	gui_all (0, groups, xml, filename);
+	if (option)
+		gui_all (0, groups, xml, filename, option);
+	else
+		gui_all (0, groups, xml, filename);
 }
 
 void 
-Options::gui_set (guint groups, GladeXML *xml, std::string filename)
+Options::gui_set (guint groups, GladeXML *xml, std::string filename,
+				  Option *option)
 {
-	gui_all (1, groups, xml, filename);
+	if (option)
+		gui_all (1, groups, xml, filename, option);
+	else
+		gui_all (1, groups, xml, filename);
 }
 
 void 
-Options::gui_show (guint groups, GladeXML *xml, std::string filename)
+Options::gui_show (guint groups, GladeXML *xml, std::string filename,
+				   Option *option)
 {
-	gui_all (2, groups, xml, filename);
-	gui_all (3, groups, xml, filename);
+	if (option) {
+		gui_all (2, groups, xml, filename, option);
+		gui_all (3, groups, xml, filename, option);
+	}
+	else {
+		gui_all (2, groups, xml, filename);
+		gui_all (3, groups, xml, filename);
+	}
 }
 
 void 
@@ -335,58 +350,66 @@ Options::gui_all (guint whattodo, guint groups, GladeXML *xml,
 				  const std::string filename)
 {
 	iterator opt = options_.begin ();
-	const gchar *file = filename.c_str ();
 	while (opt != options_.end ()) {
 		Option *option = opt->second;
 		opt++;
 		if (!option || !(groups & option->group ()))
 			continue;
+		gui_all (whattodo, groups, xml, filename, option);
+	}
+}
 
-		// Get widgets
-		std::stringstream ss (option->gui_name());
-		std::string gui_name;
-		std::vector<GtkWidget *> widgets;
-		while (ss >> gui_name)
-			widgets.push_back (get_widget (gui_name.c_str(), xml, file));
+void 
+Options::gui_all (guint whattodo, guint groups, GladeXML *xml,
+				  const std::string filename, Option *option)
+{
+	const gchar *file = filename.c_str ();
 
-		switch (whattodo) {
-		case 0:
-			option->get_gui (widgets);
-			break;
-		case 1:
-			option->set_gui (widgets);
-			break;
-		case 2:
-		case 3:
-			if (option->type() == OPTTYPE_BOOL) {
-				// Obtain value for setting sensitive
-				gboolean ok;
-				if (option->gui() == OPTGUI_TOGGLE)
-					ok = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widgets[0]));
-				else
-					ok = ((Option_Bool *)option)->value ();
-				// Get widgets to be set sensitive/shown/hidden
-				std::set<std::string> gs;
+	// Get widgets
+	std::stringstream ss (option->gui_name());
+	std::string gui_name;
+	std::vector<GtkWidget *> widgets;
+	while (ss >> gui_name)
+		widgets.push_back (get_widget (gui_name.c_str(), xml, file));
+
+	switch (whattodo) {
+	case 0:
+		option->get_gui (widgets);
+		break;
+	case 1:
+		option->set_gui (widgets);
+		break;
+	case 2:
+	case 3:
+		if (option->type() == OPTTYPE_BOOL) {
+			// Obtain value for setting sensitive
+			gboolean ok;
+			if (option->gui() == OPTGUI_TOGGLE)
+				ok=gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widgets[0]));
+			else
+				ok = ((Option_Bool *)option)->value ();
+			// Get widgets to be set sensitive/shown/hidden
+			std::set<std::string> gs;
+			if (whattodo == 2)
+				((Option_Bool *)option)->gui_sensitive (gs);
+			else
+				((Option_Bool *)option)->gui_show (gs);
+			// Change widgets
+			std::set<std::string>::iterator it = gs.begin ();
+			while (it != gs.end ()) {
+				GtkWidget *other = get_widget (it->c_str(), xml, file);
+				it++;
+				if (!other)
+					continue;
 				if (whattodo == 2)
-					((Option_Bool *)option)->gui_sensitive (gs);
+					gtk_widget_set_sensitive (other, ok);
 				else
-					((Option_Bool *)option)->gui_show (gs);
-				// Change widgets
-				std::set<std::string>::iterator it = gs.begin ();
-				while (it != gs.end ()) {
-					GtkWidget *otherwidget=get_widget (it->c_str(), xml, file);
-					it++;
-					if (!otherwidget)
-						continue;
-					if (whattodo == 2)
-						gtk_widget_set_sensitive (otherwidget, ok);
-					else
-						ok ? gtk_widget_show (otherwidget)
-						   : gtk_widget_hide (otherwidget);
-				}
+					ok ? gtk_widget_show (other) : gtk_widget_hide (other);
 			}
-			break;
 		}
+		break;
+	default:
+		break;
 	}
 }
 

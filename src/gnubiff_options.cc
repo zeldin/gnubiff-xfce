@@ -212,6 +212,11 @@ Gnubiff_Options::add_options_general (void)
 		"Shall the expert dialog for editing all options be shown?",
 								 false, OPTFLG_NONE, OPTGUI_NONE,
 								 "", NULL, s5));
+	// EXPERT_SHOW_FIXED
+	add_option (new Option_Bool ("expert_show_fixed", OPTGRP_GENERAL,
+		"Shall options be displayed in the expert dialog that cannot be "
+		"changed?",
+								 true));
 }
 
 void 
