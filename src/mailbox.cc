@@ -702,7 +702,6 @@ Mailbox::load_data (void)
 void 
 Mailbox::save_data (void)
 {
-	g_mutex_lock (mutex_);
 	biff_->save_para ("protocol", protocol_);
 	biff_->save_para ("authentication", (guint)authentication_);
 	biff_->save_para ("name", name_);
@@ -719,5 +718,4 @@ Mailbox::save_data (void)
 	biff_->save_para ("use_other_port", use_other_port_);
 	biff_->save_para ("other_port", other_port_);
 	biff_->save_para ("seen", hidden_);
-	g_mutex_unlock (mutex_);
 }
