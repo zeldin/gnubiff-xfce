@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 18:23+0100\n"
+"POT-Creation-Date: 2004-12-12 18:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -778,21 +778,5 @@ msgid "<small><b>Subject</b></small>"
 msgstr ""
 
 #: ui/popup.glade.h:5
-msgid "aaaaa"
-msgstr ""
-
-#: ui/popup.glade.h:6
-msgid "date"
-msgstr ""
-
-#: ui/popup.glade.h:7
-msgid "from"
-msgstr ""
-
-#: ui/popup.glade.h:8
 msgid "mail content"
-msgstr ""
-
-#: ui/popup.glade.h:9
-msgid "subject"
 msgstr ""

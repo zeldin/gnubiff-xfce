@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 18:23+0100\n"
+"POT-Creation-Date: 2004-12-12 18:50+0100\n"
 "PO-Revision-Date: 2004-03-11 22:32+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -844,25 +844,12 @@ msgid "<small><b>Subject</b></small>"
 msgstr "<small><b>Volym</b></small>"
 
 #: ui/popup.glade.h:5
-msgid "aaaaa"
-msgstr ""
-
-#: ui/popup.glade.h:6
-#, fuzzy
-msgid "date"
-msgstr "Dekorerad"
-
-#: ui/popup.glade.h:7
-msgid "from"
-msgstr ""
-
-#: ui/popup.glade.h:8
 msgid "mail content"
 msgstr ""
 
-#: ui/popup.glade.h:9
-msgid "subject"
-msgstr ""
+#, fuzzy
+#~ msgid "date"
+#~ msgstr "Dekorerad"
 
 #~ msgid "*"
 #~ msgstr "*"

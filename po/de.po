@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 18:23+0100\n"
+"POT-Creation-Date: 2004-12-12 18:50+0100\n"
 "PO-Revision-Date: 2004-12-08 22:50+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -813,21 +813,17 @@ msgid "<small><b>Subject</b></small>"
 msgstr "<small><b>Betreff</b></small>"
 
 #: ui/popup.glade.h:5
-msgid "aaaaa"
-msgstr "aaaaa"
-
-#: ui/popup.glade.h:6
-msgid "date"
-msgstr "Datum"
-
-#: ui/popup.glade.h:7
-msgid "from"
-msgstr "Absender"
-
-#: ui/popup.glade.h:8
 msgid "mail content"
 msgstr "Nachrichtentext"
 
-#: ui/popup.glade.h:9
-msgid "subject"
-msgstr "Betreff"
+#~ msgid "aaaaa"
+#~ msgstr "aaaaa"
+
+#~ msgid "date"
+#~ msgstr "Datum"
+
+#~ msgid "from"
+#~ msgstr "Absender"
+
+#~ msgid "subject"
+#~ msgstr "Betreff"

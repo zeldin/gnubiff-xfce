@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 18:23+0100\n"
+"POT-Creation-Date: 2004-12-12 18:50+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -856,27 +856,20 @@ msgid "<small><b>Subject</b></small>"
 msgstr "<small><b>Volume</b></small>"
 
 #: ui/popup.glade.h:5
-msgid "aaaaa"
-msgstr ""
-
-#: ui/popup.glade.h:6
-#, fuzzy
-msgid "date"
-msgstr "Data"
-
-#: ui/popup.glade.h:7
-#, fuzzy
-msgid "from"
-msgstr "Da"
-
-#: ui/popup.glade.h:8
 msgid "mail content"
 msgstr "contenuto del messaggio"
 
-#: ui/popup.glade.h:9
 #, fuzzy
-msgid "subject"
-msgstr "Oggetto"
+#~ msgid "date"
+#~ msgstr "Data"
+
+#, fuzzy
+#~ msgid "from"
+#~ msgstr "Da"
+
+#, fuzzy
+#~ msgid "subject"
+#~ msgstr "Oggetto"
 
 #~ msgid "*"
 #~ msgstr "*"

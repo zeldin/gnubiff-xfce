@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 18:23+0100\n"
+"POT-Creation-Date: 2004-12-12 18:50+0100\n"
 "PO-Revision-Date: 2004-12-08 14:33+0100\n"
 "Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
 "Language-Team: Français\n"
@@ -812,24 +812,20 @@ msgid "<small><b>Subject</b></small>"
 msgstr "<small><b>Sujet</b></small>"
 
 #: ui/popup.glade.h:5
-msgid "aaaaa"
-msgstr "aaaaa"
-
-#: ui/popup.glade.h:6
-msgid "date"
-msgstr "Date"
-
-#: ui/popup.glade.h:7
-msgid "from"
-msgstr "De"
-
-#: ui/popup.glade.h:8
 msgid "mail content"
 msgstr "mail content"
 
-#: ui/popup.glade.h:9
-msgid "subject"
-msgstr "Sujet"
+#~ msgid "aaaaa"
+#~ msgstr "aaaaa"
+
+#~ msgid "date"
+#~ msgstr "Date"
+
+#~ msgid "from"
+#~ msgstr "De"
+
+#~ msgid "subject"
+#~ msgstr "Sujet"
 
 #~ msgid "*"
 #~ msgstr "*"

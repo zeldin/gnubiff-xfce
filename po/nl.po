@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-12 18:23+0100\n"
+"POT-Creation-Date: 2004-12-12 18:50+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -851,26 +851,16 @@ msgid "<small><b>Subject</b></small>"
 msgstr "<small><b>Geluidssterkte</b></small>"
 
 #: ui/popup.glade.h:5
-msgid "aaaaa"
-msgstr ""
-
-#: ui/popup.glade.h:6
-#, fuzzy
-msgid "date"
-msgstr "Versierd"
-
-#: ui/popup.glade.h:7
-msgid "from"
-msgstr ""
-
-#: ui/popup.glade.h:8
 msgid "mail content"
 msgstr "postinhoud"
 
-#: ui/popup.glade.h:9
 #, fuzzy
-msgid "subject"
-msgstr "<geen onderwerp gevonden>"
+#~ msgid "date"
+#~ msgstr "Versierd"
+
+#, fuzzy
+#~ msgid "subject"
+#~ msgstr "<geen onderwerp gevonden>"
 
 #~ msgid "*"
 #~ msgstr "*"
