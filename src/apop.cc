@@ -149,7 +149,7 @@ Apop::connect (void)
 		sprintf (&hex_response[i*2], "%02x", response[i]);
 	hex_response[32] = '\0';
 #else
-	g_message (_("[%d] Problem with crypto that should have been detected at configure time", uin_));
+	g_message (_("[%d] Problem with crypto that should have been detected at configure time"), uin_);
 	return 0;
 #endif
 

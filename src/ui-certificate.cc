@@ -41,7 +41,7 @@ Certificate::Certificate (void) : GUI (GNUBIFF_DATADIR"/certificate.glade")
 {
 #ifdef HAVE_LIBSSL
 	socket_ = 0;
-	certificate_ = 0
+	certificate_ = 0;
 	stored_certificate_ = 0;
 #endif
 }
@@ -140,7 +140,7 @@ Certificate::on_cancel (GtkWidget *widget)
 {
 #ifdef HAVE_LIBSSL
 	stored_certificate_ = 0;
-	certificate_ = 0
+	certificate_ = 0;
 	socket_->bypass_certificate (false);
 #endif
 	hide();
