@@ -25,6 +25,7 @@ Version 2.1.2
         reporting this bug)
    - Added Clytie Siddall to contributors
    - Feature: Support for "multipart/mixed" and "multipart/alternative" mails
+   - Feature: Autoupdate of options that have new default values
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

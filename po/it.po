@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 15:17+0100\n"
+"POT-Creation-Date: 2005-03-06 20:40+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -51,23 +51,43 @@ msgstr ""
 msgid "Configuration file (%s) not found !"
 msgstr "File di configurazione (%s) non trovato !"
 
-#: ../src/biff.cc:509
+#: ../src/biff.cc:388
+#, c-format
+msgid "Loaded config file from old gnubiff version \"%s\"."
+msgstr ""
+
+#: ../src/biff.cc:390
+msgid "Trying to convert all options."
+msgstr ""
+
+#: ../src/biff.cc:416
+msgid "Successfully converted all options."
+msgstr ""
+
+#: ../src/biff.cc:419
+#, c-format
+msgid ""
+"Successfully converted some options. The following options must be updated "
+"manually: %s."
+msgstr ""
+
+#: ../src/biff.cc:566
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Non riesco ad aprire il tuo file di configurazione (%s)"
 
-#: ../src/biff.cc:535
+#: ../src/biff.cc:592
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Non è stata trovata l'impostazione di una casella di posta impostata nel tuo "
 "file di configurazione (%s)"
 
-#: ../src/biff.cc:559
+#: ../src/biff.cc:620
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: ../src/biff.cc:582
+#: ../src/biff.cc:643
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""

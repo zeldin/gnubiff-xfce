@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"Report-Msgid-Bugs-To: <gnubiff-devel@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2005-03-04 15:17+0100\n"
-"PO-Revision-Date: 2005-03-05 01:15+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-03-06 20:40+0100\n"
+"PO-Revision-Date: 2005-03-06 21:45+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -54,21 +54,43 @@ msgstr "Debugging-Optionen:"
 msgid "Configuration file (%s) not found !"
 msgstr "Konnte Konfigurationsdatei »%s« nicht finden!"
 
-#: ../src/biff.cc:509
+#: ../src/biff.cc:388
+#, c-format
+msgid "Loaded config file from old gnubiff version \"%s\"."
+msgstr "Konfigurationsdatei aus alter Gnubiff-Version »%s« geladen."
+
+#: ../src/biff.cc:390
+msgid "Trying to convert all options."
+msgstr "Versuche alle Optionen zu konvertieren."
+
+#: ../src/biff.cc:416
+msgid "Successfully converted all options."
+msgstr "Erfolgreich alle Optionen konvertiert."
+
+#: ../src/biff.cc:419
+#, c-format
+msgid ""
+"Successfully converted some options. The following options must be updated "
+"manually: %s."
+msgstr ""
+"Erfolgreich einige Optionen konvertiert. Die folgenden Optionen müssen "
+"manuell aktualisiert werden: %s."
+
+#: ../src/biff.cc:566
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kann die Konfigurationsdatei »%s« nicht öffnen!"
 
-#: ../src/biff.cc:535
+#: ../src/biff.cc:592
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Keine Briefkastendefinition in der Konfigurationsdatei »%s« gefunden!"
 
-#: ../src/biff.cc:559
+#: ../src/biff.cc:620
 msgid "Illegal parameter format in config file"
 msgstr "Illegales Parameterformat in der Konfigurationsdatei"
 
-#: ../src/biff.cc:582
+#: ../src/biff.cc:643
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Kein Protokoll für Briefkasten %d angegeben"

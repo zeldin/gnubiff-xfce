@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 15:17+0100\n"
+"POT-Creation-Date: 2005-03-06 20:40+0100\n"
 "PO-Revision-Date: 2005-01-17 22:04+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -53,21 +53,41 @@ msgstr "Inställningar för avlusning:"
 msgid "Configuration file (%s) not found !"
 msgstr "Konfigurationsfil (%s) hittades inte !"
 
-#: ../src/biff.cc:509
+#: ../src/biff.cc:388
+#, c-format
+msgid "Loaded config file from old gnubiff version \"%s\"."
+msgstr ""
+
+#: ../src/biff.cc:390
+msgid "Trying to convert all options."
+msgstr ""
+
+#: ../src/biff.cc:416
+msgid "Successfully converted all options."
+msgstr ""
+
+#: ../src/biff.cc:419
+#, c-format
+msgid ""
+"Successfully converted some options. The following options must be updated "
+"manually: %s."
+msgstr ""
+
+#: ../src/biff.cc:566
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan inte öppna din konfigurationsfil (%s)"
 
-#: ../src/biff.cc:535
+#: ../src/biff.cc:592
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Hittade ingen brevlådedefinition i din konfigureringsfil (%s)"
 
-#: ../src/biff.cc:559
+#: ../src/biff.cc:620
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: ../src/biff.cc:582
+#: ../src/biff.cc:643
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""

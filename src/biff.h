@@ -108,8 +108,9 @@ public:
 protected:
 	std::vector<const gchar *> save_blocks;
 	std::stringstream save_file;
-	void save_newblock(const gchar *);
-	void save_endblock(void);
+	void save_newblock (const gchar *name);
+	void save_endblock (void);
+	void upgrade_options (void);
 public:
 	void save_parameters (std::map<std::string,std::string> &map,
 						  std::string block = std::string(""));

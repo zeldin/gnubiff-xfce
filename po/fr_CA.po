@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 15:17+0100\n"
+"POT-Creation-Date: 2005-03-06 20:40+0100\n"
 "PO-Revision-Date: 2005-02-27 10:47+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -61,23 +61,44 @@ msgstr "Options de déboggage"
 msgid "Configuration file (%s) not found !"
 msgstr "Fichier de configuration non trouvé (%s)"
 
-#: ../src/biff.cc:509
+#: ../src/biff.cc:388
+#, c-format
+msgid "Loaded config file from old gnubiff version \"%s\"."
+msgstr ""
+
+#: ../src/biff.cc:390
+#, fuzzy
+msgid "Trying to convert all options."
+msgstr "Liste des options"
+
+#: ../src/biff.cc:416
+msgid "Successfully converted all options."
+msgstr ""
+
+#: ../src/biff.cc:419
+#, c-format
+msgid ""
+"Successfully converted some options. The following options must be updated "
+"manually: %s."
+msgstr ""
+
+#: ../src/biff.cc:566
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: ../src/biff.cc:535
+#: ../src/biff.cc:592
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Votre fichier de configuration n'as pas de définition de boîte aux lettres (%"
 "s)"
 
-#: ../src/biff.cc:559
+#: ../src/biff.cc:620
 msgid "Illegal parameter format in config file"
 msgstr "Format de paramètre illégal dans le fichier de configuration"
 
-#: ../src/biff.cc:582
+#: ../src/biff.cc:643
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Pas de protocole spécifié pour la boîte aux lettres %d"

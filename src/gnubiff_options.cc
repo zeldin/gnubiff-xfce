@@ -291,7 +291,16 @@ Gnubiff_Options::add_options_information (void)
 	add_option (new Option_UInt ("ui_mode", OPTGRP_INFORMATION,
 		"User interface mode in which gnubiff is running.",
 								 GTK_MODE, OPTFLG_CHANGE | OPTFLG_ID_INT_STRICT
-								 | OPTFLG_FIXED | OPTFLG_NOSAVE, i2, s2));
+								 | OPTFLG_FIXED | OPTFLG_NOSAVE
+								 | OPTFLG_NOSHOW, i2, s2));
+	// VERSION
+	add_option (new Option_String ("version", OPTGRP_INFORMATION,
+		"Version of gnubiff that is saved into the config file. This is "
+		"needed for converting values (that have not changed from their "
+		"default) automatically when loading an old config file. Options "
+		"that were changed by the user usually have to be converted manually.",
+								   PACKAGE_VERSION,
+								   OPTFLG_FIXED | OPTFLG_NOSHOW));
 }
 
 /// Add options that are different for each mailbox.

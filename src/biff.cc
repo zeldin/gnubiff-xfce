@@ -369,12 +369,66 @@ Biff::option_update (Option *option)
 // ================================================================================
 
 /**
+ *  The loaded config file belongs to an old version of gnubiff. All options
+ *  with changed default values will be converted if possible. If the option
+ *  still has the old default value this is no problem, otherwise we might
+ *  give a warning message so the user can do this manually.
+ */
+void 
+Biff::upgrade_options (void)
+{
+	// Get config file version and reset internal version
+	std::string config_version = value_string ("version");
+	gint version = -1;
+	if (config_version == "0") {
+		config_version = "<=2.1.1";
+		version = 0;
+	}
+	reset ("version");
+	g_warning (_("Loaded config file from old gnubiff version \"%s\"."),
+			   config_version.c_str ());
+	g_message (_("Trying to convert all options."));
+	if (version < 0) {
+		std::replace (config_version.begin(), config_version.end(), '.', ' ');
+		std::stringstream tmpstr (config_version);
+		guint tmp;
+		tmpstr >> tmp;
+		version  = 100*100*tmp;
+		tmpstr >> tmp;
+		version += 100*tmp;
+		tmpstr >> tmp;
+		version += tmp;
+	}
+
+	// Store options that need manual conversion
+	std::string options_bad;
+
+	// Option: MIN_BODY_LINES
+	if (version < 2001002) {
+		if (value_uint ("min_body_lines") == 12)
+			reset ("min_body_lines");
+		else
+			options_bad += "\"min_body_lines\", ";
+	}
+
+	// End message
+	if (options_bad.size() == 0)
+		g_message (_("Successfully converted all options."));
+	else {
+		options_bad = options_bad.substr (0, options_bad.size()-2);
+		g_message (_("Successfully converted some options. The following "
+					 "options must be updated manually: %s."),
+				   options_bad.c_str());
+	}
+}
+
+/**
  * Opens the new block {\em name} of options in the configuration file.
  *
  * @param  name  valid utf-8 character array for the name of the block
  */
 void 
-Biff::save_newblock(const gchar *name)
+Biff::save_newblock (const gchar *name)
 {
 	save_blocks.push_back (name);
 	const gchar *fmt = "%*s<%s>\n";
@@ -387,7 +441,7 @@ Biff::save_newblock(const gchar *name)
  * Ends the last opened block of options in the configuration file.
  */
 void 
-Biff::save_endblock(void)
+Biff::save_endblock (void)
 {
 	const gchar *fmt = "%*s</%s>\n";
 	gchar *esc = g_markup_printf_escaped(fmt, save_blocks.size()*2-2, "",
@@ -499,6 +553,9 @@ Biff::save (void)
 gboolean 
 Biff::load (void)
 {
+	// Reset version. This must be done to detect pre 2.1.2 config files
+	value ("version", "0");
+
 	mailbox_.clear();
 
 	std::ifstream file;
@@ -537,6 +594,10 @@ Biff::load (void)
 	}
 
 	file.close ();
+
+	// Do we have an old config file?
+	if (value_string ("version") != PACKAGE_VERSION)
+		upgrade_options ();
 
 	return true;
 }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 15:17+0100\n"
+"POT-Creation-Date: 2005-03-06 20:40+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -55,21 +55,41 @@ msgstr ""
 msgid "Configuration file (%s) not found !"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: ../src/biff.cc:509
+#: ../src/biff.cc:388
+#, c-format
+msgid "Loaded config file from old gnubiff version \"%s\"."
+msgstr ""
+
+#: ../src/biff.cc:390
+msgid "Trying to convert all options."
+msgstr ""
+
+#: ../src/biff.cc:416
+msgid "Successfully converted all options."
+msgstr ""
+
+#: ../src/biff.cc:419
+#, c-format
+msgid ""
+"Successfully converted some options. The following options must be updated "
+"manually: %s."
+msgstr ""
+
+#: ../src/biff.cc:566
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: ../src/biff.cc:535
+#: ../src/biff.cc:592
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: ../src/biff.cc:559
+#: ../src/biff.cc:620
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: ../src/biff.cc:582
+#: ../src/biff.cc:643
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
