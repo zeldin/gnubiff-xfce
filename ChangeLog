@@ -17,6 +17,7 @@ Version 2.1.4
    - Cleanup: Moved parsing of number sequences to "src/support.cc"
    - Bugfix: Don't monitor directory for mh protocol (saves resources)
    - Cleanup of autodetection code for local mailboxes
+   - Cleanup of Imap4::command_fetchuid()
 
 
 Version 2.1.3		2005-04-03 23:57
