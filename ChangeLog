@@ -39,6 +39,7 @@ Version 2.1.2
         per line
    - Bugfix: Displaying error messages instead of mail body
    - Bugfix: Illegal parameters to callback function while parsing config file
+   - Bugfix: Testing return value when creating XML parser
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 
