@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-26 18:06+0100\n"
+"POT-Creation-Date: 2004-12-27 19:42+0100\n"
 "PO-Revision-Date: 2004-03-11 22:32+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -50,22 +50,22 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:119
+#: src/biff.cc:121
 #, fuzzy
 msgid "no mail"
 msgstr "Inga meddelanden"
 
-#: src/biff.cc:155
+#: src/biff.cc:159
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Konfigurationsfil att använda"
 
-#: src/biff.cc:500
+#: src/biff.cc:508
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Konfigurationsfil att använda"
 
-#: src/biff.cc:525
+#: src/biff.cc:533
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Konfigurationsfil att använda"
@@ -118,17 +118,17 @@ msgstr ""
 msgid "[%d] Unable to read from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:190 src/imap4.cc:210
+#: src/imap4.cc:194 src/imap4.cc:214
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:252
+#: src/imap4.cc:256
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:521
+#: src/imap4.cc:506
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -236,19 +236,19 @@ msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:566
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:490
+#: src/ui-preferences.cc:500
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:506 ui/preferences.glade.h:64
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
+#: src/ui-preferences.cc:517 src/ui-preferences.cc:524
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Bläddra efter fil"
@@ -315,12 +315,12 @@ msgstr ""
 msgid "Date"
 msgstr "Dekorerad"
 
-#: src/ui-popup.cc:571 src/ui-popup.cc:583 src/ui-popup.cc:592
-#: src/ui-popup.cc:599
+#: src/ui-popup.cc:577 src/ui-popup.cc:589 src/ui-popup.cc:598
+#: src/ui-popup.cc:605
 msgid "* error *"
 msgstr ""
 
-#: src/ui-popup.cc:652
+#: src/ui-popup.cc:658
 msgid "Error"
 msgstr ""
 
@@ -571,92 +571,108 @@ msgid "When _new mail:"
 msgstr "Göm när inga nya meddelanden finns"
 
 #: ui/preferences.glade.h:45
+msgid "Whether the window shall be displayed on all desktops"
+msgstr ""
+
+#: ui/preferences.glade.h:46
+msgid "Whether the window shall be kept above all other windows"
+msgstr ""
+
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Visa poppuppfönster under popptids sekunder"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:48
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Visa poppuppfönster under popptids sekunder"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Visa poppuppfönster under popptids sekunder"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:50
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Biff-fönster med fönsterhanterarens dekorationer eller ej"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:52
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Ingen geometri"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:53
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Ingen geometri"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:54
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Biff-fönster med fönsterhanterarens dekorationer eller ej"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:55
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:54 ui/properties.glade.h:21
+#: ui/preferences.glade.h:56
+msgid "_Be sticky"
+msgstr ""
+
+#: ui/preferences.glade.h:57 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:58
 #, fuzzy
 msgid "_Display for"
 msgstr "Visa titel"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:59
 #, fuzzy
 msgid "_Font:"
 msgstr "Typsnitt"
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:60
 #, fuzzy
 msgid "_Format:"
 msgstr "Typsnitt"
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:61
+msgid "_Keep above"
+msgstr ""
+
+#: ui/preferences.glade.h:62
 #, fuzzy
 msgid "_Restrict collected mail to"
 msgstr "<small>Begränsa antal visade rubriker i poppuppfönstret till </small>"
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:63
 #, fuzzy
 msgid "_Restrict number to"
 msgstr "<small>Begränsa <b>avsändarstorleken</b> till </small>"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:65
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Inställningar"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:66
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:67
 #, fuzzy
 msgid "mail(s)"
 msgstr "Inga meddelanden"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:68
 msgid "second(s)"
 msgstr ""
 

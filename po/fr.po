@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-26 18:06+0100\n"
+"POT-Creation-Date: 2004-12-27 19:42+0100\n"
 "PO-Revision-Date: 2004-12-22 18:56+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -54,21 +54,21 @@ msgstr "Options de la ligne de commande"
 msgid "Options for debugging:"
 msgstr "Options de déboggage"
 
-#: src/biff.cc:119
+#: src/biff.cc:121
 msgid "no mail"
 msgstr "Aucun courrier"
 
-#: src/biff.cc:155
+#: src/biff.cc:159
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Fichier de configuration non trouvé (%s)"
 
-#: src/biff.cc:500
+#: src/biff.cc:508
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: src/biff.cc:525
+#: src/biff.cc:533
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -123,17 +123,17 @@ msgstr "[%d] Impossible d'écrire à %s sur le port %d"
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Impossible de lire depuis %s sur le port %d"
 
-#: src/imap4.cc:190 src/imap4.cc:210
+#: src/imap4.cc:194 src/imap4.cc:214
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 
-#: src/imap4.cc:252
+#: src/imap4.cc:256
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:521
+#: src/imap4.cc:506
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Ce mèl ne possède pas de partie \"text/plain\"]"
 
@@ -242,19 +242,19 @@ msgid "Security"
 msgstr "Sécurité"
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:566
 msgid "No mailbox selected"
 msgstr "Pas de boîte aux lettres séléctionnée"
 
-#: src/ui-preferences.cc:490
+#: src/ui-preferences.cc:500
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:506 ui/preferences.glade.h:64
 msgid "_Stop"
 msgstr "_Stopper"
 
-#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
+#: src/ui-preferences.cc:517 src/ui-preferences.cc:524
 msgid "Browse for a new mail image"
 msgstr "Chercher le fichier image"
 
@@ -322,12 +322,12 @@ msgstr "Sujet"
 msgid "Date"
 msgstr "Date"
 
-#: src/ui-popup.cc:571 src/ui-popup.cc:583 src/ui-popup.cc:592
-#: src/ui-popup.cc:599
+#: src/ui-popup.cc:577 src/ui-popup.cc:589 src/ui-popup.cc:598
+#: src/ui-popup.cc:605
 msgid "* error *"
 msgstr "* erreur *"
 
-#: src/ui-popup.cc:652
+#: src/ui-popup.cc:658
 msgid "Error"
 msgstr "Erreur"
 
@@ -566,80 +566,97 @@ msgid "When _new mail:"
 msgstr "_Nouveau courrier:"
 
 #: ui/preferences.glade.h:45
+#, fuzzy
+msgid "Whether the window shall be displayed on all desktops"
+msgstr "Restreindre le nombre d'entêtes ou non"
+
+#: ui/preferences.glade.h:46
+msgid "Whether the window shall be kept above all other windows"
+msgstr ""
+
+#: ui/preferences.glade.h:47
 msgid "Whether to display a text"
 msgstr "Afficher un texte ou non"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:48
 msgid "Whether to display an image"
 msgstr "Afficher une image ou non"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:49
 msgid "Whether to display the popup window"
 msgstr "Afficher la fenêtre des entêtes ou non"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:50
 msgid "Whether to restrict number of displayed headers"
 msgstr "Restreindre le nombre d'entêtes ou non"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:51
 msgid "Whether to show an image"
 msgstr "Afficher une image ou non"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:52
 msgid "Whether to use format for header"
 msgstr "Utiliser un format d'entêtes ou non"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:53
 msgid "Whether to use geometry"
 msgstr "Utiliser la géométrie ou non"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:54
 msgid "Whether to use window manager decoration"
 msgstr "Fenêtre des entêtes décorée ou non"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:55
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 "[taille max champs expéditeur]:[taille max champs sujet]:[taille max champs "
 "date]"
 
-#: ui/preferences.glade.h:54 ui/properties.glade.h:21
+#: ui/preferences.glade.h:56
+msgid "_Be sticky"
+msgstr ""
+
+#: ui/preferences.glade.h:57 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "_Chercher..."
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:58
 msgid "_Display for"
 msgstr "_Affichage"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:59
 msgid "_Font:"
 msgstr "_Fonte:"
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:60
 msgid "_Format:"
 msgstr "_Format:"
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:61
+msgid "_Keep above"
+msgstr ""
+
+#: ui/preferences.glade.h:62
 msgid "_Restrict collected mail to"
 msgstr "_Restreindre le nombre de mail collectés à"
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:63
 msgid "_Restrict number to"
 msgstr "_Restreindre le nombre à"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:65
 msgid "gnubiff preferences"
 msgstr "gnubiff préferences"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:66
 msgid "header(s)"
 msgstr "entête(s)"
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:67
 msgid "mail(s)"
 msgstr "mèl(s)"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:68
 msgid "second(s)"
 msgstr "seconde(s)"
 

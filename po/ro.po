@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-26 18:06+0100\n"
+"POT-Creation-Date: 2004-12-27 19:42+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -50,22 +50,22 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:119
+#: src/biff.cc:121
 #, fuzzy
 msgid "no mail"
 msgstr "Nici un mail"
 
-#: src/biff.cc:155
+#: src/biff.cc:159
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: src/biff.cc:500
+#: src/biff.cc:508
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: src/biff.cc:525
+#: src/biff.cc:533
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
@@ -119,17 +119,17 @@ msgstr ""
 msgid "[%d] Unable to read from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:190 src/imap4.cc:210
+#: src/imap4.cc:194 src/imap4.cc:214
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr ""
 
-#: src/imap4.cc:252
+#: src/imap4.cc:256
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: src/imap4.cc:521
+#: src/imap4.cc:506
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -232,19 +232,19 @@ msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:556
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:566
 msgid "No mailbox selected"
 msgstr ""
 
-#: src/ui-preferences.cc:490
+#: src/ui-preferences.cc:500
 msgid "_Start"
 msgstr ""
 
-#: src/ui-preferences.cc:496 ui/preferences.glade.h:60
+#: src/ui-preferences.cc:506 ui/preferences.glade.h:64
 msgid "_Stop"
 msgstr ""
 
-#: src/ui-preferences.cc:507 src/ui-preferences.cc:514
+#: src/ui-preferences.cc:517 src/ui-preferences.cc:524
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "Rãsfoire(browse) dupã fiºier"
@@ -310,12 +310,12 @@ msgstr "Subiect"
 msgid "Date"
 msgstr "Data"
 
-#: src/ui-popup.cc:571 src/ui-popup.cc:583 src/ui-popup.cc:592
-#: src/ui-popup.cc:599
+#: src/ui-popup.cc:577 src/ui-popup.cc:589 src/ui-popup.cc:598
+#: src/ui-popup.cc:605
 msgid "* error *"
 msgstr ""
 
-#: src/ui-popup.cc:652
+#: src/ui-popup.cc:658
 msgid "Error"
 msgstr ""
 
@@ -569,88 +569,105 @@ msgid "When _new mail:"
 msgstr "Sunete când vine mail nou"
 
 #: ui/preferences.glade.h:45
+msgid "Whether the window shall be displayed on all desktops"
+msgstr ""
+
+#: ui/preferences.glade.h:46
+msgid "Whether the window shall be kept above all other windows"
+msgstr ""
+
+#: ui/preferences.glade.h:47
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:48
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:50
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:51
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:52
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Geometrie "
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:53
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Geometrie "
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:54
 msgid "Whether to use window manager decoration"
 msgstr ""
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:55
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:54 ui/properties.glade.h:21
+#: ui/preferences.glade.h:56
+#, fuzzy
+msgid "_Be sticky"
+msgstr "Persistent(Sticky)"
+
+#: ui/preferences.glade.h:57 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:58
 #, fuzzy
 msgid "_Display for"
 msgstr "Afiºeazã data în headere sau nu"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:59
 #, fuzzy
 msgid "_Font:"
 msgstr "Fonturi "
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:60
 #, fuzzy
 msgid "_Format:"
 msgstr "De la"
 
-#: ui/preferences.glade.h:58
-msgid "_Restrict collected mail to"
-msgstr ""
-
-#: ui/preferences.glade.h:59
-msgid "_Restrict number to"
-msgstr ""
-
 #: ui/preferences.glade.h:61
-msgid "gnubiff preferences"
+msgid "_Keep above"
 msgstr ""
 
 #: ui/preferences.glade.h:62
-msgid "header(s)"
+msgid "_Restrict collected mail to"
 msgstr ""
 
 #: ui/preferences.glade.h:63
+msgid "_Restrict number to"
+msgstr ""
+
+#: ui/preferences.glade.h:65
+msgid "gnubiff preferences"
+msgstr ""
+
+#: ui/preferences.glade.h:66
+msgid "header(s)"
+msgstr ""
+
+#: ui/preferences.glade.h:67
 #, fuzzy
 msgid "mail(s)"
 msgstr "Nici un mail"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:68
 msgid "second(s)"
 msgstr ""
 
@@ -1594,9 +1611,6 @@ msgstr ""
 
 #~ msgid "Sticky popup or not"
 #~ msgstr "Popup persistent(sticky) sau nu"
-
-#~ msgid "Sticky"
-#~ msgstr "Persistent(Sticky)"
 
 #~ msgid "Popup geometry ({+-}<xoffset>{+-}<yoffset>)"
 #~ msgstr "Geometrie popup ({+-}<xoffset>{+-}<yoffset>)"
