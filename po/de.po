@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-06 23:16+0100\n"
-"PO-Revision-Date: 2005-03-06 21:45+0100\n"
+"POT-Creation-Date: 2005-03-08 13:35+0100\n"
+"PO-Revision-Date: 2005-03-08 13:45+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,16 @@ msgstr ""
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Die Kodierung »%s« dieser Nachricht kann nicht dekodiert werden]"
+
+#: ../src/decoding.cc:132 ../src/decoding.cc:144 ../src/decoding.cc:153
+#: ../src/decoding.cc:160
+msgid "[Cannot decode this header line]"
+msgstr "[Kann diese Kopfzeile nicht dekodieren]"
+
+#: ../src/decoding.cc:603
+#, c-format
+msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
+msgstr "[Kann Zeichenkodierung nicht konvertieren (von »%s« nach »utf-8«)]"
 
 #: ../src/gnubiff.cc:98
 msgid "Start gnome applet from command line"
@@ -105,80 +115,80 @@ msgstr "[%d] Kann Thread nicht erzeugen: %s"
 msgid "mailbox %d"
 msgstr "Briefkasten %d"
 
-#: ../src/mailbox.cc:562
+#: ../src/mailbox.cc:564
 msgid "<no sender>"
 msgstr "<Kein Absender>"
 
-#: ../src/mailbox.cc:573
+#: ../src/mailbox.cc:575
 msgid "<no subject>"
 msgstr "<Kein Betreff>"
 
-#: ../src/mailbox.cc:584
+#: ../src/mailbox.cc:586
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
-#: ../src/mailbox.cc:592
+#: ../src/mailbox.cc:594
 msgid "[Cannot parse content type header line]"
 msgstr "[Kann die Kopfzeile mit dem Inhaltstyp nicht parsen]"
 
-#: ../src/mailbox.cc:626
+#: ../src/mailbox.cc:628
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Kann die Kopfzeile mit der Kodierung nicht parsen]"
 
-#: ../src/mailbox.cc:673
+#: ../src/mailbox.cc:676
 msgid "[Malformed multipart message]"
 msgstr "[Missgebildete Multipart-Nachricht]"
 
-#: ../src/mailbox.cc:681
+#: ../src/mailbox.cc:684
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Kann den ersten Teil der Multipart-Nachricht nicht finden]"
 
-#: ../src/mailbox.cc:732
+#: ../src/mailbox.cc:730
 #, c-format
-msgid "[This mail hasn't a supported content type: \"%s/%s\"]"
+msgid "[This message has no supported content type: \"%s/%s\"]"
 msgstr "[Diese Nachricht besitzt keinen unterstützten Inhaltstyp: »%s/%s«]"
 
 #. Otherwise: Ignore it and print error message
-#: ../src/header.cc:133
+#: ../src/header.cc:149
 #, c-format
 msgid "Can't sort mails by \"%s\""
 msgstr "Kann Nachrichten nicht nach »%s« sortieren"
 
-#: ../src/socket.cc:122 ../src/socket.cc:151 ../src/socket.cc:179
-#: ../src/socket.cc:187 ../src/socket.cc:195 ../src/socket.cc:207
-#: ../src/socket.cc:231 ../src/socket.cc:239
+#: ../src/socket.cc:125 ../src/socket.cc:154 ../src/socket.cc:182
+#: ../src/socket.cc:190 ../src/socket.cc:198 ../src/socket.cc:210
+#: ../src/socket.cc:241 ../src/socket.cc:250
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Kann mit »%s« auf Port %d keine Verbindung aufbauen"
 
-#: ../src/socket.cc:217
+#: ../src/socket.cc:225
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Konnte das Zertifikat »%s« für »%s« nicht laden"
 
-#: ../src/socket.cc:252
+#: ../src/socket.cc:263
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Kann entfernten Host »%s« auf Port %d nicht identifizieren"
 
-#: ../src/socket.cc:327
+#: ../src/socket.cc:338
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Kann nicht an »%s« auf Port %d schreiben"
 
-#: ../src/socket.cc:389
+#: ../src/socket.cc:400
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Kann nicht von »%s« auf Port %d lesen"
 
-#: ../src/socket.cc:411
+#: ../src/socket.cc:422
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "Kann nicht das Timeout zum Lesen auf dem Socket setzen: %s"
 
 #: ../src/imap4.cc:466
-msgid "[This mail has no \"text/plain\" part]"
-msgstr "[Diese Nachricht besitzt keinen Klartext-Abschnitt (\"text/plain\")]"
+msgid "[This message has no part with a supported content type]"
+msgstr "[Diese Nachricht besitzt keinen Teil mit unterstütztem Inhaltstyp]"
 
 #. Create error message
 #: ../src/imap4.cc:830
@@ -447,16 +457,6 @@ msgstr "Betreff"
 #: ../src/ui-popup.cc:163
 msgid "Date"
 msgstr "Datum"
-
-#: ../src/ui-popup.cc:612 ../src/ui-popup.cc:624 ../src/ui-popup.cc:633
-#: ../src/ui-popup.cc:640
-msgid "* error *"
-msgstr "* Fehler *"
-
-#: ../src/ui-popup.cc:704
-#, c-format
-msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
-msgstr "[Kann Zeichenkodierung nicht konvertieren (von »%s« nach »utf-8«)]"
 
 #: ../src/GNOME_gnubiffApplet.xml.h:1 ../ui/applet-gtk.glade.h:5
 msgid "Mark mailboxes read"
@@ -1041,6 +1041,13 @@ msgstr "<small><b>Betreff</b></small>"
 #: ../ui/popup.glade.h:5
 msgid "mail content"
 msgstr "Nachrichtentext"
+
+#~ msgid "[This mail has no \"text/plain\" part]"
+#~ msgstr ""
+#~ "[Diese Nachricht besitzt keinen Klartext-Abschnitt (\"text/plain\")]"
+
+#~ msgid "* error *"
+#~ msgstr "* Fehler *"
 
 #~ msgid "Error"
 #~ msgstr "Fehler"

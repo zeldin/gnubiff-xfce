@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-06 23:16+0100\n"
+"POT-Creation-Date: 2005-03-08 13:35+0100\n"
 "PO-Revision-Date: 2004-12-16 23:42+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -25,6 +25,16 @@ msgstr ""
 #: ../src/decoding.cc:77
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
+msgstr ""
+
+#: ../src/decoding.cc:132 ../src/decoding.cc:144 ../src/decoding.cc:153
+#: ../src/decoding.cc:160
+msgid "[Cannot decode this header line]"
+msgstr ""
+
+#: ../src/decoding.cc:603
+#, c-format
+msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
 
 #: ../src/gnubiff.cc:98
@@ -111,80 +121,80 @@ msgstr "[%d] No se puede crear hilo: %s"
 msgid "mailbox %d"
 msgstr "Buzón %d"
 
-#: ../src/mailbox.cc:562
+#: ../src/mailbox.cc:564
 msgid "<no sender>"
 msgstr "<sin remitente>"
 
-#: ../src/mailbox.cc:573
+#: ../src/mailbox.cc:575
 msgid "<no subject>"
 msgstr "<sin asunto>"
 
-#: ../src/mailbox.cc:584
+#: ../src/mailbox.cc:586
 msgid "<no date>"
 msgstr "<sin fecha>"
 
-#: ../src/mailbox.cc:592
+#: ../src/mailbox.cc:594
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:626
+#: ../src/mailbox.cc:628
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:673
+#: ../src/mailbox.cc:676
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: ../src/mailbox.cc:681
+#: ../src/mailbox.cc:684
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: ../src/mailbox.cc:732
+#: ../src/mailbox.cc:730
 #, c-format
-msgid "[This mail hasn't a supported content type: \"%s/%s\"]"
+msgid "[This message has no supported content type: \"%s/%s\"]"
 msgstr ""
 
 #. Otherwise: Ignore it and print error message
-#: ../src/header.cc:133
+#: ../src/header.cc:149
 #, c-format
 msgid "Can't sort mails by \"%s\""
 msgstr ""
 
-#: ../src/socket.cc:122 ../src/socket.cc:151 ../src/socket.cc:179
-#: ../src/socket.cc:187 ../src/socket.cc:195 ../src/socket.cc:207
-#: ../src/socket.cc:231 ../src/socket.cc:239
+#: ../src/socket.cc:125 ../src/socket.cc:154 ../src/socket.cc:182
+#: ../src/socket.cc:190 ../src/socket.cc:198 ../src/socket.cc:210
+#: ../src/socket.cc:241 ../src/socket.cc:250
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] No se puede conectar a %s en el puerto %d"
 
-#: ../src/socket.cc:217
+#: ../src/socket.cc:225
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Fallo al cargar el certificado (%s) para %s"
 
-#: ../src/socket.cc:252
+#: ../src/socket.cc:263
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] No se puede identificar el servidor remoto (%s en el puerto %d)"
 
-#: ../src/socket.cc:327
+#: ../src/socket.cc:338
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] No se puede escribir en %s en el puerto %d"
 
-#: ../src/socket.cc:389
+#: ../src/socket.cc:400
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] No se puede leer desde %s en el puerto %d"
 
-#: ../src/socket.cc:411
+#: ../src/socket.cc:422
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
 
 #: ../src/imap4.cc:466
-msgid "[This mail has no \"text/plain\" part]"
-msgstr "[Este correo no tiene parte \"text/plain\"]"
+msgid "[This message has no part with a supported content type]"
+msgstr ""
 
 #. Create error message
 #: ../src/imap4.cc:830
@@ -454,16 +464,6 @@ msgstr "Asunto"
 #: ../src/ui-popup.cc:163
 msgid "Date"
 msgstr "Fecha"
-
-#: ../src/ui-popup.cc:612 ../src/ui-popup.cc:624 ../src/ui-popup.cc:633
-#: ../src/ui-popup.cc:640
-msgid "* error *"
-msgstr "* error *"
-
-#: ../src/ui-popup.cc:704
-#, c-format
-msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
-msgstr ""
 
 #: ../src/GNOME_gnubiffApplet.xml.h:1 ../ui/applet-gtk.glade.h:5
 msgid "Mark mailboxes read"
@@ -1033,6 +1033,12 @@ msgstr "<small><b>Asunto</b></small>"
 #: ../ui/popup.glade.h:5
 msgid "mail content"
 msgstr "contenido del mensaje"
+
+#~ msgid "[This mail has no \"text/plain\" part]"
+#~ msgstr "[Este correo no tiene parte \"text/plain\"]"
+
+#~ msgid "* error *"
+#~ msgstr "* error *"
 
 #~ msgid "Error"
 #~ msgstr "Error"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-06 23:16+0100\n"
+"POT-Creation-Date: 2005-03-08 13:35+0100\n"
 "PO-Revision-Date: 2005-03-04 22:22+1000\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -18,6 +18,16 @@ msgstr ""
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Không thể giải mã \"%s\" của thư này]"
+
+#: ../src/decoding.cc:132 ../src/decoding.cc:144 ../src/decoding.cc:153
+#: ../src/decoding.cc:160
+msgid "[Cannot decode this header line]"
+msgstr ""
+
+#: ../src/decoding.cc:603
+#, c-format
+msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
+msgstr "[Không chuyển đổi được bộ ký tự từ \"%s\" sang \"utf-8\")]"
 
 #: ../src/gnubiff.cc:98
 msgid "Start gnome applet from command line"
@@ -103,80 +113,80 @@ msgstr "[%d] Không tạo được mạch: %s"
 msgid "mailbox %d"
 msgstr "hộp thư %d"
 
-#: ../src/mailbox.cc:562
+#: ../src/mailbox.cc:564
 msgid "<no sender>"
 msgstr "<không có người gởi>"
 
-#: ../src/mailbox.cc:573
+#: ../src/mailbox.cc:575
 msgid "<no subject>"
 msgstr "<không có chủ đề>"
 
-#: ../src/mailbox.cc:584
+#: ../src/mailbox.cc:586
 msgid "<no date>"
 msgstr "<không có ngày>"
 
-#: ../src/mailbox.cc:592
+#: ../src/mailbox.cc:594
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:626
+#: ../src/mailbox.cc:628
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:673
+#: ../src/mailbox.cc:676
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: ../src/mailbox.cc:681
+#: ../src/mailbox.cc:684
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: ../src/mailbox.cc:732
+#: ../src/mailbox.cc:730
 #, c-format
-msgid "[This mail hasn't a supported content type: \"%s/%s\"]"
+msgid "[This message has no supported content type: \"%s/%s\"]"
 msgstr ""
 
 #. Otherwise: Ignore it and print error message
-#: ../src/header.cc:133
+#: ../src/header.cc:149
 #, c-format
 msgid "Can't sort mails by \"%s\""
 msgstr "Không sắp xếp thư theo \"%s\""
 
-#: ../src/socket.cc:122 ../src/socket.cc:151 ../src/socket.cc:179
-#: ../src/socket.cc:187 ../src/socket.cc:195 ../src/socket.cc:207
-#: ../src/socket.cc:231 ../src/socket.cc:239
+#: ../src/socket.cc:125 ../src/socket.cc:154 ../src/socket.cc:182
+#: ../src/socket.cc:190 ../src/socket.cc:198 ../src/socket.cc:210
+#: ../src/socket.cc:241 ../src/socket.cc:250
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Không kết nối được đến %s qua cổng %d"
 
-#: ../src/socket.cc:217
+#: ../src/socket.cc:225
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Không nạp được chứng nhận (%s) cho %s"
 
-#: ../src/socket.cc:252
+#: ../src/socket.cc:263
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Không nhận biết được máy chủ tư xa (%s qua cổng %d)"
 
-#: ../src/socket.cc:327
+#: ../src/socket.cc:338
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Không ghi được vào %s qua cổng %d"
 
-#: ../src/socket.cc:389
+#: ../src/socket.cc:400
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Không đọc được từ %s qua cổng %d"
 
-#: ../src/socket.cc:411
+#: ../src/socket.cc:422
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "Không lập được thời hạn đọc tại cổng: %s"
 
 #: ../src/imap4.cc:466
-msgid "[This mail has no \"text/plain\" part]"
-msgstr "[Thư này không có phần \"text/plain\" (nhập thô)]"
+msgid "[This message has no part with a supported content type]"
+msgstr ""
 
 #. Create error message
 #: ../src/imap4.cc:830
@@ -443,16 +453,6 @@ msgstr "Chủ đề"
 #: ../src/ui-popup.cc:163
 msgid "Date"
 msgstr "Ngày"
-
-#: ../src/ui-popup.cc:612 ../src/ui-popup.cc:624 ../src/ui-popup.cc:633
-#: ../src/ui-popup.cc:640
-msgid "* error *"
-msgstr "* lỗi *"
-
-#: ../src/ui-popup.cc:704
-#, c-format
-msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
-msgstr "[Không chuyển đổi được bộ ký tự từ \"%s\" sang \"utf-8\")]"
 
 #: ../src/GNOME_gnubiffApplet.xml.h:1 ../ui/applet-gtk.glade.h:5
 msgid "Mark mailboxes read"
@@ -1029,3 +1029,9 @@ msgstr "<small><b>Chủ đề</b></small>"
 #: ../ui/popup.glade.h:5
 msgid "mail content"
 msgstr "nội dung thư"
+
+#~ msgid "[This mail has no \"text/plain\" part]"
+#~ msgstr "[Thư này không có phần \"text/plain\" (nhập thô)]"
+
+#~ msgid "* error *"
+#~ msgstr "* lỗi *"
