@@ -170,7 +170,7 @@ public:
 	// ========================================================================
 	//  exceptions
 	// ========================================================================
-	/** General exception for mailboxes. This only serves as base for more
+	/** General exception for mailboxes. This only serves as a base for more
 	 *  more specific exceptions. */
 	class mailbox_err : public std::exception {};
 

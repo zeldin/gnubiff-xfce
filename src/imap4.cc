@@ -129,7 +129,7 @@ Imap4::start (void)
 		// Catch all errors that are un-recoverable and result in
 		// closing the connection, and resetting the mailbox status.
 #if DEBUG
-		g_message("[%d] Imap exception: %s", uin_, err.what());
+		g_warning ("[%d] Imap exception: %s", uin_, err.what());
 #endif
 		status_ = MAILBOX_ERROR;
 		unread_.clear ();

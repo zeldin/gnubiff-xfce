@@ -36,7 +36,10 @@
 
 #define POP(x)					((Pop *)(x))
 
-
+/**
+ * Mailbox for the POP3 and APOP protocols. This serves only as a base for
+ * the more specific mailboxes for these protocols.
+ */
 class Pop : public Mailbox {
 protected:
 	class Socket *	 			socket_;		// socket to talk to server
@@ -49,6 +52,27 @@ public:
 	Pop (class Biff *biff);
 	Pop (const Mailbox &other);
 	virtual ~Pop (void);
+
+	// ========================================================================
+	//  exceptions
+	// ========================================================================
+	/** Generic exception for POP3 and APOP mailboxes serving as a base for
+	 *  more specific exceptions. */
+	class pop_err : public mailbox_err {};
+	/** Exception for a socket connection failure. Usually this is thrown when
+	 *  reading or writing. */
+	class pop_socket_err : public pop_err {};
+	/** Exception for a problem with a POP3 command. This exception may be
+	 *  thrown in the following situations:
+	 *  \begin{itemize}
+	 *     \item There is an error when creating the line that is to be sent to
+	 *           the server
+	 *     \item There is an unexpected response by the server to the command
+	 *     \item The command is not responded by OK
+	 *  \end{itemize} */
+	class pop_command_err : public pop_err {};
+	/// This exception is thrown when a DoS attack is suspected. 
+	class pop_dos_err : public pop_err {};
 
 	// ========================================================================
 	//  main

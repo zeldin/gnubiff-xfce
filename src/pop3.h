@@ -34,7 +34,9 @@
 
 #include "pop.h"
 
-
+/**
+ * Mailbox for the POP3 protocol. 
+ */
 class Pop3 : public Pop {
 
 public:

@@ -66,8 +66,8 @@ class Imap4 : public Mailbox {
 	// ========================================================================
 	//  exceptions
 	// ========================================================================
-
-	/// General exception for IMAP mailbox. 
+	/** Generic exception for IMAP mailboxes serving as a base for more
+	 *  specific exceptions. */
 	class imap_err : public mailbox_err {};
 	/** Exception for a socket connection failure. Usually this is thrown when
 	 *  reading or writing. */
