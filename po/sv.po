@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-06 01:07+0100\n"
+"POT-Creation-Date: 2005-02-06 22:04+0100\n"
 "PO-Revision-Date: 2005-01-17 22:04+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -287,38 +287,51 @@ msgstr "Nya meddelanden"
 msgid "No mail"
 msgstr "Inga meddelanden"
 
-#: src/ui-preferences.cc:186 src/ui-popup.cc:139
+#: src/ui-preferences.cc:210 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Brevlåda"
 
-#: src/ui-preferences.cc:200
+#: src/ui-preferences.cc:224
 msgid "Type"
 msgstr "Typ"
 
-#: src/ui-preferences.cc:219
+#: src/ui-preferences.cc:243
 msgid "Status"
 msgstr "Status"
 
-#: src/ui-preferences.cc:234
+#: src/ui-preferences.cc:258
 msgid "Security"
 msgstr "Säkerhet"
 
 #. Selection label
-#: src/ui-preferences.cc:246 src/ui-preferences.cc:567
+#: src/ui-preferences.cc:270 src/ui-preferences.cc:589
 msgid "No mailbox selected"
 msgstr "Ingen brevlåda vald"
 
-#: src/ui-preferences.cc:501
+#: src/ui-preferences.cc:523
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:507 ui/preferences.glade.h:66
+#: src/ui-preferences.cc:529 ui/preferences.glade.h:65
 msgid "_Stop"
 msgstr "_Stop"
 
-#: src/ui-preferences.cc:518 src/ui-preferences.cc:525
+#: src/ui-preferences.cc:540 src/ui-preferences.cc:547
 msgid "Browse for a new mail image"
 msgstr "Bläddra efter en ny meddelandebild"
+
+#. "Set to default value"
+#: src/ui-preferences.cc:627
+msgid "Set to default value"
+msgstr ""
+
+#: src/ui-preferences.cc:633
+msgid "Toggle option"
+msgstr ""
+
+#: src/ui-preferences.cc:640
+msgid "Edit option"
+msgstr ""
 
 #: src/ui-authentication.cc:88
 #, c-format
@@ -580,154 +593,150 @@ msgid "Popup geometry"
 msgstr "Popuppgeometri"
 
 #: ui/preferences.glade.h:32
-msgid "Reset option to default value."
-msgstr ""
-
-#: ui/preferences.glade.h:33
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr ""
 
-#: ui/preferences.glade.h:34
+#: ui/preferences.glade.h:33
 msgid "Show _image:"
 msgstr "Visa b_ild:"
 
-#: ui/preferences.glade.h:35
+#: ui/preferences.glade.h:34
 msgid "Show _text:"
 msgstr "Visa _text:"
 
-#: ui/preferences.glade.h:36
+#: ui/preferences.glade.h:35
 msgid "Show i_mage:"
 msgstr "Visa b_ild:"
 
-#: ui/preferences.glade.h:37
+#: ui/preferences.glade.h:36
 msgid "Show t_ext:"
 msgstr "Visa t_ext:"
 
-#: ui/preferences.glade.h:38
+#: ui/preferences.glade.h:37
 #, fuzzy
 msgid "String to be searched for."
 msgstr "Typsnitt att använda för kropp"
 
-#: ui/preferences.glade.h:39
+#: ui/preferences.glade.h:38
 msgid "Text to display"
 msgstr "Text att visa"
 
-#: ui/preferences.glade.h:41
+#: ui/preferences.glade.h:40
 #, no-c-format
 msgid "Text to display (%d is the number of new mail)"
 msgstr "Text som skall visas (%d är antalet nya meddelanden)"
 
-#: ui/preferences.glade.h:42
+#: ui/preferences.glade.h:41
 msgid "The command to run when new mail arrives"
 msgstr "Kommando att köra när nya meddelanden anländer"
 
-#: ui/preferences.glade.h:43
+#: ui/preferences.glade.h:42
 msgid "The command to run when the icon is double-clicked"
 msgstr "Kommando att köra när ikonen dubbelklickas"
 
-#: ui/preferences.glade.h:44
+#: ui/preferences.glade.h:43
 msgid "The font to use to display information"
 msgstr "Typsnitt att använda för att visa information"
 
-#: ui/preferences.glade.h:45
+#: ui/preferences.glade.h:44
 msgid "Time to display popup window"
 msgstr "Tid att visa poppuppfönster"
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:45
 msgid "Translators"
 msgstr "Översättare"
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:46
 msgid "Use _decoration"
 msgstr "Använd _dekorering"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:47
 msgid "Use _geometry:"
 msgstr "Använd _geometri"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:48
 msgid "When _double-clicked:"
 msgstr "Vid dubbelklick:"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:49
 msgid "When _new mail:"
 msgstr "Vid _nya meddelanden:"
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:50
 msgid "Whether to display a text"
 msgstr "Ifall en text skall visas"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:51
 msgid "Whether to display an image"
 msgstr "Ifall en bild skall visas"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:52
 msgid "Whether to display the popup window"
 msgstr "Ifall poppuppfönstret skall visas"
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:53
 msgid "Whether to restrict number of displayed headers"
 msgstr "Ifall antal visade huvud skall begränsas"
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:54
 msgid "Whether to show an image"
 msgstr "Ifall en bild skall visas"
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:55
 msgid "Whether to use format for header"
 msgstr "Ifall format skall användas för huvud"
 
-#: ui/preferences.glade.h:57
+#: ui/preferences.glade.h:56
 msgid "Whether to use geometry"
 msgstr "Ifall geometri skall användas"
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:57
 msgid "Whether to use window manager decoration"
 msgstr "Ifall fönsterhanterarens dekorationer skall användas"
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:58
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr "[maxstorlek avsändare]:[maxstorlek ämne]:[maxstorlek datum]"
 
-#: ui/preferences.glade.h:60 ui/properties.glade.h:21
+#: ui/preferences.glade.h:59 ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "_Bläddra..."
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:60
 msgid "_Display for"
 msgstr "_Visa för"
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:61
 msgid "_Font:"
 msgstr "T_ypsnitt:"
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:62
 msgid "_Format:"
 msgstr "_Format"
 
-#: ui/preferences.glade.h:64
+#: ui/preferences.glade.h:63
 msgid "_Restrict collected mail to"
 msgstr "Beg_ränsa samlade e-post till"
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:64
 msgid "_Restrict number to"
 msgstr "Beg_ränsa antal till"
 
-#: ui/preferences.glade.h:67
+#: ui/preferences.glade.h:66
 msgid "gnubiff preferences"
 msgstr "gnubiffinställningar"
 
-#: ui/preferences.glade.h:68
+#: ui/preferences.glade.h:67
 msgid "header(s)"
 msgstr "huvud(en)"
 
-#: ui/preferences.glade.h:69
+#: ui/preferences.glade.h:68
 msgid "mail(s)"
 msgstr "meddelande(n)"
 
-#: ui/preferences.glade.h:70
+#: ui/preferences.glade.h:69
 msgid "second(s)"
 msgstr "sekund(er)"
 

@@ -628,16 +628,16 @@ Preferences::expert_show_context_menu (GdkEventButton *event)
 	g_signal_connect (menuitem, "activate",
 					  (GCallback) PREFERENCES_expert_reset, this);
 	gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
-	// "Toggle value"
+	// "Toggle option"
 	if (option->type() == OPTTYPE_BOOL) {
-		menuitem = gtk_menu_item_new_with_label (_("Toggle value"));
+		menuitem = gtk_menu_item_new_with_label (_("Toggle option"));
 		g_signal_connect (menuitem, "activate",
 						  (GCallback) PREFERENCES_expert_toggle_option, this);
 		gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
 	}
-	// "Edit value"
+	// "Edit option"
 	else {
-		menuitem = gtk_menu_item_new_with_label (_("Edit value"));
+		menuitem = gtk_menu_item_new_with_label (_("Edit option"));
 		g_signal_connect (menuitem, "activate",
 						  (GCallback) PREFERENCES_expert_edit_value, this);
 		gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
