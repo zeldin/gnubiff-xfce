@@ -20,6 +20,7 @@ common_sources = \
 	mailbox.cc				mailbox.h				\
 	socket.cc				socket.h				\
 	support.cc				support.h				\
+	nls.h											\
 	decoding.cc				decoding.h				\
 	local.cc				local.h					\
 	file.cc					file.h					\
