@@ -44,6 +44,7 @@
 #include "ui-certificate.h"
 #include "mailbox.h"
 #include "socket.h"
+#include "nls.h"
 
 
 GStaticMutex Socket::hostname_mutex_  = G_STATIC_MUTEX_INIT;
@@ -319,20 +320,22 @@ Socket::read (std::string &line,
 	line = "";
 	status_ = -1;
 
+	gint cnt=1+preventDoS_lineLength_; 
+
 #ifdef HAVE_LIBSSL
 	if (use_ssl_) {
-		while (((status = SSL_read (ssl_, &buffer, 1)) > 0) && (buffer != '\n'))
+		while ((0<cnt--) && ((status = SSL_read (ssl_, &buffer, 1)) > 0) && (buffer != '\n'))
 			line += buffer;
-		if (status > 0)
+		if ((status > 0) && (cnt>=0))
 			status_ = SOCKET_STATUS_OK;
 		else
 			status_ = SOCKET_STATUS_ERROR;
 	}
 #endif
 	if (status_ == -1) {
-		while (((status = ::read (sd_, &buffer, 1)) > 0) && (buffer != '\n'))
+		while ((0<cnt--) && ((status = ::read (sd_, &buffer, 1)) > 0) && (buffer != '\n'))
 			line += buffer;
-		if (status > 0)
+		if ((status > 0) && (cnt>=0))
 			status_ = SOCKET_STATUS_OK;
 		else
 			status_ = SOCKET_STATUS_ERROR;
@@ -372,57 +375,3 @@ Socket::read (std::string &line,
 	
 	return status_;
 }
-
-
-// void connect_w_to(void) {
-//   int res, valopt;
-//   struct sockaddr_in addr;
-//   long arg;
-//   fd_set myset;
-//   struct timeval tv;
-//   socklen_t lon;
-
-//   // Create socket
-//   soc = socket(AF_INET, SOCK_STREAM, 0);
-
-//   // Set non-blocking
-//   arg = fcntl(soc, F_GETFL, NULL);
-//   arg |= O_NONBLOCK;
-//   fcntl(soc, F_SETFL, arg);
-
-//   // Trying to connect with timeout
-//   addr.sin_family = AF_INET;
-//   addr.sin_port = htons(2000);
-//   addr.sin_addr.s_addr = inet_addr("192.168.0.1");
-//   res = connect(soc, (struct sockaddr *)&addr, sizeof(addr));
-
-//   if (res < 0) {
-//      if (errno == EINPROGRESS) {
-//         tv.tv_sec = 15;
-//         tv.tv_usec = 0;
-//         FD_ZERO(&myset);
-//         FD_SET(soc, &myset);
-//         if (select(soc+1, NULL, &myset, NULL, &tv) > 0) {
-//            lon = sizeof(int);
-//            getsockopt(soc, SOL_SOCKET, SO_ERROR, (void*)(&valopt), &lon);
-//            if (valopt) {
-//               fprintf(stderr, "Error in connection() %d - %s\n", valopt, strerror(valopt));
-//               exit(0);
-//            }
-//         }
-//         else {
-//            fprintf(stderr, "Timeout or error() %d - %s\n", valopt, strerror(valopt));
-//            exit(0);
-//         }
-//      }
-//      else {
-//         fprintf(stderr, "Error connecting %d - %s\n", errno, strerror(errno));
-//         exit(0);
-//      }
-//   }
-//   // Set to blocking mode again...
-//   arg = fcntl(soc, F_GETFL, NULL);
-//   arg &= (~O_NONBLOCK);
-//   fcntl(soc, F_SETFL, arg);
-//   // I hope that is all
-// } 

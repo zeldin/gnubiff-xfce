@@ -41,6 +41,7 @@
 #include "biff.h"
 #include "socket.h"
 #include "ui-authentication.h"
+#include "nls.h"
 
 
 // ========================================================================

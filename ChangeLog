@@ -11,7 +11,8 @@ Version 2.1.0
    - Support of the FAM (File Alteration Monitor)
      (no more polling for file/folder protocols)
    - Better detection of mailbox format
-* Robert Sowada / Nicolas Rougier
+
+ * Robert Sowada (adpated by Nicolas Rougier)
    - Gnome version can determine itself if in standalone mode or panel mode
    - Removed "--gtk" option, added "--applet" option in debug mode instead
    - Added "--version" option to all versions of gnubiff
@@ -20,8 +21,26 @@ Version 2.1.0
    - Bugfix: Using <return> in password entry
    - Bugfix: return value of main
    - Output of "--help" restructured
-   
-	
+   - Update of man page (command line options, version, date)
+   - Bugfix: Failure of select command (IMAP)
+   - Bugfix: Failure of opening connection (IMAP)
+   - Security Bugfix: DoS attacks by sending unterminated lines anticipated
+     (if SSL is used, this was fixed for non-SSL connections in 2.0.2)
+   - Bugfix: Handling network writing/reading errors
+   - Bugfix/Feature: Support for international Mailbox names for IMAP
+   - Security Bugfix: DoS attacks by sending a unterminated response to the
+     SELECT, SEARCH, FETCH (IMAP) and TOP (POP3) commands anticipated
+   - Bugfix: User set value for maximum number of mail to be collected is now
+     respected (IMAP)
+   - Bugfix: Fetching mails is no longer stopped if certain strings are in
+     mail or mail header (IMAP)
+   - Bugfix: First lines of email content are now displayed (IMAP)
+   - Bugfix: Displaying mails that do not end with a newline (IMAP)
+   - Feature: Only get first "text/plain" part of mail, not the whole mail;
+     don't get the whole part if it is very long (IMAP)
+   - Feature: Message if there is no "text/plain" part (IMAP)
+   - Bugfix: Creating different tags for different commands (IMAP)
+
 Version 2.0.2
  * Some cosmetic fixes
  * Bug fix in IMAP4 protocol

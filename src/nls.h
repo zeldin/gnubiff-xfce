@@ -25,7 +25,7 @@
 #define __NLS_H__
 
 #ifdef HAVE_CONFIG_H
-#   include "../config/config.h"
+#   include "config.h"
 #endif
 
 #ifdef ENABLE_NLS
