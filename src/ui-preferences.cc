@@ -477,8 +477,9 @@ Preferences::on_remove (GtkWidget *widget)
 	GtkTreeIter iter;
 
 	if (gtk_tree_selection_get_selected (selection, NULL, &iter)) {
+		GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 		guint uin;
-		gtk_tree_model_get (GTK_TREE_MODEL(expert_liststore), &iter, COLUMN_UIN, &uin, -1);
+		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COLUMN_UIN, &uin, -1);
 		biff_->remove (biff_->get(uin));
 		properties_->select (0);
 		synchronize ();
