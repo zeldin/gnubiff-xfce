@@ -30,6 +30,8 @@ Version 2.1.2
    - Feature: Vietnamese translation (thanks to Clytie Siddall)
    - Added Clytie Siddall to translators
    - Added David Smeringe to translators (was forgotten before)
+   - Update: Included Dutch translation for 2.0.2 into CVS (was from 1.4.0
+        before)
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

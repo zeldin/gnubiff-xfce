@@ -6,12 +6,12 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: gnubiff 1.4.0\n"
+"Project-Id-Version: gnubiff 2.0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-06 22:18+0100\n"
-"PO-Revision-Date: 2004-06-25 19:18+0200\n"
+"POT-Creation-Date: 2005-03-06 23:16+0100\n"
+"PO-Revision-Date: 2004-10-19 20:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
-"Language-Team: Dutch <vertaling@nl.linux.org>\n"
+"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -82,9 +82,9 @@ msgid "Cannot open your configuration file (%s)"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
 #: ../src/biff.cc:592
-#, fuzzy, c-format
+#, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
-msgstr "Geen postvak-definitie gevonden in uw .gnubiffrc"
+msgstr "Geen postvak-definitie gevonden in uw configuratiebestand (%s)"
 
 #: ../src/biff.cc:620
 msgid "Illegal parameter format in config file"
@@ -98,27 +98,24 @@ msgstr ""
 #: ../src/mailbox.cc:134
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
-msgstr "Kon thread niet aanmaken: %s\n"
+msgstr "[%d] Kon thread niet aanmaken: %s\n"
 
 #: ../src/mailbox.cc:265
-#, fuzzy, c-format
+#, c-format
 msgid "mailbox %d"
-msgstr "Postvak"
+msgstr "postvak %d"
 
 #: ../src/mailbox.cc:562
-#, fuzzy
 msgid "<no sender>"
-msgstr "<geen verzender gevonden>"
+msgstr "<geen verzender>"
 
 #: ../src/mailbox.cc:573
-#, fuzzy
 msgid "<no subject>"
-msgstr "<geen onderwerp gevonden>"
+msgstr "<geen onderwerp>"
 
 #: ../src/mailbox.cc:584
-#, fuzzy
 msgid "<no date>"
-msgstr "<geen datum gevonden>"
+msgstr "<geen datum>"
 
 #: ../src/mailbox.cc:592
 msgid "[Cannot parse content type header line]"
@@ -150,29 +147,29 @@ msgstr ""
 #: ../src/socket.cc:122 ../src/socket.cc:151 ../src/socket.cc:179
 #: ../src/socket.cc:187 ../src/socket.cc:195 ../src/socket.cc:207
 #: ../src/socket.cc:231 ../src/socket.cc:239
-#, fuzzy, c-format
+#, c-format
 msgid "[%d] Unable to connect to %s on port %d"
-msgstr "Kan niet met %s verbinden op poort %d"
+msgstr "[%d] Kan niet met %s verbinden op poort %d"
 
 #: ../src/socket.cc:217
-#, fuzzy, c-format
+#, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
-msgstr "Kan niet met %s verbinden op poort %d"
+msgstr "[%d] Laden van certificaat (%s) mislukt voor %s"
 
 #: ../src/socket.cc:252
-#, fuzzy, c-format
+#, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
-msgstr "Kan niet schrijven naar %s op poort %d"
+msgstr "[%d] Kan computer op afstand niet identificeren (%s op poort %d)"
 
 #: ../src/socket.cc:327
-#, fuzzy, c-format
+#, c-format
 msgid "[%d] Unable to write to %s on port %d"
-msgstr "Kan niet schrijven naar %s op poort %d"
+msgstr "[%d] Kan niet schrijven naar %s op poort %d"
 
 #: ../src/socket.cc:389
-#, fuzzy, c-format
+#, c-format
 msgid "[%d] Unable to read from %s on port %d"
-msgstr "Kan niet lezen van %s op poort %d"
+msgstr "[%d] Kan niet lezen van %s op poort %d"
 
 #: ../src/socket.cc:411
 #, c-format
@@ -187,12 +184,12 @@ msgstr ""
 #: ../src/imap4.cc:830
 #, fuzzy, c-format
 msgid "[%d] Unable to select folder %s on host %s"
-msgstr "Kan niet met %s verbinden op poort %d"
+msgstr "[%d] Kan niet met %s verbinden op poort %d"
 
 #: ../src/imap4.cc:918
-#, fuzzy, c-format
+#, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
-msgstr "Kan geen bevestiging opvragen van %s op poort %d"
+msgstr "[%d] Kan geen bevestiging opvragen van %s op poort %d"
 
 #: ../src/imap4.cc:977
 #, c-format
@@ -240,7 +237,7 @@ msgstr "Kan %s niet openen."
 #: ../src/pop.cc:157
 #, c-format
 msgid "[%d] Empty password"
-msgstr ""
+msgstr "[%d] Leeg wachtwoord"
 
 #: ../src/pop.cc:508
 #, c-format
@@ -258,12 +255,15 @@ msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
 msgstr ""
+"[%d] Uw pop-server lijkt het apop-protocol niet te accepteren (geen "
+"tijdsstempel gegeven)"
 
 #: ../src/apop.cc:122
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
+"[%d] Probleem met cryptografie dat bij configuratie had moeten zijn gevonden"
 
 #: ../src/options.cc:506
 #, c-format
@@ -284,7 +284,7 @@ msgstr ""
 #: ../src/gnubiff_options.cc:130
 #, fuzzy
 msgid "no mail"
-msgstr "Geen e-mail"
+msgstr "Geen post"
 
 #: ../src/gui.cc:175
 #, c-format
@@ -319,21 +319,19 @@ msgstr ""
 #: ../src/ui-applet.cc:136
 #, fuzzy
 msgid " error"
-msgstr "fout!"
+msgstr "fout"
 
 #: ../src/ui-applet.cc:141
 msgid " checking..."
 msgstr " bezig met controleren..."
 
 #: ../src/ui-applet-gtk.cc:136
-#, fuzzy
 msgid "New mail"
-msgstr "Nieuwe e-mail"
+msgstr "Nieuwe post"
 
 #: ../src/ui-applet-gtk.cc:149
-#, fuzzy
 msgid "No mail"
-msgstr "Geen e-mail"
+msgstr "Geen post"
 
 #: ../src/ui-preferences.cc:208 ../src/ui-popup.cc:139
 msgid "Mailbox"
@@ -341,12 +339,13 @@ msgstr "Postvak"
 
 #. Column: TYPE
 #: ../src/ui-preferences.cc:222 ../src/ui-preferences.cc:304
+#, fuzzy
 msgid "Type"
-msgstr ""
+msgstr "Soort:"
 
 #: ../src/ui-preferences.cc:241
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: ../src/ui-preferences.cc:256
 msgid "Security"
@@ -355,7 +354,7 @@ msgstr ""
 #. Selection label
 #: ../src/ui-preferences.cc:268 ../src/ui-preferences.cc:595
 msgid "No mailbox selected"
-msgstr ""
+msgstr "Geen postvak gekozen"
 
 #: ../src/ui-preferences.cc:296
 #, fuzzy
@@ -363,21 +362,21 @@ msgid "Option"
 msgstr "Opties"
 
 #: ../src/ui-preferences.cc:314
+#, fuzzy
 msgid "Value"
-msgstr ""
+msgstr "_Geluidssterkte:"
 
 #: ../src/ui-preferences.cc:529
 msgid "_Start"
-msgstr ""
+msgstr "_Starten"
 
 #: ../src/ui-preferences.cc:535 ../ui/preferences.glade.h:73
 msgid "_Stop"
-msgstr ""
+msgstr "_Stoppen"
 
 #: ../src/ui-preferences.cc:546 ../src/ui-preferences.cc:553
-#, fuzzy
 msgid "Browse for a new mail image"
-msgstr "Bladeren"
+msgstr "Bladeren voor nieuwe-post afbeelding"
 
 #. "Set to default value"
 #: ../src/ui-preferences.cc:640
@@ -395,12 +394,12 @@ msgstr ""
 #: ../src/ui-authentication.cc:88
 #, c-format
 msgid "Please enter your username and password for mailbox '%s'"
-msgstr ""
+msgstr "Geef alstublieft uw gebruikersnaam en wachtwoord voor postvak '%s'"
 
 #: ../src/ui-certificate.cc:75
 #, c-format
 msgid "Unable to verify the identity of %s as a trusted site.\n"
-msgstr ""
+msgstr "Kan de identiteit van %s niet als een vertrouwde site vaststellen.\n"
 
 #: ../src/ui-certificate.cc:76
 #, c-format
@@ -408,6 +407,8 @@ msgid ""
 "Either site's certificate is incomplete or you're connected to a site "
 "pretending to be %s, possibly to obtain your password"
 msgstr ""
+"Ofwel het certificaat van uw site is onvolledig of u bent verbonden met een "
+"site die zich voordoet als %s, mogelijk om uw wachtwoord te verkrijgen"
 
 #: ../src/ui-properties.cc:125 ../src/ui-properties.cc:152
 msgid "Autodetect"
@@ -416,7 +417,7 @@ msgstr ""
 #: ../src/ui-properties.cc:126
 #, fuzzy
 msgid "File or Folder"
-msgstr "Postvak"
+msgstr "_Bestand of map"
 
 #: ../src/ui-properties.cc:154
 msgid "User/Pass"
@@ -429,36 +430,34 @@ msgstr ""
 #: ../src/ui-properties.cc:160
 #, fuzzy
 msgid "SSL with certificate"
-msgstr "Bladeren voor een certificaatbestand"
+msgstr "Bladeren voor het certificaat"
 
 #: ../src/ui-properties.cc:316
 #, fuzzy
 msgid "Browse for a file or folder"
-msgstr "Bladeren"
+msgstr "Bladeren voor een geluidsbestand"
 
 #: ../src/ui-properties.cc:322 ../ui/properties.glade.h:5
 #, fuzzy
 msgid "Browse for a certificate file"
-msgstr "Bladeren voor een certificaatbestand"
+msgstr "Bladeren voor een certificaat"
 
 #: ../src/ui-popup.cc:151
 msgid "From"
-msgstr ""
+msgstr "Van"
 
 #: ../src/ui-popup.cc:157
 msgid "Subject"
-msgstr ""
+msgstr "Onderwerp"
 
 #: ../src/ui-popup.cc:163
-#, fuzzy
 msgid "Date"
-msgstr "Versierd"
+msgstr "Datum"
 
 #: ../src/ui-popup.cc:612 ../src/ui-popup.cc:624 ../src/ui-popup.cc:633
 #: ../src/ui-popup.cc:640
-#, fuzzy
 msgid "* error *"
-msgstr "fout!"
+msgstr "* fout *"
 
 #: ../src/ui-popup.cc:704
 #, c-format
@@ -468,7 +467,7 @@ msgstr ""
 #: ../src/GNOME_gnubiffApplet.xml.h:1 ../ui/applet-gtk.glade.h:5
 #, fuzzy
 msgid "Mark mailboxes read"
-msgstr "Berichten als gelezen markeren"
+msgstr "E-mail als gelezen markeren"
 
 #: ../src/GNOME_gnubiffApplet.xml.h:2
 msgid "Preferences..."
@@ -477,12 +476,11 @@ msgstr "Voorkeuren..."
 #: ../src/GNOME_gnubiffApplet.xml.h:3
 #, fuzzy
 msgid "Run command"
-msgstr "Opdracht voor geluid"
+msgstr "_Opdracht:"
 
 #: ../src/GNOME_gnubiffApplet.server.in.h:1
-#, fuzzy
 msgid "Mail notification program"
-msgstr "Een postwaarschuwingsprogramma"
+msgstr ""
 
 #: ../src/GNOME_gnubiffApplet.server.in.h:2 ../ui/applet-gtk.glade.h:9
 msgid "gnubiff"
@@ -490,9 +488,7 @@ msgstr "gnubiff"
 
 #: ../ui/applet-gtk.glade.h:1
 msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
-msgstr ""
-"<small>(C) 2000-2004 Nicolas Rougier, Nederlandse vertaling (C) 2004 Elros "
-"Cyriatan</small>"
+msgstr "<small>(C) 2000-2004 Nicolas Rougier</small>"
 
 #: ../ui/applet-gtk.glade.h:2
 msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
@@ -511,14 +507,15 @@ msgid "Ok"
 msgstr "OK"
 
 #: ../ui/applet-gtk.glade.h:7
-#, fuzzy
 msgid "Start command"
-msgstr "Opdracht voor geluid"
+msgstr ""
 
 #: ../ui/applet-gtk.glade.h:8
 msgid ""
 "This program is part of the GNU project, released under the aegis of GNU."
 msgstr ""
+"Dit programma maakt deel uit van het GNU-project, en wordt uitgegeven onder "
+"de bescherming van GNU."
 
 #: ../ui/applet-gtk.glade.h:10
 msgid "tooltip"
@@ -535,50 +532,46 @@ msgstr "Applet"
 #: ../ui/preferences.glade.h:1
 #, fuzzy
 msgid "<b>Commands</b>"
-msgstr "<b>Y</b>"
+msgstr "<b>Geluid</b>"
 
 #: ../ui/preferences.glade.h:2
 msgid "<b>Expert editing mode</b>"
 msgstr ""
 
 #: ../ui/preferences.glade.h:3
-#, fuzzy
 msgid "<b>General</b>"
-msgstr "<b>Y</b>"
+msgstr "<b>Algemeen</b>"
 
 #: ../ui/preferences.glade.h:4
 #, fuzzy
 msgid "<b>Headers</b>"
-msgstr "<b>Y</b>"
+msgstr "<b>Algemeen</b>"
 
 #: ../ui/preferences.glade.h:5
 #, fuzzy
 msgid "<b>Layout</b>"
-msgstr "<b>Y</b>"
+msgstr "<b>Lettertype</b>"
 
 #: ../ui/preferences.glade.h:6
-#, fuzzy
 msgid "<b>Mailboxes</b>"
-msgstr "Postvak"
+msgstr "<b>Postvakken</b>"
 
 #: ../ui/preferences.glade.h:7
 #, fuzzy
 msgid "<b>When new mail</b>"
-msgstr "<b>Y</b>"
+msgstr "<b>Algemeen</b>"
 
 #: ../ui/preferences.glade.h:8
 #, fuzzy
 msgid "<b>When no mail</b>"
-msgstr "<b>Y</b>"
+msgstr "<b>Algemeen</b>"
 
 #: ../ui/preferences.glade.h:9
 #, fuzzy
 msgid ""
 "<small> Released under the aegis of GNU\n"
 " Copyright (c) 2000-2005 Nicolas Rougier</small>"
-msgstr ""
-"<small>(C) 2000-2004 Nicolas Rougier, Nederlandse vertaling (C) 2004 Elros "
-"Cyriatan</small>"
+msgstr "<small>(C) 2000-2004 Nicolas Rougier</small>"
 
 #: ../ui/preferences.glade.h:11
 msgid ""
@@ -598,21 +591,22 @@ msgstr ""
 #: ../ui/preferences.glade.h:17
 #, fuzzy
 msgid "Applet geometry"
-msgstr "Geen afmeting"
+msgstr "Afmeting gebruiken"
 
 #: ../ui/preferences.glade.h:18
 #, fuzzy
 msgid "Applet or Biff"
-msgstr "Applet "
+msgstr "Applet"
 
 #: ../ui/preferences.glade.h:19
+#, fuzzy
 msgid "B_rowse..."
-msgstr ""
+msgstr "Bladeren..."
 
 #: ../ui/preferences.glade.h:20
 #, fuzzy
 msgid "Browse for an image file"
-msgstr "Bladeren voor een certificaatbestand"
+msgstr "Bladeren voor nieuwe-post afbeelding"
 
 #: ../ui/preferences.glade.h:21
 msgid "Contributors"
@@ -620,7 +614,7 @@ msgstr ""
 
 #: ../ui/preferences.glade.h:22
 msgid "Credits"
-msgstr "Elros Cyriatan"
+msgstr "Ontwikkelaars"
 
 #: ../ui/preferences.glade.h:23
 msgid "Developers"
@@ -645,9 +639,8 @@ msgid ""
 msgstr ""
 
 #: ../ui/preferences.glade.h:28
-#, fuzzy
 msgid "Mailboxes"
-msgstr "Postvak"
+msgstr "Postvakken"
 
 #: ../ui/preferences.glade.h:29
 msgid "Maintainers"
@@ -656,9 +649,7 @@ msgstr ""
 #: ../ui/preferences.glade.h:30
 #, fuzzy
 msgid "Maximum number of headers to display"
-msgstr ""
-"<small>Maximale aantal\n"
-"te verzamelen berichten</small>"
+msgstr "Maximale aantal weer te geven berichten"
 
 #: ../ui/preferences.glade.h:31 ../ui/popup.glade.h:4
 msgid "Popup"
@@ -667,7 +658,7 @@ msgstr "Pop-up"
 #: ../ui/preferences.glade.h:32
 #, fuzzy
 msgid "Popup geometry"
-msgstr "Geen afmeting"
+msgstr "Afmeting gebruiken"
 
 #: ../ui/preferences.glade.h:33
 msgid ""
@@ -700,16 +691,14 @@ msgid "Text to display"
 msgstr ""
 
 #: ../ui/preferences.glade.h:41
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Text to display (%d is the number of new messages)"
 msgstr ""
-"Tekst om weer te geven als er geen nieuwe post is; %d is het aantal "
-"berichten."
 
 #: ../ui/preferences.glade.h:42
 #, fuzzy
 msgid "The command to run when new mail arrives"
-msgstr "Geluid om af te spelen als nieuwe e-mail is ontvangen"
+msgstr "Geen geluid als nieuwe e-mail is aangekomen"
 
 #: ../ui/preferences.glade.h:43
 msgid "The command to run when the icon is double-clicked"
@@ -732,20 +721,21 @@ msgstr ""
 #: ../ui/preferences.glade.h:48
 #, fuzzy
 msgid "Time to display popup window"
-msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
+msgstr "Pop-up venster weergeven _gedurende"
 
 #: ../ui/preferences.glade.h:49
 msgid "Translators"
 msgstr ""
 
 #: ../ui/preferences.glade.h:50
+#, fuzzy
 msgid "Use _decoration"
-msgstr ""
+msgstr "Versiering gebruiken"
 
 #: ../ui/preferences.glade.h:51
 #, fuzzy
 msgid "Use _geometry:"
-msgstr "Geen afmeting"
+msgstr "Afmeting gebruiken"
 
 #: ../ui/preferences.glade.h:52
 msgid "When _double-clicked:"
@@ -754,35 +744,32 @@ msgstr ""
 #: ../ui/preferences.glade.h:53
 #, fuzzy
 msgid "When _new mail:"
-msgstr "Nieuwe e-mail"
+msgstr "Nieuwe post:"
 
 #: ../ui/preferences.glade.h:54
 msgid "Whether options can be edited in expert mode"
 msgstr ""
 
 #: ../ui/preferences.glade.h:55
-#, fuzzy
 msgid "Whether to display a text"
-msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
+msgstr ""
 
 #: ../ui/preferences.glade.h:56
-#, fuzzy
 msgid "Whether to display an image"
-msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
+msgstr ""
 
 #: ../ui/preferences.glade.h:57
 #, fuzzy
 msgid "Whether to display the popup window"
-msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
+msgstr "Pop-up venster weergeven _gedurende"
 
 #: ../ui/preferences.glade.h:58
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
 #: ../ui/preferences.glade.h:59
-#, fuzzy
 msgid "Whether to show an image"
-msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
+msgstr ""
 
 #: ../ui/preferences.glade.h:60
 msgid ""
@@ -791,32 +778,32 @@ msgid ""
 msgstr ""
 
 #: ../ui/preferences.glade.h:61
-#, fuzzy
 msgid "Whether to use format for header"
-msgstr "Geen afmeting"
+msgstr ""
 
 #: ../ui/preferences.glade.h:62
 #, fuzzy
 msgid "Whether to use geometry"
-msgstr "Geen afmeting"
+msgstr "Afmeting gebruiken"
 
 #: ../ui/preferences.glade.h:63
 #, fuzzy
 msgid "Whether to use window manager decoration"
-msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
+msgstr "Pop-up venster met of zonder vensterbeheerder-versieringen"
 
 #: ../ui/preferences.glade.h:64
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
 #: ../ui/preferences.glade.h:65 ../ui/properties.glade.h:21
+#, fuzzy
 msgid "_Browse..."
-msgstr ""
+msgstr "Bladeren..."
 
 #: ../ui/preferences.glade.h:66
 #, fuzzy
 msgid "_Display for"
-msgstr "Datum weergeven in koppen"
+msgstr "Datum _weergeven"
 
 #: ../ui/preferences.glade.h:67
 msgid "_Edit options in expert mode"
@@ -825,12 +812,12 @@ msgstr ""
 #: ../ui/preferences.glade.h:68
 #, fuzzy
 msgid "_Font:"
-msgstr "Lettertypes "
+msgstr "_Poort:"
 
 #: ../ui/preferences.glade.h:69
 #, fuzzy
 msgid "_Format:"
-msgstr "Lettertypes "
+msgstr "Formaat"
 
 #: ../ui/preferences.glade.h:70
 msgid "_Restrict collected mail to"
@@ -859,42 +846,48 @@ msgid "mail(s)"
 msgstr "kmail"
 
 #: ../ui/preferences.glade.h:77
+#, fuzzy
 msgid "second(s)"
-msgstr ""
+msgstr "seconden"
 
 #: ../ui/properties.glade.h:1
 #, fuzzy
 msgid "<b>_Details</b>"
-msgstr "Postvak"
+msgstr "<b>Postvakken</b>"
 
 #: ../ui/properties.glade.h:2
 #, fuzzy
 msgid "A_ddress:"
-msgstr "<b>X</b>"
+msgstr "<b>Adres</b>"
 
 #: ../ui/properties.glade.h:3
+#, fuzzy
 msgid "Aut_hentication:"
-msgstr ""
+msgstr "Authentificatie"
 
 #: ../ui/properties.glade.h:4
+#, fuzzy
 msgid "Bro_wse..."
-msgstr ""
+msgstr "Bladeren..."
 
 #: ../ui/properties.glade.h:6
+#, fuzzy
 msgid "Cer_tificate:"
-msgstr ""
+msgstr "Certificaat:"
 
 #: ../ui/properties.glade.h:7
+#, fuzzy
 msgid "Certificate filename"
-msgstr ""
+msgstr "Certificaatdetails:"
 
 #: ../ui/properties.glade.h:8
 msgid "Connection port to connect to server"
 msgstr ""
 
 #: ../ui/properties.glade.h:9
+#, fuzzy
 msgid "Connection:"
-msgstr ""
+msgstr "_Locatie:"
 
 #: ../ui/properties.glade.h:10
 msgid "Dela_y:"
@@ -903,17 +896,16 @@ msgstr ""
 #: ../ui/properties.glade.h:11
 #, fuzzy
 msgid "Mailbox folder"
-msgstr "Postvak"
+msgstr "Postvakken"
 
 #: ../ui/properties.glade.h:12
-#, fuzzy
 msgid "Mailbox properties"
-msgstr "Postvak configuratie"
+msgstr "Postvak eigenschappen"
 
 #: ../ui/properties.glade.h:13
 #, fuzzy
 msgid "Name of the mailbox"
-msgstr "Volgende postvak"
+msgstr "Naam van postvak"
 
 #: ../ui/properties.glade.h:14
 msgid "Other connection port"
@@ -922,7 +914,7 @@ msgstr ""
 #: ../ui/properties.glade.h:15
 #, fuzzy
 msgid "Other mailbox folder"
-msgstr "Postvak"
+msgstr "postvak %d"
 
 #: ../ui/properties.glade.h:16
 msgid "Standard connection port"
@@ -939,12 +931,14 @@ msgid ""
 msgstr ""
 
 #: ../ui/properties.glade.h:19
+#, fuzzy
 msgid "Your password on the mail server"
-msgstr ""
+msgstr "Uw wachtwoord op de server"
 
 #: ../ui/properties.glade.h:20
+#, fuzzy
 msgid "Your username on the mail server"
-msgstr ""
+msgstr "Uw gebruikersnaam op de server"
 
 #: ../ui/properties.glade.h:22
 #, fuzzy
@@ -954,19 +948,20 @@ msgstr "Postvak"
 #: ../ui/properties.glade.h:23
 #, fuzzy
 msgid "_Name:"
-msgstr "Naam:"
+msgstr "N_aam:"
 
 #: ../ui/properties.glade.h:24 ../ui/authentication.glade.h:4
 msgid "_Password:"
-msgstr ""
+msgstr "_Wachtwoord:"
 
 #: ../ui/properties.glade.h:25
+#, fuzzy
 msgid "_Type:"
-msgstr ""
+msgstr "Soort:"
 
 #: ../ui/properties.glade.h:26 ../ui/authentication.glade.h:5
 msgid "_Username:"
-msgstr ""
+msgstr "_Gebruikersnaam:"
 
 #: ../ui/properties.glade.h:27
 msgid "_other"
@@ -975,7 +970,7 @@ msgstr ""
 #: ../ui/properties.glade.h:28
 #, fuzzy
 msgid "file or folder or hostname"
-msgstr "Postvak"
+msgstr "bestands- of mapnaam"
 
 #: ../ui/properties.glade.h:29
 msgid "minutes"
@@ -987,7 +982,7 @@ msgstr ""
 
 #: ../ui/properties.glade.h:31
 msgid "seconds"
-msgstr ""
+msgstr "seconden"
 
 #: ../ui/properties.glade.h:32
 msgid "stan_dard"
@@ -999,117 +994,335 @@ msgstr ""
 
 #: ../ui/authentication.glade.h:1
 msgid "Authentication"
-msgstr ""
+msgstr "Authentificatie"
 
 #: ../ui/authentication.glade.h:2
 msgid "Your password on the server"
-msgstr ""
+msgstr "Uw wachtwoord op de server"
 
 #: ../ui/authentication.glade.h:3
 msgid "Your username on the server"
-msgstr ""
+msgstr "Uw gebruikersnaam op de server"
 
 #: ../ui/certificate.glade.h:1
-#, fuzzy
 msgid "<b>Address</b>"
-msgstr "<b>X</b>"
+msgstr "<b>Adres</b>"
 
 #: ../ui/certificate.glade.h:2
-#, fuzzy
 msgid "<b>Issued To</b>"
-msgstr "<b>Y</b>"
+msgstr "<b>Uitgegeven aan</b>"
 
 #: ../ui/certificate.glade.h:3
 msgid "Accept"
-msgstr ""
+msgstr "Accepteren"
 
 #: ../ui/certificate.glade.h:4
 msgid "Cannot certify server"
-msgstr ""
+msgstr "Kan server niet certificeren"
 
 #: ../ui/certificate.glade.h:5
 msgid "Certificate details"
-msgstr ""
+msgstr "Certificaatdetails:"
 
 #: ../ui/certificate.glade.h:6
 msgid "Common Name"
-msgstr ""
+msgstr "Algemene naam"
 
 #: ../ui/certificate.glade.h:7
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #: ../ui/certificate.glade.h:8
 msgid "Locality"
-msgstr ""
+msgstr "Locatie"
 
 #: ../ui/certificate.glade.h:9
 msgid "Organization"
-msgstr ""
+msgstr "Organisatie"
 
 #: ../ui/certificate.glade.h:10
 msgid "Organization Unit"
-msgstr ""
+msgstr "Organisatorische eenheid"
 
 #: ../ui/certificate.glade.h:11
 msgid "State or Province"
-msgstr ""
+msgstr "Staat of provincie"
 
 #: ../ui/popup.glade.h:1
-#, fuzzy
 msgid "<small><b>Date</b></small>"
-msgstr "<small><b>Applet</b></small>"
+msgstr ""
 
 #: ../ui/popup.glade.h:2
-#, fuzzy
 msgid "<small><b>From</b></small>"
-msgstr "<small><b>Geluidssterkte</b></small>"
+msgstr ""
 
 #: ../ui/popup.glade.h:3
-#, fuzzy
 msgid "<small><b>Subject</b></small>"
-msgstr "<small><b>Geluidssterkte</b></small>"
+msgstr ""
 
 #: ../ui/popup.glade.h:5
 msgid "mail content"
 msgstr "postinhoud"
 
-#, fuzzy
-#~ msgid "Error"
-#~ msgstr "fout!"
-
-#, fuzzy
-#~ msgid "Whether the window shall appear in pagers"
-#~ msgstr "Biff venster met of zonder vensterbeheerder-versieringen"
-
-#, fuzzy
-#~ msgid "<span font_desc=\"24\"><b>Gnubiff 2.1.1</b></span>"
-#~ msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
-
-#, fuzzy
-#~ msgid "date"
-#~ msgstr "Versierd"
-
-#, fuzzy
-#~ msgid "subject"
-#~ msgstr "<geen onderwerp gevonden>"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "00/00"
-#~ msgstr "00/00"
-
-#, fuzzy
-#~ msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support\n"
 #~ msgstr ""
-#~ "<small>(C) 2000-2004 Nicolas Rougier, Nederlandse vertaling (C) 2004 "
-#~ "Elros Cyriatan</small>"
+#~ "\n"
+#~ "Deze versie van gnubiff is gecompileerd met GNOME-ondersteuning\n"
+
+#~ msgid "If you want to use the GTK version, type gnubiff --gtk\n"
+#~ msgstr "Als u de GTK-versie wilt gebruiken, typ gnubiff --gtk\n"
+
+#~ msgid " then use -c file to specify an alternate configuration file\n"
+#~ msgstr ""
+#~ " gebruik dan -c BESTAND om een alternatief configuratiebestand aan te "
+#~ "geven\n"
+
+#~ msgid "      and -n to skip configuration process\n"
+#~ msgstr "      en -n om het configuratieproces over te slaan\n"
+
+#~ msgid "If you want to use the GNOME version, use gnome panel\n"
+#~ msgstr "Als u de GNOME-versie wilt gebruiken, gebruik het GNOME Paneel\n"
+
+#~ msgid "Have a nice day\n"
+#~ msgstr "Fijne dag verder nog\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "This version of gnubiff has been compiled with GNOME support"
+#~ msgstr ""
+#~ "\n"
+#~ "Deze versie van gnubiff is gecompileerd met GNOME-ondersteuning"
+
+#~ msgid "Now I will hang forever...\n"
+#~ msgstr "Nu ga ik eeuwig hangen...\n"
+
+#~ msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
+#~ msgstr "Copyright (c) 2000-2004 Nicolas Rougier\n"
+
+#~ msgid "Unable to create lookup thread: %s\n"
+#~ msgstr "Kan thread niet opzoeken: %s\n"
+
+#~ msgid "Mailbox format is unknown"
+#~ msgstr "Postvakformaat is onbekend"
+
+#~ msgid "blocked (unsecure)"
+#~ msgstr "geblokkeerd (onveilig)"
+
+#~ msgid "Poll time"
+#~ msgstr "Polstijd"
+
+#~ msgid "Browse for a sound"
+#~ msgstr "Bladeren voor geluid"
+
+#~ msgid "Browse for a mail application"
+#~ msgstr "Bladeren voor e-mail toepassing"
+
+#~ msgid "Browse for a location"
+#~ msgstr "Bladeren voor een locatie"
+
+#~ msgid "From: "
+#~ msgstr "Van: "
+
+#~ msgid "Subject: "
+#~ msgstr "Onderwerp: "
+
+#~ msgid "Date: "
+#~ msgstr "Datum: "
+
+#~ msgid "Error"
+#~ msgstr "Fout"
 
 #~ msgid "About..."
 #~ msgstr "Info..."
 
-#, fuzzy
+#~ msgid "Start mail application"
+#~ msgstr "E-mail toepassing starten"
+
+#~ msgid "00/00"
+#~ msgstr "00/00"
+
+#~ msgid "%d"
+#~ msgstr "%d"
+
+#~ msgid "'Sender' field maximum size"
+#~ msgstr "'Verzender'-veld maximale grootte"
+
+#~ msgid "'Subject' field maximum size"
+#~ msgstr "'Onderwerp'-veld maximale grootte"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "+0+0"
+#~ msgstr "+0+0"
+
+#~ msgid "-0+0"
+#~ msgstr "-0+0"
+
+#~ msgid "<b>Biff window</b>"
+#~ msgstr "<b>Biff-venster</b>"
+
+#~ msgid "<b>Popup window</b>"
+#~ msgstr "<b>Pop-up venster</b>"
+
+#~ msgid "<b>Popup</b>"
+#~ msgstr "<b>Pop-up</b>"
+
+#~ msgid "Advanced"
+#~ msgstr "Geavanceerd"
+
+#~ msgid "Color:"
+#~ msgstr "Kleur:"
+
+#~ msgid "Display header window when new mail has arrived"
+#~ msgstr "Koppenvenster weergeven als nieuwe e-mail is aangekomen"
+
+#~ msgid "Display popup window for poptime seconds"
+#~ msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
+
+#~ msgid "Do not show any text when new mail"
+#~ msgstr "Geen tekst weergeven bij nieuwe post"
+
+#~ msgid "Geometry"
+#~ msgstr "Afmeting"
+
+#~ msgid "Layout"
+#~ msgstr "Indeling"
+
+#~ msgid "Let window manager place window"
+#~ msgstr "Laat vensterbeheerder het venster plaatsen"
+
+#~ msgid "Ma_ximum number of email to collect:"
+#~ msgstr "Ma_ximale aantal te verzamelen berichten:"
+
+#~ msgid "Mail a_pplication:"
+#~ msgstr "E-mail _toepassing:"
+
+#~ msgid "Mail application to launch via popup menu."
+#~ msgstr "E-mail programma om te starten via pop-up menu."
+
+#~ msgid ""
+#~ "Maximum number of displayed headers (you know, if you have a screen with "
+#~ "a finite display area...)"
+#~ msgstr ""
+#~ "Maximale aantal weergegeven berichtkoppen (zoals u weet is de grootte van "
+#~ "uw scherm beperkt...)"
+
+#~ msgid "Maximum number of email to collect"
+#~ msgstr "Maximale hoeveelheid e-mail om te verzamelen"
+
+#~ msgid "Maximum size of the sender field in popup window"
+#~ msgstr "Maximale grootte van verzender-veld in pop-up venster"
+
+#~ msgid "Never send pass_word in clear"
+#~ msgstr "Nooit _wachtwoorden ongecodeerd verzenden"
+
+#~ msgid "No mail:"
+#~ msgstr "Geen post:"
+
+#~ msgid "Pick a color for applet font"
+#~ msgstr "Kies een kleur voor het applet-lettertype"
+
+#~ msgid "Pick a color for popup font"
+#~ msgstr "Kies een kleur voor het pop-up lettertype"
+
+#~ msgid "Pick a font for applet"
+#~ msgstr "Kies een lettertype voor de applet"
+
+#~ msgid "Pick a font for popup"
+#~ msgstr "Kies een lettertype voor de pop-up"
+
+#~ msgid ""
+#~ "Released under the GNU general public license\n"
+#~ "(c) 2000-2004 Nicolas Rougier\n"
+#~ "<span size=\"small\" color=\"blue\">Special thanks to Robert Sowada and "
+#~ "Roland Stigge for their help</span>"
+#~ msgstr ""
+#~ "Uitgebracht onder de GNU general public license\n"
+#~ "(c) 2000-2004<b> Nicolas Rougier\n"
+#~ "<span size=\"small\" color=\"blue\">Speciale dank aan Robert Sowada en "
+#~ "Roland Stigge voor hun hulp</span>"
+
+#~ msgid "Sound filename to play"
+#~ msgstr "Geluidsbestand om af te spelen"
+
+#~ msgid "Sound play command (%s is the soundfile, %v is the volume)"
+#~ msgstr ""
+#~ "Geluidsafspeelopdracht (%s is het geluidsbestand, %v de geluidssterkte)"
+
+#~ msgid "Sound when new mail has arrived"
+#~ msgstr "Geluid als nieuwe e-mail is aangekomen"
+
+#~ msgid "System _beep"
+#~ msgstr "Systeem_piep"
+
+#~ msgid "System beep when new mail has arrived"
+#~ msgstr "Systeempiep als nieuwe e-mail is aangekomen"
+
+#~ msgid "Test"
+#~ msgstr "Testen"
+
+#~ msgid "Test sound"
+#~ msgstr "Geluid testen"
+
+#~ msgid ""
+#~ "Text to be displayed when new mail is present, %d is the number of mails. "
+#~ "Valid XML must be entered, pango markup may be used."
+#~ msgstr ""
+#~ "Tekst om weer te geven bij nieuwe post; %d is het aantal berichten. Er "
+#~ "moet geldige XML worden ingevoerd, waarbij Pango-opmaak mag worden "
+#~ "gebruikt."
+
+#~ msgid ""
+#~ "Text to be displayed when no mail is present, %d is the number of mails. "
+#~ "Valid XML must be entered, pango markup may be used."
+#~ msgstr ""
+#~ "Tekst om weer te geven als er geen nieuwe post is; %d is het aantal "
+#~ "berichten. Er moet geldige XML worden ingevoerd, waarbij Pango-opmaak mag "
+#~ "worden gebruikt."
+
+#~ msgid "Use image"
+#~ msgstr "Afbeelding gebruiken"
+
+#~ msgid "Use of no image implies no applet window for GTK version"
+#~ msgstr ""
+#~ "Geen afbeelding gebruiken impliceert voor de GTK-versie geen appletvenster"
+
+#~ msgid "Use text"
+#~ msgstr "Tekst gebruiken"
+
+#~ msgid "_Biff:"
+#~ msgstr "_Biff:"
+
+#~ msgid "_Display popup window when new mail arrives"
+#~ msgstr "Pop-up venster _weergeven als nieuwe e-mail is aangekomen"
+
+#~ msgid "_File:"
+#~ msgstr "_Bestand:"
+
+#~ msgid "_No sound"
+#~ msgstr "_Geen geluid"
+
+#~ msgid "_Popup:"
+#~ msgstr "_Pop-up:"
+
+#~ msgid "_Sound"
+#~ msgstr "_Geluid"
+
+#~ msgid "balsa"
+#~ msgstr "balsa"
+
+#~ msgid "characters"
+#~ msgstr "tekens"
+
+#~ msgid "emacs"
+#~ msgstr "emacs"
+
+#~ msgid "evolution"
+#~ msgstr "evolution"
+
 #~ msgid ""
 #~ "gnubiff has originally been written by Nicolas Rougier.\n"
 #~ "Many people have further contributed to gnubiff by\n"
@@ -1161,6 +1374,13 @@ msgstr "postinhoud"
 #~ "  - Michel Robitaille (fr)\n"
 #~ "  - Eugen Hoanca (ro)\n"
 #~ "  - David Smeringe (sv)\n"
+#~ "\n"
+#~ "\n"
+#~ "If you like this software, you can send me a post-card to:\n"
+#~ "    Nicolas Rougier\n"
+#~ "    Campus Scientifique, B.P. 239\n"
+#~ "    F-54506 Vandoeuvre-Les-Nancy Cedex\n"
+#~ "    FRANCE"
 #~ msgstr ""
 #~ "gnubiff is oorspronkelijk geschreven door Nicolas Rougier.\n"
 #~ "Veel mensen hebben vervolgens aan gnubiff bijgedragen door\n"
@@ -1171,8 +1391,11 @@ msgstr "postinhoud"
 #~ "Hier is een lijst van deze mensen, in willekeurige volgorde:\n"
 #~ "  - Robert Sowada\n"
 #~ "  - Roland Stigge\n"
+#~ "  - Jean-Yves Lefort\n"
 #~ "  - Calum Mackay\n"
 #~ "  - Paul Kuliniewicz\n"
+#~ "  - Erik Sittman\n"
+#~ "  - Dries Verachtert\n"
 #~ "  - Grzegorz Gotawski\n"
 #~ "  - Adam Benjamin\n"
 #~ "  - Theodore Tegos\n"
@@ -1217,238 +1440,6 @@ msgstr "postinhoud"
 #~ "    F-54506 Vandoeuvre-Les-Nancy Cedex\n"
 #~ "    FRANCE"
 
-#~ msgid ""
-#~ "\n"
-#~ "This version of gnubiff has been compiled with GNOME support\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Deze versie van gnubiff is gecompileerd met GNOME-ondersteuning\n"
-
-#~ msgid "If you want to use the GTK version, type gnubiff --gtk\n"
-#~ msgstr "Als u de GTK-versie wilt gebruiken, typ gnubiff --gtk\n"
-
-#~ msgid " then use -c file to specify an alternate configuration file\n"
-#~ msgstr ""
-#~ " gebruik dan -c BESTAND om een alternatief configuratiebestand aan te "
-#~ "geven\n"
-
-#~ msgid "      and -n to skip configuration process\n"
-#~ msgstr "      en -n om het configuratieproces over te slaan\n"
-
-#~ msgid "If you want to use the GNOME version, use gnome panel\n"
-#~ msgstr "Als u de GNOME-versie wilt gebruiken, gebruik het GNOME Paneel\n"
-
-#~ msgid "Have a nice day\n"
-#~ msgstr "Fijne dag verder nog\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "This version of gnubiff has been compiled with GNOME support"
-#~ msgstr ""
-#~ "\n"
-#~ "Deze versie van gnubiff is gecompileerd met GNOME-ondersteuning"
-
-#~ msgid "Now I will hang forever...\n"
-#~ msgstr "Nu ga ik eeuwig hangen...\n"
-
-#, fuzzy
-#~ msgid "<b>Date</b>"
-#~ msgstr "<b>Y</b>"
-
-#, fuzzy
-#~ msgid "<b>From</b>"
-#~ msgstr "<b>Y</b>"
-
-#, fuzzy
-#~ msgid "<b>Subject</b>"
-#~ msgstr "<b>Y</b>"
-
-#, fuzzy
-#~ msgid "Unable to create lookup thread: %s\n"
-#~ msgstr "Kon thread niet aanmaken: %s\n"
-
-#, fuzzy
-#~ msgid "Mailbox format is unknown"
-#~ msgstr "Postvak configuratie"
-
-#~ msgid "Start mail application"
-#~ msgstr "E-mail toepassing starten"
-
-#, fuzzy
-#~ msgid "Browse for a location"
-#~ msgstr "Bladeren"
-
-#, fuzzy
-#~ msgid "Browse for a certificate"
-#~ msgstr "Bladeren voor een certificaatbestand"
-
-#, fuzzy
-#~ msgid "_Popup"
-#~ msgstr "Pop-up"
-
-#, fuzzy
-#~ msgid "<small>Type</small>"
-#~ msgstr "<small>Gebruiker</small>"
-
-#, fuzzy
-#~ msgid "<small>Status</small>"
-#~ msgstr "<small>Poort</small>"
-
-#, fuzzy
-#~ msgid "<small>Security</small>"
-#~ msgstr "<small>Poort</small>"
-
-#, fuzzy
-#~ msgid "in_box"
-#~ msgstr "Postvak"
-
-#, fuzzy
-#~ msgid "Browse for a sound"
-#~ msgstr "Bladeren"
-
-#, fuzzy
-#~ msgid "Browse for a mail application"
-#~ msgstr "E-mail toepassing starten"
-
-#~ msgid "Text to be displayed when new mail, %d is the number of mail."
-#~ msgstr "Tekst om weer te geven bij nieuwe post; %d is het aantal berichten."
-
-#~ msgid "%d"
-#~ msgstr "%d"
-
-#, fuzzy
-#~ msgid "+0+0"
-#~ msgstr "00"
-
-#, fuzzy
-#~ msgid "-0+0"
-#~ msgstr "00"
-
-#, fuzzy
-#~ msgid "Browse for a soundfile"
-#~ msgstr "Bladeren"
-
-#~ msgid "Display popup window for poptime seconds"
-#~ msgstr "Pop-up venster weergeven gedurende pop-up-tijd seconden"
-
-#~ msgid "Do not show any text when new mail"
-#~ msgstr "Geen tekst weergeven bij nieuwe post"
-
-#~ msgid "Geometry"
-#~ msgstr "Afmeting"
-
-#~ msgid "Layout"
-#~ msgstr "Indeling"
-
-#~ msgid "Let window manager place window"
-#~ msgstr "Laat vensterbeheerder het venster plaatsen"
-
-#, fuzzy
-#~ msgid "Ma_ximum number of email to collect:"
-#~ msgstr "Maximale aantal te verzamelen berichten"
-
-#, fuzzy
-#~ msgid "Mail a_pplication:"
-#~ msgstr "E-mail toepassing starten"
-
-#~ msgid "Mail application to launch via popup menu."
-#~ msgstr "E-mail programma om te starten via pop-up menu."
-
-#~ msgid ""
-#~ "Maximum number of displayed headers (you know, if you have a screen with "
-#~ "a finite display area...)"
-#~ msgstr ""
-#~ "Maximale aantal weergegeven berichtkoppen (zoals u weet is de grootte van "
-#~ "uw scherm beperkt...)"
-
-#~ msgid "Maximum size of the sender field in popup window"
-#~ msgstr "Maximale grootte van verzender-veld in pop-up venster"
-
-#, fuzzy
-#~ msgid "No mail:"
-#~ msgstr "Geen e-mail"
-
-#~ msgid "No sound when new mail has arrived"
-#~ msgstr "Geen geluid als nieuwe e-mail is aangekomen"
-
-#~ msgid "Pick a color for applet font"
-#~ msgstr "Kies een kleur voor het applet-lettertype"
-
-#~ msgid "Pick a color for popup font"
-#~ msgstr "Kies een kleur voor het pop-up lettertype"
-
-#~ msgid "Pick a font for applet"
-#~ msgstr "Kies een lettertype voor de applet"
-
-#~ msgid "Pick a font for popup"
-#~ msgstr "Kies een lettertype voor de pop-up"
-
-#~ msgid "Popup window with window manager decorations or not"
-#~ msgstr "Pop-up venster met of zonder vensterbeheerder-versieringen"
-
-#, fuzzy
-#~ msgid ""
-#~ "Released under the GNU general public license\n"
-#~ "(c) 2000-2004 Nicolas Rougier\n"
-#~ "<span size=\"small\" color=\"blue\">Special thanks to Robert Sowada and "
-#~ "Roland Stigge for their help</span>"
-#~ msgstr ""
-#~ "<span size=\"small\">Uitgebracht onder de GNU general public license\n"
-#~ "(c) 2000-2004<b> Nicolas Rougier</b></span>\n"
-#~ "<span size=\"x-small\" color=\"blue\">Speciale dank aan Robert Sowada en "
-#~ "Roland Stigge voor hun hulp</span>\n"
-#~ "<span size=\"x-small\">De meeste pictogrammen komen van het GNOME "
-#~ "project</span>"
-
-#~ msgid "Sound when new mail has arrived"
-#~ msgstr "Geluid als nieuwe e-mail is aangekomen"
-
-#, fuzzy
-#~ msgid "System _beep"
-#~ msgstr "Systeempiep"
-
-#~ msgid "System beep when new mail has arrived"
-#~ msgstr "Systeempiep als nieuwe e-mail is aangekomen"
-
-#, fuzzy
-#~ msgid "Use image"
-#~ msgstr "Geen afbeelding gebruiken"
-
-#, fuzzy
-#~ msgid "Use of no image implies no applet window for GTK version"
-#~ msgstr ""
-#~ "Geen afbeelding gebruiken impliceert voor de GTK-versie geen appletvenster"
-
-#, fuzzy
-#~ msgid "Use text"
-#~ msgstr "Geen tekst gebruiken"
-
-#, fuzzy
-#~ msgid "_Display popup window when new mail arrives"
-#~ msgstr "Pop-up venster weergeven als nieuwe e-mail is ontvangen"
-
-#, fuzzy
-#~ msgid "_File:"
-#~ msgstr "bestand"
-
-#, fuzzy
-#~ msgid "_No sound"
-#~ msgstr "Geen geluid"
-
-#, fuzzy
-#~ msgid "_Sound"
-#~ msgstr "Geluid"
-
-#~ msgid "balsa"
-#~ msgstr "balsa"
-
-#, fuzzy
-#~ msgid "characters"
-#~ msgstr "Parameters "
-
-#~ msgid "emacs"
-#~ msgstr "emacs"
-
 #~ msgid "mozilla -mail"
 #~ msgstr "mozilla -mail"
 
@@ -1458,254 +1449,53 @@ msgstr "postinhoud"
 #~ msgid "play %s -v %v"
 #~ msgstr "play %s -v %v"
 
+#~ msgid ""
+#~ "pop3 and imap4 without ssl send passwords in clear. Checking this option "
+#~ "prevents gnubiff from using them."
+#~ msgstr ""
+#~ "pop3 en imap4 zonder ssl verzenden wachtwoorden ongecodeerd "
+#~ "(onbeveiligd). Het aanvinken van deze optie zorgt dat gnubiff deze niet "
+#~ "gebruikt."
+
+#~ msgid "thunderbird"
+#~ msgstr "thunderbird"
+
 #~ msgid "xemacs "
 #~ msgstr "xemacs "
 
-#, fuzzy
+#~ msgid "Details"
+#~ msgstr "Details"
+
+#~ msgid "Folder to check on the IMAP4 server"
+#~ msgstr "Map om te controleren op IMAP4-server"
+
 #~ msgid "Folder:"
-#~ msgstr "bestand"
+#~ msgstr "Map:"
 
-#, fuzzy
+#~ msgid ""
+#~ "Port to connect (usually POP3: 110, IMAP4: 143, POP3 over SSL: 995, IMAP4 "
+#~ "over SSL: 993)"
+#~ msgstr ""
+#~ "Poort om mee te verbinden (meestal POP3: 110, IMAP4: 143, POP3 over SSL: "
+#~ "995, IMAP4 over SSL: 993)"
+
 #~ msgid "Server certificate, leave blank if you do not want to use one"
-#~ msgstr ""
-#~ "Certificaat bestandsnaam. Laat dit leeg als u er geen wilt gebruiken."
+#~ msgstr "Servercertificaat. Laat dit leeg als u er geen wilt gebruiken."
 
-#~ msgid "%02x"
-#~ msgstr "%02x"
+#~ msgid "The hostname or IP address of the server"
+#~ msgstr "De hostnaam of het IP-adres van de server"
 
-#~ msgid ""
-#~ "Released under the GNU general public license.\n"
-#~ "Mail notification program."
-#~ msgstr ""
-#~ "Uitgebracht onder de GNU general public license.\n"
-#~ "E-Mail controle programma."
+#~ msgid "Time in seconds between each check"
+#~ msgstr "Tijd in seconden tussen elke controle"
 
-#~ msgid "Pick a color for popup background"
-#~ msgstr "Kies een kleur voor de pop-up achtergrond"
+#~ msgid "Use SSL encryption"
+#~ msgstr "SSL-codering gebruiken"
 
-#, fuzzy
-#~ msgid "<b>Miscellaneous</b>"
-#~ msgstr "Diversen "
+#~ msgid "_Delay between checks:"
+#~ msgstr "_Tijd tussen controles:"
 
-#, fuzzy
-#~ msgid "Maximum s_ender size (character):"
-#~ msgstr "Maximale verzendergrootte"
+#~ msgid "_Hostname:"
+#~ msgstr "_Hostnaam:"
 
-#, fuzzy
-#~ msgid "Maximum s_ubject size (character):"
-#~ msgstr "Maximale onderwerpgrootte"
-
-#, fuzzy
-#~ msgid "Maximum si_ze (line):"
-#~ msgstr "Maximale verzendergrootte"
-
-#~ msgid "Account "
-#~ msgstr "Account "
-
-#, fuzzy
-#~ msgid "Maximum displayed _headers:"
-#~ msgstr "Maximale verzendergrootte"
-
-#~ msgid " ... "
-#~ msgstr " ... "
-
-#~ msgid " <span size=\"x-large\"><b>Mailbox</b></span>"
-#~ msgstr " <span size=\"x-large\"><b>Postvak</b></span>"
-
-#~ msgid "<small><b>Applet (GTK only)</b></small>"
-#~ msgstr "<small><b>Applet (alleen GTK)</b></small>"
-
-#~ msgid "<small><b>Popup</b></small>"
-#~ msgstr "<small><b>Pop-up</b></small>"
-
-#~ msgid "<small><b>Sound file</b></small>"
-#~ msgstr "<small><b>Geluidsbestand</b></small>"
-
-#~ msgid "<small>Address / filename</small>"
-#~ msgstr "<small>Adres / bestandsnaam</small>"
-
-#~ msgid "<small>Folder</small>"
-#~ msgstr "<small>Map</small>"
-
-#~ msgid "<small>Local</small>"
-#~ msgstr "<small>Lokaal</small>"
-
-#~ msgid "<small>Mail application</small>"
-#~ msgstr "<small>Post toepassing</small>"
-
-#~ msgid "<small>Maximum number of displayed header(s) in popup: </small>"
-#~ msgstr ""
-#~ "<small>Maximale aantal weergegeven berichtkop(pen) in pop-up: </small>"
-
-#~ msgid "<small>Network</small>"
-#~ msgstr "<small>Netwerk</small>"
-
-#~ msgid "<small>Password</small>"
-#~ msgstr "<small>Wachtwoord</small>"
-
-#~ msgid "<small>Poll time (s)</small>"
-#~ msgstr "<small>Polstijd (s)</small>"
-
-#~ msgid "<small>Pop time(s)</small>"
-#~ msgstr "<small>Pop-up tijd (s)</small>"
-
-#~ msgid "<small>Server certificate</small>"
-#~ msgstr "<small>Server certificaat</small>"
-
-#~ msgid "<small>character(s)</small>"
-#~ msgstr "<small>teken(s)</small>"
-
-#~ msgid ""
-#~ "APOP protocol: your mailbox is held on an APOP server on a remote host. "
-#~ "Contact your system admnistrator for setup details."
-#~ msgstr ""
-#~ "APOP-protocol: uw postvak wordt opgeslagen op een APOP-server op een "
-#~ "andere computer. Neem contact op met uw systeembeheerder voor "
-#~ "insteldetails."
-
-#~ msgid "Address of your mailbox"
-#~ msgstr "Adres van uw postvak"
-
-#~ msgid "Check for new mail every polltime seconds"
-#~ msgstr "Elke controle-tijd seconden kijken of er nieuwe e-mail is"
-
-#~ msgid "Create a new mailbox"
-#~ msgstr "Een nieuw postbak maken"
-
-#~ msgid "Decorated"
-#~ msgstr "Versierd"
-
-#~ msgid "Delete current mailbox"
-#~ msgstr "Huidige postvak verwijderen"
-
-#~ msgid "Do not show any text when no mail"
-#~ msgstr "Helemaal geen tekst weergeven als geen nieuwe post"
-
-#~ msgid ""
-#~ "File protocol: for example, your mailbox is held in a file like \"/var/"
-#~ "log/login_name\""
-#~ msgstr ""
-#~ "Bestandsprotocol: bijvoorbeeld uw postvak wordt opgeslagen in een bestand "
-#~ "zoals \"/var/log/inlognaam\""
-
-#~ msgid ""
-#~ "IMAP4 protocol: your mailbox is held on an IMAP4 server on a remote host. "
-#~ "Contact your system administrator for setup details."
-#~ msgstr ""
-#~ "IMAP4-protocol: uw postvak wordt gehouden op een IMAP4-server op een "
-#~ "andere computer. Neem contact op met uw systeembeheerder voor "
-#~ "insteldetails."
-
-#~ msgid "Image or animation to use when new mail has arrived"
-#~ msgstr ""
-#~ "Afbeelding of animatie om te gebruiken als nieuwe e-mail is aangekomen"
-
-#~ msgid "Image or animation to use when no new mail available"
-#~ msgstr "Afbeelding of animatie om te gebruiken als er geen nieuwe e-mail is"
-
-#~ msgid "MH protocol: your mailbox is held in a mh directory."
-#~ msgstr "MH-protocol: uw postvak wordt gehouden in een mh-map."
-
-#~ msgid "Maildir protocol: your mailbox is held in a directory."
-#~ msgstr "Maildir-protocol: uw postvak wordt in een map gehouden."
-
-#~ msgid "Maximum size of subject field in popup window"
-#~ msgstr "Maximale grootte van onderwerp-veld in pop-up venster"
-
-#~ msgid ""
-#~ "POP3 protocol: your mailbox is held on a POP3 server on a remote host. "
-#~ "Contact your system admnistrator for setup details."
-#~ msgstr ""
-#~ "POP3-protocol: uw postvak wordt opgeslagen op een POP3-server op een "
-#~ "andere computer. Neem contact op met uw systeembeheerder voor "
-#~ "insteldetails."
-
-#~ msgid "Placement "
-#~ msgstr "Plaatsing "
-
-#~ msgid "Play selected sound"
-#~ msgstr "Geselecteerde geluid afspelen"
-
-#~ msgid "Popup "
-#~ msgstr "Pop-up "
-
-#~ msgid ""
-#~ "Positive numbers refer to left border, negative numbers refer to right "
-#~ "border"
-#~ msgstr ""
-#~ "Positieve getallen refereren naar de linker zijkant, negatieve getallen "
-#~ "naar de rechter zijkant"
-
-#~ msgid ""
-#~ "Positive numbers refer to top border, negative numbers refer to bottom "
-#~ "border"
-#~ msgstr ""
-#~ "Positieve getallen refereren naar de bovenkant, negatieve naar de "
-#~ "onderkant"
-
-#~ msgid "Previous mailbox"
-#~ msgstr "Vorige postvak"
-
-#~ msgid "Protocol "
-#~ msgstr "Protocol "
-
-#~ msgid "Sanity "
-#~ msgstr "Sanity "
-
-#~ msgid "Show date in headers or not"
-#~ msgstr "Datum in koppen weergeven of niet"
-
-#~ msgid "Size "
-#~ msgstr "Grootte "
-
-#~ msgid "Sounds "
-#~ msgstr "Geluiden"
-
-#~ msgid ""
-#~ "This is the command used to play sound, %s is the name of the file, %v is "
-#~ "the volume (between 0.0 and 1.0)"
-#~ msgstr ""
-#~ "Dit is de opdracht die gebruikt wordt om geluid af te spelen. %s is de "
-#~ "bestandsnaam, %v de geluidssterkte (tussen 0.0 en 1.0)"
-
-#~ msgid "Timing "
-#~ msgstr "Timing "
-
-#~ msgid "Title of the mailbox to be displayed."
-#~ msgstr "Titel van het postvak om weer te geven."
-
-#~ msgid "Use Secure Socket Layer"
-#~ msgstr "Secure Socket Layer gebruiken"
-
-#~ msgid "Use popup"
-#~ msgstr "Pop-up gebruiken"
-
-#~ msgid "User mail account name "
-#~ msgstr "Naam e-mail account gebruiker "
-
-#~ msgid "User mail account password"
-#~ msgstr "Wachtwoord e-mail account gebruiker"
-
-#~ msgid "apop"
-#~ msgstr "apop"
-
-#~ msgid "imap4"
-#~ msgstr "imap4"
-
-#~ msgid "mail.wav"
-#~ msgstr "mail.wav"
-
-#~ msgid "maildir"
-#~ msgstr "maildir (postmap)"
-
-#~ msgid "mh"
-#~ msgstr "mh"
-
-#~ msgid "pop3"
-#~ msgstr "pop3"
-
-#~ msgid "<span color=\"darkgreen\"><b>Running</b></span>"
-#~ msgstr "<span color=\"darkgreen\"><b>Actief</b></span>"
-
-#~ msgid "<span color=\"red\"><b>Stopped</b></span>"
-#~ msgstr "<span color=\"red\"><b>Gestopt</b></span>"
+#~ msgid "_Network"
+#~ msgstr "_Netwerk"
