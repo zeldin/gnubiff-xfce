@@ -463,8 +463,7 @@ Imap4::fetch_header (void)
 			// Remove last line (should contain a closing parenthesis). Note:
 			// We need the (hopefully empty;-) line before because it separates
 			// header and mail text
-			if (mail.size() > 0)
-				mail.pop_back();
+			mail.pop_back();
 
 
 			// FETCH BODYSTRUCTURE
