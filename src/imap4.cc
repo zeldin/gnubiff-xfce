@@ -699,7 +699,8 @@ Imap4::command_fetchuid (std::set<guint> msn) throw (imap_err)
 	sendline ("FETCH " + ss.str () + " (UID)");
 
 	// Get all untagged responses that are of interest
-	while (waitfor_ack_untaggedresponse ("FETCH" , "(UID ", msn.size())) {
+	guint cnt = msn.size()+1; // prevent DoS
+	while ((waitfor_ack_untaggedresponse ("FETCH" , "(UID ")) && (cnt--)) {
 		// Get uid
 		std::string line=last_untagged_response_cont_.substr (5);
 		guint pos=line.find(")");
@@ -709,6 +710,7 @@ Imap4::command_fetchuid (std::set<guint> msn) throw (imap_err)
 		uid.insert (line.substr (0, pos));
 		msn_uid_[last_untagged_response_msn_] = line.substr (0, pos);
 	}
+	if (cnt <= 0) throw imap_dos_err();
 	if (msn.size() != uid.size()) throw imap_command_err();
 
 	return uid;

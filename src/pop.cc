@@ -203,7 +203,7 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 
 	// UIDL
 	if (num == total)
-		msg_uid = command_uidl_all (total);
+		command_uidl (total, msg_uid);
 
 	// Fetch mails
 	std::vector<std::string> mail;
@@ -387,19 +387,21 @@ Pop::command_top (std::vector<std::string> &mail, guint msg) throw (pop_err)
  * Sending the POP3 command "UIDL" to get the unique id for all mails.
  *
  * @param  total       Total number of messages
- * @return             Map of pairs (message number, unique id).
+ * @param  msg_uid     Reference to a map of pairs (message number, unique id)
+ *                     that is used to return the obtained values.
  * @exception pop_command_err
  *                     This exception is thrown if there is an error in the
  *                     server's response.
  * @exception pop_socket_err
  *                     This exception is thrown if a network error occurs.
  */
-std::map<guint,std::string> 
-Pop::command_uidl_all (guint total) throw (pop_err)
+void 
+Pop::command_uidl (guint total, std::map<guint,std::string> &msg_uid)
+				   throw (pop_err)
 {
-	std::map<guint,std::string> msg_uid;
 	std::string line, uid;
 	guint msg_int;
+	msg_uid.clear ();
 
 	// Send command
 	sendline ("UIDL");
@@ -415,8 +417,6 @@ Pop::command_uidl_all (guint total) throw (pop_err)
 	}
 	readline (line, true, true, false); // line is ".\r"
 	if (line != ".\r") throw pop_command_err ();
-
-	return msg_uid;
 }
 
 /**
