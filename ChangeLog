@@ -13,6 +13,7 @@ Version 2.0.2
  * Bug fix when panel is vertically oriented
  * Bug fix in applet or biff font to be always bold
  * Bug fix when asking for password or certificate
+ * Bug fix in apop.cc (debug message)
  * Mail count added in gtk applet window title
 
 
