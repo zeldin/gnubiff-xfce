@@ -250,45 +250,7 @@ Imap4::connect (void)
 	command_login();
 
 	// SELECT
-	gboolean check = false;
-	gchar *folder_imaputf7=utf8_to_imaputf7(folder_.c_str(),-1);
-	if (folder_imaputf7)
-	{
-		line=std::string("SELECT \"") + folder_imaputf7 + "\"";
-		g_free(folder_imaputf7);
-		if (!send(line)) return 0;
-
-		// We need to set a limit to lines read (DoS Attacks).
-		// According to RFC 3501 6.3.1 there must be exactly seven lines
-		// before the "Axxx OK ..." line.
-		gint cnt=8+preventDoS_additionalLines_;
-		while ((socket_->read (line)) && (cnt--)) {
-			if (line.find (tag()+"OK") == 0) {
-				check = true;
-				break;
-			}
-			else if (line.find (tag()) == 0) {
-				if (send("LOGOUT"))
-					socket_->close ();
-				break;
-			}
-		}
-	}
-	else {
-		if (send("LOGOUT"))
-			socket_->close ();
-	}
-
-	if (!socket_->status() || !check || !folder_imaputf7) {
-		socket_->status (SOCKET_STATUS_ERROR);
-		status_ = MAILBOX_ERROR;
-		g_warning (_("[%d] Unable to select folder %s on host %s"),
-				   uin_, folder_.c_str(), address_.c_str());
-		return 0;
-	}
-
-	if (check)
-		socket_->status(SOCKET_STATUS_OK);
+	command_select();
 
 	return 1;
 }
@@ -335,12 +297,12 @@ Imap4::fetch_mails (void)
 	
 	// Set mailbox status
 	if (buffer.empty())
-		status_ = MAILBOX_EMPTY;	
+		status_ = MAILBOX_EMPTY;
 	else if (contains_new<header>(new_unread_, unread_))
 		status_ = MAILBOX_NEW;
 	else
 		status_ = MAILBOX_OLD;
-	
+
 	unread_ = new_unread_;
 	seen_ = new_seen_;
 }
@@ -772,6 +734,42 @@ Imap4::command_login (void) throw (imap_err)
 
 	// Getting the acknowledgment
 	command_waitforack();
+}
+
+/**
+ * Sending the IMAP command "SELECT" to the server. The user chosen folder on
+ * the server is selected.
+ *
+ * @exception imap_command_err
+ *                     If we get an unexpected server's response
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     If a network error occurs
+ */
+void 
+Imap4::command_select (void) throw (imap_err)
+{
+	gboolean sendok=false;
+	gchar *folder_imaputf7=utf8_to_imaputf7(folder_.c_str(),-1);
+
+	// Send command
+	if (folder_imaputf7)
+	{
+		sendok=send(std::string("SELECT \"") + folder_imaputf7 + "\"");
+		g_free(folder_imaputf7);
+	}
+
+	// Error handling
+	if ((!sendok) || (!folder_imaputf7))
+		g_warning (_("[%d] Unable to select folder %s on host %s"),
+				   uin_, folder_.c_str(), address_.c_str());
+	if (!folder_imaputf7) throw imap_command_err();
+	if (!sendok) throw imap_socket_err();
+
+	// According to RFC 3501 6.3.1 there must be exactly seven lines
+	// before getting the acknowledgment line.
+	command_waitforack(7);
 }
 
 /**

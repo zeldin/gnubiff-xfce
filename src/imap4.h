@@ -84,11 +84,13 @@ class Imap4 : public Mailbox {
 								  gboolean toplevel=true);
 	gboolean parse_bodystructure_parameters (std::string, class PartInfo &);
 	void command_capability (void) throw (imap_err);
-	void command_fetchbody (guint, class PartInfo &, std::vector<std::string> &) throw (imap_err);
+	void command_fetchbody (guint, class PartInfo &,
+							std::vector<std::string> &) throw (imap_err);
 	PartInfo command_fetchbodystructure (guint) throw (imap_err);
 	std::vector<std::string> command_fetchheader (guint) throw (imap_err);
 	void command_login (void) throw (imap_err);
 	std::vector<int> command_searchnotseen (void) throw (imap_err);
+	void command_select (void) throw (imap_err);
 	void command_waitforack (gint num=0) throw (imap_err);
 	void reset_tag();
 	std::string tag();
@@ -109,7 +111,7 @@ class PartInfo
  public:
 	/** Part identifier as needed for the IMAP command FETCH (see
 	 *  RFC 3501 6:4:5). This is the part of the mail that will be displayed
-	 * by gnubiff (if possible). */
+	 *  by gnubiff (if possible). */
 	std::string part_;
 	/// MIME type of this part. Currently only "text/plain" is supported.
 	std::string mimetype_;
