@@ -310,10 +310,12 @@ const gint bodyLinesToBeRead_=12;
  * In some situations we need to read a certain number of lines from the
  * network to get the line we want. Unfortunately this number may vary in
  * reality because of the following reasons:
- *  * There is no limit for the response
- *  * There exist different extensions to the protocols
- *  * Not all servers implement protocols correctly
- *  * There is a DoS attack
+ * \begin{itemize}
+ *    \item There is no limit for the response
+ *    \item There exist different extensions to the protocols
+ *    \item Not all servers implement protocols correctly
+ *    \item There is a DoS attack
+ * \end{itemize}
  * To prevent being DoS attacked we need to set a limit of additional lines
  * that are being read. This is done by the following constant.
  */
@@ -327,9 +329,11 @@ const gint preventDoS_headerLines_=2048;
 
 /**
  * To prevent being DoS attacked (see above): Limit for length of a read line.
- * SMTP: maximum line length is 1001 (see RFC 2821 4.5.3.1)
- * IMAP: no maximum line length
- * POP3: maximum response line length is 512 (see RFC 1939 3.)
+ * \begin{itemize}
+ *    \item SMTP: maximum line length is 1001 (see RFC 2821 4.5.3.1)
+ *    \item IMAP: no maximum line length
+ *    \item POP3: maximum response line length is 512 (see RFC 1939 3.)
+ * \end{itemize}
  */
 const gint preventDoS_lineLength_=16384;
 
