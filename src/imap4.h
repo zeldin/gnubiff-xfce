@@ -73,6 +73,11 @@ class Imap4 : public Mailbox {
 	/** Message sequence number of the last untagged response. This value is
 	 *  0 if there was no message sequence number. */
 	guint						last_untagged_response_msn_;
+	/** If this variable is true untagged EXPUNGE server responses are ignored
+	 *  while checking the server response line. This can be done if no
+	 *  message sequence numbers (which could become invalid) have been
+	 *  retrieved yet. */
+	gboolean                    ignore_expunge_;
  public:
 	// ========================================================================
 	//  base
@@ -126,6 +131,10 @@ class Imap4 : public Mailbox {
 	 *     \item The user doesn't provide a password
 	 *  \end{itemize} */
 	class imap_nologin_err : public imap_err {};
+	/** This exception is thrown when a untagged EXPUNGE response is detected
+	 *  while checking the response line of the server. Note that checking
+	 *  for this response is disabled while Imap4::ignore_expunge_ is true. */
+	class imap_expunge_err : public imap_err {};
 
 	// ========================================================================
 	//  main
@@ -177,6 +186,8 @@ class Imap4 : public Mailbox {
 							 throw (imap_err);
 	void save_untagged_response (std::string &) throw (imap_err);
 	gboolean test_untagged_response (guint, std::string,
+									 std::string contbegin = std::string (""));
+	gboolean test_untagged_response (std::string,
 									 std::string contbegin = std::string (""));
 	void update_applet();
 	void idle() throw (imap_err);

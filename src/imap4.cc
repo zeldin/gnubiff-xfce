@@ -281,6 +281,9 @@ Imap4::connect (void) throw (imap_err)
 	std::string line;
 	readline (line);
 
+	// We have no message sequence numbers that could become invalid yet
+	ignore_expunge_ = true;
+
 	// CAPABILITY
 	command_capability(true);
 
@@ -1376,10 +1379,30 @@ Imap4::save_untagged_response (std::string &line) throw (imap_err)
  */
 gboolean 
 Imap4::test_untagged_response (guint msn, std::string key,
-								std::string contbegin)
+							   std::string contbegin)
 {
 	return (last_untagged_response_
 			&& (msn == last_untagged_response_msn_)
+			&& (key == last_untagged_response_key_)
+			&& (last_untagged_response_cont_.find (contbegin) == 0));
+}
+
+/**
+ * Test if the last line sent by the server was the specified untagged
+ * response for any message sequence number. The value of this message
+ * sequence number is saved in Imap4::last_untagged_response_msn_.
+ *
+ * @param key       Key to be tested
+ * @param contbegin This is tested for being the prefix of the contents part of
+ *                  the response. The default is the empty string.
+ * return           True if the last line sent by the server was a untagged
+ *                  response with the given attributes.
+ */
+gboolean 
+Imap4::test_untagged_response (std::string key,	std::string contbegin)
+{
+	return (last_untagged_response_
+			&& (0 != last_untagged_response_msn_)
 			&& (key == last_untagged_response_key_)
 			&& (last_untagged_response_cont_.find (contbegin) == 0));
 }
@@ -1534,7 +1557,9 @@ Imap4::readline (std::string &line, gboolean print, gboolean check,
 	else if (test_untagged_response (0, "NO")) { // see RFC 3501 7.1.2
 		g_warning (_("[%d] Warning from server:%s"), uin_,
 				   line.substr(4,line.size()-4).c_str());
-	}
+	} // see RFC 3501 7.4.1
+	else if ((!ignore_expunge_) && (test_untagged_response ("EXPUNGE")))
+		throw imap_expunge_err();
 	return status;
 }
 
