@@ -255,7 +255,7 @@ Mailbox::option_changed (Option *option)
 
 	// SEEN
 	if (option->name() == "seen") {
-		((Option_String *)option)->get_values (hidden_);
+		get_values ("seen", hidden_, true, false);
 		return;
 	}
 
@@ -285,7 +285,7 @@ Mailbox::option_update (Option *option)
 
 	// SEEN
 	if (option->name() == "seen") {
-		((Option_String *)option)->set_values (hidden_);
+		set_values ("seen", hidden_, true, false);
 		return;
 	}
 }
