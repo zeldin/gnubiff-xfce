@@ -107,7 +107,7 @@ Local::start (void)
 			return ;
 		}
 
-		if (fam_event_.code == FAMChanged) {
+		if (fam_event_.code & FAMChanged) {
 			start_checking ();
 			gdk_threads_enter();
 			biff_->applet()->update();
