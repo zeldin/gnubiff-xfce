@@ -99,32 +99,19 @@ Applet::unread_markup (std::string &text)
 	text += biff_->applet_font_;
 	text += "\">";
 
-	std::string ctext;
+	std::vector<std::string> vec(1);
 	if (unread == 0) {
-		ctext = biff_->nomail_text_;
-		guint i;
-		while ((i = ctext.find ("%d")) != std::string::npos) {
-			ctext.erase (i, 2);
-			ctext.insert(i, unreads.str());
-		}
+		vec[0]=std::string(unreads.str());
+		text+=gb_substitute(biff_->nomail_text_,"d",vec);
 	}
 	else if (unread < biff_->max_mail_) {
-		ctext = biff_->newmail_text_;
-		guint i;
-		while ((i = ctext.find ("%d")) != std::string::npos) {
-			ctext.erase (i, 2);
-			ctext.insert(i, unreads.str());
-		}
+		vec[0]=std::string(unreads.str());
+		text+=gb_substitute(biff_->newmail_text_,"d",vec);
 	}
 	else {
-		ctext = biff_->newmail_text_;
-		guint i;
-		while ((i = ctext.find ("%d")) != std::string::npos) {
-			ctext.erase (i, 2);
-			ctext.insert(i, std::string(smax.str().size(), '+'));
-		}
+		vec[0]=std::string(std::string(smax.str().size(), '+'));
+		text+=gb_substitute(biff_->newmail_text_,"d",vec);
 	}
-	text += ctext;
 	text += "</span>";
 	
 	return unread;
