@@ -37,7 +37,7 @@ Version 2.1.1
    - Bugfix: Corrected tests for responses to IDLE, SEARCH NOT SEEN and
         FETCH header commands (IMAP4)
    - Cleanup of SEARCH NOT SEEN, CAPABILITY, FETCH header, FETCH bodystructure
-        commands (IMAP4)
+        and FETCH BODY commands (IMAP4)
    - Bugfix: Segfaulting in SSL when writing to a closed socket
    - Cleanup of code for obtaining the password for distant mailboxes
    - Cleanup of code for checking for new mails (IMAP4)

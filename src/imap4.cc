@@ -103,13 +103,11 @@ Imap4::start (void)
 	if (!g_mutex_trylock (monitor_mutex_))
 		return;
 
-	try
-	{
+	try	{
 		fetch ();
 		send ("LOGOUT");
 	}
-	catch (imap_err& err)
-	{
+	catch (imap_err& err) {
 		// Catch all errors that are un-recoverable and result in
 		// closing the connection, and resetting the mailbox status.
 #if DEBUG
@@ -130,18 +128,35 @@ Imap4::start (void)
 	threaded_start (delay_);
 }
 
+/**
+ * Connect the mailbox, get unread mails and update mailbox status.
+ * If the password for the mailbox isn't already known, it is obtained (if
+ * possible). If the mailbox supports the "IDLE" command this function starts
+ * idling once the mailbox status is known.
+ *
+ * @exception imap_command_err
+ *                     If we get an unexpected server's response
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ * @exception imap_nologin_err
+ *                     The server doesn't want us to login or the user doesn't
+ *                     provide a password.
+ * @exception imap_socket_err
+ *                     If a network error occurs
+ */
 void 
 Imap4::fetch (void)
 {
 	// Is there a password? Can we obtain it?
-	if (!biff_->password(this)) throw imap_socket_err();
+	if (!biff_->password(this)) throw imap_nologin_err();
 
 	// Connection and authentification
 	if (!connect ()) throw imap_socket_err();
 
-	// Set the mailbox status and get headers (if there is new mail)
-	fetch_header();
-	
+	// Set the mailbox status and get mails (if there is new mail)
+	fetch_mails();
+
+	// Start idling (if possible)
 	if (idleable_) {
 		idled_ = true;
 		idle();
@@ -294,18 +309,27 @@ Imap4::connect (void)
 	return 1;
 }
 
+/**
+ * Get the first lines of the unread mails and update the status of the
+ * mailbox.
+ *
+ * @exception imap_command_err
+ *                     If we get an unexpected server's response
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     If a network error occurs
+ */
 void 
-Imap4::fetch_header (void)
+Imap4::fetch_mails (void)
 {
-	std::string line;
-	
 	// Status will be restored in the end if no problem occured
 	status_ = MAILBOX_CHECK;
 
 	// SEARCH NOT SEEN
 	std::vector<int> buffer=command_searchnotseen();
 	
-	// FETCH NOT SEEN
+	// Get new mails one by one
 	new_unread_.clear();
 	new_seen_.clear();
 	for (guint i=0; (i<buffer.size()) && (new_unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
@@ -316,67 +340,10 @@ Imap4::fetch_header (void)
 		// FETCH BODYSTRUCTURE
 		PartInfo partinfo=command_fetchbodystructure(buffer[i]);
 
-		std::stringstream s;
-		s << buffer[i];
+		// FETCH BODY
+		command_fetchbody (buffer[i], partinfo, mail);
 
-		// FETCH BODY.PEEK
-		gint textsize=partinfo.size;
-		// Is there any plain text?
-		if (partinfo.part=="")
-			mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
-		else if (textsize == 0)
-			mail.push_back(std::string(""));
-		else {
-			if (partinfo.charset!="")
-				mail.insert (mail.begin(), std::string("charset=") + partinfo.charset + std::string(";"));
-			
-			// Note: We are only interested in the first lines, there
-			// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
-			// so it is sufficient to get at most 1000*bodyLinesToBeRead_
-			// bytes.
-			if (textsize>1000*bodyLinesToBeRead_)
-				textsize=1000*bodyLinesToBeRead_;
-			std::stringstream textsizestr;
-			textsizestr << textsize;
-			line = "FETCH "+s.str()+" (BODY.PEEK["+partinfo.part+"]<0.";
-			line+= textsizestr.str() + ">)";
-			if (!send(line)) throw imap_socket_err();
-			
-			// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
-			gint cnt=1+preventDoS_additionalLines_;
-			while (((socket_->read(line) > 0)) && (cnt--))
-				if (line.find ("* "+s.str()+" FETCH") == 0)
-					break;
-			if ((!socket_->status()) || (cnt<0)) throw imap_dos_err();
-			
-#ifdef DEBUG
-			g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, address_.c_str(), port_);
-#endif
-			// Read text
-			gint lineno=0,bytes=textsize+3; // ")\r\n" at end of mail
-			while ((bytes>0) && ((socket_->read(line, false) > 0))) {
-				bytes-=line.size()+1; // don't forget to count '\n'!
-				if ((line.size() > 0) && (lineno++<bodyLinesToBeRead_)) {
-					mail.push_back (line.substr(0, line.size()-1));
-#ifdef DEBUG
-					g_print ("+");
-#endif
-				}
-			}
-			if ((!socket_->status()) || (bytes<0)) throw imap_socket_err();
-			// Remove ")\r" from last line ('\n' was removed before)
-			mail.pop_back();
-			if (line.size()>1)
-				mail.push_back (line.substr(0, line.size()-2));
-			// Read end of command
-			if (!(socket_->read(line, false))) throw imap_socket_err();
-			if (line.find (tag()+"OK") != 0) throw imap_command_err();
-		}
-#ifdef DEBUG
-		g_print ("\n");
-#endif
-		if (!socket_->status()) throw imap_socket_err();
-		
+		// Decode and parse mail
 		if (partinfo.part!="")
 			decode_body (mail, partinfo.encoding);
 		parse (mail, MAIL_UNREAD);
@@ -410,9 +377,12 @@ Imap4::close (void)
  * either we receive IMAP notifications (new mail...), or the server
  * terminates for some reason.
  *
- * @exception      imap_err if a problem occurs while processing
- *                 the idle loop.  Most likely this will be a
- *                 imap_socket_err if we loose connection to the server.
+ * @exception imap_command_err
+ *                     If we get an unexpected server's response
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     If a network error occurs
  */
 void 
 Imap4::idle (void) throw (imap_err)
@@ -448,7 +418,7 @@ Imap4::idle (void) throw (imap_err)
 		if (!cnt)
 			throw imap_dos_err();
 
-		fetch_header();
+		fetch_mails();
 	}
 }
 
@@ -558,6 +528,102 @@ Imap4::command_capability (void) throw (imap_err)
 		send ("LOGOUT");
 		throw imap_nologin_err();
 	}
+}
+
+/**
+ * Obtain the first lines of the body of the mail with sequence number
+ * {\em msn}.
+ *
+ * @param     msn      Unsigned integer for the message sequence number of the
+ *                     mail
+ * @param     partinfo Partinfo structure with information of the relevant
+ *                     part of the mail as returned by
+ *                     Imap4::command_fetchbodystructure().
+ * @param     mail     C++ vector of C++ strings containing the header lines of
+ *                     the mail (inclusive the separating empty line).
+ * @exception imap_command_err
+ *                     If we get an unexpected server's response
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     If a network error occurs
+ */
+void 
+Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
+						  std::vector<std::string> &mail) throw (imap_err)
+{
+	std::string line;
+
+	// Message sequence number
+	std::stringstream ss;
+	ss << msn;
+
+	// Do we have to get any plain text?
+	if (partinfo.part=="") {
+		mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
+		return;
+	}
+	else if (partinfo.size == 0) {
+		mail.push_back(std::string(""));
+		return;
+	}
+
+	// Insert character set into header
+	if (partinfo.charset!="")
+		mail.insert (mail.begin(), std::string("charset=") + partinfo.charset + std::string(";"));
+
+	// Note: We are only interested in the first lines, there
+	// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
+	// so it is sufficient to get at most 1000*bodyLinesToBeRead_
+	// bytes.
+	gint textsize=partinfo.size;
+	if (textsize>1000*bodyLinesToBeRead_)
+		textsize=1000*bodyLinesToBeRead_;
+	std::stringstream textsizestr;
+	textsizestr << textsize;
+
+	// Send command
+	line = "FETCH " + ss.str() + " (BODY.PEEK[" + partinfo.part + "]<0.";
+	line+= textsizestr.str() + ">)";
+	if (!send(line)) throw imap_socket_err();
+			
+	// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
+	gint cnt=1+preventDoS_additionalLines_;
+	while (((socket_->read(line) > 0)) && (cnt--))
+		if (line.find ("* " + ss.str() + " FETCH") == 0)
+			break;
+	if (!socket_->status()) throw imap_socket_err();
+	if (cnt<0) throw imap_dos_err();
+			
+#ifdef DEBUG
+	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
+			 address_.c_str(), port_);
+#endif
+	// Read text
+	gint lineno=0, bytes=textsize+3; // ")\r\n" at end of mail
+	while ((bytes>0) && ((socket_->read(line, false) > 0))) {
+		bytes-=line.size()+1; // don't forget to count '\n'!
+		if ((line.size() > 0) && (lineno++<bodyLinesToBeRead_)) {
+			mail.push_back (line.substr(0, line.size()-1));
+#ifdef DEBUG
+			g_print ("+");
+#endif
+		}
+	}
+#ifdef DEBUG
+		g_print ("\n");
+#endif
+	if (!socket_->status()) throw imap_socket_err();
+	if (bytes<0) throw imap_dos_err();
+	// Remove ")\r" from last line ('\n' was removed before)
+	mail.pop_back();
+	if ((line.size()>1) && (line[line.size()-2]==')'))
+		mail.push_back (line.substr(0, line.size()-2));
+	else
+		throw imap_command_err();
+
+	// Getting the acknowledgment
+	command_waitforack();
 }
 
 /**

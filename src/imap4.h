@@ -62,7 +62,7 @@ public:
 	void start (void);
 	void fetch (void);
 	gint connect (void);
-	void fetch_header (void);
+	void fetch_mails (void);
 
 	class imap_err : public std::exception {};	 // General Imap Exception
 	class imap_socket_err : public imap_err {};	 // Socket connection Failure
@@ -71,7 +71,7 @@ public:
 												 // or not expected, or not
 	                                             // responded by OK.
 	class imap_dos_err : public imap_err {};	 // We've been attacked DoS style!
-	class imap_nologin_err : public imap_err {}; // The server doesn't want us to login
+	class imap_nologin_err : public imap_err {}; // The server or user doesn't want us to login
 	
  private:
 	// ========================================================================
@@ -81,6 +81,7 @@ public:
 								  gboolean toplevel=true);
 	gboolean parse_bodystructure_parameters (std::string, class PartInfo &);
 	void command_capability (void) throw (imap_err);
+	void command_fetchbody (guint, class PartInfo &, std::vector<std::string> &) throw (imap_err);
 	PartInfo command_fetchbodystructure (guint) throw (imap_err);
 	std::vector<std::string> command_fetchheader (guint) throw (imap_err);
 	std::vector<int> command_searchnotseen (void) throw (imap_err);
