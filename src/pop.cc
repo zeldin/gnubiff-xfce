@@ -320,8 +320,7 @@ Pop::sendline (std::string line, gboolean print, gboolean check)
  *                  SOCKET_STATUS_OK if {\em check} is true.
  * @exception pop_command_err
  *                  This exception is thrown if {\em line} contains a negative
- *                  untagged response and {\em check} and {\em checkline} are
- *                  true.
+ *                  response and {\em checkline} is true.
  * @exception pop_socket_err
  *                  This exception is thrown if a network error occurs.
  */
