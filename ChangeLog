@@ -12,6 +12,9 @@ Version 2.1.3
    - Cleanup: Using glib functions for directory access (maildir)
    - Bugfix: Obtaining version of gnubiff config file
    - Bugfix: Don't parse already read messages (maildir)
+   - Bugfix: Respect "use_max_mail" option (maildir)
+   - Bugfix: Reading message body (file)
+   - Bugfix: Don't read whole body (maildir)
 
 Version 2.1.2		2005-03-26 17:28
  * Robert Sowada

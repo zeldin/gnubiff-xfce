@@ -591,13 +591,13 @@ Gnubiff_Options::add_options_security (void)
 	// USE_MAX_MAIL
 	const static gchar *s1[] = {"max_mail_spin", NULL};
 	add_option (new Option_Bool ("use_max_mail", OPTGRP_SECURITY,
-		"Shall there be any restriction to the number of mails that are "
+		"Shall there be any restriction to the number of messages that are "
 		"collected?",
 								 true, OPTFLG_NONE, OPTGUI_TOGGLE,
 								 "max_mail_check", s1));
 	// MAX_MAIL
 	add_option (new Option_UInt ("max_mail", OPTGRP_SECURITY,
-		"The maximum number of mails that will be collected per update and "
+		"The maximum number of messages that will be collected per update and "
 		"mailbox.",
 								 100, OPTFLG_NONE, OPTGUI_SPIN,
 								 "max_mail_spin"));

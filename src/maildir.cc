@@ -93,12 +93,18 @@ Maildir::fetch (void)
 		return;
 	}
 
+	// Get maximum number of mails to catch
+	guint maxnum = INT_MAX;
+	if (biff_->value_bool ("use_max_mail"))
+		maxnum = biff_->value_uint ("max_mail");
+
 	std::vector<std::string> mail;
 	std::string line;
+	guint max_cnt = 1 + biff_->value_uint ("min_body_lines");
+
 	const gchar *d_name;
 	// Read new mails
-	while ((d_name = g_dir_read_name (gdir))
-		   && (new_unread_.size() < (biff_->value_uint ("max_mail")))) {
+	while ((d_name = g_dir_read_name (gdir)) && (new_unread_.size() < maxnum)){
 		// Filenames that begin with '.' are no messages in maildir protocol
 		if (d_name[0] == '.')
 			continue;
@@ -113,12 +119,21 @@ Maildir::fetch (void)
 		std::string filename(tmp);
 		g_free(tmp);
 
+		// Read message header and first lines of message's body
 		file.open (filename.c_str());
 		if (file.is_open()) {
-			while (!file.eof()) {
-				std::string line;
+			gboolean header = true;
+			guint cnt = max_cnt;
+			while ((!file.eof ()) && (cnt > 0)) {
 				getline(file, line);
-				mail.push_back (line);
+				// End of header?
+				if ((line.size() == 0) && header)
+					header = false;
+				// Store line
+				if (cnt > 0) {
+					cnt--;
+					mail.push_back (line);
+				}
 			}
 			parse (mail, uid);
 			mail.clear();
