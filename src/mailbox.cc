@@ -219,6 +219,39 @@ Mailbox::option_changed (Option *option)
 		return;
 	}
 
+	// OTHER_PORT, USE_OTHER_PORT, PROTOCOL, AUTHENTICATION
+	if ((option->name() == "other_port") || (option->name() == "protocol")
+		|| (option->name() == "use_other_port")
+		|| (option->name() == "authentication")) {
+		guint newport = 0;
+
+		// Standard ports
+		if (!value_bool ("use_other_port")) {
+			// Note: If authentication is autodetection port will be set when
+			// updating. This should be done before.
+			switch (value_uint ("protocol")) {
+			case PROTOCOL_IMAP4:
+				newport = (authentication() == AUTH_USER_PASS) ? 143 : 993;
+				break;
+			case PROTOCOL_POP3:
+				newport = (authentication() == AUTH_USER_PASS) ? 110 : 995;
+				break;
+			case PROTOCOL_APOP:
+				newport = 110;
+				break;
+			default:
+				break;
+			}
+		}
+		// User given port
+		else
+			newport = value_uint ("other_port") % 65536;
+
+		// Set port
+		value ("port", newport);
+		return;
+	}
+
 	// SEEN
 	if (option->name() == "seen") {
 		((Option_String *)option)->get_values (hidden_);

@@ -282,7 +282,8 @@ Gnubiff_Options::add_options_mailbox (void)
 	add_option (new Option_UInt ("authentication", OPTGRP_MAILBOX,
 		"Authentication to be used when connecting to the server via the "
 		"internet.",
-								 AUTH_AUTODETECT, OPTFLG_ID_INT_STRICT,i4,s4));
+								 AUTH_AUTODETECT,
+								 OPTFLG_CHANGE | OPTFLG_ID_INT_STRICT, i4,s4));
 	// CERTIFICATE
 	add_option (new Option_String ("certificate", OPTGRP_MAILBOX,
 		"Certificate to be used when using SSL.",
@@ -344,13 +345,13 @@ Gnubiff_Options::add_options_mailbox (void)
 	add_option (new Option_Bool ("use_other_port", OPTGRP_MAILBOX,
 		"Shall not the standard port be used when connection to the server "
 		"via the internet?",
-								 false, OPTFLG_NONE, OPTGUI_RADIO,
+								 false, OPTFLG_CHANGE, OPTGUI_RADIO,
 								 "standard_port_radio other_port_radio", s2));
 	// OTHER_PORT
 	add_option (new Option_UInt ("other_port", OPTGRP_MAILBOX,
 		"Port to be used when connecting to the server via the internet on "
 		"a non standard port.",
-								   995, OPTFLG_NONE, OPTGUI_SPIN,
+								   995, OPTFLG_CHANGE, OPTGUI_SPIN,
 								   "port_spin"));
 	// PORT
 	add_option (new Option_UInt ("port", OPTGRP_MAILBOX,
@@ -360,7 +361,8 @@ Gnubiff_Options::add_options_mailbox (void)
 	add_option (new Option_UInt ("protocol", OPTGRP_MAILBOX,
 		"Protocol to be used by the mailbox.",
 								 PROTOCOL_NONE, OPTFLG_ID_INT_STRICT 
-								 | OPTFLG_FIXED, protocol_int,protocol_gchar));
+								 | OPTFLG_FIXED | OPTFLG_CHANGE, protocol_int,
+								 protocol_gchar));
 	// SEEN
 	add_option (new Option_String ("seen", OPTGRP_MAILBOX,
 		"Space separated list of mail identifiers of mails that have been "

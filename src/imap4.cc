@@ -222,13 +222,6 @@ Imap4::connect (void) throw (imap_err)
 	// Resetting the tag counter
 	reset_tag();
 
-	// Check standard port
-	if (!use_other_port())
-		if (authentication() == AUTH_USER_PASS)
-			port (143);
-		else
-			port (993);
-
 #ifdef DEBUG
 	g_message ("[%d] Trying to connect to %s on port %d", uin(),
 			   address().c_str(), port());

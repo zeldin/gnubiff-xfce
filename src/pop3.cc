@@ -89,13 +89,6 @@ Pop3::connect (void) throw (pop_err)
 {
 	std::string line;
 
-	// Check standard port
-	if (!use_other_port())
-		if (authentication() == AUTH_USER_PASS)
-			port (110);
-		else
-			port (995);
-
 	// Open the socket
 	Pop::connect ();
 
