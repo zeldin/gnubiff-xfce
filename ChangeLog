@@ -26,6 +26,8 @@ Version 2.0.3
      (if SSL is used, this was fixed for non-SSL connections in 2.0.2)
    - Bugfix: Handling network writing/reading errors
    - Bugfix/Feature: Support for international Mailbox names for IMAP
+   - Security Bugfix: DoS attacks by sending a unterminated response to the
+     SELECT command anticipated
 
 Version 2.0.2
  * Some cosmetic fixes
