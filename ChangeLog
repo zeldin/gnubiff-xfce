@@ -18,6 +18,8 @@ Version 2.1.1
    - Translating copyright message in credits dialog simplified (po files are
      now independent of cuurent version)
    - Added decoding.cc to POTFILES.in
+   - Bugfix: Setting mailbox status to old after new mail is displayed (thanks
+     to Byron Foster for providing a patch)
 
 Version 2.1.0
  * Nicolas Rougier
