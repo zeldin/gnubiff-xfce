@@ -205,6 +205,7 @@ Preferences::create (void)
 		gtk_widget_set_sensitive (get("applet_decoration_check"), false);
 		gtk_widget_set_sensitive (get("applet_sticky_check"), false);
 		gtk_widget_set_sensitive (get("applet_keepabove_check"), false);
+		gtk_widget_set_sensitive (get("applet_pager_check"), false);
 	}
 
 
@@ -332,6 +333,7 @@ Preferences::synchronize (void)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("applet_decoration_check")),	biff_->applet_use_decoration_);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("applet_sticky_check")),	biff_->applet_be_sticky_);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("applet_keepabove_check")),	biff_->applet_keep_above_);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("applet_pager_check")),	biff_->applet_pager_);
 	gtk_entry_set_text (GTK_ENTRY (get("applet_geometry_entry")),						biff_->applet_geometry_.c_str());
 	gtk_font_button_set_font_name (GTK_FONT_BUTTON(get("applet_font_button")),			biff_->applet_font_.c_str());
 
@@ -354,6 +356,7 @@ Preferences::synchronize (void)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("popup_decoration_check")),		biff_->popup_use_decoration_);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("popup_sticky_check")),	biff_->popup_be_sticky_);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("popup_keepabove_check")),	biff_->popup_keep_above_);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(get("popup_pager_check")),	biff_->popup_pager_);
 	gtk_entry_set_text (GTK_ENTRY (get("popup_geometry_entry")),						biff_->popup_geometry_.c_str());
 	gtk_font_button_set_font_name (GTK_FONT_BUTTON(get("popup_font_button")),			biff_->popup_font_.c_str());
 
@@ -389,6 +392,7 @@ Preferences::apply (void)
 	biff_->applet_use_decoration_ =	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("applet_decoration_check")));
 	biff_->applet_be_sticky_ =	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("applet_sticky_check")));
 	biff_->applet_keep_above_ =	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("applet_keepabove_check")));
+	biff_->applet_pager_ =	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("applet_pager_check")));
 	biff_->applet_geometry_       =	gtk_entry_get_text (GTK_ENTRY (get("applet_geometry_entry")));
 	biff_->applet_font_           = gtk_font_button_get_font_name (GTK_FONT_BUTTON(get("applet_font_button")));
 
@@ -410,6 +414,7 @@ Preferences::apply (void)
 	biff_->popup_use_decoration_  = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_decoration_check")));
 	biff_->popup_be_sticky_ =	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_sticky_check")));
 	biff_->popup_keep_above_ =	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_keepabove_check")));
+	biff_->popup_pager_ =	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(get("popup_pager_check")));
 	biff_->popup_geometry_        = gtk_entry_get_text (GTK_ENTRY (get("popup_geometry_entry")));
 	biff_->popup_font_            = gtk_font_button_get_font_name (GTK_FONT_BUTTON(get("popup_font_button")));
 

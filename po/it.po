@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-06 01:12+0100\n"
+"POT-Creation-Date: 2005-01-15 14:21+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -46,22 +46,22 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:122
+#: src/biff.cc:124
 #, fuzzy
 msgid "no mail"
 msgstr "Niente posta"
 
-#: src/biff.cc:160
+#: src/biff.cc:163
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "File di configurazione (%s) non trovato !"
 
-#: src/biff.cc:545
+#: src/biff.cc:550
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Non riesco ad aprire il tuo file di configurazione (%s)"
 
-#: src/biff.cc:570
+#: src/biff.cc:575
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -73,118 +73,123 @@ msgstr ""
 msgid "mailbox %d"
 msgstr "casella di posta %d"
 
-#: src/mailbox.cc:186
+#: src/mailbox.cc:180
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossibile creare il thread: %s\n"
 
-#: src/mailbox.cc:489
+#: src/mailbox.cc:483
 msgid "<no sender>"
 msgstr "<nessun mittente>"
 
-#: src/mailbox.cc:499
+#: src/mailbox.cc:493
 msgid "<no subject>"
 msgstr "<nessun oggetto>"
 
-#: src/mailbox.cc:509
+#: src/mailbox.cc:503
 msgid "<no date>"
 msgstr "<nessuna data>"
 
-#: src/socket.cc:121 src/socket.cc:150 src/socket.cc:178 src/socket.cc:186
-#: src/socket.cc:194 src/socket.cc:206 src/socket.cc:230 src/socket.cc:238
+#: src/socket.cc:122 src/socket.cc:151 src/socket.cc:179 src/socket.cc:187
+#: src/socket.cc:195 src/socket.cc:207 src/socket.cc:231 src/socket.cc:239
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Impossibile connettersi a %s alla porta %d"
 
-#: src/socket.cc:216
+#: src/socket.cc:217
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Impossibile caricare il certificato (%s) for %s"
 
-#: src/socket.cc:251
+#: src/socket.cc:252
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Non riesco ad identificare l'host remoto (%s sulla porta %d)"
 
-#: src/socket.cc:324
+#: src/socket.cc:326
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Impossibile scrivere a %s sulla porta %d"
 
-#: src/socket.cc:386
+#: src/socket.cc:388
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Impossibile leggere da %s dalla porta %d"
 
-#: src/socket.cc:408
+#: src/socket.cc:410
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
 
-#: src/imap4.cc:496
+#: src/imap4.cc:465
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
 #. Create error message
-#: src/imap4.cc:864
+#: src/imap4.cc:832
 #, fuzzy, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossibile connettersi a %s alla porta %d"
 
-#: src/imap4.cc:963
+#: src/imap4.cc:919
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossibile prendere il riconoscimento da %s alla porta %d"
 
-#: src/imap4.cc:1017
+#: src/imap4.cc:978
+#, c-format
+msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
+msgstr ""
+
+#: src/imap4.cc:1031
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
 #. see RFC 3501 7.1.5
-#: src/imap4.cc:1451
+#: src/imap4.cc:1597
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.3
-#: src/imap4.cc:1456
+#: src/imap4.cc:1602
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.2
-#: src/imap4.cc:1461
+#: src/imap4.cc:1607
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
 
-#: src/maildir.cc:89
+#: src/maildir.cc:86
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Non riesco a trovare la directory per la nuova posta (%s)"
 
-#: src/maildir.cc:96
+#: src/maildir.cc:93
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Non riesco ad aprire la directory per la nuova posta (%s)"
 
-#: src/maildir.cc:126
+#: src/maildir.cc:121
 #, c-format
 msgid "Cannot open %s."
 msgstr "Non riesco ad aprire %s."
 
-#: src/pop.cc:157
+#: src/pop.cc:158
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Password vuota"
 
-#: src/pop.cc:481
+#: src/pop.cc:508
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr ""
 
-#: src/pop.cc:488
+#: src/pop.cc:515
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr ""
@@ -279,19 +284,19 @@ msgid "Security"
 msgstr ""
 
 #. Selection label
-#: src/ui-preferences.cc:200 src/ui-preferences.cc:567
+#: src/ui-preferences.cc:200 src/ui-preferences.cc:572
 msgid "No mailbox selected"
 msgstr "Nessuna casalle di posta selezionata"
 
-#: src/ui-preferences.cc:501
+#: src/ui-preferences.cc:506
 msgid "_Start"
 msgstr "_Avvia"
 
-#: src/ui-preferences.cc:507 ui/preferences.glade.h:64
+#: src/ui-preferences.cc:512 ui/preferences.glade.h:66
 msgid "_Stop"
 msgstr "_Ferma"
 
-#: src/ui-preferences.cc:518 src/ui-preferences.cc:525
+#: src/ui-preferences.cc:523 src/ui-preferences.cc:530
 msgid "Browse for a new mail image"
 msgstr "Scegli l'immagine per quando c'è nuova posta"
 
@@ -359,12 +364,12 @@ msgstr "Oggetto"
 msgid "Date"
 msgstr "Data"
 
-#: src/ui-popup.cc:588 src/ui-popup.cc:600 src/ui-popup.cc:609
-#: src/ui-popup.cc:616
+#: src/ui-popup.cc:585 src/ui-popup.cc:597 src/ui-popup.cc:606
+#: src/ui-popup.cc:613
 msgid "* error *"
 msgstr "* errore *"
 
-#: src/ui-popup.cc:669
+#: src/ui-popup.cc:666
 msgid "Error"
 msgstr "Errore"
 
@@ -617,109 +622,118 @@ msgid "When _new mail:"
 msgstr "Nuova posta:"
 
 #: ui/preferences.glade.h:45
+#, fuzzy
+msgid "Whether the window shall appear in pagers"
+msgstr "Finestra Biff con dercorazioni del gestore delle finestre o senza"
+
+#: ui/preferences.glade.h:46
 msgid "Whether the window shall be displayed on all desktops"
 msgstr ""
 
-#: ui/preferences.glade.h:46
+#: ui/preferences.glade.h:47
 msgid "Whether the window shall be kept above all other windows"
 msgstr ""
 
-#: ui/preferences.glade.h:47
+#: ui/preferences.glade.h:48
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:48
+#: ui/preferences.glade.h:49
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:49
+#: ui/preferences.glade.h:50
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Visualizza una finestra a comparsa _per"
 
-#: ui/preferences.glade.h:50
+#: ui/preferences.glade.h:51
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade.h:51
+#: ui/preferences.glade.h:52
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Finestra Biff con dercorazioni del gestore delle finestre o senza"
 
-#: ui/preferences.glade.h:52
+#: ui/preferences.glade.h:53
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:53
+#: ui/preferences.glade.h:54
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Usa la geometria"
 
-#: ui/preferences.glade.h:54
+#: ui/preferences.glade.h:55
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Finestra Biff con dercorazioni del gestore delle finestre o senza"
 
-#: ui/preferences.glade.h:55
+#: ui/preferences.glade.h:56
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade.h:56
+#: ui/preferences.glade.h:57
+msgid "_Appear in pager"
+msgstr ""
+
+#: ui/preferences.glade.h:58
 msgid "_Be sticky"
 msgstr ""
 
-#: ui/preferences.glade.h:57 ui/properties.glade.h:21
+#: ui/preferences.glade.h:59 ui/properties.glade.h:21
 #, fuzzy
 msgid "_Browse..."
 msgstr "Sfoglia..."
 
-#: ui/preferences.glade.h:58
+#: ui/preferences.glade.h:60
 #, fuzzy
 msgid "_Display for"
 msgstr "_Visualizza la data"
 
-#: ui/preferences.glade.h:59
+#: ui/preferences.glade.h:61
 #, fuzzy
 msgid "_Font:"
 msgstr "Caratteri "
 
-#: ui/preferences.glade.h:60
+#: ui/preferences.glade.h:62
 #, fuzzy
 msgid "_Format:"
 msgstr "Formato"
 
-#: ui/preferences.glade.h:61
+#: ui/preferences.glade.h:63
 msgid "_Keep above"
 msgstr ""
 
-#: ui/preferences.glade.h:62
+#: ui/preferences.glade.h:64
 #, fuzzy
 msgid "_Restrict collected mail to"
 msgstr "Riduci la dimensione del <b>mittente</b> a"
 
-#: ui/preferences.glade.h:63
+#: ui/preferences.glade.h:65
 #, fuzzy
 msgid "_Restrict number to"
 msgstr "Riduci la dimensione del <b>mittente</b> a"
 
-#: ui/preferences.glade.h:65
+#: ui/preferences.glade.h:67
 #, fuzzy
 msgid "gnubiff preferences"
 msgstr "Preferenze"
 
-#: ui/preferences.glade.h:66
+#: ui/preferences.glade.h:68
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade.h:67
+#: ui/preferences.glade.h:69
 #, fuzzy
 msgid "mail(s)"
 msgstr "kmail"
 
-#: ui/preferences.glade.h:68
+#: ui/preferences.glade.h:70
 #, fuzzy
 msgid "second(s)"
 msgstr "secondi"

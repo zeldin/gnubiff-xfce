@@ -125,6 +125,7 @@ Version 2.1.1
    - Bugfix: Note only those mails for displaying that will be displayed
         (local mailboxes)
    - Feature: Gnubiff applet and/or popup may appear in pagers or not
+   - Bugfix: Remove mail ids from hidden_ that are no longer in seen_
 
 Version 2.1.0
  * Nicolas Rougier
