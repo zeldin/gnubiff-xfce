@@ -117,9 +117,9 @@ extern "C" {
 	}
 
 	void PREFERENCES_expert_on_row_activated (GtkTreeView *treeview,
-											GtkTreePath *path,
-											GtkTreeViewColumn *col,
-											gpointer data)
+											  GtkTreePath *path,
+											  GtkTreeViewColumn *col,
+											  gpointer data)
 	{
 		PREFERENCES(data)->expert_toggle_option ();
 	}
@@ -136,6 +136,16 @@ extern "C" {
 		PREFERENCES(data)->expert_set_selected_option (NULL);
 	}
 
+	void PREFERENCES_expert_toggle_option (GtkWidget *widget, gpointer data)
+	{
+		PREFERENCES(data)->expert_toggle_option ();
+	}
+
+	void PREFERENCES_expert_edit_value (GtkWidget *widget, gpointer data)
+	{
+		PREFERENCES(data)->expert_edit_value ();
+	}
+
 	void PREFERENCES_expert_search (GtkWidget *widget, gpointer data)
 	{
 		PREFERENCES(data)->expert_search ();
@@ -144,6 +154,16 @@ extern "C" {
 	void PREFERENCES_expert_new (GtkWidget *widget, gpointer data)
 	{
 		PREFERENCES(data)->expert_add_option_list ();
+	}
+
+	gboolean PREFERENCES_expert_on_button_press (GtkWidget *widget,
+												 GdkEventButton *event,
+												 gpointer data)
+	{
+		// Single click with right mouse button?
+		if (event->type == GDK_BUTTON_PRESS  &&  event->button == 3)
+			return PREFERENCES(data)->expert_show_context_menu (event);
+		return false;
 	}
 }
 
@@ -156,6 +176,10 @@ Preferences::Preferences (Biff *biff) : GUI (GNUBIFF_DATADIR"/preferences.glade"
 	properties_->create ();
 	selected_ = 0;
 	added_ = 0;
+	// Widgets
+	expert_liststore = NULL;
+	expert_treeview = NULL;
+	expert_col_value = NULL;
 }
 
 
@@ -257,13 +281,13 @@ Preferences::expert_create (void)
 	if (!biff_->value_bool ("use_expert"))
 		return;
 
-	GtkListStore *store;
-	store = gtk_list_store_new (COL_EXP_N, G_TYPE_INT, G_TYPE_STRING,
-								G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
-								G_TYPE_INT, G_TYPE_INT);
-	GtkTreeView *view = GTK_TREE_VIEW (get("expert_treeview"));
-	gtk_tree_view_set_model (view, GTK_TREE_MODEL(store));
-	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view), true);
+	expert_liststore = gtk_list_store_new (COL_EXP_N, G_TYPE_INT,
+										   G_TYPE_STRING, G_TYPE_STRING,
+										   G_TYPE_STRING, G_TYPE_STRING,
+										   G_TYPE_INT, G_TYPE_INT);
+	expert_treeview = GTK_TREE_VIEW (get("expert_treeview"));
+	gtk_tree_view_set_model (expert_treeview,GTK_TREE_MODEL(expert_liststore));
+	gtk_tree_view_set_rules_hint (expert_treeview, true);
 
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *rend;
@@ -274,41 +298,41 @@ Preferences::expert_create (void)
 	column = gtk_tree_view_column_new_with_attributes ("Option", rend, "text", COL_EXP_GROUPNAME, "style-set", COL_EXP_NAME_ITALIC, NULL);
 	gtk_tree_view_column_set_resizable (column, false);
 	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_GROUPNAME);
-	gtk_tree_view_append_column (view, column);
+	gtk_tree_view_append_column (expert_treeview, column);
 
 	// Column: TYPE
 	column = gtk_tree_view_column_new_with_attributes ("Type", gtk_cell_renderer_text_new(), "text", COL_EXP_TYPE, NULL);
 	gtk_tree_view_column_set_resizable (column, false);
 	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_TYPE);
-	gtk_tree_view_append_column (view, column);
+	gtk_tree_view_append_column (expert_treeview, column);
 
 	// Column: VALUE
 	rend = gtk_cell_renderer_text_new ();
 	g_signal_connect(rend, "edited",
 					 (GCallback) PREFERENCES_expert_option_edited, this);
-	column = gtk_tree_view_column_new_with_attributes ("Value", rend,
+	expert_col_value = gtk_tree_view_column_new_with_attributes ("Value", rend,
 				"text", COL_EXP_VALUE, "editable", COL_EXP_EDITABLE,
 				"editable-set", COL_EXP_EDITABLE, NULL);
-	gtk_tree_view_column_set_resizable (column, false);
-	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_VALUE);
-	gtk_tree_view_append_column (view, column);
+	gtk_tree_view_column_set_resizable (expert_col_value, false);
+	gtk_tree_view_column_set_sort_column_id (expert_col_value, COL_EXP_VALUE);
+	gtk_tree_view_append_column (expert_treeview, expert_col_value);
 
 	// Signals
-	GtkTreeSelection *selection = gtk_tree_view_get_selection (view);
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(expert_treeview);
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	g_signal_connect (G_OBJECT(selection), "changed",
 					  G_CALLBACK(PREFERENCES_on_selection_expert), this);
 
 	// Help text area
-	GtkTextBuffer *tb = gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview")));
-	gtk_text_buffer_create_tag (tb, "italic","style",PANGO_STYLE_ITALIC,0);
-	gtk_text_buffer_create_tag (tb, "bold", "weight", PANGO_WEIGHT_BOLD,0);
+	expert_textview = GTK_TEXT_VIEW (get ("expert_textview"));
+	expert_textbuffer = gtk_text_view_get_buffer (expert_textview);
+	gtk_text_buffer_create_tag (expert_textbuffer, "italic",
+								"style", PANGO_STYLE_ITALIC, 0);
+	gtk_text_buffer_create_tag (expert_textbuffer, "bold",
+								"weight", PANGO_WEIGHT_BOLD,0);
 
 	// Fill list
 	expert_add_option_list ();
-
-	// Empty widgets
-	gtk_widget_set_sensitive (get ("expert_button_reset"), false);
 }
 
 void
@@ -431,15 +455,14 @@ Preferences::on_add	(GtkWidget *widget)
 		biff_->add (added_);
 		synchronize ();
 		GtkTreeView  *view  = GTK_TREE_VIEW (get("mailboxes_treeview"));
-		GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 		GtkTreeIter iter;
-		gboolean valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL(store), &iter);
+		gboolean valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL(expert_liststore), &iter);
 		while (valid) {
 			guint uin;
-			gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COLUMN_UIN, &uin, -1);
+			gtk_tree_model_get (GTK_TREE_MODEL(expert_liststore), &iter, COLUMN_UIN, &uin, -1);
 			if (added_->uin() == uin)
 				break;
-			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (expert_liststore), &iter);
 		}
 		gtk_tree_selection_select_iter  (gtk_tree_view_get_selection (view), &iter);
 		properties_->show ();
@@ -454,9 +477,8 @@ Preferences::on_remove (GtkWidget *widget)
 	GtkTreeIter iter;
 
 	if (gtk_tree_selection_get_selected (selection, NULL, &iter)) {
-		GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 		guint uin;
-		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COLUMN_UIN, &uin, -1);
+		gtk_tree_model_get (GTK_TREE_MODEL(expert_liststore), &iter, COLUMN_UIN, &uin, -1);
 		biff_->remove (biff_->get(uin));
 		properties_->select (0);
 		synchronize ();
@@ -580,6 +602,81 @@ Preferences::on_check_changed (GtkWidget *widget)
 }
 
 /**
+ *  Show context menu for the currently selected option.
+ *
+ *  @param  event  The event that caused the menu to be shown or NULL.
+ *  @return        Boolean indicating success
+ */
+gboolean 
+Preferences::expert_show_context_menu (GdkEventButton *event)
+{
+	// Get currently selected option
+	Options *opts;
+	Option *option;
+	if (!expert_get_option (opts, option))
+		return false;
+
+	// Can option not be changed?
+	if (option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO))
+		return false;
+
+	// Create menu
+	GtkWidget *menu = gtk_menu_new ();
+	GtkWidget *menuitem;
+	// "Set to default value"
+	menuitem = gtk_menu_item_new_with_label (_("Set to default value"));
+	g_signal_connect (menuitem, "activate",
+					  (GCallback) PREFERENCES_expert_reset, this);
+	gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
+	// "Toggle value"
+	if (option->type() == OPTTYPE_BOOL) {
+		menuitem = gtk_menu_item_new_with_label (_("Toggle value"));
+		g_signal_connect (menuitem, "activate",
+						  (GCallback) PREFERENCES_expert_toggle_option, this);
+		gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
+	}
+	// "Edit value"
+	else {
+		menuitem = gtk_menu_item_new_with_label (_("Edit value"));
+		g_signal_connect (menuitem, "activate",
+						  (GCallback) PREFERENCES_expert_edit_value, this);
+		gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
+	}
+
+	// Show menu
+	gtk_widget_show_all (menu);
+	gtk_menu_popup (GTK_MENU(menu), NULL, NULL, NULL, NULL,
+					(event != NULL) ? event->button : 0,
+					gdk_event_get_time ((GdkEvent*)event));
+
+	return true;
+}
+
+/**
+ *  Make the currently selected option editable.
+ */
+void 
+Preferences::expert_edit_value (void)
+{
+	// Get option
+	GtkTreeIter treeiter;
+	Options *opts;
+	Option *option;
+	if (!expert_get_option (opts, option, treeiter))
+		return;
+
+	if (option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO))
+		return;
+
+	// Edit entry in cell for editing the value
+	GtkTreePath *path;
+	path=gtk_tree_model_get_path (GTK_TREE_MODEL(expert_liststore), &treeiter);
+	gtk_tree_view_set_cursor (expert_treeview, path, expert_col_value, true);
+	gtk_widget_grab_focus (GTK_WIDGET (expert_treeview));
+	gtk_tree_path_free (path);
+}
+
+/**
  *  Update list of options. Put all options and their values into the list.
  */
 void 
@@ -590,12 +687,10 @@ Preferences::expert_add_option_list (void)
 		return;
 	gboolean showfixed = biff_->value_bool ("expert_show_fixed");
 
-	GtkTreeView  *view  = GTK_TREE_VIEW (get("expert_treeview"));
-	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 	GtkTreeIter iter;
 
 	// Clear old options
-	gtk_list_store_clear (store);
+	gtk_list_store_clear (expert_liststore);
 
 	Options *opts;
 	std::map<std::string, Option *>::iterator it;
@@ -629,14 +724,14 @@ Preferences::expert_add_option_list (void)
 			}
 
 			// Store fixed and variable values
-			gtk_list_store_append (store, &iter);
-			gtk_list_store_set (store, &iter,
+			gtk_list_store_append (expert_liststore, &iter);
+			gtk_list_store_set (expert_liststore, &iter,
 								COL_EXP_ID, id ,
 								COL_EXP_NAME, option->name().c_str(),
 								COL_EXP_GROUPNAME, groupname.c_str(),
 								COL_EXP_TYPE, option->type_string().c_str(),
 								-1);
-			expert_update_option (option->name().c_str(), opts, store, &iter);
+			expert_update_option (option->name().c_str(), opts, &iter);
 		}
 	}
 }
@@ -657,14 +752,10 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 	if (!expert_get_option (opts, option))
 		return;
 
-	// Update widgets
-	gboolean sens = !(option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO));
-	gtk_widget_set_sensitive (get ("expert_button_reset"), sens);
-
 	// Create help message
 	const gchar *tmp = NULL;
 	GtkTextIter iter;
-	GtkTextBuffer *tb = gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview")));
+	GtkTextBuffer *tb = expert_textbuffer;
 	gtk_text_buffer_set_text (tb, "", -1);
 	gtk_text_buffer_get_start_iter (tb, &iter);
 	gtk_text_buffer_insert (tb, &iter, "Option ", -1);
@@ -703,17 +794,15 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 void 
 Preferences::expert_update_option_list (void)
 {
-	GtkTreeView  *view  = GTK_TREE_VIEW (get("expert_treeview"));
-	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 	gchar *name = NULL;
 	gint id = -1;
 	Options *option_opts = NULL;
 	GtkTreeIter iter;
-	gboolean valid=gtk_tree_model_get_iter_first (GTK_TREE_MODEL(store),&iter);
+	gboolean valid=gtk_tree_model_get_iter_first (GTK_TREE_MODEL(expert_liststore),&iter);
 	while (valid) {
 		// Get next option
-		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COL_EXP_NAME, &name,
-							COL_EXP_ID, &id, -1);
+		gtk_tree_model_get (GTK_TREE_MODEL(expert_liststore), &iter,
+							COL_EXP_NAME, &name, COL_EXP_ID, &id, -1);
 		if (id<0)
 			option_opts = biff_;
 		else
@@ -721,19 +810,17 @@ Preferences::expert_update_option_list (void)
 
 		// Update option (remove options to non existing mailboxes)
 		if (option_opts) {
-			expert_update_option (name, option_opts, store, &iter);
-			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
+			expert_update_option (name, option_opts, &iter);
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (expert_liststore), &iter);
 		}
 		else
-			valid = gtk_list_store_remove (store, &iter);
+			valid = gtk_list_store_remove (expert_liststore, &iter);
 	}
 
 	// Clear widgets if there is no selection
-	GtkTreeSelection *select=gtk_tree_view_get_selection(GTK_TREE_VIEW (view));
-	if ((!select) || (!gtk_tree_selection_count_selected_rows (select))) {
-		gtk_widget_set_sensitive (get ("expert_button_reset"), false);
-		gtk_text_buffer_set_text (gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview"))), "", -1);
-	}
+	GtkTreeSelection *select=gtk_tree_view_get_selection(expert_treeview);
+	if ((!select) || (!gtk_tree_selection_count_selected_rows (select)))
+		gtk_text_buffer_set_text (expert_textbuffer, "", -1);
 }
 
 /**
@@ -741,12 +828,11 @@ Preferences::expert_update_option_list (void)
  *
  *  @param  name    Name of the option
  *  @param  options Container of the option
- *  @param  store   GtkListStore for all options
  *  @param  iter    Iterator for option's line in the list
  */
 void 
 Preferences::expert_update_option (const gchar *name, Options *options,
-								   GtkListStore *store, GtkTreeIter *iter)
+								   GtkTreeIter *iter)
 {
 	Option *option = NULL;
 
@@ -763,7 +849,7 @@ Preferences::expert_update_option (const gchar *name, Options *options,
 					   && (biff_->value_bool ("expert_hilite_changed")));
 	gboolean edit = ((!(option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO)))
 					 && (option->type() != OPTTYPE_BOOL));
-	gtk_list_store_set (store, iter,
+	gtk_list_store_set (expert_liststore, iter,
 						COL_EXP_VALUE, value,
 						COL_EXP_NAME_ITALIC, italic,
 						COL_EXP_EDITABLE, edit,
@@ -781,35 +867,32 @@ Preferences::expert_search (void)
 	const gchar *search;
 	search = gtk_entry_get_text (GTK_ENTRY (get ("expert_search_entry")));
 	gboolean value_search = biff_->value_bool ("expert_search_values");
-	GtkTreeView  *view  = GTK_TREE_VIEW (get("expert_treeview"));
-	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 	GtkTreeIter iter;
-	gboolean valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL(store),
-													&iter);
+	gboolean valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL(expert_liststore), &iter);
 
 	// Test each option
 	while (valid) {
 		// Get text
 		gchar *name, *value;
-		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COL_EXP_GROUPNAME,
-							&name, COL_EXP_VALUE, &value, -1);
+		gtk_tree_model_get (GTK_TREE_MODEL(expert_liststore), &iter,
+							COL_EXP_GROUPNAME, &name,
+							COL_EXP_VALUE, &value, -1);
 
 		// Look for string
 		if ((name) && (value)
 			&& (std::string(name).find(search) == std::string::npos)
 			&& (!value_search
 				|| (std::string(value).find(search) == std::string::npos)))
-			valid = gtk_list_store_remove (store, &iter);
+			valid = gtk_list_store_remove (expert_liststore, &iter);
 		else
-			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL(expert_liststore),
+											  &iter);
 	}
 
 	// Clear widgets if there is no selection
-	GtkTreeSelection *select=gtk_tree_view_get_selection(GTK_TREE_VIEW (view));
-	if ((!select) || (!gtk_tree_selection_count_selected_rows (select))) {
-		gtk_widget_set_sensitive (get ("expert_button_reset"), false);
-		gtk_text_buffer_set_text (gtk_text_view_get_buffer (GTK_TEXT_VIEW (get ("expert_textview"))), "", -1);
-	}
+	GtkTreeSelection *select = gtk_tree_view_get_selection (expert_treeview);
+	if ((!select) || (!gtk_tree_selection_count_selected_rows (select)))
+		gtk_text_buffer_set_text (expert_textbuffer, "", -1);
 }
 
 /**
@@ -876,9 +959,8 @@ gboolean
 Preferences::expert_get_option (Options *&options, Option *&option)
 {
 	GtkTreeIter treeiter;
-	GtkListStore *store;
 
-	return expert_get_option (options, option, treeiter, store);
+	return expert_get_option (options, option, treeiter);
 }
 
 /**
@@ -889,32 +971,24 @@ Preferences::expert_get_option (Options *&options, Option *&option)
  *  @param  option   Reference where a pointer to the option is returned
  *  @param  treeiter Reference to a GtkTreeIter, where the GtkTreeIter of the
  *                   list entry of the option is returned
- *  @param  store    Reference to a GtkListStore, where the selected row is
- *                   returned
  *  @return          Boolean indicating success
  */
 gboolean 
 Preferences::expert_get_option (class Options *&options, class Option *&option,
-								GtkTreeIter &treeiter, GtkListStore *&store)
+								GtkTreeIter &treeiter)
 {
 	// Get selection
-	GtkTreeView *view  = GTK_TREE_VIEW (get ("expert_treeview"));
-	if (!view)
-		return false;
-	GtkTreeSelection *select=gtk_tree_view_get_selection(GTK_TREE_VIEW (view));
+	GtkTreeSelection *select = gtk_tree_view_get_selection (expert_treeview);
 	if (!select)
 		return false;
 	if (!gtk_tree_selection_get_selected (select, NULL, &treeiter))
 		return false;
 
 	// Get selected row
-	store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-	if (!store)
-		return false;
 	gint id = -1;
 	gchar *name = NULL;
-	gtk_tree_model_get (GTK_TREE_MODEL(store), &treeiter, COL_EXP_ID, &id,
-						COL_EXP_NAME, &name, -1);
+	gtk_tree_model_get (GTK_TREE_MODEL(expert_liststore), &treeiter,
+						COL_EXP_ID, &id, COL_EXP_NAME, &name, -1);
 	if (!name)
 		return false;
 

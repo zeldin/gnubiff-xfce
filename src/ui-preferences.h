@@ -116,15 +116,28 @@ public:
 	void expert_add_option_list (void);
 	void expert_toggle_option (void);
 	void expert_update_option_list (void);
+	void expert_edit_value (void);
 	void expert_update_option (const gchar *name, class Options *options,
-							   GtkListStore *store, GtkTreeIter *iter);
+							   GtkTreeIter *iter);
 	void expert_set_selected_option (const gchar *new_text);
 	void expert_on_selection (GtkTreeSelection *selection);
+	gboolean expert_show_context_menu (GdkEventButton *event);
 	void expert_search (void);
 protected:
 	gboolean expert_get_option (class Options *&options,class Option *&option);
 	gboolean expert_get_option (class Options *&options, class Option *&option,
-								GtkTreeIter &treeiter, GtkListStore *&store);
+								GtkTreeIter &treeiter);
+
+	// Treeview widget for the expert option editing dialog
+	GtkTreeView *expert_treeview;
+	// Liststore for the options in the expert option editing dialog
+	GtkListStore *expert_liststore;
+	// Treeview column that contains the values in the expert option dialog
+	GtkTreeViewColumn *expert_col_value;
+	// Textview for displaying the description of the currently selected option
+	GtkTextView *expert_textview;
+	// Buffer of the description of the currently selected option
+	GtkTextBuffer *expert_textbuffer;
 };
 
 #endif
