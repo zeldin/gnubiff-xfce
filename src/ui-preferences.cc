@@ -124,14 +124,16 @@ extern "C" {
 		PREFERENCES(data)->expert_toggle_option ();
 	}
 
-	void PREFERENCES_expert_ok (GtkWidget *widget, gpointer data)
+	void PREFERENCES_expert_option_edited  (GtkCellRendererText *cell,
+											gchar *path_string,
+											gchar *new_text, gpointer data)
 	{
-		PREFERENCES(data)->expert_ok ();
+		PREFERENCES(data)->expert_set_selected_option (new_text);
 	}
 
 	void PREFERENCES_expert_reset (GtkWidget *widget, gpointer data)
 	{
-		PREFERENCES(data)->expert_reset ();
+		PREFERENCES(data)->expert_set_selected_option (NULL);
 	}
 
 	void PREFERENCES_expert_search (GtkWidget *widget, gpointer data)
@@ -258,7 +260,7 @@ Preferences::expert_create (void)
 	GtkListStore *store;
 	store = gtk_list_store_new (COL_EXP_N, G_TYPE_INT, G_TYPE_STRING,
 								G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
-								G_TYPE_INT);
+								G_TYPE_INT, G_TYPE_INT);
 	GtkTreeView *view = GTK_TREE_VIEW (get("expert_treeview"));
 	gtk_tree_view_set_model (view, GTK_TREE_MODEL(store));
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view), true);
@@ -268,7 +270,7 @@ Preferences::expert_create (void)
 
 	// Column: NAME
 	rend = gtk_cell_renderer_text_new ();
-	g_object_set(rend, "style", PANGO_STYLE_ITALIC, NULL);
+	g_object_set (rend, "style", PANGO_STYLE_ITALIC, NULL);
 	column = gtk_tree_view_column_new_with_attributes ("Option", rend, "text", COL_EXP_GROUPNAME, "style-set", COL_EXP_NAME_ITALIC, NULL);
 	gtk_tree_view_column_set_resizable (column, false);
 	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_GROUPNAME);
@@ -281,7 +283,10 @@ Preferences::expert_create (void)
 	gtk_tree_view_append_column (view, column);
 
 	// Column: VALUE
-	column = gtk_tree_view_column_new_with_attributes ("Value", gtk_cell_renderer_text_new(), "text", COL_EXP_VALUE, NULL);
+	rend = gtk_cell_renderer_text_new ();
+	g_signal_connect(rend, "edited",
+					 (GCallback) PREFERENCES_expert_option_edited, this);
+	column = gtk_tree_view_column_new_with_attributes ("Value", rend, "text", COL_EXP_VALUE, "editable", COL_EXP_EDITABLE, "editable-set", COL_EXP_EDITABLE, NULL);
 	gtk_tree_view_column_set_resizable (column, false);
 	gtk_tree_view_column_set_sort_column_id (column, COL_EXP_VALUE);
 	gtk_tree_view_append_column (view, column);
@@ -301,10 +306,7 @@ Preferences::expert_create (void)
 	expert_add_option_list ();
 
 	// Empty widgets
-	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")), "");
-	gtk_widget_set_sensitive (get ("expert_button_ok"), false);
 	gtk_widget_set_sensitive (get ("expert_button_reset"), false);
-	gtk_widget_set_sensitive (get ("expert_value_entry"), false);
 }
 
 void
@@ -654,12 +656,8 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 		return;
 
 	// Update widgets
-	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")),
-						opts->to_string(option->name()).c_str());
 	gboolean sens = !(option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO));
-	gtk_widget_set_sensitive (get ("expert_button_ok"), sens);
 	gtk_widget_set_sensitive (get ("expert_button_reset"), sens);
-	gtk_widget_set_sensitive (get ("expert_value_entry"), sens);
 
 	// Create help message
 	const gchar *tmp = NULL;
@@ -695,31 +693,6 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 	gtk_text_buffer_insert (tb, &iter, "\n\nProperties: ", -1);
 	tmp = option->flags_string().c_str();
 	gtk_text_buffer_insert (tb, &iter, tmp, -1);
-}
-
-/**
- *  Set the currently selected option to the user given value.
- */
-void 
-Preferences::expert_ok (void)
-{
-	// Get option
-	Options *opts;
-	Option *option;
-	GtkTreeIter iter;
-	GtkListStore *store;
-	if (!expert_get_option (opts, option, iter, store))
-		return;
-
-	// Set option
-	const gchar *value;
-	value = gtk_entry_get_text (GTK_ENTRY (get ("expert_value_entry")));
-	opts->from_string (option->name(), value);
-
-	// Update GUI
-	synchronize ();
-	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == (Mailbox *)opts))
-		properties_->update_view ();
 }
 
 /**
@@ -776,33 +749,16 @@ Preferences::expert_update_option (const gchar *name, Options *options,
 
 	// Update option
 	const gchar *value = options->to_string(name).c_str();
-	gboolean italic = (!(option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO))) && (!option->is_default ()) && (biff_->value_bool ("expert_hilite_changed"));
+	gboolean italic = ((!(option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO)))
+					   && (!option->is_default ())
+					   && (biff_->value_bool ("expert_hilite_changed")));
+	gboolean edit = ((!(option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO)))
+					 && (option->type() != OPTTYPE_BOOL));
 	gtk_list_store_set (store, iter,
 						COL_EXP_VALUE, value,
 						COL_EXP_NAME_ITALIC, italic,
+						COL_EXP_EDITABLE, edit,
 						-1);
-}
-
-/**
- *  Reset the currently selected option.
- */
-void 
-Preferences::expert_reset (void)
-{
-	Options *opts;
-	Option *option;
-	if (!expert_get_option (opts, option))
-		return;
-
-	// Set to default
-	opts->from_string (option->name(), option->default_string());
-
-	// Update GUI
-	synchronize ();
-	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == (Mailbox *)opts))
-		properties_->update_view ();
-	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")),
-						opts->to_string(option->name()).c_str());
 }
 
 /**
@@ -840,6 +796,9 @@ Preferences::expert_search (void)
 	}
 }
 
+/**
+ *  Toggle the currently selected boolean option.
+ */
 void 
 Preferences::expert_toggle_option (void)
 {
@@ -861,8 +820,32 @@ Preferences::expert_toggle_option (void)
 	synchronize ();
 	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == (Mailbox *)opts))
 		properties_->update_view ();
-	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")),
-						opts->to_string(name).c_str());
+}
+
+/**
+ *  Set the currently selected option.
+ *
+ *  @param new_text New value of the selected option. If this is NULL the
+ *                  option will be set to its default value.
+ */
+void 
+Preferences::expert_set_selected_option (const gchar *new_text)
+{
+	Options *opts;
+	Option *option;
+	if (!expert_get_option (opts, option))
+		return;
+
+	// Set option
+	if (new_text)
+		opts->from_string (option->name(), new_text);
+	else
+		opts->from_string (option->name(), option->default_string());
+
+	// Update GUI
+	synchronize ();
+	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == (Mailbox *)opts))
+		properties_->update_view ();
 }
 
 /**
