@@ -278,7 +278,7 @@ Imap4::connect (void) throw (imap_err)
 	readline (line);
 
 	// CAPABILITY
-	command_capability (false);
+	command_capability (true);
 
 	// LOGIN
 	command_login();
@@ -435,6 +435,12 @@ Imap4::command_capability (gboolean check_rc) throw (imap_err)
 		command_logout();
 		throw imap_nologin_err();
 	}
+
+	// If we checked only the response code and didn't find all the
+	// capabilities we are looking for (currently only IDLE), we send the
+	// CAPABILITY command, maybe the server sends additional capabilities
+	if (((idleable_ == false) && use_idle()) && check_rc)
+		command_capability (false);
 }
 
 /**
