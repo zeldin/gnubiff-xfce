@@ -10,6 +10,9 @@ This is a major bugfix release. Changes:
  * Mh protocol fixed
  * Fixes for 64 bit systems (thanks to David Mosberger)
  * Various other bugfixes
+Note: The default behavior when using file protocol has changed. The access
+time of the mail file is no longer reset by default. This can be changed by
+setting the option "file_restore_atime" to true.
 
 Version 2.1.2
 This is a major bugfix release. Changes:
