@@ -102,6 +102,7 @@ gint Imap4::connect (void)
 
 	if (!(socket_->read (line))) return 0;
 	if (line.find (tag()+"OK") != 0) {
+		socket_->close ();
 		socket_->status (SOCKET_STATUS_ERROR);
 		status_ = MAILBOX_ERROR;
 		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"),
