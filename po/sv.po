@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-18 19:25+0100\n"
+"POT-Creation-Date: 2004-12-22 18:55+0100\n"
 "PO-Revision-Date: 2004-03-11 22:32+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -45,22 +45,22 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:118
+#: src/biff.cc:119
 #, fuzzy
 msgid "no mail"
 msgstr "Inga meddelanden"
 
-#: src/biff.cc:150
+#: src/biff.cc:155
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Konfigurationsfil att använda"
 
-#: src/biff.cc:424
+#: src/biff.cc:500
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Konfigurationsfil att använda"
 
-#: src/biff.cc:449
+#: src/biff.cc:525
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Konfigurationsfil att använda"
@@ -75,15 +75,15 @@ msgstr "Inga meddelanden"
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: src/mailbox.cc:463
+#: src/mailbox.cc:472
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:473
+#: src/mailbox.cc:482
 msgid "<no subject>"
 msgstr ""
 
-#: src/mailbox.cc:483
+#: src/mailbox.cc:492
 msgid "<no date>"
 msgstr ""
 
@@ -127,17 +127,17 @@ msgstr ""
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
-#: src/maildir.cc:86
+#: src/maildir.cc:89
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr ""
 
-#: src/maildir.cc:93
+#: src/maildir.cc:96
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr ""
 
-#: src/maildir.cc:119
+#: src/maildir.cc:126
 #, c-format
 msgid "Cannot open %s."
 msgstr ""
@@ -192,15 +192,15 @@ msgstr "GUI_connect kräver fungerande gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Kunde inte hitta signalhanterare '%s'."
 
-#: src/ui-applet.cc:149
+#: src/ui-applet.cc:136
 msgid " unknown"
 msgstr ""
 
-#: src/ui-applet.cc:151
+#: src/ui-applet.cc:138
 msgid " error"
 msgstr ""
 
-#: src/ui-applet.cc:156
+#: src/ui-applet.cc:143
 msgid " checking..."
 msgstr ""
 

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-18 19:25+0100\n"
+"POT-Creation-Date: 2004-12-22 18:55+0100\n"
 "PO-Revision-Date: 2004-09-02 17:58+0200\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -41,22 +41,22 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:118
+#: src/biff.cc:119
 #, fuzzy
 msgid "no mail"
 msgstr "Niente posta"
 
-#: src/biff.cc:150
+#: src/biff.cc:155
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "File di configurazione (%s) non trovato !"
 
-#: src/biff.cc:424
+#: src/biff.cc:500
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Non riesco ad aprire il tuo file di configurazione (%s)"
 
-#: src/biff.cc:449
+#: src/biff.cc:525
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -73,15 +73,15 @@ msgstr "casella di posta %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossibile creare il thread: %s\n"
 
-#: src/mailbox.cc:463
+#: src/mailbox.cc:472
 msgid "<no sender>"
 msgstr "<nessun mittente>"
 
-#: src/mailbox.cc:473
+#: src/mailbox.cc:482
 msgid "<no subject>"
 msgstr "<nessun oggetto>"
 
-#: src/mailbox.cc:483
+#: src/mailbox.cc:492
 msgid "<no date>"
 msgstr "<nessuna data>"
 
@@ -125,17 +125,17 @@ msgstr "[%d] Impossibile connettersi a %s alla porta %d"
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
-#: src/maildir.cc:86
+#: src/maildir.cc:89
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Non riesco a trovare la directory per la nuova posta (%s)"
 
-#: src/maildir.cc:93
+#: src/maildir.cc:96
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Non riesco ad aprire la directory per la nuova posta (%s)"
 
-#: src/maildir.cc:119
+#: src/maildir.cc:126
 #, c-format
 msgid "Cannot open %s."
 msgstr "Non riesco ad aprire %s."
@@ -196,16 +196,16 @@ msgstr "GUI_connect richiede un gmodule funzionante"
 msgid "Could not find signal handler '%s'."
 msgstr "Non riesco a trovare il signal handler '%s'."
 
-#: src/ui-applet.cc:149
+#: src/ui-applet.cc:136
 msgid " unknown"
 msgstr ""
 
-#: src/ui-applet.cc:151
+#: src/ui-applet.cc:138
 #, fuzzy
 msgid " error"
 msgstr "errore !"
 
-#: src/ui-applet.cc:156
+#: src/ui-applet.cc:143
 msgid " checking..."
 msgstr " sto controllando..."
 

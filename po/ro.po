@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-18 19:25+0100\n"
+"POT-Creation-Date: 2004-12-22 18:55+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -45,22 +45,22 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:118
+#: src/biff.cc:119
 #, fuzzy
 msgid "no mail"
 msgstr "Nici un mail"
 
-#: src/biff.cc:150
+#: src/biff.cc:155
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: src/biff.cc:424
+#: src/biff.cc:500
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: src/biff.cc:449
+#: src/biff.cc:525
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
@@ -75,16 +75,16 @@ msgstr "Nici un mail"
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: src/mailbox.cc:463
+#: src/mailbox.cc:472
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:473
+#: src/mailbox.cc:482
 #, fuzzy
 msgid "<no subject>"
 msgstr "Subiect"
 
-#: src/mailbox.cc:483
+#: src/mailbox.cc:492
 msgid "<no date>"
 msgstr ""
 
@@ -128,17 +128,17 @@ msgstr ""
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
-#: src/maildir.cc:86
+#: src/maildir.cc:89
 #, fuzzy, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Nu se poate deschide maildir (%s).\n"
 
-#: src/maildir.cc:93
+#: src/maildir.cc:96
 #, fuzzy, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Nu se poate deschide maildir (%s).\n"
 
-#: src/maildir.cc:119
+#: src/maildir.cc:126
 #, fuzzy, c-format
 msgid "Cannot open %s."
 msgstr "Nu se poate deschide maildir (%s).\n"
@@ -188,15 +188,15 @@ msgstr ""
 msgid "Could not find signal handler '%s'."
 msgstr "Nu am putut gãsi semnalul '%s'."
 
-#: src/ui-applet.cc:149
+#: src/ui-applet.cc:136
 msgid " unknown"
 msgstr ""
 
-#: src/ui-applet.cc:151
+#: src/ui-applet.cc:138
 msgid " error"
 msgstr ""
 
-#: src/ui-applet.cc:156
+#: src/ui-applet.cc:143
 msgid " checking..."
 msgstr ""
 

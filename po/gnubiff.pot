@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-18 19:25+0100\n"
+"POT-Creation-Date: 2004-12-22 18:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,21 +44,21 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:118
+#: src/biff.cc:119
 msgid "no mail"
 msgstr ""
 
-#: src/biff.cc:150
+#: src/biff.cc:155
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr ""
 
-#: src/biff.cc:424
+#: src/biff.cc:500
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr ""
 
-#: src/biff.cc:449
+#: src/biff.cc:525
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -73,15 +73,15 @@ msgstr ""
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: src/mailbox.cc:463
+#: src/mailbox.cc:472
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:473
+#: src/mailbox.cc:482
 msgid "<no subject>"
 msgstr ""
 
-#: src/mailbox.cc:483
+#: src/mailbox.cc:492
 msgid "<no date>"
 msgstr ""
 
@@ -125,17 +125,17 @@ msgstr ""
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
-#: src/maildir.cc:86
+#: src/maildir.cc:89
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr ""
 
-#: src/maildir.cc:93
+#: src/maildir.cc:96
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr ""
 
-#: src/maildir.cc:119
+#: src/maildir.cc:126
 #, c-format
 msgid "Cannot open %s."
 msgstr ""
@@ -183,15 +183,15 @@ msgstr ""
 msgid "Could not find signal handler '%s'."
 msgstr ""
 
-#: src/ui-applet.cc:149
+#: src/ui-applet.cc:136
 msgid " unknown"
 msgstr ""
 
-#: src/ui-applet.cc:151
+#: src/ui-applet.cc:138
 msgid " error"
 msgstr ""
 
-#: src/ui-applet.cc:156
+#: src/ui-applet.cc:143
 msgid " checking..."
 msgstr ""
 

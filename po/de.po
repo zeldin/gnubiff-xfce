@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-18 19:25+0100\n"
+"POT-Creation-Date: 2004-12-22 18:55+0100\n"
 "PO-Revision-Date: 2004-12-08 22:50+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -46,21 +46,21 @@ msgstr "Allgemeine Kommandozeilenoptionen:"
 msgid "Options for debugging:"
 msgstr "Debugging-Optionen:"
 
-#: src/biff.cc:118
+#: src/biff.cc:119
 msgid "no mail"
 msgstr "Keine Nachrichten"
 
-#: src/biff.cc:150
+#: src/biff.cc:155
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Konnte Konfigurationsdatei »%s« nicht finden!"
 
-#: src/biff.cc:424
+#: src/biff.cc:500
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kann die Konfigurationsdatei »%s« nicht öffnen!"
 
-#: src/biff.cc:449
+#: src/biff.cc:525
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Keine Briefkastendefinition in der Konfigurationsdatei »%s« gefunden!"
@@ -75,15 +75,15 @@ msgstr "Briefkasten %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Kann Thread nicht erzeugen: %s"
 
-#: src/mailbox.cc:463
+#: src/mailbox.cc:472
 msgid "<no sender>"
 msgstr "<Kein Absender>"
 
-#: src/mailbox.cc:473
+#: src/mailbox.cc:482
 msgid "<no subject>"
 msgstr "<Kein Betreff>"
 
-#: src/mailbox.cc:483
+#: src/mailbox.cc:492
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
@@ -127,17 +127,17 @@ msgstr "[%d] Kann Ordner »%s« auf dem Server »%s« nicht auswählen"
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Diese Nachricht besitzt keinen Klartext-Abschnitt (\"text/plain\")]"
 
-#: src/maildir.cc:86
+#: src/maildir.cc:89
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Kann neues Mail-Verzeichnis nicht finden (»%s«)."
 
-#: src/maildir.cc:93
+#: src/maildir.cc:96
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kann neues Mail-Verzeichnis nicht öffnen (»%s«)."
 
-#: src/maildir.cc:119
+#: src/maildir.cc:126
 #, c-format
 msgid "Cannot open %s."
 msgstr "Kann »%s« nicht öffnen."
@@ -197,15 +197,15 @@ msgstr "GUI_connect benötigt funktionierendes gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Konnte Signalhandler »%s« nicht finden."
 
-#: src/ui-applet.cc:149
+#: src/ui-applet.cc:136
 msgid " unknown"
 msgstr " unbekannt"
 
-#: src/ui-applet.cc:151
+#: src/ui-applet.cc:138
 msgid " error"
 msgstr " Fehler"
 
-#: src/ui-applet.cc:156
+#: src/ui-applet.cc:143
 msgid " checking..."
 msgstr " wird geprüft..."
 

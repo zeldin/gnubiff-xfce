@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-18 19:25+0100\n"
+"POT-Creation-Date: 2004-12-22 18:55+0100\n"
 "PO-Revision-Date: 2004-12-16 23:42+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -50,21 +50,21 @@ msgstr "Opciones generales de línea de comandos:"
 msgid "Options for debugging:"
 msgstr "Opciones para depurar:"
 
-#: src/biff.cc:118
+#: src/biff.cc:119
 msgid "no mail"
 msgstr "sin mensajes"
 
-#: src/biff.cc:150
+#: src/biff.cc:155
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Archivo de configuración (%s) no encontrado !"
 
-#: src/biff.cc:424
+#: src/biff.cc:500
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "No se puede abrir su archivo de configuración (%s)"
 
-#: src/biff.cc:449
+#: src/biff.cc:525
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
@@ -81,15 +81,15 @@ msgstr "Buzón %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] No se puede crear hilo: %s"
 
-#: src/mailbox.cc:463
+#: src/mailbox.cc:472
 msgid "<no sender>"
 msgstr "<sin remitente>"
 
-#: src/mailbox.cc:473
+#: src/mailbox.cc:482
 msgid "<no subject>"
 msgstr "<sin asunto>"
 
-#: src/mailbox.cc:483
+#: src/mailbox.cc:492
 msgid "<no date>"
 msgstr "<sin fecha>"
 
@@ -133,17 +133,17 @@ msgstr "[%d] No se puede seleccionar carpeta %s en el servidor %s"
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Este correo no tiene parte \"text/plain\"]"
 
-#: src/maildir.cc:86
+#: src/maildir.cc:89
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "No se puede encontrar el directorio del correo nuevo (%s)"
 
-#: src/maildir.cc:93
+#: src/maildir.cc:96
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "No se puede abrir el directorio del correo nuevo (%s)"
 
-#: src/maildir.cc:119
+#: src/maildir.cc:126
 #, c-format
 msgid "Cannot open %s."
 msgstr "No se puede abrir %s."
@@ -203,15 +203,15 @@ msgstr "GUI_connect requiere un módulo operativo"
 msgid "Could not find signal handler '%s'."
 msgstr "No se puede encontrar el controlador de la señal '%s'"
 
-#: src/ui-applet.cc:149
+#: src/ui-applet.cc:136
 msgid " unknown"
 msgstr " desconocido"
 
-#: src/ui-applet.cc:151
+#: src/ui-applet.cc:138
 msgid " error"
 msgstr " error"
 
-#: src/ui-applet.cc:156
+#: src/ui-applet.cc:143
 msgid " checking..."
 msgstr " comprobando..."
 
