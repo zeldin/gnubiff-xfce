@@ -216,6 +216,25 @@ Support::numbersequence_to_vector (const std::string &seq,
 }
 
 /**
+ *  Add the name of a file (or directory) to the given path {\em path}.
+ *
+ *  @param  path  Path to which {\em file} will be added.
+ *  @param  file  Name of the file (or directory) that will be added to
+ *                {\em path}.
+ *  @return       Resulting path or the empty string in case of an error.
+ */
+std::string 
+Support::add_file_to_path (std::string path, std::string file)
+{
+	std::string result = std::string ("");
+	gchar *filename = g_build_filename (path.c_str(), file.c_str(), NULL);
+	if (filename)
+		result = std::string (filename);
+	g_free (filename);
+	return result;
+}
+
+/**
  *  An unknown internal error has been encountered. Print a message that
  *  asks the user to send a bug report. Print some additional information
  *  that may be of use.

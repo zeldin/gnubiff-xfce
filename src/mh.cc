@@ -134,3 +134,15 @@ Mh::fetch (void)
 		}
 	}
 }
+
+/**
+ *  Give the name of the file that shall be monitored by FAM. For the mh
+ *  protocol this is the ".mh_sequences" file.
+ *
+ *  @return    Name of the file to be monitored.
+ */
+std::string 
+Mh::file_to_monitor (void)
+{
+	return add_file_to_path (address(), std::string(".mh_sequences"));
+}

@@ -62,6 +62,9 @@ protected:
 									   gboolean empty = true, char sep = ',',
 									   char range = '-');
 
+	// File functions
+	std::string add_file_to_path (const std::string path,
+								  const std::string file);
 public:
 	// Debugging
 	static void unknown_internal_error_ (const gchar *file, guint line,

@@ -84,11 +84,12 @@ Local::start (void)
 
 	// start monitoring
 	gint status;
-	if (g_file_test (address().c_str(), G_FILE_TEST_IS_DIR))
-		status = FAMMonitorDirectory (&fam_connection_, address().c_str(),
+	std::string file = file_to_monitor ();
+	if (g_file_test (file.c_str(), G_FILE_TEST_IS_DIR))
+		status = FAMMonitorDirectory (&fam_connection_, file.c_str(),
 									  &fam_request_, NULL);
 	else
-		status = FAMMonitorFile (&fam_connection_, address().c_str(),
+		status = FAMMonitorFile (&fam_connection_, file.c_str(),
 								 &fam_request_, NULL);
 	if (status < 0) {
 		FAMClose (&fam_connection_);
@@ -138,4 +139,18 @@ void Local::stop (void)
 	Mailbox::stop ();
 	if (FAMCONNECTION_GETFD (&fam_connection_)) 
 		FAMCancelMonitor (&fam_connection_, &fam_request_);
+}
+
+/**
+ *  Give the name of the file that shall be monitored by FAM.
+ *
+ *  Note: This may be different from the address when information about new
+ *  messages is stored in a separate file.
+ *
+ *  @return    Name of the file to be monitored.
+ */
+std::string 
+Local::file_to_monitor (void)
+{
+	return address ();
 }
