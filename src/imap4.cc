@@ -649,7 +649,8 @@ Imap4::parse_bodystructure (std::string structure,gint &size,gboolean toplevel)
 	else
 	{
 		// One part only! Is it text/plain?
-		if (structure.find("\"text\" \"plain\" ") != 0)
+		if ((structure.find("\"text\" \"plain\" ") != 0) &&
+			(structure.find("\"TEXT\" \"PLAIN\" ") != 0))
 			return std::string("");
 		pos=15;
 		block=3;

@@ -17,7 +17,8 @@ Version 2.1.0
    - Updated French translations
    - Fix a bug with IMAP4 idle feature (not recognizing the BYE command)
    - Added a TODO file to keep track of features/bugs to be implemented/fixed
-
+   - Bugfix: Testing of "\"text\" \"plain\"" in imap4 parsing was wrong
+             (some servers answer using upper cases letter)
  * Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
    - Gnome version can determine itself if in standalone mode or panel mode
    - Removed "--gtk" option, added "--applet" option in debug mode instead
