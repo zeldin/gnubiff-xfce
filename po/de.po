@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-03-31 18:12+0200\n"
+"POT-Creation-Date: 2005-04-02 10:07+0200\n"
 "PO-Revision-Date: 2005-03-31 11:05+0200\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -73,11 +73,11 @@ msgstr "Konfigurationsdatei aus alter Gnubiff-Version »%s« geladen."
 msgid "Trying to convert all options."
 msgstr "Versuche alle Optionen zu konvertieren."
 
-#: src/biff.cc:428
+#: src/biff.cc:448
 msgid "Successfully converted all options."
 msgstr "Erfolgreich alle Optionen konvertiert."
 
-#: src/biff.cc:431
+#: src/biff.cc:451
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -86,25 +86,25 @@ msgstr ""
 "Erfolgreich einige Optionen konvertiert. Die folgenden Optionen müssen "
 "manuell aktualisiert werden: %s."
 
-#: src/biff.cc:578
+#: src/biff.cc:598
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kann die Konfigurationsdatei »%s« nicht öffnen!"
 
-#: src/biff.cc:594
+#: src/biff.cc:614
 msgid "Cannot create XML parser for config file"
 msgstr "Kann keinen XML-Parser für die Konfigurationsdatei erzeugen!"
 
-#: src/biff.cc:611
+#: src/biff.cc:631
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Keine Briefkastendefinition in der Konfigurationsdatei »%s« gefunden!"
 
-#: src/biff.cc:658
+#: src/biff.cc:678
 msgid "Illegal parameter format in config file"
 msgstr "Illegales Parameterformat in der Konfigurationsdatei!"
 
-#: src/biff.cc:687
+#: src/biff.cc:707
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Kein Protokoll für Briefkasten %d angegeben"
@@ -119,35 +119,35 @@ msgstr "[%d] Kann Thread nicht erzeugen: %s"
 msgid "mailbox %d"
 msgstr "Briefkasten %d"
 
-#: src/mailbox.cc:563
+#: src/mailbox.cc:570
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
-#: src/mailbox.cc:564
+#: src/mailbox.cc:571
 msgid "<no sender>"
 msgstr "<Kein Absender>"
 
-#: src/mailbox.cc:565
+#: src/mailbox.cc:572
 msgid "<no subject>"
 msgstr "<Kein Betreff>"
 
-#: src/mailbox.cc:612
+#: src/mailbox.cc:619
 msgid "[Cannot parse content type header line]"
 msgstr "[Kann die Kopfzeile mit dem Inhaltstyp nicht parsen]"
 
-#: src/mailbox.cc:633
+#: src/mailbox.cc:640
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Kann die Kopfzeile mit der Kodierung nicht parsen]"
 
-#: src/mailbox.cc:682
+#: src/mailbox.cc:689
 msgid "[Malformed multipart message]"
 msgstr "[Missgebildete Multipart-Nachricht]"
 
-#: src/mailbox.cc:690
+#: src/mailbox.cc:697
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Kann den ersten Teil der Multipart-Nachricht nicht finden]"
 
-#: src/mailbox.cc:736
+#: src/mailbox.cc:743
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Diese Nachricht besitzt keinen unterstützten Inhaltstyp: »%s/%s«]"
@@ -188,7 +188,7 @@ msgstr "[%d] Kann nicht von »%s« auf Port %d lesen"
 msgid "Could not set read timeout on socket: %s"
 msgstr "Kann nicht das Timeout zum Lesen auf dem Socket setzen: %s"
 
-#: src/file.cc:82 src/maildir.cc:142
+#: src/file.cc:82 src/maildir.cc:129
 #, c-format
 msgid "Cannot open %s."
 msgstr "Kann »%s« nicht öffnen."
@@ -232,12 +232,12 @@ msgstr "[%d] Interner Fehler des Servers oder unbekannter Fehler:%s"
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Warnung des Servers:%s"
 
-#: src/maildir.cc:83
+#: src/maildir.cc:70
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Kann neues Mail-Verzeichnis nicht finden (»%s«)."
 
-#: src/maildir.cc:91
+#: src/maildir.cc:78
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kann neues Mail-Verzeichnis nicht öffnen (»%s«)."

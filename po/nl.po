@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.0.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-03-31 18:12+0200\n"
+"POT-Creation-Date: 2005-04-02 10:07+0200\n"
 "PO-Revision-Date: 2004-10-19 20:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -75,37 +75,37 @@ msgstr ""
 msgid "Trying to convert all options."
 msgstr ""
 
-#: src/biff.cc:428
+#: src/biff.cc:448
 msgid "Successfully converted all options."
 msgstr ""
 
-#: src/biff.cc:431
+#: src/biff.cc:451
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: src/biff.cc:578
+#: src/biff.cc:598
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
-#: src/biff.cc:594
+#: src/biff.cc:614
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
-#: src/biff.cc:611
+#: src/biff.cc:631
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Geen postvak-definitie gevonden in uw configuratiebestand (%s)"
 
-#: src/biff.cc:658
+#: src/biff.cc:678
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:687
+#: src/biff.cc:707
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
@@ -120,35 +120,35 @@ msgstr "[%d] Kon thread niet aanmaken: %s\n"
 msgid "mailbox %d"
 msgstr "postvak %d"
 
-#: src/mailbox.cc:563
+#: src/mailbox.cc:570
 msgid "<no date>"
 msgstr "<geen datum>"
 
-#: src/mailbox.cc:564
+#: src/mailbox.cc:571
 msgid "<no sender>"
 msgstr "<geen verzender>"
 
-#: src/mailbox.cc:565
+#: src/mailbox.cc:572
 msgid "<no subject>"
 msgstr "<geen onderwerp>"
 
-#: src/mailbox.cc:612
+#: src/mailbox.cc:619
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: src/mailbox.cc:633
+#: src/mailbox.cc:640
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: src/mailbox.cc:682
+#: src/mailbox.cc:689
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:690
+#: src/mailbox.cc:697
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:736
+#: src/mailbox.cc:743
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr ""
@@ -189,7 +189,7 @@ msgstr "[%d] Kan niet lezen van %s op poort %d"
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
 
-#: src/file.cc:82 src/maildir.cc:142
+#: src/file.cc:82 src/maildir.cc:129
 #, c-format
 msgid "Cannot open %s."
 msgstr "Kan %s niet openen."
@@ -233,12 +233,12 @@ msgstr ""
 msgid "[%d] Warning from server:%s"
 msgstr ""
 
-#: src/maildir.cc:83
+#: src/maildir.cc:70
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Kan nieuwe e-mail map niet vinden (%s)"
 
-#: src/maildir.cc:91
+#: src/maildir.cc:78
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kan nieuwe e-mail map niet openen (%s)"

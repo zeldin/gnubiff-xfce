@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-03-31 18:12+0200\n"
+"POT-Creation-Date: 2005-04-02 10:07+0200\n"
 "PO-Revision-Date: 2005-03-31 12:54+0950\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -72,11 +72,11 @@ msgstr "Nạp tập tin cấu hình từ phiên bản gnubiff cũ \"%s\" rồi."
 msgid "Trying to convert all options."
 msgstr "Cố chuyển đổi tất cả tùy chọn..."
 
-#: src/biff.cc:428
+#: src/biff.cc:448
 msgid "Successfully converted all options."
 msgstr "Chuyển đổi tất cả tùy chọn rồi."
 
-#: src/biff.cc:431
+#: src/biff.cc:451
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -85,26 +85,26 @@ msgstr ""
 "Chuyển đổi một phần tùy chọn rồi. Phải tự cập nhật những tùy chọn theo đây: %"
 "s."
 
-#: src/biff.cc:578
+#: src/biff.cc:598
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Không mở được tập tin cấu hình (%s) của bạn."
 
-#: src/biff.cc:594
+#: src/biff.cc:614
 msgid "Cannot create XML parser for config file"
 msgstr "Không tao được trình phân tách XML cho tập tin cấu hình"
 
-#: src/biff.cc:611
+#: src/biff.cc:631
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Chưa tìm thấy lời định nghĩa hộp thư trong tập tin cấu hình (%s) của bạn."
 
-#: src/biff.cc:658
+#: src/biff.cc:678
 msgid "Illegal parameter format in config file"
 msgstr "Gặp khuôn dạng tham số bất hợp lệ trong tập tin cấu hình"
 
-#: src/biff.cc:687
+#: src/biff.cc:707
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Chưa ghi rõ giao thức cho hộp thư %d"
@@ -119,35 +119,35 @@ msgstr "[%d] Không tạo được mạch: %s"
 msgid "mailbox %d"
 msgstr "hộp thư %d"
 
-#: src/mailbox.cc:563
+#: src/mailbox.cc:570
 msgid "<no date>"
 msgstr "<không có ngày>"
 
-#: src/mailbox.cc:564
+#: src/mailbox.cc:571
 msgid "<no sender>"
 msgstr "<không có người gởi>"
 
-#: src/mailbox.cc:565
+#: src/mailbox.cc:572
 msgid "<no subject>"
 msgstr "<không có chủ đề>"
 
-#: src/mailbox.cc:612
+#: src/mailbox.cc:619
 msgid "[Cannot parse content type header line]"
 msgstr "[Không phân tách được dòng đầu loạị nội dụng]"
 
-#: src/mailbox.cc:633
+#: src/mailbox.cc:640
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Không phân tách được dòng đầu mã truyền nội dụng]"
 
-#: src/mailbox.cc:682
+#: src/mailbox.cc:689
 msgid "[Malformed multipart message]"
 msgstr "[Thư đa phần khuyết tật]"
 
-#: src/mailbox.cc:690
+#: src/mailbox.cc:697
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Không tìm được đầu của phân thứ nhất trong thư đa phần]"
 
-#: src/mailbox.cc:736
+#: src/mailbox.cc:743
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Thư này có loại nội dụng không được hỗ trợ: \"%s/%s\"]"
@@ -188,7 +188,7 @@ msgstr "[%d] Không đọc được từ %s qua cổng %d"
 msgid "Could not set read timeout on socket: %s"
 msgstr "Không lập được thời hạn đọc tại ổ cắm: %s"
 
-#: src/file.cc:82 src/maildir.cc:142
+#: src/file.cc:82 src/maildir.cc:129
 #, c-format
 msgid "Cannot open %s."
 msgstr "Không mở được %s."
@@ -232,12 +232,12 @@ msgstr "[%d] Máy chủ gặp khó nội bộ, hay gặp lỗi chưa biết:%s"
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Cảnh báo từ máy chủ:%s"
 
-#: src/maildir.cc:83
+#: src/maildir.cc:70
 #, c-format
 msgid "Cannot find new mail directory (%s)"
 msgstr "Không tìm thấy được thư mục thư mới (%s)"
 
-#: src/maildir.cc:91
+#: src/maildir.cc:78
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Không mở được thư mục thư mới (%s)"
