@@ -17,6 +17,10 @@ Free Documentation License''.
 @end quotation
 @end copying
 
+@dircategory Utilities
+@direntry
+* gnubiff: (gnubiff).       A mail notification program for Gtk and Gnome.
+@end direntry
 
 @titlepage
 @title gnubiff
@@ -67,7 +71,9 @@ Published by Nicolas Rougier
 @sp 1
 @noindent To have gnubiff to use a given encryption table:@*
 @command{./configure --with-password-string}
-
+@sp 1
+@noindent To disable the expert mode editing tab as default:@*
+@command{./configure --disable-expert}
 
 @include gpl.texi
 
@@ -98,12 +104,12 @@ specific features to be implemented, keep that in mind !
 @chapter Start gnubiff
 @unnumberedsec
 @comment ------------------------------------------------------------
-Depending if you have compiled gnubff with or without GNOME libraries,
+Depending if you have compiled gnubiff with or without GNOME libraries,
 you'll be able to start gnubiff from command line or from the GNOME
 panel.
 
-@section How to start gnubiff in GTK mode when compiled without GNOME
-@command{gnubiff [-c|--config file] [-n|--noconfigure] [--version]}
+@section How to start gnubiff in GTK mode
+@command{gnubiff [-c|--config file] [-n|--noconfigure] [-v|--version] [-?|--help] [--usage]}
 @sp 1
 @table @samp
 @item -c file, --config file
@@ -113,23 +119,10 @@ default is '$HOME/.gnubiffrc'.
 Skip the configuration process.
 @item -v, --version
 Displays version number and exit
-@end table
-
-@sp 2
-
-@section How to start gnubiff in GTK mode when compiled with GNOME
-@command{gnubiff --gtk --[-c|--config file] [-n|--noconfigure] [--version]}@*
-or
-@command{gnubiff -g --[-c|--config file] [-n|--noconfigure] [--version]}
-@sp 1
-@table @samp
-@item -c file, --config file
-This option allows to specify an alternate configuration file,
-default is '$HOME/.gnubiffrc'.
-@item -n, --noconfigure
-Skip the configuration process.
-@item -v, --version
-Displays version number and exit
+@item -?, --help
+Shows a list of all supported options
+@item --usage
+Displays a brief usage message
 @end table
 
 @sp 2

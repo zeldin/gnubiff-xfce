@@ -157,6 +157,7 @@ Version 2.1.1
    - Feature: Warning message is shown before expert editing mode can be
         activated
    - Feature: Print whether expert tab will be shown at the end of configure
+   - Updated gnubiff.texi file
 
 Version 2.1.0
  * Nicolas Rougier
