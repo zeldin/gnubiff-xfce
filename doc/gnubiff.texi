@@ -5,8 +5,8 @@
 @c %**end of header
 
 @copying
-This manual is for gnubiff version 2.0.0 Copyright @copyright{}
-2000-2004 Nicolas Rougier.
+This manual is for gnubiff version 2.1.1 Copyright @copyright{}
+2000-2005 Nicolas Rougier.
 @quotation
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.2
@@ -220,6 +220,7 @@ Developers:@*
 
 Maintainers:@*
 @itemize @bullet
+@item Tim Bishop
 @item Roland Stigge
 @end itemize
 

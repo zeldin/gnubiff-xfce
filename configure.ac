@@ -1,5 +1,5 @@
 # gnubiff -- a mail notification program
-# Copyright (C) 2000-2004 Nicolas Rougier
+# Copyright (C) 2000-2005 Nicolas Rougier
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Library General Public
