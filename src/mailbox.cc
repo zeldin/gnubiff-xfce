@@ -186,6 +186,7 @@ Mailbox::start_entry_point (gpointer data)
 {
 	MAILBOX(data)->start();
 }
+
 void
 Mailbox::start (void)
 {
@@ -194,7 +195,6 @@ Mailbox::start (void)
 	// destroyed so we cannot go any further past this point.
 	lookup();
 }
-
 
 void
 Mailbox::stop (void)

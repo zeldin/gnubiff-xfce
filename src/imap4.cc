@@ -46,6 +46,11 @@
 // ========================================================================
 //  base
 // ========================================================================	
+/**
+ * Constructor. The mailbox for the IMAP protocol is created from scratch.
+ *
+ * @param biff Pointer to the instance of Gnubiff.
+ */
 Imap4::Imap4 (Biff *biff) : Mailbox (biff)
 {
 	protocol_ = PROTOCOL_IMAP4;
@@ -54,6 +59,12 @@ Imap4::Imap4 (Biff *biff) : Mailbox (biff)
 	idled_    = false;
 }
 
+/**
+ * Constructor. The mailbox for the IMAP protocol is created by taking the
+ * attributes of the existing mailbox {\em other}.
+ *
+ * @param other Mailbox from which the attributes are taken.
+ */
 Imap4::Imap4 (const Mailbox &other) : Mailbox (other)
 {
 	protocol_ = PROTOCOL_IMAP4;
@@ -62,6 +73,7 @@ Imap4::Imap4 (const Mailbox &other) : Mailbox (other)
 	idled_    = false;
 }
 
+/// Destructor
 Imap4::~Imap4 (void)
 {
 	delete socket_;
@@ -70,33 +82,40 @@ Imap4::~Imap4 (void)
 // ========================================================================
 //  main
 // ========================================================================	
-void
+/**
+ * Make a note to start monitoring in a new thread. If there is already a note
+ * or if we are in idle state nothing is done.
+ *
+ * @param delay Time (in seconds) to wait before the new thread will be
+ *              created. If {\em delay} is zero (this is the default) the
+ *              value of {\em delay_} is taken.
+ */
+void 
 Imap4::threaded_start (guint delay)
 {
-	// Is there already a timeout?
-	if (timetag_)
-		return;
-
 	// Are we in idle state?
 	if (idled_)
 		return;
 
-	// Do we want to start using given delay?
-	if (delay) {
-		timetag_ = g_timeout_add (delay*1000, start_delayed_entry_point, this);
+	// If no delay is given use internal delay
+	if (!delay)
+		delay=delay_;
 #if DEBUG
-		g_message ("[%d] Start fetch in %d second(s)", uin_, delay);
+	g_message ("[%d] Start fetch in %d second(s)", uin_, delay);
 #endif
-	}
-	//  or internal delay?
-	else {
-		timetag_ = g_timeout_add (delay_*1000, start_delayed_entry_point, this);
-#if DEBUG
-		g_message ("[%d] Start fetch in %d second(s)", uin_, delay_);
-#endif
-	}
+
+	Mailbox::threaded_start (delay);
 }
 
+/**
+ * Method to be called by a new thread for monitoring the mailbox. The status
+ * of the mailbox will be updated, new mails fetched and idle state entered
+ * (if the server does allow this). Before exiting creating of a new thread
+ * for monitoring is noted down.
+ *
+ * Remark: In this function all exceptions are catched that are thrown when
+ * sending IMAP commands or receiving response from the server.
+ */
 void 
 Imap4::start (void)
 {
@@ -113,8 +132,8 @@ Imap4::start (void)
 		g_message("[%d] Imap exception: %s", uin_, err.what());
 #endif
 		status_ = MAILBOX_ERROR;
-		unread_.clear();
-		seen_.clear();
+		unread_.clear ();
+		seen_.clear ();
 		socket_->close ();
 	}
 
