@@ -151,17 +151,23 @@ Applet::tooltip_text (void)
 	return tooltip;
 }
 
-
-void
+/**
+ *  Update the popup window. Also if new messages are present the new
+ *  mail command is executed.
+ *
+ *  @param  no_popup  If true the popup window will remain unchanged.
+ */
+void 
 Applet::update (gboolean no_popup)
 {
 #ifdef DEBUG
 	g_message ("Applet update");
 #endif
 
+	// Check if there is new mail
 	gboolean newmail = false;
-	int unread = 0;
-	for (unsigned int i=0; i<biff_->size(); i++) {
+	gint unread = 0;
+	for (guint i=0; i<biff_->size(); i++) {
 		guint status = biff_->mailbox(i)->status();
 
 		if (status == MAILBOX_NEW)
@@ -169,8 +175,7 @@ Applet::update (gboolean no_popup)
 		unread += biff_->mailbox(i)->unreads();
 	}
 
-	if ((!no_popup) && (newmail == true) && (unread > 0)
-		&& (force_popup_ == false)
+	if ((newmail == true) && (unread > 0) && (force_popup_ == false)
 		&& (biff_->value_bool ("use_newmail_command"))) {
 		std::string command = biff_->value_string ("newmail_command") + " &";
 		system (command.c_str());
@@ -182,15 +187,16 @@ Applet::update (gboolean no_popup)
 			biff_->popup()->hide();
 
 		// Otherwise update and display the popup
-		if (unread && ((biff_->value_bool ("use_popup") && newmail)
-					   || (force_popup_))) {
+		// Note: Must not test for new mail because popup also needs updating
+		// when some messages were read
+		if (unread && ((biff_->value_bool ("use_popup")) || (force_popup_))) {
 			biff_->popup()->update();
 			biff_->popup()->show();
 		}
 	}
 
 	// Mail has been displayed now
-	for (unsigned int i=0; i<biff_->size(); i++)
+	for (guint i=0; i < biff_->size(); i++)
 		biff_->mailbox(i)->mail_displayed ();
 
 	force_popup_ = false;
