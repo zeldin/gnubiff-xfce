@@ -283,21 +283,21 @@ Popup::update (void)
 			size = 1;
 
 		// Subject
-		buffer = parse_header ((*h)->subject());
+		buffer = decode_headerline ((*h)->subject());
 		gchar *subject;
 		subject = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_subject")));
 		g_free (buffer);
 		saved_strings.push_back (subject);
 
 		// Date
-		buffer = parse_header ((*h)->date());
+		buffer = decode_headerline ((*h)->date());
 		gchar *date;
 		date = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_date")));
 		g_free (buffer);
 		saved_strings.push_back (date);
 
 		// Sender
-		buffer = parse_header ((*h)->sender());
+		buffer = decode_headerline ((*h)->sender());
 		gchar *sender;
 		sender = gb_utf8_strndup (buffer, std::max<guint> (size, biff_->value_uint ("popup_size_sender")));
 		g_free (buffer);
@@ -531,7 +531,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		gtk_text_buffer_get_iter_at_offset (buffer, &iter, 0);
 
 		// Sender
-		text = parse_header (selected_header_.sender());
+		text = decode_headerline (selected_header_.sender());
 		if (text) {
 			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
 			gtk_label_set_markup (GTK_LABEL(get("from")), markup);
@@ -540,7 +540,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		}
 
 		// Subject
-		text = parse_header (selected_header_.subject());
+		text = decode_headerline (selected_header_.subject());
 		if (text) {
 			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
 			gtk_label_set_markup (GTK_LABEL(get("subject")), markup);
@@ -549,7 +549,7 @@ Popup::on_select (GtkTreeSelection *selection)
 		}
 
 		// Date
-		text = parse_header(selected_header_.date());
+		text = decode_headerline (selected_header_.date());
 		if (text) {
 			gchar *markup = g_markup_printf_escaped ("<small>%s</small>", text);
 			gtk_label_set_markup (GTK_LABEL(get("date")), markup);
@@ -558,154 +558,10 @@ Popup::on_select (GtkTreeSelection *selection)
 		}
 
 		// Body
-		text = convert (selected_header_.body(), selected_header_.charset());
+		text = charset_to_utf8 (selected_header_.body(), selected_header_.charset());
 		if (text) {
 			gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, text, -1, "normal", NULL);
 			g_free (text);
 		}
 	}
-}
-
-
-/**
- *  Parse a header line to remove any quoted-printable or base64
- *  encoding. Subject line are kind of special because character set is
- *  encoded within the text For example it can be something like:
- *  =?iso-8859-1?Q?Apr=E8s?=
- **/
-gchar *
-Popup::parse_header (std::string text)
-{
-	// A mail header line (sender, subject or date) cannot contain
-	// non-ASCII characters, so first, we remover any non-ASCII
-	// character
-	std::string copy;
-	for (guint i=0; i<text.size(); i++)
-		if (text[i] >= 0)
-			copy += text[i];
-
-	gchar *utf8_text = g_locale_to_utf8 ("", -1, 0, 0, 0);
-	gchar *utf8_part = 0;
-	std::string copy_part;
-	std::string charset;
-	char encoding = 0;
-	gchar *buffer = 0;
-
-	// Now we can begin translation
-	guint i=0;
-	do {
-		// Charset description (=?iso-ABCD-XY?)
-		if (copy.substr(i,2) == "=?") {
-			// First concatenate the part we got so far (using locale charset)
-			if (copy_part.size() > 0) {
-				utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
-				if (utf8_part) {
-					buffer = g_strconcat (utf8_text, utf8_part, NULL);
-					g_free (utf8_text);
-					g_free (utf8_part);
-					utf8_text = buffer;
-				}
-				copy_part.erase ();
-			}
-			i+=2; 
-			if (i >= copy.size()) {
-				copy_part = _("* error *");
-				break;
-			}
-
-			// Charset description
-			while ((i < copy.size()) && (copy[i] != '?'))
-				charset += copy[i++];
-			i++;
-			// End of charset description
-
-			// Encoding description (Q or B. Others ?)
-			if (i >= copy.size()) {
-				copy_part = _("* error *");
-				break;
-			}
-			encoding = copy[i++];
-			i++;
-			// End of encoding description
-
-			// First, get (part of) the encoded string
-			if (i >= copy.size()) {
-				copy_part = _("* error *");
-				break;
-			}
-			copy_part.erase ();
-			while ((i < copy.size()) && (copy.substr(i,2) != "?="))
-				copy_part += copy[i++];
-			if (i >= copy.size()) {
-				copy_part = _("* error *");
-				break;
-			} 
-
-			// Now decode
-			std::string decoded;
-			utf8_part=NULL;
-			if ((encoding == 'Q') || (encoding == 'q'))
-				decoded=decode_qencoding(copy_part);
-			else if ((encoding == 'B') || (encoding == 'b'))
-				decoded=decode_base64(copy_part);
-			else
-				utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
-			if (decoded.size()>0)
-				utf8_part = g_convert (decoded.c_str(), -1, "utf-8", charset.c_str(), 0,0,0);
-			i += 2;
-			// We translate to utf8 what we got
-			if (utf8_part) {
-				buffer = g_strconcat (utf8_text, utf8_part, NULL);
-				g_free (utf8_text);
-				g_free (utf8_part);
-				charset = "";
-				utf8_text = buffer;
-			}
-			copy_part = "";
-		}
-		// Normal text
-		else
-			copy_part += copy[i++];
-	} while (i < copy.size());
-
-	// Last (possible) part
-	utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
-	if (utf8_part) {
-		buffer = g_strconcat (utf8_text, utf8_part, NULL);
-		g_free (utf8_text);
-		g_free (utf8_part);
-		utf8_text = buffer;
-	}
-
-	return utf8_text;
-}
-
-/**
- *  Convert the string {\em text} from the character set {\em charset} to
- *  utf-8. If no character set is given the string is assumed to be in the
- *  C runtime character set. If the string cannot be converted a error message
- *  is returned.
- *
- *  @param  text     String to be converted
- *  @param  charset  Character set of the string {\em text} or empty
- *  @return          Converted string or error message (as character array).
- *                   This string has to be freed with g_free().
- */
-gchar * 
-Popup::convert (std::string text, std::string charset)
-{
-	gchar *utf8 = (char *) text.c_str();
-	if (!charset.empty())
-		utf8 = g_convert (text.c_str(), -1, "utf-8", charset.c_str(), 0,0,0);
-	else
-		utf8 = g_locale_to_utf8 (text.c_str(), -1, 0, 0, 0);
-
-	if (!utf8) {
-		gchar *tmp = g_strdup_printf (_("[Cannot convert character sets (from \"%s\" to \"utf-8\")]"),
-									  charset.empty() ? "C" : charset.c_str());
-		utf8 = g_locale_to_utf8 (tmp, -1, 0, 0, 0);
-		g_free (tmp);
-	}
-
-	return utf8;
 }

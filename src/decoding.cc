@@ -84,6 +84,123 @@ Decoding::decode_body (std::vector<std::string> &mail, std::string encoding,
 }
 
 /**
+ *  Decode a header line. Any quoted-printable or base64 encoding is
+ *  decoded to utf-8. If there is an error during decoding an error message
+ *  is returned.  Subject lines are kind of special because the character
+ *  set is encoded within the text. For example it can be something like:
+ *  =?iso-8859-1?Q?Apr=E8s?=.
+ *
+ *  @param  line Header line to be decoded
+ *  @return      String containing the decoded line (or an error message). This
+ *               string must be freed via g_free().
+ **/
+gchar *
+Decoding::decode_headerline (std::string line)
+{
+	// A mail header line (sender, subject or date) cannot contain
+	// non-ASCII characters, so first we remove any non-ASCII characters
+	std::string copy;
+	for (guint i=0; i<line.size(); i++)
+		if (line[i] >= 0)
+			copy += line[i];
+
+	gchar *utf8_text = g_locale_to_utf8 ("", -1, 0, 0, 0);
+	gchar *utf8_part = 0;
+	std::string copy_part;
+	std::string charset;
+	char encoding = 0;
+	gchar *buffer = 0;
+
+	// Now we can begin decoding
+	guint i=0;
+	do {
+		// Charset description (=?iso-ABCD-XY?)
+		if (copy.substr(i,2) == "=?") {
+			// First concatenate the part we got so far (using locale charset)
+			if (copy_part.size() > 0) {
+				utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
+				if (utf8_part) {
+					buffer = g_strconcat (utf8_text, utf8_part, NULL);
+					g_free (utf8_text);
+					g_free (utf8_part);
+					utf8_text = buffer;
+				}
+				copy_part.erase ();
+			}
+			i+=2; 
+			if (i >= copy.size()) {
+				copy_part = _("[Cannot decode this header line]");
+				break;
+			}
+
+			// Charset description
+			while ((i < copy.size()) && (copy[i] != '?'))
+				charset += copy[i++];
+			i++;
+			// End of charset description
+
+			// Encoding description (Q or B. Others ?)
+			if (i >= copy.size()) {
+				copy_part = _("[Cannot decode this header line]");
+				break;
+			}
+			encoding = copy[i++];
+			i++;
+			// End of encoding description
+
+			// First, get (part of) the encoded string
+			if (i >= copy.size()) {
+				copy_part = _("[Cannot decode this header line]");
+				break;
+			}
+			copy_part.erase ();
+			while ((i < copy.size()) && (copy.substr(i,2) != "?="))
+				copy_part += copy[i++];
+			if (i >= copy.size()) {
+				copy_part = _("[Cannot decode this header line]");
+				break;
+			} 
+
+			// Now decode
+			std::string decoded;
+			utf8_part=NULL;
+			if ((encoding == 'Q') || (encoding == 'q'))
+				decoded=decode_qencoding(copy_part);
+			else if ((encoding == 'B') || (encoding == 'b'))
+				decoded=decode_base64(copy_part);
+			else
+				utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
+			if (decoded.size()>0)
+				utf8_part = g_convert (decoded.c_str(), -1, "utf-8", charset.c_str(), 0,0,0);
+			i += 2;
+			// We translate to utf8 what we got
+			if (utf8_part) {
+				buffer = g_strconcat (utf8_text, utf8_part, NULL);
+				g_free (utf8_text);
+				g_free (utf8_part);
+				charset = "";
+				utf8_text = buffer;
+			}
+			copy_part = "";
+		}
+		// Normal text
+		else
+			copy_part += copy[i++];
+	} while (i < copy.size());
+
+	// Last (possible) part
+	utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
+	if (utf8_part) {
+		buffer = g_strconcat (utf8_text, utf8_part, NULL);
+		g_free (utf8_text);
+		g_free (utf8_part);
+		utf8_text = buffer;
+	}
+
+	return utf8_text;
+}
+
+/**
  *  Get a quoted string that is a substring of the string {\em line}. The
  *  quoted string has to be enclosed by the {\em quoted} character. If
  *  there should be no test for this character at the beginning {\em
@@ -460,6 +577,37 @@ Decoding::utf8_to_imaputf7(const gchar *str, gssize len)
 	}
 
 	return g_strdup(result.c_str());
+}
+
+/**
+ *  Convert the string {\em text} from the character set {\em charset} to
+ *  utf-8. If no character set is given the string is assumed to be in the
+ *  C runtime character set. If the string cannot be converted a error message
+ *  is returned.
+ *
+ *  @param  text     String to be converted
+ *  @param  charset  Character set of the string {\em text} or empty
+ *  @return          Converted string or error message (as character array).
+ *                   This string has to be freed with g_free().
+ */
+gchar * 
+Decoding::charset_to_utf8 (std::string text, std::string charset)
+{
+	gchar *utf8 = (char *) text.c_str();
+	if (!charset.empty())
+		utf8 = g_convert (text.c_str(), -1, "utf-8", charset.c_str(), 0,0,0);
+	else
+		utf8 = g_locale_to_utf8 (text.c_str(), -1, 0, 0, 0);
+
+	if (!utf8) {
+		gchar *tmp = g_strdup_printf (_("[Cannot convert character sets "
+										"(from \"%s\" to \"utf-8\")]"),
+									  charset.empty() ? "C" : charset.c_str());
+		utf8 = g_locale_to_utf8 (tmp, -1, 0, 0, 0);
+		g_free (tmp);
+	}
+
+	return utf8;
 }
 
 /**

@@ -81,11 +81,6 @@ protected:
 	void on_enter (GdkEventCrossing *event);
 	void on_leave (GdkEventCrossing *event);
 	void on_select (GtkTreeSelection *selection);
-
-private:
-	/* util */
-	gchar *parse_header (std::string text);
-	gchar *convert (std::string text, std::string charset);
 };
 
 #endif

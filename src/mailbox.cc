@@ -623,7 +623,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 
 			// Get Token
 			if (!get_mime_token (line, partinfo.encoding_, cte_pos)) {
-				h.add_to_body (_("[Cannot parse content transfer encoding header line]"));
+				h.body (_("[Cannot parse content transfer encoding header line]"));
 				continue;
 			}
 		}
