@@ -700,10 +700,13 @@ Preferences::expert_ok (void)
 	opts->from_string (option->name(), value);
 
 	// Update GUI
-	biff_->gui_set (OPTGRP_ALL, xml_, filename_, option);
-	biff_->gui_show (OPTGRP_ALL, xml_, filename_, option);
-	gtk_list_store_set (store, &treeiter, COL_EXP_VALUE,
-						opts->to_string(option->name()).c_str(), -1);
+	if (option->group() != OPTGRP_MAILBOX) {
+		biff_->gui_set (OPTGRP_ALL, xml_, filename_, option);
+		biff_->gui_show (OPTGRP_ALL, xml_, filename_, option);
+		gtk_list_store_set (store, &treeiter, COL_EXP_VALUE,
+							opts->to_string(option->name()).c_str(), -1);
+	}
+	// FIXME: Update mailbox GUI widgets if dialog is shown
 }
 
 /**

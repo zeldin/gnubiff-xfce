@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-01 23:44+0100\n"
-"PO-Revision-Date: 2005-01-31 16:00+0100\n"
+"PO-Revision-Date: 2005-02-02 00:15+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -513,7 +513,7 @@ msgstr "Platzierungseinstellungen für das Applet"
 
 #: ui/preferences.glade.h:17
 msgid "Applet or Biff"
-msgstr "_Applet oder Biff"
+msgstr "Applet _oder Biff"
 
 #: ui/preferences.glade.h:18
 msgid "B_rowse..."
@@ -537,7 +537,7 @@ msgstr "_Entwickler"
 
 #: ui/preferences.glade.h:23
 msgid "Expert"
-msgstr "Experte"
+msgstr "E_xperte"
 
 #: ui/preferences.glade.h:24
 msgid "Here the value of the currently selected option can be edited."
@@ -656,7 +656,7 @@ msgstr "Wert: "
 
 #: ui/preferences.glade.h:52
 msgid "When _double-clicked:"
-msgstr "Bei D_oppelklick:"
+msgstr "Bei Doppel_klick:"
 
 #: ui/preferences.glade.h:53
 msgid "When _new mail:"
