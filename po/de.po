@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-30 00:06+0100\n"
+"POT-Creation-Date: 2004-12-31 00:48+0100\n"
 "PO-Revision-Date: 2004-12-26 17:50+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -50,44 +50,44 @@ msgstr "Allgemeine Kommandozeilenoptionen:"
 msgid "Options for debugging:"
 msgstr "Debugging-Optionen:"
 
-#: src/biff.cc:121
+#: src/biff.cc:122
 msgid "no mail"
 msgstr "Keine Nachrichten"
 
-#: src/biff.cc:159
+#: src/biff.cc:160
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Konnte Konfigurationsdatei »%s« nicht finden!"
 
-#: src/biff.cc:513
+#: src/biff.cc:543
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kann die Konfigurationsdatei »%s« nicht öffnen!"
 
-#: src/biff.cc:538
+#: src/biff.cc:568
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Keine Briefkastendefinition in der Konfigurationsdatei »%s« gefunden!"
 
-#: src/mailbox.cc:71
+#: src/mailbox.cc:63
 #, c-format
 msgid "mailbox %d"
 msgstr "Briefkasten %d"
 
-#: src/mailbox.cc:185
+#: src/mailbox.cc:177
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Kann Thread nicht erzeugen: %s"
 
-#: src/mailbox.cc:487
+#: src/mailbox.cc:479
 msgid "<no sender>"
 msgstr "<Kein Absender>"
 
-#: src/mailbox.cc:497
+#: src/mailbox.cc:489
 msgid "<no subject>"
 msgstr "<Kein Betreff>"
 
-#: src/mailbox.cc:507
+#: src/mailbox.cc:499
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
@@ -107,12 +107,12 @@ msgstr "[%d] Konnte das Zertifikat »%s« für »%s« nicht laden"
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Kann entfernten Host »%s« auf Port %d nicht identifizieren"
 
-#: src/socket.cc:318
+#: src/socket.cc:323
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Kann nicht an »%s« auf Port %d schreiben"
 
-#: src/socket.cc:373
+#: src/socket.cc:376
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Kann nicht von »%s« auf Port %d lesen"
@@ -127,7 +127,7 @@ msgstr "[%d] Bekomme keine Bestätigung von »%s« auf Port %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kann Ordner »%s« auf dem Server »%s« nicht auswählen"
 
-#: src/imap4.cc:452
+#: src/imap4.cc:435
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Diese Nachricht besitzt keinen Klartext-Abschnitt (\"text/plain\")]"
 
@@ -146,12 +146,12 @@ msgstr "Kann neues Mail-Verzeichnis nicht öffnen (»%s«)."
 msgid "Cannot open %s."
 msgstr "Kann »%s« nicht öffnen."
 
-#: src/apop.cc:92 src/pop3.cc:90
+#: src/apop.cc:75 src/pop3.cc:73
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Leeres Passwort"
 
-#: src/apop.cc:132
+#: src/apop.cc:115
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -160,7 +160,7 @@ msgstr ""
 "[%d] Der POP-Server scheint das APOP-Protokoll nicht zu akzeptieren (kein "
 "Zeitstempel bereitgestellt)"
 
-#: src/apop.cc:156
+#: src/apop.cc:139
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"

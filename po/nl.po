@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-30 00:06+0100\n"
+"POT-Creation-Date: 2004-12-31 00:48+0100\n"
 "PO-Revision-Date: 2004-06-25 19:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -51,47 +51,47 @@ msgstr ""
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:121
+#: src/biff.cc:122
 #, fuzzy
 msgid "no mail"
 msgstr "Geen e-mail"
 
-#: src/biff.cc:159
+#: src/biff.cc:160
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Configuratiebestand (%s) niet gevonden!"
 
-#: src/biff.cc:513
+#: src/biff.cc:543
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
-#: src/biff.cc:538
+#: src/biff.cc:568
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Geen postvak-definitie gevonden in uw .gnubiffrc"
 
-#: src/mailbox.cc:71
+#: src/mailbox.cc:63
 #, fuzzy, c-format
 msgid "mailbox %d"
 msgstr "Postvak"
 
-#: src/mailbox.cc:185
+#: src/mailbox.cc:177
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "Kon thread niet aanmaken: %s\n"
 
-#: src/mailbox.cc:487
+#: src/mailbox.cc:479
 #, fuzzy
 msgid "<no sender>"
 msgstr "<geen verzender gevonden>"
 
-#: src/mailbox.cc:497
+#: src/mailbox.cc:489
 #, fuzzy
 msgid "<no subject>"
 msgstr "<geen onderwerp gevonden>"
 
-#: src/mailbox.cc:507
+#: src/mailbox.cc:499
 #, fuzzy
 msgid "<no date>"
 msgstr "<geen datum gevonden>"
@@ -112,12 +112,12 @@ msgstr "Kan niet met %s verbinden op poort %d"
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "Kan niet schrijven naar %s op poort %d"
 
-#: src/socket.cc:318
+#: src/socket.cc:323
 #, fuzzy, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "Kan niet schrijven naar %s op poort %d"
 
-#: src/socket.cc:373
+#: src/socket.cc:376
 #, fuzzy, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "Kan niet lezen van %s op poort %d"
@@ -132,7 +132,7 @@ msgstr "Kan geen bevestiging opvragen van %s op poort %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "Kan niet met %s verbinden op poort %d"
 
-#: src/imap4.cc:452
+#: src/imap4.cc:435
 msgid "[This mail has no \"text/plain\" part]"
 msgstr ""
 
@@ -151,19 +151,19 @@ msgstr "Kan nieuwe e-mail map niet openen (%s)"
 msgid "Cannot open %s."
 msgstr "Kan %s niet openen."
 
-#: src/apop.cc:92 src/pop3.cc:90
+#: src/apop.cc:75 src/pop3.cc:73
 #, c-format
 msgid "[%d] Empty password"
 msgstr ""
 
-#: src/apop.cc:132
+#: src/apop.cc:115
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
 msgstr ""
 
-#: src/apop.cc:156
+#: src/apop.cc:139
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-30 00:06+0100\n"
+"POT-Creation-Date: 2004-12-31 00:48+0100\n"
 "PO-Revision-Date: 2004-12-16 23:42+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -55,46 +55,46 @@ msgstr "Opciones generales de línea de comandos:"
 msgid "Options for debugging:"
 msgstr "Opciones para depurar:"
 
-#: src/biff.cc:121
+#: src/biff.cc:122
 msgid "no mail"
 msgstr "sin mensajes"
 
-#: src/biff.cc:159
+#: src/biff.cc:160
 #, c-format
 msgid "Configuration file (%s) not found !"
 msgstr "Archivo de configuración (%s) no encontrado !"
 
-#: src/biff.cc:513
+#: src/biff.cc:543
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "No se puede abrir su archivo de configuración (%s)"
 
-#: src/biff.cc:538
+#: src/biff.cc:568
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "No se ha encontrado una definición de buzón en su archivo de configuración (%"
 "s)"
 
-#: src/mailbox.cc:71
+#: src/mailbox.cc:63
 #, c-format
 msgid "mailbox %d"
 msgstr "Buzón %d"
 
-#: src/mailbox.cc:185
+#: src/mailbox.cc:177
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] No se puede crear hilo: %s"
 
-#: src/mailbox.cc:487
+#: src/mailbox.cc:479
 msgid "<no sender>"
 msgstr "<sin remitente>"
 
-#: src/mailbox.cc:497
+#: src/mailbox.cc:489
 msgid "<no subject>"
 msgstr "<sin asunto>"
 
-#: src/mailbox.cc:507
+#: src/mailbox.cc:499
 msgid "<no date>"
 msgstr "<sin fecha>"
 
@@ -114,12 +114,12 @@ msgstr "[%d] Fallo al cargar el certificado (%s) para %s"
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] No se puede identificar el servidor remoto (%s en el puerto %d)"
 
-#: src/socket.cc:318
+#: src/socket.cc:323
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] No se puede escribir en %s en el puerto %d"
 
-#: src/socket.cc:373
+#: src/socket.cc:376
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] No se puede leer desde %s en el puerto %d"
@@ -134,7 +134,7 @@ msgstr "[%d]No se puede obtener confirmación  desde %s en el puerto %d"
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] No se puede seleccionar carpeta %s en el servidor %s"
 
-#: src/imap4.cc:452
+#: src/imap4.cc:435
 msgid "[This mail has no \"text/plain\" part]"
 msgstr "[Este correo no tiene parte \"text/plain\"]"
 
@@ -153,12 +153,12 @@ msgstr "No se puede abrir el directorio del correo nuevo (%s)"
 msgid "Cannot open %s."
 msgstr "No se puede abrir %s."
 
-#: src/apop.cc:92 src/pop3.cc:90
+#: src/apop.cc:75 src/pop3.cc:73
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Contraseña vacía"
 
-#: src/apop.cc:132
+#: src/apop.cc:115
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -167,7 +167,7 @@ msgstr ""
 "[%d] Su servidor pop no parece aceptar el protocolo apop (no se propocionó "
 "una fecha)"
 
-#: src/apop.cc:156
+#: src/apop.cc:139
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"

@@ -41,6 +41,7 @@
 #endif
 
 #include "biff.h"
+#include "ui-authentication.h"
 #include "ui-preferences.h"
 #include "ui-properties.h"
 #include "ui-applet-gtk.h"
@@ -178,6 +179,10 @@ Biff::Biff (gint ui_mode,
 	// Popup
 	popup_ = new Popup (this);
 	popup_->create();
+
+	// Authentication dialog
+	ui_auth_mutex_=g_mutex_new ();
+	ui_auth_ = new Authentication ();
 }
 
 
@@ -287,17 +292,31 @@ Biff::remove (Mailbox *mailbox)
 }
 
 /**
- * This function tries to guess a mailbox password by looking at other
- * mailboxes. If one of them get same address and same username, then this is
- * reasonable to think they may share the same password. This is typically the
- * case when monitoring several folders on the same mail account.
+ * Determine if a password for the given mailbox {\em m} exists. If no
+ * password exists yet this function tries to obtain it by:
+ * \begin{itemize}
+ *    \item Looking at the other mailboxes. If one exists with the same
+ *          address, username and port (and a password) it is assumed that
+ *          this password is okay.
+ *    \item Asking the user. If no other mailbox with the correct parameters is
+ *          found the user has to enter the password in a dialog.
+ * \end{\itemize}
  *
- * @param  m        the mailbox missing a password
- * @return          the found password or an empty string if none found
+ * @param  m        the mailbox we want a password for
+ * @return          Boolean indicating whether a password could be obtained
  */
-std::string 
+gboolean 
 Biff::password (Mailbox *m)
-{	
+{
+	// Do we know the password already?
+	if (!m->password().empty())
+		return true;
+
+	// Remark: It's important to block thread before looking at other mailboxes
+	//         since one is maybe asking (using gui) for this password.
+	g_mutex_lock (ui_auth_mutex_);
+
+	// Searching other mailboxes
 #if DEBUG
 	g_message ("[%d] Looking for password for %s@%s:%d", m->uin(),
 			   m->username().c_str(), m->address().c_str(), m->port());
@@ -308,9 +327,20 @@ Biff::password (Mailbox *m)
 			&& (mailbox(i)->address() == m->address())
 			&& (mailbox(i)->username() == m->username())
 			&& (mailbox(i)->port() == m->port())
-			&& (!mailbox(i)->password().empty()))
-			return mailbox(i)->password();
-	return "";
+			&& (!mailbox(i)->password().empty())) {
+			m->password(mailbox(i)->password());
+			break;
+		}
+
+	// Ask the user if password is still not known
+	if (m->password().empty()) {
+		gdk_threads_enter ();
+		ui_auth_->select (m);
+		gdk_threads_leave ();
+	}
+
+	g_mutex_unlock (ui_auth_mutex_);
+	return !m->password().empty();
 }
 
 

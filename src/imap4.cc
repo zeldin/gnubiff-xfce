@@ -316,25 +316,8 @@ Imap4::fetch_status (void)
 	// By default we consider to have an error status
 	status_ = MAILBOX_CHECK;
 
-	// First try: try to guess password by looking at other mailboxes
-	// Remark: It's important to block thread before looking at other mailboxes
-	//         since one is maybe asking (using gui) for this password.
-	if (password_.empty()) {
-		g_static_mutex_lock (&ui_auth_mutex_);
-
-		password_ = biff_->password (this);
-
-		// Second try: ask to the user
-		if (password_.empty()) {
-			gdk_threads_enter ();
-			ui_auth_->select (this);
-			gdk_threads_leave ();
-		}
-		g_static_mutex_unlock (&ui_auth_mutex_);
-	}
-
-	// No way, user do not want to help us, we simply return
-	if (password_.empty()) throw imap_socket_err();
+	// Is there a password? Can we obtain it?
+	if (!biff_->password(this)) throw imap_socket_err();
 
 	// Connection and authentification
 	if (!connect ()) throw imap_socket_err();
