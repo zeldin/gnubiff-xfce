@@ -400,7 +400,7 @@ Imap4::idle_renew_loop() throw (imap_err)
 		idleRenew = false;
 
 		// IDLE
-		if (!send (std::string("IDLE"))) throw imap_socket_err();
+		send (std::string("IDLE"));
 		
 		// Read acknowledgement
 		if (!socket_->read (line)) throw imap_socket_err();
@@ -462,7 +462,7 @@ Imap4::command_capability (void) throw (imap_err)
 	std::string line;
 
 	// Sending the command
-	if (!send("CAPABILITY")) throw imap_socket_err();
+	send ("CAPABILITY");
 
 	// Getting server's response
 	if (!(socket_->read (line))) throw imap_socket_err();
@@ -480,7 +480,7 @@ Imap4::command_capability (void) throw (imap_err)
 	idleable_=(line.find (" IDLE ") != std::string::npos);
 
 	if (line.find (" LOGINDISABLED ") != std::string::npos) {
-		send ("LOGOUT");
+		command_logout();
 		throw imap_nologin_err();
 	}
 }
@@ -544,7 +544,7 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	// Send command
 	line = "FETCH " + ss.str() + " (BODY.PEEK[" + partinfo.part_ + "]<0.";
 	line+= textsizestr.str() + ">)";
-	if (!send(line)) throw imap_socket_err();
+	send(line);
 			
 	// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
 	gint cnt=1+preventDoS_additionalLines_;
@@ -614,7 +614,7 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 	ss << msn;
 
 	// Send command
-	if (!send("FETCH " +ss.str()+ " (BODYSTRUCTURE)")) throw imap_socket_err();
+	send ("FETCH " +ss.str()+ " (BODYSTRUCTURE)");
 
 	// Response should be: "* s FETCH (BODYSTRUC..." (see RFC 3501 7.4.2)
 	gint cnt=1+preventDoS_additionalLines_;
@@ -681,7 +681,7 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 	// Send command
 	std::string line;
 	line="FETCH "+ss.str()+" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])";
-	if (!send(line)) throw imap_socket_err();
+	send (line);
 		
 	// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
 	gint cnt=1+preventDoS_additionalLines_;
@@ -743,7 +743,7 @@ Imap4::command_login (void) throw (imap_err)
 
 	// Sending the command
 	line = "LOGIN \"" + username_ + "\" \"" + password_ + "\"";
-	if (!send (line, false)) throw imap_socket_err();
+	send (line, false);
 
 #ifdef DEBUG
 	// Just in case someone sends me the output: password won't be displayed
@@ -767,7 +767,7 @@ void
 Imap4::command_logout (void) throw (imap_err)
 {
 	// Sending the command
-	if (!send("LOGOUT")) throw imap_socket_err();
+	send ("LOGOUT");
 	// Closing the socket
 	socket_->close ();
 }
@@ -788,25 +788,23 @@ Imap4::command_logout (void) throw (imap_err)
 void 
 Imap4::command_select (void) throw (imap_err)
 {
-	gboolean sendok=false;
-	gchar *folder_imaputf7=utf8_to_imaputf7(folder_.c_str(),-1);
+	gchar *buffer=utf8_to_imaputf7(folder_.c_str(),-1);
+	if (!buffer) throw imap_command_err();
 
 	// Send command
-	if (folder_imaputf7) {
-		sendok=send(std::string("SELECT \"") + folder_imaputf7 + "\"");
-		g_free(folder_imaputf7);
-	}
+	send(std::string("SELECT \"") + buffer + "\"");
+	g_free(buffer);
 
-	// Error handling
-	if ((!sendok) || (!folder_imaputf7))
-		g_warning (_("[%d] Unable to select folder %s on host %s"),
-				   uin_, folder_.c_str(), address_.c_str());
-	if (!folder_imaputf7) throw imap_command_err();
-	if (!sendok) throw imap_socket_err();
+	// Create error message
+	buffer=g_strdup_printf(_("[%d] Unable to select folder %s on host %s"),
+						   uin_, folder_.c_str(), address_.c_str());
+	if (!buffer) throw imap_command_err();
+	std::string msg=std::string(buffer);
+	g_free(buffer);
 
 	// According to RFC 3501 6.3.1 there must be exactly seven lines
 	// before getting the acknowledgment line.
-	waitforack(7);
+	waitforack(msg,7);
 }
 
 /**
@@ -830,7 +828,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	std::string line;
 
 	// Sending the command
-	if (!send("SEARCH NOT SEEN")) throw imap_socket_err();
+	send("SEARCH NOT SEEN");
 
 	// We need to set a limit to lines read (DoS Attacks).
 	// Expected response "* SEARCH ..." should be in the next line.
@@ -867,9 +865,11 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 
 /**
  * Reading and discarding input lines from the server's response for the last
- * sent command. If the response is not positive an {\em imap_command_err}
- * exception is thrown.
- * 
+ * sent command. If the response is not positive the optional error message
+ * {\em msg} is printed and an imap_command_err exception is thrown.
+ *
+ * @param     msg      Error message to be printed if we don't get a positive
+ *                     response. The default is to print no message.
  * @param     cnt      Number of lines that are expected to be sent by the
  *                     server. This value is needed to help deciding whether
  *                     we are DoS attacked. The default value is 0.
@@ -882,7 +882,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
  *                     This exception is thrown if a network error occurs.
  */
 void 
-Imap4::waitforack (gint cnt) throw (imap_err)
+Imap4::waitforack (std::string msg, gint cnt) throw (imap_err)
 {
 	std::string line;
 
@@ -890,13 +890,18 @@ Imap4::waitforack (gint cnt) throw (imap_err)
 	while ((socket_->read (line) > 0) && (cnt--))
 		if (line.find (tag()) == 0)
 			break;
+	// Error?
+	if ((!socket_->status()) || (cnt<0))
+		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"),
+				   uin_, address_.c_str(), port_);
 	if (!socket_->status()) throw imap_socket_err();
 	if (cnt<0) throw imap_dos_err();
 
-	// Print error message and throw exception if response is not positive
+	// Negative response?
 	if (line.find (tag() + "OK") != 0) {
-		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"),
-				   uin_, address_.c_str(), port_);
+		// Print error message
+		if (msg!="")
+			g_warning (msg.c_str());
 		// We still have a connection to the server so we can logout
 		command_logout();
 		throw imap_command_err();
@@ -1171,7 +1176,7 @@ Imap4::parse_bodystructure_parameters (std::string list, PartInfo &partinfo)
  * Reset the counter for tagging imap commands.
  */
 void 
-Imap4::reset_tag()
+Imap4::reset_tag ()
 {
 	tag_=std::string("");
 	tagcounter_=0;
@@ -1183,7 +1188,7 @@ Imap4::reset_tag()
  * @return  a C++ string with the tag
  */
 std::string 
-Imap4::tag()
+Imap4::tag ()
 {
 	return tag_;
 }
@@ -1191,27 +1196,40 @@ Imap4::tag()
 /**
  * Send an IMAP command.
  * The given {\em command} is prefixed with a unique identifier (obtainable
- * via the tag() function) and postfixed with "\r\n" and then written to the
- * socket of the mailbox.
+ * via the Imap::tag() function) and postfixed with "\r\n" and then written to
+ * the socket of the mailbox.
+ *
+ * If {\em check} is true the return value of the Socket::write() is checked
+ * and an imap_socket_err exception is thrown if it was not successful. So
+ * this function always return SOCKET_STATUS_OK if {\em check} is true,
+ * otherwise (if {\em check} is false, error handling is left to the caller of
+ * this function.
  *
  * @param command  IMAP command as a C++ string
- * @param debug    boolean that says if the command should be printed in debug
- *                 mode (default is true)
- * @return         return value of the socket write command
+ * @param debug    Shall the sent command be printed in debug mode?
+ *                 The default is true.
+ * @param check    Shall the return value of the socket write command be
+ *                 checked? The default is true.
+ * @return         Return value of the socket write command, this is always
+ *                 SOCKET_STATUS_OK if {\em check} is true.
+ * @exception imap_command_err
+ *                 This exception is thrown if we can't create the string to be
+ *                 sent to the server.
+ * @exception imap_socket_err
+ *                 This exception is thrown if a network error occurs.
  */
 gint 
-Imap4::send(std::string command, gboolean debug)
+Imap4::send (std::string command, gboolean debug, gboolean check)
 {
 	// Create new tag
 	tagcounter_++;
-	gint len=g_snprintf(NULL,0,"A%05d ",tagcounter_)+1;
-	gchar *buffer=g_strnfill(len,'\0');
-	if (buffer==NULL)
-		return 0;
-	if (g_snprintf(buffer,len,"A%05d ",tagcounter_)!=len-1)
-		return 0;
+	gchar *buffer=g_strdup_printf("A%05d ",tagcounter_);
+	if (buffer==NULL) throw imap_command_err();
 	tag_=std::string(buffer);
 	g_free(buffer);
+
 	// Write line
-	return socket_->write (tag_ + command + "\r\n", debug);
+	gint status=socket_->write (tag_ + command + "\r\n", debug);
+	if ((status!=SOCKET_STATUS_OK) && check) throw imap_socket_err();
+	return status;
 }

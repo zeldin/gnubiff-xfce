@@ -120,10 +120,11 @@ class Imap4 : public Mailbox {
 	void command_logout (void) throw (imap_err);
 	std::vector<int> command_searchnotseen (void) throw (imap_err);
 	void command_select (void) throw (imap_err);
-	void waitforack (gint num=0) throw (imap_err);
+	void waitforack (std::string msg=std::string(""),
+					 gint num=0) throw (imap_err);
 	void reset_tag();
 	std::string tag();
-	gint send(std::string,gboolean debug=true);
+	gint send(std::string,gboolean debug=true, gboolean check=true);
 	std::string idle_renew_loop() throw (imap_err);	 // Renew IDLE state
 													 // periodically. 
 	void update_applet();						 // Update the applet to new IMAP state.

@@ -53,6 +53,8 @@ Version 2.1.1
    - Bugfix: Accept mail lines beginning with "* BYE" (IMAP4)
    - Bugfix: Send the LOGOUT command if we have to terminate a connection
         untimely (IMAP4)
+   - Bugfix/Cleanup: Simplified error handling when sending to the server
+        (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier
