@@ -23,6 +23,7 @@ Version 2.1.2
    - Bugfix: Typo in mini help(thanks to Clytie Siddall for reporting this bug)
    - Bugfix: Bugs regarding the word "mail" (thanks to Clytie Siddall for
         reporting this bug)
+   - Added Clytie Siddall to contributors
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

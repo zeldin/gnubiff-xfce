@@ -257,6 +257,7 @@ Various contributors:@*
 @item Reid Rivenburgh
 @item Hans-Ulrich Schaefer
 @item Achim Settelmeier
+@item Clytie Siddall
 @item Erik Sittman
 @item Barry Skidmore
 @item Chris Snell
