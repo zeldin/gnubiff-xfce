@@ -87,6 +87,7 @@ class Imap4 : public Mailbox {
 	void command_fetchbody (guint, class PartInfo &, std::vector<std::string> &) throw (imap_err);
 	PartInfo command_fetchbodystructure (guint) throw (imap_err);
 	std::vector<std::string> command_fetchheader (guint) throw (imap_err);
+	void command_login (void) throw (imap_err);
 	std::vector<int> command_searchnotseen (void) throw (imap_err);
 	void command_waitforack (gint num=0) throw (imap_err);
 	void reset_tag();

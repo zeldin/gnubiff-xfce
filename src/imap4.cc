@@ -129,7 +129,7 @@ Imap4::start (void)
 }
 
 /**
- * Connect the mailbox, get unread mails and update mailbox status.
+ * Connect to the mailbox, get unread mails and update mailbox status.
  * If the password for the mailbox isn't already known, it is obtained (if
  * possible). If the mailbox supports the "IDLE" command this function starts
  * idling once the mailbox status is known.
@@ -247,23 +247,7 @@ Imap4::connect (void)
 	command_capability();
 
 	// LOGIN
-	line = "LOGIN \"" + username_ + std::string ("\" \"") + password_+ "\"";
-	if (!send (line, false)) return 0;
-
-	// Just in case send someone me the output: password won't be displayed
-#ifdef DEBUG
-	line = tag() + "LOGIN \"" + username_ + "\" (password) \r\n";
-	g_message ("[%d] SEND(%s:%d): %s", uin_, address_.c_str(), port_,
-			   line.c_str());
-#endif
-
-	if (!(socket_->read (line))) return 0;
-	if (line.find (tag()+"OK") != 0) {
-		socket_->status (SOCKET_STATUS_ERROR);
-		status_ = MAILBOX_ERROR;
-		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"), uin_, address_.c_str(), port_);
-		return 0;
-	}
+	command_login();
 
 	// SELECT
 	gboolean check = false;
@@ -761,12 +745,44 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 }
 
 /**
+ * Sending the IMAP command "LOGIN" to the server.
+ *
+ * @exception imap_command_err
+ *                     If we get an unexpected server's response
+ * @exception imap_dos_err
+ *                     If an DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     If a network error occurs
+ */
+void 
+Imap4::command_login (void) throw (imap_err)
+{
+	std::string line;
+
+	// Sending the command
+	line = "LOGIN \"" + username_ + "\" \"" + password_ + "\"";
+	if (!send (line, false)) throw imap_socket_err();
+
+#ifdef DEBUG
+	// Just in case someone sends me the output: password won't be displayed
+	line = tag() + "LOGIN \"" + username_ + "\" (password) \r\n";
+	g_message ("[%d] SEND(%s:%d): %s", uin_, address_.c_str(), port_,
+			   line.c_str());
+#endif
+
+	// Getting the acknowledgment
+	command_waitforack();
+}
+
+/**
  * Sending the IMAP command "SEARCH NOT SEEN" and parsing the server's
  * response. The IMAP command "SEARCH NOT SEEN" is sent to the server to get
  * the message sequence numbers of those messages that have not been read yet.
  * 
  * @return             C++ vector of integers for the message sequence numbers
  *                     of unread messages.
+ * @exception imap_command_err
+ *                     If we get an unexpected server's response
  * @exception imap_dos_err
  *                     If an DoS attack is suspected.
  * @exception imap_socket_err
