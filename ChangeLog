@@ -134,6 +134,8 @@ Version 2.1.1
    - Added Tim Bishop to maintainers, updated some dates to 2005
    - Bugfix: Only don't send CAPABILITY command if all capabilities are
         present in the response code (IMAP4)
+   - Bugfix: Updating applet/popup when idling (IMAP4), thanks to Byron Foster
+	for reporting this bug
 
 Version 2.1.0
  * Nicolas Rougier

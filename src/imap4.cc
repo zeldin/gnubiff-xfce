@@ -357,7 +357,7 @@ Imap4::idle (void) throw (imap_err)
 		// When in idle state, we won't exit this thread function
 		// so we have to update applet in the meantime
 		update_mailbox_status ();
-		update_applet();
+		update_applet ();
 
 		if (timetag_)
 			g_source_remove (timetag_);
@@ -372,6 +372,9 @@ Imap4::idle (void) throw (imap_err)
 
 		// Getting the acknowledgment
 		waitfor_ack ();
+
+		// Set mailbox status
+		status_ = MAILBOX_CHECK;
 
 		// Get mails
 		fetch_mails ();
