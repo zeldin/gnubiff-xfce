@@ -19,6 +19,7 @@ Version 2.0.2
    - updated po/{nl,de}.po
    - finally fixed g++-3.4 compile error (Debian bug #271288)
  * Robert Sowada:
+   - Various small changes
    - Bugfix: User can no longer make config file invalid by using XML 
      sensitive characters in strings
    - Bugfixes in setting file permissions
@@ -30,6 +31,7 @@ Version 2.0.2
    - Bugfix in mh protocol
    - Bugfixes in handling of sound filename
    - Bugfixes in string handling
+   - Bugfix in "new mail" and "no mail" tooltips
 
 
 Version 2.0.1

@@ -1442,7 +1442,7 @@
 			      <child>
 				<widget class="GtkEntry" id="newmail_text_entry">
 				  <property name="visible">True</property>
-				  <property name="tooltip" translatable="yes">Text to be displayed when new mail, %d is the number of mail.</property>
+				  <property name="tooltip" translatable="yes">Text to be displayed when new mail is present, %d is the number of mails. Valid XML must be entered, pango markup may be used.</property>
 				  <property name="can_focus">True</property>
 				  <property name="editable">True</property>
 				  <property name="visibility">True</property>
@@ -1644,7 +1644,7 @@
 			      <child>
 				<widget class="GtkEntry" id="nomail_text_entry">
 				  <property name="visible">True</property>
-				  <property name="tooltip" translatable="yes">Text to be displayed when new mail, %d is the number of mail.</property>
+				  <property name="tooltip" translatable="yes">Text to be displayed when no mail is present, %d is the number of mails. Valid XML must be entered, pango markup may be used.</property>
 				  <property name="can_focus">True</property>
 				  <property name="editable">True</property>
 				  <property name="visibility">True</property>
