@@ -69,12 +69,19 @@ Apop::connect (void)
 {
 	std::string line;
 
-	// Check password is not empty
+	// First try: try to guess password by looking at other mailboxes
 	if (password_.empty())
-		ui_auth_->select (this);
+		password_ = biff_->password (this);
 
+	// Second try: ask to the user
 	if (password_.empty()) {
-		socket_->status(SOCKET_STATUS_ERROR);
+		gdk_threads_enter ();
+		ui_auth_->select (this);
+		gdk_threads_leave ();
+	}
+
+	// No way, user do not want to help us, we simply return
+	if (password_.empty()) {
 		status_ = MAILBOX_ERROR;
 		g_warning (_("[%d] Empty password"), uin_);
 		return 0;

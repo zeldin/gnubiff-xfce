@@ -277,6 +277,29 @@ Biff::remove (Mailbox *mailbox)
 	g_mutex_unlock (mutex_);
 }
 
+/**
+ * This function tries to guess a mailbox password by looking at other mailboxes.
+ * If one of them get same address and same username, then this is reasonable to
+ * think they may share the same password. This is typically the case when
+ * monitoring several folders on the same mail account.
+ *
+ *
+ * @param  m        the mailbox missing a password
+ * @return          the found password or an empty string if none found
+ */
+std::string
+Biff::password (Mailbox *m)
+{
+	for (guint i=0; i < size(); i++) {
+		if ((mailbox(i) != m)
+			&& (mailbox(i)->address() == m->address())
+			&& (mailbox(i)->username() == m->username()))
+			return mailbox(i)->password();
+	}
+	return "";
+}
+
+
 // ================================================================================
 //  i/o
 // ================================================================================

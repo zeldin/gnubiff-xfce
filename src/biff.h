@@ -140,6 +140,7 @@ public:
 	void add (Mailbox *mailbox);					// add a new mailbox
 	Mailbox *replace (Mailbox *from, Mailbox *to);	// replace a mailbox (from) with another (to)
 	void remove (Mailbox *mailbox);					// remove a mailbox
+	std::string password (Mailbox *mailbox);		// try to find a password for this mailbox
 
 	// ================================================================================
 	//  i/o

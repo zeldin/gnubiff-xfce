@@ -414,6 +414,9 @@ Preferences::on_add	(GtkWidget *widget)
 {
 	if (added_ == 0) {
 		added_ = new Mailbox(biff_);
+		if (selected_)
+			(*added_) = (*selected_);
+
 		biff_->add (added_);
 		synchronize ();
 		GtkTreeView  *view  = GTK_TREE_VIEW (get("mailboxes_treeview"));
@@ -547,9 +550,11 @@ Preferences::on_selection (GtkTreeSelection *selection)
 		properties_->select (mailbox);
 		selected_ = mailbox;
 		gtk_label_set_text (GTK_LABEL(get ("selection")), mailbox->name().c_str());
+		gtk_button_set_label (GTK_BUTTON(get("add")), "gtk-copy");
 	}
 	else {
 		gtk_label_set_text (GTK_LABEL(get ("selection")), _("No mailbox selected"));
+		gtk_button_set_label (GTK_BUTTON(get("add")), "gtk-add");
 		selected_ = 0;
 	}
 }

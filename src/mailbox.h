@@ -156,6 +156,7 @@ public:
 	// ========================================================================	
 	Mailbox (class Biff *biff);
 	Mailbox (const Mailbox &other);
+	Mailbox &operator= (const Mailbox &other);
 	virtual ~Mailbox (void);
 
 	// ========================================================================

@@ -120,6 +120,29 @@ Mailbox::Mailbox (const Mailbox &other)
 	monitor_mutex_ = g_mutex_new();
 }
 
+Mailbox &
+Mailbox::operator= (const Mailbox &other)
+{
+	if (this == &other)
+		return *this;
+	biff_			= other.biff_;
+	name_			= other.name_;
+	protocol_		= other.protocol_;
+	authentication_ = other.authentication_;
+	address_		= other.address_;
+	username_		= other.username_;
+	password_		= other.password_;
+	port_			= other.port_;
+	folder_			= other.folder_;
+	certificate_	= other.certificate_;
+	delay_			= other.delay_;
+	use_other_folder_= other.use_other_folder_;
+	other_folder_	= other.other_folder_;
+	use_other_port_	= other.use_other_port_;
+	other_port_		= other.other_port_;
+	return *this;
+}
+
 Mailbox::~Mailbox (void)
 {
 	g_mutex_lock (mutex_);

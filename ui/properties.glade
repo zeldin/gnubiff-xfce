@@ -106,7 +106,7 @@
 		  <property name="max_length">0</property>
 		  <property name="text" translatable="yes"></property>
 		  <property name="has_frame">True</property>
-		  <property name="invisible_char" translatable="yes">*</property>
+		  <property name="invisible_char">*</property>
 		  <property name="activates_default">False</property>
 		</widget>
 		<packing>
@@ -203,7 +203,7 @@
 		  <property name="max_length">0</property>
 		  <property name="text" translatable="yes"></property>
 		  <property name="has_frame">True</property>
-		  <property name="invisible_char" translatable="yes">*</property>
+		  <property name="invisible_char">*</property>
 		  <property name="activates_default">False</property>
 		</widget>
 		<packing>
@@ -250,7 +250,7 @@
 		  <property name="max_length">0</property>
 		  <property name="text" translatable="yes"></property>
 		  <property name="has_frame">True</property>
-		  <property name="invisible_char" translatable="yes">*</property>
+		  <property name="invisible_char">*</property>
 		  <property name="activates_default">False</property>
 		</widget>
 		<packing>
@@ -278,7 +278,7 @@
 		      <property name="max_length">0</property>
 		      <property name="text" translatable="yes"></property>
 		      <property name="has_frame">True</property>
-		      <property name="invisible_char" translatable="yes">*</property>
+		      <property name="invisible_char">*</property>
 		      <property name="activates_default">False</property>
 		    </widget>
 		    <packing>
@@ -331,7 +331,7 @@
 		    <widget class="GtkExpander" id="details_expander">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
-		      <property name="expanded">True</property>
+		      <property name="expanded">False</property>
 		      <property name="spacing">0</property>
 
 		      <child>
@@ -574,7 +574,7 @@
 				      <property name="max_length">0</property>
 				      <property name="text" translatable="yes"></property>
 				      <property name="has_frame">True</property>
-				      <property name="invisible_char" translatable="yes">*</property>
+				      <property name="invisible_char">*</property>
 				      <property name="activates_default">False</property>
 				    </widget>
 				    <packing>
@@ -620,6 +620,7 @@
 				      <property name="yalign">0.5</property>
 				      <property name="xpad">0</property>
 				      <property name="ypad">0</property>
+				      <property name="mnemonic_widget">certificate_entry</property>
 				    </widget>
 				    <packing>
 				      <property name="left_attach">0</property>
@@ -655,7 +656,7 @@
 			      <child>
 				<widget class="GtkTable" id="delay_table">
 				  <property name="visible">True</property>
-				  <property name="n_rows">2</property>
+				  <property name="n_rows">1</property>
 				  <property name="n_columns">5</property>
 				  <property name="homogeneous">False</property>
 				  <property name="row_spacing">6</property>
@@ -674,6 +675,7 @@
 				      <property name="yalign">0.5</property>
 				      <property name="xpad">0</property>
 				      <property name="ypad">0</property>
+				      <property name="mnemonic_widget">seconds_spin</property>
 				    </widget>
 				    <packing>
 				      <property name="left_attach">2</property>
@@ -710,7 +712,7 @@
 				  <child>
 				    <widget class="GtkSpinButton" id="minutes_spin">
 				      <property name="visible">True</property>
-				      <property name="tooltip" translatable="yes">The amount of time to wait between mail checks</property>
+				      <property name="tooltip" translatable="yes">The amount of time to wait between mail checks or between retries when connection is lost</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
 				      <property name="digits">0</property>
@@ -736,7 +738,7 @@
 				  <child>
 				    <widget class="GtkSpinButton" id="seconds_spin">
 				      <property name="visible">True</property>
-				      <property name="tooltip" translatable="yes">The amount of time to wait between mail checks</property>
+				      <property name="tooltip" translatable="yes">The amount of time to wait between mail checks or between retries when connection is lost</property>
 				      <property name="can_focus">True</property>
 				      <property name="climb_rate">1</property>
 				      <property name="digits">0</property>
@@ -772,36 +774,13 @@
 				      <property name="yalign">0.5</property>
 				      <property name="xpad">0</property>
 				      <property name="ypad">0</property>
+				      <property name="mnemonic_widget">minutes_spin</property>
 				    </widget>
 				    <packing>
 				      <property name="left_attach">0</property>
 				      <property name="right_attach">1</property>
 				      <property name="top_attach">0</property>
 				      <property name="bottom_attach">1</property>
-				      <property name="x_options">fill</property>
-				      <property name="y_options">fill</property>
-				    </packing>
-				  </child>
-
-				  <child>
-				    <widget class="GtkLabel" id="label1">
-				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">&lt;span size=&quot;x-small&quot;&gt;&lt;i&gt;Not necessary if mail server supports the IDLE state&lt;/i&gt;&lt;/span&gt;</property>
-				      <property name="use_underline">False</property>
-				      <property name="use_markup">True</property>
-				      <property name="justify">GTK_JUSTIFY_LEFT</property>
-				      <property name="wrap">False</property>
-				      <property name="selectable">False</property>
-				      <property name="xalign">0</property>
-				      <property name="yalign">0.5</property>
-				      <property name="xpad">0</property>
-				      <property name="ypad">0</property>
-				    </widget>
-				    <packing>
-				      <property name="left_attach">1</property>
-				      <property name="right_attach">5</property>
-				      <property name="top_attach">1</property>
-				      <property name="bottom_attach">2</property>
 				      <property name="x_options">fill</property>
 				      <property name="y_options">fill</property>
 				    </packing>
@@ -850,6 +829,7 @@
 				      <property name="yalign">0.5</property>
 				      <property name="xpad">0</property>
 				      <property name="ypad">0</property>
+				      <property name="mnemonic_widget">standard_mailbox_radio</property>
 				    </widget>
 				    <packing>
 				      <property name="left_attach">0</property>
@@ -871,7 +851,7 @@
 				      <property name="max_length">0</property>
 				      <property name="text" translatable="yes"></property>
 				      <property name="has_frame">True</property>
-				      <property name="invisible_char" translatable="yes">*</property>
+				      <property name="invisible_char">*</property>
 				      <property name="activates_default">False</property>
 				    </widget>
 				    <packing>
