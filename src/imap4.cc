@@ -613,6 +613,7 @@ Imap4::fetch_header (void)
 			socket_->close ();
 			idling = false;
 			idled_ = false;
+			return;
 		}
 		if (!socket_->status()) break;
 	} while (idling);

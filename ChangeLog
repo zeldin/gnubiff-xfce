@@ -21,6 +21,7 @@ Version 2.1.0
              (some servers answer using upper cases letter)
    - Modified credits apperance in the preferences panel (and remove the
      about menu from gnome applet popup menu)
+   - Bugfix: socket was closed twice when lock was lost in IDLE state (IMAP4)
 * Robert Sowada (adapted by Nicolas Rougier from v2.0.3 to v2.1.0)
    - Gnome version can determine itself if in standalone mode or panel mode
    - Removed "--gtk" option, added "--applet" option in debug mode instead
