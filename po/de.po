@@ -3,14 +3,13 @@
 # German translation of gnubiff
 # Roland Stigge <stigge@antcom.de>, 2003.
 # Robert Sowada <sowadart@gmx.de>, 2004, 2005.
-# Nicolas Rougier <Nicolas.Rougier@loria.fr>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: <gnubiff-devel@lists.sourceforge.net>\n"
 "POT-Creation-Date: 2005-03-04 15:17+0100\n"
-"PO-Revision-Date: 2005-03-04 15:15+0100\n"
+"PO-Revision-Date: 2005-03-05 01:15+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -264,7 +263,7 @@ msgstr ""
 
 #: ../src/gnubiff_options.cc:130
 msgid "no mail"
-msgstr "Keine Nachrichten"
+msgstr "Keine Post"
 
 #: ../src/gui.cc:175
 #, c-format
