@@ -280,8 +280,7 @@ Imap4::connect (void)
 				check = true;
 				break;
 			}
-			else if (line.find (tag()) == 0)
-			{
+			else if (line.find (tag()) == 0) {
 				if (send("LOGOUT"))
 					socket_->close ();
 				break;
@@ -335,16 +334,10 @@ Imap4::fetch_status (void)
 	}
 
 	// No way, user do not want to help us, we simply return
-	if (password_.empty()) {
-		status_ = MAILBOX_ERROR;
-		throw imap_socket_err();
-	}
+	if (password_.empty()) throw imap_socket_err();
 
 	// Connection and authentification
-	if (!connect ()) {
-		status_ = MAILBOX_ERROR;
-		throw imap_socket_err();
-	}
+	if (!connect ()) throw imap_socket_err();
 
 	// SEARCH NOT SEEN
 	if (!send ("SEARCH NOT SEEN")) throw imap_socket_err();
@@ -398,7 +391,7 @@ Imap4::fetch_status (void)
 	// socket_->close ();
 }
 
-void
+void 
 Imap4::fetch_header (void)
 {
 	std::string line;
@@ -407,22 +400,6 @@ Imap4::fetch_header (void)
 	
 	// Status will be restored in the end if no problem occured
 	status_ = MAILBOX_CHECK;
-
-	// Check password is not empty
-	if (password_.empty())
-		ui_auth_->select (this);
-
-	if (password_.empty()) {
-		status_ = MAILBOX_ERROR;
-		throw imap_socket_err();
-	}
-
-	// Connecting is done once in the fetch_status routine.
-	// Connection and authentification
-	// if (!connect ()) {
-	//	status_ = MAILBOX_ERROR;
-	//	throw imap_socket_err();
-	// }
 
 	// SEARCH NOT SEEN
 	if (!send("SEARCH NOT SEEN")) throw imap_command_err();
