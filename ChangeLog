@@ -34,8 +34,8 @@ Version 2.1.1
         other windows
    - Bugfixes: Better error handling and bad connection handling (IMAP4;
         thanks to Byron Foster for providing a patch)
-   - Bugfix: Corrected tests for responses to IDLE and SEARCH NOT SEEN
-        commands (IMAP4)
+   - Bugfix: Corrected tests for responses to IDLE, SEARCH NOT SEEN and
+        FETCH header commands (IMAP4)
    - Cleanup of SEARCH NOT SEEN, CAPABILITY, FETCH header, FETCH bodystructure
         commands (IMAP4)
    - Bugfix: Segfaulting in SSL when writing to a closed socket

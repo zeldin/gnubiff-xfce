@@ -679,12 +679,14 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 	// Did an error happen?
 	if (!socket_->status()) throw imap_socket_err();
 	if (cnt<0) throw imap_dos_err();
-	if ((line.find (tag() + "OK") != 0) || (mail.size()==0))
+	if ((line.find (tag() + "OK") != 0) || (mail.size()<2))
 		throw imap_command_err();
 		
-	// Remove last line (should contain a closing parenthesis). Note:
-	// We need the (hopefully empty;-) line before because it separates
-	// header and mail text
+	// Remove the last line (should contain a closing parenthesis).
+	// Note: We need the empty line before because it separates the
+	// header from the mail text
+	if ((mail[mail.size()-1]!=")") && (mail[mail.size()-2].size()!=0))
+		throw imap_command_err();
 	mail.pop_back();
 	return mail;
 }
