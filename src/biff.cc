@@ -314,29 +314,67 @@ Biff::lookup_thread (void)
 	g_mutex_unlock (lookup_mutex_);
 }
 
-std::string
-Biff::save_para(const gchar *name,std::string value,guint indent)
+/** 
+ * Opens the new block {\em name} of options in the configuration file.
+ *
+ * @param  name  valid utf-8 character array for the name of the block
+ */
+void
+Biff::save_newblock(const gchar *name)
 {
-	const gchar *fmt="%*s<parameter name=\"%s\"%*svalue=\"%s\"/>\n";
-	gchar *esc=g_markup_printf_escaped(fmt,indent,"",name,
-									   28-strlen(name)-indent,"",
-									   value.c_str());
-
-	std::string result(esc);
+	save_blocks.push_back(name);
+	const gchar *fmt="%*s<%s>\n";
+	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2-2,"",name);
+	save_file << esc;
 	g_free(esc);
-	return result;
 }
 
-std::string
-Biff::save_para(const gchar *name,gint value,guint indent)
+/** 
+ * Ends the last opened block of options in the configuration file.
+ */
+void
+Biff::save_endblock()
 {
-	const gchar *fmt="%*s<parameter name=\"%s\"%*svalue=\"%d\"/>\n";
-	gchar *esc=g_markup_printf_escaped(fmt,indent,"",name,
-									   28-strlen(name)-indent,"",value);
-
-	std::string result(esc);
+	const gchar *fmt="%*s</%s>\n";
+	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2-2,"",
+									   save_blocks[save_blocks.size()-1]);
+	save_file << esc;
 	g_free(esc);
-	return result;
+	save_blocks.pop_back();
+}
+
+/** 
+ * Saves the string {\em value} for the option {\em name} to the
+ * configuration file.
+ *
+ * @param  name  valid utf-8 character array for the name of the option
+ * @param  value C++ string that will be saved
+ */
+void
+Biff::save_para(const gchar *name,std::string value)
+{
+	const gchar *fmt="%*s<parameter name=\"%s\"%*svalue=\"%s\"/>\n";
+	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2,"",name,
+									   28-strlen(name)-save_blocks.size()*2,
+									   "",value.c_str());
+
+	save_file << esc;
+	g_free(esc);
+}
+
+/** 
+ * Saves the integer {\em value} for the option {\em name} to the
+ * configuration file.
+ *
+ * @param  name  valid utf-8 character array for the name of the option
+ * @param  value integer that will be saved
+ */
+void
+Biff::save_para(const gchar *name,gint value)
+{
+	std::stringstream value_str;
+	value_str << value;
+	save_para(name,value_str.str());
 }
 
 gboolean
@@ -347,23 +385,25 @@ Biff::save (void)
 	// permissions without the susceptibility to race conditions when using
 	// "ofstream". Does ofstream respect the umask command? RSo
 
-	std::stringstream file;
+	// XML header
+	save_blocks.clear();
+	save_file.str(std::string(""));
+	save_file << "<?xml version=\"1.0\"?>" << std::endl;
 
-	file << "<?xml version=\"1.0\"?>" << std::endl;
-	file << "<configuration-file>"<< std::endl;
+	save_newblock("configuration-file");
 
 	// Mailboxes
 	for (unsigned int i=0; i< mailbox_.size(); i++)
 	{
-		file << "  <mailbox>" << std::endl;
-		file << save_para("protocol",mailbox_[i]->protocol());
-		file << save_para("name",mailbox_[i]->name());
-		file << save_para("is_local",mailbox_[i]->is_local());
-		file << save_para("location",mailbox_[i]->location());
-		file << save_para("hostname",mailbox_[i]->hostname());
-		file << save_para("port",mailbox_[i]->port());
-		file << save_para("folder",mailbox_[i]->folder());
-		file << save_para("username",mailbox_[i]->username());
+		save_newblock("mailbox");
+		save_para("protocol",mailbox_[i]->protocol());
+		save_para("name",mailbox_[i]->name());
+		save_para("is_local",mailbox_[i]->is_local());
+		save_para("location",mailbox_[i]->location());
+		save_para("hostname",mailbox_[i]->hostname());
+		save_para("port",mailbox_[i]->port());
+		save_para("folder",mailbox_[i]->folder());
+		save_para("username",mailbox_[i]->username());
 		// pop3 and imap4 protocols requires password in clear so we have to
 		// save password in clear within configuration file. No need to say
 		// this is higly unsecure if somebody looks at the file. So we try to
@@ -378,72 +418,72 @@ Biff::save (void)
 		for (guint j=0; j<mailbox_[i]->password().size(); j++)
 		    password << passtable_[mailbox_[i]->password()[j]/16]
 			         << passtable_[mailbox_[i]->password()[j]%16];
-		file << save_para("password",password.str());
+		save_para("password",password.str());
 #else
-		file << save_para("password",std::string(""));
+		save_para("password",std::string(""));
 #endif
-		file << save_para("use_ssl",mailbox_[i]->use_ssl());
-		file << save_para("certificate",mailbox_[i]->certificate());
-		file << save_para("polltime",mailbox_[i]->polltime());
+		save_para("use_ssl",mailbox_[i]->use_ssl());
+		save_para("certificate",mailbox_[i]->certificate());
+		save_para("polltime",mailbox_[i]->polltime());
 		std::stringstream seen;
 		for (guint j=0; j<mailbox_[i]->hiddens(); j++)
 		    seen << mailbox_[i]->hidden(j) << " ";
-		file << save_para("seen",seen.str());
-		file << "  </mailbox>" << std::endl;
+		save_para("seen",seen.str());
+		save_endblock();
 	}
 
 	// General
-	file << "  <general>" << std::endl;
-	file << save_para("no_clear_password",no_clear_password_);
-	file << save_para("sound_type",sound_type_);
-	file << save_para("sound_command",sound_command_);
-	file << save_para("sound_file",sound_file_);
-	file << save_para("sound_volume",sound_volume_);
-	file << save_para("check_mode",check_mode_);
-	file << save_para("max_mail",max_mail_);
-	file << save_para("mail_app",mail_app_);
-	file << "  </general>" << std::endl;
+	save_newblock("general");
+	save_para("no_clear_password",no_clear_password_);
+	save_para("sound_type",sound_type_);
+	save_para("sound_command",sound_command_);
+	save_para("sound_file",sound_file_);
+	save_para("sound_volume",sound_volume_);
+	save_para("check_mode",check_mode_);
+	save_para("max_mail",max_mail_);
+	save_para("mail_app",mail_app_);
+	save_endblock();
 
 	// Popup
-	file << "  <popup>" << std::endl;
-	file << save_para("popup_display",popup_display_);
-	file << save_para("popup_time",popup_time_);
-	file << save_para("popup_use_geometry",popup_use_geometry_);
-	file << save_para("popup_geometry",popup_geometry_);
-	file << save_para("popup_is_decorated",popup_is_decorated_);
-	file << save_para("popup_max_line",popup_max_line_);
-	file << save_para("popup_max_sender_size",popup_max_sender_size_);
-	file << save_para("popup_max_subject_size",popup_max_subject_size_);
-	file << save_para("popup_display_date",popup_display_date_);
-	file << save_para("popup_font",popup_font_);
-	file << save_para("popup_font_color",popup_font_color_);
-	file << "  </popup>" << std::endl;
+	save_newblock("popup");
+	save_para("popup_display",popup_display_);
+	save_para("popup_time",popup_time_);
+	save_para("popup_use_geometry",popup_use_geometry_);
+	save_para("popup_geometry",popup_geometry_);
+	save_para("popup_is_decorated",popup_is_decorated_);
+	save_para("popup_max_line",popup_max_line_);
+	save_para("popup_max_sender_size",popup_max_sender_size_);
+	save_para("popup_max_subject_size",popup_max_subject_size_);
+	save_para("popup_display_date",popup_display_date_);
+	save_para("popup_font",popup_font_);
+	save_para("popup_font_color",popup_font_color_);
+	save_endblock();
 
 	// Biff
-	file << "  <biff>" << std::endl;
-	file << save_para("biff_newmail_image",biff_newmail_image_);
-	file << save_para("biff_nomail_image",biff_nomail_image_);
-	file << save_para("biff_use_newmail_image",biff_use_newmail_image_);
-	file << save_para("biff_use_nomail_image",biff_use_nomail_image_);
-	file << save_para("biff_use_newmail_text",biff_use_newmail_text_);
-	file << save_para("biff_use_nomail_text",biff_use_nomail_text_);
-	file << save_para("biff_newmail_text",biff_newmail_text_);
-	file << save_para("biff_nomail_text",biff_nomail_text_);
-	file << save_para("biff_use_geometry",biff_use_geometry_);
-	file << save_para("biff_geometry",biff_geometry_);
-	file << save_para("biff_is_decorated",biff_is_decorated_);
-	file << save_para("biff_font",biff_font_);
-	file << save_para("biff_font_color",biff_font_color_);
-	file << "  </biff>" << std::endl;
+	save_newblock("biff");
+	save_para("biff_newmail_image",biff_newmail_image_);
+	save_para("biff_nomail_image",biff_nomail_image_);
+	save_para("biff_use_newmail_image",biff_use_newmail_image_);
+	save_para("biff_use_nomail_image",biff_use_nomail_image_);
+	save_para("biff_use_newmail_text",biff_use_newmail_text_);
+	save_para("biff_use_nomail_text",biff_use_nomail_text_);
+	save_para("biff_newmail_text",biff_newmail_text_);
+	save_para("biff_nomail_text",biff_nomail_text_);
+	save_para("biff_use_geometry",biff_use_geometry_);
+	save_para("biff_geometry",biff_geometry_);
+	save_para("biff_is_decorated",biff_is_decorated_);
+	save_para("biff_font",biff_font_);
+	save_para("biff_font_color",biff_font_color_);
+	save_endblock();
 
 	// End Header
-	file << "</configuration-file>" << std::endl;
+	save_endblock();
 
 	// Write Configuration to file
 	int fd=open(filename_.c_str(),O_WRONLY|O_CREAT|O_TRUNC,S_IRUSR|S_IWUSR);
 	if (fd==-1)
 	    return false;
-	if (write(fd,file.str().c_str(),file.str().size())==-1)
+	if (write(fd,save_file.str().c_str(),save_file.str().size())==-1)
 	    return false;
 	if (close(fd)==-1)
 	    return false;
