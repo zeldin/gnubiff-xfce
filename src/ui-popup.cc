@@ -256,7 +256,7 @@ Popup::update (void)
 		for (guint cnt=1; cnt <= count[j]; cnt++) {
 			i--;
 			// Get the header
-			header h = biff_->mailbox(j)->unread()[*i];
+			Header h = biff_->mailbox(j)->unread()[*i];
 
 			gtk_list_store_append (store, &iter);
 				
@@ -291,7 +291,7 @@ Popup::update (void)
 			saved_strings.push_back (sender);
 
 			// Mail identifier
-			gchar *mailid = g_strdup (h.mailid_.c_str());
+			gchar *mailid = g_strdup (h.mailid().c_str());
 			saved_strings.push_back (mailid);
 
 			std::stringstream s;
@@ -479,7 +479,7 @@ Popup::on_select (GtkTreeSelection *selection)
 	if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
 		gpointer *address;
 		gtk_tree_model_get (model, &iter, COLUMN_MAILID, &address, -1);
-		if (!biff_->find_mail(std::string((gchar *)address), (header_ &) selected_header_))
+		if (!biff_->find_mail(std::string((gchar *)address), selected_header_))
 			return;
 	}
 

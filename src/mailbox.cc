@@ -462,11 +462,10 @@ Mailbox::lookup_local(Mailbox &oldmailbox)
 //  sender/date/subject, to convert strings if necessary and to store the mail in
 //  unread array (depending if it's spam or if it is internally marked as seen)
 // ================================================================================
-void Mailbox::parse (std::vector<std::string> &mail, int status,
-					 std::string uid)
+void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 {
-	header h;
-	h.status = status;
+	Header h;
+	gboolean status = true; // set to false if mail should not be stored
 
 	for (guint i=0; i<mail.size(); i++) {
 		gchar *buffer = g_ascii_strdown (mail[i].c_str(), -1);
@@ -526,12 +525,12 @@ void Mailbox::parse (std::vector<std::string> &mail, int status,
 			}
 		}
 		// Status
-		else if ((mail[i].find ("Status: R") == 0) && h.status == -1)
-			h.status = MAIL_READ;
+		else if ((mail[i].find ("Status: R") == 0) && (uid.size()>0))
+			status = false;
 		else if (mail[i].find ("X-Mozilla-Status: 0001") == 0)
-			h.status = MAIL_READ;
+			status = false;
 		else if (line.find ("x-spam-flag: yes") != std::string::npos) 
-			h.status = MAIL_READ;
+			status = false;
 		else if ((mail[i].empty()) && h.body.empty()) {
 			guint j = 0;
 			do {
@@ -544,7 +543,7 @@ void Mailbox::parse (std::vector<std::string> &mail, int status,
 	}
 
 	// Store mail depending on status
-	if ((h.status == MAIL_UNREAD) || (h.status == -1))
+	if (status)
 		// Pines trick
 		if (h.subject.find("DON'T DELETE THIS MESSAGE -- FOLDER INTERNAL DATA") == std::string::npos) {
 			// Ok, at this point mail is
@@ -554,16 +553,16 @@ void Mailbox::parse (std::vector<std::string> &mail, int status,
 			// so we have to decide what to do with it because we may have already displayed it
 			// and maybe it has been gnubifficaly marked as "seen".
 			//
-			h.setmailid (uid);
-			if (hidden_.find (h.mailid_) == hidden_.end ()) {
+			h.mailid (uid);
+			if (hidden_.find (h.mailid()) == hidden_.end ()) {
 				h.position_ = new_mails_to_be_displayed_.size() + 1;
-				new_unread_[h.mailid_] = h;
-				new_mails_to_be_displayed_.push_back (h.mailid_);
+				new_unread_[h.mailid()] = h;
+				new_mails_to_be_displayed_.push_back (h.mailid());
 			}
-			new_seen_.insert (h.mailid_);
+			new_seen_.insert (h.mailid());
 #ifdef DEBUG
 			g_message ("[%d] Parsed mail with id \"%s\"", uin_,
-					   h.mailid_.c_str ());
+					   h.mailid().c_str ());
 #endif
 		}
 }
@@ -731,7 +730,7 @@ Mailbox::save_data (void)
  *  @returns        Boolean indicating if a mail exists or not.
  */
 gboolean 
-Mailbox::find_mail (std::string mailid, header &mail)
+Mailbox::find_mail (std::string mailid, Header &mail)
 {
 	gboolean ok = false;
 

@@ -42,6 +42,7 @@
 #include <string>
 #include "biff.h"
 #include "decoding.h"
+#include "header.h"
 #include "socket.h"
 
 
@@ -64,97 +65,16 @@ const gint	MAILBOX_CHECK			=	4;
 const gint	MAILBOX_STOP			=	5;
 const gint	MAILBOX_UNKNOWN			=	6;
 
-const gint	MAIL_UNREAD				=	0;
-const gint	MAIL_READ				=	1;
-
-
-// ========================================================================
-//  Header type definition
-// ========================================================================
-typedef struct _header {
-	std::string	sender;
-	std::string	subject;
-	std::string	date;
-	std::string	body;
-	std::string	charset;
-	/// Position in the mailbox
-	guint		position_;
-	gint		status;
-	/**
-	 *  This is a (hopefully) unique identifier for the mail. If supported by
-	 *  the protocol this will be the unique id of the mail that is provided
-	 *  by the server (this is the case for POP3 and IMAP4). Otherwise
-	 *  gnubiff creates an own identifier.
-	 *
-	 *  Remark: This identifier must not contain whitespace characters!
-	 *
-	 *  @see The mail identifier is calculated by the method
-	 *       header::setmailid().
-	 */
-	std::string mailid_;
-
-	struct _header &operator = (const struct _header &other)
-	{
-		if (this != &other) {
-			sender = other.sender;
-			subject = other.subject;
-			date = other.date;
-			body = other.body;
-			charset = other.charset;
-			status = other.status;
-			mailid_ = other.mailid_;
-			position_ = other.position_;
-		}
-		return *this;
-	}
-
-	bool operator == (const struct _header &other) const
-	{
-		if ((sender  == other.sender)  && (subject   == other.subject) &&
-			(date    == other.date)    && (body      == other.body)    &&
-			(charset == other.charset) && (status    == other.status)  &&
-			(mailid_ == other.mailid_) && (position_ == other.position_))
-			return true;
-		else
-			return false;
-	}
-
-	/**
-	 *  Setting the gnubiff mail identifier for this mail header. If a unique
-	 *  identifier {\em uid} is provided it is taken. Otherwise (i.e.
-	 *  {\em uid} is an empty string) it is created by concatenating hash
-	 *  values of the sender, subject and date.
-	 *
-	 *  @param uid Unique identifier for the mail as provided by the protocol
-	 *             (POP3 and IMAP4). The default is the empty string.
-	 */
-	void setmailid (std::string uid = std::string(""))
-	{
-		if (uid.size () > 0)
-			mailid_ = uid;
-		else {
-			std::stringstream ss;
-			ss << g_str_hash (sender.c_str());
-			ss << g_str_hash (subject.c_str());
-			ss << g_str_hash (date.c_str());
-			mailid_ = ss.str ();
-		}
-	}
-} header;
-
 /** This struct is needed (when using STL algorithms for
- *  std::map<std::string,header>) for comparisons of
- *  std::pair<std::string,header> objects. We cannot compare headers so the
+ *  std::map<std::string,Header>) for comparisons of
+ *  std::pair<std::string,Header> objects. We cannot compare headers so the
  *  default compare function is not useful for us. */
-struct less_pair_first : public std::binary_function<std::pair<std::string,header>,
-std::pair<std::string,header>, bool> {
-	bool operator()(std::pair<std::string,header> x,
-					std::pair<std::string,header> y) const {
+struct less_pair_first : public std::binary_function<std::pair<std::string,Header>,std::pair<std::string,Header>, bool> {
+	bool operator()(std::pair<std::string,Header> x,
+					std::pair<std::string,Header> y) const {
 	  return x.first < y.first;
 	}
 };
-
-
 
 #define MAILBOX(x)					((Mailbox *)(x))
 
@@ -208,12 +128,12 @@ protected:
 	gboolean					stopped_;			// flag for stopping mailbox monitor while looking up
 
 	/// Mail headers of mails that have not been read yet
-	std::map<std::string, header> unread_;
+	std::map<std::string, Header> unread_;
 
 	/** Mail headers of mails (of the the present update) that have not been
 	 *  read yet. These headers will be transfered to Mailbox::unread_ once
 	 *  the updated is completed successfully. */
-	std::map<std::string, header> new_unread_;
+	std::map<std::string, Header> new_unread_;
 
 	/// Set of gnubiff mail ids of those mails that won't be displayed
 	std::set<std::string>		hidden_;
@@ -286,14 +206,14 @@ public:
 	void mail_displayed (void);
 	void load_data (void);
 	void save_data (void);
-	void parse (std::vector<std::string> &mail,		// parse a mail 
-				int status = -1, std::string uid = std::string(""));
+	void parse (std::vector<std::string> &mail,		// parse a mail
+				std::string uid = std::string(""));
 
 	// ========================================================================
 	//  access
 	// ========================================================================
 
-	gboolean find_mail (std::string mailid, header &mail);
+	gboolean find_mail (std::string mailid, Header &mail);
 
 	const std::string name (void)						{return name_;}
 	void name (const std::string value)					{name_ = value;}
@@ -355,7 +275,7 @@ public:
 	
 	
 	/// Access function to Mailbox::unread_
-	std::map<std::string, header> &unread (void)		{return unread_;}
+	std::map<std::string, Header> &unread (void)		{return unread_;}
 	/// Number of unread mails
 	guint unreads (void) {
 		g_mutex_lock (mutex_);

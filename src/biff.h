@@ -42,6 +42,7 @@
 #include <vector>
 #include <glib.h>
 #include "decoding.h"
+#include "header.h"
 
 /**
  * Constant definitions
@@ -139,7 +140,7 @@ public:
 	//  access
 	// ================================================================================
 	guint size (void);
-	gboolean find_mail (std::string mailid, struct header_ &mail);
+	gboolean find_mail (std::string mailid, Header &mail);
 	void popup_format (std::string format);
 	class Mailbox * mailbox (guint index);
 	class Mailbox * get (guint uin);

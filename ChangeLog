@@ -130,6 +130,7 @@ Version 2.1.1
    - Simplified code for loading config file
    - Error messages for errors when loading config file
    - Bugfix: Segmentation faults when selecting mails in popup while updating
+   - New files for class Header, cleanup of this class
 
 Version 2.1.0
  * Nicolas Rougier

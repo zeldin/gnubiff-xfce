@@ -3,6 +3,7 @@ src/gnubiff.cc
 src/ui-applet-gnome.cc
 src/biff.cc
 src/mailbox.cc
+src/header.cc
 src/socket.cc
 src/file.cc
 src/imap4.cc

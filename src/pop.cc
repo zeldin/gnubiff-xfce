@@ -222,7 +222,7 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 		command_top (mail, start + i);
 
 		// Parse mail
-		parse (mail, MAIL_UNREAD, uid);
+		parse (mail, uid);
 	}
 }
 

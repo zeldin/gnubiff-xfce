@@ -18,6 +18,7 @@ common_sources = \
 	biff.cc					biff.h					\
 	\
 	mailbox.cc				mailbox.h				\
+	header.cc				header.h				\
 	socket.cc				socket.h				\
 	support.cc				support.h				\
 	nls.h											\

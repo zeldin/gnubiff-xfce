@@ -237,13 +237,13 @@ Biff::popup_format (std::string format)
  *  @returns        Boolean indicating if a mail exists or not.
  */
 gboolean 
-Biff::find_mail (std::string mailid, struct header_ &mail)
+Biff::find_mail (std::string mailid, Header &mail)
 {
 	gboolean ok = false;
 
 	g_mutex_lock (mutex_);
 	for (guint i=0; (i < mailbox_.size()) && !ok; i++)
-		if (mailbox_[i]->find_mail (mailid, (header &)mail))
+		if (mailbox_[i]->find_mail (mailid, mail))
 			ok = true;
 	g_mutex_unlock (mutex_);
 
