@@ -211,6 +211,10 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 		if (statusonly)
 			continue;
 
+		// Check if mail is already known
+		if (new_mail (uid))
+			continue;
+
 		// TOP
 		command_top (mail, start + i);
 

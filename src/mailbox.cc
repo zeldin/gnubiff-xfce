@@ -566,7 +566,41 @@ void Mailbox::parse (std::vector<std::string> &mail, int status,
 			new_seen_.insert (h.mailid_);
 #ifdef DEBUG
 			g_message ("[%d] Parsed mail with id \"%s\"", uin_,
-					   h.mailid_.c_str());
+					   h.mailid_.c_str ());
 #endif
 		}
+}
+
+/**
+ * Decide whether a mail has to be fetched and parsed. If the mail is already
+ * known it is inserted into the new_unread_ map. So it can be displayed later.
+ *
+ * @param     mailid Gnubiff mail identifier of the mail in question
+ * @return           False if the mail has to be fetched and parsed, true
+ *                   otherwise
+ */
+gboolean 
+Mailbox::new_mail(std::string &mailid)
+{
+	// Mail shall be not displayed? -> no need to fetch and parse it
+	if (hidden_.find (mailid) != hidden_.end ()) {
+#ifdef DEBUG
+		g_message ("[%d] Ignore mail with id \"%s\"", uin_, mailid.c_str ());
+#endif
+		new_seen_.insert (mailid);
+		return true;
+	}
+
+	// Mail known?
+	if (unread_.find (mailid) == unread_.end ())
+		return false;
+
+	// Insert known mail into new unread mail map
+	new_unread_[mailid] = unread_[mailid];
+	new_seen_.insert (mailid);
+
+#ifdef DEBUG
+	g_message ("[%d] Already read mail with id \"%s\"", uin_, mailid.c_str ());
+#endif
+	return true;
 }

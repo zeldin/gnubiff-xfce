@@ -322,6 +322,10 @@ Imap4::fetch_mails (void) throw (imap_err)
 		std::string uid=uidvalidity_ + command_fetchuid(buffer[i]);
 		new_saved_uid.insert (uid);
 
+		// Check if mail is already known
+		if (new_mail (uid))
+			continue;
+
 		// FETCH header information
 		std::vector<std::string> mail=command_fetchheader(buffer[i]);
 
@@ -712,6 +716,10 @@ Imap4::command_fetchuid (guint msn) throw (imap_err)
 	line=line.substr(ss.str().size() + 14);
 	guint pos=line.find(")");
 	if ((pos == 0) || (pos == std::string::npos)) throw imap_command_err();
+
+	// Getting the acknowledgment
+	waitfor_ack();
+
 	return line.substr (0, pos);
 }
 

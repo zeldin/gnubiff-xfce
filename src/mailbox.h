@@ -251,6 +251,7 @@ public:
 	void read (gboolean value=true);				// mark/unmark mailbox as read
 	void lookup (void);								// try to guess mailbox format
 	static Mailbox *lookup_local(Mailbox &);        // try to guess mailbox format for a local mailbox
+	gboolean new_mail(std::string &);
 	void parse (std::vector<std::string> &mail,		// parse a mail 
 				int status = -1, std::string uid = std::string(""));
 

@@ -94,6 +94,11 @@ Version 2.1.1
 	support UIDVALIDITY (see RFC 3501 2.3.1.1) but is of course not worse
 	than message sequence numbers;-)
    - Removed contains_new(): No longer needed
+   - Cleanup of error message when setting socket timeouts
+   - Feature: Mails are now fetched from the server and parsed only once per
+        session. Subsequent updates take the saved header instead of fetching
+	and parsing the mail again.
+   - Feature: Do not fetch and parse mails that are not to be displayed anyway
 
 Version 2.1.0
  * Nicolas Rougier

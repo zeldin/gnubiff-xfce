@@ -405,5 +405,6 @@ Socket::set_read_timeout(gint timeout)
 	tv.tv_sec = timeout;
 	tv.tv_usec = 0;
 	if (setsockopt(sd_, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) == -1)
-		g_error("Could not set read timeout on socket: %s", strerror(errno));
+		g_warning (_("Could not set read timeout on socket: %s"),
+				   strerror(errno));
 }
