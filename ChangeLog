@@ -25,6 +25,8 @@ Version 2.1.1
    - Added Byron Foster to Contributors
    - Bugfix: Don't crash if server's response is not valid (IMAP4; thanks to
         Calum Mackay for reporting this bug)
+   - Feature: Applet and Popup now can be set to be sticky and be kept above all
+        other windows
 
 Version 2.1.0
  * Nicolas Rougier

@@ -334,9 +334,15 @@ Popup::show (std::string name)
 	selected_header_ = 0;
 	consulting_ = false;
 
-	gtk_window_present (GTK_WINDOW(get("dialog")));
+	GtkWindow *dialog=GTK_WINDOW(get("dialog"));
+	gtk_window_present (dialog);
 	if (biff_->popup_use_geometry_)
-		gtk_window_parse_geometry (GTK_WINDOW(get("dialog")), biff_->popup_geometry_.c_str());
+		gtk_window_parse_geometry (dialog, biff_->popup_geometry_.c_str());
+	if (biff_->popup_be_sticky_)
+		gtk_window_stick(dialog);
+	else
+		gtk_window_unstick(dialog);
+	gtk_window_set_keep_above(dialog, biff_->popup_keep_above_);
 
 	g_static_mutex_lock (&timer_mutex_);
 	if (poptag_ > 0) 

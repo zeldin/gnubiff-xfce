@@ -72,7 +72,9 @@ public:
 	// ================================================================================
 	gboolean		applet_use_geometry_;		// whether applet use geometry
 	std::string		applet_geometry_;			// applet geometry
-	gboolean		applet_use_decoration_;		// whether applet use decoration
+	gboolean		applet_use_decoration_;		// whether applet uses decoration
+	gboolean        applet_be_sticky_;          // whether applet should be sticky
+	gboolean        applet_keep_above_;         // whether applet window should be kept always on top
 	std::string		applet_font_;				// applet font
 	gboolean		use_newmail_text_;			// wheter text is displayed when new mail
 	std::string		newmail_text_;				// applet text when new mail
@@ -90,7 +92,9 @@ public:
 	guint			popup_delay_;				// amount of time to display popup
 	gboolean		popup_use_geometry_;		// whether popup use geometry
 	std::string		popup_geometry_;			// popup geometry
-	gboolean		popup_use_decoration_;		// whether popup use
+	gboolean		popup_use_decoration_;		// whether popup uses decoration
+	gboolean        popup_be_sticky_;           // whether popup should be sticky
+	gboolean        popup_keep_above_;          // whether popup window should be kept always on top
 	std::string		popup_font_;				// popup font
 	gboolean		popup_use_size_;			// whether popup reestrict number of displayed header
 	guint			popup_size_;				// maximum header to display

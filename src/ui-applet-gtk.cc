@@ -195,9 +195,15 @@ AppletGtk::show (std::string name)
 	else if (!biff_->use_nomail_image_)
 		return;
 
+	GtkWindow *dialog=GTK_WINDOW(get("dialog"));
 	gtk_widget_show (get("dialog"));
 	if (biff_->applet_use_geometry_)
-		gtk_window_parse_geometry (GTK_WINDOW(get("dialog")), biff_->applet_geometry_.c_str());
+		gtk_window_parse_geometry (dialog, biff_->applet_geometry_.c_str());
+	if (biff_->applet_be_sticky_)
+		gtk_window_stick(dialog);
+	else
+		gtk_window_unstick(dialog);
+	gtk_window_set_keep_above(dialog, biff_->applet_keep_above_);
 }
 
 
