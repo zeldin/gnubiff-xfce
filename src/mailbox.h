@@ -173,4 +173,17 @@ public:
 
 };
 
+/**
+ * In some situations we need to read a certain number of lines from the
+ * network to get the line we want. Unfortunately this number may vary in
+ * reality because of the following reasons:
+ *  * There exist different extensions to the protocols
+ *  * Not all servers implement protocols correctly
+ *  * There is a DoS attack
+ * To prevent being DoS attacked we need to set a limit of additional lines
+ * that are being read. This is done by the following constant.
+ */
+const gint preventDoS_additionalLines_=16;
+
+
 #endif

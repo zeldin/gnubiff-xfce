@@ -117,9 +117,8 @@ gint Imap4::connect (void)
 
 		// We need to set a limit to lines read (DoS Attacks).
 		// According to RFC 3501 6.3.1 there must be exactly seven lines
-		// before the "A002 OK ..." line. In reality responses seem to vary;-)
-		// Is a limit of 10 okay? RSo
-		guint cnt=10;
+		// before the "A002 OK ..." line.
+		gint cnt=8+preventDoS_additionalLines_;
 		while ((socket_->read (line)) && (cnt--))
 		{
 			if (line.find ("A002 OK") == 0)
@@ -180,10 +179,13 @@ Imap4::get_status (void)
 	// SEARCH NOT SEEN
 	if (!socket_->write ("A003 SEARCH NOT SEEN\r\n")) return;
 
-	while ((socket_->read(line) > 0))
+	// We need to set a limit to lines read (DoS Attacks).
+	// Expected response "* SEARCH ..." should be in the next line.
+	gint cnt=1+preventDoS_additionalLines_;
+	while (((socket_->read(line) > 0)) && (cnt--))
 		if (line.find ("* SEARCH") == 0)
 			break;
-	if (!socket_->status()) return;
+	if ((!socket_->status()) || (cnt<0)) return;
 
 
 	// Parse server answer
@@ -234,10 +236,11 @@ Imap4::get_status (void)
 
 	// We're done
 	saved_ = buffer;
-	while ((socket_->read (line) > 0))
+	cnt=1+preventDoS_additionalLines_;
+	while ((socket_->read (line) > 0) && (cnt--))
 		if (line.find ("A003") != std::string::npos)
 			break;
-	if (!socket_->status()) return;
+	if ((!socket_->status()) || (cnt<0)) return;
 
 	// Closing connection
 	if (!socket_->write ("A004 LOGOUT\r\n")) return;
