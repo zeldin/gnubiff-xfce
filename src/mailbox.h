@@ -205,7 +205,9 @@ protected:
 	 *  gnubiff during the present update. These ids will be transfered to
 	 *  Mailbox::seen_ once the update is completed successfully. */
 	std::set<std::string>		new_seen_;
-	template<class T> static gboolean contains_new (std::vector<T> newlist, std::vector<T> oldlist); // Comparing newlist to oldlist for new elements
+	/** This vector contains the uids of all those mails that will be
+	 *  displayed (in the opposite order). */
+	std::vector<std::string>    mails_to_be_displayed_;
 
 public:
 	// ========================================================================
@@ -251,7 +253,8 @@ public:
 	void read (gboolean value=true);				// mark/unmark mailbox as read
 	void lookup (void);								// try to guess mailbox format
 	static Mailbox *lookup_local(Mailbox &);        // try to guess mailbox format for a local mailbox
-	gboolean new_mail(std::string &);
+	gboolean new_mail (std::string &);
+	void start_checking (void);
 	void parse (std::vector<std::string> &mail,		// parse a mail 
 				int status = -1, std::string uid = std::string(""));
 
@@ -325,6 +328,13 @@ public:
 		guint s = unread_.size();
 		g_mutex_unlock (mutex_);
 		return s;
+	}
+	/// Access function to Mailbox::mails_to_be_displayed_
+	std::vector<std::string> &mails_to_be_displayed (void) {
+		g_mutex_lock (mutex_);
+		std::vector<std::string> &tmp=mails_to_be_displayed_;
+		g_mutex_unlock (mutex_);
+		return tmp;
 	}
 	/// Access function to Mailbox::hidden_
 	std::set<std::string> &hidden (void)				{return hidden_;}

@@ -108,7 +108,7 @@ Pop::start (void) throw (pop_err)
 		return;
 
 	try {
-		fetch ();
+		start_checking ();
 	}
 	catch (pop_err& err) {
 		// Catch all errors that are un-recoverable and result in
@@ -182,10 +182,6 @@ Pop::fetch (void) throw (pop_err)
 void 
 Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 {
-	// We are checking for mails now
-	status_ = MAILBOX_CHECK;
-	new_unread_.clear();
-	new_seen_.clear();
 	std::set<std::string> new_saved_uid;
 	std::map<guint,std::string> msg_uid;
 
@@ -239,11 +235,6 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 	else
 		status_ = MAILBOX_OLD;
 	saved_uid_ = new_saved_uid;
-
-	if ((unread_ == new_unread_) && (unread_.size() > 0))
-		status_ = MAILBOX_OLD;
-	unread_ = new_unread_;
-	seen_ = new_seen_;
 }
 
 /**

@@ -234,7 +234,7 @@ Popup::update (void)
 	std::vector <guint> count (biff_->size(), 0), max (biff_->size());
 	guint num_mails = 0;
 	for (guint i = 0; i < biff_->size(); i++)
-		num_mails += max[i] = biff_->mailbox(i)->unreads();
+		num_mails+= max[i] = biff_->mailbox(i)->mails_to_be_displayed().size();
 	if (num_mails > biff_->popup_size_)
 		num_mails = biff_->popup_size_;
 
@@ -252,19 +252,10 @@ Popup::update (void)
 		count = max;
 
 	// Now we populate the list
-	for (guint j=0; j<biff_->size(); j++) {
-		std::set<std::string>::iterator ie=biff_->mailbox(j)->seen().end();
-		std::set<std::string>::iterator ib=biff_->mailbox(j)->seen().begin();
-		guint cnt=0;
-		for (std::set<std::string>::iterator i=ie; i != ib;) {
+	for (guint j=0; j < biff_->size(); j++) {
+   		std::vector<std::string>::iterator i=biff_->mailbox(j)->mails_to_be_displayed().end();
+		for (guint cnt=1; cnt <= count[j]; cnt++) {
 			i--;
-			// Is the mail to be shown?
-			if (biff_->mailbox(j)->hidden().find(*i)
-				!= biff_->mailbox(j)->hidden().end())
-				continue;
-			if (cnt++ >= count[j])
-				break;
-
 			// Get the header
 			header h = biff_->mailbox(j)->unread()[*i];
 

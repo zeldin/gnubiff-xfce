@@ -115,6 +115,12 @@ Version 2.1.1
         than max_mail_). So only 5 (POP3) or 4 (APOP) POP commands needed for
         a update when no new messages are available (POP3)
    - Bugfix: Respect use_max_mail_ (POP3)
+   - Start of checking for new mail now protocol independent in class Mailbox
+   - Bugfix: Number of mails to be displayed distributed correctly among the
+        mailboxes
+   - Bugfix: Restriction of read access to mailbox while checking. This was
+        the cause of various smaller problems, mostly noticable when the
+	popup contained false or empty entries.
 
 Version 2.1.0
  * Nicolas Rougier

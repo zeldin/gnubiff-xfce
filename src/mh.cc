@@ -145,8 +145,6 @@ Mh::fetch (void)
 
 	std::vector<guint> buffer = saved_;
 
-	status_ = MAILBOX_CHECK;
-
 	// Parse unseen sequence
 	if (!connect()) {
 		status_ = MAILBOX_ERROR;
@@ -175,8 +173,6 @@ Mh::fetch (void)
 		}
 	}     
 
-	new_unread_.clear();
-	new_seen_.clear();
 	for (guint i=0; (i<saved_.size()) && (new_unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
 		std::string line;
 		std::ifstream file;    
@@ -197,10 +193,4 @@ Mh::fetch (void)
 			file.close();
 		}
 	}
-
-	if ((unread_ == new_unread_) && (unread_.size() > 0))
-		status_ = MAILBOX_OLD;
-
-	unread_ = new_unread_;
-	seen_ = new_seen_;
 }

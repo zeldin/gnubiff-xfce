@@ -121,7 +121,7 @@ Imap4::start (void)
 		return;
 
 	try {
-		fetch ();
+		start_checking ();
 	}
 	catch (imap_err& err) {
 		// Catch all errors that are un-recoverable and result in
@@ -135,9 +135,13 @@ Imap4::start (void)
 			seen_.clear ();
 		}
 		socket_->close ();
+
+		// Do we need to get our mutex back?
+		if (idled_)
+			g_mutex_lock (mutex_);
+		idled_ = false;
 	}
 
-	idled_ = false;
 	update_applet();
 
 	g_mutex_unlock (monitor_mutex_);
@@ -176,10 +180,8 @@ Imap4::fetch (void) throw (imap_err)
 	fetch_mails();
 
 	// Start idling (if possible)
-	if (idleable_) {
-		idled_ = true;
+	if (idleable_)
 		idle();
-	}
 
 	// LOGOUT
 	command_logout();
@@ -306,10 +308,6 @@ Imap4::connect (void) throw (imap_err)
 void 
 Imap4::fetch_mails (void) throw (imap_err)
 {
-	// We are checking for mails now
-	status_ = MAILBOX_CHECK;
-	new_unread_.clear();
-	new_seen_.clear();
 	std::set<std::string> new_saved_mailid;
 
 	// SEARCH NOT SEEN
@@ -350,11 +348,6 @@ Imap4::fetch_mails (void) throw (imap_err)
 	else
 		status_ = MAILBOX_OLD;
 	saved_mailid_ = new_saved_mailid;
-
-	if ((unread_ == new_unread_) && (unread_.size() > 0))
-		status_ = MAILBOX_OLD;
-	unread_ = new_unread_;
-	seen_ = new_seen_;
 }
 
 /**
@@ -379,6 +372,10 @@ Imap4::idle (void) throw (imap_err)
 	// probably due to the loss of a connection.	Basically our loop is:
 	// (update applet)->(wait in idle for mail change)->(Get Mail headers)
 	while (true) {
+		// While idling we don't need the lock, nothing important changes
+		idled_ = true;
+		g_mutex_unlock (mutex_);
+
 		// When in idle state, we won't exit this thread function
 		// so we have to update applet in the meantime
 		update_applet();
@@ -398,6 +395,8 @@ Imap4::idle (void) throw (imap_err)
 		waitfor_ack();
 
 		// Get mails
+		g_mutex_lock (mutex_);
+		idled_ = false;
 		fetch_mails();
 	}
 }

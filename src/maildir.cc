@@ -68,9 +68,6 @@ Maildir::fetch (void)
 	struct dirent *dent;
 	int saved_status = status_;
   
-	// Status will be restored in the end if no problem occured
-	status_ = MAILBOX_CHECK;
-
 	// Build directory name
 	gchar *base=g_path_get_basename(address_.c_str());
 	std::string directory;
@@ -98,8 +95,6 @@ Maildir::fetch (void)
 		return;
 	}
 
-	new_unread_.clear();
-	new_seen_.clear();
 	std::vector<std::string> mail;
 	std::string line; 
 	// Read new mails
@@ -130,10 +125,4 @@ Maildir::fetch (void)
 
 	// Restore status
 	status_ = saved_status;
-
-	if ((unread_ == new_unread_) && (unread_.size() > 0))
-		status_ = MAILBOX_OLD;
-
-	unread_ = new_unread_;
-	seen_ = new_seen_;
 }

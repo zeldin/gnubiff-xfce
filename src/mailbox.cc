@@ -83,9 +83,6 @@ Mailbox::Mailbox (Biff *biff)
 
 	status_ = MAILBOX_UNKNOWN;
 	timetag_ = 0;
-	hidden_.clear();
-	seen_.clear();
-	unread_.clear();
 	mutex_ = g_mutex_new();
 	monitor_mutex_ = g_mutex_new();
 }
@@ -112,9 +109,6 @@ Mailbox::Mailbox (const Mailbox &other)
 
 	status_ = MAILBOX_UNKNOWN;
 	timetag_= 0;
-	hidden_.clear();
-	seen_.clear();
-	unread_.clear();
 	mutex_ = g_mutex_new();
 	monitor_mutex_ = g_mutex_new();
 }
@@ -161,14 +155,14 @@ Mailbox::threaded_start (guint delay)
 {
 	stopped_ = false;
 
-	// Is there already a timeout ?
+	// Is there already a timeout?
 	if ((delay) && (timetag_))
 		return;
 
-	// Do we want to start now ?
+	// Do we want to start now?
 	if (delay)
 		timetag_ = g_timeout_add (delay*1000, start_delayed_entry_point, this);
-	//  or later (delay is given in seconds) ?
+	//  or later (delay is given in seconds)?
 	else
 		start_delayed_entry_point (this);
 
@@ -572,6 +566,38 @@ void Mailbox::parse (std::vector<std::string> &mail, int status,
 }
 
 /**
+ * Start checking for new messages.
+ */
+void 
+Mailbox::start_checking (void)
+{
+	// While checking no one else must have read access: Too many things are
+	// changing.
+	// NOTE: When idling etc. while checking, this lock must be freed
+	g_mutex_lock (mutex_);
+
+	// Initialization
+	status_ = MAILBOX_CHECK;
+	new_unread_.clear ();
+	new_seen_.clear ();
+	mails_to_be_displayed_.clear ();
+
+	// Fetch mails
+	fetch ();
+
+	// FIXME: Determining the new status of the mailbox should be completely
+	// here. Specific mailboxes need more conformity.
+	if ((unread_ == new_unread_) && (unread_.size() > 0))
+		status_ = MAILBOX_OLD;
+
+	// Save obtained values
+	unread_ = new_unread_;
+	seen_ = new_seen_;
+
+	g_mutex_unlock (mutex_);
+}
+
+/**
  * Decide whether a mail has to be fetched and parsed. If the mail is already
  * known it is inserted into the new_unread_ map. So it can be displayed later.
  *
@@ -590,6 +616,7 @@ Mailbox::new_mail(std::string &mailid)
 		new_seen_.insert (mailid);
 		return true;
 	}
+	mails_to_be_displayed_.push_back (mailid);
 
 	// Mail known?
 	if (unread_.find (mailid) == unread_.end ())

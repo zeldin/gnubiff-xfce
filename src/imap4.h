@@ -47,7 +47,12 @@ class Imap4 : public Mailbox {
 	class Socket *				socket_;
 	/// Does the server support the IDLE capability?
 	gboolean					idleable_;
-	/// Is the server currently idled?
+	/** Is the server currently idled?
+	 *
+	 *  Attention: We decide by looking at this value whether we need to get
+	 *  the read access mutex back when an exception has happened.
+	 *  This value {\em must} only be changed while locking
+	 *  Mailbox::mutex_ {\em and} Mailbox::monitor_mutex_! */
 	gboolean					idled_;
 	/// Tag created for the last sent IMAP command.
 	std::string					tag_;

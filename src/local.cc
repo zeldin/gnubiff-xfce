@@ -70,7 +70,7 @@ Local::start (void)
 	// at this point we need to explicitely call the get function since
 	// monitoring will start from now on. Even if the mailbox was full,
 	// no change appears yet, so we force it.
-	fetch ();
+	start_checking ();
 	gdk_threads_enter();
 	biff_->applet()->update();
 	gdk_threads_leave();
@@ -100,7 +100,7 @@ Local::start (void)
 		}
 
 		if (fam_event_.code == FAMChanged) {
-			fetch ();
+			start_checking ();
 			gdk_threads_enter();
 			biff_->applet()->update();
 			gdk_threads_leave();

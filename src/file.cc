@@ -60,9 +60,6 @@ void File::fetch (void)
 	struct stat file_stat;
 	struct utimbuf timbuf;
   
-	// Status will be restored in the end if no problem occured
-	status_ = MAILBOX_CHECK;
-
 	// First we save access time of the mailfile to be able to reset it
 	// before exiting this function because some mail clients (e.g. mutt)
 	// rely on this access time to perform some operations.
@@ -82,8 +79,6 @@ void File::fetch (void)
 		return;
 	}
 
-	new_unread_.clear ();
-	new_seen_.clear ();
 	std::vector<std::string> mail;
 	std::string line; 
 	getline(file, line);
@@ -107,18 +102,13 @@ void File::fetch (void)
 	// Close mailbox
 	file.close ();
  
-	// Restore acces and modification time
+	// Restore access and modification time
 	utime (address_.c_str(), &timbuf);
 
-	if ((unread_ == new_unread_) && (unread_.size()>0))
-		status_ = MAILBOX_OLD;
-	else if (new_unread_.size() > 0)
+	if (new_unread_.size() > 0)
 		status_ = MAILBOX_NEW;
 	else if (new_unread_.size() == 0)
 		status_ = MAILBOX_EMPTY;
 	else
 		status_ = MAILBOX_ERROR;
-
-	unread_ = new_unread_;
-	seen_ = new_seen_;
 }
