@@ -22,6 +22,7 @@ Version 2.1.1
      to Byron Foster for providing a patch)
    - Bugfix: Quick test for new mail while idling is not enogh (IMAP4; thanks
         to Byron Foster for providing a patch)
+   - Added Byron Foster to Contributors
 
 Version 2.1.0
  * Nicolas Rougier
