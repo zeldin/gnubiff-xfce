@@ -337,7 +337,7 @@ Mailbox::lookup_thread (void)
 				  protocol_ = PROTOCOL_POP3;
 				}
 			}
-			else if ((line.find("* OK") == 0)||((line.find("* PREAUTH")== 0)) {
+			else if ((line.find("* OK") == 0)||(line.find("* PREAUTH")== 0)) {
 				s.write ("A001 LOGOUT\r\n");
 				s.close ();
 				protocol_ = PROTOCOL_IMAP4;
