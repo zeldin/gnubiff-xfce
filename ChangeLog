@@ -64,7 +64,7 @@ Version 2.1.0
    - Various small changes in GUI
    - Updated "text" "plain" fix of Nicolas to make it safe for future
      extensions
-   - Get encoding of "text" "plain" part (IMAP4)
+   - Get encoding and character set of "text" "plain" part (IMAP4)
 	
 Version 2.0.3
   * Roland Stigge:

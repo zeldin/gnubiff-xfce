@@ -71,7 +71,8 @@ public:
 	//  Internal stuff
 	// ========================================================================	
 	std::string parse_bodystructure (std::string, gint &, std::string &,
-									 gboolean toplevel=true);
+									 std::string &, gboolean toplevel=true);
+	gboolean parse_bodystructure_parameters (std::string, std::string &);
 	void reset_tag();
 	std::string tag();
 	gint send(std::string,gboolean debug=true);
