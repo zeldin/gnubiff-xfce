@@ -37,7 +37,7 @@ Version 2.1.1
    - Bugfix: Corrected tests for responses to IDLE, SEARCH NOT SEEN and
         FETCH header commands (IMAP4)
    - Cleanup of SEARCH NOT SEEN, CAPABILITY, FETCH header, LOGIN, SELECT, FETCH
-        bodystructurei, LOGOUT and FETCH BODY commands (IMAP4)
+        bodystructurei, LOGOUT, IDLE and FETCH BODY commands (IMAP4)
    - Bugfix: Segfaulting in SSL when writing to a closed socket
    - Cleanup of code for obtaining the password for distant mailboxes
    - Cleanup of code for checking for new mails (IMAP4)
@@ -55,6 +55,10 @@ Version 2.1.1
         untimely (IMAP4)
    - Bugfix/Cleanup: Simplified error handling when sending to the server
         (IMAP4)
+   - Bugfix/Cleanup: Simplified error handling when reading server responses
+        (IMAP4)
+   - Bugfix/Cleanup: Simplified waiting for specified untagged server
+        responses (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier

@@ -308,6 +308,7 @@ const gint bodyLinesToBeRead_=12;
  * network to get the line we want. Unfortunately this number may vary in
  * reality because of the following reasons:
  * \begin{itemize}
+ *    \item The server sends some warning messages (see RFC 3501 7.1.2)
  *    \item There is no limit for the response
  *    \item There exist different extensions to the protocols
  *    \item Not all servers implement protocols correctly

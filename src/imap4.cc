@@ -251,13 +251,12 @@ Imap4::connect (void) throw (imap_err)
 	socket_->set_read_timeout(delay_ < 60 ? 60 : delay_);
 
 #ifdef DEBUG
-	g_message ("[%d] Connected to %s on port %d", uin_, address_.c_str(), port_);
+	g_message ("[%d] Connected to %s on port %d",uin_,address_.c_str(),port_);
 #endif
 
 	// Get server's response
 	std::string line;
-	if (!(socket_->read (line, true))) throw imap_socket_err();
-	if (line.find("* OK") != 0) throw imap_command_err();
+	readline (line);
 
 	// Resetting the tag counter
 	reset_tag();
@@ -341,101 +340,33 @@ Imap4::fetch_mails (void) throw (imap_err)
 void 
 Imap4::idle (void) throw (imap_err)
 {
+	gboolean sentdone=false; // "DONE\r\n" sent by command_idle()?
 
-	// currently we will never exit this loop unless an error occurs,
-	// Probably due to the loss of a connection.	Basically our loop is:
+	// Currently we will never exit this loop unless an error occurs,
+	// probably due to the loss of a connection.	Basically our loop is:
 	// (update applet)->(wait in idle for mail change)->(Get Mail headers)
-	while (true)
-	{
+	while (true) {
 		// When in idle state, we won't exit this thread function
-		// so we have to, update applet in the meantime
+		// so we have to update applet in the meantime
 		update_applet();
-		
+
 		if (timetag_)
 			g_source_remove (timetag_);
 		timetag_ = 0;
-		
-		std::string line = idle_renew_loop();
-		
-		// Did we loose the lock?
-		if (line.find ("* BYE") == 0) throw imap_command_err();
-		
-		if (!socket_->write (std::string("DONE\r\n"))) throw imap_socket_err();
-		
-		// Either we got a OK or a BYE
-		gint cnt=preventDoS_additionalLines_;
-		do {
-			if (!socket_->read (line)) throw imap_socket_err();
-			// Did we lost lock?
-			if (line.find ("* BYE") == 0) throw imap_command_err();
-		} while ((line.find (tag()+"OK") != 0) && (cnt--));
-		if (!cnt)
-			throw imap_dos_err();
-
-		fetch_mails();
-	}
-}
-
-/**
- * idle_loop enters into the idle mode by issueing the imap "IDLE"
- * command, then waits for notifications from the IMAP server.
- * With inactivity the socket read will timeout periodically waiting for server
- * notifications.  When the timeout occurs we simply issue the IMAP
- * "DONE" command then re-enter the idle mode again.  The timeout
- * occurs every {\em delay_} + 1 minute time.  We perform this timeout
- * operation so that we periodically test the connection to make sure it
- * is still valid, and to also keep the connection from being closed by
- * keeping the connection active.
- * 
- * @return         Returns the last line received from the IMAP server.
- * @exception imap_socket_err
- *                 This exception is thrown if a network error occurs.
- */
-std::string 
-Imap4::idle_renew_loop() throw (imap_err)
-{
-	gboolean idleRenew = false;	 // If we should renew the IDLE again.
-	std::string line;
-	do {
-		idleRenew = false;
 
 		// IDLE
-		send (std::string("IDLE"));
-		
-		// Read acknowledgement
-		if (!socket_->read (line)) throw imap_socket_err();
-		
-		// Wait for new mail and block thread at this point
-		gint status = socket_->read (line);
-		if (status == SOCKET_TIMEOUT) {
-			// We timed out, so we want to loop, and issue IDLE again.
-			idleRenew = true;
+		std::string line = command_idle (sentdone);
 
-			if (!socket_->write (std::string("DONE\r\n")))
+		if (!sentdone)
+			if (socket_->write (std::string("DONE\r\n")) != SOCKET_STATUS_OK)
 				throw imap_socket_err();
 
-			status = socket_->read (line);
-			if (line == "") {
-				// At this point we know the connection is probably bad.  The
-				// socket has not been torn down yet, but the read has timed
-				// out again, with no received data.
-				throw imap_socket_err();
-			}
-			if (line.find (tag() + "OK") != 0) {
-				// We may receive email notification before the server
-				// receives the DONE command, in which case we would get
-				// something like "XXX EXISTS" here before "OK IDLE".
-				// At this point we assume this is the case, and fallout
-				// of the idle_renew_loop method with the intent that the
-				// calling method can handle this.
-				idleRenew = false;
-			}
-		}
-		else if (status != SOCKET_STATUS_OK)
-			throw imap_socket_err();
-	} while (idleRenew);
+		// Getting the acknowledgment
+		waitfor_ack();
 
-	return line;
+		// Get mails
+		fetch_mails();
+	}
 }
 
 /**
@@ -464,12 +395,11 @@ Imap4::command_capability (void) throw (imap_err)
 	// Sending the command
 	send ("CAPABILITY");
 
-	// Getting server's response
-	if (!(socket_->read (line))) throw imap_socket_err();
-	if (line.find ("* CAPABILITY") != 0) throw imap_command_err();
+	// Wait for "* CAPABILITY" untagged response
+	line=waitfor_untaggedresponse("CAPABILITY");
 
 	// Getting the acknowledgment
-	waitforack();
+	waitfor_ack();
 
 	// Remark: We have a space-separated listing. In order to not match
 	// substrings we have to include the spaces when comparing. To match the
@@ -545,14 +475,9 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	line = "FETCH " + ss.str() + " (BODY.PEEK[" + partinfo.part_ + "]<0.";
 	line+= textsizestr.str() + ">)";
 	send(line);
-			
-	// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
-	gint cnt=1+preventDoS_additionalLines_;
-	while (((socket_->read(line) > 0)) && (cnt--))
-		if (line.find ("* " + ss.str() + " FETCH") == 0)
-			break;
-	if (!socket_->status()) throw imap_socket_err();
-	if (cnt<0) throw imap_dos_err();
+
+	// Wait for "* ... FETCH" untagged response (see RFC 3501 7.4.2)
+	line=waitfor_untaggedresponse(ss.str() + " FETCH");
 			
 #ifdef DEBUG
 	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
@@ -560,7 +485,7 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 #endif
 	// Read text
 	gint lineno=0, bytes=textsize+3; // ")\r\n" at end of mail
-	while ((bytes>0) && ((socket_->read(line, false, false) > 0))) {
+	while ((bytes>0) && (readline (line, false, true, false))) {
 		bytes-=line.size()+1; // don't forget to count '\n'!
 		if ((line.size() > 0) && (lineno++<bodyLinesToBeRead_)) {
 			mail.push_back (line.substr(0, line.size()-1));
@@ -572,7 +497,6 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 #ifdef DEBUG
 		g_print ("\n");
 #endif
-	if (!socket_->status()) throw imap_socket_err();
 	if (bytes<0) throw imap_dos_err();
 	// Remove ")\r" from last line ('\n' was removed before)
 	mail.pop_back();
@@ -582,7 +506,7 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 		throw imap_command_err();
 
 	// Getting the acknowledgment
-	waitforack();
+	waitfor_ack();
 }
 
 /**
@@ -616,20 +540,15 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 	// Send command
 	send ("FETCH " +ss.str()+ " (BODYSTRUCTURE)");
 
-	// Response should be: "* s FETCH (BODYSTRUC..." (see RFC 3501 7.4.2)
-	gint cnt=1+preventDoS_additionalLines_;
-	while (((socket_->read(line) > 0)) && (cnt--))
-		if (line.find ("* " + ss.str() + " FETCH (BODYSTRUCTURE (") == 0)
-			break;
-	if (!socket_->status()) throw imap_socket_err();
-	if (cnt<0) throw imap_dos_err();
+	// Wait for "* ... FETCH (BODYST..." untagged response (see RFC 3501 7.4.2)
+	line=waitfor_untaggedresponse(ss.str() + " FETCH (BODYSTRUCTURE (");
 
 	// Get the whole response (may be multiline)
 	response=line.substr(25+ss.str().size(),line.size()-27-ss.str().size());
-	cnt=preventDoS_imap4_multilineResponse_;
+	gint cnt=preventDoS_imap4_multilineResponse_;
 	while ((nestlevel=isfinished_fetchbodystructure(line,nestlevel))&&(cnt--)){
-		if (!(socket_->read(line,true,false))) throw imap_socket_err();
-		response+=line.substr(0,line.size()-1); // trailing '\r'
+		readline (line, true, true, false);
+		response += line.substr (0, line.size()-1); // trailing '\r'
 	}
 	if (cnt<0) throw imap_dos_err();
 	response=response.substr(0,response.size()-1); // trailing ')'
@@ -639,13 +558,13 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 	PartInfo partinfo;
 	parse_bodystructure(response, partinfo);
 #ifdef DEBUG
-	g_print("** Part %s size=%d, encoding=%s, charset=%s\n",
-			partinfo.part_.c_str(), partinfo.size_, partinfo.encoding_.c_str(),
-			partinfo.charset_.c_str());
+	g_print("** Message: [%d] Part=%s size=%d, encoding=%s, charset=%s\n",
+			uin_, partinfo.part_.c_str(), partinfo.size_,
+			partinfo.encoding_.c_str(),	partinfo.charset_.c_str());
 #endif
 
 	// Getting the acknowledgment
-	waitforack();
+	waitfor_ack();
 
 	return partinfo;
 }
@@ -682,22 +601,17 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 	std::string line;
 	line="FETCH "+ss.str()+" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])";
 	send (line);
-		
-	// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
-	gint cnt=1+preventDoS_additionalLines_;
-	while (((socket_->read(line) > 0)) && (cnt--))
-		if (line.find ("* "+ss.str()+" FETCH") == 0)
-			break;
-	if (!socket_->status()) throw imap_socket_err();
-	if (cnt<0) throw imap_dos_err();
+
+	// Wait for "* ... FETCH" untagged response (see RFC 3501 7.4.2)
+	line=waitfor_untaggedresponse(ss.str() + " FETCH");
 		
 	// Date, From, Subject and an empty line
 #ifdef DEBUG
 	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
 			 address_.c_str(), port_);
 #endif
-	cnt=5+preventDoS_additionalLines_;
-	while (((socket_->read(line, false) > 0)) && (cnt--)) {
+	gint cnt=5+preventDoS_additionalLines_;
+	while ((readline (line, false, true, false)) && (cnt--)) {
 		if (line.find (tag()) == 0)
 			break;
 		if (line.size() > 0) {
@@ -711,7 +625,6 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 	g_print ("\n");
 #endif
 	// Did an error happen?
-	if (!socket_->status()) throw imap_socket_err();
 	if (cnt<0) throw imap_dos_err();
 	if ((line.find (tag() + "OK") != 0) || (mail.size()<2))
 		throw imap_command_err();
@@ -723,6 +636,72 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 		throw imap_command_err();
 	mail.pop_back();
 	return mail;
+}
+
+/**
+ * Sending the IMAP command "IDLE" to the server.
+ * This function enters into the idle mode by issueing the imap "IDLE"
+ * command, then waits for notifications from the IMAP server.
+ * With inactivity the socket read will timeout periodically waiting for server
+ * notifications.  When the timeout occurs we simply issue the IMAP
+ * "DONE" command then re-enter the idle mode again.  The timeout
+ * occurs every {\em delay_} + 1 minute time.  We perform this timeout
+ * operation so that we periodically test the connection to make sure it
+ * is still valid, and to also keep the connection from being closed by
+ * keeping the connection active.
+ *
+ * @param sentdone Reference to a boolean. When returning this is true if
+ *                 "DONE" (for the last "IDLE") is already sent to server,
+ *                 and false if the caller still has to send "DONE".
+ * @return         Returns the last line received from the IMAP server.
+ * @exception imap_socket_err
+ *                 This exception is thrown if a network error occurs.
+ */
+std::string 
+Imap4::command_idle(gboolean &sentdone) throw (imap_err)
+{
+	gboolean idleRenew = false;	 // If we should renew the IDLE again.
+	std::string line;
+	do {
+		idleRenew = false;
+		sentdone = false;
+
+		// IDLE
+		send (std::string("IDLE"));
+		
+		// Read continuation response
+		readline (line);
+		if (line.find("+ ") != 0) throw imap_command_err();
+
+		// Wait for new mail and block thread at this point
+		gint status = readline (line, true, false, true);
+		if (status == SOCKET_TIMEOUT) {
+			// We timed out, so we want to loop, and issue IDLE again.
+			idleRenew = true;
+
+			if (socket_->write (std::string("DONE\r\n")) != SOCKET_STATUS_OK)
+				throw imap_socket_err();
+			sentdone=true;
+
+			status = readline (line, true, false, true);
+			if (status != SOCKET_STATUS_OK)
+			// If there is another timeout: At this point we know the
+			// connection is probably bad.  The socket has not been torn down
+			// yet, but the read has timed out again, with no received data.
+				throw imap_socket_err();
+			if (line.find (tag() + "OK") != 0)
+				// We may receive email notification before the server
+				// receives the DONE command, in which case we would get
+				// something like "XXX EXISTS" here before "OK IDLE".
+				// At this point we assume this is the case, and fallout of
+				// this method with the intent that the calling method can
+			    // handle this.
+				idleRenew = false;
+		}
+		else if (status != SOCKET_STATUS_OK) throw imap_socket_err();
+	} while (idleRenew);
+
+	return line;
 }
 
 /**
@@ -753,7 +732,7 @@ Imap4::command_login (void) throw (imap_err)
 #endif
 
 	// Getting the acknowledgment
-	waitforack();
+	waitfor_ack();
 }
 
 /**
@@ -804,7 +783,7 @@ Imap4::command_select (void) throw (imap_err)
 
 	// According to RFC 3501 6.3.1 there must be exactly seven lines
 	// before getting the acknowledgment line.
-	waitforack(msg,7);
+	waitfor_ack(msg,7);
 }
 
 /**
@@ -830,14 +809,8 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	// Sending the command
 	send("SEARCH NOT SEEN");
 
-	// We need to set a limit to lines read (DoS Attacks).
-	// Expected response "* SEARCH ..." should be in the next line.
-	gint cnt=1+preventDoS_additionalLines_;
-	while (((socket_->read(line) > 0)) && (cnt--))
-		if (line.find ("* SEARCH") == 0)
-			break;
-	if (!socket_->status()) throw imap_socket_err();
-	if (cnt<0) throw imap_dos_err();
+	// Wait for "* SEARCH" untagged response
+	line=waitfor_untaggedresponse("SEARCH");
 
 	// Parse server's answer. Should be something like
 	// "* SEARCH 1 2 3 4" or "* SEARCH"
@@ -858,7 +831,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	}
 
 	// Getting the acknowledgment
-	waitforack();
+	waitfor_ack();
 
 	return buffer;
 }
@@ -870,7 +843,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
  *
  * @param     msg      Error message to be printed if we don't get a positive
  *                     response. The default is to print no message.
- * @param     cnt      Number of lines that are expected to be sent by the
+ * @param     num      Number of lines that are expected to be sent by the
  *                     server. This value is needed to help deciding whether
  *                     we are DoS attacked. The default value is 0.
  * @exception imap_command_err
@@ -882,20 +855,20 @@ Imap4::command_searchnotseen (void) throw (imap_err)
  *                     This exception is thrown if a network error occurs.
  */
 void 
-Imap4::waitforack (std::string msg, gint cnt) throw (imap_err)
+Imap4::waitfor_ack (std::string msg, gint num) throw (imap_err)
 {
 	std::string line;
 
-	cnt+=1+preventDoS_additionalLines_;
-	while ((socket_->read (line) > 0) && (cnt--))
+	num+=1+preventDoS_additionalLines_;
+	while ((readline (line)) && (num--))
 		if (line.find (tag()) == 0)
 			break;
 	// Error?
-	if ((!socket_->status()) || (cnt<0))
+	if (num<0) {
 		g_warning (_("[%d] Unable to get acknowledgment from %s on port %d"),
 				   uin_, address_.c_str(), port_);
-	if (!socket_->status()) throw imap_socket_err();
-	if (cnt<0) throw imap_dos_err();
+		throw imap_dos_err();
+	}
 
 	// Negative response?
 	if (line.find (tag() + "OK") != 0) {
@@ -906,6 +879,43 @@ Imap4::waitforack (std::string msg, gint cnt) throw (imap_err)
 		command_logout();
 		throw imap_command_err();
 	}
+}
+
+/**
+ * Reading and discarding input lines from the server's response until a
+ * specified untagged response is read. The tag "* " is added to
+ * {\em response} by this function. Then lines are read until a line begins
+ * with this string, this line is returned. If no such line is read in time and
+ * a DoS attack is suspected an imap_dos_err exception is thrown.
+ *
+ * @param     response Untagged response to look for (without the leading "* ")
+ * @param     num      Number of lines that are expected to be sent by the
+ *                     server before the untagged response. This value is
+ *                     needed to help deciding whether we are DoS attacked.
+ *                     The default value is 0.
+ * @exception imap_dos_err
+ *                     This exception is thrown when a DoS attack is suspected.
+ * @exception imap_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+std::string 
+Imap4::waitfor_untaggedresponse (std::string response, gint num)
+								 throw (imap_err)
+{
+	std::string line;
+
+	// We need to set a limit to lines read (DoS attacks).
+	num+=1+preventDoS_additionalLines_;
+
+	response="* " + response;
+	while (num--) {
+		readline (line);
+		if (line.find (response) == 0)
+			return line;
+	}
+	g_warning (_("[%d] Server doesn't send untagged \"%s\" response"), uin_,
+			   response.c_str());
+	throw imap_dos_err();
 }
 
 /**
@@ -1199,18 +1209,18 @@ Imap4::tag ()
  * via the Imap::tag() function) and postfixed with "\r\n" and then written to
  * the socket of the mailbox.
  *
- * If {\em check} is true the return value of the Socket::write() is checked
- * and an imap_socket_err exception is thrown if it was not successful. So
- * this function always return SOCKET_STATUS_OK if {\em check} is true,
- * otherwise (if {\em check} is false, error handling is left to the caller of
+ * If {\em check} is true the return value of the call to Socket::write() is
+ * checked and an imap_socket_err exception is thrown if it was not successful.
+ * So this function always returns SOCKET_STATUS_OK if {\em check} is true,
+ * otherwise (if {\em check} is false) error handling is left to the caller of
  * this function.
  *
  * @param command  IMAP command as a C++ string
  * @param debug    Shall the sent command be printed in debug mode?
  *                 The default is true.
- * @param check    Shall the return value of the socket write command be
+ * @param check    Shall the return value of the Socket::write() command be
  *                 checked? The default is true.
- * @return         Return value of the socket write command, this is always
+ * @return         Return value of the Socket::write() command, this is always
  *                 SOCKET_STATUS_OK if {\em check} is true.
  * @exception imap_command_err
  *                 This exception is thrown if we can't create the string to be
@@ -1220,6 +1230,7 @@ Imap4::tag ()
  */
 gint 
 Imap4::send (std::string command, gboolean debug, gboolean check)
+			 throw (imap_err)
 {
 	// Create new tag
 	tagcounter_++;
@@ -1231,5 +1242,66 @@ Imap4::send (std::string command, gboolean debug, gboolean check)
 	// Write line
 	gint status=socket_->write (tag_ + command + "\r\n", debug);
 	if ((status!=SOCKET_STATUS_OK) && check) throw imap_socket_err();
+	return status;
+}
+
+/**
+ * Read one line from the server. If {\em check} is true the return value of
+ * the call to Socket::read() is checked and an imap_socket_err exception is
+ * thrown if it was not successful. So this function always returns
+ * SOCKET_STATUS_OK if {\em check} is true, otherwise (if {\em check} is
+ * false) error handling is left to the caller of this function.
+ *
+ * If {\em checkline} is true then the read line is checked for an untagged
+ * response. If an error response is found ("* BYE" or "* BAD") an error
+ * message is printed and an imap_command_err exception is thrown. If a
+ * warning response ("* NO") is found the warning is printed.
+ *
+ * Remark: The parameter {\em checkline} must be false if reading the response
+ * to the "LOGOUT" command because an untagged "* BYE" response doesn't
+ * indicate an error.
+ *
+ * @param line      String that contains the read line if the call was
+ *                  successful (i.e. the return value is SOCKET_STATUS_OK),
+ *                  the value is undetermined otherwise
+ * @param debug     Shall the read line be printed in debug mode?
+ *                  The default is true.
+ * @param check     Shall the return value of the Socket::read() command be
+ *                  checked? The default is true.
+ * @param checkline Shall {\em line} be checked for an untagged negative
+ *                  response? The default is true.
+ * @return          Return value of the Socket::read() command, this is always
+ *                  SOCKET_STATUS_OK if {\em check} is true.
+ * @exception imap_command_err
+ *                  This exception is thrown if {\em line} contains a negative
+ *                  untagged response and {\em check} and {\em checkline} are
+ *                  true.
+ * @exception imap_socket_err
+ *                  This exception is thrown if a network error occurs.
+ */
+gint 
+Imap4::readline (std::string &line, gboolean debug, gboolean check,
+				 gboolean checkline) throw (imap_err)
+{
+	// Read line
+	gint status=socket_->read(line, debug, check);
+	if (check && (status!=SOCKET_STATUS_OK)) throw imap_socket_err();
+
+	// Check for an untagged negative response
+	if (!checkline)
+		return status;
+	if (line.find("* BYE") == 0) { // see RFC 3501 7.1.5
+		g_warning (_("[%d] Server closes connection immediately:%s"),
+				   uin_, line.substr(5,line.size()-5).c_str());
+		throw imap_command_err();
+	}
+	if (line.find("* BAD") == 0) { // see RFC 3501 7.1.3
+		g_warning (_("[%d] Internal server failure or unknown error:%s"),
+				   uin_, line.substr(5,line.size()-5).c_str());
+		throw imap_command_err();
+	}
+	if (line.find("* NO") == 0) // see RFC 3501 7.1.2
+		g_warning (_("[%d] Warning from server:%s"), uin_,
+				   line.substr(4,line.size()-4).c_str());
 	return status;
 }

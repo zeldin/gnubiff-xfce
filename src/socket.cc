@@ -396,15 +396,6 @@ Socket::read (std::string &line,
 	// NOTE: It would be my take that there should not be mailbox specific
 	// handling in the socket processing.	 -Byron
 	
-	// Check imap4
-	if (mailbox_->protocol() == PROTOCOL_IMAP4) {
-		if (line.find ("* BYE") == 0) {
-			close();
-			status_ = SOCKET_STATUS_ERROR;
-			mailbox_->status (MAILBOX_ERROR);
-		}
-	}
-
 	// Check pop
 	if ((mailbox_->protocol() == PROTOCOL_APOP) || (mailbox_->protocol() == PROTOCOL_POP3)) {
 		 if (line.find ("-ERR") == 0) {
