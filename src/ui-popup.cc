@@ -250,21 +250,25 @@ Popup::update (void)
 			count.push_back (biff_->mailbox(i)->unreads());	
 
 	// Now we populate the list
-	for (guint j=0; j<biff_->size(); j++) {
+	for (guint j=0, maxcnt=0; j<biff_->size(); j++) {
 		std::set<std::string>::iterator ie=biff_->mailbox(j)->seen().end();
 		std::set<std::string>::iterator ib=biff_->mailbox(j)->seen().begin();
-		gint cnt=biff_->mailbox(j)->unreads()-1;
-		for (std::set<std::string>::iterator i=ie; i != ib; cnt--) {
+		guint cnt=0;
+		for (std::set<std::string>::iterator i=ie; i != ib;) {
 			i--;
 			// Is the mail to be shown?
 			if (biff_->mailbox(j)->hidden().find(*i)
 				!= biff_->mailbox(j)->hidden().end())
 				continue;
+			if (maxcnt++ >= biff_->popup_size_)
+				break;
+			cnt++;
+
 			// Get the header
 			header h = biff_->mailbox(j)->unread()[*i];
 
 			std::stringstream s;
-			s << cnt+1;
+			s << cnt;
 			gtk_list_store_append (store, &iter);
 				
 			// Subject
@@ -297,7 +301,7 @@ Popup::update (void)
 			g_free (buffer);
 			saved_strings.push_back (sender);
 			
-			if (cnt == (gint(biff_->mailbox(j)->unreads())-1))
+			if (cnt == 1)
 				gtk_list_store_set (store, &iter, COLUMN_NAME, biff_->mailbox(j)->name().c_str(), -1);
 			else
 				gtk_list_store_set (store, &iter, COLUMN_NAME, "", -1);
@@ -309,6 +313,8 @@ Popup::update (void)
 								COLUMN_HEADER,&biff_->mailbox(j)->unread()[*i],
 								-1);
 		}
+		if (maxcnt > biff_->popup_size_)
+			break;
 	}
 
 	// Update window decoration

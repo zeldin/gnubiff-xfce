@@ -102,6 +102,13 @@ Version 2.1.1
         (IMAP4 & POP3)
    - Cleanup: Handling untagged responses, sending commands with msn
         argument (IMAP4)
+   - Bugfix: Respect the number of mail headers to be shown in the popup
+        (thanks to Calum Mackay for reporting this bug)
+   - Feature: Get all unique identifiers at once.  If no new mail is present on
+        the server we now have to send only 5 or 6 IMAP commands to the server
+	(IMAP4)
+   - Change: biff->max_mail_ is now the number of message sequence numbers
+        that are obtained from the server (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier

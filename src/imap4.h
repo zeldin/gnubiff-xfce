@@ -60,7 +60,7 @@ class Imap4 : public Mailbox {
 	 */
 	std::string					uidvalidity_;
 	/// Set for the saved unique identifiers of the mails
-	std::set<std::string> 		saved_uid_;
+	std::set<std::string> 		saved_mailid_;
 	/** Map of pairs (atom, arg) that represent the last sent server response
 	 *  codes via untagged "* OK" server responses. */
 	std::map<std::string, std::string> ok_response_codes_;
@@ -73,6 +73,8 @@ class Imap4 : public Mailbox {
 	/** Message sequence number of the last untagged response. This value is
 	 *  0 if there was no message sequence number. */
 	guint						last_untagged_response_msn_;
+	/// Map of message sequence numbers and corresponding unique ids.
+	std::map<guint,std::string> msn_uid_;
  public:
 	// ========================================================================
 	//  base
@@ -151,16 +153,19 @@ class Imap4 : public Mailbox {
 							std::vector<std::string> &) throw (imap_err);
 	PartInfo command_fetchbodystructure (guint) throw (imap_err);
 	std::vector<std::string> command_fetchheader (guint) throw (imap_err);
-	std::string command_fetchuid (guint) throw (imap_err);
+	std::set<std::string> command_fetchuid (std::set<guint>) throw (imap_err);
 	std::string command_idle(gboolean &) throw (imap_err);
 	void command_login (void) throw (imap_err);
 	void command_logout (void) throw (imap_err);
-	std::vector<guint> command_searchnotseen (void) throw (imap_err);
+	std::set<guint> command_searchnotseen (void) throw (imap_err);
 	void command_select (void) throw (imap_err);
 	void waitfor_ack (std::string msg=std::string(""),
-					  gint num=0) throw (imap_err);
+					  gint num = 0) throw (imap_err);
+	gboolean waitfor_ack_untaggedresponse (std::string,
+										   std::string contbegin = std::string(""),
+										   gint num = 0) throw(imap_err);
 	void waitfor_untaggedresponse (guint, std::string,
-								   std::string contbegin = std::string(""),
+								   std::string contbegin=std::string(""),
 								   gint num = 0) throw (imap_err);
 	void reset_tag();
 	std::string tag();

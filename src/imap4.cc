@@ -308,48 +308,48 @@ Imap4::fetch_mails (void) throw (imap_err)
 {
 	// We are checking for mails now
 	status_ = MAILBOX_CHECK;
-
-	// SEARCH NOT SEEN
-	std::vector<guint> buffer=command_searchnotseen();
-
-	// Get new mails one by one
 	new_unread_.clear();
 	new_seen_.clear();
-	std::set<std::string> new_saved_uid;
-	for (guint i=0; (i<buffer.size()) && (new_unread_.size() < (unsigned int)(biff_->max_mail_)); i++) {
+	std::set<std::string> new_saved_mailid;
 
-		// FETCH UID
-		std::string uid=uidvalidity_ + command_fetchuid(buffer[i]);
-		new_saved_uid.insert (uid);
+	// SEARCH NOT SEEN
+	std::set<guint> buffer = command_searchnotseen ();
 
+	// FETCH UID
+	std::set<std::string> uid_set = command_fetchuid (buffer);
+
+	// Get new mails one by one
+	for (std::set<guint>::iterator i=buffer.begin(); i != buffer.end(); i++) {
 		// Check if mail is already known
-		if (new_mail (uid))
+		std::string mailid = uidvalidity_ + msn_uid_[*i];
+		new_saved_mailid.insert (mailid);
+		if (new_mail (mailid))
 			continue;
 
 		// FETCH header information
-		std::vector<std::string> mail=command_fetchheader(buffer[i]);
+		std::vector<std::string> mail = command_fetchheader (*i);
 
 		// FETCH BODYSTRUCTURE
-		PartInfo partinfo=command_fetchbodystructure(buffer[i]);
+		PartInfo partinfo = command_fetchbodystructure (*i);
 
 		// FETCH BODY
-		command_fetchbody (buffer[i], partinfo, mail);
+		command_fetchbody (*i, partinfo, mail);
 
 		// Decode and parse mail
-		if (partinfo.part_!="")
+		if (partinfo.part_ != "")
 			decode_body (mail, partinfo.encoding_);
-		parse (mail, MAIL_UNREAD, uid);
+		parse (mail, MAIL_UNREAD, mailid);
 	}
 
 	// Determine new mailbox status
-	if (new_saved_uid.empty ())
+	if (new_saved_mailid.empty ())
 		status_ = MAILBOX_EMPTY;
-	else if (!std::includes(saved_uid_.begin(), saved_uid_.end(),
-							new_saved_uid.begin(), new_saved_uid.end()))
+	else if (!std::includes(saved_mailid_.begin(), saved_mailid_.end(),
+							new_saved_mailid.begin(), new_saved_mailid.end()))
 		status_ = MAILBOX_NEW;
 	else
 		status_ = MAILBOX_OLD;
-	saved_uid_ = new_saved_uid;
+	saved_mailid_ = new_saved_mailid;
 
 	if ((unread_ == new_unread_) && (unread_.size() > 0))
 		status_ = MAILBOX_OLD;
@@ -665,8 +665,9 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 }
 
 /**
- * Obtain the unique identifier of the mail with sequence number {\em msn}.
- * This is done by sending the IMAP command "FETCH" to the server.
+ * Obtain all the unique identifiers for messages with a sequence number in
+ * the set {\em msn}. This is done by sending the IMAP command "FETCH" to the
+ * server. This function also updates Imap4::msn_uid_.
  * 
  * @param     msn      Message sequence number of the mail
  * @return             Unique id of the mail
@@ -678,24 +679,39 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
  * @exception imap_socket_err
  *                     This exception is thrown if a network error occurs.
  */
-std::string 
-Imap4::command_fetchuid (guint msn) throw (imap_err)
+std::set<std::string> 
+Imap4::command_fetchuid (std::set<guint> msn) throw (imap_err)
 {
+	std::set<std::string> uid;
+	msn_uid_.clear ();
+
+	// No messages at all
+	if (!msn.size())
+		return uid;
+
+	std::stringstream ss;
+	std::set<guint>::iterator i = msn.begin();
+	ss << *(i++);
+	while (i != msn.end())
+		ss << "," << *(i++);
+
 	// Send command
-	sendline ("FETCH", msn, "(UID)");
+	sendline ("FETCH " + ss.str () + " (UID)");
 
-	// Wait for "* ... FETCH (UID ...)" untagged response (see RFC 3501 7.4.2)
-	waitfor_untaggedresponse (msn, "FETCH" , "(UID ");
+	// Get all untagged responses that are of interest
+	while (waitfor_ack_untaggedresponse ("FETCH" , "(UID ", msn.size())) {
+		// Get uid
+		std::string line=last_untagged_response_cont_.substr (5);
+		guint pos=line.find(")");
+		if ((pos == 0) || (pos == std::string::npos)) throw imap_command_err();
+		if (msn.find (last_untagged_response_msn_) == msn.end ())
+			throw imap_command_err();
+		uid.insert (line.substr (0, pos));
+		msn_uid_[last_untagged_response_msn_] = line.substr (0, pos);
+	}
+	if (msn.size() != uid.size()) throw imap_command_err();
 
-	// Get uid
-	std::string line=last_untagged_response_cont_.substr (5);
-	guint pos=line.find(")");
-	if ((pos == 0) || (pos == std::string::npos)) throw imap_command_err();
-
-	// Getting the acknowledgment
-	waitfor_ack();
-
-	return line.substr (0, pos);
+	return uid;
 }
 
 /**
@@ -864,7 +880,7 @@ Imap4::command_select (void) throw (imap_err)
  * @exception imap_socket_err
  *                     This exception is thrown if a network error occurs.
  */
-std::vector<guint> 
+std::set<guint> 
 Imap4::command_searchnotseen (void) throw (imap_err)
 {
 	// Sending the command
@@ -876,10 +892,10 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 
 	// Parse server's answer. Should be something like
 	// "* SEARCH 1 2 3 4" or "* SEARCH"
-	std::vector<guint> buffer;
-	guint n;
-	while (ss >> n)
-		buffer.push_back (n);
+	std::set<guint> buffer;
+	guint n, cnt=0;
+	while ((ss >> n) && (cnt++ < biff_->max_mail_))
+		buffer.insert (n);
 
 	// Getting the acknowledgment
 	waitfor_ack();
@@ -929,7 +945,7 @@ Imap4::waitfor_ack (std::string msg, gint num) throw (imap_err)
 	// Negative response?
 	if (line.find (tag() + "OK") != 0) {
 		// Print error message
-		if (msg!="")
+		if (msg != "")
 			g_warning (msg.c_str());
 		// We still have a connection to the server so we can logout
 		command_logout();
@@ -939,8 +955,65 @@ Imap4::waitfor_ack (std::string msg, gint num) throw (imap_err)
 
 /**
  * Reading and discarding input lines from the server's response until a
- * specified untagged response is read. Then lines are read until the specified
- * untagged response is sent by the server. If no such line is read in time a
+ * specified untagged response or a acknowledgment is read. Testing for the
+ * specified untagged response succeeds for any message sequence number.
+ *
+ * Response codes for "* OK" responses are saved in Imap4::ok_response_codes_,
+ * which is being reset when calling this function.
+ *
+ * @param key       Key to be tested
+ * @param contbegin This is tested for being the prefix of the contents part of
+ *                  the response. The default is the empty string.
+ * @param num       Number of lines that are expected to be sent by the
+ *                  server before the untagged response. This value is
+ *                  needed to help deciding whether we are DoS attacked.
+ *                  The default value is 0.
+ * @return          True if the specified untagged response was sent, false if
+ *                  the acknowledgment was sent.
+ * @exception imap_dos_err
+ *                  This exception is thrown when a DoS attack is suspected.
+ * @exception imap_socket_err
+ * @see             Imap4::waitfor_ack(), Imap4::waitfor_untaggedresponse()
+ */
+gboolean 
+Imap4::waitfor_ack_untaggedresponse (std::string key, std::string contbegin,
+									 gint num) throw (imap_err)
+{
+	std::string line;
+
+	// Reset server response code map
+	ok_response_codes_.clear ();
+
+	// We need to set a limit to lines read (DoS attacks).
+	num += 1 + preventDoS_additionalLines_;
+
+	while (num--) {
+		readline (line);
+		if (test_untagged_response (key, contbegin))
+			return true;
+		if (line.find (tag()) == 0)
+			break;
+	}
+
+	if (num < 0) {
+		g_warning (_("[%d] Server doesn't send untagged \"%s\" response or acknowledgment"),
+				   uin_, key.c_str());
+		throw imap_dos_err();
+	}
+
+	// Negative response?
+	if (line.find (tag() + "OK") != 0) {
+		// We still have a connection to the server so we can logout
+		command_logout();
+		throw imap_command_err();
+	}
+
+	return false;
+}
+
+/**
+ * Reading and discarding input lines from the server's response until a
+ * specified untagged response is read. If no such line is read in time a
  * DoS attack is suspected and an imap_dos_err exception is thrown.
  *
  * Response codes for "* OK" responses are saved in Imap4::ok_response_codes_,
@@ -951,7 +1024,7 @@ Imap4::waitfor_ack (std::string msg, gint num) throw (imap_err)
  * @param key       Key to be tested
  * @param contbegin This is tested for being the prefix of the contents part of
  *                  the response. The default is the empty string.
- * @param     num   Number of lines that are expected to be sent by the
+ * @param num       Number of lines that are expected to be sent by the
  *                  server before the untagged response. This value is
  *                  needed to help deciding whether we are DoS attacked.
  *                  The default value is 0.
