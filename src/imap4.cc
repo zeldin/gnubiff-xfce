@@ -503,50 +503,49 @@ Imap4::fetch_header (void)
 			// Is there any plain text?
 			if (part=="")
 				mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
-			else
-				{
-					// Note: We are only interested in the first 12 lines, there are at
-					// most 1000 characters per line (see RFC 2821 4.5.3.1), so it is
-					// sufficient to get at most 12000 bytes.
-					if (textsize>12000)
-						textsize=12000;
-					std::stringstream textsizestr;
-					textsizestr << textsize;
-					line = "FETCH " + s.str() + " (BODY.PEEK[" + part + "]<0.";
-					line+= textsizestr.str() + ">)";
-					if (!send(line)) return;
+			else {
+				// Note: We are only interested in the first 12 lines, there
+				// are at most 1000 characters per line (see RFC 2821 4.5.3.1),
+				// so it is sufficient to get at most 12000 bytes.
+				if (textsize>12000)
+					textsize=12000;
+				std::stringstream textsizestr;
+				textsizestr << textsize;
+				line = "FETCH " + s.str() + " (BODY.PEEK[" + part + "]<0.";
+				line+= textsizestr.str() + ">)";
+				if (!send(line)) return;
 
-					// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
-					cnt=1+preventDoS_additionalLines_;
-					while (((socket_->read(line) > 0)) && (cnt--))
-						if (line.find ("* "+s.str()+" FETCH") == 0)
-							break;
-					if ((!socket_->status()) || (cnt<0)) return;
+				// Response should be: "* s FETCH ..." (see RFC 3501 7.4.2)
+				cnt=1+preventDoS_additionalLines_;
+				while (((socket_->read(line) > 0)) && (cnt--))
+					if (line.find ("* "+s.str()+" FETCH") == 0)
+						break;
+				if ((!socket_->status()) || (cnt<0)) return;
 
 #ifdef DEBUG
-					g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, address_.c_str(), port_);
+				g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, address_.c_str(), port_);
 #endif
-					// Read text
-					guint lineno=0;
-					gint bytes=textsize+3; // ")\r\n" at end of mail
-					while ((bytes>0) && ((socket_->read(line, false) > 0))) {
-						bytes-=line.size()+1; // don't forget to count '\n'!
-						if ((line.size() > 0) && (lineno++<12)) {
-							mail.push_back (line.substr(0, line.size()-1));
+				// Read text
+				guint lineno=0;
+				gint bytes=textsize+3; // ")\r\n" at end of mail
+				while ((bytes>0) && ((socket_->read(line, false) > 0))) {
+					bytes-=line.size()+1; // don't forget to count '\n'!
+					if ((line.size() > 0) && (lineno++<12)) {
+						mail.push_back (line.substr(0, line.size()-1));
 #ifdef DEBUG
-							g_print ("+");
+						g_print ("+");
 #endif
-						}
 					}
-					if ((!socket_->status()) || (bytes<0)) return;
-					// Remove ")\r" from last line ('\n' removed before)
-					mail.pop_back();
-					if (line.size()>1)
-						mail.push_back (line.substr(0, line.size()-2));
-					// Read end of command
-					if (!(socket_->read(line, false))) return;
-					if (line.find (tag()+"OK") != 0) return;
 				}
+				if ((!socket_->status()) || (bytes<0)) return;
+				// Remove ")\r" from last line ('\n' was removed before)
+				mail.pop_back();
+				if (line.size()>1)
+					mail.push_back (line.substr(0, line.size()-2));
+				// Read end of command
+				if (!(socket_->read(line, false))) return;
+				if (line.find (tag()+"OK") != 0) return;
+			}
 #ifdef DEBUG
 			g_print ("\n");
 #endif
