@@ -525,83 +525,97 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid)
 {
 	Header h;
 	gboolean status = true; // set to false if mail should not be stored
+	guint len = mail.size ();
 
-	for (guint i=0; i<mail.size(); i++) {
-		gchar *buffer = g_ascii_strdown (mail[i].c_str(), -1);
-		std::string line = buffer;
+	for (guint i=0; i < len; i++) {
+		// Beginning of body? (header and body are separated by an empty line)
+		if (mail[i].empty()) {
+			guint j = 0;
+			while ((j < biff_->value_uint("popup_body_lines")) && (++i < len)){
+				if (j++)
+					h.add_to_body ("\n");
+				h.add_to_body (mail[i]);
+			}
+			if ((j == biff_->value_uint ("popup_body_lines")) && (i+2 < len))
+				h.add_to_body ("\n...");
+			// No need for more parsing
+			break;
+		}
+
+		// Only header lines are handled now
+		// Remove folding in header (see RFC 2822 2.2.2 & 2.2.3.)
+ 		std::string line = mail[i];
+ 		if (mail[i].empty() == false)
+			while ((i+1 < len) && (mail[i+1].size() > 0)
+				   && ((mail[i+1].at(0) == ' ') || (mail[i+1].at(0) == '\t')))
+ 				line += mail[++i];
+
+		gchar *buffer = g_ascii_strdown (line.c_str(), -1);
+		std::string line_down = buffer;
 		g_free (buffer);
 
 		// Sender
 		// There should be a whitespace or a tab after "From:", so we look
 		// for "From:" and get string beginning at 6
-		if ((mail[i].find ("From:") == 0) && h.sender().empty()) {
-			if (mail[i].size() > 6)
-				h.sender (mail[i].substr (6));
+		if ((line.find ("From:") == 0) && h.sender().empty()) {
+			if (line.size() > 6)
+				h.sender (line.substr (6));
 			else
 				h.sender (_("<no sender>"));
+			continue;
 		}
 
 		// Subject
 		// There should a whitespace or a tab after "Subject:", so we look
 		// for "Subject:" and get string beginning at 9
-		else if ((mail[i].find ("Subject:") == 0) && h.subject().empty()) {
-			if (mail[i].size() > 9)
-				h.subject (mail[i].substr (9));
+		if ((line.find ("Subject:") == 0) && h.subject().empty()) {
+			if (line.size() > 9)
+				h.subject (line.substr (9));
 			else
 				h.subject (_("<no subject>"));
+			continue;
 		}
 
 		// Date
 		// There should a whitespace or a tab after "Date:", so we look
 		// for "Date:" and get string beginning at 6
-		else if ((mail[i].find ("Date:") == 0) && h.date().empty()) {
-			if (mail[i].size() > 6)
-				h.date (mail[i].substr (6));
+		if ((line.find ("Date:") == 0) && h.date().empty()) {
+			if (line.size() > 6)
+				h.date (line.substr (6));
 			else
 				h.date (_("<no date>"));
+			continue;
 		}
 
-		// Charset
-		// FIXME: Currently, this code does not handle the case where a
-		// charset is coded over two or more lines. Question: is is a big
-		// problem ? (is it allowed anyway ?)
-		else if ((line.find ("charset=") != std::string::npos) && h.charset().empty()) {
-			// +8 is size of "charset="+1
-			//  (we need that because find will return start of "charset=")
-			std::string charset = line.substr (int(line.find ("charset="))+8);
-			// First we remove any leading '"'
-			if (charset[0] == '\"')
-				charset = charset.substr(1);
+		// Content Type
+		if ((line.find ("Content-Type:") == 0) && h.charset().empty()) {
+			// Charset
+			guint pos = line_down.find ("charset=");
+			if (pos != std::string::npos) {
+	  			// +8 is size of "charset="+1
+				std::string charset = line_down.substr (pos + 8);
+				// First we remove any leading '"'
+				if ((charset.size() > 0) && (charset[0] == '\"'))
+					charset = charset.substr(1);
 
-			// Then we wait for the end of charset
-			for (guint j=0; j<charset.size(); j++) {
-				if ((charset[j+1] == ';')  || (charset[j+1] == '\"') ||
-					(charset[j+1] == '\n') || (charset[j+1] == '\t') ||
-					(charset[j+1] == ' ')  || (charset[j+1] == '\0')) {
-					h.charset (charset.substr (0, j+1));
-					break;
+				// Then we wait for the end of charset
+				for (guint j = 0; j < charset.size(); j++) {
+					if ((charset[j+1] == ';')  || (charset[j+1] == '\"') ||
+						(charset[j+1] == '\n') || (charset[j+1] == '\t') ||
+						(charset[j+1] == ' ')  || (charset[j+1] == '\0')) {
+						h.charset (charset.substr (0, j+1));
+						break;
+					}
 				}
 			}
 		}
 		// Status
-		else if ((mail[i].find ("Status: R") == 0) && (uid.size()>0))
+		else if ((line.find ("Status: R") == 0) && (uid.size()>0))
 			status = false;
-		else if (mail[i].find ("X-Mozilla-Status: 0001") == 0)
+		else if (line.find ("X-Mozilla-Status: 0001") == 0)
 			status = false;
-		else if (line.find ("x-spam-flag: yes") != std::string::npos) 
+		else if (line_down.find ("x-spam-flag: yes") == 0)
 			status = false;
-		else if ((mail[i].empty()) && h.body().empty()) {
-			guint j = 0;
-			while ((j < biff_->value_uint ("popup_body_lines"))
-				   && (++i < mail.size())) {
-				if (j++)
-					h.add_to_body ("\n");
-				h.add_to_body (mail[i]);
-			}
-			if ((j == biff_->value_uint ("popup_body_lines"))
-				&& (i+2 < mail.size()))
-				h.add_to_body ("\n...");
-		}
 	}
 
 	// Store mail depending on status

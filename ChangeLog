@@ -12,6 +12,8 @@ Version 2.1.2
         options
    - Bugfix: Email address for bugs updated in "ChangeLog", "configure.ac",
         "NEWS"
+   - Bugfix: Respect folding in mail header
+   - Bugfix: Better handling of certain header lines
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 
