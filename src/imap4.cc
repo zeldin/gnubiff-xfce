@@ -444,7 +444,7 @@ Imap4::command_capability (gboolean check_rc) throw (imap_err)
 
 		// Wait for "* CAPABILITY" untagged response
 		waitfor_untaggedresponse (0, "CAPABILITY");
-		line = " " + last_untagged_response_arg_ + " ";
+		line = " " + last_untagged_response_cont_ + " ";
 
 		// Getting the acknowledgment
 		waitfor_ack();
@@ -577,7 +577,7 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 	waitfor_untaggedresponse (msn, "FETCH", "(BODYSTRUCTURE (");
 
 	// Get the whole response (may be multiline)
-	response = last_untagged_response_arg_.substr (16); // "(BODYSTRUCTURE ("
+	response = last_untagged_response_cont_.substr (16); // "(BODYSTRUCTURE ("
 	gint cnt=preventDoS_imap4_multilineResponse_;
 	while ((nestlevel=isfinished_fetchbodystructure(line,nestlevel))&&(cnt--)){
 		readline (line, true, true, false);
@@ -688,7 +688,7 @@ Imap4::command_fetchuid (guint msn) throw (imap_err)
 	waitfor_untaggedresponse (msn, "FETCH" , "(UID ");
 
 	// Get uid
-	std::string line=last_untagged_response_arg_.substr (5);
+	std::string line=last_untagged_response_cont_.substr (5);
 	guint pos=line.find(")");
 	if ((pos == 0) || (pos == std::string::npos)) throw imap_command_err();
 
@@ -871,7 +871,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 
 	// Wait for "* SEARCH" untagged response
 	waitfor_untaggedresponse (0, "SEARCH");
-	std::stringstream ss (last_untagged_response_arg_);
+	std::stringstream ss (last_untagged_response_cont_);
 
 	// Parse server's answer. Should be something like
 	// "* SEARCH 1 2 3 4" or "* SEARCH"
@@ -945,22 +945,22 @@ Imap4::waitfor_ack (std::string msg, gint num) throw (imap_err)
  * Response codes for "* OK" responses are saved in Imap4::ok_response_codes_,
  * which is being reset when calling this function.
  *
- * @param msn      Message sequence number to be tested. This must be 0 if the
- *                 response shall not contain a message sequence number.
- * @param key      Key to be tested
- * @param argbegin This is tested for being the prefix of the argument. The
- *                 default is the empty string.
- * @param     num  Number of lines that are expected to be sent by the
- *                 server before the untagged response. This value is
- *                 needed to help deciding whether we are DoS attacked.
- *                 The default value is 0.
+ * @param msn       Message sequence number to be tested. This must be 0 if the
+ *                  response shall not contain a message sequence number.
+ * @param key       Key to be tested
+ * @param contbegin This is tested for being the prefix of the contents part of
+ *                  the response. The default is the empty string.
+ * @param     num   Number of lines that are expected to be sent by the
+ *                  server before the untagged response. This value is
+ *                  needed to help deciding whether we are DoS attacked.
+ *                  The default value is 0.
  * @exception imap_dos_err
- *                 This exception is thrown when a DoS attack is suspected.
+ *                  This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
  */
 void 
 Imap4::waitfor_untaggedresponse (guint msn, std::string key, 
-								 std::string argbegin,gint num) throw(imap_err)
+								 std::string contbegin,gint num)throw(imap_err)
 {
 	std::string line;
 
@@ -972,7 +972,7 @@ Imap4::waitfor_untaggedresponse (guint msn, std::string key,
 
 	while (num--) {
 		readline (line);
-		if (test_untagged_response (msn, key, argbegin))
+		if (test_untagged_response (msn, key, contbegin))
 			return;
 	}
 	g_warning (_("[%d] Server doesn't send untagged \"%s\" response"), uin_,
@@ -1283,19 +1283,19 @@ Imap4::save_response_code (std::map<std::string,std::string> &rc_map)
 	guint pos = 0, startpos = 1;
 
 	// No response code in line
-	if (last_untagged_response_arg_[0] != '[') throw imap_command_err();
+	if (last_untagged_response_cont_[0] != '[') throw imap_command_err();
 
 	// Get end of response code
-	while ((++pos) < last_untagged_response_arg_.size()) {
-		if (last_untagged_response_arg_[pos] == '"') // FIXME: '"' in strings?
+	while ((++pos) < last_untagged_response_cont_.size()) {
+		if (last_untagged_response_cont_[pos] == '"') // FIXME: '"' in strings?
 			is_string = !is_string;
-		if ((last_untagged_response_arg_[pos] == ']') && !is_string)
+		if ((last_untagged_response_cont_[pos] == ']') && !is_string)
 			break;
 	}
-	if (pos == last_untagged_response_arg_.size ()) throw imap_command_err();
+	if (pos == last_untagged_response_cont_.size ()) throw imap_command_err();
 
 	// Get atom and (if available) arguments
-	std::string rc=last_untagged_response_arg_.substr(startpos, pos-startpos);
+	std::string rc=last_untagged_response_cont_.substr(startpos, pos-startpos);
 	std::string atom, arg;
 	pos=rc.find(" ");
 	if (pos==std::string::npos)
@@ -1316,7 +1316,7 @@ Imap4::save_response_code (std::map<std::string,std::string> &rc_map)
 /**
  * Parse untagged server's response. If the given line {\em line} is an
  * untagged response it is split into the message number (if present), the
- * keyword that gives the type of the response and the arguments (if present).
+ * keyword that gives the type of the response and the contents (if present).
  * If {\em line} is no untagged response this function returns immediately.
  *
  * @param line     Response line of the server
@@ -1336,7 +1336,7 @@ Imap4::save_untagged_response (std::string &line) throw (imap_err)
 	// Defaults
 	last_untagged_response_ = true;
 	last_untagged_response_msn_ = 0;
-	last_untagged_response_arg_ = std::string("");
+	last_untagged_response_cont_ = std::string("");
 	last_untagged_response_key_ = std::string("");
 
 	guint pos = 2;
@@ -1348,7 +1348,7 @@ Imap4::save_untagged_response (std::string &line) throw (imap_err)
 		ss >> last_untagged_response_msn_;
 	}
 
-	// Find the separating space between key and arguments (if it exists)
+	// Find the separating space between key and contents (if it exists)
 	guint pos_sep = line.find (" ", pos);
 
 	if (pos_sep == std::string::npos)
@@ -1356,7 +1356,7 @@ Imap4::save_untagged_response (std::string &line) throw (imap_err)
 	else {
 		if (pos == pos_sep) throw imap_command_err();
 		last_untagged_response_key_ = line.substr (pos, pos_sep-pos);
-		last_untagged_response_arg_ = line.substr (pos_sep+1,
+		last_untagged_response_cont_ = line.substr (pos_sep+1,
 												   line.size()-pos_sep);
 	}
 }
@@ -1365,22 +1365,22 @@ Imap4::save_untagged_response (std::string &line) throw (imap_err)
  * Test if the last line sent by the server was the specified untagged
  * response.
  *
- * @param msn      Message sequence number to be tested. This must be 0 if the
- *                 response shall not contain a message sequence number.
- * @param key      Key to be tested
- * @param argbegin This is tested for being the prefix of the argument. The
- *                 default is the empty string.
- * return          True if the last line sent by the server was a untagged
- *                 response with the given attributes.
+ * @param msn       Message sequence number to be tested. This must be 0 if the
+ *                  response shall not contain a message sequence number.
+ * @param key       Key to be tested
+ * @param contbegin This is tested for being the prefix of the contents part of
+ *                  the response. The default is the empty string.
+ * return           True if the last line sent by the server was a untagged
+ *                  response with the given attributes.
  */
 gboolean 
 Imap4::test_untagged_response (guint msn, std::string key,
-								std::string argbegin)
+								std::string contbegin)
 {
 	return (last_untagged_response_
 			&& (msn == last_untagged_response_msn_)
 			&& (key == last_untagged_response_key_)
-			&& (last_untagged_response_arg_.find (argbegin) == 0));
+			&& (last_untagged_response_cont_.find (contbegin) == 0));
 }
 
 /**
