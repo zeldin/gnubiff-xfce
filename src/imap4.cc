@@ -629,7 +629,7 @@ Imap4::close (void)
 
 /**
  * Begin the IMAP idle mode.  This method will not return until
- * either we recieve IMAP notifications (new mail...), or the server
+ * either we receive IMAP notifications (new mail...), or the server
  * terminates for some reason.
  *
  * @exception      imap_err if a problem occurs while processing
