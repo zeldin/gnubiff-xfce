@@ -4,7 +4,7 @@ Copyright (C) 2000-2004, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to Nicolas.Rougier@loria.fr.
 
-Version 2.2.0
+Version 2.1.0
  * New & simpler interface
  * Support of the IDLE state for imap4 (no more polling)
  * Support of the FAM (File Alteration Monitor)
