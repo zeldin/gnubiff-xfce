@@ -13,6 +13,8 @@ Version 2.1.1
    - Small changes
    - Marked strings for internationalization (type & authentication menu)
    - Updated po files, German translation
+   - Bugfix: Parsing local mails could trigger additional FAM events
+     resulting in parsing mails another time (->infinite loop, 100% CPU load)
 	
 Version 2.1.0
  * Nicolas Rougier

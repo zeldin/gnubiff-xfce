@@ -67,6 +67,14 @@ Local::start (void)
 	if (!g_mutex_trylock (monitor_mutex_))
 		return;
 	
+	// at this point we need to explicitely call the get function since
+	// monitoring will start from now on. Even if the mailbox was full,
+	// no change appears yet, so we force it.
+	fetch ();
+	gdk_threads_enter();
+	biff_->applet()->update();
+	gdk_threads_leave();
+
 	// connection request to FAM (File Alteration Monitor)
 	if (FAMOpen (&fam_connection_) < 0) {
 		g_mutex_unlock (monitor_mutex_);
@@ -80,14 +88,6 @@ Local::start (void)
 		return ;
 	}
 
-	// at this point we need to explicitely call the get function since
-	// monitoring will start from now on. Even if the mailbox was full,
-	// no change appears yet, so we force it.
-	fetch ();
-	gdk_threads_enter();
-	biff_->applet()->update();
-	gdk_threads_leave();
-
 	int status = 1;
 	while (status == 1) {
 		status = FAMNextEvent (&fam_connection_, &fam_event_);
@@ -98,12 +98,17 @@ Local::start (void)
 			g_mutex_unlock (monitor_mutex_);
 			return ;
 		}
-		
+
 		if (fam_event_.code == FAMChanged) {
 			fetch ();
 			gdk_threads_enter();
 			biff_->applet()->update();
 			gdk_threads_leave();
+			// Get all pending FAM events. This is necassary because fetching
+			// mail can cause FAM events (e.g. calling utime in file.cc)
+			while (FAMPending(&fam_connection_))
+				if (FAMNextEvent (&fam_connection_, &fam_event_)<0)
+					break;
 		}
 
 		else if (fam_event_.code == FAMAcknowledge)
@@ -113,7 +118,7 @@ Local::start (void)
 	FAMClose (&fam_connection_);
 	g_mutex_unlock (monitor_mutex_);
 
-	// Ok, we got an error, just retry montoring
+	// Ok, we got an error, just retry monitoring
 	if (status != 1) {
 		sleep (1);
 		start ();
