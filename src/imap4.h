@@ -72,6 +72,7 @@ public:
 												 // or not expected, or not
 	                                             // responded by OK.
 	class imap_dos_err : public imap_err {};	 // We've been attacked DoS style!
+	class imap_nologin_err : public imap_err {}; // The server doesn't want us to login
 	
  private:
 	// ========================================================================

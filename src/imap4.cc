@@ -113,7 +113,7 @@ Imap4::start (void)
 		// Catch all errors that are un-recoverable and result in
 		// closing the connection, and resetting the mailbox status.
 #if DEBUG
-		g_message("Imap exception:	%s", err.what());
+		g_message("[%d] Imap exception: %s", uin_, err.what());
 #endif
 		status_ = MAILBOX_ERROR;
 		unread_.clear();
@@ -590,6 +590,7 @@ Imap4::idle_renew_loop() throw (imap_err)
  * \begin{itemize}
  *    \item IDLE: If the server has the IDLE capability, gnubiff uses the
  *          IDLE command instead of polling.
+ *    \item LOGINDISABLED: The server wants us not to login.
  * \end{\itemize}
  * 
  * @exception imap_command_err
@@ -610,6 +611,9 @@ Imap4::command_capability (void) throw (imap_err)
 	if (!(socket_->read (line))) throw imap_command_err();
 	if (line.find ("* CAPABILITY") != 0) throw imap_command_err();
 
+	// Getting the acknowledgment
+	command_waitforack();
+
 	// Remark: We have a space-separated listing. In order to not match
 	// substrings we have to include the spaces when comparing. To match the
 	// last entry we have to convert '\n' to ' '
@@ -618,8 +622,10 @@ Imap4::command_capability (void) throw (imap_err)
 	// Looking for supported capabilities
 	idleable_=(line.find (" IDLE ") != std::string::npos);
 
-	// Getting the acknowledgment
-	command_waitforack();
+	if (line.find (" LOGINDISABLED ") != std::string::npos) {
+		send ("LOGOUT");
+		throw imap_nologin_err();
+	}
 }
 
 /**
