@@ -529,21 +529,14 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 	guint len = mail.size ();
 	std::string type, subtype; // MIME type
 	std::map<std::string, std::string> paras; // content type parameters
+	std::string encoding;
 
-	for (guint i=0; i < len; i++) {
+	// Parse header
+	guint i;
+	for (i = 0; i < len; i++) {
 		// Beginning of body? (header and body are separated by an empty line)
-		if (mail[i].empty()) {
-			guint j = 0;
-			while ((j < biff_->value_uint("popup_body_lines")) && (++i < len)){
-				if (j++)
-					h.add_to_body ("\n");
-				h.add_to_body (mail[i]);
-			}
-			if ((j == biff_->value_uint ("popup_body_lines")) && (i+2 < len))
-				h.add_to_body ("\n...");
-			// No need for more parsing
+		if (mail[i].empty())
 			break;
-		}
 
 		// Only header lines are handled now
 		// Remove folding in header (see RFC 2822 2.2.2 & 2.2.3.)
@@ -553,9 +546,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 				   && ((mail[i+1].at(0) == ' ') || (mail[i+1].at(0) == '\t')))
  				line += mail[++i];
 
-		gchar *buffer = g_ascii_strdown (line.c_str(), -1);
-		std::string line_down = buffer;
-		g_free (buffer);
+		std::string line_down = ascii_strdown (line);
 
 		// Sender
 		// There should be a whitespace or a tab after "From:", so we look
@@ -615,6 +606,23 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 			continue;
 		}
 
+		// Content Transfer Encoding (see RFC 2045 6.)
+		if ((line.find ("Content-Transfer-Encoding:") == 0)
+			&& (encoding.size() == 0)) {
+			guint pos = 26; // size of "Content-Transfer-Encoding:"
+
+			// Ignore whitespace
+			while ((pos < line.size())
+				   && ((line[pos] == ' ') || (line[pos] == '\t')))
+				pos++;
+
+			// Get Token
+			if (!get_mime_token (line, encoding, pos)) {
+				h.add_to_body (_("[Cannot parse content transfer encoding header line]"));
+				continue;
+			}
+		}
+
 		// Status
 	    if ((line.find ("Status: R") == 0) && (uid.size()>0))
 			status = false;
@@ -635,6 +643,10 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 			type = partinfo->type_;
 		if (partinfo->subtype_.size() > 0)
 			subtype = partinfo->subtype_;
+
+		// Encoding
+		if (partinfo->encoding_.size() > 0)
+			encoding = partinfo->encoding_;
 	}
 
 	// Charset
@@ -648,6 +660,31 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 	if ((type.size() == 0) || (subtype.size() == 0)) {
 		type = "text";
 		subtype = "plain";
+	}
+	if (encoding.size() == 0)
+		encoding = "7bit";
+
+	// Decode mail body (may change length of mail)
+	decode_body (mail, encoding, i);
+	len = mail.size ();
+
+	// Content type: text/plain
+	if ((type == "text") && (subtype == "plain")) {
+		// Get mail body
+		guint j = 0;
+		while ((j < biff_->value_uint("popup_body_lines")) && (++i < len)) {
+			if (j++)
+				h.add_to_body ("\n");
+			h.add_to_body (mail[i]);
+		}
+		if ((j == biff_->value_uint ("popup_body_lines")) && (i+2 < len))
+			h.add_to_body ("\n...");
+	}
+	else {
+		gchar *tmp = g_strdup_printf (_("[This mail hasn't a supported content type: \"%s/%s\"]"), type.c_str(), subtype.c_str());
+		if (tmp)
+			h.add_to_body (std::string (tmp));
+		g_free (tmp);
 	}
 
 	// Store mail depending on status

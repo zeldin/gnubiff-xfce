@@ -16,6 +16,8 @@ Version 2.1.2
    - Bugfix: Better handling of certain header lines
    - Bugfixes/Cleanup: Parsing of content type header field
    - Bugfix: Handling of quoted strings (IMAP4)
+   - Feature: Support other encodings than "7bit" for all protocols
+   - Feature: Error message if content type is not supported
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

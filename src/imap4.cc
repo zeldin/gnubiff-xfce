@@ -317,9 +317,7 @@ Imap4::fetch_mails (void) throw (imap_err)
 		// FETCH BODY
 		command_fetchbody (*i, partinfo, mail);
 
-		// Decode and parse mail
-		if (partinfo.part_ != "")
-			decode_body (mail, partinfo.encoding_);
+		// Parse mail
 		parse (mail, mailid, &partinfo);
 	}
 }

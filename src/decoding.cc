@@ -41,19 +41,26 @@
  * If called with an unsupported encoding the mail's body is replaced with an
  * error message.
  *
- * @param  mail      C++ vector of C++ strings consisting of the lines of the
- *                   mail.
- * @param  encoding  C++ string for the encoding of the mail's body.
- * @return           Boolean indicating success.
+ * @param  mail        Vector of strings consisting of the mail's lines.
+ * @param  encoding    Encoding of the mail's body.
+ * @param  bodypos     If the beginning of the mail's body is known (i.e.
+ *                     {\em skip_header} is false) this is the position of the
+ *                     first body line, otherwise it is the line in which the
+ *                     search for the end of the header starts (default is 0)
+ * @param  skip_header If {\em bodypos} is the first line of the body this has
+ *                     to be false, otherwise true (default is true)
+ * @return             Boolean indicating success.
  */
 gboolean 
-Decoding::decode_body (std::vector<std::string> &mail, std::string encoding)
+Decoding::decode_body (std::vector<std::string> &mail, std::string encoding,
+					   guint bodypos, gboolean skip_header)
 {
 	// Skip header
-	guint bodypos=0;
-	while ((bodypos<mail.size()) && (!mail[bodypos].empty()))
+	if (skip_header) {
+		while ((bodypos<mail.size()) && (!mail[bodypos].empty()))
+			bodypos++;
 		bodypos++;
-	bodypos++;
+	}
 
 	// 7bit, 8bit encoding: nothing to do
 	if ((encoding=="7bit") || (encoding=="8bit")); // || (encoding=="binary"));
@@ -66,11 +73,11 @@ Decoding::decode_body (std::vector<std::string> &mail, std::string encoding)
 	}
 	// Unknown encoding: Replace body text by a error message
 	else {
-		mail.erase(mail.begin()+bodypos, mail.end());
-		gchar *tmp=g_strdup_printf(_("[The encoding \"%s\" of this mail can't be decoded]"),encoding.c_str());
-		mail.push_back(std::string(tmp));
-		g_free(tmp);
-		return true;
+		mail.erase (mail.begin()+bodypos, mail.end());
+		gchar *tmp = g_strdup_printf (_("[The encoding \"%s\" of this mail can't be decoded]"), encoding.c_str());
+		mail.push_back (std::string(tmp));
+		g_free (tmp);
+		return false;
 	}
 
 	return true;

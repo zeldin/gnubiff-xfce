@@ -47,7 +47,8 @@ class Decoding
 {
 protected:
 	// Mail body and header
-	gboolean decode_body (std::vector<std::string> &mail,std::string encoding);
+	gboolean decode_body (std::vector<std::string> &mail, std::string encoding,
+						  guint bodypos = 0, gboolean skip_header = true);
 	gboolean get_quotedstring (std::string line, std::string &str, guint &pos,
 							   gchar quoted = '"', gboolean test_start = true,
 							   gboolean end_ok = false);
