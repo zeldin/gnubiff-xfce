@@ -33,6 +33,7 @@
 #define __POP_H__
 
 #include "mailbox.h"
+#include <set>
 
 #define POP(x)					((Pop *)(x))
 
@@ -45,7 +46,7 @@ protected:
 	/// Socket to talk to the server
 	class Socket *	 			socket_;
 	/// Vector for the saved unique identifiers of the mails
-	std::vector<std::string> 	saved_;
+	std::set<std::string> 		saved_uid_;
 
 public:
 	// ========================================================================
@@ -82,7 +83,8 @@ public:
 
 	// ========================================================================
 	//  main
-	// ========================================================================	
+	// ========================================================================
+
 	virtual void threaded_start (guint delay = 0);
 	void start (void) throw (pop_err);
 	void fetch (void) throw (pop_err);

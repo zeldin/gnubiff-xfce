@@ -29,6 +29,7 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include <algorithm>
 #include <sstream>
 #include <sys/stat.h>
 #include <utime.h>
@@ -199,12 +200,12 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 	// Fetch mails
 	new_unread_.clear();
 	new_seen_.clear();
-	std::vector<std::string> mail;
-	std::vector<std::string> buffer;
 
+	std::vector<std::string> mail;
+	std::set<std::string> buffer;
 	for (guint i=0; i< num; i++) {
 		// UIDL
-		buffer.push_back(command_uidl (i+start));
+		buffer.insert (command_uidl (i+start));
 
 		if (statusonly)
 			continue;
@@ -217,13 +218,14 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 	}
 
 	// Determine new mailbox status
-	if (buffer.empty())
+	if (buffer.empty ())
 		status_ = MAILBOX_EMPTY;
-	else if (contains_new<std::string>(buffer, saved_))
+	else if (std::includes(saved_uid_.begin(), saved_uid_.end(),
+						   buffer.begin(), buffer.end()))
 		status_ = MAILBOX_NEW;
 	else
 		status_ = MAILBOX_OLD;
-	saved_ = buffer;
+	saved_uid_ = buffer;
 
 	if ((unread_ == new_unread_) && (unread_.size() > 0))
 		status_ = MAILBOX_OLD;
