@@ -393,7 +393,7 @@ Imap4::command_capability (void) throw (imap_err)
 	std::string line;
 
 	// Sending the command
-	send ("CAPABILITY");
+	sendline ("CAPABILITY");
 
 	// Wait for "* CAPABILITY" untagged response
 	line=waitfor_untaggedresponse("CAPABILITY");
@@ -474,7 +474,7 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	// Send command
 	line = "FETCH " + ss.str() + " (BODY.PEEK[" + partinfo.part_ + "]<0.";
 	line+= textsizestr.str() + ">)";
-	send(line);
+	sendline (line);
 
 	// Wait for "* ... FETCH" untagged response (see RFC 3501 7.4.2)
 	line=waitfor_untaggedresponse(ss.str() + " FETCH");
@@ -538,7 +538,7 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 	ss << msn;
 
 	// Send command
-	send ("FETCH " +ss.str()+ " (BODYSTRUCTURE)");
+	sendline ("FETCH " +ss.str()+ " (BODYSTRUCTURE)");
 
 	// Wait for "* ... FETCH (BODYST..." untagged response (see RFC 3501 7.4.2)
 	line=waitfor_untaggedresponse(ss.str() + " FETCH (BODYSTRUCTURE (");
@@ -600,7 +600,7 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 	// Send command
 	std::string line;
 	line="FETCH "+ss.str()+" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])";
-	send (line);
+	sendline (line);
 
 	// Wait for "* ... FETCH" untagged response (see RFC 3501 7.4.2)
 	line=waitfor_untaggedresponse(ss.str() + " FETCH");
@@ -669,7 +669,7 @@ Imap4::command_idle(gboolean &sentdone) throw (imap_err)
 		sentdone = false;
 
 		// IDLE
-		send (std::string("IDLE"));
+		sendline (std::string("IDLE"));
 		
 		// Read continuation response
 		readline (line);
@@ -724,7 +724,7 @@ Imap4::command_login (void) throw (imap_err)
 
 	// Sending the command
 	line = "LOGIN \"" + username_ + "\" \"" + password_ + "\"";
-	send (line, false);
+	sendline (line, false);
 
 #ifdef DEBUG
 	// Just in case someone sends me the output: password won't be displayed
@@ -748,7 +748,7 @@ void
 Imap4::command_logout (void) throw (imap_err)
 {
 	// Sending the command
-	send ("LOGOUT");
+	sendline ("LOGOUT");
 	// Closing the socket
 	socket_->close ();
 }
@@ -773,7 +773,7 @@ Imap4::command_select (void) throw (imap_err)
 	if (!buffer) throw imap_command_err();
 
 	// Send command
-	send(std::string("SELECT \"") + buffer + "\"");
+	sendline (std::string("SELECT \"") + buffer + "\"");
 	g_free(buffer);
 
 	// Create error message
@@ -809,7 +809,7 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	std::string line;
 
 	// Sending the command
-	send("SEARCH NOT SEEN");
+	sendline ("SEARCH NOT SEEN");
 
 	// Wait for "* SEARCH" untagged response
 	line=waitfor_untaggedresponse("SEARCH");
@@ -1231,8 +1231,8 @@ Imap4::tag ()
  *                 This exception is thrown if a network error occurs.
  */
 gint 
-Imap4::send (std::string command, gboolean debug, gboolean check)
-			 throw (imap_err)
+Imap4::sendline (std::string command, gboolean debug, gboolean check)
+				 throw (imap_err)
 {
 	// Create new tag
 	tagcounter_++;
