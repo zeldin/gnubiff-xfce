@@ -5,7 +5,7 @@
 /* #undef CLOSEDIR_VOID */
 
 /* Define to 1 to enable debugging code. */
-#define DEBUG 1
+/* #undef DEBUG */
 
 /* always defined to indicate that i18n is enabled */
 #define ENABLE_NLS 1
@@ -158,16 +158,16 @@
 #define PACKAGE_VERSION "2.0.2"
 
 /* */
-#define PASSWORD_STRING "FEDCBA9876543210"
+/* #undef PASSWORD_STRING */
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
 /* */
-#define USE_GNOME 1
+/* #undef USE_GNOME */
 
 /* */
-#define USE_PASSWORD 1
+/* #undef USE_PASSWORD */
 
 /* Version number of package */
 #define VERSION "2.0.2"

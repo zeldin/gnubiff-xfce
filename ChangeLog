@@ -15,6 +15,9 @@ Version 2.0.2
  * Bug fix when asking for password or certificate
  * Bug fix in apop.cc (debug message)
  * Mail count added in gtk applet window title
+ * Roland Stigge:
+   - updated po/{nl,de}.po
+   - finally fixed g++-3.4 compile error (Debian bug #271288)
 
 
 Version 2.0.1

@@ -190,7 +190,7 @@ Socket::open (std::string hostname,
 #endif
 	status_ = SOCKET_STATUS_OK;
 	return 1;
-};
+}
 
 
 gint
