@@ -84,7 +84,8 @@ Version 2.1.0
      (fixes bug #1083485)
    - Marked strings for translation (GNOME menu entries)
    - Bugfix: DoS attacks in IDLE command (IMAP4)
-   - Bugfix: Hanging of local mailboxes
+   - Bugfix: Hanging of local mailboxesi
+   - Ported saving to configuration file code from 2.0.2 to 2.1.0
 
 Version 2.0.3
   * Roland Stigge:

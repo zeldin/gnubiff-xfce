@@ -35,6 +35,7 @@
 #ifdef HAVE_CONFIG_H
 #   include <config.h>
 #endif
+#include <sstream>
 #include <string>
 #include <vector>
 #include <glib.h>
@@ -146,6 +147,14 @@ public:
 	//  i/o
 	// ================================================================================
 	gboolean load (void);
+protected:
+	std::vector<const gchar *> save_blocks;
+	std::stringstream save_file;
+	void save_newblock(const gchar *);
+	void save_endblock();
+	void save_para(const gchar *,std::string);
+	void save_para(const gchar *,gint);
+public:
 	gboolean save (void);
 	void xml_start_element (GMarkupParseContext *context,
 							const gchar *element_name,

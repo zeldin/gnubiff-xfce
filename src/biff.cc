@@ -31,6 +31,7 @@
 
 #include "support.h"
 
+#include <fcntl.h>
 #include <fstream>
 #include <sstream>
 #include <map>
@@ -133,13 +134,17 @@ Biff::Biff (gint ui_mode,
 
 	mutex_					= g_mutex_new ();
 
-	// Do we have a valid configuration file ?
+	// Do we have a valid configuration file?
 	if (!filename.empty())
 		filename_ = filename;
-	else 
-		filename_ = std::string (g_get_home_dir ()) + std::string ("/.gnubiffrc");
+	else
+	{
+		gchar *filename=g_build_filename(g_get_home_dir (),".gnubiffrc", NULL);
+		filename_ = std::string (filename);
+		g_free(filename);
+	}
 
-	// Does this configuration file exist ?
+	// Does this configuration file exist?
 	std::ifstream file;
 	file.open (filename_.c_str());
 	if (file.is_open()) {
@@ -287,7 +292,7 @@ Biff::remove (Mailbox *mailbox)
  * @param  m        the mailbox missing a password
  * @return          the found password or an empty string if none found
  */
-std::string
+std::string 
 Biff::password (Mailbox *m)
 {
 	for (guint i=0; i < size(); i++) {
@@ -303,112 +308,183 @@ Biff::password (Mailbox *m)
 // ================================================================================
 //  i/o
 // ================================================================================
-gboolean
+
+/**
+ * Opens the new block {\em name} of options in the configuration file.
+ *
+ * @param  name  valid utf-8 character array for the name of the block
+ */
+void 
+Biff::save_newblock(const gchar *name)
+{
+	save_blocks.push_back(name);
+	const gchar *fmt="%*s<%s>\n";
+	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2-2,"",name);
+	save_file << esc;
+	g_free(esc);
+}
+  	 
+/**
+ * Ends the last opened block of options in the configuration file.
+ */
+void 
+Biff::save_endblock()
+{
+	const gchar *fmt="%*s</%s>\n";
+	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2-2,"",
+									   save_blocks[save_blocks.size()-1]);
+	save_file << esc;
+	g_free(esc);
+	save_blocks.pop_back();
+}
+  	 
+/**
+ * Saves the string {\em value} for the option {\em name} to the
+ * configuration file.
+ *
+ * @param  name  valid utf-8 character array for the name of the option
+ * @param  value C++ string that will be saved
+ */
+void 
+Biff::save_para(const gchar *name,std::string value)
+{
+	const gchar *fmt="%*s<parameter name=\"%s\"%*svalue=\"%s\"/>\n";
+	gchar *esc=g_markup_printf_escaped(fmt,save_blocks.size()*2,"",name,
+									   28-strlen(name)-save_blocks.size()*2,
+									   "",value.c_str());
+	
+	save_file << esc;
+	g_free(esc);
+}
+  	 
+/**
+ * Saves the integer {\em value} for the option {\em name} to the
+ * configuration file.
+ *
+ * @param  name  valid utf-8 character array for the name of the option
+ * @param  value integer that will be saved
+ */
+void 
+Biff::save_para(const gchar *name,gint value)
+{
+	std::stringstream value_str;
+	value_str << value;
+	save_para(name,value_str.str());
+}
+
+gboolean 
 Biff::save (void)
 {
-	std::ofstream file;
+	// Note: "stringstream" and standard C file access functions are used
+	// instead of "ofstream" because there seems to be no way to set file
+	// permissions without the susceptibility to race conditions when using
+	// "ofstream" (Does ofstream respect the umask function?).
 
-	file.open (filename_.c_str());
-	if (!file.is_open())
-		return false;
-  
-	file << "<?xml version=\"1.0\"?>" << std::endl;
-	file << "<configuration-file>"<< std::endl;
+	// XML header
+	save_blocks.clear();
+	save_file.str(std::string(""));
+	save_file << "<?xml version=\"1.0\"?>" << std::endl;
+
+	save_newblock("configuration-file");
 
 	g_mutex_lock (mutex_);
 	// Mailboxes
-	for (unsigned int i=0; i< mailbox_.size(); i++) {
-		file << "  <mailbox>" << std::endl;
-		file << "    <parameter name=\"protocol\"           value=\"" << mailbox_[i]->protocol() << "\"/>" << std::endl;
-		file << "    <parameter name=\"authentication\"     value=\"" << mailbox_[i]->authentication() << "\"/>" << std::endl;
-		file << "    <parameter name=\"name\"               value=\"" << mailbox_[i]->name() << "\"/>" << std::endl;
-		file << "    <parameter name=\"address\"            value=\"" << mailbox_[i]->address() << "\"/>" << std::endl;
-		file << "    <parameter name=\"username\"           value=\"" << mailbox_[i]->username() << "\"/>" << std::endl;
-		// pop3 and imap4 protocols requires password in clear so we have to save password
-		// in clear within configuration file. No need to say this is higly unsecure if
-		// somebody looks at the file. So we try to take some measures:
+	for (unsigned int i=0; i< mailbox_.size(); i++)
+	{
+		save_newblock("mailbox");
+		save_para("protocol",mailbox_[i]->protocol());
+		save_para("authentication",mailbox_[i]->authentication());
+		save_para("name",mailbox_[i]->name());
+		save_para("address",mailbox_[i]->address());
+		save_para("username",mailbox_[i]->username());
+		// pop3 and imap4 protocols requires password in clear so we have to
+		// save password in clear within configuration file. No need to say
+		// this is higly unsecure if somebody looks at the file. So we try to
+		// take some measures:
 		//   1. The file is made readable by owner only.
 		//   2. password is "crypted" so it's not directly human readable.
-		// Of course, these measures won't prevent a determined person to break in but will
-		// at least prevent "ordinary" people to be able to steal password easily.
+		// Of course, these measures won't prevent a determined person to break
+		// in but will at least prevent "ordinary" people to be able to steal
+		// password easily.
 #ifdef USE_PASSWORD
-		file << "    <parameter name=\"password\"           value=\"";
+		std::stringstream password;
 		for (guint j=0; j<mailbox_[i]->password().size(); j++)
-			file << passtable_[mailbox_[i]->password()[j]/16] << passtable_[mailbox_[i]->password()[j]%16];
-		file << "\"/>" << std::endl;
+		    password << passtable_[mailbox_[i]->password()[j]/16]
+			         << passtable_[mailbox_[i]->password()[j]%16];
+		save_para("password",password.str());
 #else
-		file << "    <parameter name=\"password\"           value=\"" << "" << "\"/>" << std::endl;
+		save_para("password",std::string(""));
 #endif
-		file << "    <parameter name=\"port\"               value=\"" << mailbox_[i]->port() << "\"/>" << std::endl;
-		file << "    <parameter name=\"folder\"             value=\"" << mailbox_[i]->folder() << "\"/>" << std::endl;
-		file << "    <parameter name=\"certificate\"        value=\"" << mailbox_[i]->certificate() << "\"/>" << std::endl;
-		file << "    <parameter name=\"delay\"              value=\"" << mailbox_[i]->delay() << "\"/>" << std::endl;
-		file << "    <parameter name=\"use_other_folder\"   value=\"" << mailbox_[i]->use_other_folder() << "\"/>" << std::endl;
-		file << "    <parameter name=\"other_folder\"       value=\"" << mailbox_[i]->other_folder() << "\"/>" << std::endl;
-		file << "    <parameter name=\"use_other_port\"     value=\"" << mailbox_[i]->use_other_port() << "\"/>" << std::endl;
-		file << "    <parameter name=\"other_port\"         value=\"" << mailbox_[i]->other_port() << "\"/>" << std::endl;
-		file << "    <parameter name=\"seen\"               value=\"";
+		save_para("port",mailbox_[i]->port());
+		save_para("folder",mailbox_[i]->folder());
+		save_para("certificate",mailbox_[i]->certificate());
+		save_para("delay",mailbox_[i]->delay());
+		save_para("use_other_folder",mailbox_[i]->use_other_folder());
+		save_para("other_folder",mailbox_[i]->other_folder());
+		save_para("use_other_port",mailbox_[i]->use_other_port());
+		save_para("other_port",mailbox_[i]->other_port());
+		std::stringstream seen;
 		for (guint j=0; j<mailbox_[i]->hiddens(); j++)
-			file << mailbox_[i]->hidden(j) << " ";
-		file << "\"/>" << std::endl;
-		file << "  </mailbox>" << std::endl;
+		    seen << mailbox_[i]->hidden(j) << " ";
+		save_para("seen",seen.str());
+		save_endblock();
 	}
 	g_mutex_unlock (mutex_);
 
 	// General
-	file << "  <general>" << std::endl;
-	file << "    <parameter name=\"use_max_mail\"          value=\"" << use_max_mail_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"max_mail\"              value=\"" << max_mail_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"use_newmail_command\"   value=\"" << use_newmail_command_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"newmail_command\"       value=\"" << newmail_command_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"use_double_command\"    value=\"" << use_double_command_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"double_command\"        value=\"" << double_command_ << "\"/>" << std::endl;
-	file << "  </general>" << std::endl;
+	save_newblock("general");
+	save_para("use_max_mail",use_max_mail_);
+	save_para("max_mail",max_mail_);
+	save_para("use_newmail_command",use_newmail_command_);
+	save_para("newmail_command",newmail_command_);
+	save_para("use_double_command",use_double_command_);
+	save_para("double_command",double_command_);
+	save_endblock();
 
 	// Applet
-	file << "  <applet>" << std::endl;
-	file << "    <parameter name=\"applet_use_geometry\"   value=\"" << applet_use_geometry_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"applet_geometry\"       value=\"" << applet_geometry_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"applet_use_decoration\" value=\"" << applet_use_decoration_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"applet_font\"           value=\"" << applet_font_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"use_newmail_text\"      value=\"" << use_newmail_text_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"newmail_text\"          value=\"" << newmail_text_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"use_newmail_image\"     value=\"" << use_newmail_image_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"newmail_image\"         value=\"" << newmail_image_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"use_nomail_text\"       value=\"" << use_nomail_text_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"nomail_text\"           value=\"" << nomail_text_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"use_nomail_image\"      value=\"" << use_nomail_image_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"nomail_image\"          value=\"" << nomail_image_ << "\"/>" << std::endl;
-	file << "  </applet>" << std::endl;
+	save_newblock("applet");
+	save_para("applet_use_geometry",applet_use_geometry_);
+	save_para("applet_geometry",applet_geometry_);
+	save_para("applet_use_decoration",applet_use_decoration_);
+	save_para("applet_font",applet_font_);
+	save_para("use_newmail_text",use_newmail_text_);
+	save_para("newmail_text",newmail_text_);
+	save_para("use_newmail_image",use_newmail_image_);
+	save_para("newmail_image",newmail_image_);
+	save_para("use_nomail_text",use_nomail_text_);
+	save_para("nomail_text",nomail_text_);
+	save_para("use_nomail_image",use_nomail_image_);
+	save_para("nomail_image",nomail_image_);
+	save_endblock();
 
 	// Popup
-	file << "  <popup>" << std::endl;
-	file << "    <parameter name=\"use_popup\"             value=\"" << use_popup_  << "\"/>" << std::endl;
-	file << "    <parameter name=\"popup_delay\"           value=\"" << popup_delay_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"popup_use_geometry\"    value=\"" << popup_use_geometry_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"popup_geometry\"        value=\"" << popup_geometry_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"popup_use_decoration\"  value=\"" << popup_use_decoration_  << "\"/>" << std::endl;
-	file << "    <parameter name=\"popup_font\"            value=\"" << popup_font_ << "\"/>" << std::endl;
-	file << "    <parameter name=\"popup_use_size\"        value=\"" << popup_use_size_  << "\"/>" << std::endl;
-	file << "    <parameter name=\"popup_size\"            value=\"" << popup_size_  << "\"/>" << std::endl;
-	file << "    <parameter name=\"popup_use_format\"      value=\"" << popup_use_format_  << "\"/>" << std::endl;
-	file << "    <parameter name=\"popup_format\"          value=\"" << popup_format_  << "\"/>" << std::endl;
-	file << "  </popup>" << std::endl;
-
+	save_newblock("popup");
+	save_para("use_popup",use_popup_);
+	save_para("popup_delay",popup_delay_);
+	save_para("popup_use_geometry",popup_use_geometry_);
+	save_para("popup_geometry",popup_geometry_);
+	save_para("popup_use_decoration",popup_use_decoration_);
+	save_para("popup_font",popup_font_);
+	save_para("popup_use_size",popup_use_size_);
+	save_para("popup_size",popup_size_);
+	save_para("popup_use_format",popup_use_format_);
+	save_para("popup_format",popup_format_);
+	save_endblock();
 
 	// End Header
-	file << "</configuration-file>"<< std::endl;
+	save_endblock();
 
-	// Close the file
-	file.close ();
+	// Write Configuration to file
+	int fd=open(filename_.c_str(),O_WRONLY|O_CREAT|O_TRUNC,S_IRUSR|S_IWUSR);
+	if (fd==-1)
+	    return false;
+	if (write(fd,save_file.str().c_str(),save_file.str().size())==-1)
+	    return false;
+	if (close(fd)==-1)
+	    return false;
 
-	// Restrict file permission
-	std::string command = std::string("chmod 600 ") + filename_;
-	system (command.c_str());
-  
 	return true;
 }
-
 
 gboolean
 Biff::load (void)
