@@ -687,7 +687,7 @@ Imap4::parse_bodystructure (std::string structure, gint &size,
 			gint oldpos=pos;
 			while ((pos<len) && (structure.at(pos++)!='"'));
 			// 6th block is the encoding
-			if (block==6)
+			if ((block==6) && (nestlevel==0) && (!multipart))
 				encoding=structure.substr(oldpos,pos-oldpos-1);
 			continue;
 		}
