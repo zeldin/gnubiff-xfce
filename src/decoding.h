@@ -49,6 +49,9 @@ protected:
 	std::string decode_qencoding (const std::string &);
 	std::string decode_quotedprintable (const std::string &);
 	std::vector<std::string> decode_quotedprintable (const std::vector<std::string> &, guint pos=0);
+
+	// Converting
+	gchar* utf8_to_imaputf7(const gchar *, gssize);
 };
 
 #endif

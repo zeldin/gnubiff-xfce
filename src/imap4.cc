@@ -213,7 +213,7 @@ gint Imap4::connect (void)
 
 	// SELECT
 	gboolean check = false;
-	gchar *folder_imaputf7=gb_utf8_to_imaputf7(folder_.c_str(),-1);
+	gchar *folder_imaputf7=utf8_to_imaputf7(folder_.c_str(),-1);
 	if (folder_imaputf7)
 	{
 		line=std::string("SELECT \"") + folder_imaputf7 + "\"";

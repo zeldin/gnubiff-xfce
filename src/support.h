@@ -43,7 +43,6 @@
 #include <vector>
 
 gchar* gb_utf8_strndup(const gchar *, gsize);
-gchar* gb_utf8_to_imaputf7(const gchar *, gssize);
 std::string gb_substitute(std::string, std::string, std::vector<std::string>);
 
 #endif
