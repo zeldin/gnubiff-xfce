@@ -85,6 +85,9 @@ public:
 	void fetch_header (void);
 
  protected:
+	void command_quit (void) throw (pop_err);
+	guint command_stat (void) throw (pop_err);
+	std::vector<std::string> command_uidl (guint) throw (pop_err);
 	gint readline (std::string &, gboolean print=true, gboolean check=true,
 				   gboolean checkline=true) throw (pop_err);
 	gint sendline (std::string, gboolean print=true, gboolean check=true)

@@ -71,6 +71,7 @@ Version 2.1.1
    - Bugfix: Allow mail lines to begin with "-ERR" (POP3)
    - Bugfix: Don't treat "* BYE" messages by server as mailbox error when not
         checking for mail (IMAP4)
+   - Bugfix/Cleanup of QUIT, STAT, UIDL commands (POP3)
 
 Version 2.1.0
  * Nicolas Rougier

@@ -117,46 +117,16 @@ Pop::fetch (void)
 void
 Pop::fetch_status (void)
 {
-	std::string line;
-	std::vector<std::string> buffer;
 	status_ = MAILBOX_CHECK;
 
 	// Connection and authentification
 	if (!connect())	return;
 
-	// Get total number of messages into total
-	sendline ("STAT");
-	readline (line);
+	// STAT
+	guint total = command_stat ();
 
-	guint total;
-	sscanf (line.c_str()+4, "%ud\n", &total);
-
-	// We want to retrieve a maximum of _max_collected_mail uidl
-	// so we have to check  total number and find corresponding
-	// starting index (start).
-	guint n;
-	guint start;
-	if (total > biff_->max_mail_) {
-		n = biff_->max_mail_;
-		start = 1 + total -  biff_->max_mail_;
-	}
-	else {
-		n = total;
-		start = 1;
-	}
-
-	// Retrieve uidl one by one to avoid to get all of them
-	buffer.clear();
-	char uidl[71];
-	guint dummy;
-	for (guint i=0; i< n; i++) {
-		std::stringstream s;
-		s << (i+start);
-		sendline ("UIDL " + s.str());
-		readline (line);
-		sscanf (line.c_str()+4, "%ud %70s\n", &dummy, (char *) &uidl);
-		buffer.push_back (uidl);
-	}
+	// UIDL for each message
+	std::vector<std::string> buffer = command_uidl (total);
 
 	// Determine new mailbox status
 	if (buffer.empty())
@@ -168,18 +138,13 @@ Pop::fetch_status (void)
 	saved_ = buffer;
 
 	// QUIT
-	sendline ("QUIT");
-	readline (line, true, true, false);
-
-	socket_->close();
+	command_quit ();
 }
-
 
 void
 Pop::fetch_header (void)
 {
 	std::string line;
-	static std::vector<std::string> buffer;
 	int saved_status = status_;
   
 	// Status will be restored in the end if no problem occured
@@ -189,11 +154,7 @@ Pop::fetch_header (void)
 	if (!connect()) return;
 
 	// STAT
-	sendline ("STAT");
-	readline (line);
-
-	guint total;
-	sscanf (line.c_str()+4, "%ud", &total);
+	guint total = command_stat ();
 
 	// We want to retrieve a maximum of _max_collected_mail 
 	// so we have to check total number and find corresponding
@@ -244,12 +205,9 @@ Pop::fetch_header (void)
 		mail.pop_back();
 		parse (mail, MAIL_UNREAD);
 	}
-	
-	// QUIT
-	sendline ("QUIT");
-	readline (line, true, true, false);
 
-	socket_->close();
+	// QUIT
+	command_quit();
 
 	// Restore status
 	status_ = saved_status;
@@ -260,6 +218,96 @@ Pop::fetch_header (void)
 
 	unread_ = new_unread_;
 	seen_ = new_seen_;
+}
+
+/**
+ * Sending the POP3 command "QUIT" to the server. If this succeeds the
+ * connection to the POP3 server is closed.
+ *
+ * @exception pop_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+void 
+Pop::command_quit (void) throw (pop_err)
+{
+	std::string line;
+
+	// Sending the command
+	sendline ("QUIT");
+	readline (line, true, true, false);
+	// Closing the socket
+	socket_->close();
+}
+
+/**
+ * Sending the POP3 command "STAT" to the server to get the total number of
+ * messages.
+ *
+ * @return             Total number of messages
+ * @exception pop_command_err
+ *                     This exception is thrown if there is an error in the
+ *                     server's response.
+ * @exception pop_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+guint 
+Pop::command_stat (void) throw (pop_err)
+{
+	std::string line;
+
+	// Get total number of messages into total
+	sendline ("STAT");
+	readline (line);
+	// line is "+OK total total_size" (see RFC 1939 5.)
+	std::stringstream ss(line.substr(4));
+	if (!g_ascii_isdigit(line[4])) throw pop_command_err();
+	guint total;
+	ss >> total;
+	return total;
+}
+
+/**
+ * Sending for each message that will be obtained the POP3 command "UIDL" to
+ * get its unique id.
+ *
+ * @param  total       Total number of messages on the server
+ * @return             C++ vector with the unique ids
+ * @exception pop_command_err
+ *                     This exception is thrown if there is an error in the
+ *                     server's response.
+ * @exception pop_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+std::vector<std::string> 
+Pop::command_uidl (guint total) throw (pop_err)
+{
+	std::string line, uidl, dummy;
+
+	// We want to retrieve a maximum of _max_collected_mail uidl
+	// so we have to check the total number and find corresponding
+	// starting index (start).
+	guint start = 1, n = biff_->max_mail_;
+	if (total > biff_->max_mail_)
+		start = 1 + total - biff_->max_mail_;
+	else
+		n = total;
+
+	// Retrieve uidl one by one to avoid to get all of them
+	std::vector<std::string> buffer;
+	buffer.clear();
+	for (guint i=0; i< n; i++) {
+		std::stringstream s;
+		s << (i+start);
+		sendline ("UIDL " + s.str());
+		readline (line);
+		// line is "+OK msg uidl" (see RFC 1939 7.)
+		std::stringstream ss(line.substr(4));
+		ss >> dummy >> uidl;
+		if (dummy != s.str()) throw pop_command_err ();
+		if ((uidl.size() > 70) || (uidl.size() == 0)) throw pop_command_err ();
+		buffer.push_back (uidl);
+	}
+	return buffer;
 }
 
 /**
@@ -338,9 +386,8 @@ Pop::readline (std::string &line, gboolean print, gboolean check,
 	if (line.find ("-ERR") == 0) {
 		g_warning (_("[%d] Error message from POP3 server:%s"), uin_,
 					 line.substr(4,line.size()-4).c_str());
-		// We are still able to QUIT
-		sendline ("QUIT");
-		readline (line, true, true, false);
+		// We are still able to logout
+		command_quit ();
 		throw pop_command_err();
 	}
 	if (line.find ("+OK") != 0) {
