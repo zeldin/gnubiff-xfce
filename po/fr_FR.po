@@ -1,18 +1,18 @@
-# translation of fr_FR.po to Français
-# translation of fr_FR.po to French
+# translation of fr.po to Français
+# translation of fr.po to French
 # French translation of gnubiff
-# Copyright (C) 2002 Nicolas Rougier <Nicolas.Rougier@loria.fr>
+# Copyright (C) 2004 Nicolas Rougier <Nicolas.Rougier@loria.fr>
 # This file is distributed under the same license as the gnubiff package.
 # Nicolas Rougier <rougier@loria.fr>, 2004.
 # Nicolas Rougier <Nicolas.Rougier@loria.fr>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fr_FR\n"
+"Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-14 22:55+0200\n"
-"PO-Revision-Date: 2004-09-02 13:50+0200\n"
-"Last-Translator: Nicolas Rougier <Nicolas.Rougier@loria.fr>\n"
+"POT-Creation-Date: 2004-10-18 12:02+0200\n"
+"PO-Revision-Date: 2004-10-18 12:04+0200\n"
+"Last-Translator: Nicolas Rougier <rougier@loria.fr>\n"
 "Language-Team: Français\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -45,8 +45,7 @@ msgstr "Si vous voulez la version GTK, tapez gnubiff --gtk\n"
 
 #: src/gnubiff.cc:176
 msgid " then use -c file to specify an alternate configuration file\n"
-msgstr ""
-"puis utiliser -c fichier pour spécifier un autre fichier de configuration\n"
+msgstr "puis utiliser -c fichier pour spécifier un autre fichier de configuration\n"
 
 #: src/gnubiff.cc:177
 msgid "      and -n to skip configuration process\n"
@@ -77,8 +76,7 @@ msgid "Copyright (c) 2000-2004 Nicolas Rougier\n"
 msgstr "Copyright (c) 2000-2004 Nicolas Rougier\n"
 
 #: src/ui-applet-gnome.cc:359 ui/applet-gtk.glade.h:9
-msgid ""
-"This program is part of the GNU project, released under the aegis of GNU."
+msgid "This program is part of the GNU project, released under the aegis of GNU."
 msgstr "Ce programme fait partie du projet GNU, distribué sous l'égide de GNU."
 
 #: src/biff.cc:153
@@ -185,13 +183,11 @@ msgstr "[%d] Mot de passe vide"
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
-msgstr ""
-"[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
+msgstr "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
 #: src/apop.cc:122
 #, c-format
-msgid ""
-"[%d] Problem with crypto that should have been detected at configure time"
+msgid "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
@@ -248,44 +244,44 @@ msgstr "Nouveau courrier"
 msgid "No mail"
 msgstr "Aucun courrier"
 
-#: src/ui-preferences.cc:140 src/ui-popup.cc:139
+#: src/ui-preferences.cc:141 src/ui-popup.cc:139
 msgid "Mailbox"
 msgstr "Boîte aux lettres"
 
-#: src/ui-preferences.cc:159
+#: src/ui-preferences.cc:160
 msgid "Format"
 msgstr "Format"
 
-#: src/ui-preferences.cc:168
+#: src/ui-preferences.cc:169
 msgid "Status"
 msgstr "Status"
 
-#: src/ui-preferences.cc:176
+#: src/ui-preferences.cc:177
 msgid "Poll time"
 msgstr "Délai"
 
 #. Selection label
-#: src/ui-preferences.cc:193 src/ui-preferences.cc:634
+#: src/ui-preferences.cc:194 src/ui-preferences.cc:635
 msgid "No mailbox selected"
 msgstr "Pas de boîte aux lettres séléctionnée"
 
-#: src/ui-preferences.cc:534
+#: src/ui-preferences.cc:535
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:540 ui/preferences.glade.h:76
+#: src/ui-preferences.cc:541 ui/preferences.glade.h:76
 msgid "_Stop"
 msgstr "_Stopper"
 
-#: src/ui-preferences.cc:550
+#: src/ui-preferences.cc:551
 msgid "Browse for a sound"
 msgstr "Chercher le fichier son"
 
-#: src/ui-preferences.cc:576 ui/preferences.glade.h:16
+#: src/ui-preferences.cc:577 ui/preferences.glade.h:16
 msgid "Browse for a mail application"
 msgstr "Chercher l'application courrier"
 
-#: src/ui-preferences.cc:583 src/ui-preferences.cc:596
+#: src/ui-preferences.cc:584 src/ui-preferences.cc:597
 msgid "Browse for a new mail image"
 msgstr "Chercher le fichier image"
 
@@ -486,9 +482,8 @@ msgid "Credits"
 msgstr "Remerciements"
 
 #: ui/preferences.glade.h:21
-#, fuzzy
 msgid "Display header window when new mail has arrived"
-msgstr "Afficher la fenêtre _d'entêtes pour le nouveau courrier"
+msgstr "Afficher la fenêtre d'entêtes pour le nouveau courrier"
 
 #: ui/preferences.glade.h:22
 msgid "Display popup window _for"
@@ -539,9 +534,8 @@ msgstr ""
 "finie...)"
 
 #: ui/preferences.glade.h:33
-#, fuzzy
 msgid "Maximum number of email to collect"
-msgstr "Nombre m_aximum de courriers à collecter"
+msgstr "Nombre maximum de courriers à collecter"
 
 #: ui/preferences.glade.h:34
 msgid "Maximum number of email to display"
@@ -609,7 +603,7 @@ msgstr ""
 
 #: ui/preferences.glade.h:50
 msgid "Sound filename to play"
-msgstr ""
+msgstr "Son à jouer"
 
 #: ui/preferences.glade.h:52
 #, no-c-format
@@ -633,27 +627,26 @@ msgid "Test"
 msgstr "Test"
 
 #: ui/preferences.glade.h:57
-#, fuzzy
 msgid "Test sound"
-msgstr "_Pas de son"
+msgstr "Tester le son"
 
 #: ui/preferences.glade.h:59
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Text to be displayed when new mail is present, %d is the number of mails. "
 "Valid XML must be entered, pango markup may be used."
 msgstr ""
 "Texte à afficher pour le nouveau courrier. %d est le nombre de nouveaux "
-"courriers."
+"courriers. Ce doit etre du XML valide et vous pouvez utiliser le marquage pango."
 
 #: ui/preferences.glade.h:61
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Text to be displayed when no mail is present, %d is the number of mails. "
 "Valid XML must be entered, pango markup may be used."
 msgstr ""
 "Texte à afficher pour le nouveau courrier. %d est le nombre de nouveaux "
-"courriers."
+"courriers.Ce doit etre du XML valide et vous pouvez utiliser le marquage pango."
 
 #: ui/preferences.glade.h:62
 msgid "Type:"
@@ -1041,3 +1034,4 @@ msgstr "Popup"
 #: ui/popup.glade.h:2
 msgid "mail content"
 msgstr "mail content"
+
