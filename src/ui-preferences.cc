@@ -381,7 +381,7 @@ Preferences::synchronize (void)
 	}
 
 	// Insert the values of the options into the GUI elements
-	biff_->gui_set (OPTGRP_ALL, xml_, filename_);
+	biff_->update_gui (OPTSGUI_SET, OPTGRP_ALL, xml_, filename_);
 
 	// Stop button
 	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
@@ -396,7 +396,7 @@ void
 Preferences::apply (void)
 {
 	// Retrieve all values of the options from the GUI elements
-	biff_->gui_get (OPTGRP_ALL, xml_, filename_);
+	biff_->update_gui (OPTSGUI_GET, OPTGRP_ALL, xml_, filename_);
 }
 
 void
@@ -554,7 +554,8 @@ Preferences::on_check_changed (GtkWidget *widget)
 {
 	// Disable and enable certain GUI elements depending on values of some
 	// options
-	biff_->gui_show (OPTGRP_ALL, xml_, filename_);
+	biff_->update_gui (OptionsGUI (OPTSGUI_SENSITIVE | OPTSGUI_SHOW),
+					   OPTGRP_ALL, xml_, filename_);
 }
 
 /**
@@ -689,9 +690,9 @@ Preferences::expert_ok (void)
 	// Get option
 	Options *opts;
 	Option *option;
-	GtkTreeIter treeiter;
+	GtkTreeIter iter;
 	GtkListStore *store;
-	if (!expert_get_option (opts, option, treeiter, store))
+	if (!expert_get_option (opts, option, iter, store))
 		return;
 
 	// Set option
@@ -700,13 +701,39 @@ Preferences::expert_ok (void)
 	opts->from_string (option->name(), value);
 
 	// Update GUI
-	if (option->group() != OPTGRP_MAILBOX) {
-		biff_->gui_set (OPTGRP_ALL, xml_, filename_, option);
-		biff_->gui_show (OPTGRP_ALL, xml_, filename_, option);
-		gtk_list_store_set (store, &treeiter, COL_EXP_VALUE,
-							opts->to_string(option->name()).c_str(), -1);
+	if (option->group() != OPTGRP_MAILBOX)
+		biff_->update_gui (OPTSGUI_UPDATE, option, xml_, filename_);
+	// FIXME: Update mailbox GUI widgets if mailbox dialog is shown
+
+	// Update options list
+	if (option->flags() & OPTFLG_CHANGE) {
+		gchar *name = NULL;
+		gint id = -1;
+		Option *option = NULL;
+		GtkTreeIter iter;
+		gboolean valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL(store),
+														&iter);
+		while (valid) {
+			// Get next option
+			gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COL_EXP_NAME,
+								&name, COL_EXP_ID, &id, -1);
+			if (id<0)
+				option = biff_->find_option (name);
+			else if ((guint)id < biff_->size())
+				option = biff_->mailbox(id)->find_option (name);
+
+			// Update option
+			if (option) {
+				const gchar *value = opts->to_string(option->name()).c_str();
+				gtk_list_store_set (store, &iter, COL_EXP_VALUE, value, -1);
+			}
+
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
+		}
 	}
-	// FIXME: Update mailbox GUI widgets if dialog is shown
+	else
+		gtk_list_store_set (store, &iter, COL_EXP_VALUE,
+							opts->to_string(option->name()).c_str(), -1);
 }
 
 /**

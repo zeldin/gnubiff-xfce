@@ -280,8 +280,7 @@ Gnubiff_Options::add_options_mailbox (void)
 	add_option (new Option_UInt ("authentication", OPTGRP_MAILBOX,
 		"Authentication to be used when connecting to the server via the "
 		"internet.",
-								 AUTH_AUTODETECT, OPTFLG_ID_INT_STRICT 
-								 | OPTFLG_FIXED, i4, s4));
+								 AUTH_AUTODETECT, OPTFLG_ID_INT_STRICT,i4,s4));
 	// CERTIFICATE
 	add_option (new Option_String ("certificate", OPTGRP_MAILBOX,
 		"Certificate to be used when using SSL.",
@@ -301,13 +300,13 @@ Gnubiff_Options::add_options_mailbox (void)
 	add_option (new Option_UInt ("delay_minutes", OPTGRP_MAILBOX,
 		"Minute part of the time interval between mail checks for network "
 		"mailboxes when polling.",
-								 3, OPTFLG_CHANGE | OPTFLG_AUTO |OPTFLG_NOSAVE,
+								 3, OPTFLG_CHANGE | OPTFLG_NOSAVE,
 								 OPTGUI_SPIN, "minutes_spin"));
 	// DELAY_SECONDS
 	add_option (new Option_UInt ("delay_seconds", OPTGRP_MAILBOX,
 		"Second part of the time interval between mail checks for network "
 		"mailboxes when polling.",
-								 0, OPTFLG_CHANGE | OPTFLG_AUTO |OPTFLG_NOSAVE,
+								 0, OPTFLG_CHANGE | OPTFLG_NOSAVE,
 								 OPTGUI_SPIN, "seconds_spin"));
 	// USE_OTHER_FOLDER
 	const static gchar *s3[] = {"mailbox_entry", NULL};

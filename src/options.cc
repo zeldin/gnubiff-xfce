@@ -311,43 +311,17 @@ Options::from_strings (guint groups, std::map<std::string,std::string> &map)
 	return ok;
 }
 
+/**
+ *  Update GUI widgets for a group of options.
+ *
+ *  @param  whattodo Actions to be done
+ *  @param  groups   Groups from which all options are taken
+ *  @param  xml      GladeXML information of the GUI
+ *  @param  filename Filename of the glade file for the GUI
+ */
 void 
-Options::gui_get (guint groups, GladeXML *xml, std::string filename,
-				  Option *option)
-{
-	if (option)
-		gui_all (0, groups, xml, filename, option);
-	else
-		gui_all (0, groups, xml, filename);
-}
-
-void 
-Options::gui_set (guint groups, GladeXML *xml, std::string filename,
-				  Option *option)
-{
-	if (option)
-		gui_all (1, groups, xml, filename, option);
-	else
-		gui_all (1, groups, xml, filename);
-}
-
-void 
-Options::gui_show (guint groups, GladeXML *xml, std::string filename,
-				   Option *option)
-{
-	if (option) {
-		gui_all (2, groups, xml, filename, option);
-		gui_all (3, groups, xml, filename, option);
-	}
-	else {
-		gui_all (2, groups, xml, filename);
-		gui_all (3, groups, xml, filename);
-	}
-}
-
-void 
-Options::gui_all (guint whattodo, guint groups, GladeXML *xml,
-				  const std::string filename)
+Options::update_gui (OptionsGUI whattodo, guint groups, GladeXML *xml,
+					 const std::string filename)
 {
 	iterator opt = options_.begin ();
 	while (opt != options_.end ()) {
@@ -355,14 +329,34 @@ Options::gui_all (guint whattodo, guint groups, GladeXML *xml,
 		opt++;
 		if (!option || !(groups & option->group ()))
 			continue;
-		gui_all (whattodo, groups, xml, filename, option);
+		update_gui (whattodo, option, xml, filename);
 	}
 }
 
+/**
+ *  Update GUI widgets for the option {\em option}. The following actions can
+ *  be done (in the given order):
+ *  \begin{itemize}
+ *     \item Get the value from the widget and set {\em option} (OPTSGUI_GET)
+ *     \item Set the widget to the value of {\em option} (OPTSGUI_SET)
+ *     \item Update the widgets that are sensitive to {\em option}
+ *           (OPTSGUI_SENSITIVE)
+ *     \item Show and hide widgets (OPTSGUI_SHOW)
+ *  \end{itemize}
+ *  OPTSGUI_UPDATE is short for OPTSGUI_SET, OPTSGUI_SENSITIVE and
+ *  OPTSGUI_SHOW.
+ *
+ *  @param  whattodo Actions to be done
+ *  @param  option   Option for which the update is done
+ *  @param  xml      GladeXML information of the GUI
+ *  @param  filename Filename of the glade file for the GUI
+ */
 void 
-Options::gui_all (guint whattodo, guint groups, GladeXML *xml,
-				  const std::string filename, Option *option)
+Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
+					 const std::string filename)
 {
+	if (!option)
+		return;
 	const gchar *file = filename.c_str ();
 
 	// Get widgets
@@ -372,15 +366,13 @@ Options::gui_all (guint whattodo, guint groups, GladeXML *xml,
 	while (ss >> gui_name)
 		widgets.push_back (get_widget (gui_name.c_str(), xml, file));
 
-	switch (whattodo) {
-	case 0:
+	if (whattodo & OPTSGUI_GET)
 		option->get_gui (widgets);
-		break;
-	case 1:
+
+	if (whattodo & OPTSGUI_SET)
 		option->set_gui (widgets);
-		break;
-	case 2:
-	case 3:
+
+	if (whattodo & (OPTSGUI_SENSITIVE | OPTSGUI_SHOW)) {
 		if (option->type() == OPTTYPE_BOOL) {
 			// Obtain value for setting sensitive
 			gboolean ok;
@@ -401,15 +393,12 @@ Options::gui_all (guint whattodo, guint groups, GladeXML *xml,
 				it++;
 				if (!other)
 					continue;
-				if (whattodo == 2)
+				if (whattodo & OPTSGUI_SENSITIVE)
 					gtk_widget_set_sensitive (other, ok);
 				else
 					ok ? gtk_widget_show (other) : gtk_widget_hide (other);
 			}
 		}
-		break;
-	default:
-		break;
 	}
 }
 

@@ -340,7 +340,7 @@ Properties::on_apply (GtkWidget *widget)
 	std::string oldaddress = mailbox_->address ();
 
 	// Retrieve all values of the options from the GUI elements
-	mailbox_->gui_get (OPTGRP_MAILBOX, xml_, filename_);
+	mailbox_->update_gui (OPTSGUI_GET, OPTGRP_MAILBOX, xml_, filename_);
 
 	mailbox_->authentication (selected_auth_);
 
@@ -464,12 +464,9 @@ Properties::update_view (void)
 	if (!mailbox_)
 		return;
 
-	// Insert the values of the options into the GUI elements
-	mailbox_->gui_set (OPTGRP_MAILBOX , xml_, filename_);
-
-	// Disable and enable certain GUI elements depending on values of some
-	// options
-	mailbox_->gui_show (OPTGRP_MAILBOX, xml_, filename_);
+	// Insert the values of the options into the GUI widgets and update
+	// widget status
+	mailbox_->update_gui (OPTSGUI_UPDATE, OPTGRP_MAILBOX, xml_, filename_);
 
 	type_view ();
 }
@@ -597,7 +594,7 @@ Properties::auth_view (gboolean visible)
 
 	
 	// Get authentication method
-	gint auth = AUTH_AUTODETECT;
+	guint auth = AUTH_AUTODETECT;
 
 	if (selected_auth_ == -1)
 		auth = mailbox_->authentication();
