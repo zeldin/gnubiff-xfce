@@ -162,7 +162,7 @@ Applet::update (gboolean no_popup)
 	gboolean newmail = false;
 	int unread = 0;
 	for (unsigned int i=0; i<biff_->size(); i++) {
-		gint status = biff_->mailbox(i)->status();
+		guint status = biff_->mailbox(i)->status();
 
 		if (status == MAILBOX_NEW)
 			newmail = true;

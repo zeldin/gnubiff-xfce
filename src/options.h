@@ -96,8 +96,8 @@ public:
 	void update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 					 const std::string filename);
 
-	std::string group_help (guint group) {return groups_[group]->help();};
-	std::string group_name (guint group) {return groups_[group]->name();};
+	std::string group_help (guint group);
+	std::string group_name (guint group);
 	/// Access function to Options::groups_
 	std::map<guint, Option_Group *> *groups (void) {return &groups_;}
 	/// Access function to Options::options_

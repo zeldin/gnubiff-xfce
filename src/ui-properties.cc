@@ -192,7 +192,7 @@ Properties::select (Mailbox *mailbox)
 	}
 
 	mailbox_ = mailbox;
-	selected_auth_ = -1;
+	selected_auth_ = AUTH_NONE;
 	selected_type_ = -1;
 	update_view ();
 }
@@ -344,7 +344,6 @@ Properties::on_apply (GtkWidget *widget)
 
 	mailbox_->authentication (selected_auth_);
 
-
 	// Here we need to update or transform mailbox according to several criterion:
 	//  - If type is autodetect we just set protocol to PROTOCOL_NONE and next mail
 	//    check will lookup for mailbox format
@@ -390,7 +389,6 @@ Properties::on_apply (GtkWidget *widget)
 		}
 		else
 			mailbox_->port (mailbox_->other_port());
-
 		// Protocol was not imap4 or mailbox was unknown, we change mailbox
 		if ((mailbox_->protocol() != PROTOCOL_IMAP4) || (mailbox_->status() == MAILBOX_UNKNOWN)) {
 			Mailbox *mailbox = new Imap4 (*mailbox_);
@@ -419,7 +417,6 @@ Properties::on_apply (GtkWidget *widget)
 			preferences_->biff()->replace (mailbox_, mailbox);
 		}
 	}
-
 	preferences_->synchronize();	
 }
 
@@ -596,7 +593,7 @@ Properties::auth_view (gboolean visible)
 	// Get authentication method
 	guint auth = AUTH_AUTODETECT;
 
-	if (selected_auth_ == -1)
+	if (selected_auth_ == AUTH_NONE)
 		auth = mailbox_->authentication();
 	else
 		auth = selected_auth_;

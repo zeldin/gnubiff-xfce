@@ -54,7 +54,7 @@ protected:
 	GtkSizeGroup *		group_;
 
 	gint				selected_type_;
-	gint				selected_auth_;
+	guint				selected_auth_;
 
 public:
 	// ========================================================================

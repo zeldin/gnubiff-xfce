@@ -68,7 +68,9 @@ Options::add_option (Option *option)
 
 /**
  *  Add all options (and their values) from {\em options} to the set of
- *  options.
+ *  options. If a option already exists it gets the value from the same option
+ *  in {\em options}. This function also adds new groups from {\em options}
+ *  to the set of groups but does not change existing groups.
  *
  *  @param  options Options to be added.
  *  @return         True if all options could be added successfully.
@@ -78,17 +80,28 @@ Options::add_option (Options &options)
 {
 	gboolean ok = true;
 
+	// Options
 	std::map<std::string, Option *> *opts = options.options ();
 	iterator opt =  opts->begin ();
 	while (opt != opts->end ()) {
-		// When we already have the option copy the value, otherwise create
-		// the option	
+		// When we already have the option copy the value, otherwise create it
 		Option *option = find_option (opt->second->name(), OPTTYPE_NONE);
 		if (option)
 			ok = option->from_string (opt->second->to_string()) && ok;
 		else
 			ok = add_option (opt->second->copy()) && ok;
 		opt++;
+	}
+
+	// Groups
+	std::map<guint, Option_Group *> *grps = options.groups ();
+	std::map<guint, Option_Group *>::iterator grp =  grps->begin ();
+	while (grp != grps->end ()) {
+		Option_Group *group = (grp++)->second;
+		// If we don't have the group: Create it
+		if (groups_.find (group->id()) == groups_.end())
+			ok = add_group (new Option_Group (group->name(), group->id(),
+											  group->help()));
 	}
 
 	return ok;
@@ -400,6 +413,32 @@ Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 			}
 		}
 	}
+}
+
+/**
+ *  Get the description of the given group {\em group}.
+ *
+ *  @param  group Identifier of the group.
+ */
+std::string 
+Options::group_help (guint group)
+{
+	if (groups_.find (group) == groups_.end ())
+		return std::string("");
+	return groups_[group]->help();
+}
+
+/**
+ *  Get the name of the given group {\em group}.
+ *
+ *  @param  group Identifier of the group.
+ */
+std::string 
+Options::group_name (guint group)
+{
+	if (groups_.find (group) == groups_.end ())
+		return std::string("");
+	return groups_[group]->name();
 }
 
 GtkWidget * 

@@ -274,9 +274,9 @@ Gnubiff_Options::add_options_mailbox (void)
 								   "address_entry"));
 	// AUTHENTICATION
 	const static guint i4[] = {AUTH_AUTODETECT, AUTH_USER_PASS, AUTH_APOP,
-							   AUTH_SSL, AUTH_CERTIFICATE, 0};
+							   AUTH_SSL, AUTH_CERTIFICATE, AUTH_NONE, 0};
 	const static gchar *s4[] = {"autodetect", "user_pass", "apop", "ssl",
-								"certificate", NULL};
+								"certificate", "-", NULL};
 	add_option (new Option_UInt ("authentication", OPTGRP_MAILBOX,
 		"Authentication to be used when connecting to the server via the "
 		"internet.",

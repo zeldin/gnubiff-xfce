@@ -61,6 +61,7 @@ const guint	AUTH_USER_PASS		=	1;
 const guint	AUTH_APOP			=	2;
 const guint	AUTH_SSL			=	3;
 const guint	AUTH_CERTIFICATE	=	4;
+const guint	AUTH_NONE			=	(guint)-1;
 
 const guint	MAILBOX_ERROR		=	0;
 const guint	MAILBOX_EMPTY		=	1;
