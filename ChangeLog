@@ -41,10 +41,12 @@ Version 2.1.2
    - Bugfix: Illegal parameters to callback function while parsing config file
    - Bugfix: Testing return value when creating XML parser
    - Bugfix: Testing popup() for being NULL pointer in "src/applet.cc"
+        (thanks to Phil Shapiro for reporting this bug)
+   - Added Phil Shapiro and Nicolas Evrard to contributors
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 
-Version 2.1.1
+Version 2.1.1		2005-02-27 11:13
  * Nicolas Rougier
    - bugfix: gui, biff geometry field was sensitive when in gnome mode
    - bugfix: password automatic finding, misplaced mutex lock
@@ -202,7 +204,7 @@ Version 2.1.1
    - Bugfix: Handling of "expert_edit_options" option
    - Bugfix: Respect OPTFLG_CHANGE when getting option's value from gui
 
-Version 2.1.0
+Version 2.1.0		2004-12-22 11:20
  * Nicolas Rougier
    - New & simpler interface
    - Support of the IDLE state for imap4 (no more polling)
@@ -293,7 +295,7 @@ Version 2.1.0
      immediately
    - Feature: Use of relative paths allowed (when not using autodetection)
 
-Version 2.0.3
+Version 2.0.3		2004-11-30 08:49
   * Roland Stigge:
     - Updated man page (section 1, "GTK+")
   * Robert Sowada:
@@ -338,7 +340,7 @@ Version 2.0.3
   * Nicolas Rougier:
     - Updated french translations
 	
-Version 2.0.2
+Version 2.0.2		2004-10-20 01:24
  * Some cosmetic fixes
  * Bug fix in IMAP4 protocol
  * Bug fix in APOP+SSL protocol handling
@@ -371,10 +373,10 @@ Version 2.0.2
    - Bugfix in "new mail" and "no mail" tooltips
    - Security Bugfix: DoS attacks by sending unterminated lines anticipated
 	
-Version 2.0.1
+Version 2.0.1		2004-09-03 12:10
  * Small buf fix that prevented GTK+ version to be compiled
 	
-Version 2.0.0
+Version 2.0.0		2004-09-03 05:17
  * gnubiff now officially part of the GNU project
  * Complete redesign of interface inspired by MailNotification
    by Jean-Yves Lefort.
@@ -393,7 +395,7 @@ Version 2.0.0
  * Added hidden files in gtk_file_chooser's
 
 
-Version 1.4.0
+Version 1.4.0		2004-06-23 03:49
  * gnubiff now requires glib/gdk/gtk/libglade 2.4
  * Use of file chooser instead of file selector	
  * PNG simple animation support
@@ -422,14 +424,14 @@ Version 1.4.0
  * --enable-debug option added to configure
 
 	
-Version 1.2.0
+Version 1.2.0		2004-05-03 00:42
  * Real multi-mailbox support
  * Mouse button clicks are now different
  * Bug fix in displaying headers
  * GTK version got now a popup menu
  * New possibility of marking "mail as seen"
 
-Version 1.0.10
+Version 1.0.10		2004-04-08 01:40
  * gnubiff becomes multithreaded (so it won't hang while checking for mail)
  * Bug fix in playing soundfile with space in name
  * Spam tagged email are not displayed (X-Spam-Flag: YES)
@@ -437,7 +439,7 @@ Version 1.0.10
  * Added a "max collected header" option.
  * Various translation fixes
 	
-Version 1.0.9
+Version 1.0.9		2004-02-16 05:05
  * Multi mailbox with GNOME
  * Small typo fixes
  * Rewrite of decode64 function

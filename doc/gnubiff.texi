@@ -239,6 +239,7 @@ Various contributors:@*
 @item Josh Berdine
 @item Philippe Berger
 @item Dennis Bjorklund
+@item Nicolas Evrard
 @item Greg Fenton
 @item Byron Foster
 @item Grzegorz Gotawski
@@ -259,6 +260,7 @@ Various contributors:@*
 @item Reid Rivenburgh
 @item Hans-Ulrich Schaefer
 @item Achim Settelmeier
+@item Phil Shapiro
 @item Clytie Siddall
 @item Erik Sittman
 @item Barry Skidmore
