@@ -128,7 +128,7 @@
 		  <property name="max_length">0</property>
 		  <property name="text" translatable="yes"></property>
 		  <property name="has_frame">True</property>
-		  <property name="invisible_char" translatable="yes">*</property>
+		  <property name="invisible_char" translatable="no">*</property>
 		  <property name="activates_default">False</property>
 		  <signal name="activate" handler="GUI_on_ok" last_modification_time="Sat, 04 Dec 2004 16:46:57 GMT"/>
 		</widget>
