@@ -114,6 +114,7 @@ public:
 	 **/
 	void expert_create (void);
 	void expert_add_option_list (void);
+	void expert_toggle_option (void);
 	void expert_update_option_list (void);
 	void expert_update_option (const gchar *name, class Options *options,
 							   GtkListStore *store, GtkTreeIter *iter);

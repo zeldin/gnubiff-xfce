@@ -1563,6 +1563,7 @@
 			  <property name="rules_hint">False</property>
 			  <property name="reorderable">False</property>
 			  <property name="enable_search">True</property>
+			  <signal name="row_activated" handler="PREFERENCES_expert_on_row_activated" last_modification_time="Sat, 05 Feb 2005 16:22:44 GMT"/>
 			</widget>
 		      </child>
 		    </widget>

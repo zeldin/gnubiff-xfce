@@ -116,6 +116,14 @@ extern "C" {
 		PREFERENCES(data)->expert_on_selection (selection);
 	}
 
+	void PREFERENCES_expert_on_row_activated (GtkTreeView *treeview,
+											GtkTreePath *path,
+											GtkTreeViewColumn *col,
+											gpointer data)
+	{
+		PREFERENCES(data)->expert_toggle_option ();
+	}
+
 	void PREFERENCES_expert_ok (GtkWidget *widget, gpointer data)
 	{
 		PREFERENCES(data)->expert_ok ();
@@ -753,7 +761,7 @@ Preferences::expert_update_option_list ()
  */
 void 
 Preferences::expert_update_option (const gchar *name, Options *options,
-						   GtkListStore *store, GtkTreeIter *iter)
+								   GtkListStore *store, GtkTreeIter *iter)
 {
 	Option *option = NULL;
 
@@ -783,9 +791,15 @@ Preferences::expert_reset (void)
 	if (!expert_get_option (opts, option))
 		return;
 
+	// Set to default
+	opts->from_string (option->name(), option->default_string());
+
+	// Update GUI
+	synchronize ();
+	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == (Mailbox *)opts))
+		properties_->update_view ();
 	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")),
-						option->default_string().c_str());
-	expert_ok ();
+						opts->to_string(option->name()).c_str());
 }
 
 /**
@@ -819,6 +833,31 @@ Preferences::expert_search (void)
 		else
 			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
 	}
+}
+
+void 
+Preferences::expert_toggle_option (void)
+{
+	Options *opts;
+	Option *option;
+	if (!expert_get_option (opts, option))
+		return;
+
+	if (option->type() != OPTTYPE_BOOL)
+		return;
+	if (option->flags() & (OPTFLG_FIXED | OPTFLG_AUTO))
+		return;
+
+	// Toggle option
+	std::string name = option->name ();
+	opts->value (name, !opts->value_bool (name));
+
+	// Update GUI
+	synchronize ();
+	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == (Mailbox *)opts))
+		properties_->update_view ();
+	gtk_entry_set_text (GTK_ENTRY (get ("expert_value_entry")),
+						opts->to_string(name).c_str());
 }
 
 /**
