@@ -6,8 +6,8 @@ Please send gnubiff bug reports to Nicolas.Rougier@loria.fr.
 
 Version 2.1.1
  * Nicolas Rougier
-   - Small fix in gui
-	(biff geometry field was sensitive when in gnome mode)
+   - bugfix: gui, biff geometry field was sensitive when in gnome mode
+   - bugfix: password automatic finding, misplaced mutex lock
 	
 	
 Version 2.1.0
