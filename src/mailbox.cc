@@ -522,14 +522,16 @@ Mailbox::lookup_local (Mailbox &oldmailbox)
 //  unread array (depending if it's spam or if it is internally marked as seen)
 // ================================================================================
 void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
-					 PartInfo *partinfo)
+					 PartInfo *pi)
 {
 	Header h;
 	gboolean status = true; // set to false if mail should not be stored
 	guint len = mail.size ();
-	std::string type, subtype; // MIME type
-	std::map<std::string, std::string> paras; // content type parameters
-	std::string encoding;
+	PartInfo partinfo;
+
+	// Information about the mail obtained before?
+	if (pi != NULL)
+		partinfo = *pi;
 
 	// Parse header
 	guint i;
@@ -551,7 +553,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		// Sender
 		// There should be a whitespace or a tab after "From:", so we look
 		// for "From:" and get string beginning at 6
-		if ((line.find ("From:") == 0) && h.sender().empty()) {
+		if (line.find ("From:") == 0) {
 			if (line.size() > 6)
 				h.sender (line.substr (6));
 			else
@@ -562,7 +564,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		// Subject
 		// There should a whitespace or a tab after "Subject:", so we look
 		// for "Subject:" and get string beginning at 9
-		if ((line.find ("Subject:") == 0) && h.subject().empty()) {
+		if (line.find ("Subject:") == 0) {
 			if (line.size() > 9)
 				h.subject (line.substr (9));
 			else
@@ -573,7 +575,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		// Date
 		// There should a whitespace or a tab after "Date:", so we look
 		// for "Date:" and get string beginning at 6
-		if ((line.find ("Date:") == 0) && h.date().empty()) {
+		if (line.find ("Date:") == 0) {
 			if (line.size() > 6)
 				h.date (line.substr (6));
 			else
@@ -583,7 +585,8 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 
 		// Content Type
 		if (line.find ("Content-Type:") == 0) {
-			if (!parse_contenttype (line, type, subtype, paras)) {
+			if (!parse_contenttype (line, partinfo.type_, partinfo.subtype_,
+									partinfo.parameters_)) {
 				h.add_to_body (_("[Cannot parse content type header line]"));
 #ifdef DEBUG
 				g_message ("[%d] Cannot parse content type header line: %s",
@@ -594,9 +597,10 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 
 #ifdef DEBUG
 			std::string dbg="[%d] Parsed content type header line: mimetype=";
-			dbg += type + "/" + subtype;
-			std::map<std::string, std::string>::iterator it = paras.begin ();
-			while (it != paras.end()) {
+			dbg += partinfo.type_ + "/" + partinfo.subtype_;
+			std::map<std::string, std::string>::iterator it;
+			it = partinfo.parameters_.begin ();
+			while (it != partinfo.parameters_.end()) {
 				dbg += std::string(" (") + it->first.c_str() + " = "
 				  		+ it->second.c_str() + ")";
 				it++;
@@ -607,8 +611,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		}
 
 		// Content Transfer Encoding (see RFC 2045 6.)
-		if ((line.find ("Content-Transfer-Encoding:") == 0)
-			&& (encoding.size() == 0)) {
+		if (line.find ("Content-Transfer-Encoding:") == 0) {
 			guint pos = 26; // size of "Content-Transfer-Encoding:"
 
 			// Ignore whitespace
@@ -617,7 +620,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 				pos++;
 
 			// Get Token
-			if (!get_mime_token (line, encoding, pos)) {
+			if (!get_mime_token (line, partinfo.encoding_, pos)) {
 				h.add_to_body (_("[Cannot parse content transfer encoding header line]"));
 				continue;
 			}
@@ -632,44 +635,27 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 			status = false;
 	}
 
-	// If some information was retrieved before insert it now
-	if (partinfo) {
-		// Content type parameters
-		if (partinfo->parameters_.size() > 0)
-			paras = partinfo->parameters_;
-
-		// MIME type and subtype
-		if (partinfo->type_.size() > 0)
-			type = partinfo->type_;
-		if (partinfo->subtype_.size() > 0)
-			subtype = partinfo->subtype_;
-
-		// Encoding
-		if (partinfo->encoding_.size() > 0)
-			encoding = partinfo->encoding_;
-	}
-
 	// Charset
-	if (h.charset().empty() && (paras.find("charset") != paras.end()))
-		h.charset (paras["charset"]);
+	if (partinfo.parameters_.find("charset") != partinfo.parameters_.end())
+		h.charset (partinfo.parameters_["charset"]);
 
 	// Set default values if no value can be obtained from the mail (see
 	// RFC 2045)
 	if (h.charset().empty())
 		h.charset ("us-ascii");
-	if ((type.size() == 0) || (subtype.size() == 0)) {
-		type = "text";
-		subtype = "plain";
+	if ((partinfo.type_.size() == 0) || (partinfo.subtype_.size() == 0)) {
+		partinfo.type_ = "text";
+		partinfo.subtype_ = "plain";
 	}
-	if (encoding.size() == 0)
-		encoding = "7bit";
+	if (partinfo.encoding_.size() == 0)
+		partinfo.encoding_ = "7bit";
 
 	// Decode mail body (may change length of mail)
-	decode_body (mail, encoding, i);
+	decode_body (mail, partinfo.encoding_, i);
 	len = mail.size ();
 
 	// Content type: text/plain
-	if ((type == "text") && (subtype == "plain")) {
+	if ((partinfo.type_ == "text") && (partinfo.subtype_ == "plain")) {
 		// Get mail body
 		guint j = 0;
 		while ((j < biff_->value_uint("popup_body_lines")) && (++i < len)) {
@@ -681,7 +667,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 			h.add_to_body ("\n...");
 	}
 	else {
-		gchar *tmp = g_strdup_printf (_("[This mail hasn't a supported content type: \"%s/%s\"]"), type.c_str(), subtype.c_str());
+		gchar *tmp = g_strdup_printf (_("[This mail hasn't a supported content type: \"%s/%s\"]"), partinfo.type_.c_str(), partinfo.subtype_.c_str());
 		if (tmp)
 			h.add_to_body (std::string (tmp));
 		g_free (tmp);

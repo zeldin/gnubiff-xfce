@@ -21,6 +21,8 @@ Version 2.1.2
    - Feature: Support other encodings than "7bit" for all protocols
    - Feature: Error message if content type is not supported
    - Bugfix: Typo in mini help(thanks to Clytie Siddall for reporting this bug)
+   - Bugfix: Bugs regarding the word "mail" (thanks to Clytie Siddall for
+        reporting this bug)
  * Roland Stigge
    - Bugfix: Encoding of "po/fr.po"
 

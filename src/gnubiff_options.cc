@@ -101,7 +101,7 @@ Gnubiff_Options::add_options_applet (void)
 	// NEWMAIL_TEXT
 	add_option (new Option_String ("newmail_text", OPTGRP_APPLET,
 		"Text to be printed into the applet if new mails are present "
-        "(%d is the number of mails).",
+        "(%d is the number of new messages).",
 								   "%d", OPTFLG_NONE, OPTGUI_ENTRY,
 								   "newmail_text_entry"));
 	// USE_NEWMAIL_IMAGE
