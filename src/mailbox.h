@@ -249,6 +249,12 @@ public:
 };
 
 /**
+ * Maximum number of lines to be read from the mail body. This value should be
+ * greater than the value of the lines displayed;-) (see "src/ui-popup.cc").
+ */
+const gint linesToBeRead_=12;
+
+/**
  * In some situations we need to read a certain number of lines from the
  * network to get the line we want. Unfortunately this number may vary in
  * reality because of the following reasons:

@@ -229,16 +229,16 @@ Pop::fetch_header (void)
 	std::vector<std::string> mail;
 	for (guint i=0; i < n; i++) {
 		std::stringstream s;
-		s << (i+start);
+		s << (i+start) << " " << linesToBeRead_;
 		mail.clear();
-		// Get header and first 12 lines of mail
-		line = "TOP " + s.str() + std::string (" 12\r\n");
+		// Get header and first lines of mail (see constant linesToBeRead_)
+		line = "TOP " + s.str() + "\r\n";
 		if (!socket_->write (line)) return;
 #ifdef DEBUG
 		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, address_.c_str(), port_);
 #endif
 		if (!socket_->read (line, false)) return;
-		gint cnt = preventDoS_headerLines_+13;
+		gint cnt = preventDoS_headerLines_+linesToBeRead_+1;
 		do {
 			if (!socket_->read (line, false)) return;
 			if (line.size() > 1) {

@@ -74,6 +74,7 @@ Version 2.1.0
    - Bugfix: base64 decoding now rejects invalid encoded strings
    - New source files for decoding and converting
    - Separated q-encoding and quoted printable encoding
+   - Number of lines (of mail body) to be read is now a constant
 
 Version 2.0.3
   * Roland Stigge:
