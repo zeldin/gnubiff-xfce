@@ -34,10 +34,10 @@
 # - The third number is the patch number and it usually will only
 #    refer to releases fixing bugs
 #
-# Current version is 2.1.0
+# Current version is 2.1.1
 
 AC_PREREQ(2.59)
-AC_INIT([gnubiff],[2.1.0],[rougier@loria.fr])
+AC_INIT([gnubiff],[2.1.1],[rougier@loria.fr])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_SRCDIR([src/gnubiff.cc])

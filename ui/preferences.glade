@@ -1484,7 +1484,7 @@
 		      <child>
 			<widget class="GtkLabel" id="gnubiff">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">&lt;span font_desc=&quot;24&quot;&gt;&lt;b&gt;Gnubiff 2.1.0&lt;/b&gt;&lt;/span&gt;
+			  <property name="label" translatable="yes">&lt;span font_desc=&quot;24&quot;&gt;&lt;b&gt;Gnubiff 2.1.1&lt;/b&gt;&lt;/span&gt;
  &lt;small&gt;Released under the aegis of GNU
  Copyright (c) 2000-2004 Nicolas Rougier&lt;/small&gt;</property>
 			  <property name="use_underline">False</property>

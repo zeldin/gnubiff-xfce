@@ -1,6 +1,6 @@
 Summary: Mail notification program for GNOME 2
 Name: gnubiff
-Version: 1.4.1
+Version: 2.1.1
 Release: 1
 Copyright: GPL
 Group: X11/Utilities
@@ -9,7 +9,7 @@ URL: http://gnubiff.sourceforge.net
 Prefix: /usr
 Buildroot: %{_tmppath}/%{name}-root
 Packager: Nicolas Rougier <rougier@loria.fr>
-BuildRequires: libglade2-devel, libglade2 >= 2.3, gtk2-devel >= 2.4
+BuildRequires: libglade2-devel, libglade2 >= 2.3, gtk2-devel >= 2.4, libfam-devel
 
 
 # description take from the website (see URL)
@@ -49,6 +49,8 @@ make install prefix=$RPM_BUILD_ROOT%{prefix}
 %doc %{prefix}/man/man?/gnubiff*
 
 %changelog
+* Fri Dec 24 2004       sowada <sowadart@gmx.de>
+- RPM specfile for version 2.1.1
 * Sat June 18 2004      rougier <rougier@loria.fr>
 - RPM specfile for version 1.4.0
 * Sun May 2 2004        rougier <rougier@loria.fr>
