@@ -596,8 +596,10 @@ Mailbox::start_checking (void)
 
 	// Determine new mailbox status
 	if (status_ == MAILBOX_CHECK) {
-		if (unread_.size() == 0)
+		if (new_unread_.size() == 0)
 			status_ = MAILBOX_EMPTY;
+		else if (unread_.size() < new_unread_.size())
+			status_ = MAILBOX_NEW;
 		else if (!std::includes (unread_.begin(), unread_.end(),
 								 new_unread_.begin(), new_unread_.end(),
 								 less_pair_first()))		 
