@@ -61,7 +61,7 @@ Version 2.1.1
         responses (IMAP4)
    - Don't stop idling when the server sends information and warning messages
         (IMAP4)
-   - Source code for class Imap4, Pop is fully documented now
+   - Source code for class Imap4, Pop, Apop and Pop3 is fully documented now
    - Bugfix: Printing debug messages for sent lines (IMAP4 & POP3)
    - Feature: Allow the user to forbid idling (no GUI support ATM; IMAP4)
    - Added exception handling to POP3

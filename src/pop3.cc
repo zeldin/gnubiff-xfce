@@ -44,16 +44,28 @@
 // ========================================================================
 //  base
 // ========================================================================	
+/**
+ * Constructor. The mailbox for the POP3 protocol is created from scratch.
+ *
+ * @param biff Pointer to the instance of Gnubiff.
+ */
 Pop3::Pop3 (Biff *biff) : Pop (biff)
 {
 	protocol_ = PROTOCOL_POP3;
 }
 
+/**
+ * Constructor. The mailbox for the POP3 protocol is created by taking the
+ * attributes of the existing mailbox {\em other}.
+ *
+ * @param other Mailbox from which the attributes are taken.
+ */
 Pop3::Pop3 (const Mailbox &other) : Pop (other)
 {
 	protocol_ = PROTOCOL_POP3;
 }
 
+/// Destructor
 Pop3::~Pop3 (void)
 {
 }
@@ -62,6 +74,16 @@ Pop3::~Pop3 (void)
 // ========================================================================
 //  main
 // ========================================================================	
+/**
+ * A connection to the mailbox is established. If this can't be done then a
+ * {\em pop_socket_err} is thrown. Otherwise gnubiff logins.
+ *
+ * @exception pop_command_err
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
+ * @exception imap_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
 void 
 Pop3::connect (void) throw (pop_err)
 {

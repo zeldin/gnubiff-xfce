@@ -46,16 +46,28 @@
 // ========================================================================
 //  base
 // ========================================================================	
+/**
+ * Constructor. The mailbox for the APOP protocol is created from scratch.
+ *
+ * @param biff Pointer to the instance of Gnubiff.
+ */
 Apop::Apop (Biff *biff) : Pop (biff)
 {
 	protocol_ = PROTOCOL_APOP;
 }
 
+/**
+ * Constructor. The mailbox for the APOP protocol is created by taking the
+ * attributes of the existing mailbox {\em other}.
+ *
+ * @param other Mailbox from which the attributes are taken.
+ */
 Apop::Apop (const Mailbox &other) : Pop (other)
 {
 	protocol_ = PROTOCOL_APOP;
 }
 
+/// Destructor
 Apop::~Apop (void)
 {
 }
@@ -63,6 +75,16 @@ Apop::~Apop (void)
 // ========================================================================
 //  main
 // ========================================================================	
+/**
+ * A connection to the mailbox is established. If this can't be done then a
+ * {\em pop_socket_err} is thrown. Otherwise gnubiff logins.
+ *
+ * @exception pop_command_err
+ *                     This exception is thrown when we get an unexpected
+ *                     response.
+ * @exception imap_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
 void 
 Apop::connect (void) throw (pop_err)
 {
