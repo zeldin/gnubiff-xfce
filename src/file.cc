@@ -31,6 +31,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <time.h>
 #include <utime.h>
 
 #include "file.h"

@@ -33,6 +33,7 @@
 
 #include <errno.h>
 #include <signal.h>
+#include <unistd.h>
 
 #include "local.h"
 #include "ui-applet.h"

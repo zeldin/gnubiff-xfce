@@ -35,6 +35,7 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <unistd.h>
 
 #ifdef USE_GNOME
 #  include "ui-applet-gnome.h"

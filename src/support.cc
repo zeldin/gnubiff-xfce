@@ -102,18 +102,18 @@ gb_substitute(std::string format, std::string chars,
 			return result;
 
 		// '%%'
-		if (format.at(pos+1)=='%')
+		if (format[pos+1] == '%')
 		{
 			result+='%';
 			continue;
 		}
 
 		// generic case
-		if ((cpos=chars.find(format.at(pos+1)))==std::string::npos)
+		if ((cpos = chars.find(format[pos+1])) == std::string::npos)
 			continue;
-		result+=toinsert.at(cpos);
+		result += toinsert[cpos];
 	}
 	if (prevpos<len)
-		result.append(format,prevpos,len-prevpos);
+		result.append (format, prevpos, len-prevpos);
 	return result;
 }
