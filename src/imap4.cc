@@ -327,26 +327,37 @@ Imap4::get_header (void)
 				break;
 		if ((!socket_->status()) || (cnt<0)) return;
 
-		if (!socket_->read (line,false)) return;
+		// Date, From, Subject
 #ifdef DEBUG
-		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_, hostname_.c_str(), port_);
+		g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
+				 hostname_.c_str(), port_);
 #endif
-		while (line.find ("A004 OK") == std::string::npos) {
+		cnt=5+preventDoS_additionalLines_;
+		while (((socket_->read(line, false) > 0)) && (cnt--)) {
+			if (line.find ("A004 OK") == 0)
+				break;
+			if (line.find ("A004") == 0) {
+				socket_->write ("A005 LOGOUT\r\n");
+				socket_->close ();
+				return;
+			}
 			if (line.size() > 0) {
 				mail.push_back (line.substr(0, line.size()-1));
 #ifdef DEBUG
 				g_print ("+");
 #endif
 			}
-			if (!socket_->read (line, false)) return;
 		}
 #ifdef DEBUG
 		g_print ("\n");
 #endif
+		if ((!socket_->status()) || (cnt<0)) return;
 
-		// Remove two last lines which are an empty line and a line with a closing parenthesis
+		// Remove two last lines which are an empty line and a line with a
+		// closing parenthesis
 		mail.pop_back();
 		mail.pop_back();
+
 
 		line = std::string ("A005 FETCH ") + s.str() + std::string (" (FLAGS BODY.PEEK[TEXT])\r\n");
 		if (!socket_->write (line)) return;
