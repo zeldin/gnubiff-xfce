@@ -571,16 +571,11 @@ void Mailbox::parse (std::vector<std::string> &mail, int status,
 void 
 Mailbox::start_checking (void)
 {
-	// While checking no one else must have read access: Too many things are
-	// changing.
-	// NOTE: When idling etc. while checking, this lock must be freed
-//	g_mutex_lock (mutex_);
-
 	// Initialization
 	status_ = MAILBOX_CHECK;
 	new_unread_.clear ();
 	new_seen_.clear ();
-	mails_to_be_displayed_.clear ();
+	new_mails_to_be_displayed_.clear ();
 
 	// Fetch mails
 	fetch ();
@@ -593,8 +588,7 @@ Mailbox::start_checking (void)
 	// Save obtained values
 	unread_ = new_unread_;
 	seen_ = new_seen_;
-
-//	g_mutex_unlock (mutex_);
+	mails_to_be_displayed_ = new_mails_to_be_displayed_;
 }
 
 /**
@@ -616,7 +610,7 @@ Mailbox::new_mail(std::string &mailid)
 		new_seen_.insert (mailid);
 		return true;
 	}
-	mails_to_be_displayed_.push_back (mailid);
+	new_mails_to_be_displayed_.push_back (mailid);
 
 	// Mail known?
 	if (unread_.find (mailid) == unread_.end ())

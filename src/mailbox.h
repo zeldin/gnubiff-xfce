@@ -208,6 +208,7 @@ protected:
 	/** This vector contains the uids of all those mails that will be
 	 *  displayed (in the opposite order). */
 	std::vector<std::string>    mails_to_be_displayed_;
+	std::vector<std::string>    new_mails_to_be_displayed_;
 
 public:
 	// ========================================================================

@@ -118,9 +118,7 @@ Version 2.1.1
    - Start of checking for new mail now protocol independent in class Mailbox
    - Bugfix: Number of mails to be displayed distributed correctly among the
         mailboxes
-   - Bugfix: Restriction of read access to mailbox while checking. This was
-        the cause of various smaller problems, mostly noticable when the
-	popup contained false or empty entries.
+   - Bugfix: Displaying popup data correctly
 
 Version 2.1.0
  * Nicolas Rougier
