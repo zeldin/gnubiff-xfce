@@ -100,6 +100,8 @@ Version 2.1.1
 	and parsing the mail again (IMAP4 & POP3)
    - Feature: Do not fetch and parse mails that are not to be displayed anyway
         (IMAP4 & POP3)
+   - Cleanup: Handling untagged responses, sending commands with msn
+        argument (IMAP4)
 
 Version 2.1.0
  * Nicolas Rougier

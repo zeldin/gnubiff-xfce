@@ -435,7 +435,7 @@ Imap4::command_capability (gboolean check_rc) throw (imap_err)
 	// Check for CAPABILITY response code
 	if (check_rc)
 		if (ok_response_codes_.find("CAPABILITY") != ok_response_codes_.end())
-			line = " " + ok_response_codes_["CAPABILITY"];
+			line = " " + ok_response_codes_["CAPABILITY"] + " ";
 
 	// If no response code available send the command
 	if (line.size() == 0) {
@@ -443,16 +443,12 @@ Imap4::command_capability (gboolean check_rc) throw (imap_err)
 		sendline ("CAPABILITY");
 
 		// Wait for "* CAPABILITY" untagged response
-		line=waitfor_untaggedresponse("CAPABILITY");
+		waitfor_untaggedresponse (0, "CAPABILITY");
+		line = " " + last_untagged_response_arg_ + " ";
 
 		// Getting the acknowledgment
 		waitfor_ack();
 	}
-
-	// Remark: We have a space-separated listing. In order to not match
-	// substrings we have to include the spaces when comparing. To match the
-	// last entry we have to convert '\n' to ' '
-	line[line.size()-1]=' ';
 
 	// Looking for supported capabilities
 	idleable_ = use_idle () && (line.find (" IDLE ") != std::string::npos);
@@ -487,10 +483,6 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 {
 	std::string line;
 
-	// Message sequence number
-	std::stringstream ss;
-	ss << msn;
-
 	// Do we have to get any plain text?
 	if (partinfo.part_=="") {
 		mail.push_back(std::string(_("[This mail has no \"text/plain\" part]")));
@@ -519,12 +511,11 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	textsizestr << textsize;
 
 	// Send command
-	line = "FETCH " + ss.str() + " (BODY.PEEK[" + partinfo.part_ + "]<0.";
-	line+= textsizestr.str() + ">)";
-	sendline (line);
+	line = "(BODY.PEEK[" + partinfo.part_ + "]<0." + textsizestr.str() + ">)";
+	sendline ("FETCH", msn, line);
 
 	// Wait for "* ... FETCH" untagged response (see RFC 3501 7.4.2)
-	line=waitfor_untaggedresponse(ss.str() + " FETCH");
+	waitfor_untaggedresponse (msn, "FETCH");
 			
 #ifdef DEBUG
 	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
@@ -534,7 +525,7 @@ Imap4::command_fetchbody (guint msn, class PartInfo &partinfo,
 	gint lineno=0, bytes=textsize+3; // ")\r\n" at end of mail
 	while ((bytes>0) && (readline (line, false, true, false))) {
 		bytes-=line.size()+1; // don't forget to count '\n'!
-		if ((line.size() > 0) && (lineno++<bodyLinesToBeRead_)) {
+		if ((line.size() > 0) && (lineno++ < bodyLinesToBeRead_)) {
 			mail.push_back (line.substr(0, line.size()-1));
 #ifdef DEBUG
 			g_print ("+");
@@ -579,24 +570,20 @@ Imap4::command_fetchbodystructure (guint msn) throw (imap_err)
 	std::string line, response;
 	guint nestlevel=0;
 
-	// Message sequence number
-	std::stringstream ss;
-	ss << msn;
-
 	// Send command
-	sendline ("FETCH " +ss.str()+ " (BODYSTRUCTURE)");
+	sendline ("FETCH", msn, "(BODYSTRUCTURE)");
 
 	// Wait for "* ... FETCH (BODYST..." untagged response (see RFC 3501 7.4.2)
-	line=waitfor_untaggedresponse(ss.str() + " FETCH (BODYSTRUCTURE (");
+	waitfor_untaggedresponse (msn, "FETCH", "(BODYSTRUCTURE (");
 
 	// Get the whole response (may be multiline)
-	response=line.substr(25+ss.str().size(),line.size()-27-ss.str().size());
+	response = last_untagged_response_arg_.substr (16); // "(BODYSTRUCTURE ("
 	gint cnt=preventDoS_imap4_multilineResponse_;
 	while ((nestlevel=isfinished_fetchbodystructure(line,nestlevel))&&(cnt--)){
 		readline (line, true, true, false);
 		response += line.substr (0, line.size()-1); // trailing '\r'
 	}
-	if (cnt<0) throw imap_dos_err();
+	if (cnt < 0) throw imap_dos_err();
 	response=response.substr(0,response.size()-1); // trailing ')'
 
 	// Get part of mail that contains "text/plain" (if any exists) and its
@@ -636,26 +623,20 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 {	
 	// Start with an empty mail
 	std::vector<std::string> mail;
-	mail.clear();
 
-	// Message sequence number
-	std::stringstream ss;
-	ss << msn;
-		
 	// Send command
-	std::string line;
-	line="FETCH "+ss.str()+" (BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])";
-	sendline (line);
+	sendline ("FETCH", msn, "(BODY.PEEK[HEADER.FIELDS (DATE FROM SUBJECT)])");
 
 	// Wait for "* ... FETCH" untagged response (see RFC 3501 7.4.2)
-	line=waitfor_untaggedresponse(ss.str() + " FETCH");
+	waitfor_untaggedresponse(msn, "FETCH");
 		
 	// Date, From, Subject and an empty line
 #ifdef DEBUG
 	g_print ("** Message: [%d] RECV(%s:%d): (message) ", uin_,
 			 address_.c_str(), port_);
 #endif
-	gint cnt=5+preventDoS_additionalLines_;
+	std::string line;
+	gint cnt = 5 + preventDoS_additionalLines_;
 	while ((readline (line, false, true, false)) && (cnt--)) {
 		if (line.find (tag()) == 0)
 			break;
@@ -700,20 +681,14 @@ Imap4::command_fetchheader (guint msn) throw (imap_err)
 std::string 
 Imap4::command_fetchuid (guint msn) throw (imap_err)
 {
-	std::string line;
-
-	// Message sequence number
-	std::stringstream ss;
-	ss << msn;
-
 	// Send command
-	sendline ("FETCH " +ss.str()+ " (UID)");
+	sendline ("FETCH", msn, "(UID)");
 
 	// Wait for "* ... FETCH (UID ...)" untagged response (see RFC 3501 7.4.2)
-	line=waitfor_untaggedresponse(ss.str() + " FETCH (UID ");
+	waitfor_untaggedresponse (msn, "FETCH" , "(UID ");
 
 	// Get uid
-	line=line.substr(ss.str().size() + 14);
+	std::string line=last_untagged_response_arg_.substr (5);
 	guint pos=line.find(")");
 	if ((pos == 0) || (pos == std::string::npos)) throw imap_command_err();
 
@@ -754,7 +729,7 @@ Imap4::command_idle(gboolean &sentdone) throw (imap_err)
 		sentdone = false;
 
 		// IDLE
-		sendline (std::string("IDLE"));
+		sendline ("IDLE");
 		
 		// Read continuation response
 		readline (line);
@@ -805,15 +780,12 @@ Imap4::command_idle(gboolean &sentdone) throw (imap_err)
 void 
 Imap4::command_login (void) throw (imap_err)
 {
-	std::string line;
-
 	// Sending the command
-	line = "LOGIN \"" + username_ + "\" \"" + password_ + "\"";
-	sendline (line, false);
+	sendline ("LOGIN \"" + username_ + "\" \"" + password_ + "\"", false);
 
 #ifdef DEBUG
 	// Just in case someone sends me the output: password won't be displayed
-	line = tag() + "LOGIN \"" + username_ + "\" (password) \r\n";
+	std::string line = tag() + "LOGIN \"" + username_ + "\" (password) \r\n";
 	g_message ("[%d] SEND(%s:%d): %s", uin_, address_.c_str(), port_,
 			   line.c_str());
 #endif
@@ -853,7 +825,7 @@ Imap4::command_logout (void) throw (imap_err)
 void 
 Imap4::command_select (void) throw (imap_err)
 {
-	gchar *buffer=utf8_to_imaputf7(folder_.c_str(),-1);
+	gchar *buffer=utf8_to_imaputf7 (folder_.c_str(),-1);
 	if (!buffer) throw imap_command_err();
 
 	// Send command
@@ -894,31 +866,19 @@ Imap4::command_select (void) throw (imap_err)
 std::vector<int> 
 Imap4::command_searchnotseen (void) throw (imap_err)
 {
-	std::string line;
-
 	// Sending the command
 	sendline ("SEARCH NOT SEEN");
 
 	// Wait for "* SEARCH" untagged response
-	line=waitfor_untaggedresponse("SEARCH");
+	waitfor_untaggedresponse (0, "SEARCH");
+	std::stringstream ss (last_untagged_response_arg_);
 
 	// Parse server's answer. Should be something like
 	// "* SEARCH 1 2 3 4" or "* SEARCH"
-	// (9 is size of "* SEARCH ")
 	std::vector<int> buffer;
-	buffer.clear();
-	if (line.size() > 9) {
-		line = line.substr (9);
-		int n = 0;
-		for (guint i=0; i<line.size(); i++) {
-			if (line[i] >= '0' && line[i] <= '9')
-				n = n*10 + int(line[i]-'0');
-			else {
-				buffer.push_back (n);
-				n = 0;
-			}
-		}
-	}
+	guint n;
+	while (ss >> n)
+		buffer.push_back (n);
 
 	// Getting the acknowledgment
 	waitfor_ack();
@@ -978,27 +938,29 @@ Imap4::waitfor_ack (std::string msg, gint num) throw (imap_err)
 
 /**
  * Reading and discarding input lines from the server's response until a
- * specified untagged response is read. The tag "* " is added to
- * {\em response} by this function. Then lines are read until a line begins
- * with this string, this line is returned. If no such line is read in time and
- * a DoS attack is suspected an imap_dos_err exception is thrown.
+ * specified untagged response is read. Then lines are read until the specified
+ * untagged response is sent by the server. If no such line is read in time a
+ * DoS attack is suspected and an imap_dos_err exception is thrown.
  *
  * Response codes for "* OK" responses are saved in Imap4::ok_response_codes_,
  * which is being reset when calling this function.
  *
- * @param     response Untagged response to look for (without the leading "* ")
- * @param     num      Number of lines that are expected to be sent by the
- *                     server before the untagged response. This value is
- *                     needed to help deciding whether we are DoS attacked.
- *                     The default value is 0.
+ * @param msn      Message sequence number to be tested. This must be 0 if the
+ *                 response shall not contain a message sequence number.
+ * @param key      Key to be tested
+ * @param argbegin This is tested for being the prefix of the argument. The
+ *                 default is the empty string.
+ * @param     num  Number of lines that are expected to be sent by the
+ *                 server before the untagged response. This value is
+ *                 needed to help deciding whether we are DoS attacked.
+ *                 The default value is 0.
  * @exception imap_dos_err
- *                     This exception is thrown when a DoS attack is suspected.
+ *                 This exception is thrown when a DoS attack is suspected.
  * @exception imap_socket_err
- *                     This exception is thrown if a network error occurs.
  */
-std::string 
-Imap4::waitfor_untaggedresponse (std::string response, gint num)
-								 throw (imap_err)
+void 
+Imap4::waitfor_untaggedresponse (guint msn, std::string key, 
+								 std::string argbegin,gint num) throw(imap_err)
 {
 	std::string line;
 
@@ -1008,14 +970,13 @@ Imap4::waitfor_untaggedresponse (std::string response, gint num)
 	// We need to set a limit to lines read (DoS attacks).
 	num+=1+preventDoS_additionalLines_;
 
-	response="* " + response;
 	while (num--) {
 		readline (line);
-		if (line.find (response) == 0)
-			return line;
+		if (test_untagged_response (msn, key, argbegin))
+			return;
 	}
 	g_warning (_("[%d] Server doesn't send untagged \"%s\" response"), uin_,
-			   response.c_str());
+			   key.c_str());
 	throw imap_dos_err();
 }
 
@@ -1305,37 +1266,36 @@ Imap4::tag ()
 }
 
 /**
- * Save the response code from the given server response line.
+ * Save the response code from the last line sent by the server. This line
+ * must contain a response code, otherwise an imap_command_err exception is
+ * thrown.
  *
- *
- * @param line     Response line of the server
  * @param rc_map   Map for response codes (pairs of atoms and arguments)
  * @exception imap_command_err
  *                 This exception is thrown if {\em line} doesn't contain a
  *                 valid response code.
  */
 void 
-Imap4::save_response_code (std::string &line,
-						   std::map<std::string,std::string> &rc_map)
+Imap4::save_response_code (std::map<std::string,std::string> &rc_map)
 						   throw (imap_err)
 {
 	gboolean is_string = false;
-	guint pos = line.find("["), startpos = pos+1;
+	guint pos = 0, startpos = 1;
 
 	// No response code in line
-	if (pos == std::string::npos) throw imap_command_err();
+	if (last_untagged_response_arg_[0] != '[') throw imap_command_err();
 
 	// Get end of response code
-	while ((++pos) < line.size()) {
-		if (line[pos] == '"') // FIXME: '"' in strings?
+	while ((++pos) < last_untagged_response_arg_.size()) {
+		if (last_untagged_response_arg_[pos] == '"') // FIXME: '"' in strings?
 			is_string = !is_string;
-		if ((line[pos] == ']') && !is_string)
+		if ((last_untagged_response_arg_[pos] == ']') && !is_string)
 			break;
 	}
-	if (pos == line.size()) throw imap_command_err();
+	if (pos == last_untagged_response_arg_.size ()) throw imap_command_err();
 
 	// Get atom and (if available) arguments
-	std::string rc=line.substr(startpos, pos-startpos);
+	std::string rc=last_untagged_response_arg_.substr(startpos, pos-startpos);
 	std::string atom, arg;
 	pos=rc.find(" ");
 	if (pos==std::string::npos)
@@ -1348,9 +1308,79 @@ Imap4::save_response_code (std::string &line,
 	// Save response code
 	rc_map[atom] = arg;
 #ifdef DEBUG
-	g_message ("[%d] Saved response code to untagged response: atom=\"%s\" arg=\"%s\"",
+	g_message ("[%d] Saved response code to untagged status response: atom=\"%s\" arg=\"%s\"",
 			   uin_, atom.c_str(), arg.c_str());
 #endif
+}
+
+/**
+ * Parse untagged server's response. If the given line {\em line} is an
+ * untagged response it is split into the message number (if present), the
+ * keyword that gives the type of the response and the arguments (if present).
+ * If {\em line} is no untagged response this function returns immediately.
+ *
+ * @param line     Response line of the server
+ * @exception imap_command_err
+ *                 This exception is thrown if {\em line} doesn't contain a
+ *                 untagged response that is not valid.
+ */
+void 
+Imap4::save_untagged_response (std::string &line) throw (imap_err)
+{
+	// Is there no untagged response?
+	if (line.find("* ") != 0) {
+		last_untagged_response_ = false;
+		return;
+	}
+
+	// Defaults
+	last_untagged_response_ = true;
+	last_untagged_response_msn_ = 0;
+	last_untagged_response_arg_ = std::string("");
+	last_untagged_response_key_ = std::string("");
+
+	guint pos = 2;
+	// Handling the message sequence number
+	if (g_ascii_isdigit (line[2])) {
+		while (g_ascii_isdigit (line[++pos]));// terminates because '\r' at end
+		pos++;
+		std::stringstream ss (line.substr (2, pos-3));
+		ss >> last_untagged_response_msn_;
+	}
+
+	// Find the separating space between key and arguments (if it exists)
+	guint pos_sep = line.find (" ", pos);
+
+	if (pos_sep == std::string::npos)
+		last_untagged_response_key_ = line.substr (pos, line.size()-pos+1);
+	else {
+		if (pos == pos_sep) throw imap_command_err();
+		last_untagged_response_key_ = line.substr (pos, pos_sep-pos);
+		last_untagged_response_arg_ = line.substr (pos_sep+1,
+												   line.size()-pos_sep);
+	}
+}
+
+/**
+ * Test if the last line sent by the server was the specified untagged
+ * response.
+ *
+ * @param msn      Message sequence number to be tested. This must be 0 if the
+ *                 response shall not contain a message sequence number.
+ * @param key      Key to be tested
+ * @param argbegin This is tested for being the prefix of the argument. The
+ *                 default is the empty string.
+ * return          True if the last line sent by the server was a untagged
+ *                 response with the given attributes.
+ */
+gboolean 
+Imap4::test_untagged_response (guint msn, std::string key,
+								std::string argbegin)
+{
+	return (last_untagged_response_
+			&& (msn == last_untagged_response_msn_)
+			&& (key == last_untagged_response_key_)
+			&& (last_untagged_response_arg_.find (argbegin) == 0));
 }
 
 /**
@@ -1365,7 +1395,7 @@ Imap4::save_response_code (std::string &line,
  * otherwise (if {\em check} is false) error handling is left to the caller of
  * this function.
  *
- * @param command  IMAP command to be sent
+ * @param command  IMAP command line to be sent
  * @param print    Shall the sent command be printed in debug mode?
  *                 The default is true.
  * @param check    Shall the return value of the Socket::write() command be
@@ -1396,28 +1426,64 @@ Imap4::sendline (const std::string command, gboolean print, gboolean check)
 }
 
 /**
+ * Send an IMAP command. The command line will be created by concatenating
+ * {\em command}, {\em msn} and {\em arg}.
+ *
+ * @param command  IMAP command to be sent
+ * @param msn      Message sequence number argument to the command
+ * @param arg      Other arguments to the command
+ * @param print    Shall the sent command be printed in debug mode?
+ *                 The default is true.
+ * @param check    Shall the return value of the Socket::write() command be
+ *                 checked? The default is true.
+ * @return         Return value of the Socket::write() command, this is always
+ *                 SOCKET_STATUS_OK if {\em check} is true.
+ * @exception imap_command_err
+ *                 This exception is thrown if we can't create the string to be
+ *                 sent to the server.
+ * @exception imap_socket_err
+ *                 This exception is thrown if a network error occurs.
+ * @see            The description of the method Imap4::sendline() contains a
+ *                 more extensive description for the parameter {\em check}.
+ */
+gint 
+Imap4::sendline (const std::string command, guint msn,
+				 const std::string arg, gboolean print, gboolean check)
+				 throw (imap_err)
+{
+	std::stringstream ss;
+	ss << msn;
+	return sendline (command + " " + ss.str() + " " + arg, print, check);
+}
+
+/**
  * Read one line from the server. If {\em check} is true the return value of
  * the call to Socket::read() is checked and an imap_socket_err exception is
  * thrown if it was not successful. So this function always returns
  * SOCKET_STATUS_OK if {\em check} is true, otherwise (if {\em check} is
  * false) error handling is left to the caller of this function.
  *
- * If {\em checkline} is true then the read line is checked for an untagged
- * response. If an error response is found ("* BYE" or "* BAD") an error
- * message is printed and an imap_command_err exception is thrown. If a
- * warning response ("* NO") is found the warning is printed.
+ * If {\em checkline} is true then the read line is checked for being an
+ * untagged response. If it is an untagged response the line is parsed and its
+ * values are saved for later use.
  *
- * If {\em checkline} is true server response codes for "* OK" server responses
- * are saved in Imap4::ok_response_codes_. No response codes are currently
- * saved for other responses than "* OK".
+ * If {\em checkline} is true then the read line is checked for being an
+ * untagged status response. If an error response is found
+ * ("* BYE" or "* BAD") an error message is printed and an imap_command_err
+ * exception is thrown. If a warning response ("* NO") is found the warning is
+ * printed.
+ *
+ * If {\em checkline} is true server response codes for "* OK" server status
+ * responses are saved in Imap4::ok_response_codes_. No response codes are
+ * currently saved for other status responses than "* OK".
  *
  * Remark: If the mailbox is not checking for new mail and we get a "* BYE"
  * message (when idling for example) an imap_command_err exception is thrown
  * but mailbox status will not be set to MAILBOX_ERROR.
  *
  * Remark: The parameter {\em checkline} must be false if reading the response
- * to the "LOGOUT" command because an untagged "* BYE" response doesn't
- * indicate an error.
+ * to the "LOGOUT" command because in this situation an untagged "* BYE"
+ * response doesn't indicate an error.
  *
  * @param line      String that contains the read line if the call was
  *                  successful (i.e. the return value is SOCKET_STATUS_OK),
@@ -1442,27 +1508,32 @@ Imap4::readline (std::string &line, gboolean print, gboolean check,
 {
 	// Read line
 	gint status=socket_->read(line, print, check);
-	if (check && (status!=SOCKET_STATUS_OK)) throw imap_socket_err();
+	if (check && (status != SOCKET_STATUS_OK)) throw imap_socket_err();
 
 	// Check for an untagged negative response
 	if (!checkline)
 		return status;
-	if (line.find("* BYE") == 0) { // see RFC 3501 7.1.5
+	// Save untagged response
+	save_untagged_response (line);
+	if (!last_untagged_response_)
+		return status;
+	// Parse specific untagged responses
+	if (test_untagged_response (0, "OK", "[")) // see RFC 3501 7.1
+		save_response_code(ok_response_codes_);
+	else if (test_untagged_response (0, "BYE")) { // see RFC 3501 7.1.5
 		g_warning (_("[%d] Server closes connection immediately:%s"),
 				   uin_, line.substr(5,line.size()-5).c_str());
 		throw imap_command_err(status_ == MAILBOX_CHECK);
 	}
-	if (line.find("* BAD") == 0) { // see RFC 3501 7.1.3
+	else if (test_untagged_response (0, "BAD")) { // see RFC 3501 7.1.3
 		g_warning (_("[%d] Internal server failure or unknown error:%s"),
 				   uin_, line.substr(5,line.size()-5).c_str());
 		throw imap_command_err();
 	}
-	if (line.find("* NO") == 0) // see RFC 3501 7.1.2
+	else if (test_untagged_response (0, "NO")) { // see RFC 3501 7.1.2
 		g_warning (_("[%d] Warning from server:%s"), uin_,
 				   line.substr(4,line.size()-4).c_str());
-	// Get server response code if available; see RFC 3501 7.1
-	if (line.find("* OK [") == 0)
-		save_response_code(line, ok_response_codes_);
+	}
 	return status;
 }
 
@@ -1489,7 +1560,7 @@ Imap4::readline (std::string &line, gboolean print, gboolean check,
  * @exception imap_socket_err
  *                  This exception is thrown if a network error occurs.
  * @see             The description of the method Imap4::readline() contains a
- *                  more extensive description of the parameters {\em check}
+ *                  more extensive description for the parameters {\em check}
  *                  and {\em checkline} and some information regarding
  *                  exception handling.
  */
@@ -1502,10 +1573,14 @@ Imap4::readline_ignoreinfo (std::string &line, gboolean print, gboolean check,
 	do {
 		status=readline (line, print, check, checkline);
 		// Check for information or warning message
-		if ((line.find("* OK") != 0) && (line.find("* NO") != 0))
+		if (!last_untagged_response_)
+			break;
+		if (last_untagged_response_key_ == "OK")
+			continue;
+		if (last_untagged_response_key_ != "NO")
 			break;
 	} while ((status==SOCKET_STATUS_OK) && (cnt--));
-	if (cnt<0) throw imap_dos_err();
+	if (cnt < 0) throw imap_dos_err();
 
 	return status;
 }

@@ -64,6 +64,15 @@ class Imap4 : public Mailbox {
 	/** Map of pairs (atom, arg) that represent the last sent server response
 	 *  codes via untagged "* OK" server responses. */
 	std::map<std::string, std::string> ok_response_codes_;
+	/// Was the last line sent by the server an untagged response?
+	gboolean					last_untagged_response_;
+	/// Arguments of the last untagged response. This value may be empty.
+	std::string					last_untagged_response_arg_;
+	/// Keyword of the last untagged response
+	std::string					last_untagged_response_key_;
+	/** Message sequence number of the last untagged response. This value is
+	 *  0 if there was no message sequence number. */
+	guint						last_untagged_response_msn_;
  public:
 	// ========================================================================
 	//  base
@@ -150,19 +159,25 @@ class Imap4 : public Mailbox {
 	void command_select (void) throw (imap_err);
 	void waitfor_ack (std::string msg=std::string(""),
 					  gint num=0) throw (imap_err);
-	std::string waitfor_untaggedresponse (std::string, gint num=0)
-										  throw (imap_err);
+	void waitfor_untaggedresponse (guint, std::string,
+								   std::string argbegin = std::string(""),
+								   gint num = 0) throw (imap_err);
 	void reset_tag();
 	std::string tag();
 	gint sendline (const std::string, gboolean print=true, gboolean check=true)
 				   throw (imap_err);
+	gint sendline (const std::string, guint, const std::string,
+				   gboolean print=true, gboolean check=true) throw (imap_err);
 	gint readline (std::string &, gboolean print=true, gboolean check=true,
 				   gboolean checkline=true) throw (imap_err);
 	gint readline_ignoreinfo (std::string &, gboolean print=true,
 							  gboolean check=true, gboolean checkline=true)
 							  throw (imap_err);
-	void save_response_code (std::string &,std::map<std::string,std::string> &)
+	void save_response_code (std::map<std::string, std::string> &)
 							 throw (imap_err);
+	void save_untagged_response (std::string &) throw (imap_err);
+	gboolean test_untagged_response (guint, std::string,
+									 std::string argbegin = std::string (""));
 	void update_applet();
 	void idle() throw (imap_err);
 };
