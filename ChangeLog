@@ -41,6 +41,7 @@ Version 2.0.3
      (POP3 & IMAP)
    - Bugfixes in displaying first lines of mails
    - Bugfix: Creating different tags for different commands (IMAP)
+   - Update of man page (command line options, version, date)
    
 
 Version 2.0.2
