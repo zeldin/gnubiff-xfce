@@ -185,5 +185,11 @@ public:
  */
 const gint preventDoS_additionalLines_=16;
 
+/**
+ * To prevent being DoS attacked (see above): Limit for length of a read line.
+ * SMTP: maximum line length is 1001 (see RFC 2821 4.5.3.1)
+ * IMAP: no maximum line length
+ */
+const gint preventDoS_lineLength_=16384;
 
 #endif

@@ -275,10 +275,13 @@ Imap4::get_header (void)
 	// SEARCH NOT SEEN
 	if (!socket_->write ("A003 SEARCH NOT SEEN\r\n")) return;
 
-	while (socket_->read(line))
+	// We need to set a limit to lines read (DoS Attacks).
+	// Expected response "* SEARCH ..." should be in the next line.
+	gint cnt=1+preventDoS_additionalLines_;
+	while (((socket_->read(line) > 0)) && (cnt--))
 		if (line.find ("* SEARCH") == 0)
 			break;
-	if (!socket_->status()) return;
+	if ((!socket_->status()) || (cnt<0)) return;
 
 	// Parse server answer
 	// Should be something like
@@ -298,10 +301,11 @@ Imap4::get_header (void)
 		}
 	}
 
-	while ((socket_->read(line) > 0))
+	cnt=1+preventDoS_additionalLines_;
+	while ((socket_->read (line) > 0) && (cnt--))
 		if (line.find ("A003") != std::string::npos)
 			break;
-	if (!socket_->status()) return;
+	if ((!socket_->status()) || (cnt<0)) return;
 
 
 	// FETCH NOT SEEN

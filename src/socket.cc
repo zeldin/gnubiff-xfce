@@ -267,7 +267,7 @@ Socket::read (std::string &line,
 	line = "";
 	status_ = -1;
 
-	gint cnt=1004; // see RFC 2821 4.5.3.1
+	gint cnt=1+preventDoS_lineLength_; 
 #ifdef HAVE_LIBSSL
 	if (use_ssl_) {
 		while ((0<cnt--) && ((status = SSL_read (ssl_, &buffer, 1)) > 0)
