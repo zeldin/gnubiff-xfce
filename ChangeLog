@@ -110,6 +110,11 @@ Version 2.1.1
    - Change: biff->max_mail_ is now the number of message sequence numbers
         that are obtained from the server (IMAP4)
    - Bugfix: Respect biff_->use_max_mail_ (IMAP4)
+   - Feature: Get all unique ids via one POP command if this is possible (i.e.
+        if the total number of unread messages on the server is not greater
+        than max_mail_). So only 5 (POP3) or 4 (APOP) POP commands needed for
+        a update when no new messages are available (POP3)
+   - Bugfix: Respect use_max_mail_ (POP3)
 
 Version 2.1.0
  * Nicolas Rougier

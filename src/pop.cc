@@ -184,6 +184,10 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 {
 	// We are checking for mails now
 	status_ = MAILBOX_CHECK;
+	new_unread_.clear();
+	new_seen_.clear();
+	std::set<std::string> new_saved_uid;
+	std::map<guint,std::string> msg_uid;
 
 	// STAT
 	guint total = command_stat ();
@@ -192,20 +196,24 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 	// so we have to check the total number and find corresponding
 	// starting index (start).
 	guint start = 1, num = biff_->max_mail_;
-	if (total > biff_->max_mail_)
+	if ((biff_->use_max_mail_) && (total > biff_->max_mail_))
 		start = 1 + total - biff_->max_mail_;
 	else
 		num = total;
 
-	// Fetch mails
-	new_unread_.clear();
-	new_seen_.clear();
+	// UIDL
+	if (num == total)
+		msg_uid = command_uidl_all (total);
 
+	// Fetch mails
 	std::vector<std::string> mail;
-	std::set<std::string> new_saved_uid;
+	std::string uid;
 	for (guint i=0; i< num; i++) {
 		// UIDL
-		std::string uid=command_uidl (i+start);
+		if (msg_uid.empty())
+			uid = command_uidl (i+start);
+		else
+			uid = msg_uid[i+start];
 		new_saved_uid.insert (uid);
 
 		if (statusonly)
@@ -376,6 +384,42 @@ Pop::command_top (std::vector<std::string> &mail, guint msg) throw (pop_err)
 }
 
 /**
+ * Sending the POP3 command "UIDL" to get the unique id for all mails.
+ *
+ * @param  total       Total number of messages
+ * @return             Map of pairs (message number, unique id).
+ * @exception pop_command_err
+ *                     This exception is thrown if there is an error in the
+ *                     server's response.
+ * @exception pop_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+std::map<guint,std::string> 
+Pop::command_uidl_all (guint total) throw (pop_err)
+{
+	std::map<guint,std::string> msg_uid;
+	std::string line, uid;
+	guint msg_int;
+
+	// Send command
+	sendline ("UIDL");
+	readline (line); // line is "+OK" (see RFC 1939 7.)
+
+	for (guint msg=1; msg <= total; msg++) {
+		readline (line, true, true, false);
+		std::stringstream ss(line);
+		ss >> msg_int >> uid;
+		if (msg_int != msg) throw pop_command_err ();
+		if ((uid.size() > 70) || (uid.size() == 0)) throw pop_command_err ();
+		msg_uid[msg] = uid;
+	}
+	readline (line, true, true, false); // line is ".\r"
+	if (line != ".\r") throw pop_command_err ();
+
+	return msg_uid;
+}
+
+/**
  * Sending the POP3 command "UIDL" to get the unique id for a mail.
  *
  * @param  msg         Message number of the mail in question
@@ -389,16 +433,19 @@ Pop::command_top (std::vector<std::string> &mail, guint msg) throw (pop_err)
 std::string 
 Pop::command_uidl (guint msg) throw (pop_err)
 {
-	std::string line, uid, dummy;
+	std::string line, uid;
+	guint msg_int;
 
 	std::stringstream ss_msg;
 	ss_msg << msg;
+
+	// Send command
 	sendline ("UIDL " + ss_msg.str ());
 	readline (line); // line is "+OK msg uidl" (see RFC 1939 7.)
 
 	std::stringstream ss(line.substr(4));
-	ss >> dummy >> uid;
-	if (dummy != ss_msg.str()) throw pop_command_err ();
+	ss >> msg_int >> uid;
+	if (msg_int != msg) throw pop_command_err ();
 	if ((uid.size() > 70) || (uid.size() == 0)) throw pop_command_err ();
 
 	return uid;
