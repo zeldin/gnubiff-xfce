@@ -13,7 +13,28 @@ Version 2.0.2
  * Bug fix when panel is vertically oriented
  * Bug fix in applet or biff font to be always bold
  * Bug fix when asking for password or certificate
+ * Bug fix in apop.cc (debug message)
  * Mail count added in gtk applet window title
+ * Nicolas Rougier
+   - Some fixes for FreeBSD  (missing include, string::clear replaced by string::erase)
+ * Roland Stigge:
+   - updated po/{nl,de}.po
+   - finally fixed g++-3.4 compile error (Debian bug #271288)
+ * Robert Sowada:
+   - Various small changes
+   - Bugfix: User can no longer make config file invalid by using XML 
+     sensitive characters in strings
+   - Bugfixes in setting file permissions
+   - File permissions are only set when creating a new config file. So the user
+     is able to change to less restrictive permissions if he/she wants to do
+     this
+   - Bugfix in detection of animation information (via filename)
+   - Bugfixes in detection of local mailbox format
+   - Bugfix in mh protocol
+   - Bugfixes in handling of sound filename
+   - Bugfixes in string handling
+   - Bugfix in "new mail" and "no mail" tooltips
+   - Security Bugfix: DoS attacks by sending unterminated lines anticipated
 
 
 Version 2.0.1
