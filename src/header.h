@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -35,6 +35,7 @@
 #ifdef HAVE_CONFIG_H
 #   include <config.h>
 #endif
+#include <functional>
 
 /**
  *  All the information about a specific mail needed by gnubiff. Headers are

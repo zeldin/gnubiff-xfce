@@ -158,6 +158,7 @@ Version 2.1.1
         activated
    - Feature: Print whether expert tab will be shown at the end of configure
    - Updated gnubiff.texi file
+   - Include an additional file to support FreeBSD 4 (thanks to Tim Bishop)
 
 Version 2.1.0
  * Nicolas Rougier
