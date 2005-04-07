@@ -35,6 +35,7 @@
 #include "file.h"
 #include "maildir.h"
 #include "mh.h"
+#include "mh_sylpheed.h"
 #include "imap4.h"
 #include "pop3.h"
 #include "apop.h"
@@ -493,9 +494,12 @@ Mailbox::lookup_local (Mailbox &oldmailbox)
 	if (g_file_test (addr.c_str(), G_FILE_TEST_IS_DIR)) {
 		std::string file_new = add_file_to_path (addr, "new");
 		std::string file_seq = add_file_to_path (addr, ".mh_sequences");
+		std::string file_syl = add_file_to_path (addr,".sylpheed_mark");
 
 		if (g_file_test (file_seq.c_str(), G_FILE_TEST_IS_REGULAR))
 			mailbox = new Mh (oldmailbox);
+		if (g_file_test (file_syl.c_str(), G_FILE_TEST_IS_REGULAR))
+			mailbox = new Mh_Sylpheed (oldmailbox);
 		else if (base == "new")
 			mailbox = new Maildir (oldmailbox);
 		else if (g_file_test (file_new.c_str(), G_FILE_TEST_IS_DIR)) {
@@ -507,6 +511,10 @@ Mailbox::lookup_local (Mailbox &oldmailbox)
 	else if (g_file_test (addr.c_str(), G_FILE_TEST_EXISTS)) {
 		if (base == ".mh_sequences") {
 			mailbox = new Mh (oldmailbox);
+			mailbox->address (path_get_dirname (addr));
+		}
+		else if (base == ".sylpheed_mark") {
+			mailbox = new Mh_Sylpheed (oldmailbox);
 			mailbox->address (path_get_dirname (addr));
 		}
 		else

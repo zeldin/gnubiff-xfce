@@ -21,41 +21,40 @@
 // File          : $RCSfile$
 // Revision      : $Revision$
 // Revision date : $Date$
-// Author(s)     : Nicolas Rougier
-// Short         : 
+// Author(s)     : Robert Sowada, Nicolas Rougier
+// Short         : Mh protocol as used by Sylpheed
 //
 // This file is part of gnubiff.
 //
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#ifndef __NLS_H__
-#define __NLS_H__
+#ifndef __MH_SYLPHEED_H__
+#define __MH_SYLPHEED_H__
 
-#ifdef HAVE_CONFIG_H
-#   include "config.h"
-#endif
+#include <glib.h>
+#include <vector>
+#include "mh_basic.h"
 
-#ifdef ENABLE_NLS
-#  include<libintl.h>
-#  ifndef USE_GNOME
-#    define _(String) dgettext(GETTEXT_PACKAGE,String)
-#  else
-#    include <gnome.h>
-#  endif
-#  ifdef gettext_noop
-#    define N_(String) gettext_noop(String)
-#  else
-#    define N_(String) (String)
-#  endif
-#else
-#  define _(String) (String)
-#  define N_(String) (String)
-#  define textdomain(String) (String)
-#  define gettext(String) (String)
-#  define dgettext(Domain,String) (String)
-#  define dcgettext(Domain,String,Type) (String)
-#  define bindtextdomain(Domain,Directory) (Domain)
-#endif
+
+class Mh_Sylpheed : public Mh_Basic {
+
+protected:
+
+public:
+	// ========================================================================
+	//  base
+	// ========================================================================
+	Mh_Sylpheed (class Biff *biff);
+	Mh_Sylpheed (const Mailbox &other);
+	~Mh_Sylpheed (void);
+
+	// ========================================================================
+	//  main
+	// ========================================================================
+	gboolean get_messagenumbers (std::vector<guint> &msn,
+								 gboolean empty = true);
+	std::string file_to_monitor (void);
+};
 
 #endif

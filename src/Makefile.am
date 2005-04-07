@@ -29,6 +29,7 @@ common_sources = \
 	maildir.cc				maildir.h				\
 	mh.cc					mh.h					\
 	mh_basic.cc				mh_basic.h				\
+	mh_sylpheed.cc			mh_sylpheed.h			\
 	pop.cc					pop.h					\
 	apop.cc					apop.h					\
 	pop3.cc					pop3.h					\

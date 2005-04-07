@@ -53,14 +53,15 @@
 #include "maildir.h"
 #include "mh.h"
 #include "mh_basic.h"
+#include "mh_sylpheed.h"
 #include "imap4.h"
 #include "pop3.h"
 #include "apop.h"
 
 
-// ================================================================================
+// ============================================================================
 //  "C" binding
-// ================================================================================
+// ============================================================================
 extern "C" {
 	void BIFF_xml_start_element (GMarkupParseContext *context,
 								 const gchar *element_name,
@@ -719,6 +720,9 @@ Biff::xml_end_element (GMarkupParseContext *context,
 			break;
 		case PROTOCOL_MH_BASIC:
 			mailbox_.push_back (new Mh_Basic (this));
+			break;
+		case PROTOCOL_MH_SYLPHEED:
+			mailbox_.push_back (new Mh_Sylpheed (this));
 			break;
 		case PROTOCOL_MAILDIR:
 			mailbox_.push_back (new Maildir (this));

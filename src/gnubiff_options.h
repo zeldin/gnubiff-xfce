@@ -56,6 +56,7 @@ const guint	PROTOCOL_MAILDIR	=	4;
 const guint	PROTOCOL_MH			=	5;
 const guint	PROTOCOL_APOP		=	6;
 const guint	PROTOCOL_MH_BASIC	=	7;
+const guint	PROTOCOL_MH_SYLPHEED=	8;
 
 const guint	AUTH_AUTODETECT		=	0;
 const guint	AUTH_USER_PASS		=	1;

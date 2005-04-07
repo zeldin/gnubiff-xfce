@@ -19,6 +19,7 @@ Version 2.1.4
    - Cleanup of autodetection code for local mailboxes
    - Cleanup of Imap4::command_fetchuid()
    - Cleanup of mh and maildir protocols
+   - Feature: Support for mh protocol as used by Sylpheed
 
 
 Version 2.1.3		2005-04-03 23:57

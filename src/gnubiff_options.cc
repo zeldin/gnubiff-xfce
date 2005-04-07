@@ -34,10 +34,12 @@
 
 const guint Gnubiff_Options::protocol_int[] = {
 	PROTOCOL_NONE, PROTOCOL_FILE, PROTOCOL_POP3, PROTOCOL_IMAP4,
-	PROTOCOL_MAILDIR, PROTOCOL_MH, PROTOCOL_APOP, PROTOCOL_MH_BASIC, 0
+	PROTOCOL_MAILDIR, PROTOCOL_MH, PROTOCOL_APOP, PROTOCOL_MH_BASIC,
+	PROTOCOL_MH_SYLPHEED, 0
 };
 const gchar *Gnubiff_Options::protocol_gchar[] = {
-	"-", "file", "pop3", "imap4", "maildir", "mh", "apop", "mhbasic", NULL
+	"-", "file", "pop3", "imap4", "maildir", "mh", "apop", "mhbasic",
+	"sylpheed", NULL
 };
 
 /**

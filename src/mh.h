@@ -40,7 +40,6 @@
 class Mh : public Mh_Basic {
 
 protected:
-	std::vector<guint> 		saved_;			// saved uild's
 
 public:
 	// ========================================================================
