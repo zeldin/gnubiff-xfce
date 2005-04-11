@@ -117,6 +117,7 @@ Imap4::threaded_start (guint delay)
 void 
 Imap4::start (void)
 {
+	// Is there already someone watching this mailbox?
 	if (!g_mutex_trylock (monitor_mutex_))
 		return;
 

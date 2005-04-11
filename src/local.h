@@ -58,9 +58,19 @@ public:
 	virtual ~Local (void);
 
 	// ========================================================================
+	//  exceptions
+	// ========================================================================
+	/** Generic exception for local mailboxes serving as a base for more
+	 *  specific exceptions. */
+	class local_err : public mailbox_err {};
+	/// Exception for a problem with the file alteration monitor (FAM).
+	class local_fam_err : public local_err {};
+
+	// ========================================================================
 	//  main
 	// ========================================================================
 	void start (void);								// start method
+	void fam_monitoring (void) throw (local_err);
 	void stop (void);								// stop method
 	virtual std::string file_to_monitor (void);
 	void parse_single_message_file (const std::string &filename,

@@ -64,26 +64,48 @@ Local::~Local (void)
 void
 Local::start (void)
 {
-	// is there already someone watching this mailbox ?
+	// Is there already someone watching this mailbox?
 	if (!g_mutex_trylock (monitor_mutex_))
 		return;
-	
-	// at this point we need to explicitely call the get function since
-	// monitoring will start from now on. Even if the mailbox was full,
-	// no change appears yet, so we force it.
-	start_checking ();
-	gdk_threads_enter();
-	biff_->applet()->update();
-	gdk_threads_leave();
 
-	// connection request to FAM (File Alteration Monitor)
-	if (FAMOpen (&fam_connection_) < 0) {
-		g_mutex_unlock (monitor_mutex_);
-		return ;
+	gboolean fammon = true;
+	while (fammon) {
+		// Start FAM monitoring
+		try {
+			fam_monitoring ();
+			fammon = false;
+		}
+		catch (local_err& err) {
+			// Catch all errors that are un-recoverable
+#if DEBUG
+			g_warning ("[%d] Local mailbox exception: %s", uin(), err.what());
+			g_message ("[%d] Start fetch in %d second(s)", uin(), delay());
+#endif
+			status (MAILBOX_ERROR);
+			unread_.clear ();
+			seen_.clear ();
+
+			// If we have a fam connection then close it
+			if (FAMCONNECTION_GETFD (&fam_connection_))
+				FAMClose (&fam_connection_);
+
+			// Wait the delay time before monitoring again
+			sleep (delay());
+		}
 	}
 
-	// start monitoring
-	gint status;
+	g_mutex_unlock (monitor_mutex_);
+}
+
+void 
+Local::fam_monitoring (void) throw (local_err)
+{
+	gint status = 0;
+
+	// Connection request to FAM (File Alteration Monitor)
+	if (FAMOpen (&fam_connection_) < 0) throw local_fam_err();
+
+	// Start monitoring
 	std::string file = file_to_monitor ();
 	if (g_file_test (file.c_str(), G_FILE_TEST_IS_DIR))
 		status = FAMMonitorDirectory (&fam_connection_, file.c_str(),
@@ -91,22 +113,24 @@ Local::start (void)
 	else
 		status = FAMMonitorFile (&fam_connection_, file.c_str(),
 								 &fam_request_, NULL);
-	if (status < 0) {
-		FAMClose (&fam_connection_);
-		g_mutex_unlock (monitor_mutex_);
-		return;
-	}
+	if (status < 0) throw local_fam_err();
 
+	// At this point we need to explicitely call the get function since
+	// monitoring will start from now on. Even if the mailbox was full,
+	// no change appears yet, so we force it.
+	start_checking ();
+	gdk_threads_enter();
+	biff_->applet()->update();
+	gdk_threads_leave();
+
+	// Wait for and handle FAM events
 	status = 1;
 	while (status == 1) {
+		// Wait for next event
 		status = FAMNextEvent (&fam_connection_, &fam_event_);
-		if( status < 0 ) {
-			if( errno == EINTR )
-				break;
-			FAMClose (&fam_connection_);
-			g_mutex_unlock (monitor_mutex_);
-			return ;
-		}
+		if ((status < 0 ) && (errno == EINTR))
+			break;
+		if (status < 0) throw local_fam_err();
 
 		if ((fam_event_.code == FAMChanged)
 			|| (fam_event_.code == FAMCreated)
@@ -120,8 +144,8 @@ Local::start (void)
 			break;
 	}
 
+	// Close FAM connection
 	FAMClose (&fam_connection_);
-	g_mutex_unlock (monitor_mutex_);
 
 	// Ok, we got an error, just retry monitoring
 	if (status != 1) {
