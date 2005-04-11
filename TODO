@@ -1,5 +1,5 @@
 
-Version 2.1.4:
+Version 2.1.x:
 --------------
 
 To do:
@@ -16,3 +16,10 @@ Version 2.2.0:
 
 * GtkAboutDialog (needs Gtk 2.6)
 * Summary instead of immediate notification
+* New option/Change behavior? If only one/some message files cannot be opened
+  or read (mh/maildir), no mailbox error is shown. This way new messages can
+  be missed without notification.
+* Make error handling when reading/parsing mail more consistent. At the moment
+  sometimes no warning is printed, always a warning is printed or a warning is
+  printed in debug mode. Perhabs (new option?) print the error message in the
+  tooltip?
