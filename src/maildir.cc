@@ -29,15 +29,8 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#include "support.h"
-
-#include <fstream>
-#include <sstream>
-#include <sys/stat.h>
-#include <utime.h>
-#include <dirent.h>
-
 #include "maildir.h"
+#include "support.h"
 
 
 // ========================================================================
@@ -76,10 +69,6 @@ Maildir::fetch (void)
 	if (biff_->value_bool ("use_max_mail"))
 		maxnum = biff_->value_uint ("max_mail");
 
-	std::vector<std::string> mail;
-	std::string line;
-	guint max_cnt = 1 + biff_->value_uint ("min_body_lines");
-
 	const gchar *d_name;
 	// Read new mails
 	while ((d_name = g_dir_read_name (gdir)) && (new_unread_.size() < maxnum)){
@@ -92,33 +81,8 @@ Maildir::fetch (void)
 		if (new_mail (uid))
 			continue;
 
-		std::ifstream file;
-		gchar *tmp = g_build_filename (address().c_str(), d_name, NULL);
-		std::string filename(tmp);
-		g_free(tmp);
-
-		// Read message header and first lines of message's body
-		file.open (filename.c_str());
-		if (file.is_open()) {
-			gboolean header = true;
-			guint cnt = max_cnt;
-			while ((!file.eof ()) && (cnt > 0)) {
-				getline(file, line);
-				// End of header?
-				if ((line.size() == 0) && header)
-					header = false;
-				// Store line
-				if (cnt > 0) {
-					cnt--;
-					mail.push_back (line);
-				}
-			}
-			parse (mail, uid);
-			mail.clear();
-		}
-		else
-			g_warning (_("Cannot open %s."), filename.c_str());
-		file.close();
+		// Read and parse file
+		parse_single_message_file (add_file_to_path (address(), d_name), uid);
 	}
 
 	// Close directory

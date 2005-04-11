@@ -29,16 +29,16 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#include "support.h"
-
 #include <errno.h>
+#include <fstream>
 #include <signal.h>
+#include <sstream>
 #include <unistd.h>
 
-#include "local.h"
-#include "ui-applet.h"
 #include "biff.h"
-
+#include "local.h"
+#include "support.h"
+#include "ui-applet.h"
 
 // ========================================================================
 //  base
@@ -153,4 +153,48 @@ std::string
 Local::file_to_monitor (void)
 {
 	return address ();
+}
+
+/**
+ *  Read und parse a file that contains a single message.
+ *
+ *  @param  filename  Name of the file
+ *  @param  uid       Unique identifier of the message (if known) or the empty
+ *                    string (the default is the empty string)
+ */
+void 
+Local::parse_single_message_file (const std::string &filename,
+								  const std::string uid)
+{
+	std::ifstream file;
+	std::vector<std::string> mail;
+	std::string line;
+	guint max_cnt = 1 + biff_->value_uint ("min_body_lines");
+
+
+	// Read message header and first lines of message's body
+	file.open (filename.c_str());
+	if (!file.is_open()) {
+		g_warning (_("Cannot open %s."), filename.c_str());
+		return;
+	}
+
+	// Read header and first lines of message
+	gboolean header = true;
+	guint cnt = max_cnt;
+	while ((!file.eof ()) && (cnt > 0)) {
+		getline(file, line);
+		// End of header?
+		if ((line.size() == 0) && header)
+			header = false;
+		// Store line
+		if (cnt > 0) {
+			cnt--;
+			mail.push_back (line);
+		}
+	}
+	file.close();
+
+	// Parse message
+	parse (mail, uid);
 }

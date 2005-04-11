@@ -25,6 +25,7 @@ Version 2.1.4
    - Updated Vietnamese translation (thanks to Clytie Siddall)
    - Very basic support for the Kinyarwanda language (thanks to Steven Michael
         Murphy)
+   - Bugfix: Not reading the whole message (mh protocols)
 
 
 Version 2.1.3		2005-04-03 23:57

@@ -29,8 +29,6 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#include <fstream>
-#include <sstream>
 #include "mh_basic.h"
 
 // ========================================================================
@@ -85,28 +83,11 @@ Mh_Basic::fetch (void)
 	if (biff_->value_bool ("use_max_mail"))
 		maxnum = biff_->value_uint ("max_mail");
 
-	for (guint i=0; (i<msn.size()) && (new_unread_.size() < maxnum); i++) {
-		std::vector<std::string> mail;
-		std::string line;
-		std::ifstream file;
-
-		// Create filename for message
+	for (guint i=0; (i < msn.size()) && (new_unread_.size() < maxnum); i++) {
+		// Read and parse file
 		std::stringstream ss;
 		ss << msn[i];
-		std::string filename = add_file_to_path (address(), ss.str());
-
-		// Open, read and parse message
-		file.open (filename.c_str());
-		if (file.is_open()) {
-			while (!file.eof()) {
-				getline(file, line);
-				mail.push_back(line);
-			}
-			parse (mail);
-			file.close();
-		}
-		else
-			g_warning (_("Cannot open %s."), filename.c_str());
+		parse_single_message_file (add_file_to_path (address(), ss.str()));
 	}
 }
 

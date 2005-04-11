@@ -52,17 +52,19 @@ protected:
 public:
 	// ========================================================================
 	//  base
-	// ========================================================================	
+	// ========================================================================
 	Local (class Biff *biff);
 	Local (const Mailbox &other);
 	virtual ~Local (void);
 
 	// ========================================================================
 	//  main
-	// ========================================================================	
+	// ========================================================================
 	void start (void);								// start method
 	void stop (void);								// stop method
 	virtual std::string file_to_monitor (void);
+	void parse_single_message_file (const std::string &filename,
+									const std::string uid = std::string (""));
 };
 
 #endif
