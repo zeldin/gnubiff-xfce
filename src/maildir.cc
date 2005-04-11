@@ -72,7 +72,7 @@ Maildir::fetch (void)
 	const gchar *d_name;
 	// Read new mails
 	while ((d_name = g_dir_read_name (gdir)) && (new_unread_.size() < maxnum)){
-		// Filenames that begin with '.' are no messages in maildir protocol
+		// Filenames that begin with '.' are not messages in maildir protocol
 		if (d_name[0] == '.')
 			continue;
 
