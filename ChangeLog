@@ -22,6 +22,9 @@ Version 2.1.4
    - Feature: Support for mh protocol as used by Sylpheed
    - Bugfix in "src/ui-properties.h" (when no SSL is available)
    - Added include file for FreeBSD
+   - Updated Vietnamese translation (thanks to Clytie Siddall)
+   - Very basic support for the Kinyarwanda language (thanks to Steven Michael
+        Murphy)
 
 
 Version 2.1.3		2005-04-03 23:57

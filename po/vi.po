@@ -1,14 +1,14 @@
-# Vietnamese translation for gnubiff-2.1.2.
+# Vietnamese translation for gnubiff-2.1.3.
 # Copyright (C) 2005 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gnubiff-2.1.2 package.
+# This file is distributed under the same license as the gnubiff-2.1.3 package.
 # Clytie Siddall <clytie@riverland.net.au>, 2005.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: gnubiff 2.1.2\n"
+"Project-Id-Version: gnubiff 2.1.3\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-04-02 10:56+0200\n"
-"PO-Revision-Date: 2005-03-31 12:54+0950\n"
+"POT-Creation-Date: 2005-04-11 10:23+0200\n"
+"PO-Revision-Date: 2005-04-11 17:17+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -58,25 +58,25 @@ msgstr "Tùy chọn dòng lệnh chung:"
 msgid "Options for debugging:"
 msgstr "Tùy chọn gỡ lỗi:"
 
-#: src/biff.cc:136
+#: src/biff.cc:138
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Không tìm thấy tập tin cấu hình (%s)."
 
-#: src/biff.cc:400
+#: src/biff.cc:402
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Nạp tập tin cấu hình từ phiên bản gnubiff cũ \"%s\" rồi."
 
-#: src/biff.cc:402
+#: src/biff.cc:404
 msgid "Trying to convert all options."
 msgstr "Cố chuyển đổi tất cả tùy chọn..."
 
-#: src/biff.cc:448
+#: src/biff.cc:450
 msgid "Successfully converted all options."
 msgstr "Chuyển đổi tất cả tùy chọn rồi."
 
-#: src/biff.cc:451
+#: src/biff.cc:453
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -85,69 +85,69 @@ msgstr ""
 "Chuyển đổi một phần tùy chọn rồi. Phải tự cập nhật những tùy chọn theo đây: %"
 "s."
 
-#: src/biff.cc:598
+#: src/biff.cc:600
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Không mở được tập tin cấu hình (%s) của bạn."
 
-#: src/biff.cc:614
+#: src/biff.cc:616
 msgid "Cannot create XML parser for config file"
 msgstr "Không tao được trình phân tách XML cho tập tin cấu hình"
 
-#: src/biff.cc:631
+#: src/biff.cc:633
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Chưa tìm thấy lời định nghĩa hộp thư trong tập tin cấu hình (%s) của bạn."
 
-#: src/biff.cc:678
+#: src/biff.cc:680
 msgid "Illegal parameter format in config file"
 msgstr "Gặp khuôn dạng tham số bất hợp lệ trong tập tin cấu hình"
 
-#: src/biff.cc:707
+#: src/biff.cc:709
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Chưa ghi rõ giao thức cho hộp thư %d"
 
-#: src/mailbox.cc:134
+#: src/mailbox.cc:135
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Không tạo được mạch: %s"
 
-#: src/mailbox.cc:265
+#: src/mailbox.cc:266
 #, c-format
 msgid "mailbox %d"
 msgstr "hộp thư %d"
 
-#: src/mailbox.cc:570
+#: src/mailbox.cc:571
 msgid "<no date>"
 msgstr "<không có ngày>"
 
-#: src/mailbox.cc:571
+#: src/mailbox.cc:572
 msgid "<no sender>"
 msgstr "<không có người gởi>"
 
-#: src/mailbox.cc:572
+#: src/mailbox.cc:573
 msgid "<no subject>"
 msgstr "<không có chủ đề>"
 
-#: src/mailbox.cc:619
+#: src/mailbox.cc:620
 msgid "[Cannot parse content type header line]"
 msgstr "[Không phân tách được dòng đầu loạị nội dụng]"
 
-#: src/mailbox.cc:640
+#: src/mailbox.cc:641
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Không phân tách được dòng đầu mã truyền nội dụng]"
 
-#: src/mailbox.cc:689
+#: src/mailbox.cc:690
 msgid "[Malformed multipart message]"
 msgstr "[Thư đa phần khuyết tật]"
 
-#: src/mailbox.cc:697
+#: src/mailbox.cc:698
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Không tìm được đầu của phân thứ nhất trong thư đa phần]"
 
-#: src/mailbox.cc:743
+#: src/mailbox.cc:744
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Thư này có loại nội dụng không được hỗ trợ: \"%s/%s\"]"
@@ -188,7 +188,7 @@ msgstr "[%d] Không đọc được từ %s qua cổng %d"
 msgid "Could not set read timeout on socket: %s"
 msgstr "Không lập được thời hạn đọc tại ổ cắm: %s"
 
-#: src/file.cc:82 src/maildir.cc:129
+#: src/file.cc:82 src/maildir.cc:120
 #, c-format
 msgid "Cannot open %s."
 msgstr "Không mở được %s."
@@ -197,47 +197,42 @@ msgstr "Không mở được %s."
 msgid "[This message has no part with a supported content type]"
 msgstr "[Thư này không có phần có loại nội dụng được hỗ trợ]"
 
-#: src/imap4.cc:831
+#: src/imap4.cc:829
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Không chọn được danh mục %s trên máy chủ %s"
 
-#: src/imap4.cc:919
+#: src/imap4.cc:917
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Không gọi được trả lời từ %s qua cổng %d"
 
-#: src/imap4.cc:978
+#: src/imap4.cc:976
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d] Máy chủ không gởi trả lời \"%s\" không có thẻ ghi"
 
-#: src/imap4.cc:1031
+#: src/imap4.cc:1029
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Máy chủ không gởi trả lời \"%s\" không có thẻ ghi"
 
-#: src/imap4.cc:1587
+#: src/imap4.cc:1585
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Máy chủ tắt kết nối ngay:%s"
 
-#: src/imap4.cc:1592
+#: src/imap4.cc:1590
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Máy chủ gặp khó nội bộ, hay gặp lỗi chưa biết:%s"
 
-#: src/imap4.cc:1597
+#: src/imap4.cc:1595
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Cảnh báo từ máy chủ:%s"
 
-#: src/maildir.cc:70
-#, c-format
-msgid "Cannot find new mail directory (%s)"
-msgstr "Không tìm thấy được thư mục thư mới (%s)"
-
-#: src/maildir.cc:78
+#: src/maildir.cc:69
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Không mở được thư mục thư mới (%s)"
@@ -290,7 +285,7 @@ msgstr ""
 "Không tìm thấy được thành phần được ghi rõ (\"%s\") ở trong cấu trức XML (\"%"
 "s\")"
 
-#: src/gnubiff_options.cc:130
+#: src/gnubiff_options.cc:132
 msgid "no mail"
 msgstr "không có thư mới"
 
@@ -320,15 +315,15 @@ msgstr "Tùy chọn GUI_connect cần đến môđun gmodule hoặt động"
 msgid "Could not find signal handler '%s'."
 msgstr "Không tìm thấy được điều quản lý tín hiệu '%s'."
 
-#: src/ui-applet.cc:134
+#: src/ui-applet.cc:133
 msgid " unknown"
 msgstr " không biết"
 
-#: src/ui-applet.cc:136
+#: src/ui-applet.cc:135
 msgid " error"
 msgstr " lỗi"
 
-#: src/ui-applet.cc:141
+#: src/ui-applet.cc:140
 msgid " checking..."
 msgstr " kiểm tra..."
 
@@ -439,7 +434,7 @@ msgstr "Chủ đề"
 msgid "Date"
 msgstr "Ngày"
 
-#: src/support.cc:149
+#: src/support.cc:297
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -485,19 +480,19 @@ msgstr "Về gnubiff"
 
 #: ui/applet-gtk.glade:173
 msgid "_Quit"
-msgstr ""
+msgstr "_Thoát"
 
 #: ui/applet-gtk.glade:193
 msgid "About gnubiff"
 msgstr "Về gnubiff"
 
 #: ui/applet-gtk.glade:255 ui/preferences.glade:1895
-#, fuzzy
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
 msgstr ""
-"Chương trình này là phần dự án GNU nên đã phát hành dưới sự che chở của GNU."
+"<small>Chương trình này là phần dự án GNU\n"
+"nên đã phát hành dưới sự che chở của GNU.</small>"
 
 #: ui/applet-gtk.glade:363
 msgid "Ok"
@@ -1027,24 +1022,5 @@ msgstr "<small><b>Chủ đề</b></small>"
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Ngày</b></small>"
 
-#, fuzzy
-#~ msgid ""
-#~ "<small> This program is part of the GNU project,\n"
-#~ " released under the aegis of GNU.</small>"
-#~ msgstr ""
-#~ "Chương trình này là phần dự án GNU nên đã phát hành dưới sự che chở của "
-#~ "GNU."
-
-#, fuzzy
-#~ msgid "<span size=\"xx-large\"><b>Gnubiff %v %c</b></span>"
-#~ msgstr "<span size=\"xx-large\"><b>gnubiff</b></span>"
-
-#~ msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
-#~ msgstr "<small>Bản quyền © năm 2000-2004 Nicolas Rougier</small>"
-
-#~ msgid ""
-#~ "<small> Released under the aegis of GNU\n"
-#~ " Copyright (c) 2000-2005 Nicolas Rougier</small>"
-#~ msgstr ""
-#~ "<small> Được phát hành dưới sự che chở của GNU \n"
-#~ " Bản quyền © năm 2000-2005 Nicolas Rougier</small>"
+#~ msgid "Cannot find new mail directory (%s)"
+#~ msgstr "Không tìm thấy được thư mục thư mới (%s)"

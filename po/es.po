@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-04-02 10:56+0200\n"
+"POT-Creation-Date: 2005-04-11 10:23+0200\n"
 "PO-Revision-Date: 2004-12-16 23:42+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -65,96 +65,96 @@ msgstr "Opciones generales de línea de comandos:"
 msgid "Options for debugging:"
 msgstr "Opciones para depurar:"
 
-#: src/biff.cc:136
+#: src/biff.cc:138
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Archivo de configuración (%s) no encontrado !"
 
-#: src/biff.cc:400
+#: src/biff.cc:402
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:402
+#: src/biff.cc:404
 msgid "Trying to convert all options."
 msgstr ""
 
-#: src/biff.cc:448
+#: src/biff.cc:450
 msgid "Successfully converted all options."
 msgstr ""
 
-#: src/biff.cc:451
+#: src/biff.cc:453
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: src/biff.cc:598
+#: src/biff.cc:600
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "No se puede abrir su archivo de configuración (%s)"
 
-#: src/biff.cc:614
+#: src/biff.cc:616
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "No se puede abrir su archivo de configuración (%s)"
 
-#: src/biff.cc:631
+#: src/biff.cc:633
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "No se ha encontrado una definición de buzón en su archivo de configuración (%"
 "s)"
 
-#: src/biff.cc:678
+#: src/biff.cc:680
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:707
+#: src/biff.cc:709
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:134
+#: src/mailbox.cc:135
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] No se puede crear hilo: %s"
 
-#: src/mailbox.cc:265
+#: src/mailbox.cc:266
 #, c-format
 msgid "mailbox %d"
 msgstr "Buzón %d"
 
-#: src/mailbox.cc:570
+#: src/mailbox.cc:571
 msgid "<no date>"
 msgstr "<sin fecha>"
 
-#: src/mailbox.cc:571
+#: src/mailbox.cc:572
 msgid "<no sender>"
 msgstr "<sin remitente>"
 
-#: src/mailbox.cc:572
+#: src/mailbox.cc:573
 msgid "<no subject>"
 msgstr "<sin asunto>"
 
-#: src/mailbox.cc:619
+#: src/mailbox.cc:620
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: src/mailbox.cc:640
+#: src/mailbox.cc:641
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: src/mailbox.cc:689
+#: src/mailbox.cc:690
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:697
+#: src/mailbox.cc:698
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:743
+#: src/mailbox.cc:744
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr ""
@@ -195,7 +195,7 @@ msgstr "[%d] No se puede leer desde %s en el puerto %d"
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
 
-#: src/file.cc:82 src/maildir.cc:129
+#: src/file.cc:82 src/maildir.cc:120
 #, c-format
 msgid "Cannot open %s."
 msgstr "No se puede abrir %s."
@@ -204,47 +204,42 @@ msgstr "No se puede abrir %s."
 msgid "[This message has no part with a supported content type]"
 msgstr ""
 
-#: src/imap4.cc:831
+#: src/imap4.cc:829
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] No se puede seleccionar carpeta %s en el servidor %s"
 
-#: src/imap4.cc:919
+#: src/imap4.cc:917
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d]No se puede obtener confirmación  desde %s en el puerto %d"
 
-#: src/imap4.cc:978
+#: src/imap4.cc:976
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: src/imap4.cc:1031
+#: src/imap4.cc:1029
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
-#: src/imap4.cc:1587
+#: src/imap4.cc:1585
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
-#: src/imap4.cc:1592
+#: src/imap4.cc:1590
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
-#: src/imap4.cc:1597
+#: src/imap4.cc:1595
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
 
-#: src/maildir.cc:70
-#, c-format
-msgid "Cannot find new mail directory (%s)"
-msgstr "No se puede encontrar el directorio del correo nuevo (%s)"
-
-#: src/maildir.cc:78
+#: src/maildir.cc:69
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "No se puede abrir el directorio del correo nuevo (%s)"
@@ -298,7 +293,7 @@ msgstr ""
 "No se puede encontrar el widget especificado (\"%s\") dentro de la "
 "estructura xml (\"%s\")"
 
-#: src/gnubiff_options.cc:130
+#: src/gnubiff_options.cc:132
 msgid "no mail"
 msgstr "sin mensajes"
 
@@ -328,15 +323,15 @@ msgstr "GUI_connect requiere un módulo operativo"
 msgid "Could not find signal handler '%s'."
 msgstr "No se puede encontrar el controlador de la señal '%s'"
 
-#: src/ui-applet.cc:134
+#: src/ui-applet.cc:133
 msgid " unknown"
 msgstr " desconocido"
 
-#: src/ui-applet.cc:136
+#: src/ui-applet.cc:135
 msgid " error"
 msgstr " error"
 
-#: src/ui-applet.cc:141
+#: src/ui-applet.cc:140
 msgid " checking..."
 msgstr " comprobando..."
 
@@ -449,7 +444,7 @@ msgstr "Asunto"
 msgid "Date"
 msgstr "Fecha"
 
-#: src/support.cc:149
+#: src/support.cc:297
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -1024,6 +1019,9 @@ msgstr "<small><b>Asunto</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Fecha</b></small>"
+
+#~ msgid "Cannot find new mail directory (%s)"
+#~ msgstr "No se puede encontrar el directorio del correo nuevo (%s)"
 
 #, fuzzy
 #~ msgid ""
