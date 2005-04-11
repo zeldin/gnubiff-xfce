@@ -1,0 +1,1214 @@
+# translation of gnubiff to Kinyarwanda.
+# Copyright (C) 2005 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gnubiff package.
+# Steve Murphy <murf@e-tools.com>, 2005
+# Steve performed initial rough translation from compendium built from translations provided by the following translators:
+# Philibert Ndandali  <ndandali@yahoo.fr>, 2005.
+# Viateur MUGENZI <muvia1@yahoo.fr>, 2005.
+# Noëlla Mupole <s24211045@tuks.co.za>, 2005.
+# Carole Karema <karemacarole@hotmail.com>, 2005.
+# JEAN BAPTISTE NGENDAHAYO <ngenda_denis@yahoo.co.uk>, 2005.
+# Augustin KIBERWA  <akiberwa@yahoo.co.uk>, 2005.
+# Donatien NSENGIYUMVA <ndonatienuk@yahoo.co.uk>, 2005.
+# Antoine Bigirimana <antoine@e-tools.com>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnubiff 2.1.2\n"
+"Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
+"POT-Creation-Date: 2005-04-11 10:23+0200\n"
+"PO-Revision-Date: 2005-04-03 10:55-0700\n"
+"Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
+"Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/decoding.cc:77
+#, fuzzy, c-format
+msgid "[The encoding \"%s\" of this mail can't be decoded]"
+msgstr "[Imisobekere: Bya iyi Ubutumwa"
+
+#: src/decoding.cc:122 src/decoding.cc:128 src/decoding.cc:139
+#: src/decoding.cc:146 src/decoding.cc:151 src/decoding.cc:167
+#, fuzzy
+msgid "[Cannot decode this header line]"
+msgstr "[iyi Umutwempangano Umurongo"
+
+#: src/decoding.cc:607
+#, fuzzy, c-format
+msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
+msgstr "[GUHINDURA Inyuguti Bivuye Kuri 8"
+
+#: src/gnubiff.cc:98
+#, fuzzy
+msgid "Start gnome applet from command line"
+msgstr "Gutangira Apuleti... Bivuye Komandi: Umurongo"
+
+#: src/gnubiff.cc:106
+#, fuzzy
+msgid "Configuration file to use"
+msgstr "IDOSIYE Kuri Gukoresha"
+
+# sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_HFCMD_FILE.text
+#: src/gnubiff.cc:106
+#, fuzzy
+msgid "file"
+msgstr "IDOSIYE"
+
+#: src/gnubiff.cc:108
+#, fuzzy
+msgid "Skip the configuration process"
+msgstr "i Iboneza"
+
+#: src/gnubiff.cc:110
+#, fuzzy
+msgid "Print version information and exit"
+msgstr "Verisiyo Ibisobanuro Na Gusohoka"
+
+#: src/gnubiff.cc:117
+#, fuzzy
+msgid "General command line options:"
+msgstr "Komandi: Umurongo Amahitamo"
+
+#: src/gnubiff.cc:120
+#, fuzzy
+msgid "Options for debugging:"
+msgstr "kugirango"
+
+#: src/biff.cc:138
+#, fuzzy, c-format
+msgid "Configuration file (%s) not found!"
+msgstr "IDOSIYE OYA Byabonetse"
+
+#: src/biff.cc:402
+#, fuzzy, c-format
+msgid "Loaded config file from old gnubiff version \"%s\"."
+msgstr "IDOSIYE Bivuye ki/ bishaje Verisiyo"
+
+#: src/biff.cc:404
+#, fuzzy
+msgid "Trying to convert all options."
+msgstr "Kuri GUHINDURA Byose Amahitamo"
+
+#: src/biff.cc:450
+#, fuzzy
+msgid "Successfully converted all options."
+msgstr "Byose Amahitamo"
+
+#: src/biff.cc:453
+#, fuzzy, c-format
+msgid ""
+"Successfully converted some options. The following options must be updated "
+"manually: %s."
+msgstr "Amahitamo Amahitamo"
+
+#: src/biff.cc:600
+#, fuzzy, c-format
+msgid "Cannot open your configuration file (%s)"
+msgstr "Gufungura Iboneza IDOSIYE"
+
+#: src/biff.cc:616
+#, fuzzy
+msgid "Cannot create XML parser for config file"
+msgstr "Kurema kugirango IDOSIYE"
+
+#: src/biff.cc:633
+#, fuzzy, c-format
+msgid "Found no mailbox definition in your configuration file (%s)"
+msgstr "Oya Insobanuro in Iboneza IDOSIYE"
+
+#: src/biff.cc:680
+#, fuzzy
+msgid "Illegal parameter format in config file"
+msgstr "Imiterere in IDOSIYE"
+
+#: src/biff.cc:709
+#, fuzzy, c-format
+msgid "No protocol specified for mailbox %d"
+msgstr "Porotokole kugirango"
+
+#: src/mailbox.cc:135
+#, fuzzy, c-format
+msgid "[%d] Unable to create thread: %s"
+msgstr "[%d]Kuri Kurema Urudodo"
+
+#: src/mailbox.cc:266
+#, c-format
+msgid "mailbox %d"
+msgstr ""
+
+#: src/mailbox.cc:571
+#, fuzzy
+msgid "<no date>"
+msgstr "<Oya Itariki"
+
+#: src/mailbox.cc:572
+#, fuzzy
+msgid "<no sender>"
+msgstr "<Oya Uwohereza"
+
+# # generics string
+#: src/mailbox.cc:573
+#, fuzzy
+msgid "<no subject>"
+msgstr "<nta mutwe)"
+
+#: src/mailbox.cc:620
+#, fuzzy
+msgid "[Cannot parse content type header line]"
+msgstr "[Ibikubiyemo Ubwoko Umutwempangano Umurongo"
+
+#: src/mailbox.cc:641
+#, fuzzy
+msgid "[Cannot parse content transfer encoding header line]"
+msgstr "[Ibikubiyemo Imisobekere: Umutwempangano Umurongo"
+
+#: src/mailbox.cc:690
+#, fuzzy
+msgid "[Malformed multipart message]"
+msgstr "[Ubutumwa"
+
+#: src/mailbox.cc:698
+#, fuzzy
+msgid "[Can't find first part's beginning in the multipart message]"
+msgstr "[Gushaka Itangira Itangiriro in i Ubutumwa"
+
+#: src/mailbox.cc:744
+#, fuzzy, c-format
+msgid "[This message has an unsupported content type: \"%s/%s\"]"
+msgstr "[Ubutumwa Ibikubiyemo Ubwoko"
+
+#: src/header.cc:149
+#, fuzzy, c-format
+msgid "Can't sort mails by \"%s\""
+msgstr "Ishungura ku"
+
+#: src/socket.cc:125 src/socket.cc:154 src/socket.cc:182 src/socket.cc:190
+#: src/socket.cc:198 src/socket.cc:210 src/socket.cc:241 src/socket.cc:250
+#, fuzzy, c-format
+msgid "[%d] Unable to connect to %s on port %d"
+msgstr "[%d]Kuri Kwihuza Kuri ku Umuyoboro"
+
+#: src/socket.cc:225
+#, fuzzy, c-format
+msgid "[%d] Failed to load certificate (%s) for %s"
+msgstr "[%d]Kuri Ibirimo Impamyabushobozi kugirango"
+
+#: src/socket.cc:263
+#, fuzzy, c-format
+msgid "[%d] Cannot identify remote host (%s on port %d)"
+msgstr "[%d]Ubuturo ku Umuyoboro"
+
+#: src/socket.cc:348
+#, fuzzy, c-format
+msgid "[%d] Unable to write to %s on port %d"
+msgstr "[%d]Kuri Kwandika Kuri ku Umuyoboro"
+
+#: src/socket.cc:410
+#, fuzzy, c-format
+msgid "[%d] Unable to read from %s on port %d"
+msgstr "[%d]Kuri Gusoma Bivuye ku Umuyoboro"
+
+#: src/socket.cc:432
+#, fuzzy, c-format
+msgid "Could not set read timeout on socket: %s"
+msgstr "OYA Gushyiraho Gusoma Igihe cyarenze: ku"
+
+#: src/file.cc:82 src/maildir.cc:120
+#, fuzzy, c-format
+msgid "Cannot open %s."
+msgstr "Gufungura"
+
+#: src/imap4.cc:466
+#, fuzzy
+msgid "[This message has no part with a supported content type]"
+msgstr "[Ubutumwa Oya Na: a Ibikubiyemo Ubwoko"
+
+#: src/imap4.cc:829
+#, fuzzy, c-format
+msgid "[%d] Unable to select folder %s on host %s"
+msgstr "[%d]Kuri Guhitamo Ububiko ku Ubuturo"
+
+#: src/imap4.cc:917
+#, fuzzy, c-format
+msgid "[%d] Unable to get acknowledgment from %s on port %d"
+msgstr "[%d]Kuri Kubona Bivuye ku Umuyoboro"
+
+#: src/imap4.cc:976
+#, fuzzy, c-format
+msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
+msgstr "[%d]Kohereza Cyangwa"
+
+#: src/imap4.cc:1029
+#, fuzzy, c-format
+msgid "[%d] Server doesn't send untagged \"%s\" response"
+msgstr "[%d]Kohereza"
+
+#: src/imap4.cc:1585
+#, fuzzy, c-format
+msgid "[%d] Server closes connection immediately:%s"
+msgstr "[%d]Ukwihuza Ako kanya"
+
+#: src/imap4.cc:1590
+#, fuzzy, c-format
+msgid "[%d] Internal server failure or unknown error:%s"
+msgstr "[%d]Seriveri Cyangwa Kitazwi Ikosa"
+
+#: src/imap4.cc:1595
+#, fuzzy, c-format
+msgid "[%d] Warning from server:%s"
+msgstr "[%d]Bivuye Seriveri"
+
+#: src/maildir.cc:69
+#, fuzzy, c-format
+msgid "Cannot open new mail directory (%s)"
+msgstr "Gufungura Gishya Ubutumwa bushyinguro"
+
+#: src/pop.cc:157
+#, fuzzy, c-format
+msgid "[%d] Empty password"
+msgstr "[%d]Ijambobanga..."
+
+#: src/pop.cc:508
+#, fuzzy, c-format
+msgid "[%d] Error message from POP3 server:%s"
+msgstr "[%d]Ubutumwa Bivuye Seriveri"
+
+#: src/pop.cc:515
+#, fuzzy, c-format
+msgid "[%d] Did not get a positive response from POP3 server"
+msgstr "[%d]OYA Kubona a Bivuye Seriveri"
+
+#: src/apop.cc:103
+#, fuzzy, c-format
+msgid ""
+"[%d] Your pop server does not seem to accept apop protocol (no timestamp "
+"provided)"
+msgstr "[%d]Seriveri OYA Kuri Kwemera Porotokole Oya"
+
+#: src/apop.cc:124
+#, fuzzy, c-format
+msgid ""
+"[%d] Problem with crypto that should have been detected at configure time"
+msgstr "[%d]Na: ku Kugena Imiterere Igihe"
+
+#: src/options.cc:506
+#, fuzzy, c-format
+msgid "Unknown option \"%s\""
+msgstr "Ihitamo ritazwi:"
+
+#: src/options.cc:513
+#, fuzzy, c-format
+msgid "Cannot set option \"%s\" to \"%s\""
+msgstr "Gushyiraho Ihitamo Kuri"
+
+#: src/options.cc:665 src/gui.cc:263
+#, fuzzy, c-format
+msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
+msgstr "Gushaka i muri xml Imiterere"
+
+#: src/gnubiff_options.cc:132
+#, fuzzy
+msgid "no mail"
+msgstr "Oya Ubutumwa"
+
+#: src/gui.cc:196
+#, fuzzy, c-format
+msgid ""
+"Cannot build the interface.\n"
+"\n"
+"Name: %s\n"
+"Path: %s\n"
+"\n"
+"Please make sure package has been installed correctly."
+msgstr "i Ubwoko"
+
+#: src/gui.cc:371
+msgid "GUI_connect requires working gmodule"
+msgstr ""
+
+#: src/gui.cc:378
+#, fuzzy, c-format
+msgid "Could not find signal handler '%s'."
+msgstr "OYA Gushaka"
+
+# filter/source\xsltdialog\xmlfilterdialogstrings.src:STR_UNKNOWN_APPLICATION.text
+#: src/ui-applet.cc:133
+#, fuzzy
+msgid " unknown"
+msgstr "Kitazwi"
+
+#: src/ui-applet.cc:135
+#, fuzzy
+msgid " error"
+msgstr "Ikosa"
+
+#: src/ui-applet.cc:140
+msgid " checking..."
+msgstr ""
+
+# #-#-#-#-#  offmgr.pot (PACKAGE VERSION)  #-#-#-#-#
+# offmgr/sdi\ofaslots.src:SID_MAIL_NEW.text
+# #-#-#-#-#  offmgr.pot (PACKAGE VERSION)  #-#-#-#-#
+# offmgr/sdi\ofaslots.src:SID_MAIL_NEWWITHSERVER.text
+#: src/ui-applet-gtk.cc:163
+#, fuzzy
+msgid "New mail"
+msgstr "Ubutumwa Bushya"
+
+#: src/ui-applet-gtk.cc:176
+#, fuzzy
+msgid "No mail"
+msgstr "Ubutumwa"
+
+#: src/ui-preferences.cc:269 src/ui-popup.cc:160
+msgid "Mailbox"
+msgstr ""
+
+# filter/source\xsltdialog\xmlfilterdialogstrings.src:STR_COLUMN_HEADER_TYPE.text
+#: src/ui-preferences.cc:283 src/ui-preferences.cc:365
+msgid "Type"
+msgstr "Ubwoko"
+
+#: src/ui-preferences.cc:302
+msgid "Status"
+msgstr "Imimerere"
+
+# offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_GENERAL_OPTIONS.11.text
+#: src/ui-preferences.cc:317
+msgid "Security"
+msgstr "Umutekano"
+
+#: src/ui-preferences.cc:329 src/ui-preferences.cc:656
+#, fuzzy
+msgid "No mailbox selected"
+msgstr "Byahiswemo"
+
+#: src/ui-preferences.cc:357
+msgid "Option"
+msgstr "Option"
+
+#: src/ui-preferences.cc:375
+msgid "Value"
+msgstr "Agaciro"
+
+# #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
+# sc/source\ui\navipi\navipi.src:RID_SCDLG_NAVIGATOR.TBX_CMD.IID_UP.text
+# #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
+# sc/source\ui\src\scfuncs.src:RID_SC_FUNCTION_DESCRIPTIONS2.SC_OPCODE_PROB.6.text
+# #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
+# sc/source\ui\src\scfuncs.src:RID_SC_FUNCTION_DESCRIPTIONS2.SC_OPCODE_BETA_DIST.8.text
+# #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
+# sc/source\ui\src\scfuncs.src:RID_SC_FUNCTION_DESCRIPTIONS2.SC_OPCODE_BETA_INV.8.text
+#: src/ui-preferences.cc:590
+#, fuzzy
+msgid "_Start"
+msgstr "Gutangira"
+
+# basctl/source\basicide\basidesh.src:RID_BASICIDE_OBJECTBAR.SID_BASICSTOP.text
+#: src/ui-preferences.cc:596 ui/preferences.glade:2951
+#, fuzzy
+msgid "_Stop"
+msgstr "Guhagarara"
+
+#: src/ui-preferences.cc:607 src/ui-preferences.cc:614
+#, fuzzy
+msgid "Browse for a new mail image"
+msgstr "kugirango a Gishya Ubutumwa Ishusho"
+
+#: src/ui-authentication.cc:88
+#, fuzzy, c-format
+msgid "Please enter your username and password for mailbox '%s'"
+msgstr "Injiza Izina ry'ukoresha Na Ijambobanga... kugirango"
+
+#: src/ui-certificate.cc:75
+#, fuzzy, c-format
+msgid "Unable to verify the identity of %s as a trusted site.\n"
+msgstr "Byanze gusuzuma ikiranga %s%S nka webu yizewe."
+
+#: src/ui-certificate.cc:76
+#, fuzzy, c-format
+msgid ""
+"Either site's certificate is incomplete or you're connected to a site "
+"pretending to be %s, possibly to obtain your password"
+msgstr "Impamyabushobozi ni Cyangwa Kuri a Ipaji Kuri Kuri Ijambobanga..."
+
+#: src/ui-properties.cc:125 src/ui-properties.cc:152
+msgid "Autodetect"
+msgstr ""
+
+#: src/ui-properties.cc:126
+#, fuzzy
+msgid "File or Folder"
+msgstr "Idosiye Cyangwa"
+
+#: src/ui-properties.cc:154
+msgid "User/Pass"
+msgstr ""
+
+#: src/ui-properties.cc:156
+msgid "Encrypted User/Pass (apop)"
+msgstr ""
+
+#: src/ui-properties.cc:160
+#, fuzzy
+msgid "SSL with certificate"
+msgstr "Na: Impamyabushobozi"
+
+#: src/ui-properties.cc:316
+#, fuzzy
+msgid "Browse for a file or folder"
+msgstr "kugirango a IDOSIYE Cyangwa Ububiko"
+
+#: src/ui-properties.cc:322 ui/properties.glade:592
+#, fuzzy
+msgid "Browse for a certificate file"
+msgstr "kugirango a Impamyabushobozi IDOSIYE"
+
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Memo.Elements.From.text
+#: src/ui-popup.cc:172
+msgid "From"
+msgstr "Bivuye"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Agenda.Save.DocInfoSubject.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Letter.Elements.Subject.Text.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Letter.Save.DocInfoSubject.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Fax.Save.DocInfoSubject.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Memo.Save.DocInfoSubject.text
+#: src/ui-popup.cc:178
+msgid "Subject"
+msgstr "Ikivugwaho"
+
+#: src/ui-popup.cc:184
+msgid "Date"
+msgstr "Itariki"
+
+#: src/support.cc:297
+#, fuzzy
+msgid ""
+"You just found an unknown internal error. Please send a detailed bug report "
+"to \"gnubiff-bugs@lists.sourceforge.net\".\n"
+"\n"
+"Additional information:\n"
+msgstr "Cyuzuye."
+
+#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade:125
+#, fuzzy
+msgid "Mark mailboxes read"
+msgstr "Gusoma"
+
+#: src/GNOME_gnubiffApplet.xml.h:2
+#, fuzzy
+msgid "Preferences..."
+msgstr "Ibyahiswemo..."
+
+#: src/GNOME_gnubiffApplet.xml.h:3
+#, fuzzy
+msgid "Run command"
+msgstr "Komandi:"
+
+#: src/GNOME_gnubiffApplet.server.in.h:1
+#, fuzzy
+msgid "Mail notification program"
+msgstr "Ikimenyetso Porogaramu"
+
+#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade:8
+msgid "gnubiff"
+msgstr ""
+
+#: ui/applet-gtk.glade:7
+#, fuzzy
+msgid "tooltip"
+msgstr "Umwanyanyobora:"
+
+#: ui/applet-gtk.glade:104
+#, fuzzy
+msgid "Start command"
+msgstr "Gutangira Komandi:"
+
+#: ui/applet-gtk.glade:146
+msgid "About"
+msgstr "Bigyanye"
+
+#: ui/applet-gtk.glade:173
+msgid "_Quit"
+msgstr ""
+
+#: ui/applet-gtk.glade:193
+msgid "About gnubiff"
+msgstr ""
+
+#: ui/applet-gtk.glade:255 ui/preferences.glade:1895
+#, fuzzy
+msgid ""
+"<small> Gnubiff is part of the GNU project.\n"
+" It is released under the aegis of GNU.</small>"
+msgstr "Porogaramu ni Bya i Umushinga i Bya"
+
+#: ui/applet-gtk.glade:363
+msgid "Ok"
+msgstr "Oke"
+
+#: ui/applet-gnome.glade:8
+msgid "Applet"
+msgstr "Guhindura Applet"
+
+#: ui/applet-gnome.glade:78
+msgid "00"
+msgstr ""
+
+#: ui/preferences.glade:7
+#, fuzzy
+msgid "gnubiff preferences"
+msgstr "Ibyahiswemo"
+
+#: ui/preferences.glade:130
+#, fuzzy
+msgid "When _double-clicked:"
+msgstr "MAHARAKUBIRI"
+
+#: ui/preferences.glade:152
+#, fuzzy
+msgid "<b>General</b>"
+msgstr "<B B"
+
+#: ui/preferences.glade:188
+#, fuzzy
+msgid "<b>Mailboxes</b>"
+msgstr "<B B"
+
+#: ui/preferences.glade:226
+#, fuzzy
+msgid "<b>Commands</b>"
+msgstr "<B B"
+
+#: ui/preferences.glade:309
+#, fuzzy
+msgid "When _new mail:"
+msgstr "Gishya Ubutumwa"
+
+#: ui/preferences.glade:331
+#, fuzzy
+msgid "The command to run when new mail arrives"
+msgstr "Komandi: Kuri Gukoresha Ryari: Gishya Ubutumwa"
+
+#: ui/preferences.glade:353
+#, fuzzy
+msgid "The command to run when the icon is double-clicked"
+msgstr "Komandi: Kuri Gukoresha Ryari: i Agashushondanga ni MAHARAKUBIRI"
+
+#: ui/preferences.glade:407
+#, fuzzy
+msgid "_Restrict collected mail to"
+msgstr "Ubutumwa Kuri"
+
+#: ui/preferences.glade:445
+#, fuzzy
+msgid "mail(s)"
+msgstr "Ubutumwa S"
+
+#: ui/preferences.glade:483
+msgid "Mailboxes"
+msgstr ""
+
+#: ui/preferences.glade:524 ui/preferences.glade:589
+#, fuzzy
+msgid "Image filename"
+msgstr "Izina ry'idosiye:"
+
+#: ui/preferences.glade:546 ui/preferences.glade:611
+#, fuzzy
+msgid "Browse for an image file"
+msgstr "kugirango Ishusho IDOSIYE"
+
+#: ui/preferences.glade:548 ui/properties.glade:295
+#, fuzzy
+msgid "_Browse..."
+msgstr "Gushakisha..."
+
+#: ui/preferences.glade:567
+#, fuzzy
+msgid "Text to display (%d is the number of new messages)"
+msgstr "Kuri Kugaragaza ni i Umubare Bya Gishya Ubutumwa"
+
+#: ui/preferences.glade:613
+#, fuzzy
+msgid "B_rowse..."
+msgstr "Gushakisha..."
+
+#: ui/preferences.glade:632
+#, fuzzy
+msgid "Text to display"
+msgstr "Kuri Kugaragaza"
+
+#: ui/preferences.glade:654
+#, fuzzy
+msgid "Applet geometry"
+msgstr "Iyigamashusho"
+
+#: ui/preferences.glade:676 ui/preferences.glade:1248
+#, fuzzy
+msgid "Whether to use geometry"
+msgstr "Kuri Gukoresha Iyigamashusho"
+
+#: ui/preferences.glade:678 ui/preferences.glade:1250
+#, fuzzy
+msgid "Use _geometry:"
+msgstr "Iyigamashusho"
+
+#: ui/preferences.glade:700 ui/preferences.glade:748
+#, fuzzy
+msgid "Whether to display a text"
+msgstr "Kuri Kugaragaza a Umwandiko"
+
+#: ui/preferences.glade:702
+#, fuzzy
+msgid "Show _text:"
+msgstr "Umwandiko"
+
+#: ui/preferences.glade:724
+#, fuzzy
+msgid "Whether to show an image"
+msgstr "Kuri Garagaza Ishusho"
+
+#: ui/preferences.glade:726
+#, fuzzy
+msgid "Show _image:"
+msgstr "Ishusho"
+
+#: ui/preferences.glade:750
+#, fuzzy
+msgid "Show t_ext:"
+msgstr "Umwandiko"
+
+#: ui/preferences.glade:772
+#, fuzzy
+msgid "Whether to display an image"
+msgstr "Kuri Kugaragaza Ishusho"
+
+#: ui/preferences.glade:774
+#, fuzzy
+msgid "Show i_mage:"
+msgstr "Ishusho"
+
+#: ui/preferences.glade:796 ui/preferences.glade:1296
+#, fuzzy
+msgid "<b>Layout</b>"
+msgstr "<B B"
+
+#: ui/preferences.glade:832
+#, fuzzy
+msgid "<b>When new mail</b>"
+msgstr "<B Gishya Ubutumwa B"
+
+#: ui/preferences.glade:870
+#, fuzzy
+msgid "<b>When no mail</b>"
+msgstr "<B Oya Ubutumwa B"
+
+#: ui/preferences.glade:896 ui/preferences.glade:1223
+#, fuzzy
+msgid "_Font:"
+msgstr "Imyandikire:"
+
+#: ui/preferences.glade:921 ui/preferences.glade:1357
+#, fuzzy
+msgid "The font to use to display information"
+msgstr "Intego- nyuguti Kuri Gukoresha Kuri Kugaragaza Ibisobanuro"
+
+#: ui/preferences.glade:941 ui/preferences.glade:1378
+#, fuzzy
+msgid "Whether to use window manager decoration"
+msgstr "Kuri Gukoresha Idirishya Muyobozi"
+
+#: ui/preferences.glade:943 ui/preferences.glade:1380
+msgid "Use _decoration"
+msgstr ""
+
+#: ui/preferences.glade:997
+#, fuzzy
+msgid "Applet or Biff"
+msgstr "Cyangwa"
+
+#: ui/preferences.glade:1038
+msgid "second(s)"
+msgstr "amasegonda"
+
+#: ui/preferences.glade:1061
+#, fuzzy
+msgid "Time to display popup window"
+msgstr "Kuri Kugaragaza Idirishya"
+
+#: ui/preferences.glade:1084
+#, fuzzy
+msgid "Popup geometry"
+msgstr "Iyigamashusho"
+
+#: ui/preferences.glade:1106
+#, fuzzy
+msgid "Whether to use format for header"
+msgstr "Kuri Gukoresha Imiterere kugirango Umutwempangano"
+
+# svx/source\dialog\srchdlg.src:RID_SVXDLG_SEARCH.BTN_FORMAT.text
+#: ui/preferences.glade:1108
+#, fuzzy
+msgid "_Format:"
+msgstr "Imiterere..."
+
+#: ui/preferences.glade:1130
+#, fuzzy
+msgid "[sender max size]:[subject max size]:[date max size]"
+msgstr ""
+"[Uwohereza KININI Ingano Ikivugwaho KININI Ingano Itariki KININI Ingano"
+
+#: ui/preferences.glade:1152
+#, fuzzy
+msgid "Whether to restrict number of displayed headers"
+msgstr "Kuri Umubare Bya Imitwe"
+
+#: ui/preferences.glade:1154
+#, fuzzy
+msgid "_Restrict number to"
+msgstr "Umubare Kuri"
+
+#: ui/preferences.glade:1176
+#, fuzzy
+msgid "Maximum number of headers to display"
+msgstr "Umubare Bya Imitwe Kuri Kugaragaza"
+
+#: ui/preferences.glade:1199
+#, fuzzy
+msgid "header(s)"
+msgstr "Umutwempangano S"
+
+#: ui/preferences.glade:1272
+#, fuzzy
+msgid "Whether to display the popup window"
+msgstr "Kuri Kugaragaza i Idirishya"
+
+#: ui/preferences.glade:1274
+#, fuzzy
+msgid "_Display for"
+msgstr "kugirango"
+
+#: ui/preferences.glade:1332
+#, fuzzy
+msgid "<b>Headers</b>"
+msgstr "<B B"
+
+#: ui/preferences.glade:1453 ui/popup.glade:7
+msgid "Popup"
+msgstr ""
+
+#: ui/preferences.glade:1506
+#, fuzzy
+msgid "<b>Expert editing mode</b>"
+msgstr "<B Ubwoko B"
+
+#: ui/preferences.glade:1530
+#, fuzzy
+msgid "Whether options can be edited in expert mode"
+msgstr "Amahitamo in Ubwoko"
+
+#: ui/preferences.glade:1532
+#, fuzzy
+msgid "_Edit options in expert mode"
+msgstr "Amahitamo in Ubwoko"
+
+#: ui/preferences.glade:1554
+#, fuzzy
+msgid ""
+"Whether to show the expert tab. Note: Disabling this option can only be "
+"reversed by editing the config file manually!"
+msgstr "Kuri Garagaza i Isunika iyi Ihitamo Bicuritswe ku i IDOSIYE"
+
+#: ui/preferences.glade:1556
+#, fuzzy
+msgid "_Show expert tab"
+msgstr "Isunika"
+
+#: ui/preferences.glade:1578
+#, fuzzy
+msgid ""
+"The editing dialog for all options that gnubiff uses internally can be "
+"enabled here. So it is possible to change the value of options for which no "
+"gui widgets are provided. A short description for each option is provided.\n"
+"<b>Warning:</b> Changing these options may cause gnubiff to act not properly "
+"or result in security problems."
+msgstr ""
+"Ikiganiro kugirango Byose Amahitamo Bikora ni Kuri Guhindura>> i Agaciro Bya "
+"Amahitamo kugirango Oya A Isobanuramiterere kugirango Ihitamo ni B B "
+"Amahitamo Gicurasi Kuri OYA Cyangwa Igisubizo in Umutekano"
+
+#: ui/preferences.glade:1669
+#, fuzzy
+msgid "List all options."
+msgstr "Byose Amahitamo"
+
+#: ui/preferences.glade:1687
+#, fuzzy
+msgid "String to be searched for."
+msgstr "Kuri kugirango"
+
+#: ui/preferences.glade:1709
+#, fuzzy
+msgid ""
+"Search for those (displayed) options that contain the string in the text "
+"entry."
+msgstr "kugirango Amahitamo i Ikurikiranyanyuguti in i Umwandiko Icyinjijwe"
+
+#: ui/preferences.glade:1743
+#, fuzzy
+msgid ""
+"List of options, their type and current values. To edit an option "
+"doubleclick on its value."
+msgstr "Bya Amahitamo Ubwoko Na KIGEZWEHO Uduciro Guhindura Ihitamo ku Agaciro"
+
+#: ui/preferences.glade:1815
+msgid "Expert"
+msgstr ""
+
+#: ui/preferences.glade:2072
+#, fuzzy
+msgid ""
+"<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
+"bugs@lists.sourceforge.net</span></small>"
+msgstr "<Gitoya Kuri Ubururu Intonde Cyuzuye Gitoya"
+
+#: ui/preferences.glade:2107
+msgid "Developers"
+msgstr ""
+
+#: ui/preferences.glade:2236
+msgid "Maintainers"
+msgstr ""
+
+#: ui/preferences.glade:2747
+msgid "Translators"
+msgstr ""
+
+#: ui/preferences.glade:2773
+#, fuzzy
+msgid ""
+"<small>Many people have further contributed to gnubiff by\n"
+"  - reporting problems\n"
+"  - suggesting various improvements\n"
+"  - submitting actual code\n"
+"Here is a list of these people:</small>"
+msgstr "<Gitoya Abantu Kuri ni a Urutonde Bya Abantu Gitoya"
+
+#: ui/preferences.glade:2840
+msgid "Contributors"
+msgstr "Abaterankunga"
+
+#: ui/preferences.glade:2872
+msgid "Credits"
+msgstr ""
+
+#: ui/preferences.glade:3003
+#, fuzzy
+msgid "Set to default value"
+msgstr "Kuri Mburabuzi Agaciro"
+
+#: ui/preferences.glade:3024
+#, fuzzy
+msgid "Toggle option"
+msgstr "Ihitamo"
+
+#: ui/preferences.glade:3045
+#, fuzzy
+msgid "Edit option"
+msgstr "Ihitamo"
+
+#: ui/properties.glade:7
+#, fuzzy
+msgid "Mailbox properties"
+msgstr "Indangakintu..."
+
+# basctl/source\basicide\moduldlg.src:RID_DLG_NEWLIB.RID_FT_NEWLIB.text
+#: ui/properties.glade:52
+#, fuzzy
+msgid "_Name:"
+msgstr "Izina:"
+
+# svx/source\dialog\imapdlg.src:RID_SVXDLG_IMAP.FT_URL.text
+#: ui/properties.glade:77
+#, fuzzy
+msgid "A_ddress:"
+msgstr "Aderesi:"
+
+#: ui/properties.glade:102
+#, fuzzy
+msgid "Name of the mailbox"
+msgstr "Bya i"
+
+# sfx2/source\dialog\dinfdlg.src:TP_DOCINFODOC.FT_FILE_TYP.text
+#: ui/properties.glade:124
+#, fuzzy
+msgid "_Type:"
+msgstr "Ubwoko"
+
+#: ui/properties.glade:174 ui/authentication.glade:52
+#, fuzzy
+msgid "_Username:"
+msgstr "Izina ry'ukoresha"
+
+#: ui/properties.glade:199
+#, fuzzy
+msgid "Your username on the mail server"
+msgstr "Izina ry'ukoresha ku i Ubutumwa Seriveri"
+
+# basctl/source\basicide\moduldlg.src:RID_TP_LIBS.RID_PB_PASSWORD.text
+#: ui/properties.glade:221 ui/authentication.glade:77
+#, fuzzy
+msgid "_Password:"
+msgstr "Ijambobanga..."
+
+#: ui/properties.glade:246
+#, fuzzy
+msgid "Your password on the mail server"
+msgstr "Ijambobanga... ku i Ubutumwa Seriveri"
+
+#: ui/properties.glade:274
+#, fuzzy
+msgid "file or folder or hostname"
+msgstr "IDOSIYE Cyangwa Ububiko Cyangwa Izina ry'inturo:"
+
+#: ui/properties.glade:367
+#, fuzzy
+msgid "Connection:"
+msgstr "Ukwihuza"
+
+#: ui/properties.glade:391
+#, fuzzy
+msgid "Connection port to connect to server"
+msgstr "Umuyoboro Kuri Kwihuza Kuri Seriveri"
+
+#: ui/properties.glade:414
+#, fuzzy
+msgid "Standard connection port"
+msgstr "Ukwihuza Umuyoboro"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....View.LookAndFeel..0.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFont.Standard.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFontCJK.Standard.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFontCTL.Standard.text
+#: ui/properties.glade:416
+#, fuzzy
+msgid "stan_dard"
+msgstr "Bisanzwe"
+
+#: ui/properties.glade:437
+#, fuzzy
+msgid "Other connection port"
+msgstr "Ukwihuza Umuyoboro"
+
+# framework/source\classes\fltdlg.src:STR_FILTER_OTHERS.text
+#: ui/properties.glade:439
+#, fuzzy
+msgid "_other"
+msgstr "Ikindi"
+
+#: ui/properties.glade:516
+msgid "Aut_hentication:"
+msgstr ""
+
+#: ui/properties.glade:570
+#, fuzzy
+msgid "Certificate filename"
+msgstr "Izina ry'idosiye:"
+
+#: ui/properties.glade:594
+#, fuzzy
+msgid "Bro_wse..."
+msgstr "Gushakisha..."
+
+#: ui/properties.glade:613
+#, fuzzy
+msgid "Cer_tificate:"
+msgstr "Impamyabushobozi"
+
+#: ui/properties.glade:668
+msgid "minutes"
+msgstr "iminota"
+
+# offmgr/source\offapp\dialog\optgdlg.src:OFA_TP_MISC.FT_HELPAGENT_TIME_UNIT.text
+#: ui/properties.glade:692
+msgid "seconds"
+msgstr "amasogonda"
+
+#: ui/properties.glade:715 ui/properties.glade:741
+#, fuzzy
+msgid ""
+"The amount of time to wait between mail checks or between retries when "
+"connection is lost"
+msgstr ""
+"Igiteranyo Bya Igihe Kuri Tegereza hagati Ubutumwa Cyangwa hagati Ryari: "
+"Ukwihuza ni"
+
+# svx/source\dialog\textanim.src:RID_SVXPAGE_TEXTANIMATION.FT_DELAY.text
+#: ui/properties.glade:767
+#, fuzzy
+msgid "Dela_y:"
+msgstr "Gutinda"
+
+#: ui/properties.glade:822
+msgid "_Mailbox:"
+msgstr ""
+
+#: ui/properties.glade:847
+#, fuzzy
+msgid "Mailbox folder"
+msgstr "Ububiko"
+
+#: ui/properties.glade:869
+#, fuzzy
+msgid "Other mailbox folder"
+msgstr "Ububiko"
+
+# framework/source\classes\fltdlg.src:STR_FILTER_OTHERS.text
+#: ui/properties.glade:871
+#, fuzzy
+msgid "othe_r"
+msgstr "Ikindi"
+
+#: ui/properties.glade:892
+#, fuzzy
+msgid "Standard mailbox folder"
+msgstr "Ububiko"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....View.LookAndFeel..0.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFont.Standard.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFontCJK.Standard.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFontCTL.Standard.text
+#: ui/properties.glade:894
+#, fuzzy
+msgid "stand_ard"
+msgstr "Bisanzwe"
+
+#: ui/properties.glade:927
+#, fuzzy
+msgid "<b>_Details</b>"
+msgstr "<B B"
+
+#: ui/authentication.glade:7
+msgid "Authentication"
+msgstr ""
+
+#: ui/authentication.glade:102
+#, fuzzy
+msgid "Your username on the server"
+msgstr "Izina ry'ukoresha ku i Seriveri"
+
+#: ui/authentication.glade:124
+#, fuzzy
+msgid "Your password on the server"
+msgstr "Ijambobanga... ku i Seriveri"
+
+#: ui/certificate.glade:7
+#, fuzzy
+msgid "Cannot certify server"
+msgstr "Seriveri"
+
+#: ui/certificate.glade:130
+msgid "Common Name"
+msgstr ""
+
+# sw/source\ui\utlui\initui.src:STR_AUTH_FIELD_ORGANIZATIONS.text
+#: ui/certificate.glade:154
+msgid "Organization"
+msgstr "Ishyirahamwe"
+
+#: ui/certificate.glade:178
+msgid "Organization Unit"
+msgstr ""
+
+#: ui/certificate.glade:275
+#, fuzzy
+msgid "<b>Issued To</b>"
+msgstr "<B B"
+
+#: ui/certificate.glade:394
+#, fuzzy
+msgid "<b>Address</b>"
+msgstr "<B B"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\data\org\openoffice\Office\DataAccess.xcu:..DataAccess.DriverSettings.com.sun.star.comp.sdbc.MozabDriver.ColumnAliases.HomeCountry.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....BusinessCard.PrivateAddress.Country.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....BusinessCard.BusinessAddress.Country.text
+#: ui/certificate.glade:418
+msgid "Country"
+msgstr "Igihugu"
+
+#: ui/certificate.glade:442
+msgid "Locality"
+msgstr ""
+
+#: ui/certificate.glade:540
+#, fuzzy
+msgid "State or Province"
+msgstr "Cyangwa"
+
+#: ui/certificate.glade:570
+#, fuzzy
+msgid "Certificate details"
+msgstr "Birambuye"
+
+#: ui/certificate.glade:668
+msgid "Accept"
+msgstr "Kwemera"
+
+#: ui/popup.glade:61
+#, fuzzy
+msgid "mail content"
+msgstr "Ubutumwa Ibikubiyemo"
+
+#: ui/popup.glade:116
+#, fuzzy
+msgid "<small><b>From</b></small>"
+msgstr "<Gitoya B B Gitoya"
+
+#: ui/popup.glade:140
+#, fuzzy
+msgid "<small><b>Subject</b></small>"
+msgstr "<Gitoya B B Gitoya"
+
+#: ui/popup.glade:164
+#, fuzzy
+msgid "<small><b>Date</b></small>"
+msgstr "<Gitoya B B Gitoya"
+
+#, fuzzy
+#~ msgid "Cannot find new mail directory (%s)"
+#~ msgstr "Gushaka Gishya Ubutumwa bushyinguro"
+
+#, fuzzy
+#~ msgid "<span size=\"xx-large\"><b>gnubiff</b></span>"
+#~ msgstr "<Ingano Binini B B"
+
+#, fuzzy
+#~ msgid "<small>(C) 2000-2004 Nicolas Rougier</small>"
+#~ msgstr "<Gitoya C Gitoya"
+
+#, fuzzy
+#~ msgid ""
+#~ "<small> Released under the aegis of GNU\n"
+#~ " Copyright (c) 2000-2005 Nicolas Rougier</small>"
+#~ msgstr "<Gitoya i Bya C Gitoya"
