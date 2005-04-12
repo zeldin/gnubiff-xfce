@@ -53,7 +53,7 @@ public:
 	//  main
 	// ========================================================================
 	gboolean get_messagenumbers (std::vector<guint> &msn,
-								 gboolean empty = true);
+								 gboolean empty = true) throw (local_err);
 	std::string file_to_monitor (void);
 };
 

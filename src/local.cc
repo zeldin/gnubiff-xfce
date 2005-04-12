@@ -61,7 +61,7 @@ Local::~Local (void)
 // ========================================================================
 //  main
 // ========================================================================	
-void
+void 
 Local::start (void)
 {
 	// Is there already someone watching this mailbox?
@@ -158,7 +158,8 @@ Local::fam_monitoring (void) throw (local_err)
 	}
 }
 
-void Local::stop (void)
+void 
+Local::stop (void)
 {
 	Mailbox::stop ();
 	if (FAMCONNECTION_GETFD (&fam_connection_)) 

@@ -65,6 +65,8 @@ public:
 	class local_err : public mailbox_err {};
 	/// Exception for a problem with the file alteration monitor (FAM).
 	class local_fam_err : public local_err {};
+	/// Exception for a problem when opening or reading a file
+	class local_file_err : public local_err {};
 
 	// ========================================================================
 	//  main

@@ -75,10 +75,14 @@ Mh::~Mh (void)
  *                 returned
  *  @param  empty  Whether the vector shall be emptied before obtaining the
  *                 message numbers (the default is true)
+ *  @exception local_file_err
+ *                 This exception is thrown when the file ".mh_sequences"
+ *                 could not be opened.
  *  @return        Boolean indicating success
  */
 gboolean 
 Mh::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
+						throw (local_err)
 {
 	// Empty the vector if wished for
 	if (empty)
@@ -88,8 +92,7 @@ Mh::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 	std::string filename = add_file_to_path (address (), ".mh_sequences");
 	std::ifstream file;
 	file.open (filename.c_str ());
-	if (!file.is_open ())
-		return false;
+	if (!file.is_open ()) throw local_file_err ();
 
 	// Parse mh sequences and try to find the unseen sequence
 	while (!file.eof()) {

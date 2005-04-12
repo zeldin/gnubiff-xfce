@@ -57,7 +57,7 @@ File::~File (void)
 // ========================================================================
 //  main
 // ========================================================================	
-void File::fetch (void)
+void File::fetch (void) throw (local_err)
 {
 	struct stat file_stat;
 	struct utimbuf timbuf;
@@ -67,10 +67,7 @@ void File::fetch (void)
 	// because some mail clients (e.g. mutt) rely on this access time
 	// to perform some operations.
 	if (value_bool ("file_restore_atime")) {
-		if (stat (address().c_str(), &file_stat) != 0) {
-			status (MAILBOX_ERROR);
-			return;
-		}
+		if (stat (address().c_str(), &file_stat) != 0) throw local_file_err ();
 		timbuf.actime = file_stat.st_atime;
 		timbuf.modtime = file_stat.st_mtime;
 	}
@@ -80,8 +77,7 @@ void File::fetch (void)
 	file.open (address().c_str());
 	if (!file.is_open()) {
 		g_warning (_("Cannot open %s."), address().c_str());
-		status (MAILBOX_ERROR);
-		return;
+		throw local_file_err ();
 	}
 
 	std::vector<std::string> mail;
@@ -118,7 +114,7 @@ void File::fetch (void)
 	if (mail.size() > 1)
 		parse (mail);
 
-	// Close mailbox
+	// Close mailbox file
 	file.close ();
 
 	// Restore access and modification time (if wanted)
