@@ -28,6 +28,7 @@ Version 2.1.4
    - Bugfix: Not reading the whole message (mh protocols)
    - Cleanup: FAM error handling via exceptions
    - Bugfix: Race condition when starting monitoring via FAM
+   - Bugfix: Testing returned pointer in Decoding::decode_body()
 
 
 Version 2.1.3		2005-04-03 23:57
