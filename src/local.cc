@@ -219,16 +219,16 @@ Local::parse_single_message_file (const std::string &filename,
 	// Read header and first lines of message
 	gboolean header = true;
 	guint cnt = max_cnt;
-	getline (file, line); // Read first line to correctly set eof
+	getline (file, line);
 	while ((!file.eof ()) && (cnt > 0)) {
 		// End of header?
 		if ((line.size() == 0) && header)
 			header = false;
 		// Store line
-		if (cnt > 0) {
+		if (!header)
 			cnt--;
-			mail.push_back (line);
-		}
+		mail.push_back (line);
+
 		// Read next line
 		getline(file, line);
 	}
