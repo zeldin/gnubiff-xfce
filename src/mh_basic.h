@@ -48,17 +48,17 @@ protected:
 public:
 	// ========================================================================
 	//  base
-	// ========================================================================	
+	// ========================================================================
 	Mh_Basic (class Biff *biff);
 	Mh_Basic (const Mailbox &other);
 	~Mh_Basic (void);
 
 	// ========================================================================
 	//  main
-	// ========================================================================	
-	virtual gboolean get_messagenumbers (std::vector<guint> &msn,
-										 gboolean empty = true);
-	void fetch (void);
+	// ========================================================================
+	virtual void get_messagenumbers (std::vector<guint> &msn,
+									 gboolean empty = true) throw (local_err);
+	void fetch (void) throw (local_err);
 };
 
 #endif

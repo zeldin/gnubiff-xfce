@@ -197,22 +197,23 @@ Local::file_to_monitor (void)
  *  @param  filename  Name of the file
  *  @param  uid       Unique identifier of the message (if known) or the empty
  *                    string (the default is the empty string)
+ *  @exception local_file_err
+ *                    This exception is thrown if the file could not be opened.
  */
 void 
 Local::parse_single_message_file (const std::string &filename,
-								  const std::string uid)
+								  const std::string uid) throw (local_err)
 {
 	std::ifstream file;
 	std::vector<std::string> mail;
 	std::string line;
 	guint max_cnt = 1 + biff_->value_uint ("min_body_lines");
 
-
 	// Read message header and first lines of message's body
 	file.open (filename.c_str());
 	if (!file.is_open()) {
 		g_warning (_("Cannot open %s."), filename.c_str());
-		return;
+		throw local_file_err();
 	}
 
 	// Read header and first lines of message

@@ -78,9 +78,11 @@ Mh::~Mh (void)
  *  @exception local_file_err
  *                 This exception is thrown when the file ".mh_sequences"
  *                 could not be opened.
- *  @return        Boolean indicating success
+ *  @exception local_info_err
+ *                 This exception is thrown when the ".mh_sequences" file
+ *                 can't be parsed successfully.
  */
-gboolean 
+void 
 Mh::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 						throw (local_err)
 {
@@ -102,16 +104,13 @@ Mh::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 		// Got it!
 		if (line.find("unseen:") == 0) {
 			line = line.substr (7); // size of "unseen:" is 7
-			if (!numbersequence_to_vector (line, msn))
-				return false;
+			if (!numbersequence_to_vector (line, msn)) throw local_info_err();
 			break;
 		}
 	}
 
 	// Close file
 	file.close();
-
-	return true;
 }
 
 /**

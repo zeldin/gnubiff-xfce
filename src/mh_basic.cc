@@ -67,16 +67,18 @@ Mh_Basic::~Mh_Basic (void)
 
 /**
  *  Get and parse new messages.
+ *
+ *  @exception local_file_err
+ *                  This exception is thrown if there is a problem when
+ *                  reading message files or files that contain information
+ *                  about the messages.
  */
 void 
-Mh_Basic::fetch (void)
+Mh_Basic::fetch (void) throw (local_err)
 {
 	// Get message numbers of (hopefully) unread mails
 	std::vector<guint> msn;
-	if (!get_messagenumbers(msn)) {
-		status (MAILBOX_ERROR);
-		return;
-	}
+	get_messagenumbers(msn);
 
 	// Get maximum number of mails to catch
 	guint maxnum = INT_MAX;
@@ -100,10 +102,13 @@ Mh_Basic::fetch (void)
  *                 returned
  *  @param  empty  Whether the vector shall be emptied before obtaining the
  *                 message numbers (the default is true)
- *  @return        Boolean indicating success
+ *  @exception local_file_err
+ *                 This exception is thrown when the directory containing
+ *                 the messages cannot be opened.
  */
-gboolean 
+void 
 Mh_Basic::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
+							  throw (local_err)
 {
 	// Empty the vector if wished for
 	if (empty)
@@ -113,7 +118,7 @@ Mh_Basic::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 	GDir *gdir = g_dir_open (address().c_str(), 0, NULL);
 	if (gdir == NULL) {
 		g_warning(_("Cannot open new mail directory (%s)"), address().c_str());
-		return false;
+		throw local_file_err();
 	}
 
 	// Read filenames from directory
@@ -132,6 +137,4 @@ Mh_Basic::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 
 	// Close directory
 	g_dir_close (gdir);
-
-	return true;
 }

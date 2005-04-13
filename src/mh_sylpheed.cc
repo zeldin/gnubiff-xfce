@@ -79,9 +79,11 @@ Mh_Sylpheed::~Mh_Sylpheed (void)
  *  @exception local_file_err
  *                 This exception is thrown when the file ".sylpheed_mark"
  *                 could not be opened.
- *  @return        Boolean indicating success
+ *  @exception local_info_err
+ *                 This exception is thrown when the ".sylpheed_mark" file
+ *                 can't be parsed successfully.
  */
-gboolean 
+void 
 Mh_Sylpheed::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 									throw (local_err)
 {
@@ -93,7 +95,8 @@ Mh_Sylpheed::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 	std::string filename = add_file_to_path (address (), ".sylpheed_mark");
 	std::ifstream file;
 	file.open (filename.c_str ());
-	if ((!file.is_open ()) || (file.eof())) throw local_file_err ();
+	if (!file.is_open ()) throw local_file_err ();
+	if (file.eof()) throw local_info_err();
 
 	// Get version of file
 	guint32 version;
@@ -101,7 +104,7 @@ Mh_Sylpheed::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 	if (version != 2) {
 		g_warning (_("Version \"%u\" of sylpheed mark file not supported"),
 					 version);
-		return false;
+		throw local_info_err();
 	}
 
 	// Read message numbers
@@ -119,8 +122,6 @@ Mh_Sylpheed::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 
 	// Close file
 	file.close();
-
-	return true;
 }
 
 /**

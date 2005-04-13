@@ -72,6 +72,10 @@ File::~File (void)
 // ========================================================================	
 /**
  *  Get and parse new messages.
+ *
+ *  @exception local_file_err
+ *                       This exception is thrown if there is a problem when
+ *                       opening, reading or manipulating the mailbox file.
  */
 void File::fetch (void) throw (local_err)
 {
