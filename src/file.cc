@@ -70,6 +70,9 @@ File::~File (void)
 // ========================================================================
 //  main
 // ========================================================================	
+/**
+ *  Get and parse new messages.
+ */
 void File::fetch (void) throw (local_err)
 {
 	struct stat file_stat;

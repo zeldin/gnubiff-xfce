@@ -66,7 +66,7 @@ Mh_Basic::~Mh_Basic (void)
 // ========================================================================	
 
 /**
- *  Get new messages.
+ *  Get and parse new messages.
  */
 void 
 Mh_Basic::fetch (void)

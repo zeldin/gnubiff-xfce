@@ -66,7 +66,10 @@ Maildir::~Maildir (void)
 // ========================================================================
 //  main
 // ========================================================================	
-void
+/**
+ *  Get and parse new messages.
+ */
+void 
 Maildir::fetch (void)
 {
 	// Try to open new mail directory
