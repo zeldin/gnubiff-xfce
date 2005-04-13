@@ -55,8 +55,8 @@ gboolean
 Decoding::decode_body (std::vector<std::string> &mail, std::string encoding,
 					   std::string::size_type bodypos, gboolean skip_header)
 {
-	// If mail is empty or bodypos invalid: Nothing has to be decoded
-	if ((mail.size() == 0) || (bodypos >= mail.size()))
+	// If mail is empty nothing has to be decoded
+	if (mail.size() == 0)
 		return true;
 
 	// Skip header
@@ -65,6 +65,10 @@ Decoding::decode_body (std::vector<std::string> &mail, std::string encoding,
 			bodypos++;
 		bodypos++;
 	}
+
+	// Invalid bodypos?
+	if (bodypos >= mail.size())
+		return true;
 
 	// 7bit, 8bit encoding: nothing to do
 	if ((encoding=="7bit") || (encoding=="8bit")); // || (encoding=="binary"));
