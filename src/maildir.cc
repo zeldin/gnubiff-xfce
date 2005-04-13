@@ -36,16 +36,29 @@
 // ========================================================================
 //  base
 // ========================================================================	
+/**
+ * Constructor. The local mailbox for the maildir protocol is created from
+ * scratch.
+ *
+ * @param biff Pointer to the instance of Gnubiff.
+ */
 Maildir::Maildir (Biff *biff) : Local (biff)
 {
 	value ("protocol", PROTOCOL_MAILDIR);
 }
 
+/**
+ * Constructor. The local mailbox for the maildir protocol is created by
+ * taking the attributes of the existing mailbox {\em other}.
+ *
+ * @param other Mailbox from which the attributes are taken.
+ */
 Maildir::Maildir (const Mailbox &other) : Local (other)
 {
 	value ("protocol", PROTOCOL_MAILDIR);
 }
 
+/// Destructor
 Maildir::~Maildir (void)
 {
 }

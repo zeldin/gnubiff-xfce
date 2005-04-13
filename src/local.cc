@@ -43,20 +43,31 @@
 // ========================================================================
 //  base
 // ========================================================================	
+/**
+ * Constructor. The local mailbox is created from scratch.
+ *
+ * @param biff Pointer to the instance of Gnubiff.
+ */
 Local::Local (Biff *biff) : Mailbox (biff)
 {
 	fam_connection_.fd = 0;
 }
 
+/**
+ * Constructor. The local mailbox is created by taking the attributes of
+ * the existing mailbox {\em other}.
+ *
+ * @param other Mailbox from which the attributes are taken.
+ */
 Local::Local (const Mailbox &other) : Mailbox (other)
 {
 	fam_connection_.fd = 0;
 }
 
+/// Destructor
 Local::~Local (void)
 {
 }
-
 
 // ========================================================================
 //  main

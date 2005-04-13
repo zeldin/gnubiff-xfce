@@ -38,7 +38,9 @@
 
 #define LOCAL(x)					((Local *)(x))
 
-
+/**
+ *  Base class for all local mailbox protocols.
+ */
 class Local : public Mailbox {
 
 protected:

@@ -38,8 +38,8 @@
 //  base
 // ========================================================================	
 /**
- * Constructor. The local mailbox for the mh protocol is created from
- * scratch.
+ * Constructor. The local mailbox for the mh protocol (as used by sylpheed)
+ * is created from scratch.
  *
  * @param biff Pointer to the instance of Gnubiff.
  */
@@ -49,8 +49,8 @@ Mh_Sylpheed::Mh_Sylpheed (Biff *biff) : Mh_Basic (biff)
 }
 
 /**
- * Constructor. The local mailbox for the mh protocol is created by
- * taking the attributes of the existing mailbox {\em other}.
+ * Constructor. The local mailbox for the mh protocol (as used by sylpheed)
+ * is created by taking the attributes of the existing mailbox {\em other}.
  *
  * @param other Mailbox from which the attributes are taken.
  */

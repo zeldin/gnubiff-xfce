@@ -40,16 +40,29 @@
 // ========================================================================
 //  base
 // ========================================================================	
+/**
+ * Constructor. The local mailbox for the file protocol is created from
+ * scratch.
+ *
+ * @param biff Pointer to the instance of Gnubiff.
+ */
 File::File (Biff *biff) : Local (biff)
 {
 	value ("protocol", PROTOCOL_FILE);
 }
 
+/**
+ * Constructor. The local mailbox for the file protocol is created by
+ * taking the attributes of the existing mailbox {\em other}.
+ *
+ * @param other Mailbox from which the attributes are taken.
+ */
 File::File (const Mailbox &other) : Local (other)
 {
 	value ("protocol", PROTOCOL_FILE);
 }
 
+/// Destructor
 File::~File (void)
 {
 }
