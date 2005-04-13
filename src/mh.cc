@@ -97,16 +97,17 @@ Mh::get_messagenumbers (std::vector<guint> &msn, gboolean empty)
 	if (!file.is_open ()) throw local_file_err ();
 
 	// Parse mh sequences and try to find the unseen sequence
+	std::string line;
+	getline (file, line);
 	while (!file.eof()) {
-		std::string line;
-		getline (file, line);
-
 		// Got it!
-		if (line.find("unseen:") == 0) {
+		if (line.find ("unseen:") == 0) {
 			line = line.substr (7); // size of "unseen:" is 7
 			if (!numbersequence_to_vector (line, msn)) throw local_info_err();
 			break;
 		}
+		// Read next line
+		getline (file, line);
 	}
 
 	// Close file

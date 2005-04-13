@@ -110,8 +110,8 @@ void File::fetch (void) throw (local_err)
 	if (biff_->value_bool ("use_max_mail"))
 		maxnum = biff_->value_uint ("max_mail");
 
+	getline (file, line);
 	while (!file.eof() && ((new_unread_.size() < maxnum))) {
-		getline(file, line);
 		// Here we look for a "From " at a beginning of a line indicating
 		// a new mail header. We then parse previous mail, reset mail
 		// vector, store new line in it and go on reading file.
@@ -128,6 +128,9 @@ void File::fetch (void) throw (local_err)
 			cnt--;
 			mail.push_back (line);
 		}
+
+		// Read next line
+		getline (file, line);
 	}
 	// Do not forget to parse the last one that cannot rely on "From "
 	// from the next mail

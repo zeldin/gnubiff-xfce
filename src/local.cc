@@ -219,8 +219,8 @@ Local::parse_single_message_file (const std::string &filename,
 	// Read header and first lines of message
 	gboolean header = true;
 	guint cnt = max_cnt;
+	getline (file, line); // Read first line to correctly set eof
 	while ((!file.eof ()) && (cnt > 0)) {
-		getline(file, line);
 		// End of header?
 		if ((line.size() == 0) && header)
 			header = false;
@@ -229,8 +229,10 @@ Local::parse_single_message_file (const std::string &filename,
 			cnt--;
 			mail.push_back (line);
 		}
+		// Read next line
+		getline(file, line);
 	}
-	file.close();
+	file.close ();
 
 	// Parse message
 	parse (mail, uid);

@@ -55,6 +55,10 @@ gboolean
 Decoding::decode_body (std::vector<std::string> &mail, std::string encoding,
 					   std::string::size_type bodypos, gboolean skip_header)
 {
+	// If mail is empty or bodypos invalid: Nothing has to be decoded
+	if ((mail.size() == 0) || (bodypos >= mail.size()))
+		return true;
+
 	// Skip header
 	if (skip_header) {
 		while ((bodypos<mail.size()) && (!mail[bodypos].empty()))

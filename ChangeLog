@@ -29,6 +29,7 @@ Version 2.1.4
    - Cleanup: FAM error handling via exceptions
    - Bugfix: Race condition when starting monitoring via FAM
    - Bugfix: Testing returned pointer in Decoding::decode_body()
+   - Bugfix: Testing for end of file
 
 
 Version 2.1.3		2005-04-03 23:57
