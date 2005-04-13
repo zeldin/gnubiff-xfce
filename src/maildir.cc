@@ -68,16 +68,20 @@ Maildir::~Maildir (void)
 // ========================================================================	
 /**
  *  Get and parse new messages.
+ *
+ *  @exception local_file_err
+ *                  This exception is thrown if there is a problem when
+ *                  reading message files or files that contain information
+ *                  about the messages.
  */
 void 
-Maildir::fetch (void)
+Maildir::fetch (void) throw (local_err)
 {
 	// Try to open new mail directory
 	GDir *gdir = g_dir_open (address().c_str(), 0, NULL);
 	if (gdir == NULL) {
 		g_warning(_("Cannot open new mail directory (%s)"), address().c_str());
-		status (MAILBOX_ERROR);
-		return;
+		throw local_file_err();
 	}
 
 	// Get maximum number of mails to catch
