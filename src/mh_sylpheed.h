@@ -36,7 +36,12 @@
 #include <vector>
 #include "mh_basic.h"
 
-
+/**
+ * Local mailbox for the mh protocol (as used by sylpheed).
+ *
+ * Note: The file ".sylpheed_mark" in which sylpheed saves information about
+ * messages is at the moment not platform independent!
+ */
 class Mh_Sylpheed : public Mh_Basic {
 
 protected:
