@@ -9,12 +9,12 @@ To do:
 - Cleanup Mailbox::parse()
 - Cleanup Options::update_gui()
 - Fix bugs ;-)
-- Make gnubiff 64bit safe (see debian bug #301853 report by David Mosberger)
+- Obtaining mails in Popup::update() should be thread safe
 
 Version 2.2.0:
 --------------
 
-* GtkAboutDialog (needs Gtk 2.6)
+* GtkAboutDialog (needs Gtk 2.6 and glade 2.10)
 * Summary instead of immediate notification
 * Make error handling when reading/parsing mail more consistent. At the moment
   sometimes no warning is printed, always a warning is printed or a warning is
