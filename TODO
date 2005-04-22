@@ -15,9 +15,10 @@ Version 2.2.0:
 --------------
 
 * GtkAboutDialog (needs Gtk 2.6 and glade 2.10)
-* Summary instead of immediate notification
+* Summary instead of immediate notification (see RFE on sourceforge)
 * Make error handling when reading/parsing mail more consistent. At the moment
   sometimes no warning is printed, always a warning is printed or a warning is
   printed in debug mode. Perhabs (new option?) print the error message in the
   tooltip? (this could be done by giving the message as parameters to the
   exceptions)
+* Shall some options removed from the GUI, added to the GUI (e.g. imap idling)
