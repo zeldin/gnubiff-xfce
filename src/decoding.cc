@@ -34,7 +34,7 @@
 #include "nls.h"
 
 /** 
- * Decodes the body of a mail.
+ * Decode the body of a mail.
  * The part of the mail's body that will be displayed by gnubiff is decoded.
  * The encoding is given by the parameter {\em encoding} and must be obtained
  * before. Currently supported encodings are 7bit, 8bit and quoted-printable.
@@ -105,92 +105,132 @@ Decoding::decode_body (std::vector<std::string> &mail, std::string encoding,
  *  @return      String containing the decoded line (or an error message).
  **/
 std::string 
-Decoding::decode_headerline (const std::string line)
+Decoding::decode_headerline (const std::string &line)
 {
 	// A mail header line (sender, subject or date) cannot contain
 	// non-ASCII characters, so first we remove any non-ASCII characters
-	std::string copy;
+	std::string copy, result;
 	std::string::size_type len = line.size();
 	for (std::string::size_type i = 0; i < len; i++)
 		if (line[i] >= 0)
 			copy += line[i];
 	len = copy.size();
 
-	gchar *utf8_part = NULL, encoding = '\0';
-	std::string copy_part, charset, decoded, result;
-
 	// Now we can begin decoding
 	std::string::size_type i = 0;
 	while (i < len) {
-		// Charset description (=?iso-ABCD-XY?)
-		if ((i+1 < len) && (copy[i] == '=') && (copy[i+1] == '?')) {
-			// First concatenate the part we got so far (using locale charset)
-			if (copy_part.size() > 0) {
-				utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
-				if (!utf8_part)
+		// An encoded word (see RFC 2047)?
+		std::string::size_type j = i;
+		while ((j+1 < len) && (copy[j] == '=') && (copy[j+1] == '?')) {
+			std::string charset, encoding, text, decoded;
+			gchar *utf8;
+
+			if (!parse_encoded_word (copy, charset, encoding, text, j))
+				return _("[Cannot decode this header line]");
+			g_message ("########## %s,%s,%s", charset.c_str(), encoding.c_str(),text.c_str());
+			// Decode and convert text
+			if (encoding == "q")
+				decoded = decode_qencoding (text);
+			else if (encoding == "b")
+				decoded = decode_base64 (text);
+			else
+				return _("[Cannot decode this header line]");
+			if (decoded.size() > 0) {
+				utf8 = g_convert (decoded.c_str(), -1, "utf-8",
+								  charset.c_str(), 0,0,0);
+				if (!utf8)
 					return _("[Cannot decode this header line]");
-				result += utf8_part;
-				g_free (utf8_part);
+				result += utf8;
+				g_free (utf8);
 			}
-			i += 2; 
-			if (i >= len)
-				return _("[Cannot decode this header line]");
 
-			// Charset description
-			charset.erase ();
-			while ((i < len) && (copy[i] != '?'))
-				charset += copy[i++];
-			i++;
-			// End of charset description
-
-			// Encoding description (Q or B)
-			if (i >= len)
-				return _("[Cannot decode this header line]");
-			encoding = copy[i++];
-			i++;
-			// End of encoding description
-
-			// First, get (part of) the encoded string
-			if (i >= len)
-				return _("[Cannot decode this header line]");
-			copy_part.erase ();
-			while ((i+1 < len) && !((copy[i] == '?') && (copy[i+1] == '=')))
-				copy_part += copy[i++];
-			if (i+1 >= len)
-				return _("[Cannot decode this header line]");
-
-			// Now decode
-			utf8_part = NULL;
-			if ((encoding == 'Q') || (encoding == 'q'))
-				decoded = decode_qencoding (copy_part);
-			else if ((encoding == 'B') || (encoding == 'b'))
-				decoded = decode_base64 (copy_part);
-			else { // This must not happen according to the RFC
-				utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
-			}
-			if (decoded.size() > 0)
-				utf8_part = g_convert (decoded.c_str(), -1, "utf-8",
-									   charset.c_str(), 0,0,0);
-			i += 2;
-			if (!utf8_part)
-				return _("[Cannot decode this header line]");
-			result += utf8_part;
-			g_free (utf8_part);
-			copy_part.erase ();
+			i = j;
+			// Maybe skip whitespace (see RFC 2047 section 6.2)
+			while ((j < len) && ((copy[j] == ' ') || (copy[j] == '\t')))
+				j++;
 		}
-		// Normal text
-		else
-			copy_part += copy[i++];
-	}
 
-	// Last (possible) part
-	utf8_part = g_locale_to_utf8 (copy_part.c_str(), -1, 0, 0, 0);
-	if (utf8_part) {
-		result += utf8_part;
-		g_free (utf8_part);
+		// ASCII character
+		if (i < len)
+			result += copy[i++];
 	}
 
 	return result;
+}
+
+/**
+ *  Parse one encoded word in a message header.
+ *  If this is successful true is returned and {\em charset} contains the
+ *  charset, {\em encoding} the encoding, {\em text} the encoded text and
+ *  pos the position of the first character after the encoded word. If this
+ *  is not successful false is returned, {\em pos} is unchanged, the other
+ *  values are undetermined.
+ *
+ *  @param  line      One (unfolded) message header line
+ *  @param  charset   Here the character set of the encoded word is returned
+ *                    (converted to lower case; only if the return value is
+ *                    true)
+ *  @param  encoding  Here the encoding of the encoded word is returned
+ *                    (converted to lower case; only if the return value is
+ *                    true)
+ *  @param  text      Here the encoded text of the encoded word is returned
+ *                    (only if the return value is true)
+ *  @param  pos       Position of the encoded word in the line. When the return
+ *                    value is true, {\em pos} is the position of the first
+ *                    character after the encoded word
+ *  @return           Boolean indicating success
+ *
+ *  @see  RFC 2047 sections 6.1 and 7
+ */
+gboolean 
+Decoding::parse_encoded_word (const std::string &line, std::string &charset,
+							  std::string &encoding, std::string &text,
+							  std::string::size_type &pos)
+{
+	std::string::size_type i = pos, i1, i2, len = line.size();
+	const std::string::size_type maxlen = 75; // see RFC 2047 section 2
+	const std::string especials = "()<>@,;:\"/[]?.= "; //see RFC 2047 section 2
+
+	// Test for "=?"
+	if ((i+1 >= len) || (line[i] != '=') || (line[i+1] != '?'))
+		return false;
+	i += 2;
+
+	// Search next "?"
+	while ((i < len) && (i-pos < maxlen) && (!g_ascii_iscntrl (line[i]))
+		   && (especials.find(line[i]) == std::string::npos))
+		i++;
+	if ((i >= len) || (i-pos >= maxlen) || (line[i] != '?'))
+		return false;
+	i1 = i++;
+
+	// Store charset
+	charset = ascii_strdown (line.substr (pos+2, i1-2-pos));
+
+	// Search next "?"
+	while ((i < len) && (i-pos < maxlen) && (!g_ascii_iscntrl (line[i]))
+		   && (especials.find(line[i]) == std::string::npos))
+		i++;
+	if ((i >= len) || (i-pos >= maxlen) || (line[i] != '?'))
+		return false;
+	i2 = i++;
+
+	// Store encoding
+	encoding = ascii_strdown (line.substr (i1+1, i2-1-i1));
+
+	// Search terminating "?="
+	while ((i+1 < len) && (i+1-pos < maxlen) && (!g_ascii_iscntrl (line[i]))
+		   && (especials.find(line[i]) == std::string::npos))
+		i++;
+	if ((i+1 >= len) || (i+1-pos >= maxlen) || (line[i] != '?')
+		|| (line[i+1] != '='))
+		return false;
+
+	// Store text and update position
+	text = line.substr (i2+1, i-1-i2);
+	pos = i+2;
+
+	return true;
 }
 
 /**

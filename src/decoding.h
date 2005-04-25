@@ -52,7 +52,10 @@ protected:
 	gboolean decode_body (std::vector<std::string> &mail, std::string encoding,
 						  std::string::size_type bodypos = 0,
 						  gboolean skip_header = true);
-	std::string decode_headerline (const std::string line);
+	std::string decode_headerline (const std::string &line);
+	gboolean parse_encoded_word (const std::string &line, std::string &charset,
+								 std::string &encoding, std::string &text,
+								 std::string::size_type &pos);
 	gboolean get_quotedstring (std::string line, std::string &str,
 							   std::string::size_type &pos,
 							   gchar quoted = '"', gboolean test_start = true,

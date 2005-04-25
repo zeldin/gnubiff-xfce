@@ -35,6 +35,10 @@ Version 2.1.4
    - Bugfix: Testing for end of file
    - Bugfix: Reading not enough header lines (maildir; thanks to Nicolas
         Evrard for reporting this bug; this fixes debian bug #303965)
+   - Bugfix/Cleanup: Rewrite of parsing header lines that may be RFC 2047
+        encoded for more RFC 2047 compliance. This also fixes the whitespace
+        between two encoded words bugs (thanks to Samuel Hym for reporting
+        this bug)
 
 
 Version 2.1.3		2005-04-03 23:57
