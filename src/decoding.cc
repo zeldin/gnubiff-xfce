@@ -124,10 +124,8 @@ Decoding::decode_headerline (const std::string &line)
 		while ((j+1 < len) && (copy[j] == '=') && (copy[j+1] == '?')) {
 			std::string charset, encoding, text, decoded;
 			gchar *utf8;
-
 			if (!parse_encoded_word (copy, charset, encoding, text, j))
 				return _("[Cannot decode this header line]");
-			g_message ("########## %s,%s,%s", charset.c_str(), encoding.c_str(),text.c_str());
 			// Decode and convert text
 			if (encoding == "q")
 				decoded = decode_qencoding (text);
@@ -189,7 +187,9 @@ Decoding::parse_encoded_word (const std::string &line, std::string &charset,
 {
 	std::string::size_type i = pos, i1, i2, len = line.size();
 	const std::string::size_type maxlen = 75; // see RFC 2047 section 2
-	const std::string especials = "()<>@,;:\"/[]?.= "; //see RFC 2047 section 2
+	// For especials: see RFC 2047 section 2. '=' omitted because it's used by
+	// the 'Q'-encoding
+	const std::string especials = "()<>@,;:\"/[]?. ";
 
 	// Test for "=?"
 	if ((i+1 >= len) || (line[i] != '=') || (line[i+1] != '?'))
