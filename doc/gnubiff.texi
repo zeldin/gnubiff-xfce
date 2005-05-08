@@ -231,6 +231,7 @@ Translators:@*
 @item David Smeringe (sv)
 @item Robert Sowada (de)
 @item Roland Stigge (de)
+@item Josef Vybiral (cs)
 @end itemize
 
 
