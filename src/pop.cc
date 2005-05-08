@@ -343,9 +343,9 @@ Pop::command_top (std::vector<std::string> &mail, guint msg) throw (pop_err)
 	cnt += biff_->value_uint ("min_body_lines") + 1;
 	do {
 		readline (line, false, true, false);
-		// Remove trailing '\n'
+		// Remove trailing '\r'
 		if (line.size() > 0) {
-			if (line[0]!='.')
+			if (line[0] != '.')
 				mail.push_back (line.substr(0, line.size()-1));
 			else // Note: We know line.size()>1 in this case
 				mail.push_back (line.substr(0, line.size()-2));
