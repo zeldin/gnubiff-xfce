@@ -179,7 +179,7 @@ if test "$password" = yes; then
     [  --with-password-string  String to use to encrypt password (HIGHLY RECOMMENDED)],
         pstring=$withval, pstring="")
 	AH_TEMPLATE([PASSWORD_STRING])
-    if eval "test x$pstring = x"; then
+    if test "x$pstring" = "x"; then
 		AC_DEFINE_UNQUOTED(PASSWORD_STRING, "FEDCBA9876543210")
     else
 		AC_DEFINE_UNQUOTED(PASSWORD_STRING, "$withval")

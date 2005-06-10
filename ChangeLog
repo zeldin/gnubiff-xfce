@@ -42,6 +42,14 @@ Version 2.1.4
    - Added Samuel Hym to contributors
    - Czech translation added (thanks to Josef Vybiral)
    - Added Josef Vybiral to contributors
+   - Bugfix: Added include file for compiling with gcc-c++-4.0.0-11 (thanks to
+        John Ellson for reporting this bug)
+   - Bugfix: Password strings containing spaces in configure (thanks to John
+        Ellson for reporting this bug)
+   - Bugfix: Bug in error message (was fixed in 2.0.3, got lost in 2.1.0;
+        thanks to John Ellson for reporting this bug)
+   - Bugfix: Operator precedence in debug message (thanks to John Ellson for
+        reporting this bug)
 
 Version 2.1.3		2005-04-03 23:57
  * Robert Sowada

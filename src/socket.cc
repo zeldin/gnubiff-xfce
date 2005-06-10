@@ -223,8 +223,7 @@ Socket::open (std::string hostname,
 			if (!SSL_CTX_load_verify_locations (context_, certificate_.c_str(),
 												capath)) {
 				g_warning(_("[%d] Failed to load certificate (%s) for %s"),
-						  uin_, hostname_.c_str(), certificate_.c_str(),
-						  hostname_.c_str());
+						  uin_, certificate_.c_str(), hostname_.c_str());
 				::close (sd_);
 				sd_ = SD_CLOSE;
 				return 0;
