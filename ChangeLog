@@ -50,6 +50,7 @@ Version 2.1.4
         thanks to John Ellson for reporting this bug)
    - Bugfix: Operator precedence in debug message (thanks to John Ellson for
         reporting this bug)
+   - Added John Ellson to contributors
 
 Version 2.1.3		2005-04-03 23:57
  * Robert Sowada

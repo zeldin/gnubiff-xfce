@@ -243,6 +243,7 @@ Various contributors:@*
 @item Philippe Berger
 @item Dennis Bjorklund
 @item Alexis S. L. Carvalho
+@item John Ellson
 @item Nicolas Evrard
 @item Greg Fenton
 @item Byron Foster
