@@ -133,11 +133,11 @@ msgstr "<Kein Betreff>"
 
 #: src/mailbox.cc:620
 msgid "[Cannot parse content type header line]"
-msgstr "[Kann die Kopfzeile mit dem Inhaltstyp nicht parsen]"
+msgstr "[Kann die Kopfzeile für den Inhaltstyp nicht parsen]"
 
 #: src/mailbox.cc:641
 msgid "[Cannot parse content transfer encoding header line]"
-msgstr "[Kann die Kopfzeile mit der Kodierung nicht parsen]"
+msgstr "[Kann die Kopfzeile für die Kodierung nicht parsen]"
 
 #: src/mailbox.cc:690
 msgid "[Malformed multipart message]"
