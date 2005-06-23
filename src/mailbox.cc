@@ -183,6 +183,45 @@ Mailbox::read (gboolean value)
 }
 
 /**
+ *  Return the standard port of the given mail protocol {\em protocol}. If
+ *  an invalid protocol is given zero is returned. This is also the case if
+ *  autodetection (for protocol or authentication is given).
+ *
+ *  @param  protocol  Protocol identifier
+ *  @param  auth      Method of authentication
+ *  @param  strict    If false the following combinations are also allowed:
+ *                    POP3 and APOP authentication. This is needed for
+ *                    displaying the correct port in the preferences dialog
+ *                    before all the values are correctly set. The default
+ *                    value is true.
+ *  @return           Standard port for the given combination of {\em protocol}
+ *                    and {\em use_ssl} or zero
+ */
+guint 
+Mailbox::standard_port (guint protocol, guint auth, gboolean strict)
+{
+	if (!strict && (protocol == PROTOCOL_POP3) && (auth == AUTH_APOP))
+		protocol = PROTOCOL_APOP;
+	switch (auth) {
+	case AUTH_AUTODETECT:
+	case AUTH_NONE:
+		return 0;
+	case AUTH_APOP:
+		return ((protocol == PROTOCOL_APOP) ? 110 : 0);
+	case AUTH_CERTIFICATE:
+	case AUTH_SSL:
+		if (protocol == PROTOCOL_IMAP4)
+			return 993;
+		return ((protocol == PROTOCOL_POP3) ? 995 : 0);
+	case AUTH_USER_PASS:
+		if (protocol == PROTOCOL_IMAP4)
+			return 143;
+		return ((protocol == PROTOCOL_POP3) ? 110 : 0);
+	}
+	return 0;
+}
+
+/**
  *  This function is called when an option is changed that has the
  *  OPTFLG_CHANGE flag set.
  *
@@ -226,26 +265,9 @@ Mailbox::option_changed (Option *option)
 		|| (option->name() == "authentication")) {
 		guint newport = 0;
 
-		// Standard ports
-		if (!value_bool ("use_other_port")) {
-			guint auth = authentication();
-			switch (protocol ()) {
-			case PROTOCOL_IMAP4:
-				newport = (auth == AUTH_USER_PASS) ? 143 : 993;
-				break;
-			case PROTOCOL_POP3:
-				newport = (auth == AUTH_USER_PASS) ? 110 : 995;
-				break;
-			case PROTOCOL_APOP:
-				newport = (auth == AUTH_APOP) ? 110 : 995;
-				break;
-			default:
-				break;
-			}
-			if (auth == AUTH_AUTODETECT)
-				newport = 0;
-		}
-		// User given port
+		// Standard port or user given port?
+		if (!value_bool ("use_other_port"))
+			newport = standard_port (protocol(), authentication());
 		else
 			newport = value_uint ("other_port") % 65536;
 

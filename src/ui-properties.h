@@ -32,12 +32,15 @@
 #ifndef __UI_PROPERTIES_H__
 #define __UI_PROPERTIES_H__
 
+#include "gnubiff_options.h"
 #include "gui.h"
 
-const gint	TYPE_AUTODETECT			=	0;
-const gint	TYPE_LOCAL				=	1;
-const gint	TYPE_POP				=	2;
-const gint	TYPE_IMAP				=	3;
+// Use of corresponding constants allows us to use functions like
+// Mailbox::standard_port()
+const gint	TYPE_AUTODETECT			=	PROTOCOL_NONE;
+const gint	TYPE_LOCAL				=	PROTOCOL_FILE;
+const gint	TYPE_POP				=	PROTOCOL_POP3;
+const gint	TYPE_IMAP				=	PROTOCOL_IMAP4;
 
 #define PROPERTIES(x)	((Properties *)(x))
 

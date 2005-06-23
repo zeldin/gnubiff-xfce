@@ -22,3 +22,4 @@ Version 2.2.0:
   tooltip? (this could be done by giving the message as parameters to the
   exceptions)
 * Shall some options removed from the GUI, added to the GUI (e.g. imap idling)
+* Tooltips: Write where pango-markup can be used, explain standard port number

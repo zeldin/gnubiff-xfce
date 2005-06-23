@@ -308,6 +308,9 @@ Properties::on_auth_changed (GtkAction *action)
 		selected_auth_ = AUTH_AUTODETECT;
 		certificate_view (false);
 	}
+	// Maybe the standard port has changed: Update the displayed connection
+	// details
+	connection_view (true);
 }
 
 void
@@ -545,13 +548,26 @@ Properties::details_view (gboolean visible)
 	}
 }
 
-void
+/**
+ *  Show or hide the widgets for setting the connection port. This function
+ *  also sets the label for the standard port of the current selection.
+ *
+ *  @param visible  Whether the widgets shall be visible
+ */
+void 
 Properties::connection_view (gboolean visible)
 {
+	// Show or hide the widgets
 	if (visible)
-		gtk_widget_show (get("connection_alignment"));
+		gtk_widget_show (get ("connection_alignment"));
 	else
-		gtk_widget_hide (get("connection_alignment"));
+		gtk_widget_hide (get ("connection_alignment"));
+	// Set the standard port label
+	std::stringstream ss;
+	ss << "(" << Mailbox::standard_port (selected_type_, selected_auth_, false)
+	   << ")";
+	gtk_label_set_text (GTK_LABEL (get ("label_standard_port")),
+						ss.str().c_str());
 }
 
 void

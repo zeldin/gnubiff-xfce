@@ -153,6 +153,8 @@ public:
 				std::string uid = std::string(""),
 				class PartInfo *pi = NULL, class Header *hh = NULL,
 				guint pos = 0);
+	guint static standard_port (guint protocol, guint auth,
+								gboolean strict = true);
 
 	// ========================================================================
 	//  access
