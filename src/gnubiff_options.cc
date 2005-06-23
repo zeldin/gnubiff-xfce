@@ -410,14 +410,14 @@ Gnubiff_Options::add_options_mailbox (void)
 	add_option (new Option_UInt ("other_port", OPTGRP_MAILBOX,
 		"Port to be used when connecting to the server via the internet on "
 		"a non standard port.",
-								   995, OPTFLG_CHANGE, OPTGUI_SPIN,
+								   0, OPTFLG_CHANGE, OPTGUI_SPIN,
 								   "port_spin"));
 	// PORT
 	add_option (new Option_UInt ("port", OPTGRP_MAILBOX,
 		"Port to be used when connecting to the server via the internet. "
 		"If authentication is set to autodetect this option will be set "
 		"when the mailbox is connected for the first time.",
-								 995, OPTFLG_AUTO | OPTFLG_NOSAVE));
+								 0, OPTFLG_AUTO | OPTFLG_NOSAVE));
 	// PROTOCOL
 	add_option (new Option_UInt ("protocol", OPTGRP_MAILBOX,
 		"Protocol to be used by the mailbox.",
