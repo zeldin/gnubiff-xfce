@@ -53,6 +53,7 @@ Version 2.1.4
    - Added John Ellson to contributors
    - Change: Default value of option "mailbox/other_port" is now 0
    - Feature: Display standard port being used in the properties dialog
+   - Bugfix: Showing/Hiding of certificate text entry
 
 Version 2.1.3		2005-04-03 23:57
  * Robert Sowada

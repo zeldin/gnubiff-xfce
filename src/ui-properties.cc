@@ -192,7 +192,7 @@ Properties::select (Mailbox *mailbox)
 	}
 
 	mailbox_ = mailbox;
-	selected_auth_ = AUTH_NONE;
+	selected_auth_ = mailbox->authentication();
 	selected_type_ = -1;
 	update_view ();
 }
@@ -260,8 +260,8 @@ Properties::on_type_changed (GtkAction *action)
 		selected_type_ = TYPE_POP;
 		identity_view (true);
 		details_view (true);
-		connection_view (true);
 		auth_view (true);
+		connection_view (true);
 		certificate_view (false);
 		mailbox_view (false);
 		delay_view (true);
@@ -271,8 +271,8 @@ Properties::on_type_changed (GtkAction *action)
 		selected_type_ = TYPE_IMAP;
 		identity_view (true);
 		details_view (true);
-		connection_view (true);
 		auth_view (true);
+		connection_view (true);
 		certificate_view (false);
 		mailbox_view (true);
 		delay_view (true);
@@ -470,7 +470,6 @@ Properties::type_view (void)
 	gtk_widget_set_sensitive (get("browse_address"), true);
 	identity_view (false);
 	details_view (false);
-	connection_view (true);
 	auth_view (false);
 	certificate_view (false);
 	mailbox_view (false);
@@ -502,6 +501,8 @@ Properties::type_view (void)
 		mailbox_view (true);
 		auth_view (true);
 	}
+
+	connection_view (true);
 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (type_menu_), selected_type_);
 }
@@ -551,6 +552,9 @@ Properties::details_view (gboolean visible)
 /**
  *  Show or hide the widgets for setting the connection port. This function
  *  also sets the label for the standard port of the current selection.
+ *
+ *  Note: If calling several Properties::..._view(...) functions this one must
+ *  be called after Properties::auth_view(...)!
  *
  *  @param visible  Whether the widgets shall be visible
  */
