@@ -4,12 +4,12 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
-Version 2.1.4
+Version 2.1.4		2005-06-27 22:45
  * Robert Sowada
    - Changed version to 2.1.4
    - Version is now inserted automatically in gnubiff.spec, gnubiff.texi
-   - Added "config/mdate-sh" (needed for generating "doc/version.texi"
-   - Added "doc/version.texi" (can be update via "--enable-maintainer-mode")
+   - Added "config/mdate-sh" (needed for generating "doc/version.texi")
+   - Added "doc/version.texi" (can be updated via "--enable-maintainer-mode")
    - Checked files for incorrect string size type without problems (so all
      files are checked now; see below for files checked for version 2.1.3):
         "src/gnubiff_options.*", "src/gui.*", "src/local.*", "src/options.*",
