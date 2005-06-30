@@ -10,6 +10,7 @@ Version 2.1.5
    - Bugfix: Checking if a FAM connection is established
    - Bugfix: Threadsafeness of FAM code
    - Bugfix: Retrying monitoring via FAM
+   - Copyright message in Credits dialog updated
 
 Version 2.1.4		2005-06-27 22:45
  * Robert Sowada
