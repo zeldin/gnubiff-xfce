@@ -58,9 +58,13 @@ protected:
 	 */
 	gboolean        fam_is_open_;
 	/**
-	 *  This mutex must be locked before calling any FAM function. To call
-	 *  FAMOpen or FAMClose and change the value of Local::fam_is_open_
-	 *  the Mailbox::monitor_mutex_ must be locked.
+	 *  This mutex must be locked before calling any FAM function
+	 *  (when not having the Mailbox::monitor_mutex_). To call
+	 *  FAMOpen() or FAMClose() and change the value of
+	 *  Local::fam_is_open_ the Mailbox::monitor_mutex_ must be
+	 *  locked. For calling functions like FAMNextEvent() it is
+	 *  sufficient to have the Mailbox::monitor_mutex_, so others with
+	 *  this mutex can call functions like FAMCancelMonitor().
 	 */
 	GMutex          *fam_mutex_;
 
