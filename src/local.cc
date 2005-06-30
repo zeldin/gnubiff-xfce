@@ -50,7 +50,8 @@
  */
 Local::Local (Biff *biff) : Mailbox (biff)
 {
-	fam_connection_.fd = 0;
+	fam_mutex_ = g_mutex_new();
+	fam_is_open_ = false;
 }
 
 /**
@@ -61,12 +62,21 @@ Local::Local (Biff *biff) : Mailbox (biff)
  */
 Local::Local (const Mailbox &other) : Mailbox (other)
 {
-	fam_connection_.fd = 0;
+	fam_mutex_ = g_mutex_new();
+	fam_is_open_ = false;
 }
 
 /// Destructor
 Local::~Local (void)
 {
+	// Close FAM connection and free its mutex
+	g_mutex_lock (fam_mutex_);
+	if (fam_is_open_) {
+		FAMClose (&fam_connection_);
+		fam_is_open_ = false;
+	}
+	g_mutex_unlock (fam_mutex_);
+	g_mutex_free (fam_mutex_);
 }
 
 // ========================================================================
@@ -97,8 +107,12 @@ Local::start (void)
 			seen_.clear ();
 
 			// If we have a fam connection then close it
-			if (FAMCONNECTION_GETFD (&fam_connection_))
+			g_mutex_lock (fam_mutex_);
+			if (fam_is_open_) {
 				FAMClose (&fam_connection_);
+				fam_is_open_ = false;
+			}
+			g_mutex_unlock (fam_mutex_);
 
 			// Wait the delay time before monitoring again
 			sleep (delay());
@@ -108,13 +122,28 @@ Local::start (void)
 	g_mutex_unlock (monitor_mutex_);
 }
 
+/**
+ * Monitor the files that need to be monitored by this mailbox via
+ * FAM. The thread calling this function must have been locked
+ * Local::monitor_mutex_.
+ *
+ * @exception local_fam_err
+ *                     This exception is thrown when there is a problem with
+ *                     FAM (File Alteration Monitor).
+ */
 void 
 Local::fam_monitoring (void) throw (local_err)
 {
 	gint status = 0;
 
 	// Connection request to FAM (File Alteration Monitor)
-	if (FAMOpen (&fam_connection_) < 0) throw local_fam_err();
+	g_mutex_lock (fam_mutex_);
+	status = FAMOpen (&fam_connection_);
+	if (status < 0) {
+		g_mutex_unlock (fam_mutex_);
+		throw local_fam_err();
+	}
+	fam_is_open_ = true;
 
 	// Start monitoring
 	std::string file = file_to_monitor ();
@@ -124,6 +153,9 @@ Local::fam_monitoring (void) throw (local_err)
 	else
 		status = FAMMonitorFile (&fam_connection_, file.c_str(),
 								 &fam_request_, NULL);
+	// Release FAM lock
+	g_mutex_unlock (fam_mutex_);
+
 	if (status < 0) throw local_fam_err();
 
 	// At this point we need to explicitely call the get function since
@@ -138,7 +170,9 @@ Local::fam_monitoring (void) throw (local_err)
 	status = 1;
 	while (status == 1) {
 		// Wait for next event
+		g_mutex_lock (fam_mutex_);
 		status = FAMNextEvent (&fam_connection_, &fam_event_);
+		g_mutex_unlock (fam_mutex_);
 		if ((status < 0 ) && (errno == EINTR))
 			break;
 		if (status < 0) throw local_fam_err();
@@ -156,25 +190,28 @@ Local::fam_monitoring (void) throw (local_err)
 	}
 
 	// Close FAM connection
+	g_mutex_lock (fam_mutex_);
 	FAMClose (&fam_connection_);
+	fam_is_open_ = false;
+	g_mutex_unlock (fam_mutex_);
 
 	// Ok, we got an error, just retry monitoring
-	if (status != 1) {
-#if DEBUG
-		g_message ("[%d] FAM error, start fetch in %d second(s)", uin(),
-				   delay());
-#endif
-		sleep (delay());
-		start ();
-	}
+	if (status != 1) throw local_fam_err();
 }
 
 void 
 Local::stop (void)
 {
+	// Do the usual stopping things
 	Mailbox::stop ();
-	if (FAMCONNECTION_GETFD (&fam_connection_)) 
+
+	// Cancel the fam monitor
+	g_mutex_lock (fam_mutex_);
+	if (fam_is_open_) {
 		FAMCancelMonitor (&fam_connection_, &fam_request_);
+		fam_is_open_ = false;
+	}
+	g_mutex_unlock (fam_mutex_);
 }
 
 /**

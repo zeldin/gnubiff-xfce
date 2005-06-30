@@ -7,6 +7,9 @@ Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 Version 2.1.5
  * Robert Sowada
    - Changed version to 2.1.5
+   - Bugfix: Checking if a FAM connection is established
+   - Bugfix: Threadsafeness of FAM code
+   - Bugfix: Retrying monitoring via FAM
 
 Version 2.1.4		2005-06-27 22:45
  * Robert Sowada
