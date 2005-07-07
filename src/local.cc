@@ -33,6 +33,7 @@
 #include <fstream>
 #include <signal.h>
 #include <sstream>
+#include <sys/select.h>
 #include <unistd.h>
 
 #include "biff.h"
@@ -153,6 +154,12 @@ Local::fam_monitoring (void) throw (local_err)
 	else
 		status = FAMMonitorFile (&fam_connection_, file.c_str(),
 								 &fam_request_, NULL);
+
+	// Initialize the structures needed by the select() command
+	fd_set readfds;
+	FD_ZERO (&readfds);
+	FD_SET (FAMCONNECTION_GETFD (&fam_connection_), &readfds);
+
 	// Release FAM lock
 	g_mutex_unlock (fam_mutex_);
 
@@ -170,7 +177,16 @@ Local::fam_monitoring (void) throw (local_err)
 	status = 1;
 	while (status == 1) {
 		// Wait for next event
+		if (select (FAMCONNECTION_GETFD(&fam_connection_)+1, &readfds, NULL,
+					NULL, NULL) < 0) {
+			if (errno==EINTR)
+				break;
+			else throw local_fam_err();
+		}
+
+		// Get the next event
 		status = FAMNextEvent (&fam_connection_, &fam_event_);
+
 		if ((status < 0 ) && (errno == EINTR))
 			break;
 		if (status < 0) throw local_fam_err();

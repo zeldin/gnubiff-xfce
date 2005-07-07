@@ -23,3 +23,5 @@ Version 2.2.0:
   exceptions)
 * Shall some options removed from the GUI, added to the GUI (e.g. imap idling)
 * Tooltips: Write where pango-markup can be used, explain standard port number
+* Only one FAM call for all local mailboxes. Still parse mails in multiple
+  threads
