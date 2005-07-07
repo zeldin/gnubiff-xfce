@@ -14,6 +14,7 @@ Version 2.1.5
    - Bugfix: Finally fixed the FAM problem (thanks to Hubert Verstraete for
         providing a patch)
    - Updated TODO
+   - Added Hubert Verstraete to contributors
 
 Version 2.1.4		2005-06-27 22:45
  * Robert Sowada
