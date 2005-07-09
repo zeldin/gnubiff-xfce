@@ -11,8 +11,8 @@ Version 2.1.5
    - Bugfix: Threadsafeness of FAM code
    - Bugfix: Retrying monitoring via FAM
    - Copyright message in Credits dialog updated
-   - Bugfix: Finally fixed the FAM problem (thanks to Hubert Verstraete for
-        providing a patch)
+   - Bugfix: Finally fixed the FAM problem (bug #1221040; thanks to Hubert
+        Verstraete for providing a patch)
    - Updated TODO
    - Added Hubert Verstraete to contributors
 
