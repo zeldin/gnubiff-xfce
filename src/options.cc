@@ -81,60 +81,7 @@ Options::add_option (Option *option)
 	if ((option == NULL) || (options_.find (option->name()) != options_.end()))
 		return false;
 	options_[option->name()] = option;
-
-	// If a boolean option is added, store the widgets in the GUI that are
-	// affected by this option
-	if (option->type() == OPTTYPE_BOOL) {
-		store_widgets (option->name(),((Option_Bool *)option)->gui_sensitive(),
-					   widgets_sensitive_);
-		store_widgets (option->name(), ((Option_Bool *)option)->gui_show(),
-					   widgets_show_);
-	}
-
 	return true;
-}
-
-/**
- *  Add a boolean option to a set of widgets.  For each widget a
- *  set of boolean options is stored. Only if all these options are
- *  true (or false if the option's name is prefixed by '!') then the
- *  widget is shown, set to be sensitive etc.
- *
- *  @param  name  Name of the option
- *  @param  gs    Set of widgets
- *  @param  map   Map of strings (name of widgets) and sets of strings (names
- *                of options)
- */
-void 
-Options::store_widgets (const std::string name,const std::set<std::string> &gs,
-						std::map<std::string, std::set<std::string> > &map)
-{
-	std::set<std::string>::iterator it = gs.begin ();
-
-	// Loop thru all widgets of the option
-	while (it != gs.end()) {
-		std::string neg, widget;
-
-		// Obtain the widget's name and whether the negated value shall be
-		// taken
-		if ((*it)[0] == '!') {
-			neg = "!";
-			widget = it->substr (1);
-		}
-		else
-			widget = *it;
-
-		// Store the option in the widget's vector
-		std::set<std::string> set;
-		iterator_widgets it_wid = map.find (widget);
-		if (it_wid != map.end())
-			set = it_wid->second;
-		set.insert (neg + name);
-		map[widget] = set;
-
-		// Next widget
-		it++;
-	}
 }
 
 /**
@@ -573,72 +520,6 @@ Options::from_strings (guint groups, std::map<std::string,std::string> &map)
 		it++;
 	}
 	return ok;
-}
-
-/**
- *  Update all GUI widgets. Widgets are shown/hidden and set to be
- *  sensitive/ insensitive depending on the values of the boolean
- *  options associated to these widgets.
- *
- *  @param  groups   Groups from which all options are taken
- *  @param  xml      GladeXML information of the GUI
- *  @param  filename Filename of the glade file for the GUI
- */
-void 
-Options::update_gui (GladeXML *xml, const std::string filename)
-{
-	iterator_widgets it_wid = widgets_sensitive_.begin ();
-
-	// Loop thru all widgets
-	while (it_wid != widgets_sensitive_.end ()) {
-		g_message ("#### %s",it_wid->first.c_str());
-		// Get widget
-		GtkWidget *widget = get_widget (it_wid->first.c_str(), xml,
-										filename.c_str());
-		// Get set of boolean options
-		std::set<std::string> set = it_wid->second;
-		// Next widget
-		it_wid++;
-		if (!widget)
-			continue;
-
-		// Decide what to do
-		gboolean ok = true;
-		std::set<std::string>::iterator it = set.begin ();
-		while (ok && (it != set.end())) {
-			std::string option_name = *(it++);
-			// Shall option's value be negated?
-			gboolean neg = false;
-			if (option_name[0] == '!') {
-				neg = true;
-				option_name = option_name.substr (1);
-			}
-			// Get option
-			Option *option = find_option (option_name);
-			if (!option)
-				continue;
-			if ((option->gui() == OPTGUI_TOGGLE)
-				|| (option->gui() == OPTGUI_RADIO)) {
-				// Get value from the widget for the option
-				std::stringstream ss (option->gui_name());
-				std::string option_widget_name;
-				ss >> option_widget_name;
-				GtkToggleButton *button;
-				button=GTK_TOGGLE_BUTTON(get_widget(option_widget_name.c_str(),
-													xml, filename.c_str()));
-				if (!button)
-					continue;
-				ok = gtk_toggle_button_get_active (button);
-			}
-			else
-				ok = ((Option_Bool *)option)->value ();
-			// Negate option?
-			if (neg)
-				ok = !ok;
-			g_message ("## %s %d", option->gui_name().c_str(), ok);
-
-		}
-	}
 }
 
 /**

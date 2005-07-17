@@ -456,7 +456,6 @@ Properties::update_view (void)
 	// Insert the values of the options into the GUI widgets and update
 	// widget status
 	mailbox_->update_gui (OPTSGUI_UPDATE, OPTGRP_MAILBOX, xml_, filename_);
-	mailbox_->update_gui (xml_, filename_);
 
 	type_view ();
 }
