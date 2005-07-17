@@ -91,6 +91,7 @@ public:
 	gboolean from_strings (guint groups,
 						   std::map<std::string,std::string> &map);
 
+	void update_gui (GladeXML *xml, const std::string filename);
 	void update_gui (OptionsGUI whattodo, guint groups, GladeXML *xml,
 					 const std::string filename);
 	void update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
@@ -107,6 +108,8 @@ protected:
 	typedef std::map<std::string, Option *>::iterator iterator;
 	/// Iterator for groups
 	typedef std::map<guint, Option_Group *>::iterator iterator_group;
+	/// Iterator for stored widgets/options map
+	typedef std::map<std::string, std::set<std::string> >::iterator iterator_widgets;
 	/// Stored options
 	std::map<std::string, Option *> options_;
 	/// Stored groups
@@ -114,6 +117,9 @@ protected:
 
 	GtkWidget *get_widget (const gchar *name, GladeXML *xml,
 						   const gchar *filename);
+	void store_widgets (const std::string name,const std::set<std::string> &gs,
+						std::map<std::string, std::set<std::string> > &map);
+
 	/**
 	 *  This function is called when an option is changed that has the
 	 *  OPTFLG_CHANGE flag set.
@@ -129,6 +135,20 @@ protected:
 	 *  @param option Pointer to the option that is to be updated.
 	 */
 	virtual void option_update (Option *option) {};
+private:
+	/**
+	 *  Map of widgets and a set of boolean options. If all boolean
+	 *  options are true (false if the option's name is preceded by a
+	 *  '!') then the widget is sensitive, otherwise it isn't set to
+	 *  be sensitive.
+	 */
+	std::map<std::string, std::set<std::string> > widgets_sensitive_;
+	/**
+	 *  Map of widgets and a set of boolean options. If all boolean
+	 *  options are true (false if the option's name is preceded by a
+	 *  '!') then the widget is shown, otherwise it's hidden.
+	 */
+	std::map<std::string, std::set<std::string> > widgets_show_;
 };
 
 #endif

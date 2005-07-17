@@ -10,6 +10,7 @@ To do:
 - Cleanup Options::update_gui()
 - Fix bugs ;-)
 - Obtaining mails in Popup::update() should be thread safe
+- Popup should not steal keyboard focus (thanks to Wade Berrier for reminding us of this long known bug)
 
 Version 2.2.0:
 --------------
