@@ -241,6 +241,7 @@ Various contributors:@*
 @item Adam Benjamin
 @item Josh Berdine
 @item Philippe Berger
+@item Wade Berrier
 @item Dennis Bjorklund
 @item Alexis S. L. Carvalho
 @item John Ellson
@@ -278,6 +279,7 @@ Various contributors:@*
 @item Richard Torkar
 @item Bernhard Valenti
 @item Dries Verachtert
+@item Hubert Verstraete
 @item Suzan Wassman
 @item Cai Yu
 @end itemize

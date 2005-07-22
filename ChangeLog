@@ -17,6 +17,7 @@ Version 2.1.5
    - Added Hubert Verstraete to contributors
    - Bugfix: Obtaining keyboard focus automatically (thanks to Wade Berrier
         for reminding us of this bug and for providing a patch)
+   - Added Wade Berrier to contributors
 
 Version 2.1.4		2005-06-27 22:45
  * Robert Sowada
