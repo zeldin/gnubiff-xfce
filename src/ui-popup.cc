@@ -377,7 +377,13 @@ Popup::show (std::string name)
 	consulting_ = false;
 
 	GtkWindow *dialog=GTK_WINDOW(get("dialog"));
+
+	// Present the popup window. Keyboard focus should not be obtained
+	// automatically when presenting the window but may then gained manually
+	gtk_window_set_accept_focus (dialog, false);
 	gtk_window_present (dialog);
+	gtk_window_set_accept_focus (dialog, true);
+
 	if (biff_->value_bool ("popup_use_geometry"))
 		gtk_window_parse_geometry (dialog, biff_->value_gchar ("popup_geometry"));
 	if (biff_->value_bool ("popup_be_sticky"))
