@@ -25,3 +25,5 @@ Version 2.2.0:
 * Tooltips: Write where pango-markup can be used, explain standard port number
 * Only one FAM call for all local mailboxes. Still parse mails in multiple
   threads
+* Substitute gtk_window_present() in ui-popup.cc by something that isn't
+  system dependent and does not steal the keyboard focus
