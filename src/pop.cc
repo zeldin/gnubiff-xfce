@@ -383,6 +383,9 @@ Pop::command_uidl (guint total, std::map<guint,std::string> &msg_uid)
 	guint msg_int;
 	msg_uid.clear ();
 
+	// Get maximum length of identifier (should be 70, see RFC 1939 7.)
+	unsigned uid_max_len = biff_->value_uint ("pop3_max_uid_length");
+
 	// Send command
 	sendline ("UIDL");
 	readline (line); // line is "+OK" (see RFC 1939 7.)
@@ -392,7 +395,8 @@ Pop::command_uidl (guint total, std::map<guint,std::string> &msg_uid)
 		std::stringstream ss(line);
 		ss >> msg_int >> uid;
 		if (msg_int != msg) throw pop_command_err ();
-		if ((uid.size() > 70) || (uid.size() == 0)) throw pop_command_err ();
+		if ((uid.size() > uid_max_len) || (uid.size() == 0))
+			throw pop_command_err ();
 		msg_uid[msg] = uid;
 	}
 	readline (line, true, true, false); // line is ".\r"
@@ -419,6 +423,9 @@ Pop::command_uidl (guint msg) throw (pop_err)
 	std::stringstream ss_msg;
 	ss_msg << msg;
 
+	// Get maximum length of identifier (should be 70, see RFC 1939 7.)
+	unsigned int uid_max_len = biff_->value_uint ("pop3_max_uid_length");
+
 	// Send command
 	sendline ("UIDL " + ss_msg.str ());
 	readline (line); // line is "+OK msg uidl" (see RFC 1939 7.)
@@ -426,7 +433,8 @@ Pop::command_uidl (guint msg) throw (pop_err)
 	std::stringstream ss(line.substr(4));
 	ss >> msg_int >> uid;
 	if (msg_int != msg) throw pop_command_err ();
-	if ((uid.size() > 70) || (uid.size() == 0)) throw pop_command_err ();
+	if ((uid.size() > uid_max_len) || (uid.size() == 0))
+		throw pop_command_err ();
 
 	return uid;
 }

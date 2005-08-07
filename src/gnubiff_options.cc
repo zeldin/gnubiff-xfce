@@ -663,4 +663,13 @@ Gnubiff_Options::add_options_security (void)
 		"connection is closed.\n"
 		"This option is used for all network protocols.",
 								 64));
+	// POP3_MAX_UID_LENGTH
+	add_option (new Option_UInt ("pop3_max_uid_length", OPTGRP_SECURITY,
+		"Maximum length of the unique identifier of messages for the POP3 "
+		"protocol. The standard (RFC 1939 section 7.) specifies that no "
+        "identifier must be longer than 70 characters. So there should be no "
+        "need to change this value when dealing with servers respecting the "
+        "standard.\n"
+		"This option is used for the POP3 protocol.",
+								 70));
 }

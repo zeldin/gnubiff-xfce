@@ -27,3 +27,4 @@ Version 2.2.0:
   threads
 * Substitute gtk_window_present() in ui-popup.cc by something that isn't
   system dependent and does not steal the keyboard focus
+* HTML mails?
