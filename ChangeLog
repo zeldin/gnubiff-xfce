@@ -19,6 +19,10 @@ Version 2.1.5
         for reminding us of this bug and for providing a patch)
    - Added Wade Berrier to contributors
    - Feature: Option "pop3_max_uid_length" for dealing with buggy servers
+   - Bugfix: Define HAVE_BIND_TEXTDOMAIN_CODESET in configure file (debian bug
+        #305002; thanks to Elie Morisse for reporting this bug; thanks to
+        Martin Samuelsson for giving information how to reproduce the bug;
+        thanks to Roland Stigge for finding the exact cause of the bug)
 
 Version 2.1.4		2005-06-27 22:45
  * Robert Sowada

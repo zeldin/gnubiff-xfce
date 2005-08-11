@@ -118,7 +118,7 @@ AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_MALLOC
 AC_FUNC_STAT
 AC_FUNC_UTIME_NULL
-AC_CHECK_FUNCS([gethostbyname memset socket strchr strerror strrchr strstr utime])
+AC_CHECK_FUNCS([gethostbyname memset socket strchr strerror strrchr strstr utime bind_textdomain_codeset])
 
 
 
