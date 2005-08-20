@@ -6,7 +6,7 @@ EXTRA_DIST = \
 	config/intltool-update.in	\
 	config/intltool-extract.in	\
 	config/intltool-merge.in	\
-	config/gnubiff.spec			\
+	config/gnubiff.spec.in		\
 	THANKS
 
 DISTCLEANFILES = \

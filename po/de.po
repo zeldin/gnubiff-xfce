@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-04-11 10:23+0200\n"
+"POT-Creation-Date: 2005-08-21 00:51+0200\n"
 "PO-Revision-Date: 2005-03-31 11:05+0200\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -16,17 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/decoding.cc:77
+#: src/decoding.cc:85
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Die Kodierung »%s« dieser Nachricht kann nicht dekodiert werden]"
 
-#: src/decoding.cc:122 src/decoding.cc:128 src/decoding.cc:139
-#: src/decoding.cc:146 src/decoding.cc:151 src/decoding.cc:167
+#: src/decoding.cc:128 src/decoding.cc:135 src/decoding.cc:140
 msgid "[Cannot decode this header line]"
 msgstr "[Kann diese Kopfzeile nicht dekodieren]"
 
-#: src/decoding.cc:607
+#: src/decoding.cc:656
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Kann Zeichenkodierung nicht konvertieren (von »%s« nach »utf-8«)]"
@@ -114,40 +113,40 @@ msgstr "Kein Protokoll für Briefkasten %d angegeben"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Kann Thread nicht erzeugen: %s"
 
-#: src/mailbox.cc:266
+#: src/mailbox.cc:288
 #, c-format
 msgid "mailbox %d"
 msgstr "Briefkasten %d"
 
-#: src/mailbox.cc:571
+#: src/mailbox.cc:593
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
-#: src/mailbox.cc:572
+#: src/mailbox.cc:594
 msgid "<no sender>"
 msgstr "<Kein Absender>"
 
-#: src/mailbox.cc:573
+#: src/mailbox.cc:595
 msgid "<no subject>"
 msgstr "<Kein Betreff>"
 
-#: src/mailbox.cc:620
+#: src/mailbox.cc:642
 msgid "[Cannot parse content type header line]"
 msgstr "[Kann die Kopfzeile für den Inhaltstyp nicht parsen]"
 
-#: src/mailbox.cc:641
+#: src/mailbox.cc:663
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Kann die Kopfzeile für die Kodierung nicht parsen]"
 
-#: src/mailbox.cc:690
+#: src/mailbox.cc:712
 msgid "[Malformed multipart message]"
 msgstr "[Missgebildete Multipart-Nachricht]"
 
-#: src/mailbox.cc:698
+#: src/mailbox.cc:720
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Kann den ersten Teil der Multipart-Nachricht nicht finden]"
 
-#: src/mailbox.cc:744
+#: src/mailbox.cc:766
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Diese Nachricht besitzt keinen unterstützten Inhaltstyp: »%s/%s«]"
@@ -158,7 +157,7 @@ msgid "Can't sort mails by \"%s\""
 msgstr "Kann Nachrichten nicht nach »%s« sortieren"
 
 #: src/socket.cc:125 src/socket.cc:154 src/socket.cc:182 src/socket.cc:190
-#: src/socket.cc:198 src/socket.cc:210 src/socket.cc:241 src/socket.cc:250
+#: src/socket.cc:198 src/socket.cc:210 src/socket.cc:240 src/socket.cc:249
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Kann mit »%s« auf Port %d keine Verbindung aufbauen"
@@ -168,71 +167,71 @@ msgstr "[%d] Kann mit »%s« auf Port %d keine Verbindung aufbauen"
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Konnte das Zertifikat »%s« für »%s« nicht laden"
 
-#: src/socket.cc:263
+#: src/socket.cc:262
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Kann entfernten Host »%s« auf Port %d nicht identifizieren"
 
-#: src/socket.cc:348
+#: src/socket.cc:347
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Kann nicht an »%s« auf Port %d schreiben"
 
-#: src/socket.cc:410
+#: src/socket.cc:409
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Kann nicht von »%s« auf Port %d lesen"
 
-#: src/socket.cc:432
+#: src/socket.cc:431
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "Kann nicht das Timeout zum Lesen auf dem Socket setzen: %s"
 
-#: src/file.cc:82 src/maildir.cc:120
+#: src/file.cc:99
 #, c-format
 msgid "Cannot open %s."
 msgstr "Kann »%s« nicht öffnen."
 
-#: src/imap4.cc:466
+#: src/imap4.cc:467
 msgid "[This message has no part with a supported content type]"
 msgstr "[Diese Nachricht besitzt keinen Teil mit unterstütztem Inhaltstyp]"
 
-#: src/imap4.cc:829
+#: src/imap4.cc:830
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kann Ordner »%s« auf dem Server »%s« nicht auswählen"
 
-#: src/imap4.cc:917
+#: src/imap4.cc:918
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Bekomme keine Bestätigung von »%s« auf Port %d"
 
-#: src/imap4.cc:976
+#: src/imap4.cc:977
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d] Der Server sendet keine unmarkierte »%s«-Antwort oder Bestätigung"
 
-#: src/imap4.cc:1029
+#: src/imap4.cc:1030
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Der Server sendet keine unmarkierte »%s«-Antwort"
 
-#: src/imap4.cc:1585
+#: src/imap4.cc:1586
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Der Server beendet die Verbindung unverzüglich:%s"
 
-#: src/imap4.cc:1590
+#: src/imap4.cc:1591
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Interner Fehler des Servers oder unbekannter Fehler:%s"
 
-#: src/imap4.cc:1595
+#: src/imap4.cc:1596
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Warnung des Servers:%s"
 
-#: src/maildir.cc:69
+#: src/maildir.cc:83
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kann neues Mail-Verzeichnis nicht öffnen (»%s«)."
@@ -242,12 +241,12 @@ msgstr "Kann neues Mail-Verzeichnis nicht öffnen (»%s«)."
 msgid "[%d] Empty password"
 msgstr "[%d] Leeres Passwort"
 
-#: src/pop.cc:508
+#: src/pop.cc:516
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Fehlermeldung des POP3-Servers:%s"
 
-#: src/pop.cc:515
+#: src/pop.cc:523
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Keine positive Antwort vom POP3 server bekommen"
@@ -368,7 +367,7 @@ msgstr "Wert"
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:596 ui/preferences.glade:2951
+#: src/ui-preferences.cc:596 ui/preferences.glade:2998
 msgid "_Stop"
 msgstr "_Stopp"
 
@@ -416,11 +415,11 @@ msgstr "Benutzer & Passwort verschlüsselt (apop)"
 msgid "SSL with certificate"
 msgstr "SSL mit Zertifikat"
 
-#: src/ui-properties.cc:316
+#: src/ui-properties.cc:319
 msgid "Browse for a file or folder"
 msgstr "Wähle eine Datei oder einen Ordner"
 
-#: src/ui-properties.cc:322 ui/properties.glade:592
+#: src/ui-properties.cc:325 ui/properties.glade:616
 msgid "Browse for a certificate file"
 msgstr "Wähle eine Datei mit Zertifikat"
 
@@ -778,7 +777,7 @@ msgstr ""
 msgid "Expert"
 msgstr "E_xperte"
 
-#: ui/preferences.glade:2072
+#: ui/preferences.glade:2073
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
@@ -786,19 +785,19 @@ msgstr ""
 "<small>Fehler sollten an <span foreground=\"blue\">gnubiff-bugs@lists."
 "sourceforge.net</span> gemeldet werden.</small>"
 
-#: ui/preferences.glade:2107
+#: ui/preferences.glade:2108
 msgid "Developers"
 msgstr "_Entwickler"
 
-#: ui/preferences.glade:2236
+#: ui/preferences.glade:2237
 msgid "Maintainers"
 msgstr "_Maintainer"
 
-#: ui/preferences.glade:2747
+#: ui/preferences.glade:2794
 msgid "Translators"
 msgstr "_Übersetzer"
 
-#: ui/preferences.glade:2773
+#: ui/preferences.glade:2820
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -812,23 +811,23 @@ msgstr ""
 "    • Code eingesendet haben.\n"
 "Hier ist eine Liste dieser Personen:</small>"
 
-#: ui/preferences.glade:2840
+#: ui/preferences.glade:2887
 msgid "Contributors"
 msgstr "Mit_wirkende"
 
-#: ui/preferences.glade:2872
+#: ui/preferences.glade:2919
 msgid "Credits"
 msgstr "_Danksagungen"
 
-#: ui/preferences.glade:3003
+#: ui/preferences.glade:3050
 msgid "Set to default value"
 msgstr "Auf Standardwert zurücksetzen"
 
-#: ui/preferences.glade:3024
+#: ui/preferences.glade:3071
 msgid "Toggle option"
 msgstr "Option verändern"
 
-#: ui/preferences.glade:3045
+#: ui/preferences.glade:3092
 msgid "Edit option"
 msgstr "Option bearbeiten"
 
@@ -896,31 +895,31 @@ msgstr "Es soll ein anderer Port verwendet werden"
 msgid "_other"
 msgstr "benu_tzerdefiniert"
 
-#: ui/properties.glade:516
+#: ui/properties.glade:540
 msgid "Aut_hentication:"
 msgstr "Aut_hentifizierung:"
 
-#: ui/properties.glade:570
+#: ui/properties.glade:594
 msgid "Certificate filename"
 msgstr "Datei, die das Zertifikat enthält"
 
-#: ui/properties.glade:594
+#: ui/properties.glade:618
 msgid "Bro_wse..."
 msgstr "Auswählen..."
 
-#: ui/properties.glade:613
+#: ui/properties.glade:637
 msgid "Cer_tificate:"
 msgstr "_Zertifikat:"
 
-#: ui/properties.glade:668
+#: ui/properties.glade:692
 msgid "minutes"
 msgstr "Minuten"
 
-#: ui/properties.glade:692
+#: ui/properties.glade:716
 msgid "seconds"
 msgstr "Sekunden"
 
-#: ui/properties.glade:715 ui/properties.glade:741
+#: ui/properties.glade:739 ui/properties.glade:765
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
@@ -928,35 +927,35 @@ msgstr ""
 "Das Zeitintervall zwischen Überprüfungen auf neue Nachrichten bzw. zwischen "
 "Verbindungsversuchen, falls die Verbindung abbricht"
 
-#: ui/properties.glade:767
+#: ui/properties.glade:791
 msgid "Dela_y:"
 msgstr "Verz_ögerung:"
 
-#: ui/properties.glade:822
+#: ui/properties.glade:846
 msgid "_Mailbox:"
 msgstr "_Briefkasten:"
 
-#: ui/properties.glade:847
+#: ui/properties.glade:871
 msgid "Mailbox folder"
 msgstr "Ordner auf dem Server"
 
-#: ui/properties.glade:869
+#: ui/properties.glade:893
 msgid "Other mailbox folder"
 msgstr "Es soll ein anderer Ordner verwendet werden"
 
-#: ui/properties.glade:871
+#: ui/properties.glade:895
 msgid "othe_r"
 msgstr "benut_zerdefiniert"
 
-#: ui/properties.glade:892
+#: ui/properties.glade:916
 msgid "Standard mailbox folder"
 msgstr "Es soll der standardmäßige Eingangsordner verwendet werden"
 
-#: ui/properties.glade:894
+#: ui/properties.glade:918
 msgid "stand_ard"
 msgstr "standardmä_ßig"
 
-#: ui/properties.glade:927
+#: ui/properties.glade:951
 msgid "<b>_Details</b>"
 msgstr "<b>_Details</b>"
 

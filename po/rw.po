@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-04-11 10:23+0200\n"
+"POT-Creation-Date: 2005-08-21 00:51+0200\n"
 "PO-Revision-Date: 2005-04-03 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -24,18 +24,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/decoding.cc:77
+#: src/decoding.cc:85
 #, fuzzy, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Imisobekere: Bya iyi Ubutumwa"
 
-#: src/decoding.cc:122 src/decoding.cc:128 src/decoding.cc:139
-#: src/decoding.cc:146 src/decoding.cc:151 src/decoding.cc:167
+#: src/decoding.cc:128 src/decoding.cc:135 src/decoding.cc:140
 #, fuzzy
 msgid "[Cannot decode this header line]"
 msgstr "[iyi Umutwempangano Umurongo"
 
-#: src/decoding.cc:607
+#: src/decoding.cc:656
 #, fuzzy, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[GUHINDURA Inyuguti Bivuye Kuri 8"
@@ -133,48 +132,48 @@ msgstr "Porotokole kugirango"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d]Kuri Kurema Urudodo"
 
-#: src/mailbox.cc:266
+#: src/mailbox.cc:288
 #, c-format
 msgid "mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:571
+#: src/mailbox.cc:593
 #, fuzzy
 msgid "<no date>"
 msgstr "<Oya Itariki"
 
-#: src/mailbox.cc:572
+#: src/mailbox.cc:594
 #, fuzzy
 msgid "<no sender>"
 msgstr "<Oya Uwohereza"
 
 # # generics string
-#: src/mailbox.cc:573
+#: src/mailbox.cc:595
 #, fuzzy
 msgid "<no subject>"
 msgstr "<nta mutwe)"
 
-#: src/mailbox.cc:620
+#: src/mailbox.cc:642
 #, fuzzy
 msgid "[Cannot parse content type header line]"
 msgstr "[Ibikubiyemo Ubwoko Umutwempangano Umurongo"
 
-#: src/mailbox.cc:641
+#: src/mailbox.cc:663
 #, fuzzy
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Ibikubiyemo Imisobekere: Umutwempangano Umurongo"
 
-#: src/mailbox.cc:690
+#: src/mailbox.cc:712
 #, fuzzy
 msgid "[Malformed multipart message]"
 msgstr "[Ubutumwa"
 
-#: src/mailbox.cc:698
+#: src/mailbox.cc:720
 #, fuzzy
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Gushaka Itangira Itangiriro in i Ubutumwa"
 
-#: src/mailbox.cc:744
+#: src/mailbox.cc:766
 #, fuzzy, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Ubutumwa Ibikubiyemo Ubwoko"
@@ -185,7 +184,7 @@ msgid "Can't sort mails by \"%s\""
 msgstr "Ishungura ku"
 
 #: src/socket.cc:125 src/socket.cc:154 src/socket.cc:182 src/socket.cc:190
-#: src/socket.cc:198 src/socket.cc:210 src/socket.cc:241 src/socket.cc:250
+#: src/socket.cc:198 src/socket.cc:210 src/socket.cc:240 src/socket.cc:249
 #, fuzzy, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d]Kuri Kwihuza Kuri ku Umuyoboro"
@@ -195,72 +194,72 @@ msgstr "[%d]Kuri Kwihuza Kuri ku Umuyoboro"
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d]Kuri Ibirimo Impamyabushobozi kugirango"
 
-#: src/socket.cc:263
+#: src/socket.cc:262
 #, fuzzy, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d]Ubuturo ku Umuyoboro"
 
-#: src/socket.cc:348
+#: src/socket.cc:347
 #, fuzzy, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d]Kuri Kwandika Kuri ku Umuyoboro"
 
-#: src/socket.cc:410
+#: src/socket.cc:409
 #, fuzzy, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d]Kuri Gusoma Bivuye ku Umuyoboro"
 
-#: src/socket.cc:432
+#: src/socket.cc:431
 #, fuzzy, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "OYA Gushyiraho Gusoma Igihe cyarenze: ku"
 
-#: src/file.cc:82 src/maildir.cc:120
+#: src/file.cc:99
 #, fuzzy, c-format
 msgid "Cannot open %s."
 msgstr "Gufungura"
 
-#: src/imap4.cc:466
+#: src/imap4.cc:467
 #, fuzzy
 msgid "[This message has no part with a supported content type]"
 msgstr "[Ubutumwa Oya Na: a Ibikubiyemo Ubwoko"
 
-#: src/imap4.cc:829
+#: src/imap4.cc:830
 #, fuzzy, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d]Kuri Guhitamo Ububiko ku Ubuturo"
 
-#: src/imap4.cc:917
+#: src/imap4.cc:918
 #, fuzzy, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d]Kuri Kubona Bivuye ku Umuyoboro"
 
-#: src/imap4.cc:976
+#: src/imap4.cc:977
 #, fuzzy, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d]Kohereza Cyangwa"
 
-#: src/imap4.cc:1029
+#: src/imap4.cc:1030
 #, fuzzy, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d]Kohereza"
 
-#: src/imap4.cc:1585
+#: src/imap4.cc:1586
 #, fuzzy, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d]Ukwihuza Ako kanya"
 
-#: src/imap4.cc:1590
+#: src/imap4.cc:1591
 #, fuzzy, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d]Seriveri Cyangwa Kitazwi Ikosa"
 
-#: src/imap4.cc:1595
+#: src/imap4.cc:1596
 #, fuzzy, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d]Bivuye Seriveri"
 
-#: src/maildir.cc:69
+#: src/maildir.cc:83
 #, fuzzy, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Gufungura Gishya Ubutumwa bushyinguro"
@@ -270,12 +269,12 @@ msgstr "Gufungura Gishya Ubutumwa bushyinguro"
 msgid "[%d] Empty password"
 msgstr "[%d]Ijambobanga..."
 
-#: src/pop.cc:508
+#: src/pop.cc:516
 #, fuzzy, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d]Ubutumwa Bivuye Seriveri"
 
-#: src/pop.cc:515
+#: src/pop.cc:523
 #, fuzzy, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d]OYA Kubona a Bivuye Seriveri"
@@ -407,7 +406,7 @@ msgid "_Start"
 msgstr "Gutangira"
 
 # basctl/source\basicide\basidesh.src:RID_BASICIDE_OBJECTBAR.SID_BASICSTOP.text
-#: src/ui-preferences.cc:596 ui/preferences.glade:2951
+#: src/ui-preferences.cc:596 ui/preferences.glade:2998
 #, fuzzy
 msgid "_Stop"
 msgstr "Guhagarara"
@@ -456,12 +455,12 @@ msgstr ""
 msgid "SSL with certificate"
 msgstr "Na: Impamyabushobozi"
 
-#: src/ui-properties.cc:316
+#: src/ui-properties.cc:319
 #, fuzzy
 msgid "Browse for a file or folder"
 msgstr "kugirango a IDOSIYE Cyangwa Ububiko"
 
-#: src/ui-properties.cc:322 ui/properties.glade:592
+#: src/ui-properties.cc:325 ui/properties.glade:616
 #, fuzzy
 msgid "Browse for a certificate file"
 msgstr "kugirango a Impamyabushobozi IDOSIYE"
@@ -874,26 +873,26 @@ msgstr "Bya Amahitamo Ubwoko Na KIGEZWEHO Uduciro Guhindura Ihitamo ku Agaciro"
 msgid "Expert"
 msgstr ""
 
-#: ui/preferences.glade:2072
+#: ui/preferences.glade:2073
 #, fuzzy
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 msgstr "<Gitoya Kuri Ubururu Intonde Cyuzuye Gitoya"
 
-#: ui/preferences.glade:2107
+#: ui/preferences.glade:2108
 msgid "Developers"
 msgstr ""
 
-#: ui/preferences.glade:2236
+#: ui/preferences.glade:2237
 msgid "Maintainers"
 msgstr ""
 
-#: ui/preferences.glade:2747
+#: ui/preferences.glade:2794
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade:2773
+#: ui/preferences.glade:2820
 #, fuzzy
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
@@ -903,25 +902,25 @@ msgid ""
 "Here is a list of these people:</small>"
 msgstr "<Gitoya Abantu Kuri ni a Urutonde Bya Abantu Gitoya"
 
-#: ui/preferences.glade:2840
+#: ui/preferences.glade:2887
 msgid "Contributors"
 msgstr "Abaterankunga"
 
-#: ui/preferences.glade:2872
+#: ui/preferences.glade:2919
 msgid "Credits"
 msgstr ""
 
-#: ui/preferences.glade:3003
+#: ui/preferences.glade:3050
 #, fuzzy
 msgid "Set to default value"
 msgstr "Kuri Mburabuzi Agaciro"
 
-#: ui/preferences.glade:3024
+#: ui/preferences.glade:3071
 #, fuzzy
 msgid "Toggle option"
 msgstr "Ihitamo"
 
-#: ui/preferences.glade:3045
+#: ui/preferences.glade:3092
 #, fuzzy
 msgid "Edit option"
 msgstr "Ihitamo"
@@ -1019,35 +1018,35 @@ msgstr "Ukwihuza Umuyoboro"
 msgid "_other"
 msgstr "Ikindi"
 
-#: ui/properties.glade:516
+#: ui/properties.glade:540
 msgid "Aut_hentication:"
 msgstr ""
 
-#: ui/properties.glade:570
+#: ui/properties.glade:594
 #, fuzzy
 msgid "Certificate filename"
 msgstr "Izina ry'idosiye:"
 
-#: ui/properties.glade:594
+#: ui/properties.glade:618
 #, fuzzy
 msgid "Bro_wse..."
 msgstr "Gushakisha..."
 
-#: ui/properties.glade:613
+#: ui/properties.glade:637
 #, fuzzy
 msgid "Cer_tificate:"
 msgstr "Impamyabushobozi"
 
-#: ui/properties.glade:668
+#: ui/properties.glade:692
 msgid "minutes"
 msgstr "iminota"
 
 # offmgr/source\offapp\dialog\optgdlg.src:OFA_TP_MISC.FT_HELPAGENT_TIME_UNIT.text
-#: ui/properties.glade:692
+#: ui/properties.glade:716
 msgid "seconds"
 msgstr "amasogonda"
 
-#: ui/properties.glade:715 ui/properties.glade:741
+#: ui/properties.glade:739 ui/properties.glade:765
 #, fuzzy
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
@@ -1057,32 +1056,32 @@ msgstr ""
 "Ukwihuza ni"
 
 # svx/source\dialog\textanim.src:RID_SVXPAGE_TEXTANIMATION.FT_DELAY.text
-#: ui/properties.glade:767
+#: ui/properties.glade:791
 #, fuzzy
 msgid "Dela_y:"
 msgstr "Gutinda"
 
-#: ui/properties.glade:822
+#: ui/properties.glade:846
 msgid "_Mailbox:"
 msgstr ""
 
-#: ui/properties.glade:847
+#: ui/properties.glade:871
 #, fuzzy
 msgid "Mailbox folder"
 msgstr "Ububiko"
 
-#: ui/properties.glade:869
+#: ui/properties.glade:893
 #, fuzzy
 msgid "Other mailbox folder"
 msgstr "Ububiko"
 
 # framework/source\classes\fltdlg.src:STR_FILTER_OTHERS.text
-#: ui/properties.glade:871
+#: ui/properties.glade:895
 #, fuzzy
 msgid "othe_r"
 msgstr "Ikindi"
 
-#: ui/properties.glade:892
+#: ui/properties.glade:916
 #, fuzzy
 msgid "Standard mailbox folder"
 msgstr "Ububiko"
@@ -1095,12 +1094,12 @@ msgstr "Ububiko"
 # officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFontCJK.Standard.text
 # #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
 # officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFontCTL.Standard.text
-#: ui/properties.glade:894
+#: ui/properties.glade:918
 #, fuzzy
 msgid "stand_ard"
 msgstr "Bisanzwe"
 
-#: ui/properties.glade:927
+#: ui/properties.glade:951
 #, fuzzy
 msgid "<b>_Details</b>"
 msgstr "<B B"

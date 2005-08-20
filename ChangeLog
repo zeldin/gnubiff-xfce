@@ -24,6 +24,7 @@ Version 2.1.5
         Martin Samuelsson for giving information how to reproduce the bug;
         thanks to Roland Stigge for finding the exact cause of the bug)
    - Added config.rpath to config subdir
+   - Bugfix: "config/gnubiff.spec.in" must be specified in "Makefile.am"
 
 Version 2.1.4		2005-06-27 22:45
  * Robert Sowada

@@ -8,25 +8,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.3\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-04-02 10:56+0200\n"
+"POT-Creation-Date: 2005-08-21 00:51+0200\n"
 "PO-Revision-Date: 2005-05-07 13:50+0200\n"
 "Last-Translator: Josef Vybiral <josef.vybiral@gmail.com>\n"
 "Language-Team: Czech < >\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: src/decoding.cc:77
+#: src/decoding.cc:85
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Kódování znaků \"%s\" v této zprávě nemůže být překódováno]"
 
-#: src/decoding.cc:122 src/decoding.cc:128 src/decoding.cc:139
-#: src/decoding.cc:146 src/decoding.cc:151 src/decoding.cc:167
+#: src/decoding.cc:128 src/decoding.cc:135 src/decoding.cc:140
 msgid "[Cannot decode this header line]"
 msgstr "[Nemohu překódovat tuto hlavičku]"
 
-#: src/decoding.cc:607
+#: src/decoding.cc:656
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Nemohu převést znakové sady (z \"%s\" do \"utf-8\")]"
@@ -59,95 +58,96 @@ msgstr "Obecné volby pro příkazovou řádku:"
 msgid "Options for debugging:"
 msgstr "Volby pro ladění"
 
-#: src/biff.cc:136
+#: src/biff.cc:138
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Konfigurační soubor (%s) nebyl nalezen!"
 
-#: src/biff.cc:400
+#: src/biff.cc:402
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Načten konfigurační soubor ze staré verze gnubiff \"%s\"."
 
-#: src/biff.cc:402
+#: src/biff.cc:404
 msgid "Trying to convert all options."
 msgstr "Zkouším převést všechna nastavení."
 
-#: src/biff.cc:448
+#: src/biff.cc:450
 msgid "Successfully converted all options."
 msgstr "Úspěšně se podařilo konvertovat všechna nastavení"
 
-#: src/biff.cc:451
+#: src/biff.cc:453
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
-"Úspěšně jsem konvertoval některá nastavení. Následující nastavení musí být"
-" upraveny ručně: %s"
+"Úspěšně jsem konvertoval některá nastavení. Následující nastavení musí být "
+"upraveny ručně: %s"
 
-#: src/biff.cc:598
+#: src/biff.cc:600
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Nemohu otevřít Váš konfigurační soubor (%s)"
 
-#: src/biff.cc:614
+#: src/biff.cc:616
 msgid "Cannot create XML parser for config file"
 msgstr "Nemohu vytvořit XML parser pro konfigurační soubor"
 
-#: src/biff.cc:631
+#: src/biff.cc:633
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
-msgstr "Ve vašem konfiguračním souboru (%s) nebyly nalezeny žádné definice schránek"
+msgstr ""
+"Ve vašem konfiguračním souboru (%s) nebyly nalezeny žádné definice schránek"
 
-#: src/biff.cc:678
+#: src/biff.cc:680
 msgid "Illegal parameter format in config file"
 msgstr "Neplatný formát parametru v konfiguračním souboru"
 
-#: src/biff.cc:707
+#: src/biff.cc:709
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Pro schránku %d nebyl určen žádný protokol"
 
-#: src/mailbox.cc:134
+#: src/mailbox.cc:135
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Nemohu vytvořit vlákno: %s"
 
-#: src/mailbox.cc:265
+#: src/mailbox.cc:288
 #, c-format
 msgid "mailbox %d"
 msgstr "schránka %d"
 
-#: src/mailbox.cc:570
+#: src/mailbox.cc:593
 msgid "<no date>"
 msgstr "<žádné datum>"
 
-#: src/mailbox.cc:571
+#: src/mailbox.cc:594
 msgid "<no sender>"
 msgstr "<žádný odesílatel>"
 
-#: src/mailbox.cc:572
+#: src/mailbox.cc:595
 msgid "<no subject>"
 msgstr "<žádný předmět>"
 
-#: src/mailbox.cc:619
+#: src/mailbox.cc:642
 msgid "[Cannot parse content type header line]"
 msgstr "[Nemohu parsovat hlavičku určující typ obsahu]"
 
-#: src/mailbox.cc:640
+#: src/mailbox.cc:663
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Nemohu parsovat obsah hlavičky určující kódování obsahu]"
 
-#: src/mailbox.cc:689
+#: src/mailbox.cc:712
 msgid "[Malformed multipart message]"
 msgstr "[Špatně formátovaný mail z více částí]"
 
-#: src/mailbox.cc:697
+#: src/mailbox.cc:720
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Nemohu nalézt začátek první části ve zprávě složené z více částí]"
 
-#: src/mailbox.cc:743
+#: src/mailbox.cc:766
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Tato zpráva má nepodporovaný typ obsahu: \"%s/%s\"]"
@@ -158,7 +158,7 @@ msgid "Can't sort mails by \"%s\""
 msgstr "Nemohu třídit poštu podle \"%s\""
 
 #: src/socket.cc:125 src/socket.cc:154 src/socket.cc:182 src/socket.cc:190
-#: src/socket.cc:198 src/socket.cc:210 src/socket.cc:241 src/socket.cc:250
+#: src/socket.cc:198 src/socket.cc:210 src/socket.cc:240 src/socket.cc:249
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Nemohu se připojit k %s na portu %d"
@@ -168,76 +168,71 @@ msgstr "[%d] Nemohu se připojit k %s na portu %d"
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Načtení certifikátu (%s) pro %s selhalo"
 
-#: src/socket.cc:263
+#: src/socket.cc:262
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Nemohu identifikovat vzdáleného hostitele (%s na portu %d)"
 
-#: src/socket.cc:348
+#: src/socket.cc:347
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Není možné zapisovat na %s na portu %d"
 
-#: src/socket.cc:410
+#: src/socket.cc:409
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Není možné číst z %s na portu %d"
 
-#: src/socket.cc:432
+#: src/socket.cc:431
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "Nemohu nastavit timeout čtení ze socketu: %s"
 
-#: src/file.cc:82 src/maildir.cc:129
+#: src/file.cc:99
 #, c-format
 msgid "Cannot open %s."
 msgstr "Nemohu otevřít %s."
 
-#: src/imap4.cc:466
+#: src/imap4.cc:467
 msgid "[This message has no part with a supported content type]"
 msgstr "[Tato zpráva nemá žádnou část obsahující podporovaný typ obsahu]"
 
-#: src/imap4.cc:831
+#: src/imap4.cc:830
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Nebylo možné vybrat složku %s na serveru %s"
 
-#: src/imap4.cc:919
+#: src/imap4.cc:918
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Nebylo možné získat potvrzení od %s na portu %d"
 
-#: src/imap4.cc:978
+#: src/imap4.cc:977
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d] Server neodeslal neoznačkovanou \"%s\" odpověď nebo potvrzení"
 
-#: src/imap4.cc:1031
+#: src/imap4.cc:1030
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Server neodeslal neoznačkovanou %s odpověď"
 
-#: src/imap4.cc:1587
+#: src/imap4.cc:1586
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Server okamžitě ukončil spojení: %s"
 
-#: src/imap4.cc:1592
+#: src/imap4.cc:1591
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Vnitřní chyba serveru nebo neznámá chyba:%s"
 
-#: src/imap4.cc:1597
+#: src/imap4.cc:1596
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Varování ze serveru:%s"
 
-#: src/maildir.cc:70
-#, c-format
-msgid "Cannot find new mail directory (%s)"
-msgstr "Nemohu nalézt adresář s novou poštou (%s)"
-
-#: src/maildir.cc:78
+#: src/maildir.cc:83
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Nemohu otevřít adresář s novou poštou (%s)"
@@ -247,12 +242,12 @@ msgstr "Nemohu otevřít adresář s novou poštou (%s)"
 msgid "[%d] Empty password"
 msgstr "[%d] Prázdné heslo"
 
-#: src/pop.cc:508
+#: src/pop.cc:516
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Chybová hláška od POP3 server:%s"
 
-#: src/pop.cc:515
+#: src/pop.cc:523
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Neobdržel jsem kladnou odpověď od POP3 serveru"
@@ -263,15 +258,14 @@ msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
 "provided)"
 msgstr ""
-"[%d] Vypadá to že váš POP server nepodporuje apop protokol (nedodal"
-"časovou značku)"
+"[%d] Vypadá to že váš POP server nepodporuje apop protokol (nedodalčasovou "
+"značku)"
 
 #: src/apop.cc:124
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
-msgstr ""
-"[%d] Problém s šifrováním, který mohl být detekován při konfiguraci"
+msgstr "[%d] Problém s šifrováním, který mohl být detekován při konfiguraci"
 
 #: src/options.cc:506
 #, c-format
@@ -288,7 +282,7 @@ msgstr "Nemohu odeslat volbu \"%s\" do \"%s\""
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Nemohu nalézt widget (\"%s\") uvnitř xml struktury (\"%s\")"
 
-#: src/gnubiff_options.cc:130
+#: src/gnubiff_options.cc:132
 msgid "no mail"
 msgstr "žádné zprávy"
 
@@ -318,15 +312,15 @@ msgstr "GUI_connect vyžaduje funkční gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Nemohu nalézt handly signálu '%s'."
 
-#: src/ui-applet.cc:134
+#: src/ui-applet.cc:133
 msgid " unknown"
 msgstr " neznámý"
 
-#: src/ui-applet.cc:136
+#: src/ui-applet.cc:135
 msgid " error"
 msgstr " chyba"
 
-#: src/ui-applet.cc:141
+#: src/ui-applet.cc:140
 msgid " checking..."
 msgstr " kontroluji..."
 
@@ -370,7 +364,7 @@ msgstr "Hodnota"
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:596 ui/preferences.glade:2951
+#: src/ui-preferences.cc:596 ui/preferences.glade:2998
 msgid "_Stop"
 msgstr "_Stop"
 
@@ -394,8 +388,8 @@ msgid ""
 "Either site's certificate is incomplete or you're connected to a site "
 "pretending to be %s, possibly to obtain your password"
 msgstr ""
-"Certifikát je nekompletní nebo server na který jste připojeni předstírá "
-"že je %s, pravděpodobně aby získal vaše heslo"
+"Certifikát je nekompletní nebo server na který jste připojeni předstírá že "
+"je %s, pravděpodobně aby získal vaše heslo"
 
 #: src/ui-properties.cc:125 src/ui-properties.cc:152
 msgid "Autodetect"
@@ -417,11 +411,11 @@ msgstr "Šifrované Jméno/Heslo (apop)"
 msgid "SSL with certificate"
 msgstr "SSL s certifikátem"
 
-#: src/ui-properties.cc:316
+#: src/ui-properties.cc:319
 msgid "Browse for a file or folder"
 msgstr "Vyhledat soubor nebo složku"
 
-#: src/ui-properties.cc:322 ui/properties.glade:592
+#: src/ui-properties.cc:325 ui/properties.glade:616
 msgid "Browse for a certificate file"
 msgstr "Vyhledat soubor s certifikátem"
 
@@ -437,15 +431,15 @@ msgstr "Předmět"
 msgid "Date"
 msgstr "Datum"
 
-#: src/support.cc:149
+#: src/support.cc:297
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
 "\n"
 "Additional information:\n"
 msgstr ""
-"Právě jste nalezl neznámou chybu. Prosím pošlete detailní oznámení o chybě"
-"na \"gnubiff-bugs@lists.sourceforge.net\".\n"
+"Právě jste nalezl neznámou chybu. Prosím pošlete detailní oznámení o chyběna "
+"\"gnubiff-bugs@lists.sourceforge.net\".\n"
 "\n"
 "Další informace:\n"
 
@@ -671,7 +665,8 @@ msgstr "_Formát:"
 
 #: ui/preferences.glade:1130
 msgid "[sender max size]:[subject max size]:[date max size]"
-msgstr "[odesílatel max. velikost]:[předmět max. velikost]:[datum max. velikost]"
+msgstr ""
+"[odesílatel max. velikost]:[předmět max. velikost]:[datum max. velikost]"
 
 #: ui/preferences.glade:1152
 msgid "Whether to restrict number of displayed headers"
@@ -738,8 +733,8 @@ msgid ""
 "or result in security problems."
 msgstr ""
 "Dialogové okno pro úpravu všech voleb, které gnubiff interně používá můžete "
-"povolit zde. Pak bude možné upravit i ty volby pro které neexistuje gui rozhraní."
-"Ke každé volbě je připojen krátký popis.\n"
+"povolit zde. Pak bude možné upravit i ty volby pro které neexistuje gui "
+"rozhraní.Ke každé volbě je připojen krátký popis.\n"
 "<b>Varování:</b> Změnou těchto nastavení se může gnubiff začít chovat "
 "nepředvídatelně nebo vytvářet bezpečnostní rizika."
 
@@ -755,22 +750,21 @@ msgstr "Hledaný řetězec."
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
-msgstr ""
-"Vyhledat ty (zobrazené) volby, obsahující řetězec v textovém záznamu"
+msgstr "Vyhledat ty (zobrazené) volby, obsahující řetězec v textovém záznamu"
 
 #: ui/preferences.glade:1743
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
 msgstr ""
-"Seznam voleb, jejich typ a současná hodnota. Volbu upravíte "
-"dvojklikem na její hodnotu."
+"Seznam voleb, jejich typ a současná hodnota. Volbu upravíte dvojklikem na "
+"její hodnotu."
 
 #: ui/preferences.glade:1815
 msgid "Expert"
 msgstr "Expert"
 
-#: ui/preferences.glade:2072
+#: ui/preferences.glade:2073
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
@@ -778,19 +772,19 @@ msgstr ""
 "<small>Chyby mohou být oznamovány na <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 
-#: ui/preferences.glade:2107
+#: ui/preferences.glade:2108
 msgid "Developers"
 msgstr "Vývojáři"
 
-#: ui/preferences.glade:2236
+#: ui/preferences.glade:2237
 msgid "Maintainers"
 msgstr "Údržba"
 
-#: ui/preferences.glade:2747
+#: ui/preferences.glade:2794
 msgid "Translators"
 msgstr "Překladatelé"
 
-#: ui/preferences.glade:2773
+#: ui/preferences.glade:2820
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -804,23 +798,23 @@ msgstr ""
 "  - zasíláním aktuálního kódu\n"
 "Tady je seznam těchto lidí:</small>"
 
-#: ui/preferences.glade:2840
+#: ui/preferences.glade:2887
 msgid "Contributors"
 msgstr "Přispěvatelé"
 
-#: ui/preferences.glade:2872
+#: ui/preferences.glade:2919
 msgid "Credits"
 msgstr "Kredity"
 
-#: ui/preferences.glade:3003
+#: ui/preferences.glade:3050
 msgid "Set to default value"
 msgstr "Nastavit na výchozí hodnotu"
 
-#: ui/preferences.glade:3024
+#: ui/preferences.glade:3071
 msgid "Toggle option"
 msgstr "Přepnout volbu"
 
-#: ui/preferences.glade:3045
+#: ui/preferences.glade:3092
 msgid "Edit option"
 msgstr "Upravit volbu"
 
@@ -888,67 +882,67 @@ msgstr "Jiný port pro spojení"
 msgid "_other"
 msgstr "další"
 
-#: ui/properties.glade:516
+#: ui/properties.glade:540
 msgid "Aut_hentication:"
 msgstr "Ověření:"
 
-#: ui/properties.glade:570
+#: ui/properties.glade:594
 msgid "Certificate filename"
 msgstr "Soubor certifikátu"
 
-#: ui/properties.glade:594
+#: ui/properties.glade:618
 msgid "Bro_wse..."
 msgstr "Prohledat..."
 
-#: ui/properties.glade:613
+#: ui/properties.glade:637
 msgid "Cer_tificate:"
 msgstr "Cer_tifikát:"
 
-#: ui/properties.glade:668
+#: ui/properties.glade:692
 msgid "minutes"
 msgstr "minut"
 
-#: ui/properties.glade:692
+#: ui/properties.glade:716
 msgid "seconds"
 msgstr "sekund"
 
-#: ui/properties.glade:715 ui/properties.glade:741
+#: ui/properties.glade:739 ui/properties.glade:765
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
 msgstr ""
-"Doba mezi jednotlivými kontrolami pošty, nebo mezi opakováními při ztraceném"
-" spojení"
+"Doba mezi jednotlivými kontrolami pošty, nebo mezi opakováními při ztraceném "
+"spojení"
 
-#: ui/properties.glade:767
+#: ui/properties.glade:791
 msgid "Dela_y:"
 msgstr "Prodleva:"
 
-#: ui/properties.glade:822
+#: ui/properties.glade:846
 msgid "_Mailbox:"
 msgstr "Schránka:"
 
-#: ui/properties.glade:847
+#: ui/properties.glade:871
 msgid "Mailbox folder"
 msgstr "Složka poštovní schránky"
 
-#: ui/properties.glade:869
+#: ui/properties.glade:893
 msgid "Other mailbox folder"
 msgstr "Jiná složka poštovní schránky"
 
-#: ui/properties.glade:871
+#: ui/properties.glade:895
 msgid "othe_r"
 msgstr "jiné"
 
-#: ui/properties.glade:892
+#: ui/properties.glade:916
 msgid "Standard mailbox folder"
 msgstr "Standardní složka poštovní schránky"
 
-#: ui/properties.glade:894
+#: ui/properties.glade:918
 msgid "stand_ard"
 msgstr "stand_ardní"
 
-#: ui/properties.glade:927
+#: ui/properties.glade:951
 msgid "<b>_Details</b>"
 msgstr "<b>_Detaily</b>"
 
@@ -1024,3 +1018,5 @@ msgstr "<small><b>Předmět</b></small>"
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Datum</b></small>"
 
+#~ msgid "Cannot find new mail directory (%s)"
+#~ msgstr "Nemohu nalézt adresář s novou poštou (%s)"
