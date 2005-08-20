@@ -23,6 +23,7 @@ Version 2.1.5
         #305002; thanks to Elie Morisse for reporting this bug; thanks to
         Martin Samuelsson for giving information how to reproduce the bug;
         thanks to Roland Stigge for finding the exact cause of the bug)
+   - Added config.rpath to config subdir
 
 Version 2.1.4		2005-06-27 22:45
  * Robert Sowada
