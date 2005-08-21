@@ -4,14 +4,21 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.1.5
+This is a minor bugfix release. Changes:
+ * Fixed some FAM and GAMIN related problems
+ * Fixed problems when displaying non ASCII characters when using non UTF-8
+   locales
+ * Some other bugfixes
+
 Version 2.1.4
 This is a major bugfix release. Changes:
-* Support for mh mailboxes as used by Sylpheed
-* Handling of mh protocols optimized
-* Czech translation (thanks to Josef Vybiral)
-* Compliance with RFC 2047
-* Race conditions in FAM code fixed
-* Various other bugfixes
+ * Support for mh mailboxes as used by Sylpheed
+ * Handling of mh protocols optimized
+ * Czech translation (thanks to Josef Vybiral)
+ * Compliance with RFC 2047
+ * Race conditions in FAM code fixed
+ * Various other bugfixes
 
 Version 2.1.3
 This is a major bugfix release. Changes:

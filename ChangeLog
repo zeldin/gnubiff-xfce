@@ -4,7 +4,7 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
-Version 2.1.5
+Version 2.1.5		2005-08-21 18:11
  * Robert Sowada
    - Changed version to 2.1.5
    - Bugfix: Checking if a FAM connection is established
@@ -25,6 +25,7 @@ Version 2.1.5
         thanks to Roland Stigge for finding the exact cause of the bug)
    - Added config.rpath to config subdir
    - Bugfix: "config/gnubiff.spec.in" must be specified in "Makefile.am"
+   - Updated NEWS
 
 Version 2.1.4		2005-06-27 22:45
  * Robert Sowada
