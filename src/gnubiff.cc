@@ -42,12 +42,6 @@
 #include "biff.h"
 #include "ui-preferences.h"
 #include "ui-applet.h"
-
-
-
-#include "biff.h"
-#include "ui-preferences.h"
-#include "ui-applet.h"
 #include "nls.h"
 
 

@@ -7,6 +7,7 @@ Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 Version 2.2.0
  * Robert Sowada
    - Changed version to 2.2.0
+   - Removed not needed include files from "src/gnubiff.cc"
 
 Version 2.1.6
  * Robert Sowada
