@@ -8,6 +8,7 @@ Version 2.2.0
  * Robert Sowada
    - Changed version to 2.2.0
    - Removed not needed include files from "src/gnubiff.cc"
+   - Added files from libegg for later systray support
 
 Version 2.1.6
  * Robert Sowada
