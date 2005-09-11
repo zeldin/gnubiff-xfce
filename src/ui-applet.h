@@ -35,34 +35,57 @@
 #include "gui.h"
 #include "biff.h"
 
-
-class Applet : public GUI {
-
+/**
+ *  Generic non-GUI code common for all types of applets.
+ */ 
+class Applet
+{
 protected:
 	class Biff *		biff_;
 	GMutex *			process_mutex_;
 	GMutex *			update_mutex_;
 	gboolean			force_popup_;
-
 public:
 	// ========================================================================
 	//  base
-	// ========================================================================	
-	Applet (class Biff *biff,
-			std::string filename);
+	// ========================================================================
+	Applet (class Biff *biff);
 	virtual ~Applet (void);
 
 	// ========================================================================
 	//  main
-	// ========================================================================	
-	void start (guint delay=0);						// start monitoring
-	void stop  (void);								// stop monitoring
-	virtual void update (gboolean no_popup = false);// update applet
+	// ========================================================================
+	void start (guint delay=0);
+	void stop  (void);
+	virtual void update (gboolean no_popup = false);
+	void mark_mails_as_read (void);
+	void execute_command (std::string option_command,
+						  std::string option_use_command = "");
+};
+
+/**
+ *  Generic GUI code common for all types of applets.
+ */ 
+class AppletGUI : public Applet, public GUI {
+
+public:
+	// ========================================================================
+	//  base
+	// ========================================================================
+	AppletGUI (class Biff *biff, std::string filename);
+	virtual ~AppletGUI (void);
+
+	// ========================================================================
+	//  main
+	// ========================================================================
 	virtual void dock (GtkWidget *applet) {};		// dock applet
 
 	guint       unread_markup (std::string &text);	// build unread markup string
 	std::string tooltip_text (void);				// build tooltip text
 
+	void show_preferences (void);
+	void show_about (void);
+	void hide_about (void);
 };
 
 #endif

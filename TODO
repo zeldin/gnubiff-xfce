@@ -14,7 +14,8 @@ To do:
 Version 2.2.0:
 --------------
 
-* GtkAboutDialog (needs Gtk 2.6 and glade 2.10)
+* GtkAboutDialog (needs Gtk 2.6 and glade 2.10); add about dialog to gnome
+  menu
 * Summary instead of immediate notification (see RFE on sourceforge)
 * Make error handling when reading/parsing mail more consistent. At the moment
   sometimes no warning is printed, always a warning is printed or a warning is

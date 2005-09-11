@@ -40,11 +40,11 @@
 #endif
 
 #include "biff.h"
+#include "nls.h"
 #include "ui-preferences.h"
 #include "ui-applet.h"
-#include "nls.h"
-
-
+#include "ui-applet-gnome.h"
+#include "ui-applet-gtk.h"
 
 int main (int argc, char **argv);
 int mainGTK (int argc, char **argv);
@@ -157,7 +157,7 @@ int mainGTK (int argc, char **argv) {
 	// Show setup panel or start gnubiff directly
 	if (no_configure) {
 		biff->applet()->update(true);
-		biff->applet()->show();
+		((AppletGtk *)biff->applet())->show();
 		if (biff->value_uint ("check_mode") == AUTOMATIC_CHECK)
 			biff->applet()->start (3);
 	}
@@ -179,14 +179,15 @@ static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid,
 {
 	if (!strcmp (iid, "OAFIID:GNOME_gnubiffApplet")) {
 		Biff *biff = new Biff (GNOME_MODE);
-		biff->applet()->dock ((GtkWidget *) applet);
+		AppletGnome *biffapplet = (AppletGnome *)biff->applet();
+		biffapplet->dock ((GtkWidget *) applet);
 		biff->preferences()->synchronize();
-		biff->applet()->show ();
-		biff->applet()->update (true);
+		biffapplet->show ();
+		biffapplet->update (true);
 		if (biff->value_uint ("check_mode") == AUTOMATIC_CHECK)
 			biff->applet()->start (3);
 	}
-	return TRUE;
+	return true;
 }
 
 int mainGNOME (int argc, char **argv) {

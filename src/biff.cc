@@ -149,7 +149,7 @@ Biff::Biff (guint ui_mode, std::string filename)
 #else
 	applet_ = new AppletGtk (this);
 #endif
-	applet_->create();
+	((AppletGUI *)applet_)->create();
 
 	// Preferences
 	preferences_ = new Preferences (this);

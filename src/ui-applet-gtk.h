@@ -35,7 +35,7 @@
 #include "ui-applet.h"
 
 
-class AppletGtk : public Applet {
+class AppletGtk : public AppletGUI {
 
  public:
 	// ========================================================================
@@ -56,12 +56,7 @@ class AppletGtk : public Applet {
 	//  callbacks
 	// ========================================================================	
 	gboolean on_button_press (GdkEventButton *event);
-	void on_menu_command (void);
-	void on_menu_mark (void);
-	void on_menu_preferences (void);
-	void on_menu_about (void);
 	void on_menu_quit (void);
-	void on_hide_about (void);
 };
 
 #endif

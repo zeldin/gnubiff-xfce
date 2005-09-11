@@ -35,20 +35,25 @@
 #include <string>
 #include <glib.h>
 
-#include "ui-applet.h"
-#include "ui-popup.h"
 #include "mailbox.h"
 #include "support.h"
+#include "ui-applet.h"
+#include "ui-popup.h"
+#include "ui-preferences.h"
 
-
-Applet::Applet (Biff *biff,
-				std::string filename) : GUI (filename)
+/**
+ *  Constructor.
+ *
+ *  @param  biff  Pointer to the biff object of the current gnubiff session.
+ */
+Applet::Applet (Biff *biff)
 {
 	biff_ = biff;
 	force_popup_ = false;
 	update_mutex_ = g_mutex_new ();
 }
 
+/// Destructor
 Applet::~Applet (void)
 {
 	g_mutex_lock (update_mutex_);
@@ -56,7 +61,14 @@ Applet::~Applet (void)
 	g_mutex_free (update_mutex_);
 }
 
-void Applet::start (guint delay)
+/**
+ *  Start monitoring all mailboxes. Optionally the delay {\em delay} can be
+ *  given, so monitoring starts later.
+ *
+ *  @param  delay  Delay in seconds (the default is 0).
+ */
+void 
+Applet::start (guint delay)
 {
 #ifdef DEBUG
 	if (delay)
@@ -68,7 +80,10 @@ void Applet::start (guint delay)
 		biff_->mailbox(i)->threaded_start (delay);
 }
 
-void
+/**
+ *  Stop monitoring all mailboxes.
+ */
+void 
 Applet::stop (void)
 {
 #ifdef DEBUG
@@ -78,8 +93,122 @@ Applet::stop (void)
 		biff_->mailbox(i)->stop ();
 }
 
-guint
-Applet::unread_markup (std::string &text)
+/**
+ *  Update the applet status. If new messages are present the new
+ *  mail command is executed. The status of the popup window is updated.
+ *
+ *  @param  no_popup  If true the popup window will remain unchanged.
+ */
+void 
+Applet::update (gboolean no_popup)
+{
+#ifdef DEBUG
+	g_message ("Applet update");
+#endif
+
+	// Check if there is new mail
+	gboolean newmail = false;
+	gint unread = 0;
+	for (guint i=0; i<biff_->size(); i++) {
+		guint status = biff_->mailbox(i)->status();
+
+		if (status == MAILBOX_NEW)
+			newmail = true;
+		unread += biff_->mailbox(i)->unreads();
+	}
+
+	// New mail command
+	if ((newmail == true) && (unread > 0) && (force_popup_ == false))
+		execute_command ("newmail_command", "use_newmail_command");
+
+	// Update popup
+	if (!no_popup && (biff_->popup())) {
+		// If there are no mails to display then hide popup
+		if (!unread && (biff_->value_bool ("use_popup") || force_popup_))
+			biff_->popup()->hide();
+
+		// Test if the popup is visible. If it is visible we also have to
+		// update when mails are read
+		gboolean vis = GTK_WIDGET_VISIBLE (biff_->popup()->get ("dialog"));
+
+		// Update and display the popup
+		if (unread && ((biff_->value_bool ("use_popup")) || force_popup_)
+			&& (newmail || vis || force_popup_)) {
+			biff_->popup()->update();
+			biff_->popup()->show();
+		}
+	}
+
+	// Mail has been displayed now
+	for (guint i=0; i < biff_->size(); i++)
+		biff_->mailbox(i)->mail_displayed ();
+
+	force_popup_ = false;
+}
+
+/**
+ *  Mark all mails from all mailboxes as read and update the applet status.
+ */
+void 
+Applet::mark_mails_as_read (void)
+{
+	// Mark mails as read
+	for (unsigned int i=0; i<biff_->size(); i++)
+		biff_->mailbox(i)->read();
+
+	// Update the applet status
+	//force_popup_ = true;
+	//biff_->popup()->hide();
+	update();
+}
+
+/**
+ *  Execute a shell command that is stored in the biff string option
+ *  {\em option_command} if the biff boolean option {\em option_use_command}
+ *  is true.
+ *
+ *  @param option_command     Name of the biff string option that stores the
+ *                            command.
+ *  @param option_use_command Name of the biff boolean option that indicates
+ *                            whether the command should be executed or not.
+ *                            If this string is empty the command will be
+ *                            executed (the default is the empty string).
+ */
+void 
+Applet::execute_command (std::string option_command,
+						 std::string option_use_command)
+{
+	// Shall the command be executed?
+	if ((!option_use_command.empty()) &&
+		(!(biff_->value_bool (option_use_command))))
+		return;
+	// Execute the command (if there is one).
+	std::string command = biff_->value_string (option_command);
+    if (!command.empty ()) {
+		command += " &";
+		system (command.c_str ());
+	}
+}
+
+
+/**
+ *  Constructor.
+ *
+ *  @param  biff     Pointer to the biff object of the current gnubiff session.
+ *  @param  filename Name of the glade file that contains the GUI information.
+ */
+AppletGUI::AppletGUI (Biff *biff, std::string filename) : Applet (biff),
+														  GUI (filename)
+{
+}
+
+/// Destructor
+AppletGUI::~AppletGUI (void)
+{
+}
+
+guint 
+AppletGUI::unread_markup (std::string &text)
 {
 	// Get max collected mail number in a stringstream
 	//  just to have a default string size.
@@ -115,7 +244,7 @@ Applet::unread_markup (std::string &text)
 }
 
 std::string
-Applet::tooltip_text (void)
+AppletGUI::tooltip_text (void)
 {
 	// Get max collected mail number in a stringstream
 	//  just to have a default string size.
@@ -127,7 +256,8 @@ Applet::tooltip_text (void)
 		tooltip += biff_->mailbox(i)->name();
 		tooltip += " : ";
 		std::stringstream s;
-		s << std::setfill('0') << std::setw (smax.str().size()) << biff_->mailbox(i)->unreads();
+		s << std::setfill('0') << std::setw (smax.str().size())
+		  << biff_->mailbox(i)->unreads();
 
 		if (biff_->mailbox(i)->protocol() == PROTOCOL_NONE)
 			tooltip += _(" unknown");
@@ -151,57 +281,37 @@ Applet::tooltip_text (void)
 }
 
 /**
- *  Update the popup window. Also if new messages are present the new
- *  mail command is executed.
- *
- *  @param  no_popup  If true the popup window will remain unchanged.
+ *  Show the preferences dialog.
  */
 void 
-Applet::update (gboolean no_popup)
+AppletGUI::show_preferences (void)
 {
-#ifdef DEBUG
-	g_message ("Applet update");
-#endif
+	// Hide the popup window
+	biff_->popup()->hide();
 
-	// Check if there is new mail
-	gboolean newmail = false;
-	gint unread = 0;
-	for (guint i=0; i<biff_->size(); i++) {
-		guint status = biff_->mailbox(i)->status();
+	// Show the dialog
+	biff_->preferences()->show();
+}
 
-		if (status == MAILBOX_NEW)
-			newmail = true;
-		unread += biff_->mailbox(i)->unreads();
-	}
+/**
+ *  Show the about dialog.
+ */
+void 
+AppletGUI::show_about (void)
+{
+	// Hide the other dialogs
+	biff_->popup()->hide();
+	biff_->preferences()->hide();
 
-	// New mail command
-	if ((newmail == true) && (unread > 0) && (force_popup_ == false)
-		&& (biff_->value_bool ("use_newmail_command"))) {
-		std::string command = biff_->value_string ("newmail_command") + " &";
-		system (command.c_str());
-	}
+	// Show the dialog
+	GUI::show ("about");
+}
 
-	// Update popup
-	if (!no_popup && (biff_->popup())) {
-		// If there are no mails to display then hide popup
-		if (!unread && (biff_->value_bool ("use_popup") || force_popup_))
-			biff_->popup()->hide();
-
-		// Test if the popup is visible. If it is visible we also have to
-		// update when mails are read
-		gboolean vis = GTK_WIDGET_VISIBLE (biff_->popup()->get ("dialog"));
-
-		// Update and display the popup
-		if (unread && ((biff_->value_bool ("use_popup")) || force_popup_)
-			&& (newmail || vis || force_popup_)) {
-			biff_->popup()->update();
-			biff_->popup()->show();
-		}
-	}
-
-	// Mail has been displayed now
-	for (guint i=0; i < biff_->size(); i++)
-		biff_->mailbox(i)->mail_displayed ();
-
-	force_popup_ = false;
+/**
+ *  Hide the about dialog.
+ */
+void 
+AppletGUI::hide_about (void)
+{
+	GUI::hide ("about");
 }

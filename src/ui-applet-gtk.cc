@@ -71,7 +71,8 @@ extern "C" {
 									 gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->on_menu_command ();
+			((AppletGtk *) data)->execute_command ("double_command",
+												   "use_double_command");
 		else
 			unknown_internal_error ();
 	}
@@ -80,25 +81,23 @@ extern "C" {
 								  gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->on_menu_mark ();
+			((AppletGtk *) data)->mark_mails_as_read ();
 		else
 			unknown_internal_error ();
 	}
 
-	void APPLET_GTK_on_menu_preferences (GtkWidget *widget,
-										 gpointer data)
+	void APPLET_GTK_on_menu_preferences (GtkWidget *widget, gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->on_menu_preferences ();
+			((AppletGtk *) data)->show_preferences ();
 		else
 			unknown_internal_error ();
 	}
 
-	void APPLET_GTK_on_menu_about (GtkWidget *widget,
-								   gpointer data)
+	void APPLET_GTK_on_menu_about (GtkWidget *widget, gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->on_menu_about ();
+			((AppletGtk *) data)->show_about ();
 		else
 			unknown_internal_error ();
 	}
@@ -112,11 +111,10 @@ extern "C" {
 			unknown_internal_error ();
 	}
 
-	void APPLET_GTK_on_hide_about (GtkWidget *widget,
-								   gpointer data)
+	void APPLET_GTK_on_hide_about (GtkWidget *widget, gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->on_hide_about ();
+			((AppletGtk *) data)->hide_about ();
 		else
 			unknown_internal_error ();
 	}
@@ -124,7 +122,7 @@ extern "C" {
 
 
 
-AppletGtk::AppletGtk (Biff *biff) : Applet (biff, GNUBIFF_DATADIR"/applet-gtk.glade")
+AppletGtk::AppletGtk (Biff *biff) : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade")
 {
 }
 
@@ -248,7 +246,7 @@ AppletGtk::on_button_press (GdkEventButton *event)
 {
 	// Double left click: start mail app
 	if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1))
-		on_menu_command ();
+		execute_command ("double_command", "use_double_command");
 
 	// Single left click: force mail check
 	else if (event->button == 1) {
@@ -257,13 +255,8 @@ AppletGtk::on_button_press (GdkEventButton *event)
 	}
 
 	// Single middle click: mark mails as read
-	else if (event->button == 2) {
-		for (unsigned int i=0; i<biff_->size(); i++)
-			biff_->mailbox(i)->read();
-		force_popup_ = true;
-		biff_->popup()->hide();
-		update();
-	}
+	else if (event->button == 2)
+		mark_mails_as_read ();
 
 	// Single right click: popup menu
 	else if (event->button == 3) {
@@ -277,49 +270,8 @@ AppletGtk::on_button_press (GdkEventButton *event)
 	return true;
 }
 
-
-void
-AppletGtk::on_menu_command (void)
-{
-	if ((biff_->value_bool ("use_double_command")) && (!biff_->value_string ("double_command").empty())) {
-		std::string command = biff_->value_string ("double_command") + " &";
-		system (command.c_str());
-	}
-}
-
-void
-AppletGtk::on_menu_preferences (void)
-{
-	biff_->popup()->hide();
-	biff_->preferences()->show();
-}
-
-void
-AppletGtk::on_menu_mark (void)
-{
-	for (unsigned int i=0; i<biff_->size(); i++)
-		biff_->mailbox(i)->read ();
-	force_popup_ = true;
-	biff_->popup()->hide();
-	update();
-}
-
 void
 AppletGtk::on_menu_quit (void)
 {
 	gtk_main_quit();
-}
-
-void
-AppletGtk::on_menu_about (void)
-{
-	biff_->popup()->hide();
-	biff_->preferences()->hide();
-	GUI::show ("about");
-}
-
-void
-AppletGtk::on_hide_about (void)
-{
-	GUI::hide ("about");
 }

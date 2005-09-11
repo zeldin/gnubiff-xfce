@@ -35,7 +35,6 @@
 #include <cstdio>
 
 #include "ui-applet-gnome.h"
-#include "ui-preferences.h"
 #include "ui-popup.h"
 #include "mailbox.h"
 #include "gtk_image_animation.h"
@@ -104,7 +103,7 @@ extern "C" {
 										  const gchar *verbname)
 	{
 		if (data)
-			((AppletGnome *) data)->on_menu_properties (uic, verbname);
+			((AppletGnome *) data)->show_preferences ();
 		else
 			unknown_internal_error ();
 	}
@@ -114,7 +113,8 @@ extern "C" {
 									   const gchar *verbname)
 	{
 		if (data)
-			((AppletGnome *) data)->on_menu_command (uic, verbname);
+			((AppletGnome *) data)->execute_command ("double_command",
+													 "use_double_command");
 		else
 			unknown_internal_error ();
 	}
@@ -124,7 +124,7 @@ extern "C" {
 										 const gchar *verbname)
 	{
 		if (data)
-			((AppletGnome *) data)->on_menu_mail_read (uic, verbname);
+			((AppletGnome *) data)->mark_mails_as_read ();
 		else
 			unknown_internal_error ();
 	}
@@ -144,7 +144,7 @@ extern "C" {
 }
 
 
-AppletGnome::AppletGnome (Biff *biff) : Applet (biff, GNUBIFF_DATADIR"/applet-gnome.glade")
+AppletGnome::AppletGnome (Biff *biff) : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gnome.glade")
 {
 }
 
@@ -309,55 +309,17 @@ AppletGnome::tooltip_update (void)
 gboolean
 AppletGnome::on_button_press (GdkEventButton *event)
 {
-	// Double left click : start mail app
-	if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1)) {
-		if ((biff_->value_bool ("use_double_command")) &&
-			 (!biff_->value_string ("double_command").empty ())) {
-			std::string command = biff_->value_string ("double_command")+" &";
-			system (command.c_str());
-		}
-	}
-	// Single left click : popup menu
+	// Double left click: start mail app
+	if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1))
+		execute_command ("double_command", "use_double_command");
+	// Single left click: popup menu
 	else if (event->button == 1) {
 		force_popup_ = true;
 		update ();
 	}
-	// Single middle click : mark mails as read
-	else if (event->button == 2) {
-		for (unsigned int i=0; i<biff_->size(); i++)
-			biff_->mailbox(i)->read();
-		force_popup_ = true;
-		biff_->popup()->hide();
-		update();
-	}
+	// Single middle click: mark mails as read
+	else if (event->button == 2)
+		mark_mails_as_read ();	
 
-	return FALSE;
+	return false;
 }
-
-void
-AppletGnome::on_menu_properties (BonoboUIComponent *uic, const gchar *verbname)
-{
-	biff_->popup()->hide();
-	biff_->preferences()->show();
-}
-
-void
-AppletGnome::on_menu_command (BonoboUIComponent *uic, const gchar *verbname)
-{
-	if ((biff_->value_bool ("use_double_command")) &&
-		 (!biff_->value_string ("double_command").empty ())) {
-		std::string command = biff_->value_string ("double_command") + " &";
-		system (command.c_str());
-	}
-}
-
-void
-AppletGnome::on_menu_mail_read (BonoboUIComponent *uic, const gchar *verbname)
-{
-	for (unsigned int i=0; i<biff_->size(); i++)
-		biff_->mailbox(i)->read();
-	force_popup_ = true;
-	biff_->popup()->hide();
-	update();
-}
-
