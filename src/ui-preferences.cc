@@ -397,19 +397,36 @@ Preferences::expert_create (void)
 	expert_add_option_list ();
 }
 
-void
+/**
+ *  Show the preferences dialog.
+ *
+ *  @param  name  Widget's name of the dialog. The default is "dialog".
+ */
+void 
 Preferences::show (std::string name)
 {
+	// Is glade file okay?
 	if (!xml_)
 		return;
+
+	// Update all widgets and texts in the dialog
 	synchronize ();
-	biff_->applet()->stop ();
+
 	gtk_widget_show (get(name));
 }
 
-void Preferences:: hide (std::string name) {
+/**
+ *  Hide the preferences dialog.
+ *
+ *  @param  name  Widget's name of the dialog. The default is "dialog".
+ */
+void 
+Preferences::hide (std::string name)
+{
+	// Is glade file okay?
 	if (!xml_)
 		return;
+
 	gtk_widget_hide (get(name));
 }
 

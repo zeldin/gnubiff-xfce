@@ -103,7 +103,7 @@ extern "C" {
 										  const gchar *verbname)
 	{
 		if (data)
-			((AppletGnome *) data)->show_preferences ();
+			((AppletGnome *) data)->show_dialog_preferences ();
 		else
 			unknown_internal_error ();
 	}

@@ -89,7 +89,7 @@ extern "C" {
 	void APPLET_GTK_on_menu_preferences (GtkWidget *widget, gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->show_preferences ();
+			((AppletGtk *) data)->show_dialog_preferences ();
 		else
 			unknown_internal_error ();
 	}

@@ -83,7 +83,8 @@ public:
 	guint       unread_markup (std::string &text);	// build unread markup string
 	std::string tooltip_text (void);				// build tooltip text
 
-	void show_preferences (void);
+	void show_dialog_preferences (void);
+	void hide_dialog_preferences (void);
 	void show_about (void);
 	void hide_about (void);
 };

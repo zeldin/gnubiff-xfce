@@ -284,13 +284,27 @@ AppletGUI::tooltip_text (void)
  *  Show the preferences dialog.
  */
 void 
-AppletGUI::show_preferences (void)
+AppletGUI::show_dialog_preferences (void)
 {
 	// Hide the popup window
 	biff_->popup()->hide();
 
 	// Show the dialog
 	biff_->preferences()->show();
+
+	// Stop monitoring mailboxes
+	stop ();
+}
+
+
+/**
+ *  Hide the preferences dialog.
+ */
+void 
+AppletGUI::hide_dialog_preferences (void)
+{
+	// Hide the dialog
+	biff_->preferences()->hide();
 }
 
 /**
