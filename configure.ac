@@ -253,8 +253,16 @@ fi
 echo " Gnome support   : $gnome"
 if test "$gnome" = "yes"; then
   if test "$prefix" != "`pkg-config libpanelapplet-2.0 --variable=prefix`"; then
-    echo "  WARNING: prefix should be "`pkg-config libpanelapplet-2.0 --variable=prefix`
-    echo "           but it is currently set to $prefix"
+    echo "  NOTE: The installation directory for gnubiff is currently set to"
+    echo "        \"$prefix\","
+    echo "        the default installation directory for gnome panel applications is"
+    echo "        \""`pkg-config libpanelapplet-2.0 --variable=prefix`"\"."
+    echo "        It may be necessary to add the path"
+    echo "        \"$prefix/lib/bonobo/servers/\""
+    echo "        to the file \"/etc/bonobo-activation/bonobo-activation-config.xml\""
+    echo "        (root privileges needed) or to execute"
+    echo "        \"activation-client --add-path=$prefix/lib/bonobo/servers/\""
+    echo "        (no root privileges needed) before gnubiff can be added to the panel."
   fi
 fi
 

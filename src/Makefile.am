@@ -1,11 +1,12 @@
 INCLUDES = \
-	$(GNUBIFF_DEP_CFLAGS)						\
-	$(GNOME_PANEL_DEP_CFLAGS)					\
-	-DGNUBIFF_LOCALEDIR=\""$(datadir)/locale"\"	\
-	-DGNUBIFF_DATADIR=\""$(pkgdatadir)"\"		\
-	-DGNUBIFF_ICONDIR=\""$(datadir)/pixmaps"\"	\
-	-DREAL_DATADIR=\""$(datadir)"\"				\
-	-D_GNU_SOURCE								\
+	$(GNUBIFF_DEP_CFLAGS)							\
+	$(GNOME_PANEL_DEP_CFLAGS)						\
+	-DGNUBIFF_LOCALEDIR=\""$(datadir)/locale"\"		\
+	-DGNUBIFF_DATADIR=\""$(pkgdatadir)"\"			\
+	-DGNUBIFF_ICONDIR=\""$(datadir)/pixmaps"\"		\
+	-DGNUBIFF_UIDIR=\""$(datadir)/gnome-2.0/ui"\"	\
+	-DREAL_DATADIR=\""$(datadir)"\"					\
+	-D_GNU_SOURCE									\
 	-Wall -ansi -pedantic
 
 bin_PROGRAMS = gnubiff
@@ -71,18 +72,10 @@ gnubiff$(EXEEXT): $(gnubiff_OBJECTS) $(gnubiff_DEPENDENCIES)
 ## End of section to be commented in case of compilation problem
 
 
-if USE_GNOME
-gnubiff_SOURCES = \
-	$(gnome_sources)		\
-	$(common_sources)
-else
-gnubiff_SOURCES = \
-	$(common_sources)
-endif
 
+gnubiff_SOURCES = $(common_sources)
 
-gnubiff_LDADD = $(INTLLIBS) $(GNUBIFF_DEP_LIBS) $(GNOME_PANEL_DEP_LIBS)
-
+gnubiff_LDADD = $(INTLLIBS) $(GNUBIFF_DEP_LIBS)
 
 serverdir       = $(libdir)/bonobo/servers
 server_in_files = 
@@ -90,20 +83,37 @@ server_DATA     =
 uidir			= $(datadir)/gnome-2.0/ui
 ui_DATA			= 
 
+##
+## Additional files and directories for the gnome panel frontend
+##
 if USE_GNOME
+gnubiff_SOURCES += $(gnome_sources)
+gnubiff_LDADD   += $(GNOME_PANEL_DEP_LIBS)
 server_in_files += GNOME_gnubiffApplet.server.in
 server_DATA     += $(server_in_files:.server.in=.server)
 ui_DATA			+= GNOME_gnubiffApplet.xml
-else
 endif
+
+# xxx.server.in.in -> xxx.server  (for the gnome panel)
+$(server_in_files): $(server_in_files:.server.in=.server.in.in)
+	sed -e "s|\@bindir\@|$(bindir)|" \
+	    -e "s|\@pkgdatadir\@|$(pkgdatadir)|" $< > $@
 
 @INTLTOOL_SERVER_RULE@
 
+##
+## Files not yet (or not always) covered that must be included when creating
+## a package for distribution
+##
 EXTRA_DIST = \
-	GNOME_gnubiffApplet.server.in	\
-	GNOME_gnubiffApplet.xml			\
-	gnubiff.schemas					\
+	GNOME_gnubiffApplet.server.in.in	\
+	GNOME_gnubiffApplet.xml				\
+	gnubiff.schemas						\
 	$(gnome_sources)
 
+##
+## Created files to be deleted when executing "make distclean"
+##
 DISTCLEANFILES = \
-        GNOME_gnubiffApplet.server
+	GNOME_gnubiffApplet.server			\
+	GNOME_gnubiffApplet.server.in

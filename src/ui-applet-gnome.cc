@@ -165,7 +165,7 @@ AppletGnome::dock (GtkWidget *applet)
  
 	panel_applet_setup_menu_from_file (PANEL_APPLET (applet),
 									   NULL,
-									   "GNOME_gnubiffApplet.xml",
+									   GNUBIFF_UIDIR"/GNOME_gnubiffApplet.xml",
 									   NULL,
 									   gnubiffMenuVerbs,
 									   this);
