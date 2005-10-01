@@ -265,6 +265,7 @@ Various contributors:@*
 @item Josh Parsons
 @item Pete Phillips
 @item Christian Probst
+@item Jakub Raczkowski
 @item Reid Rivenburgh
 @item Hans-Ulrich Schaefer
 @item Achim Settelmeier

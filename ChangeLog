@@ -12,6 +12,7 @@ Version 2.2.0
    - Updated TODO
    - Cleanup of Applet code
    - Bugfix: gnome version of gnubiff can now be installed to any directory
+   - Added Jakub Raczkowski to contributors
 
 Version 2.1.6
  * Robert Sowada
