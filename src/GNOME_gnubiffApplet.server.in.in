@@ -1,7 +1,7 @@
 <oaf_info>
     <oaf_server iid="OAFIID:GNOME_gnubiffApplet_Factory"
                 type="exe"
-                location="/usr/local/bin/gnubiff">
+                location="@bindir@/gnubiff">
         <oaf_attribute name="repo_ids" type="stringv">
             <item value="IDL:Bonobo/GenericFactory:1.0"/>
             <item value="IDL:Bonobo/Unknown:1.0"/>
@@ -31,6 +31,6 @@
         <oaf_attribute name="panel:category" type="string" value="Internet"/>
         <oaf_attribute name="panel:icon"
                        type="string"
-                       value="/usr/local/share/gnubiff/gnubiff.png"/>
+                       value="@pkgdatadir@/gnubiff.png"/>
     </oaf_server>
 </oaf_info>
