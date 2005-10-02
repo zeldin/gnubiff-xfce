@@ -193,7 +193,7 @@ AppletGnome::dock (GtkWidget *applet)
 void
 AppletGnome::update (gboolean no_popup)
 {
-	// Is there another update going on ?
+	// Is there another update going on?
 	if (!g_mutex_trylock (update_mutex_))
 		return;
 
@@ -301,7 +301,7 @@ AppletGnome::hide (std::string name)
 void
 AppletGnome::tooltip_update (void)
 {
-	std::string text = tooltip_text ();
+	std::string text = get_mailbox_status_text ();
 	GtkTooltipsData *data = gtk_tooltips_data_get (applet_);
 	gtk_tooltips_set_tip (data->tooltips, applet_, text.c_str(), "");
 }

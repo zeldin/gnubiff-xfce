@@ -423,10 +423,15 @@ Preferences::show (std::string name)
 void 
 Preferences::hide (std::string name)
 {
-	// Is glade file okay?
+	// Is the glade file okay?
 	if (!xml_)
 		return;
 
+	// Hide the properties dialog
+	if (properties_)
+		properties_->hide ();
+
+	// Hide the preferences dialog
 	gtk_widget_hide (get(name));
 }
 
@@ -576,21 +581,21 @@ Preferences::on_properties (GtkWidget *widget)
 		properties_->show();
 }
 
-void
+/**
+ *  This function is called when the preferences dialog shall be closed. Before
+ *  hiding the dialog the changes are applied and saved.
+ *
+ *  @param widget  Unused parameter.
+ */
+void 
 Preferences::on_close (GtkWidget *widget)
 {
-
-	// Hide properties
-	properties_->hide ();
-
-	// Apply change & save them
+	// Apply changes and save them
 	apply ();
 	biff_->save ();
-	hide();
-	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
-		biff_->applet()->start (3);
-	biff_->applet()->update(true);
-	((AppletGUI *)biff_->applet())->show();
+
+	// Hide the preferences dialog
+	((AppletGUI *)biff_->applet())->hide_dialog_preferences();
 }
 
 
@@ -631,25 +636,36 @@ Preferences::on_browse_nomail_image (GtkWidget *widget)
 	browse (_("Browse for a new mail image"), "nomail_image_entry", false, preview);
 }
 
-gboolean
-Preferences::on_destroy (GtkWidget *widget,  GdkEvent *event)
+/**
+ *  This function is called when the preferences dialog has been destroyed.
+ *
+ *  @param  widget Unused parameter.
+ *  @param  event  Unused parameter.
+ *  @return        Always true is returned.
+ */
+gboolean 
+Preferences::on_destroy (GtkWidget *widget, GdkEvent *event)
 {
-	hide ();
-	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
-		biff_->applet()->start (3);
-	biff_->applet()->update(true);
-	((AppletGUI *)biff_->applet())->show();
+	// Hide the preferences dialog
+	((AppletGUI *)biff_->applet())->hide_dialog_preferences();
+
 	return true;
 }
 
-gboolean
-Preferences::on_delete (GtkWidget *widget,  GdkEvent *event)
+/**
+ *  This function is called when there is a request to delete the preferences
+ *  dialog. 
+ *
+ *  @param  widget Unused parameter.
+ *  @param  event  Unused parameter.
+ *  @return        Always true is returned.
+ */
+gboolean 
+Preferences::on_delete (GtkWidget *widget, GdkEvent *event)
 {
-	hide ();
-	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
-		biff_->applet()->start (3);
-	biff_->applet()->update(true);
-	((AppletGUI *)biff_->applet())->show();
+	// Hide the preferences dialog
+	((AppletGUI *)biff_->applet())->hide_dialog_preferences();
+
 	return true;
 }
 

@@ -97,7 +97,7 @@ extern "C" {
 	void APPLET_GTK_on_menu_about (GtkWidget *widget, gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->show_about ();
+			((AppletGtk *) data)->show_dialog_about ();
 		else
 			unknown_internal_error ();
 	}
@@ -114,7 +114,7 @@ extern "C" {
 	void APPLET_GTK_on_hide_about (GtkWidget *widget, gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->hide_about ();
+			((AppletGtk *) data)->hide_dialog_about ();
 		else
 			unknown_internal_error ();
 	}
@@ -150,7 +150,7 @@ AppletGtk::update (gboolean no_popup)
 	if (!g_mutex_trylock (update_mutex_))
 		return;
 
-	Applet::update(no_popup);
+	Applet::update (no_popup);
 
 	std::string text;
 	guint unread = unread_markup (text);
@@ -236,7 +236,7 @@ AppletGtk::show (std::string name)
 void
 AppletGtk::tooltip_update (void)
 {
-	std::string tooltip = tooltip_text ();
+	std::string tooltip = get_mailbox_status_text ();
 	GtkTooltipsData *tt = gtk_tooltips_data_get  (get("dialog"));
 	gtk_tooltips_set_tip (tt->tooltips, get("dialog"), tooltip.c_str(), "");
 }

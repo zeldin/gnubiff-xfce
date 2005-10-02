@@ -190,6 +190,63 @@ Applet::execute_command (std::string option_command,
 	}
 }
 
+/**
+ *  Returns a string with a overview of the statuses of all
+ *  mailboxes. Each mailbox's status is presented on a separate line,
+ *  if there is no problem the number of unread messages is
+ *  given. This text is suitable for displaying as a tooltip.
+ *
+ *  @return    String that contains the mailboxes' statuses.
+ */
+std::string 
+Applet::get_mailbox_status_text (void)
+{
+	// Get max collected mail number in a stringstream
+	//  just to have a default string size.
+	std::stringstream smax;
+	smax << biff_->value_uint ("max_mail");
+
+	std::string tooltip;
+	for (unsigned int i=0; i<biff_->size(); i++) {
+		if (i > 0)
+			tooltip += "\n";
+		// Mailbox's name
+		tooltip += biff_->mailbox(i)->name();
+		tooltip += ": ";
+
+		// No protocol?
+		if (biff_->mailbox(i)->protocol() == PROTOCOL_NONE) {
+			tooltip += _(" unknown");
+			continue;
+		}
+		// Error?
+		if (biff_->mailbox(i)->status() == MAILBOX_ERROR) {
+			tooltip += _(" error");
+			continue;
+		}
+		// Put number of unread messages in the current mailbox into a string
+		std::stringstream s;
+		s << std::setfill('0') << std::setw (smax.str().size())
+		  << biff_->mailbox(i)->unreads();
+		// Checking mailbox?
+		if (biff_->mailbox(i)->status() == MAILBOX_CHECK) {
+			tooltip += "(";
+			tooltip += s.str();
+			tooltip += ")";
+			tooltip += _(" checking...");
+			continue;
+		}
+		// More unread messages in mailbox than got by gnubiff?
+		if (biff_->mailbox(i)->unreads() >= biff_->value_uint ("max_mail")) {
+			tooltip += std::string(smax.str().size(), '+');
+			continue;
+		}
+		// Just the number of unread messages
+		tooltip += s.str();
+	}
+	return tooltip;
+}
+
 
 /**
  *  Constructor.
@@ -243,45 +300,9 @@ AppletGUI::unread_markup (std::string &text)
 	return unread;
 }
 
-std::string
-AppletGUI::tooltip_text (void)
-{
-	// Get max collected mail number in a stringstream
-	//  just to have a default string size.
-	std::stringstream smax;
-	smax << biff_->value_uint ("max_mail");
-
-	std::string tooltip;
-	for (unsigned int i=0; i<biff_->size(); i++) {
-		tooltip += biff_->mailbox(i)->name();
-		tooltip += " : ";
-		std::stringstream s;
-		s << std::setfill('0') << std::setw (smax.str().size())
-		  << biff_->mailbox(i)->unreads();
-
-		if (biff_->mailbox(i)->protocol() == PROTOCOL_NONE)
-			tooltip += _(" unknown");
-		else if (biff_->mailbox(i)->status() == MAILBOX_ERROR)
-			tooltip += _(" error");
-		else if (biff_->mailbox(i)->status() == MAILBOX_CHECK) {
-			tooltip += "(";
-			tooltip += s.str();
-			tooltip += ")";
-			tooltip += _(" checking...");
-		}
-		else if (biff_->mailbox(i)->unreads() >= biff_->value_uint ("max_mail")) {
-			tooltip += std::string(smax.str().size(), '+');
-		}
-		else
-			tooltip += s.str();
-		if (i< (biff_->size()-1))
-			tooltip += "\n";
-	}
-	return tooltip;
-}
 
 /**
- *  Show the preferences dialog.
+ *  Show the preferences dialog. Monitoring of the mailboxes will be stopped.
  */
 void 
 AppletGUI::show_dialog_preferences (void)
@@ -296,22 +317,30 @@ AppletGUI::show_dialog_preferences (void)
 	stop ();
 }
 
-
 /**
- *  Hide the preferences dialog.
+ *  Hide the preferences dialog. Monitoring of the mailboxes will be started
+ *  again (if automatic checking is enabled).
  */
 void 
 AppletGUI::hide_dialog_preferences (void)
 {
-	// Hide the dialog
+	// Hide the preferences dialog
 	biff_->preferences()->hide();
+
+	// Start monitoring of the mailboxes (if wanted)
+	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
+		biff_->applet()->start (3);
+
+	// Update the applet status
+	biff_->applet()->update (true);
+	show();
 }
 
 /**
  *  Show the about dialog.
  */
 void 
-AppletGUI::show_about (void)
+AppletGUI::show_dialog_about (void)
 {
 	// Hide the other dialogs
 	biff_->popup()->hide();
@@ -325,7 +354,7 @@ AppletGUI::show_about (void)
  *  Hide the about dialog.
  */
 void 
-AppletGUI::hide_about (void)
+AppletGUI::hide_dialog_about (void)
 {
 	GUI::hide ("about");
 }

@@ -61,6 +61,7 @@ public:
 	void mark_mails_as_read (void);
 	void execute_command (std::string option_command,
 						  std::string option_use_command = "");
+	std::string get_mailbox_status_text (void);
 };
 
 /**
@@ -81,12 +82,11 @@ public:
 	virtual void dock (GtkWidget *applet) {};		// dock applet
 
 	guint       unread_markup (std::string &text);	// build unread markup string
-	std::string tooltip_text (void);				// build tooltip text
 
 	void show_dialog_preferences (void);
 	void hide_dialog_preferences (void);
-	void show_about (void);
-	void hide_about (void);
+	void show_dialog_about (void);
+	void hide_dialog_about (void);
 };
 
 #endif
