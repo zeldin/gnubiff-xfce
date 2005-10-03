@@ -67,7 +67,7 @@ public:
 	~Properties (void);
 
 	/* main */
-	gboolean create (void);
+	gboolean create (gpointer callbackdata);
 	void show (std::string name = "dialog");
 
 	// ========================================================================

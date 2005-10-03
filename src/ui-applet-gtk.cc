@@ -129,9 +129,9 @@ AppletGtk::~AppletGtk (void)
 }
 
 gint
-AppletGtk::create (void)
+AppletGtk::create (gpointer callbackdata)
 {
-	GUI::create();
+	GUI::create(this);
 	GtkImageAnimation *anim = new GtkImageAnimation (GTK_IMAGE(get("image")));
 	g_object_set_data (G_OBJECT(get("image")), "_animation_", anim);
 	anim->open (biff_->value_string ("nomail_image"));

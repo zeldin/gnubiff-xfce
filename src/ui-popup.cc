@@ -126,9 +126,9 @@ Popup::~Popup (void)
 }
 
 gint
-Popup::create (void)
+Popup::create (gpointer callbackdata)
 {
-	GUI::create();
+	GUI::create(this);
 
 	GtkTreeModel *model;
 

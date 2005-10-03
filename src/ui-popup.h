@@ -69,7 +69,7 @@ protected:
 	virtual ~Popup (void);
 
 	/* main */
-	virtual gint create (void);
+	virtual gint create (gpointer callbackdata);
 	void update (void);
 	void show (std::string name = "dialog");
 

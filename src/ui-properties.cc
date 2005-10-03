@@ -108,9 +108,9 @@ Properties::~Properties (void)
 }
 
 gboolean
-Properties::create (void)
+Properties::create (gpointer callbackdata)
 {
-	gboolean result = GUI::create();
+	gboolean result = GUI::create(this);
 
 	group_ = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 	gtk_size_group_add_widget (group_, get ("name"));

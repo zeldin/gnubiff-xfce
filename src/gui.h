@@ -53,7 +53,7 @@ public:
 	virtual ~GUI (void);
 
 	/* main */
-	virtual gint create (void);
+	virtual gint create (gpointer callbackdata);
 	void create_insert_version (void);
 	virtual void show (std::string name = "dialog");
 	virtual void hide (std::string name = "dialog");

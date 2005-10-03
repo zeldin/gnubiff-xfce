@@ -149,15 +149,15 @@ Biff::Biff (guint ui_mode, std::string filename)
 #else
 	applet_ = new AppletGtk (this);
 #endif
-	((AppletGUI *)applet_)->create();
+	((AppletGUI *)applet_)->create(applet_);
 
 	// Preferences
 	preferences_ = new Preferences (this);
-	preferences_->create ();
+	preferences_->create (preferences_);
 
 	// Popup
 	popup_ = new Popup (this);
-	popup_->create();
+	popup_->create(popup_);
 
 	// Authentication dialog
 	ui_auth_mutex_ = g_mutex_new ();

@@ -67,7 +67,7 @@ public:
 	 **/
 	Preferences (class Biff *biff);
 	~Preferences (void);
-	gint create (void);
+	gint create (gpointer callbackdata);
 
 	/**
 	 * Main

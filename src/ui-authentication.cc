@@ -68,7 +68,7 @@ void
 Authentication::show (std::string name)
 {
 	if (!xml_)
-		create();
+		create(this);
 
 	// Try to identify mailbox by:
 	// 1. using name

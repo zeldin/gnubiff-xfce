@@ -70,7 +70,7 @@ void
 Certificate::show (std::string name)
 {
 	if (!xml_)
-		create();
+		create(this);
 
 	gchar *text1 = g_strdup_printf (_("Unable to verify the identity of %s as a trusted site.\n"), socket_->hostname().c_str());
 	gchar *text2 = g_strdup_printf (_("Either site's certificate is incomplete or you're connected to a site pretending to be %s, possibly to obtain your password"), socket_->hostname().c_str());

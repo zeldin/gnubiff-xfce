@@ -13,6 +13,9 @@ Version 2.2.0
    - Cleanup of Applet code
    - Bugfix: gnome version of gnubiff can now be installed to any directory
    - Added Jakub Raczkowski to contributors
+   - Workaround: Added a parameter to the create function to work around the
+        problem of setting an incorrect callback data pointer for the gtk
+        applet
 
 Version 2.1.6
  * Robert Sowada

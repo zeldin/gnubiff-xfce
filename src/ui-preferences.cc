@@ -230,7 +230,7 @@ Preferences::Preferences (Biff *biff) : GUI (GNUBIFF_DATADIR"/preferences.glade"
 {
 	biff_ = biff;
 	properties_ = new Properties (this);
-	properties_->create ();
+	properties_->create (properties_);
 	selected_ = 0;
 	added_ = 0;
 	// Widgets
@@ -245,9 +245,9 @@ Preferences::~Preferences (void)
 }
 
 gint
-Preferences::create (void)
+Preferences::create (gpointer callbackdata)
 {
-	GUI::create ();
+	GUI::create (this);
 
 	// Create expert tab
 	expert_create ();

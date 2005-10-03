@@ -176,7 +176,7 @@ GUI::~GUI (void)
 }
 
 gint
-GUI::create (void)
+GUI::create (gpointer callbackdata)
 {
 	if (xml_)
 		return true;
@@ -206,7 +206,7 @@ GUI::create (void)
 		exit (1);
 	}
 
-	glade_xml_signal_autoconnect_full (xml_, GUI_connect, this);
+	glade_xml_signal_autoconnect_full (xml_, GUI_connect, callbackdata);
 	create_insert_version ();
 	return true;
 }
