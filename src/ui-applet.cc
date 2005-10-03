@@ -300,6 +300,42 @@ AppletGUI::unread_markup (std::string &text)
 	return unread;
 }
 
+/**
+ *  Update the applet status. This includes showing the
+ *  image/animation that corresponds to the current status of gnubiff
+ *  (no new messages or new messages are present). Also the text with
+ *  the current number of new messages is updated.
+ *
+ *  @param  no_popup     If true the popup window will remain unchanged. The
+ *                       default is false.
+ *  @param  widget_image Name of the widget that contains the image for
+ *                       gnubiff's status or the empty string if no image shall
+ *                       be updated. The default is the empty string.
+ *  @param  widget_text  Name of the widget that contains the text for
+ *                       gnubiff's status or the empty string if no text shall
+ *                       be updated. The default is the empty string.
+ */
+void 
+AppletGUI::update (gboolean no_popup, std::string widget_image,
+				   std::string widget_text)
+{
+	// Update applet's status: GUI-independent things to do
+	Applet::update (no_popup);
+
+	// Update applet's text
+	if (widget_text != "") {
+		std::string text;
+		GtkLabel *label = GTK_LABEL (get (widget_text.c_str ()));
+
+		guint unread = unread_markup (text);
+		gtk_label_set_markup (label, text.c_str());
+		if (((unread == 0) && biff_->value_bool ("use_nomail_text")) ||
+			((unread >  0) && biff_->value_bool ("use_newmail_text")))
+			gtk_widget_show (GTK_WIDGET (label));
+		else
+			gtk_widget_hide (GTK_WIDGET (label));
+	}
+}
 
 /**
  *  Show the preferences dialog. Monitoring of the mailboxes will be stopped.
@@ -329,10 +365,10 @@ AppletGUI::hide_dialog_preferences (void)
 
 	// Start monitoring of the mailboxes (if wanted)
 	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
-		biff_->applet()->start (3);
+		start (3);
 
-	// Update the applet status
-	biff_->applet()->update (true);
+	// Update applet's status
+	update (true);
 	show();
 }
 

@@ -120,8 +120,6 @@ extern "C" {
 	}
 }
 
-
-
 AppletGtk::AppletGtk (Biff *biff) : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade")
 {
 }
@@ -150,10 +148,10 @@ AppletGtk::update (gboolean no_popup)
 	if (!g_mutex_trylock (update_mutex_))
 		return;
 
-	Applet::update (no_popup);
+	AppletGUI::update (no_popup, "image", "unread");
 
-	std::string text;
-	guint unread = unread_markup (text);
+	std::string text;                         //
+	guint unread = unread_markup (text);      //
 
 	// Image/animation
 	GtkImageAnimation *anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("image")), "_animation_");
@@ -165,10 +163,10 @@ AppletGtk::update (gboolean no_popup)
 			hide();
 		else
 			show ();
-		if (!biff_->value_bool ("use_newmail_text"))
-			gtk_widget_hide (get("unread"));
-		else
-			gtk_widget_show (get("unread"));
+//		if (!biff_->value_bool ("use_newmail_text"))
+//			gtk_widget_hide (get("unread"));
+//		else
+//			gtk_widget_show (get("unread"));
 	}
 	else {
 		gtk_window_set_title (GTK_WINDOW(get("dialog")), _("No mail"));
@@ -178,13 +176,13 @@ AppletGtk::update (gboolean no_popup)
 			hide();
 		else
 			show ();
-		if (!biff_->value_bool ("use_nomail_text"))
-			gtk_widget_hide (get("unread"));
-		else
-			gtk_widget_show (get("unread"));
+//		if (!biff_->value_bool ("use_nomail_text"))
+//			gtk_widget_hide (get("unread"));
+//		else
+//			gtk_widget_show (get("unread"));
 	}
 
-	gtk_label_set_markup (GTK_LABEL(get ("unread")), text.c_str());
+//	gtk_label_set_markup (GTK_LABEL(get ("unread")), text.c_str());
 	
 	// Update widgets relative to image size
 	guint width = anim->scaled_width();
@@ -202,6 +200,7 @@ AppletGtk::update (gboolean no_popup)
 	if (decorated != biff_->value_bool ("applet_use_decoration"))
 		gtk_window_set_decorated (GTK_WINDOW(get("dialog")),
 								  biff_->value_bool ("applet_use_decoration"));
+
 	tooltip_update();
 	show();
 
