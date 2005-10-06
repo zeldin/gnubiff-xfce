@@ -148,52 +148,7 @@ AppletGtk::update (gboolean no_popup)
 	if (!g_mutex_trylock (update_mutex_))
 		return;
 
-	AppletGUI::update (no_popup, "image", "unread");
-
-	std::string text;                         //
-	guint unread = unread_markup (text);      //
-
-	// Image/animation
-	GtkImageAnimation *anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("image")), "_animation_");
-	if (unread > 0) {
-		gtk_window_set_title (GTK_WINDOW(get("dialog")), _("New mail"));
-		anim->open (biff_->value_string ("newmail_image"));
-		anim->start();
-		if (!biff_->value_bool ("use_newmail_image"))
-			hide();
-		else
-			show ();
-//		if (!biff_->value_bool ("use_newmail_text"))
-//			gtk_widget_hide (get("unread"));
-//		else
-//			gtk_widget_show (get("unread"));
-	}
-	else {
-		gtk_window_set_title (GTK_WINDOW(get("dialog")), _("No mail"));
-		anim->open (biff_->value_string ("nomail_image"));
-		anim->start();
-		if (!biff_->value_bool ("use_nomail_image"))
-			hide();
-		else
-			show ();
-//		if (!biff_->value_bool ("use_nomail_text"))
-//			gtk_widget_hide (get("unread"));
-//		else
-//			gtk_widget_show (get("unread"));
-	}
-
-//	gtk_label_set_markup (GTK_LABEL(get ("unread")), text.c_str());
-	
-	// Update widgets relative to image size
-	guint width = anim->scaled_width();
-	guint height = anim->scaled_height();
-	gtk_widget_set_size_request (get("fixed"), width, height);
-	gtk_widget_set_size_request (get("image"), width, height);
-	gtk_widget_set_size_request (get("unread"), width, -1);
-
-	GtkRequisition req;
-	gtk_widget_size_request (get("unread"), &req);
-	gtk_fixed_move (GTK_FIXED(get("fixed")), get("unread"), 0, height-req.height);
+	AppletGUI::update (no_popup, "image", "unread", "fixed");
 
 	// Update window manager decorations
 	gboolean decorated = gtk_window_get_decorated (GTK_WINDOW(get("dialog")));

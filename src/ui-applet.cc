@@ -35,6 +35,7 @@
 #include <string>
 #include <glib.h>
 
+#include "gtk_image_animation.h"
 #include "mailbox.h"
 #include "support.h"
 #include "ui-applet.h"
@@ -191,6 +192,22 @@ Applet::execute_command (std::string option_command,
 }
 
 /**
+ *  Get the number of unread messages in all mailboxes.
+ *
+ *  @return    Number of unread messages.
+ */
+guint 
+Applet::get_number_of_unread_messages (void)
+{
+	guint unread = 0;
+
+	for (unsigned int i=0; i<biff_->size(); i++)
+		unread += biff_->mailbox(i)->unreads();
+
+	return unread;
+}
+
+/**
  *  Returns a string with a overview of the statuses of all
  *  mailboxes. Each mailbox's status is presented on a separate line,
  *  if there is no problem the number of unread messages is
@@ -304,36 +321,111 @@ AppletGUI::unread_markup (std::string &text)
  *  Update the applet status. This includes showing the
  *  image/animation that corresponds to the current status of gnubiff
  *  (no new messages or new messages are present). Also the text with
- *  the current number of new messages is updated.
+ *  the current number of new messages is updated. If present a container
+ *  widget that contains the widgets for the image and the text may be
+ *  updated too.
  *
- *  @param  no_popup     If true the popup window will remain unchanged. The
- *                       default is false.
- *  @param  widget_image Name of the widget that contains the image for
- *                       gnubiff's status or the empty string if no image shall
- *                       be updated. The default is the empty string.
- *  @param  widget_text  Name of the widget that contains the text for
- *                       gnubiff's status or the empty string if no text shall
- *                       be updated. The default is the empty string.
+ *  @param  no_popup         If true the popup window will remain unchanged.
+ *                           The default is false.
+ *  @param  widget_image     Name of the widget that contains the image for
+ *                           gnubiff's status or the empty string if
+ *                           no image shall * be updated. The default
+ *                           is the empty string.
+ *  @param  widget_text      Name of the widget that contains the text for
+ *                           gnubiff's status or the empty string if
+ *                           no text shall be updated. The default is
+ *                           the empty string.
+ *  @param  widget_container Name of the widget that contains the image and
+ *                           text widget. If it's an empty string the container
+ *                           widget (if present) will not be updated. The
+ *                           default is the empty string.
  */
 void 
 AppletGUI::update (gboolean no_popup, std::string widget_image,
-				   std::string widget_text)
+				   std::string widget_text, std::string widget_container)
 {
 	// Update applet's status: GUI-independent things to do
 	Applet::update (no_popup);
 
+	// Get number of unread messages
+	guint unread = get_number_of_unread_messages ();
+
+	// Update applet's image
+	GtkWidget *widget = NULL;
+	guint i_height = 0, i_width = 0;
+	if (widget_image != "") {
+		GtkImageAnimation *anim;
+		anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("image")),
+														"_animation_");
+		widget = get (widget_image.c_str ());
+
+		// Determine image
+		std::string image;
+		if ((unread == 0) && biff_->value_bool ("use_nomail_image"))
+			image = biff_->value_string ("nomail_image");
+		if ((unread >  0) && biff_->value_bool ("use_newmail_image"))
+			image = biff_->value_string ("newmail_image");
+
+		// Show/hide image
+		if (image != "") {
+			anim->open (image);
+			// FIXME: If needed rescaling of the image
+			// Rescale image and get rescaled image's size
+			i_width = anim->scaled_width();
+			i_height = anim->scaled_height();
+			// Start animation in updated widget
+			gtk_widget_set_size_request (widget, i_width, i_height);
+			gtk_widget_show (widget);
+			anim->start();
+		}
+		else// Hide widget
+			gtk_widget_hide (widget);
+	}
+
 	// Update applet's text
+	GtkLabel *label = NULL;
+	guint t_height = 0, t_width = 0;
 	if (widget_text != "") {
 		std::string text;
-		GtkLabel *label = GTK_LABEL (get (widget_text.c_str ()));
+		label = GTK_LABEL (get (widget_text.c_str ()));
 
-		guint unread = unread_markup (text);
+		unread_markup (text); // FIXME: Cleanup function
 		gtk_label_set_markup (label, text.c_str());
+
 		if (((unread == 0) && biff_->value_bool ("use_nomail_text")) ||
-			((unread >  0) && biff_->value_bool ("use_newmail_text")))
+			((unread >  0) && biff_->value_bool ("use_newmail_text"))) {
+			// Show widget	
 			gtk_widget_show (GTK_WIDGET (label));
-		else
+
+			// Resize label
+			gtk_widget_set_size_request (GTK_WIDGET (label), -1, -1);
+			GtkRequisition req;
+			gtk_widget_size_request (GTK_WIDGET (label), &req);
+			t_width = req.width;
+			t_height = req.height;
+		}
+		else// Hide widget
 			gtk_widget_hide (GTK_WIDGET (label));
+	}
+
+	// Update the container widget
+	guint c_width = 0, c_height = 0;
+	if (widget_container != "") {
+		GtkFixed *fixed = GTK_FIXED (get (widget_container.c_str ()));
+
+		// Calculate size of container: Image and text should fit into it.
+		c_width = std::max (i_width, t_width);
+		c_height = std::max (i_height, t_height);
+
+		// Resize container and move widgets inside it to the right position
+		if ((c_width > 0) && (c_height > 0)) {
+			gtk_widget_set_size_request (GTK_WIDGET(fixed), c_width, c_height);
+			if (label)
+				gtk_fixed_move (fixed, GTK_WIDGET (label), (c_width-t_width)/2,
+								c_height-t_height);
+			if (widget)
+				gtk_fixed_move (fixed, widget, (c_width-i_width)/2, 0);
+		}
 	}
 }
 

@@ -62,6 +62,7 @@ public:
 	void execute_command (std::string option_command,
 						  std::string option_use_command = "");
 	std::string get_mailbox_status_text (void);
+	guint get_number_of_unread_messages (void);
 };
 
 /**
@@ -84,7 +85,8 @@ public:
 	guint unread_markup (std::string &text);	// build unread markup string
 	virtual void update (gboolean no_popup = false,
 						 std::string widget_image = "",
-						 std::string widget_text = "");
+						 std::string widget_text = "",
+						 std::string widget_container = "");
 
 	void show_dialog_preferences (void);
 	void hide_dialog_preferences (void);
