@@ -199,62 +199,20 @@ AppletGnome::update (gboolean no_popup)
 
 	Applet::update (no_popup);
 
-	std::string text;
-	guint unread = unread_markup (text);
-	gtk_label_set_markup (GTK_LABEL(get ("hunread")), text.c_str());
-	gtk_label_set_markup (GTK_LABEL(get ("vunread")), text.c_str());
+	gtk_widget_hide (get ("hunread"));
+	gtk_widget_hide (get ("vunread"));
 
+	// Get panel's size and orientation
+	guint size = panel_applet_get_size (panelapplet ());
+	PanelAppletOrient orient = panel_applet_get_orient (panelapplet ());
 
-	GtkImageAnimation *anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("image")), "_animation_");
-	// Pick image/animation
-	if (unread > 0) {
-		if (!biff_->value_bool ("use_newmail_image")) {
-			gtk_widget_hide (get("image"));
-		}
-		else {
-			gtk_widget_show (get("image"));
-			anim->open (biff_->value_string ("newmail_image"));
-		}
-	}
-	else {
-		if (!biff_->value_bool ("use_nomail_image")) {
-			gtk_widget_hide (get("image"));
-		}
-		else {
-			gtk_widget_show (get("image"));
-			anim->open (biff_->value_string ("nomail_image"));
-		}
-	}
-
-	guint size = panel_applet_get_size (PANEL_APPLET (applet_));
-	PanelAppletOrient orient = panel_applet_get_orient (PANEL_APPLET (applet_));
 	// The panel is oriented horizontally
-	if ((orient == PANEL_APPLET_ORIENT_DOWN) || (orient == PANEL_APPLET_ORIENT_UP)) {
-		gtk_widget_hide (get ("vunread"));
-		if (((unread > 0) && (biff_->value_bool ("use_newmail_text")))
-			|| ((unread == 0) && (biff_->value_bool ("use_nomail_text"))))
-			gtk_widget_show (get ("hunread"));
-		else
-			gtk_widget_hide (get ("hunread"));
-		if (anim->scaled_height() != size) {
-			anim->stop ();
-			anim->resize (anim->scaled_width()*size/anim->scaled_height(), size);
-		}
-	}
+	if ((orient == PANEL_APPLET_ORIENT_DOWN)
+		|| (orient == PANEL_APPLET_ORIENT_UP))
+		AppletGUI::update (no_popup, "image", "hunread", "", size, G_MAXUINT);
 	// The panel is oriented vertically
-	else {
-		gtk_widget_hide (get ("hunread"));
-		if (((unread > 0) && (biff_->value_bool ("use_newmail_text")))
-			|| ((unread == 0) && (biff_->value_bool ("use_nomail_text"))))
-			gtk_widget_show (get ("vunread"));
-		else
-			gtk_widget_hide (get ("vunread"));
-		if (anim->scaled_width() > size) {
-			anim->stop ();
-			anim->resize (size, anim->scaled_height()*size/anim->scaled_width());
-		}
-	}
-
+	else
+		AppletGUI::update (no_popup, "image", "vunread", "", G_MAXUINT, size);
 
 	// Background
 	PanelAppletBackgroundType type;
@@ -279,9 +237,6 @@ AppletGnome::update (gboolean no_popup)
 		}
 	}
 
-
-	if (GTK_WIDGET_VISIBLE(get("image")))
-		anim->start ();
 	g_mutex_unlock (update_mutex_);
 }
 

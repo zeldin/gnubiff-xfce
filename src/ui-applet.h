@@ -86,7 +86,8 @@ public:
 	virtual void update (gboolean no_popup = false,
 						 std::string widget_image = "",
 						 std::string widget_text = "",
-						 std::string widget_container = "");
+						 std::string widget_container = "",
+						 guint m_width=G_MAXUINT, guint m_height=G_MAXUINT);
 
 	void show_dialog_preferences (void);
 	void hide_dialog_preferences (void);

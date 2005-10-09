@@ -281,6 +281,7 @@ AppletGUI::~AppletGUI (void)
 {
 }
 
+// FIXME
 guint 
 AppletGUI::unread_markup (std::string &text)
 {
@@ -339,10 +340,15 @@ AppletGUI::unread_markup (std::string &text)
  *                           text widget. If it's an empty string the container
  *                           widget (if present) will not be updated. The
  *                           default is the empty string.
+ *  @param  m_width          Maximum width of the widgets. The default value
+ *                           is G_MAXUINT.
+ *  @param  m_height         Maximum height of the widgets. The default value
+ *                           is G_MAXUINT.
  */
 void 
 AppletGUI::update (gboolean no_popup, std::string widget_image,
-				   std::string widget_text, std::string widget_container)
+				   std::string widget_text, std::string widget_container,
+				   guint m_width, guint m_height)
 {
 	// Update applet's status: GUI-independent things to do
 	Applet::update (no_popup);
@@ -369,10 +375,23 @@ AppletGUI::update (gboolean no_popup, std::string widget_image,
 		// Show/hide image
 		if (image != "") {
 			anim->open (image);
-			// FIXME: If needed rescaling of the image
-			// Rescale image and get rescaled image's size
+			// Get image's current size
 			i_width = anim->scaled_width();
 			i_height = anim->scaled_height();
+			// Rescale image if it's too large
+			gboolean rescale = false;
+			if (i_width > m_width) {
+				i_height = i_height * m_width / i_width;
+				i_width  = m_width;
+				rescale  = true;
+			}
+			if (i_height > m_height) {
+				i_width  = i_width * m_height / i_height;
+				i_height = m_height;
+				rescale  = true;
+			}
+			if (rescale)
+				anim->resize (i_width, i_height);
 			// Start animation in updated widget
 			gtk_widget_set_size_request (widget, i_width, i_height);
 			gtk_widget_show (widget);
