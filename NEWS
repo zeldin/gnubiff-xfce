@@ -4,6 +4,11 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.1.6
+This is a minor bugfix release. Changes:
+ * The gnome version of gnubiff can now be installed to any directory
+    by any user
+
 Version 2.1.5
 This is a minor bugfix release. Changes:
  * Fixed some FAM and GAMIN related problems

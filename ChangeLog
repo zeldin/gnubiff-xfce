@@ -18,7 +18,7 @@ Version 2.2.0
         applet
    - Bugfix: Text in gtk applet now always fits into the fixed container
 
-Version 2.1.6
+Version 2.1.6		2005-10-09 15:51
  * Robert Sowada
    - Changed version to 2.1.6
    - Backport (from gnubiff 2.2.0 CVS) of changes for installing gnubiff into
