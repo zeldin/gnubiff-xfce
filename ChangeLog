@@ -17,6 +17,7 @@ Version 2.2.0
         problem of setting an incorrect callback data pointer for the gtk
         applet
    - Bugfix: Text in gtk applet now always fits into the fixed container
+   - Bugfix: Gnome applet now identical to gtk applet.
 
 Version 2.1.7
  * Robert Sowada

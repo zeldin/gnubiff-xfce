@@ -144,7 +144,7 @@ extern "C" {
 }
 
 
-AppletGnome::AppletGnome (Biff *biff) : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gnome.glade")
+AppletGnome::AppletGnome (Biff *biff) : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade")
 {
 }
 
@@ -169,7 +169,7 @@ AppletGnome::dock (GtkWidget *applet)
 									   NULL,
 									   gnubiffMenuVerbs,
 									   this);
-	gtk_widget_reparent (get ("table"), applet);  
+	gtk_widget_reparent (get ("fixed"), applet);  
 
 	gtk_container_set_border_width (GTK_CONTAINER (applet), 0);
 	GtkTooltips *applet_tips = gtk_tooltips_new ();
@@ -199,9 +199,6 @@ AppletGnome::update (gboolean no_popup)
 
 	Applet::update (no_popup);
 
-	gtk_widget_hide (get ("hunread"));
-	gtk_widget_hide (get ("vunread"));
-
 	// Get panel's size and orientation
 	guint size = panel_applet_get_size (panelapplet ());
 	PanelAppletOrient orient = panel_applet_get_orient (panelapplet ());
@@ -209,10 +206,10 @@ AppletGnome::update (gboolean no_popup)
 	// The panel is oriented horizontally
 	if ((orient == PANEL_APPLET_ORIENT_DOWN)
 		|| (orient == PANEL_APPLET_ORIENT_UP))
-		AppletGUI::update (no_popup, "image", "hunread", "", size, G_MAXUINT);
+		AppletGUI::update (no_popup,"image","unread","fixed", size, G_MAXUINT);
 	// The panel is oriented vertically
 	else
-		AppletGUI::update (no_popup, "image", "vunread", "", G_MAXUINT, size);
+		AppletGUI::update (no_popup,"image","unread","fixed", G_MAXUINT, size);
 
 	// Background
 	PanelAppletBackgroundType type;
@@ -223,7 +220,7 @@ AppletGnome::update (gboolean no_popup)
 		GtkStyle* style = gtk_style_copy (gtk_widget_get_style (applet_));
 		style->bg_pixmap[0] = pixmap;
 		gtk_widget_set_style (applet_, style);
-		gtk_widget_set_style (get("table"), style);
+		gtk_widget_set_style (get("fixed"), style);
 		g_object_unref (style);
 	}
 	else {
