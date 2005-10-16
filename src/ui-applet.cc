@@ -282,22 +282,18 @@ AppletGUI::~AppletGUI (void)
 }
 
 // FIXME
-guint 
-AppletGUI::unread_markup (std::string &text)
+std::string 
+AppletGUI::unread_markup (guint unread)
 {
 	// Get max collected mail number in a stringstream
 	//  just to have a default string size.
 	std::stringstream smax;
 	smax << biff_->value_uint ("max_mail");
 
-	// Get number of unread mails
-	guint unread = 0;
-	for (unsigned int i=0; i<biff_->size(); i++)
-		unread += biff_->mailbox(i)->unreads();
 	std::stringstream unreads;
 	unreads << std::setfill('0') << std::setw (smax.str().size()) << unread;
 
-	// Applet label (number of mail)
+	std::string text;
 	text = "<span font_desc=\"" + biff_->value_string ("applet_font") + "\">";
 
 	std::vector<std::string> vec(1);
@@ -315,7 +311,7 @@ AppletGUI::unread_markup (std::string &text)
 	}
 	text += "</span>";
 	
-	return unread;
+	return text;
 }
 
 /**
@@ -405,10 +401,10 @@ AppletGUI::update (gboolean no_popup, std::string widget_image,
 	GtkLabel *label = NULL;
 	guint t_height = 0, t_width = 0;
 	if (widget_text != "") {
-		std::string text;
 		label = GTK_LABEL (get (widget_text.c_str ()));
 
-		unread_markup (text); // FIXME: Cleanup function
+		// Set label
+		std::string text = unread_markup (unread);
 		gtk_label_set_markup (label, text.c_str());
 
 		if (((unread == 0) && biff_->value_bool ("use_nomail_text")) ||

@@ -82,7 +82,7 @@ public:
 	// ========================================================================
 	virtual void dock (GtkWidget *applet) {};		// dock applet
 
-	guint unread_markup (std::string &text);	// build unread markup string
+	std::string unread_markup (guint unread);
 	virtual void update (gboolean no_popup = false,
 						 std::string widget_image = "",
 						 std::string widget_text = "",
