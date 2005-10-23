@@ -564,7 +564,7 @@
 		      <child>
 			<widget class="GtkEntry" id="newmail_text_entry">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Text to display (%d is the number of new messages)</property>
+			  <property name="tooltip" translatable="yes">Text to display (%d and %D is the number of new messages, %d is zero padded). Pango markup may be used.</property>
 			  <property name="can_focus">True</property>
 			  <property name="editable">True</property>
 			  <property name="visibility">True</property>
@@ -629,7 +629,7 @@
 		      <child>
 			<widget class="GtkEntry" id="nomail_text_entry">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Text to display</property>
+			  <property name="tooltip" translatable="yes">Text to display (%d and %D is the number of new messages, %d is zero padded). Pango markup may be used.</property>
 			  <property name="can_focus">True</property>
 			  <property name="editable">True</property>
 			  <property name="visibility">True</property>

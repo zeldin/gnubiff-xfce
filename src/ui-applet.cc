@@ -208,6 +208,43 @@ Applet::get_number_of_unread_messages (void)
 }
 
 /**
+ *  Get the number of unread messages in all mailboxes as a string.
+ *
+ *  @return    Number of unread messages as a string.
+ */
+std::string 
+Applet::get_number_of_unread_messages_text (void)
+{
+	std::stringstream smax, text_zero, text_num;
+	std::string text;
+	guint unread = get_number_of_unread_messages ();
+
+	// Zero padded number of unread messages
+	smax << biff_->value_uint ("max_mail");
+	text_zero << std::setfill('0') << std::setw (smax.str().size()) << unread;
+
+	// Number of unread messages
+	text_num << unread;
+
+	// Use the correct user supplied message to create the text
+	const std::string chars = "dD";
+	std::vector<std::string> vec(2);
+	vec[0] = text_zero.str (); // 'd'
+	vec[1] = text_num.str ();  // 'D'
+	if (unread == 0)
+		text = substitute (biff_->value_string ("nomail_text"), chars, vec);
+	else if (unread < biff_->value_uint ("max_mail"))
+		text = substitute (biff_->value_string ("newmail_text"), chars, vec);
+	else {
+		vec[0] = std::string (std::string(smax.str().size(), '+'));
+		vec[1] = "+";
+		text = substitute (biff_->value_string ("newmail_text"), chars, vec);
+	}
+
+	return text;
+}
+
+/**
  *  Returns a string with a overview of the statuses of all
  *  mailboxes. Each mailbox's status is presented on a separate line,
  *  if there is no problem the number of unread messages is
@@ -247,10 +284,7 @@ Applet::get_mailbox_status_text (void)
 		  << biff_->mailbox(i)->unreads();
 		// Checking mailbox?
 		if (biff_->mailbox(i)->status() == MAILBOX_CHECK) {
-			tooltip += "(";
-			tooltip += s.str();
-			tooltip += ")";
-			tooltip += _(" checking...");
+			tooltip += "(" + s.str() + ")" + _(" checking...");
 			continue;
 		}
 		// More unread messages in mailbox than got by gnubiff?
@@ -281,36 +315,21 @@ AppletGUI::~AppletGUI (void)
 {
 }
 
-// FIXME
+/**
+ *  Get the number of unread messages in all mailboxes as a string (with
+ *  pango markup for the font).
+ *
+ *  @return    Number of unread messages as a string.
+ */
 std::string 
-AppletGUI::unread_markup (guint unread)
+AppletGUI::get_number_of_unread_messages_text (void)
 {
-	// Get max collected mail number in a stringstream
-	//  just to have a default string size.
-	std::stringstream smax;
-	smax << biff_->value_uint ("max_mail");
-
-	std::stringstream unreads;
-	unreads << std::setfill('0') << std::setw (smax.str().size()) << unread;
-
 	std::string text;
-	text = "<span font_desc=\"" + biff_->value_string ("applet_font") + "\">";
 
-	std::vector<std::string> vec(1);
-	if (unread == 0) {
-		vec[0] = std::string (unreads.str());
-		text += substitute (biff_->value_string ("nomail_text"), "d", vec);
-	}
-	else if (unread < biff_->value_uint ("max_mail")) {
-		vec[0] = std::string (unreads.str());
-		text += substitute (biff_->value_string ("newmail_text"), "d", vec);
-	}
-	else {
-		vec[0] = std::string (std::string(smax.str().size(), '+'));
-		text += substitute (biff_->value_string ("newmail_text"), "d", vec);
-	}
-	text += "</span>";
-	
+	text = "<span font_desc=\"" + biff_->value_string ("applet_font") + "\">";
+	text+= Applet::get_number_of_unread_messages_text ();
+	text+= "</span>";
+
 	return text;
 }
 
@@ -404,7 +423,7 @@ AppletGUI::update (gboolean no_popup, std::string widget_image,
 		label = GTK_LABEL (get (widget_text.c_str ()));
 
 		// Set label
-		std::string text = unread_markup (unread);
+		std::string text = get_number_of_unread_messages_text ();
 		gtk_label_set_markup (label, text.c_str());
 
 		if (((unread == 0) && biff_->value_bool ("use_nomail_text")) ||

@@ -18,6 +18,8 @@ Version 2.2.0
         applet
    - Bugfix: Text in gtk applet now always fits into the fixed container
    - Bugfix: Gnome applet now identical to gtk applet.
+   - Feature: It's now possible to print the number of new messages without
+        zero padding (via "%D")
 
 Version 2.1.7
  * Robert Sowada

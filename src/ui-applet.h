@@ -38,7 +38,7 @@
 /**
  *  Generic non-GUI code common for all types of applets.
  */ 
-class Applet
+class Applet : public Support
 {
 protected:
 	class Biff *		biff_;
@@ -63,6 +63,7 @@ public:
 						  std::string option_use_command = "");
 	std::string get_mailbox_status_text (void);
 	guint get_number_of_unread_messages (void);
+	virtual std::string get_number_of_unread_messages_text (void);
 };
 
 /**
@@ -82,12 +83,12 @@ public:
 	// ========================================================================
 	virtual void dock (GtkWidget *applet) {};		// dock applet
 
-	std::string unread_markup (guint unread);
 	virtual void update (gboolean no_popup = false,
 						 std::string widget_image = "",
 						 std::string widget_text = "",
 						 std::string widget_container = "",
 						 guint m_width=G_MAXUINT, guint m_height=G_MAXUINT);
+	virtual std::string get_number_of_unread_messages_text (void);
 
 	void show_dialog_preferences (void);
 	void hide_dialog_preferences (void);
