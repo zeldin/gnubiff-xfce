@@ -250,6 +250,7 @@ Various contributors:@*
 @item Byron Foster
 @item Grzegorz Gotawski
 @item Samuel Hym
+@item Satou Kazuhito
 @item Earl Killian
 @item Marc-Jano Knopp
 @item Paul Kuliniewicz
@@ -281,6 +282,7 @@ Various contributors:@*
 @item Bernhard Valenti
 @item Dries Verachtert
 @item Hubert Verstraete
+@item Maik Wachsmuth
 @item Suzan Wassman
 @item Cai Yu
 @end itemize

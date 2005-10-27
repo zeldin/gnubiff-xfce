@@ -20,12 +20,14 @@ Version 2.2.0
    - Bugfix: Gnome applet now identical to gtk applet.
    - Feature: It's now possible to print the number of new messages without
         zero padding (via "%D")
+   - Added Maik Wachsmuth and Satou Kazuhito to contributors
 
 Version 2.1.7
  * Robert Sowada
    - Changed version to 2.1.7
    - Bugfix: Mistake when backporting from 2.2.0 to 2.1.6. Thanks to Maik
         Wachsmuth and Satou Kazuhito for reporting this bug.
+   - Added Maik Wachsmuth and Satou Kazuhito to contributors
     
 Version 2.1.6		2005-10-09 15:51
  * Robert Sowada
