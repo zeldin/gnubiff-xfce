@@ -197,8 +197,6 @@ AppletGnome::update (gboolean no_popup)
 	if (!g_mutex_trylock (update_mutex_))
 		return;
 
-	Applet::update (no_popup);
-
 	// Get panel's size and orientation
 	guint size = panel_applet_get_size (panelapplet ());
 	PanelAppletOrient orient = panel_applet_get_orient (panelapplet ());

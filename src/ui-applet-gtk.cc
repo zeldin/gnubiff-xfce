@@ -140,7 +140,6 @@ AppletGtk::create (gpointer callbackdata)
 	return true;
 }
 
-
 void
 AppletGtk::update (gboolean no_popup)
 {
@@ -161,7 +160,6 @@ AppletGtk::update (gboolean no_popup)
 
 	g_mutex_unlock (update_mutex_);
 }
-
 
 void
 AppletGtk::show (std::string name)
