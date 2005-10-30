@@ -4,6 +4,10 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.1.7
+This is a minor bugfix release. Changes:
+ * Fixed a bug that prevented 2.1.6 to be installed on certain systems
+
 Version 2.1.6
 This is a minor bugfix release. Changes:
  * The gnome version of gnubiff can now be installed to any directory
