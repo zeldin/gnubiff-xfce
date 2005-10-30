@@ -148,14 +148,17 @@ Applet::update (gboolean no_popup)
 }
 
 /**
- *  Mark all mails from all mailboxes as read and update the applet status.
+ *  Mark all messages from all mailboxes as read and update the applet status.
  */
 void 
-Applet::mark_mails_as_read (void)
+Applet::mark_messages_as_read (void)
 {
 	// Mark mails as read
 	for (unsigned int i=0; i<biff_->size(); i++)
-		biff_->mailbox(i)->read();
+		biff_->mailbox(i)->mark_messages_as_read ();
+
+	// Save config file (especially the seen messages)
+	biff_->save ();
 
 	// Update the applet status
 	//force_popup_ = true;
@@ -279,16 +282,16 @@ Applet::get_mailbox_status_text (void)
 			continue;
 		}
 		// Put number of unread messages in the current mailbox into a string
+		guint unread = biff_->mailbox(i)->unreads();
 		std::stringstream s;
-		s << std::setfill('0') << std::setw (smax.str().size())
-		  << biff_->mailbox(i)->unreads();
+		s << std::setfill('0') << std::setw (smax.str().size()) << unread;
 		// Checking mailbox?
 		if (biff_->mailbox(i)->status() == MAILBOX_CHECK) {
 			tooltip += "(" + s.str() + ")" + _(" checking...");
 			continue;
 		}
 		// More unread messages in mailbox than got by gnubiff?
-		if (biff_->mailbox(i)->unreads() >= biff_->value_uint ("max_mail")) {
+		if (unread >= biff_->value_uint ("max_mail")) {
 			tooltip += std::string(smax.str().size(), '+');
 			continue;
 		}

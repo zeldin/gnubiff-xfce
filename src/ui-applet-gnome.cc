@@ -124,7 +124,7 @@ extern "C" {
 										 const gchar *verbname)
 	{
 		if (data)
-			((AppletGnome *) data)->mark_mails_as_read ();
+			((AppletGnome *) data)->mark_messages_as_read ();
 		else
 			unknown_internal_error ();
 	}
@@ -269,9 +269,9 @@ AppletGnome::on_button_press (GdkEventButton *event)
 		force_popup_ = true;
 		update ();
 	}
-	// Single middle click: mark mails as read
+	// Single middle click: mark messages as read
 	else if (event->button == 2)
-		mark_mails_as_read ();	
+		mark_messages_as_read ();	
 
 	return false;
 }

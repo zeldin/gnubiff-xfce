@@ -142,7 +142,7 @@ public:
 	virtual void start (void);						// start method (to be overidden)
 	virtual void stop (void);						// stop method (to be overidden)
 	virtual void fetch (void);						// fetch headers (if any)
-	void read (gboolean value=true);				// mark/unmark mailbox as read
+	void mark_messages_as_read (void);
 	void lookup (void);								// try to guess mailbox format
 	static Mailbox *lookup_local(Mailbox &);        // try to guess mailbox format for a local mailbox
 	gboolean new_mail (std::string &);

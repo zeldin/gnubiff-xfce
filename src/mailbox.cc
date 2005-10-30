@@ -170,15 +170,19 @@ Mailbox::fetch (void)
 	// nothing to do, this mailbox is virtual
 }
 
-void
-Mailbox::read (gboolean value)
+/**
+ *  Mark all collected messages in this mailbox as read. The status of
+ *  uncollected messages isn't changed.
+ */
+void 
+Mailbox::mark_messages_as_read (void)
 {
-	if ((!value) || (!g_mutex_trylock (mutex_)))
+	if (!g_mutex_trylock (mutex_))
 		return;
 	hidden_.clear();
 	hidden_ = seen_;
 	unread_.clear();
-	biff_->save();
+
 	g_mutex_unlock (mutex_);
 }
 

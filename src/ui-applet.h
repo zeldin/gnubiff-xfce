@@ -58,7 +58,7 @@ public:
 	void start (guint delay=0);
 	void stop  (void);
 	virtual void update (gboolean no_popup = false);
-	void mark_mails_as_read (void);
+	void mark_messages_as_read (void);
 	void execute_command (std::string option_command,
 						  std::string option_use_command = "");
 	std::string get_mailbox_status_text (void);

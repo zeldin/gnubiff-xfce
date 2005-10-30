@@ -30,6 +30,8 @@ Version 2.1.7
    - Bugfix: Mistake when backporting from 2.2.0 to 2.1.6. Thanks to Maik
         Wachsmuth and Satou Kazuhito for reporting this bug.
    - Added Maik Wachsmuth and Satou Kazuhito to contributors
+ * Roland Stigge
+   - Added reference to info page in man page (Debian bug #335193)
     
 Version 2.1.6		2005-10-09 15:51
  * Robert Sowada
