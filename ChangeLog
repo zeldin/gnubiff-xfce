@@ -24,6 +24,10 @@ Version 2.2.0
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
+Version 2.1.8
+ * Robert Sowada
+   - Changed version to 2.1.8
+
 Version 2.1.7		2005-10-31  0:43
  * Robert Sowada
    - Changed version to 2.1.7
