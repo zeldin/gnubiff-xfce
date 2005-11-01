@@ -81,8 +81,6 @@ public:
 	// ========================================================================
 	//  main
 	// ========================================================================
-	virtual void dock (GtkWidget *applet) {};		// dock applet
-
 	virtual void update (gboolean no_popup = false,
 						 std::string widget_image = "",
 						 std::string widget_text = "",

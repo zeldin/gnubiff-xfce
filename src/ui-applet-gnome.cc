@@ -152,7 +152,12 @@ AppletGnome::~AppletGnome (void)
 {
 }
 
-void
+/**
+ *  Set properties of the gnubiff gnome panel applet.
+ *
+ *  @param applet  Gnome Panel widget of gnubiff.
+ */
+void 
 AppletGnome::dock (GtkWidget *applet)
 {
 	static const BonoboUIVerb gnubiffMenuVerbs [] = {

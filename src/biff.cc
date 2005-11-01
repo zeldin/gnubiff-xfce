@@ -238,26 +238,39 @@ Biff::add (Mailbox *mailbox)
 	g_mutex_unlock (mutex_);
 }
 
+/**
+ *  Replace the mailbox {\em from} in the list of all mailboxes by the mailbox
+ *  {\em to}. The mailbox {\em from} will be destroyed.
+ *
+ *  @param  from  Mailbox to be replaced.
+ *  @param  to    Mailbox that replaces the mailbox {\em from}.
+ *  @return       NULL, if the mailbox {\em from} doesn't exist, otherwise a
+ *                pointer to the mailbox {\em to}.
+ */
 Mailbox *
 Biff::replace (Mailbox *from, Mailbox *to)
 {
-	Mailbox *inserted = 0;
+	Mailbox *inserted = NULL;
+
 	g_mutex_lock (mutex_);
 	for (std::vector<Mailbox *>::iterator i = mailbox_.begin();
 		 i != mailbox_.end(); i++)
 		if ((*i) == from) {
 			(*i) = to;
 
+			// Is the to be deleted mailbox selected in the preferences dialog?
 			if ((preferences_) && (preferences_->selected() == from))
 				preferences_->selected (to);
+
 			delete from;
 			inserted = to;
 			break;
 		}
 	g_mutex_unlock (mutex_);
 
-	if ((inserted) && (!GTK_WIDGET_VISIBLE(preferences_->get())))
-		inserted->threaded_start (3);	
+	if ((inserted) && (!preferences_
+					   || !GTK_WIDGET_VISIBLE (preferences_->get ())))
+		inserted->threaded_start (3);
 	return inserted;
 }
 
