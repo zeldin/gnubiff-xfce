@@ -305,12 +305,16 @@ Applet::get_mailbox_status_text (void)
 /**
  *  Constructor.
  *
- *  @param  biff     Pointer to the biff object of the current gnubiff session.
- *  @param  filename Name of the glade file that contains the GUI information.
+ *  @param  biff         Pointer to the biff object of the current gnubiff
+ *                       session.
+ *  @param  filename     Name of the glade file that contains the GUI
+ *                       information.
+ *  @param  callbackdata Pointer to be passed to the GUI callback functions.
  */
-AppletGUI::AppletGUI (Biff *biff, std::string filename) : Applet (biff),
-														  GUI (filename)
+AppletGUI::AppletGUI (Biff *biff, std::string filename, gpointer callbackdata)
+          : Applet (biff), GUI (filename)
 {
+	GUI::create (callbackdata);
 }
 
 /// Destructor

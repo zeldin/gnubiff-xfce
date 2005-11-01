@@ -120,7 +120,7 @@ extern "C" {
 	}
 }
 
-AppletGtk::AppletGtk (Biff *biff) : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade")
+AppletGtk::AppletGtk (Biff *biff) : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade", this)
 {
 }
 

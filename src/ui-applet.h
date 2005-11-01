@@ -75,7 +75,7 @@ public:
 	// ========================================================================
 	//  base
 	// ========================================================================
-	AppletGUI (class Biff *biff, std::string filename);
+	AppletGUI (class Biff *biff, std::string filename, gpointer callbackdata);
 	virtual ~AppletGUI (void);
 
 	// ========================================================================
