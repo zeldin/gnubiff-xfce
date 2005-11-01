@@ -152,7 +152,6 @@ AppletGnome::~AppletGnome (void)
 {
 }
 
-
 void
 AppletGnome::dock (GtkWidget *applet)
 {
@@ -174,11 +173,6 @@ AppletGnome::dock (GtkWidget *applet)
 	gtk_container_set_border_width (GTK_CONTAINER (applet), 0);
 	GtkTooltips *applet_tips = gtk_tooltips_new ();
 	gtk_tooltips_set_tip (applet_tips, applet, "", "");
-
-	GtkImageAnimation *anim = new GtkImageAnimation (GTK_IMAGE(get("image")));
-	g_object_set_data (G_OBJECT(get("image")), "_animation_", anim);
-	anim->open (biff_->value_string ("newmail_image"));
-	anim->start();
 
 	g_signal_connect (G_OBJECT (applet), "enter_notify_event",  GTK_SIGNAL_FUNC (APPLET_GNOME_on_enter), this);
 	g_signal_connect (G_OBJECT (applet), "change_orient",       GTK_SIGNAL_FUNC (APPLET_GNOME_on_change_orient), this);
