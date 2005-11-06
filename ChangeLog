@@ -21,12 +21,14 @@ Version 2.2.0
    - Feature: It's now possible to print the number of new messages without
         zero padding (via "%D")
    - Added Maik Wachsmuth and Satou Kazuhito to contributors
+   - Bugfix: Checking for NULL-pointer (in Biff::replace())
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
 Version 2.1.8
  * Robert Sowada
    - Changed version to 2.1.8
+   - Backport (from gnubiff 2.2.0 CVS) of smaller fixes
 
 Version 2.1.7		2005-10-31  0:43
  * Robert Sowada
