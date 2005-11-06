@@ -72,6 +72,7 @@ protected:
 	virtual gint create (gpointer callbackdata);
 	void update (void);
 	void show (std::string name = "dialog");
+	void hide (std::string name = "dialog");
 
 	/* callbacks */
 	gboolean on_delete (GtkWidget *widget, GdkEvent *event);

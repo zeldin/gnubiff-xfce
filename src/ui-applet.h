@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -63,6 +63,11 @@ public:
 	std::string get_mailbox_status_text (void);
 	guint get_number_of_unread_messages (void);
 	virtual std::string get_number_of_unread_messages_text (void);
+
+	/// @see AppletGUI::mailbox_to_be_replaced ()
+	virtual void mailbox_to_be_replaced (class Mailbox *from,
+										 class Mailbox *to) {};
+	virtual gboolean can_monitor_mailboxes (void);
 };
 
 /**
@@ -71,7 +76,9 @@ public:
 class AppletGUI : public Applet, public GUI {
 protected:
 	/// Pointer to the gnubiff popup
-	class Popup *					popup_;
+	class Popup						*popup_;
+	/// Pointer to the preferences dialog
+	class Preferences				*preferences_;
 	/// Shall the popup be forced on the next update?
 	gboolean						force_popup_;
 public:
@@ -92,8 +99,12 @@ public:
 							 guint m_height = G_MAXUINT);
 	virtual std::string get_number_of_unread_messages_text (void);
 
+	void mailbox_to_be_replaced (class Mailbox *from, class Mailbox *to);
+	virtual gboolean can_monitor_mailboxes (void);
+
 	void show_dialog_preferences (void);
 	void hide_dialog_preferences (void);
+	gboolean visible_dialog_preferences (void);
 	void show_dialog_about (void);
 	void hide_dialog_about (void);
 	gboolean visible_dialog_popup (void);

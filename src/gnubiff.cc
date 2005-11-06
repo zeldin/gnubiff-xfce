@@ -162,7 +162,7 @@ int mainGTK (int argc, char **argv) {
 			biff->applet()->start (3);
 	}
 	else
-		biff->preferences()->show();
+		((AppletGUI *)biff->applet())->show_dialog_preferences();
 
 	// GTK main loop
 	gdk_threads_enter();
@@ -181,7 +181,7 @@ static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid,
 		Biff *biff = new Biff (GNOME_MODE);
 		AppletGnome *biffapplet = (AppletGnome *)biff->applet();
 		biffapplet->dock ((GtkWidget *) applet);
-		biff->preferences()->synchronize();
+//		biff->preferences()->synchronize();
 		biffapplet->show ();
 		biffapplet->update (true);
 		if (biff->value_uint ("check_mode") == AUTOMATIC_CHECK)

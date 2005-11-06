@@ -282,6 +282,18 @@ Applet::get_mailbox_status_text (void)
 	return tooltip;
 }
 
+/**
+ *  The return value indicates whether the applet wants the mailboxes to be
+ *  monitored.
+ *
+ *  @return true, if the applet thinks monitoring the mailboxes is okay
+ */
+gboolean 
+Applet::can_monitor_mailboxes (void)
+{
+	return true;
+}
+
 
 /**
  *  Constructor.
@@ -302,6 +314,10 @@ AppletGUI::AppletGUI (Biff *biff, std::string filename, gpointer callbackdata)
 	g_object_set_data (G_OBJECT(get("image")), "_animation_", anim);
 	anim->open (biff_->value_string ("newmail_image"));
 	anim->start();
+
+	// Preferences
+	preferences_ = new Preferences (biff_);
+	preferences_->create (preferences_);
 
 	// Create popup
 	force_popup_ = false;
@@ -492,7 +508,7 @@ AppletGUI::show_dialog_preferences (void)
 	popup_->hide();
 
 	// Show the dialog
-	biff_->preferences()->show();
+	preferences_->show();
 
 	// Stop monitoring mailboxes
 	stop ();
@@ -506,7 +522,7 @@ void
 AppletGUI::hide_dialog_preferences (void)
 {
 	// Hide the preferences dialog
-	biff_->preferences()->hide();
+	preferences_->hide();
 
 	// Start monitoring of the mailboxes (if wanted)
 	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
@@ -518,6 +534,17 @@ AppletGUI::hide_dialog_preferences (void)
 }
 
 /**
+ *  Is the preferences dialog visible?
+ *
+ *  @return    True, if the preferences dialog is visible, false otherwise.
+ */
+gboolean 
+AppletGUI::visible_dialog_preferences (void)
+{
+	return (preferences_ && GTK_WIDGET_VISIBLE (preferences_->get ()));
+}
+
+/**
  *  Show the about dialog.
  */
 void 
@@ -525,7 +552,7 @@ AppletGUI::show_dialog_about (void)
 {
 	// Hide the other dialogs
 	popup_->hide();
-	biff_->preferences()->hide();
+	preferences_->hide();
 
 	// Show the dialog
 	GUI::show ("about");
@@ -549,4 +576,35 @@ gboolean
 AppletGUI::visible_dialog_popup (void)
 {
 	return (popup_ && GTK_WIDGET_VISIBLE (popup_->get ("dialog")));
+}
+
+/**
+ *  This function is called when the mailbox {\em from} is being replaced by
+ *  the mailbox {\em to}.
+ *
+ *  If necessary the selection in the preferences dialog will be updated.
+ *
+ *  @param  from Mailbox to be replaced
+ *  @param  to   Mailbox that replaces the mailbox {\em from}
+ */
+void 
+AppletGUI::mailbox_to_be_replaced (class Mailbox *from, class Mailbox *to)
+{
+	// Is the to be deleted mailbox selected in the preferences dialog?
+	if ((preferences_) && (preferences_->selected() == from))
+		preferences_->selected (to);
+}
+
+/**
+ *  The return value indicates whether the applet wants the mailboxes to be
+ *  monitored.
+ *
+ *  If the preferences dialog is open, then there should be no monitoring.
+ *
+ *  @return true, if the applet thinks monitoring the mailboxes is okay
+ */
+gboolean 
+AppletGUI::can_monitor_mailboxes (void)
+{
+	return !(visible_dialog_popup ());
 }

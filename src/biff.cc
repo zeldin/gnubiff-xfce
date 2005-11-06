@@ -44,8 +44,6 @@
 
 #include "biff.h"
 #include "ui-authentication.h"
-#include "ui-preferences.h"
-#include "ui-properties.h"
 #include "ui-applet-gtk.h"
 #include "mailbox.h"
 #include "file.h"
@@ -154,10 +152,6 @@ Biff::Biff (guint ui_mode, std::string filename)
 		break;
 	}
 
-	// Preferences
-	preferences_ = new Preferences (this);
-	preferences_->create (preferences_);
-
 	// Authentication dialog
 	ui_auth_mutex_ = g_mutex_new ();
 	ui_auth_ = new Authentication ();
@@ -253,9 +247,9 @@ Biff::replace (Mailbox *from, Mailbox *to)
 		if ((*i) == from) {
 			(*i) = to;
 
-			// Is the to be deleted mailbox selected in the preferences dialog?
-			if ((preferences_) && (preferences_->selected() == from))
-				preferences_->selected (to);
+			// Let the applet do necessary things before the mailbox can be
+			// replaced
+			applet_->mailbox_to_be_replaced (from, to);
 
 			delete from;
 			inserted = to;
@@ -263,8 +257,8 @@ Biff::replace (Mailbox *from, Mailbox *to)
 		}
 	g_mutex_unlock (mutex_);
 
-	if ((inserted) && (!preferences_
-					   || !GTK_WIDGET_VISIBLE (preferences_->get ())))
+	// Start monitoring the new mailbox
+	if ((inserted) && (applet_->can_monitor_mailboxes ()))
 		inserted->threaded_start (3);
 	return inserted;
 }

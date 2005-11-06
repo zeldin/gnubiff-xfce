@@ -435,7 +435,6 @@ Preferences::hide (std::string name)
 	gtk_widget_hide (get(name));
 }
 
-
 void 
 Preferences::synchronize (class Mailbox *mailbox, GtkListStore *store, GtkTreeIter *iter)
 {

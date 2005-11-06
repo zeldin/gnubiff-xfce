@@ -367,12 +367,29 @@ Popup::update (void)
 	}
 }
 
+/**
+ *  Hide the popup dialog.
+ *
+ *  @param  name  Widget's name of the dialog. The default is "dialog".
+ */
+void 
+Popup::hide (std::string name)
+{
+	g_static_mutex_lock (&timer_mutex_);
+	if (poptag_ > 0)
+		g_source_remove (poptag_);
+	poptag_ = 0;
+	g_static_mutex_unlock (&timer_mutex_);
+
+	GUI::hide ();
+	gtk_widget_hide (get("popup"));
+
+	consulting_ = false;
+}
+
 void
 Popup::show (std::string name)
 {
-	// FIXME ?
-	//	for (unsigned int i=0; i<biff_->size(); i++)
-	//		biff_->applet(i)->stop();
 	tree_selection_ = 0;
 	consulting_ = false;
 
@@ -404,21 +421,10 @@ Popup::show (std::string name)
 		gtk_tree_selection_unselect_all (tree_selection_);
 }
 
-
 gboolean
-Popup::on_delete (GtkWidget *widget,
-				  GdkEvent *event)
+Popup::on_delete (GtkWidget *widget, GdkEvent *event)
 {
 	hide ();
-	g_static_mutex_lock (&timer_mutex_);
-	if (poptag_ > 0) 
-		g_source_remove (poptag_);
-	poptag_ = 0;
-	g_static_mutex_unlock (&timer_mutex_);
-
-	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
-		if (!GTK_WIDGET_VISIBLE(biff_->preferences()->get()))
-			biff_->applet()->start ();
 	return true;
 }
 
@@ -426,14 +432,6 @@ gboolean
 Popup::on_popdown (void)
 {
 	hide();
-	gtk_widget_hide(get("popup"));
-	consulting_ = false;
-	g_static_mutex_lock (&timer_mutex_);
-	poptag_ = 0;
-	g_static_mutex_unlock (&timer_mutex_);
-	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
-		if (!GTK_WIDGET_VISIBLE(biff_->preferences()->get()))
-			biff_->applet()->start ();
 	return false;
 }
 
@@ -454,19 +452,8 @@ Popup::on_button_press (GdkEventButton *event)
 	}	
 	else if (event->button == 2) {
 	}
-	else if (event->button == 3) {
-		g_static_mutex_lock (&timer_mutex_);
-		if (poptag_ > 0)
-			g_source_remove (poptag_);
-		poptag_ = 0;
-		g_static_mutex_unlock (&timer_mutex_);
+	else if (event->button == 3)
 		hide ();
-		gtk_widget_hide (get("popup"));
-		consulting_ = false;
-		if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
-			if (!GTK_WIDGET_VISIBLE(biff_->preferences()->get()))
-				biff_->applet()->start ();
-	}
 	return false;
 }
 
