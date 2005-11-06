@@ -129,13 +129,13 @@ AppletGtk::~AppletGtk (void)
 }
 
 gboolean 
-AppletGtk::update (gboolean no_popup)
+AppletGtk::update (gboolean init)
 {
 	// Is there another update going on ?
 	if (!g_mutex_trylock (update_mutex_))
 		return false;
 
-	gboolean newmail=AppletGUI::update (no_popup, "image", "unread", "fixed");
+	gboolean newmail=AppletGUI::update (init, "image", "unread", "fixed");
 
 	// Update window manager decorations
 	gboolean decorated = gtk_window_get_decorated (GTK_WINDOW(get("dialog")));

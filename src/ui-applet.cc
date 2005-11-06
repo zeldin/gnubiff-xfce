@@ -97,11 +97,12 @@ Applet::stop (void)
  *  Update the applet status. If new messages are present the new
  *  mail command is executed.
  *
- *  @param  no_popup  If true the popup window will remain unchanged.
- *  @return           True if new messages are present
+ *  @param  init  True if called when initializing gnubiff (the default is
+ *                false)
+ *  @return       True if new messages are present
  */
 gboolean 
-Applet::update (gboolean no_popup)
+Applet::update (gboolean init)
 {
 #ifdef DEBUG
 	g_message ("Applet update");
@@ -337,10 +338,11 @@ AppletGUI::get_number_of_unread_messages_text (void)
  *  (no new messages or new messages are present). Also the text with
  *  the current number of new messages is updated. If present a container
  *  widget that contains the widgets for the image and the text may be
- *  updated too. The status of the popup window is updated.
+ *  updated too. The status of the popup window is updated (not when this
+ *  function is called during the initialization of gnubiff).
  *
- *  @param  no_popup         If true the popup window will remain unchanged.
- *                           The default is false.
+ *  @param  init             True if called when initializing gnubiff (the
+ *                           default is false).
  *  @param  widget_image     Name of the widget that contains the image for
  *                           gnubiff's status or the empty string if
  *                           no image shall * be updated. The default
@@ -360,18 +362,18 @@ AppletGUI::get_number_of_unread_messages_text (void)
  *  @return                  True if new messages are present
  */
 gboolean 
-AppletGUI::update (gboolean no_popup, std::string widget_image,
+AppletGUI::update (gboolean init, std::string widget_image,
 				   std::string widget_text, std::string widget_container,
 				   guint m_width, guint m_height)
 {
 	// Update applet's status: GUI-independent things to do
-	gboolean newmail = Applet::update (no_popup);
+	gboolean newmail = Applet::update (init);
 
 	// Get number of unread messages
 	guint unread = get_number_of_unread_messages ();
 
 	// Update popup
-	if (!no_popup && (popup_)) {
+	if (!init && (popup_)) {
 		// If there are no mails to display then hide popup
 		if (!unread && (biff_->value_bool ("use_popup") || force_popup_))
 			popup_->hide();

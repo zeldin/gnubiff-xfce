@@ -56,7 +56,7 @@ public:
 	// ========================================================================
 	void start (guint delay=0);
 	void stop  (void);
-	virtual gboolean update (gboolean no_popup = false);
+	virtual gboolean update (gboolean init = false);
 	void mark_messages_as_read (void);
 	void execute_command (std::string option_command,
 						  std::string option_use_command = "");
@@ -84,7 +84,7 @@ public:
 	// ========================================================================
 	//  main
 	// ========================================================================
-	virtual gboolean update (gboolean no_popup = false,
+	virtual gboolean update (gboolean init = false,
 							 std::string widget_image = "",
 							 std::string widget_text = "",
 							 std::string widget_container = "",

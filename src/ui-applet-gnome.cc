@@ -190,7 +190,7 @@ AppletGnome::dock (GtkWidget *applet)
 }
 
 gboolean 
-AppletGnome::update (gboolean no_popup)
+AppletGnome::update (gboolean init)
 {
 	// Is there another update going on?
 	if (!g_mutex_trylock (update_mutex_))
@@ -204,10 +204,10 @@ AppletGnome::update (gboolean no_popup)
 	gboolean newmail;
 	if ((orient == PANEL_APPLET_ORIENT_DOWN)
 		|| (orient == PANEL_APPLET_ORIENT_UP))
-		newmail = AppletGUI::update (no_popup,"image","unread","fixed", size,
+		newmail = AppletGUI::update (init, "image", "unread", "fixed", size,
 									 G_MAXUINT);
 	else
-		newmail = AppletGUI::update (no_popup,"image","unread","fixed",
+		newmail = AppletGUI::update (init, "image", "unread", "fixed",
 									 G_MAXUINT, size);
 
 	// Background
