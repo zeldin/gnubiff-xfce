@@ -40,7 +40,6 @@
 
 #include "ui-authentication.h"
 #include "ui-applet.h"
-#include "ui-popup.h"
 #include "imap4.h"
 #include "nls.h"
 
@@ -190,15 +189,11 @@ Imap4::fetch (void) throw (imap_err)
  * includes new or removed mail, for a new mail count.
  */
 void 
-Imap4::update_applet(void)
+Imap4::update_applet (void)
 {
-	// Removed the below so notifications will queue up, instead
-	// of potential notifications being missed.
-	// if (!GTK_WIDGET_VISIBLE (biff_->popup()->get())) {
-		gdk_threads_enter();
-		biff_->applet()->update();
-		gdk_threads_leave();
-	// }
+	gdk_threads_enter();
+	biff_->applet()->update();
+	gdk_threads_leave();
 }
 
 /**

@@ -44,7 +44,6 @@ protected:
 	class Biff *		biff_;
 	GMutex *			process_mutex_;
 	GMutex *			update_mutex_;
-	gboolean			force_popup_;
 public:
 	// ========================================================================
 	//  base
@@ -57,7 +56,7 @@ public:
 	// ========================================================================
 	void start (guint delay=0);
 	void stop  (void);
-	virtual void update (gboolean no_popup = false);
+	virtual gboolean update (gboolean no_popup = false);
 	void mark_messages_as_read (void);
 	void execute_command (std::string option_command,
 						  std::string option_use_command = "");
@@ -70,7 +69,11 @@ public:
  *  Generic GUI code common for all types of applets.
  */ 
 class AppletGUI : public Applet, public GUI {
-
+protected:
+	/// Pointer to the gnubiff popup
+	class Popup *					popup_;
+	/// Shall the popup be forced on the next update?
+	gboolean						force_popup_;
 public:
 	// ========================================================================
 	//  base
@@ -81,17 +84,19 @@ public:
 	// ========================================================================
 	//  main
 	// ========================================================================
-	virtual void update (gboolean no_popup = false,
-						 std::string widget_image = "",
-						 std::string widget_text = "",
-						 std::string widget_container = "",
-						 guint m_width=G_MAXUINT, guint m_height=G_MAXUINT);
+	virtual gboolean update (gboolean no_popup = false,
+							 std::string widget_image = "",
+							 std::string widget_text = "",
+							 std::string widget_container = "",
+							 guint m_width = G_MAXUINT,
+							 guint m_height = G_MAXUINT);
 	virtual std::string get_number_of_unread_messages_text (void);
 
 	void show_dialog_preferences (void);
 	void hide_dialog_preferences (void);
 	void show_dialog_about (void);
 	void hide_dialog_about (void);
+	gboolean visible_dialog_popup (void);
 };
 
 #endif

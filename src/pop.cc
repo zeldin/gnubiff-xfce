@@ -35,7 +35,6 @@
 #include <utime.h>
 
 #include "ui-applet.h"
-#include "ui-popup.h"
 #include "pop.h"
 #include "socket.h"
 #include "nls.h"
@@ -122,11 +121,9 @@ Pop::start (void) throw (pop_err)
 		socket_->close ();
 	}
 
-	if (!GTK_WIDGET_VISIBLE (biff_->popup()->get())) {
-		gdk_threads_enter();
-		biff_->applet()->update();
-		gdk_threads_leave();
-	}
+	gdk_threads_enter ();
+	biff_->applet()->update ();
+	gdk_threads_leave ();
 
 	g_mutex_unlock (monitor_mutex_);
 

@@ -50,7 +50,6 @@
 Applet::Applet (Biff *biff)
 {
 	biff_ = biff;
-	force_popup_ = false;
 	update_mutex_ = g_mutex_new ();
 }
 
@@ -96,11 +95,12 @@ Applet::stop (void)
 
 /**
  *  Update the applet status. If new messages are present the new
- *  mail command is executed. The status of the popup window is updated.
+ *  mail command is executed.
  *
  *  @param  no_popup  If true the popup window will remain unchanged.
+ *  @return           True if new messages are present
  */
-void 
+gboolean 
 Applet::update (gboolean no_popup)
 {
 #ifdef DEBUG
@@ -119,32 +119,14 @@ Applet::update (gboolean no_popup)
 	}
 
 	// New mail command
-	if ((newmail == true) && (unread > 0) && (force_popup_ == false))
+	if ((newmail == true) && (unread > 0))
 		execute_command ("newmail_command", "use_newmail_command");
-
-	// Update popup
-	if (!no_popup && (biff_->popup())) {
-		// If there are no mails to display then hide popup
-		if (!unread && (biff_->value_bool ("use_popup") || force_popup_))
-			biff_->popup()->hide();
-
-		// Test if the popup is visible. If it is visible we also have to
-		// update when mails are read
-		gboolean vis = GTK_WIDGET_VISIBLE (biff_->popup()->get ("dialog"));
-
-		// Update and display the popup
-		if (unread && ((biff_->value_bool ("use_popup")) || force_popup_)
-			&& (newmail || vis || force_popup_)) {
-			biff_->popup()->update();
-			biff_->popup()->show();
-		}
-	}
 
 	// Mail has been displayed now
 	for (guint i=0; i < biff_->size(); i++)
 		biff_->mailbox(i)->mail_displayed ();
 
-	force_popup_ = false;
+	return newmail;
 }
 
 /**
@@ -161,9 +143,7 @@ Applet::mark_messages_as_read (void)
 	biff_->save ();
 
 	// Update the applet status
-	//force_popup_ = true;
-	//biff_->popup()->hide();
-	update();
+	update ();
 }
 
 /**
@@ -321,6 +301,11 @@ AppletGUI::AppletGUI (Biff *biff, std::string filename, gpointer callbackdata)
 	g_object_set_data (G_OBJECT(get("image")), "_animation_", anim);
 	anim->open (biff_->value_string ("newmail_image"));
 	anim->start();
+
+	// Create popup
+	force_popup_ = false;
+	popup_ = new Popup (biff_);
+	popup_->create (popup_);
 }
 
 /// Destructor
@@ -352,7 +337,7 @@ AppletGUI::get_number_of_unread_messages_text (void)
  *  (no new messages or new messages are present). Also the text with
  *  the current number of new messages is updated. If present a container
  *  widget that contains the widgets for the image and the text may be
- *  updated too.
+ *  updated too. The status of the popup window is updated.
  *
  *  @param  no_popup         If true the popup window will remain unchanged.
  *                           The default is false.
@@ -372,17 +357,32 @@ AppletGUI::get_number_of_unread_messages_text (void)
  *                           is G_MAXUINT.
  *  @param  m_height         Maximum height of the widgets. The default value
  *                           is G_MAXUINT.
+ *  @return                  True if new messages are present
  */
-void 
+gboolean 
 AppletGUI::update (gboolean no_popup, std::string widget_image,
 				   std::string widget_text, std::string widget_container,
 				   guint m_width, guint m_height)
 {
 	// Update applet's status: GUI-independent things to do
-	Applet::update (no_popup);
+	gboolean newmail = Applet::update (no_popup);
 
 	// Get number of unread messages
 	guint unread = get_number_of_unread_messages ();
+
+	// Update popup
+	if (!no_popup && (popup_)) {
+		// If there are no mails to display then hide popup
+		if (!unread && (biff_->value_bool ("use_popup") || force_popup_))
+			popup_->hide();
+
+		// Update and display the popup
+		if (unread && ((biff_->value_bool ("use_popup")) || force_popup_)
+			&& (newmail || visible_dialog_popup () || force_popup_)) {
+			popup_->update();
+			popup_->show();
+		}
+	}
 
 	// Update applet's image
 	GtkWidget *widget = NULL;
@@ -474,6 +474,10 @@ AppletGUI::update (gboolean no_popup, std::string widget_image,
 				gtk_fixed_move (fixed, widget, (c_width-i_width)/2, 0);
 		}
 	}
+
+	// Reset the force popup boolean
+	force_popup_ = false;
+	return newmail;
 }
 
 /**
@@ -483,7 +487,7 @@ void
 AppletGUI::show_dialog_preferences (void)
 {
 	// Hide the popup window
-	biff_->popup()->hide();
+	popup_->hide();
 
 	// Show the dialog
 	biff_->preferences()->show();
@@ -518,7 +522,7 @@ void
 AppletGUI::show_dialog_about (void)
 {
 	// Hide the other dialogs
-	biff_->popup()->hide();
+	popup_->hide();
 	biff_->preferences()->hide();
 
 	// Show the dialog
@@ -532,4 +536,15 @@ void
 AppletGUI::hide_dialog_about (void)
 {
 	GUI::hide ("about");
+}
+
+/**
+ *  Is the popup dialog visible?
+ *
+ *  @return    True, if the popup dialog is visible, false otherwise.
+ */
+gboolean 
+AppletGUI::visible_dialog_popup (void)
+{
+	return (popup_ && GTK_WIDGET_VISIBLE (popup_->get ("dialog")));
 }

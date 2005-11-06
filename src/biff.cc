@@ -47,7 +47,6 @@
 #include "ui-preferences.h"
 #include "ui-properties.h"
 #include "ui-applet-gtk.h"
-#include "ui-popup.h"
 #include "mailbox.h"
 #include "file.h"
 #include "maildir.h"
@@ -158,10 +157,6 @@ Biff::Biff (guint ui_mode, std::string filename)
 	// Preferences
 	preferences_ = new Preferences (this);
 	preferences_->create (preferences_);
-
-	// Popup
-	popup_ = new Popup (this);
-	popup_->create(popup_);
 
 	// Authentication dialog
 	ui_auth_mutex_ = g_mutex_new ();

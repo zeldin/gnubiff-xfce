@@ -55,7 +55,7 @@ public:
 	// ========================================================================	
 	PanelApplet *panelapplet() {return(PANEL_APPLET(applet_));};
 	void dock (GtkWidget *applet);
-	void update (gboolean no_popup = false);
+	gboolean update (gboolean no_popup = false);
 	void show (std::string name = "dialog");
 	void hide (std::string name = "dialog");
 	void tooltip_update (void);

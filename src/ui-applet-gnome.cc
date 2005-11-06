@@ -189,24 +189,26 @@ AppletGnome::dock (GtkWidget *applet)
 	return;
 }
 
-void
+gboolean 
 AppletGnome::update (gboolean no_popup)
 {
 	// Is there another update going on?
 	if (!g_mutex_trylock (update_mutex_))
-		return;
+		return false;
 
 	// Get panel's size and orientation
 	guint size = panel_applet_get_size (panelapplet ());
 	PanelAppletOrient orient = panel_applet_get_orient (panelapplet ());
 
-	// The panel is oriented horizontally
+	// Update applet (depending on the orientation of the panel)
+	gboolean newmail;
 	if ((orient == PANEL_APPLET_ORIENT_DOWN)
 		|| (orient == PANEL_APPLET_ORIENT_UP))
-		AppletGUI::update (no_popup,"image","unread","fixed", size, G_MAXUINT);
-	// The panel is oriented vertically
+		newmail = AppletGUI::update (no_popup,"image","unread","fixed", size,
+									 G_MAXUINT);
 	else
-		AppletGUI::update (no_popup,"image","unread","fixed", G_MAXUINT, size);
+		newmail = AppletGUI::update (no_popup,"image","unread","fixed",
+									 G_MAXUINT, size);
 
 	// Background
 	PanelAppletBackgroundType type;
@@ -232,6 +234,8 @@ AppletGnome::update (gboolean no_popup)
 	}
 
 	g_mutex_unlock (update_mutex_);
+
+	return newmail;
 }
 
 

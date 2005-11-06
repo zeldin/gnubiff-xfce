@@ -47,7 +47,7 @@ class AppletGtk : public AppletGUI {
 	// ========================================================================
 	//  main
 	// ========================================================================	
-	void update (gboolean no_popup = false);
+	gboolean update (gboolean no_popup = false);
 	void show (std::string name = "dialog");
 	void tooltip_update (void);
 
