@@ -95,9 +95,9 @@ extern "C" {
 	}
 }
 
-// ================================================================================
+// ============================================================================
 //  base
-// ================================================================================
+// ============================================================================
 Biff::Biff (guint ui_mode, std::string filename)
 {
 	// Get password table from configure option
@@ -165,15 +165,15 @@ Biff::~Biff (void)
 // ============================================================================
 
 /**
- *  Search in all mailboxes for the mail with id {\em mailid}.
+ *  Search in all mailboxes for the message with id {\em mailid}.
  *
- *  @param  mailid  Gnubiff mail identifier of the mail to find
+ *  @param  mailid  Gnubiff message identifier of the mail to find
  *  @param  mail    Here the header of the found mail is returned. If no mail
  *                  with id {\em mailid} exists, {\em mail} remains unchanged.
  *  @returns        Boolean indicating if a mail exists or not.
  */
 gboolean 
-Biff::find_mail (std::string mailid, Header &mail)
+Biff::find_message (std::string mailid, Header &mail)
 {
 	gboolean ok = false;
 
@@ -186,8 +186,13 @@ Biff::find_mail (std::string mailid, Header &mail)
 	return ok;
 }
 
+/**
+ *  Get the number of mailboxes that are being monitored.
+ *
+ *  @return   Number of mailboxes.
+ */
 guint 
-Biff::size (void)
+Biff::get_number_of_mailboxes (void)
 {
 	g_mutex_lock (mutex_);
 	guint size = mailbox_.size();
@@ -217,8 +222,13 @@ Biff::get (guint uin)
 	return find;
 }
 
-void
-Biff::add (Mailbox *mailbox)
+/**
+ *  Add the new mailbox {\em mailbox} for monitoring.
+ *
+ *  @param mailbox Mailbox to be added for monitoring.
+ */
+void 
+Biff::add_mailbox (Mailbox *mailbox)
 {
 	g_mutex_lock (mutex_);
 	mailbox_.push_back (mailbox);
@@ -261,14 +271,19 @@ Biff::replace_mailbox (Mailbox *from, Mailbox *to)
 	return inserted;
 }
 
-void
-Biff::remove (Mailbox *mailbox)
+/**
+ *  Remove the mailbox {\em mailbox}.
+ *
+ *  @param mailbox Mailbox to be removed.
+ */
+void 
+Biff::remove_mailbox (Mailbox *mailbox)
 {
 	g_mutex_lock (mutex_);
 	for(std::vector<Mailbox *>::iterator i = mailbox_.begin();
 		i != mailbox_.end(); i++)
 		if ((*i) == mailbox) {
-			mailbox_.erase(i);
+			mailbox_.erase (i);
 			break;
 		}
 	g_mutex_unlock (mutex_);
@@ -305,7 +320,7 @@ Biff::get_password_for_mailbox (Mailbox *m)
 			   m->username().c_str(), m->address().c_str(), m->port());
 #endif
 
-	for (guint i = 0; i < size(); i++)
+	for (guint i = 0; i < get_number_of_mailboxes (); i++)
 		if ((mailbox(i) != m) 
 			&& (mailbox(i)->address() == m->address())
 			&& (mailbox(i)->username() == m->username())
@@ -382,9 +397,9 @@ Biff::option_update (Option *option)
 {
 }
 
-// ================================================================================
+// ============================================================================
 //  i/o
-// ================================================================================
+// ============================================================================
 
 /**
  *  The loaded config file belongs to an old version of gnubiff. All options
@@ -432,7 +447,7 @@ Biff::upgrade_options (void)
 	}
 
 	// Mailbox options
-	for (guint i = 0; i < size(); i++) {
+	for (guint i = 0; i < get_number_of_mailboxes (); i++) {
 		Mailbox *mb = mailbox(i);
 
 		// Option: ADDRESS (for maildir protocol)

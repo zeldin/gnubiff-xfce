@@ -418,7 +418,7 @@ Properties::on_cancel (GtkWidget *widget)
 	hide ();
 	Preferences *prefs = preferences_;
 	if (prefs->added()) {
-		prefs->biff()->remove (prefs->biff()->get(prefs->added()->uin()));
+		prefs->biff()->remove_mailbox (prefs->biff()->get(prefs->added()->uin()));
 		prefs->added(0);
 		prefs->synchronize ();		
 	}

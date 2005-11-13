@@ -153,14 +153,14 @@ AppletGtk::update (gboolean init)
 void
 AppletGtk::show (std::string name)
 {
-	int unread = 0;
-	for (unsigned int i=0; i<biff_->size(); i++)
-		unread += biff_->mailbox(i)->unreads();
+// 	int unread = 0;
+// 	for (unsigned int i=0; i<biff_->get_number_of_mailboxes(); i++)
+// 		unread += biff_->mailbox(i)->unreads();
 
-	if ((unread > 0) && (!biff_->value_bool ("use_newmail_image")))
-		return;
-	else if (!biff_->value_bool ("use_nomail_image"))
-		return;
+// 	if ((unread > 0) && (!biff_->value_bool ("use_newmail_image")))
+// 		return;
+// 	else if (!biff_->value_bool ("use_nomail_image"))
+// 		return;
 
 	GtkWindow *dialog=GTK_WINDOW(get("dialog"));
 	gtk_widget_show (get("dialog"));

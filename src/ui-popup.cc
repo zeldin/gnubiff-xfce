@@ -252,9 +252,10 @@ Popup::update (void)
 	// present in the different mailboxes, knowing that last received
 	// mail is at the end of each mailbox. We then need to compute
 	// the exact number of mails to display for each mailbox.
-	std::vector<guint> count (biff_->size(), 0), max (biff_->size());
+	std::vector<guint> count (biff_->get_number_of_mailboxes(), 0);
+	std::vector<guint> max (biff_->get_number_of_mailboxes());
 	guint num_mails = 0;
-	for (guint i = 0; i < biff_->size(); i++)
+	for (guint i = 0; i < biff_->get_number_of_mailboxes(); i++)
 		num_mails+= max[i] = biff_->mailbox(i)->unread().size();
 	if (num_mails > biff_->value_uint ("popup_size"))
 		num_mails = biff_->value_uint ("popup_size");
@@ -266,7 +267,7 @@ Popup::update (void)
 				count[index]++;
 				all++;
 			}
-			index = (index + 1) % biff_->size();
+			index = (index + 1) % biff_->get_number_of_mailboxes();
 		}
 	}
 	else
@@ -274,7 +275,7 @@ Popup::update (void)
 
 	// Put all the headers to be displayed (and pointers) in a vector
 	std::vector<Header *> ptr_headers;
-	for (guint j = 0; j < biff_->size(); j++) {
+	for (guint j = 0; j < biff_->get_number_of_mailboxes(); j++) {
 		// Do the following directly in mailbox protected by mutex!
 		std::map<std::string, Header>::iterator ie, i;
 		i  = biff_->mailbox(j)->unread().begin ();
@@ -493,7 +494,6 @@ Popup::on_leave (GdkEventCrossing *event)
 	}
 }
 
-
 void
 Popup::on_select (GtkTreeSelection *selection)
 {
@@ -507,7 +507,8 @@ Popup::on_select (GtkTreeSelection *selection)
 	if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
 		gpointer *address;
 		gtk_tree_model_get (model, &iter, COLUMN_MAILID, &address, -1);
-		if (!biff_->find_mail(std::string((gchar *)address), selected_header_))
+		if (!biff_->find_message (std::string((gchar *)address),
+								  selected_header_))
 			return;
 	}
 

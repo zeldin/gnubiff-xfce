@@ -479,7 +479,7 @@ Preferences::synchronize (void)
 	// Mailboxes list
 	GtkTreeView  *view  = GTK_TREE_VIEW (get("mailboxes_treeview"));
 	GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-	for (guint i=0; i<biff_->size(); i++)
+	for (guint i=0; i < biff_->get_number_of_mailboxes (); i++)
 		biff_->mailbox(i)->listed (false);
 	GtkTreeIter iter;
 	gboolean valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL(store), &iter);
@@ -496,7 +496,7 @@ Preferences::synchronize (void)
 			valid = gtk_list_store_remove (store, &iter);
 	}
 
-	for (guint i=0; i<biff_->size(); i++) {
+	for (guint i=0; i < biff_->get_number_of_mailboxes (); i++) {
 		Mailbox *mailbox = biff_->mailbox(i);
 		if (!mailbox->listed()) {
 			gtk_list_store_append (store, &iter);
@@ -539,7 +539,7 @@ Preferences::on_add	(GtkWidget *widget)
 		if (selected_)
 			(*added_) = (*selected_);
 
-		biff_->add (added_);
+		biff_->add_mailbox (added_);
 		synchronize ();
 		GtkTreeView  *view  = GTK_TREE_VIEW (get("mailboxes_treeview"));
 		GtkTreeIter iter;
@@ -567,7 +567,7 @@ Preferences::on_remove (GtkWidget *widget)
 		GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 		guint uin;
 		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, COLUMN_UIN, &uin, -1);
-		biff_->remove (biff_->get(uin));
+		biff_->remove_mailbox (biff_->get(uin));
 		properties_->select (0);
 		synchronize ();
 	}	
@@ -786,7 +786,7 @@ Preferences::expert_add_option_list (void)
 	std::map<std::string, Option *>::iterator it;
 
 	// Add options
-	for (int i = -1; i < (signed)biff_->size(); i++) {
+	for (int i = -1; i < (signed)biff_->get_number_of_mailboxes (); i++) {
 		if (i == -1)
 			opts = biff_;
 		else

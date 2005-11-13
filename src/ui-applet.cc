@@ -77,7 +77,7 @@ Applet::start (guint delay)
 	else
 		g_message ("Start monitoring mailboxes now");
 #endif
-	for (unsigned int i=0; i<biff_->size(); i++)
+	for (unsigned int i=0; i < biff_->get_number_of_mailboxes (); i++)
 		biff_->mailbox(i)->threaded_start (delay);
 }
 
@@ -90,7 +90,7 @@ Applet::stop (void)
 #ifdef DEBUG
 	g_message ("Stop monitoring mailboxes");
 #endif
-	for (unsigned int i=0; i<biff_->size(); i++)
+	for (unsigned int i=0; i < biff_->get_number_of_mailboxes (); i++)
 		biff_->mailbox(i)->stop ();
 }
 
@@ -112,7 +112,7 @@ Applet::update (gboolean init)
 	// Check if there is new mail
 	gboolean newmail = false;
 	gint unread = 0;
-	for (guint i=0; i<biff_->size(); i++) {
+	for (guint i=0; i<biff_-> get_number_of_mailboxes (); i++) {
 		guint status = biff_->mailbox(i)->status();
 
 		if (status == MAILBOX_NEW)
@@ -125,7 +125,7 @@ Applet::update (gboolean init)
 		execute_command ("newmail_command", "use_newmail_command");
 
 	// Mail has been displayed now
-	for (guint i=0; i < biff_->size(); i++)
+	for (guint i=0; i < biff_->get_number_of_mailboxes (); i++)
 		biff_->mailbox(i)->mail_displayed ();
 
 	return newmail;
@@ -138,7 +138,7 @@ void
 Applet::mark_messages_as_read (void)
 {
 	// Mark mails as read
-	for (unsigned int i=0; i<biff_->size(); i++)
+	for (unsigned int i=0; i<biff_->get_number_of_mailboxes (); i++)
 		biff_->mailbox(i)->mark_messages_as_read ();
 
 	// Save config file (especially the seen messages)
@@ -186,7 +186,7 @@ Applet::get_number_of_unread_messages (void)
 {
 	guint unread = 0;
 
-	for (unsigned int i=0; i<biff_->size(); i++)
+	for (unsigned int i=0; i < biff_->get_number_of_mailboxes (); i++)
 		unread += biff_->mailbox(i)->unreads();
 
 	return unread;
@@ -246,7 +246,7 @@ Applet::get_mailbox_status_text (void)
 	smax << biff_->value_uint ("max_mail");
 
 	std::string tooltip;
-	for (unsigned int i=0; i<biff_->size(); i++) {
+	for (unsigned int i=0; i < biff_->get_number_of_mailboxes (); i++) {
 		if (i > 0)
 			tooltip += "\n";
 		// Mailbox's name

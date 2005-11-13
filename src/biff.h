@@ -61,8 +61,13 @@ protected:
 	// ========================================================================
 	//  internal
 	// ========================================================================
-	std::vector<class Mailbox *>	mailbox_;		// mailboxes
-	GMutex *						mutex_;			// access mutex
+	// All mailboxes that are being monitored
+	std::vector<class Mailbox *>	mailbox_;
+	/**
+	 *  Access mutex. This mutex has to be locked for working with the
+	 *  mailboxes.
+	 */
+	GMutex *						mutex_;
 	/// Mutex for obtaining passwords
 	GMutex							*auth_mutex_;
 	/// Applet user interface
@@ -71,35 +76,34 @@ protected:
 	std::map<std::string,std::string> buffer_load_;
 
 public:
-	// ================================================================================
+	// ========================================================================
 	//  base
-	// ================================================================================
-	Biff (guint ui_mode = GTK_MODE,
-		  std::string filename = "");
+	// ========================================================================
+	Biff (guint ui_mode = GTK_MODE, std::string filename = "");
 	~Biff (void);
 
-	// ================================================================================
+	// ========================================================================
 	//  access
-	// ================================================================================
-	guint size (void);
-	gboolean find_mail (std::string mailid, Header &mail);
+	// ========================================================================
+	guint get_number_of_mailboxes (void);
+	gboolean find_message (std::string mailid, Header &mail);
 	class Mailbox * mailbox (guint index);
 	class Mailbox * get (guint uin);
 	class Applet *applet (void)					{return applet_;}
 
-	// ================================================================================
+	// ========================================================================
 	//  main
-	// ================================================================================
-	void add (Mailbox *mailbox);					// add a new mailbox
+	// ========================================================================
+	void add_mailbox (Mailbox *mailbox);
 	Mailbox *replace_mailbox (Mailbox *from, Mailbox *to);
-	void remove (Mailbox *mailbox);					// remove a mailbox
+	void remove_mailbox (Mailbox *mailbox);
 	gboolean get_password_for_mailbox (Mailbox *mailbox);
 	void option_changed (Option *option);
 	void option_update (Option *option);
 
-	// ================================================================================
+	// ========================================================================
 	//  i/o
-	// ================================================================================
+	// ========================================================================
 	gboolean load (void);
 protected:
 	std::vector<const gchar *> save_blocks;
