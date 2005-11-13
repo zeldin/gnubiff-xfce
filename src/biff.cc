@@ -43,7 +43,6 @@
 #endif
 
 #include "biff.h"
-#include "ui-authentication.h"
 #include "ui-applet-gtk.h"
 #include "mailbox.h"
 #include "file.h"
@@ -116,6 +115,9 @@ Biff::Biff (guint ui_mode, std::string filename)
 
 	mutex_ = g_mutex_new ();
 
+	// Authentication mutex
+	auth_mutex_ = g_mutex_new ();
+
 	// Add options
 	add_options (OPTGRP_ALL & (~OPTGRP_MAILBOX));
 
@@ -151,10 +153,6 @@ Biff::Biff (guint ui_mode, std::string filename)
 		applet_ = new AppletGtk (this);
 		break;
 	}
-
-	// Authentication dialog
-	ui_auth_mutex_ = g_mutex_new ();
-	ui_auth_ = new Authentication ();
 }
 
 /// Destructor
@@ -162,9 +160,9 @@ Biff::~Biff (void)
 {
 }
 
-// ================================================================================
+// ============================================================================
 //  access
-// ================================================================================
+// ============================================================================
 
 /**
  *  Search in all mailboxes for the mail with id {\em mailid}.
@@ -237,7 +235,7 @@ Biff::add (Mailbox *mailbox)
  *                pointer to the mailbox {\em to}.
  */
 Mailbox *
-Biff::replace (Mailbox *from, Mailbox *to)
+Biff::replace_mailbox (Mailbox *from, Mailbox *to)
 {
 	Mailbox *inserted = NULL;
 
@@ -291,7 +289,7 @@ Biff::remove (Mailbox *mailbox)
  * @return          Boolean indicating whether a password could be obtained
  */
 gboolean 
-Biff::password (Mailbox *m)
+Biff::get_password_for_mailbox (Mailbox *m)
 {
 	// Do we know the password already?
 	if (!m->password().empty())
@@ -299,7 +297,7 @@ Biff::password (Mailbox *m)
 
 	// Remark: It's important to block thread before looking at other mailboxes
 	//         since one is maybe asking (using gui) for this password.
-	g_mutex_lock (ui_auth_mutex_);
+	g_mutex_lock (auth_mutex_);
 
 	// Searching other mailboxes
 #if DEBUG
@@ -320,11 +318,11 @@ Biff::password (Mailbox *m)
 	// Ask the user if password is still not known
 	if (m->password().empty()) {
 		gdk_threads_enter ();
-		ui_auth_->select (m);
+		applet_->get_password_for_mailbox (m);
 		gdk_threads_leave ();
 	}
 
-	g_mutex_unlock (ui_auth_mutex_);
+	g_mutex_unlock (auth_mutex_);
 	return !m->password().empty();
 }
 

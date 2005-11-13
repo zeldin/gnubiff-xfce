@@ -357,7 +357,7 @@ Properties::on_apply (GtkWidget *widget)
 	if (selected_type_ == TYPE_AUTODETECT) {
 		mailbox_->protocol (PROTOCOL_NONE);
 		Mailbox *mailbox = new Mailbox (*mailbox_);
-		preferences_->biff()->replace (mailbox_, mailbox);
+		preferences_->biff()->replace_mailbox (mailbox_, mailbox);
 	}
 
 	// Second case: type has been set to local
@@ -380,7 +380,7 @@ Properties::on_apply (GtkWidget *widget)
 			// (to force lookup)
 			if (!(mailbox=Mailbox::lookup_local(*mailbox_)))
 				mailbox=new Mailbox (*mailbox_);
-			preferences_->biff()->replace (mailbox_, mailbox);
+			preferences_->biff()->replace_mailbox (mailbox_, mailbox);
 		}
 	}
 
@@ -390,7 +390,7 @@ Properties::on_apply (GtkWidget *widget)
 		if ((mailbox_->protocol() != PROTOCOL_IMAP4)
 			|| (mailbox_->status() == MAILBOX_UNKNOWN)) {
 			Mailbox *mailbox = new Imap4 (*mailbox_);
-			preferences_->biff()->replace (mailbox_, mailbox);
+			preferences_->biff()->replace_mailbox (mailbox_, mailbox);
 		}
 	}
 
@@ -401,12 +401,12 @@ Properties::on_apply (GtkWidget *widget)
 			 || (mailbox_->status() == MAILBOX_UNKNOWN))
 			&& (selected_auth_ == AUTH_APOP)) {
 			Mailbox *mailbox = new Apop (*mailbox_);
-			preferences_->biff()->replace (mailbox_, mailbox);
+			preferences_->biff()->replace_mailbox (mailbox_, mailbox);
 		}
 		else if ((mailbox_->protocol() != PROTOCOL_POP3)
 				 || (mailbox_->status() == MAILBOX_UNKNOWN)) {
 			Mailbox *mailbox = new Pop3 (*mailbox_);
-			preferences_->biff()->replace (mailbox_, mailbox);
+			preferences_->biff()->replace_mailbox (mailbox_, mailbox);
 		}
 	}
 	preferences_->synchronize();

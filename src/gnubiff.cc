@@ -118,7 +118,8 @@ int mainGTK (int argc, char **argv) {
 	};
 
 	// Parse command line
-	poptcon = poptGetContext ("gnubiff", argc,  (const char **) argv, options, 0);
+	poptcon = poptGetContext ("gnubiff", argc,  (const char **) argv,
+							  options, 0);
 	while ((status = poptGetNextOpt(poptcon)) >= 0);
 	if (status < -1) {
 		fprintf (stderr, "%s: %s\n\n",

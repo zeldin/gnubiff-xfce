@@ -485,7 +485,7 @@ Mailbox::lookup (void)
 	// After replace, "this" is destroyed so we must return immediately
 	if (mailbox) {
 		g_mutex_unlock (monitor_mutex_);
-		biff_->replace (this, mailbox);
+		biff_->replace_mailbox (this, mailbox);
 		return;
 	}
 

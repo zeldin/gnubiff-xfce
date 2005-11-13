@@ -150,7 +150,7 @@ void
 Pop::fetch (void) throw (pop_err)
 {
 	// Is there a password? Can we obtain it?
-	if (!biff_->password(this)) {
+	if (!biff_->get_password_for_mailbox (this)) {
 		g_warning (_("[%d] Empty password"), uin());
 		throw pop_nologin_err();
 	}

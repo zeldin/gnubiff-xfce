@@ -168,7 +168,7 @@ void
 Imap4::fetch (void) throw (imap_err)
 {
 	// Is there a password? Can we obtain it?
-	if (!biff_->password(this)) throw imap_nologin_err();
+	if (!biff_->get_password_for_mailbox (this)) throw imap_nologin_err();
 
 	// Connection and authentification
 	connect();
