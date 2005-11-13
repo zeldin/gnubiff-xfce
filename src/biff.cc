@@ -222,6 +222,10 @@ Biff::get (guint uin)
 	return find;
 }
 
+// ============================================================================
+//  main
+// ============================================================================
+
 /**
  *  Add the new mailbox {\em mailbox} for monitoring.
  *
@@ -656,7 +660,7 @@ Biff::load (void)
 
 	file.close ();
 
-	// Do we have an old config file?
+	// Do we have an config file from another version?
 	if (value_string ("version") != PACKAGE_VERSION)
 		upgrade_options ();
 
