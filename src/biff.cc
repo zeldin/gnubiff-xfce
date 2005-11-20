@@ -186,20 +186,6 @@ Biff::find_message (std::string mailid, Header &mail)
 	return ok;
 }
 
-/**
- *  Get the number of mailboxes that are being monitored.
- *
- *  @return   Number of mailboxes.
- */
-guint 
-Biff::get_number_of_mailboxes (void)
-{
-	g_mutex_lock (mutex_);
-	guint size = mailbox_.size();
-	g_mutex_unlock (mutex_);
-	return size;
-}
-
 Mailbox *
 Biff::mailbox (guint index)
 {
@@ -236,6 +222,130 @@ Biff::add_mailbox (Mailbox *mailbox)
 {
 	g_mutex_lock (mutex_);
 	mailbox_.push_back (mailbox);
+	g_mutex_unlock (mutex_);
+}
+
+/**
+ *  Get the number of mailboxes that are being monitored.
+ *
+ *  @return   Number of mailboxes.
+ */
+guint 
+Biff::get_number_of_mailboxes (void)
+{
+	g_mutex_lock (mutex_);
+	guint size = mailbox_.size();
+	g_mutex_unlock (mutex_);
+	return size;
+}
+
+/**
+ *  Get the number of unread messages in all mailboxes.
+ *
+ *  @param  num  Here the number of unread messages is returned.
+ *  @return      This boolean indicates whether there are new messages (true)
+ *               or not (false).
+ */
+gboolean 
+Biff::get_number_of_unread_messages (guint &num)
+{
+	std::vector<class Mailbox *>::iterator mailbox;
+	gboolean newmail = false;
+	num = 0;
+
+	g_mutex_lock (mutex_);
+	mailbox = mailbox_.begin ();
+	while (mailbox != mailbox_.end ()) {
+		if ((*mailbox)->status () == MAILBOX_NEW)
+			newmail = true;
+		num = (*mailbox)->unreads ();
+		mailbox++;
+	}
+	g_mutex_unlock (mutex_);
+
+	return newmail;
+}
+
+/**
+ * Determine if a password for the given mailbox {\em m} exists. If no
+ * password exists yet this function tries to obtain it by:
+ * \begin{itemize}
+ *    \item Looking at the other mailboxes. If one exists with the same
+ *          address, username and port (and a password) it is assumed that
+ *          this password is okay.
+ *    \item Asking the user. If no other mailbox with the correct parameters is
+ *          found the user has to enter the password in a dialog.
+ * \end{\itemize}
+ *
+ * @param  m        the mailbox we want a password for
+ * @return          Boolean indicating whether a password could be obtained
+ */
+gboolean 
+Biff::get_password_for_mailbox (Mailbox *m)
+{
+	// Do we know the password already?
+	if (!m->password().empty())
+		return true;
+
+	// Remark: It's important to block thread before looking at other mailboxes
+	//         since one is maybe asking (using gui) for this password.
+	g_mutex_lock (auth_mutex_);
+
+	// Searching other mailboxes
+#if DEBUG
+	g_message ("[%d] Looking for password for %s@%s:%d", m->uin(),
+			   m->username().c_str(), m->address().c_str(), m->port());
+#endif
+
+	for (guint i = 0; i < get_number_of_mailboxes (); i++)
+		if ((mailbox(i) != m) 
+			&& (mailbox(i)->address() == m->address())
+			&& (mailbox(i)->username() == m->username())
+			&& (mailbox(i)->port() == m->port())
+			&& (!mailbox(i)->password().empty())) {
+			m->password(mailbox(i)->password());
+			break;
+		}
+
+	// Ask the user if password is still not known
+	if (m->password().empty()) {
+		gdk_threads_enter ();
+		applet_->get_password_for_mailbox (m);
+		gdk_threads_leave ();
+	}
+
+	g_mutex_unlock (auth_mutex_);
+	return !m->password().empty();
+}
+
+/**
+ *  Mark all (obtained) messages from all mailboxes as read.
+ */
+void 
+Biff::mark_messages_as_read (void)
+{
+	std::vector<class Mailbox *>::iterator mailbox;
+
+	g_mutex_lock (mutex_);
+	mailbox = mailbox_.begin ();
+	while (mailbox != mailbox_.end ())
+	  (*(mailbox++))->mark_messages_as_read ();
+	g_mutex_unlock (mutex_);
+}
+
+/**
+ *  This function has to been called, when all (obtained) messages have been
+ *  displayed to the user. The status of the mailboxes will be updated.
+ */
+void 
+Biff::messages_displayed (void)
+{
+	std::vector<class Mailbox *>::iterator mailbox;
+
+	g_mutex_lock (mutex_);
+	mailbox = mailbox_.begin ();
+	while (mailbox != mailbox_.end ())
+	  (*(mailbox++))->mail_displayed ();
 	g_mutex_unlock (mutex_);
 }
 
@@ -293,57 +403,9 @@ Biff::remove_mailbox (Mailbox *mailbox)
 	g_mutex_unlock (mutex_);
 }
 
-/**
- * Determine if a password for the given mailbox {\em m} exists. If no
- * password exists yet this function tries to obtain it by:
- * \begin{itemize}
- *    \item Looking at the other mailboxes. If one exists with the same
- *          address, username and port (and a password) it is assumed that
- *          this password is okay.
- *    \item Asking the user. If no other mailbox with the correct parameters is
- *          found the user has to enter the password in a dialog.
- * \end{\itemize}
- *
- * @param  m        the mailbox we want a password for
- * @return          Boolean indicating whether a password could be obtained
- */
-gboolean 
-Biff::get_password_for_mailbox (Mailbox *m)
-{
-	// Do we know the password already?
-	if (!m->password().empty())
-		return true;
-
-	// Remark: It's important to block thread before looking at other mailboxes
-	//         since one is maybe asking (using gui) for this password.
-	g_mutex_lock (auth_mutex_);
-
-	// Searching other mailboxes
-#if DEBUG
-	g_message ("[%d] Looking for password for %s@%s:%d", m->uin(),
-			   m->username().c_str(), m->address().c_str(), m->port());
-#endif
-
-	for (guint i = 0; i < get_number_of_mailboxes (); i++)
-		if ((mailbox(i) != m) 
-			&& (mailbox(i)->address() == m->address())
-			&& (mailbox(i)->username() == m->username())
-			&& (mailbox(i)->port() == m->port())
-			&& (!mailbox(i)->password().empty())) {
-			m->password(mailbox(i)->password());
-			break;
-		}
-
-	// Ask the user if password is still not known
-	if (m->password().empty()) {
-		gdk_threads_enter ();
-		applet_->get_password_for_mailbox (m);
-		gdk_threads_leave ();
-	}
-
-	g_mutex_unlock (auth_mutex_);
-	return !m->password().empty();
-}
+// ============================================================================
+//  options
+// ============================================================================
 
 /**
  *  This function is called when an option is changed that has the
@@ -400,10 +462,6 @@ void
 Biff::option_update (Option *option)
 {
 }
-
-// ============================================================================
-//  i/o
-// ============================================================================
 
 /**
  *  The loaded config file belongs to an old version of gnubiff. All options
@@ -478,6 +536,10 @@ Biff::upgrade_options (void)
 				   options_bad.c_str());
 	}
 }
+
+// ============================================================================
+//  i/o
+// ============================================================================
 
 /**
  * Opens the new block {\em name} of options in the configuration file.

@@ -85,21 +85,29 @@ public:
 	// ========================================================================
 	//  access
 	// ========================================================================
-	guint get_number_of_mailboxes (void);
 	gboolean find_message (std::string mailid, Header &mail);
 	class Mailbox * mailbox (guint index);
 	class Mailbox * get (guint uin);
 	class Applet *applet (void)					{return applet_;}
 
 	// ========================================================================
-	//  main
+	//  main -- mailbox handling
 	// ========================================================================
 	void add_mailbox (Mailbox *mailbox);
-	Mailbox *replace_mailbox (Mailbox *from, Mailbox *to);
-	void remove_mailbox (Mailbox *mailbox);
+	guint get_number_of_mailboxes (void);
+	gboolean get_number_of_unread_messages (guint &num);
 	gboolean get_password_for_mailbox (Mailbox *mailbox);
+	void mark_messages_as_read (void);
+	void messages_displayed (void);
+	void remove_mailbox (Mailbox *mailbox);
+	Mailbox *replace_mailbox (Mailbox *from, Mailbox *to);
+
+	// ========================================================================
+	//  options
+	// ========================================================================
 	void option_changed (Option *option);
 	void option_update (Option *option);
+	void upgrade_options (void);
 
 	// ========================================================================
 	//  i/o
@@ -110,7 +118,6 @@ protected:
 	std::stringstream save_file;
 	void save_newblock (const gchar *name);
 	void save_endblock (void);
-	void upgrade_options (void);
 public:
 	void save_parameters (std::map<std::string,std::string> &map,
 						  std::string block = std::string(""));

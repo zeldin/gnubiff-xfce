@@ -22,6 +22,7 @@ Version 2.2.0
         zero padding (via "%D")
    - Added Maik Wachsmuth and Satou Kazuhito to contributors
    - Bugfix: Checking for NULL-pointer (in Biff::replace())
+   - Bugfix: Threadsafeness of some mailbox access functions
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

@@ -110,36 +110,29 @@ Applet::update (gboolean init)
 #endif
 
 	// Check if there is new mail
-	gboolean newmail = false;
-	gint unread = 0;
-	for (guint i=0; i<biff_-> get_number_of_mailboxes (); i++) {
-		guint status = biff_->mailbox(i)->status();
-
-		if (status == MAILBOX_NEW)
-			newmail = true;
-		unread += biff_->mailbox(i)->unreads();
-	}
+	guint unread = 0;
+	gboolean newmail = biff_->get_number_of_unread_messages (unread);
 
 	// New mail command
 	if ((newmail == true) && (unread > 0))
 		execute_command ("newmail_command", "use_newmail_command");
 
-	// Mail has been displayed now
-	for (guint i=0; i < biff_->get_number_of_mailboxes (); i++)
-		biff_->mailbox(i)->mail_displayed ();
+	// Messages have been displayed now
+	biff_->messages_displayed ();
 
 	return newmail;
 }
 
 /**
- *  Mark all messages from all mailboxes as read and update the applet status.
+ *  Mark all messages from all mailboxes as read and update the applet
+ *  status.  The config file is saved with the information which
+ *  messages have been read.
  */
 void 
 Applet::mark_messages_as_read (void)
 {
-	// Mark mails as read
-	for (unsigned int i=0; i<biff_->get_number_of_mailboxes (); i++)
-		biff_->mailbox(i)->mark_messages_as_read ();
+	// Mark messages as read
+	biff_->mark_messages_as_read ();
 
 	// Save config file (especially the seen messages)
 	biff_->save ();
@@ -177,32 +170,19 @@ Applet::execute_command (std::string option_command,
 }
 
 /**
- *  Get the number of unread messages in all mailboxes.
- *
- *  @return    Number of unread messages.
- */
-guint 
-Applet::get_number_of_unread_messages (void)
-{
-	guint unread = 0;
-
-	for (unsigned int i=0; i < biff_->get_number_of_mailboxes (); i++)
-		unread += biff_->mailbox(i)->unreads();
-
-	return unread;
-}
-
-/**
  *  Get the number of unread messages in all mailboxes as a string.
  *
  *  @return    Number of unread messages as a string.
  */
 std::string 
-Applet::get_number_of_unread_messages_text (void)
+Applet::get_number_of_unread_messages (void)
 {
 	std::stringstream smax, text_zero, text_num;
 	std::string text;
-	guint unread = get_number_of_unread_messages ();
+
+	// Get number of unread messages
+	guint unread;
+	biff_->get_number_of_unread_messages (unread);
 
 	// Zero padded number of unread messages
 	smax << biff_->value_uint ("max_mail");
@@ -341,12 +321,12 @@ AppletGUI::~AppletGUI (void)
  *  @return    Number of unread messages as a string.
  */
 std::string 
-AppletGUI::get_number_of_unread_messages_text (void)
+AppletGUI::get_number_of_unread_messages (void)
 {
 	std::string text;
 
 	text = "<span font_desc=\"" + biff_->value_string ("applet_font") + "\">";
-	text+= Applet::get_number_of_unread_messages_text ();
+	text+= Applet::get_number_of_unread_messages ();
 	text+= "</span>";
 
 	return text;
@@ -390,7 +370,8 @@ AppletGUI::update (gboolean init, std::string widget_image,
 	gboolean newmail = Applet::update (init);
 
 	// Get number of unread messages
-	guint unread = get_number_of_unread_messages ();
+	guint unread;
+	biff_->get_number_of_unread_messages (unread);
 
 	// Update popup
 	if (!init && (popup_)) {
@@ -458,7 +439,7 @@ AppletGUI::update (gboolean init, std::string widget_image,
 		label = GTK_LABEL (get (widget_text.c_str ()));
 
 		// Set label
-		std::string text = get_number_of_unread_messages_text ();
+		std::string text = get_number_of_unread_messages ();
 		gtk_label_set_markup (label, text.c_str());
 
 		if (((unread == 0) && biff_->value_bool ("use_nomail_text")) ||
