@@ -160,7 +160,7 @@ int mainGTK (int argc, char **argv) {
 		biff->applet()->update(true);
 		((AppletGtk *)biff->applet())->show();
 		if (biff->value_uint ("check_mode") == AUTOMATIC_CHECK)
-			biff->applet()->start (3);
+			biff->start_monitoring (3);
 	}
 	else
 		((AppletGUI *)biff->applet())->show_dialog_preferences();
@@ -186,7 +186,7 @@ static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid,
 		biffapplet->show ();
 		biffapplet->update (true);
 		if (biff->value_uint ("check_mode") == AUTOMATIC_CHECK)
-			biff->applet()->start (3);
+			biff->start_monitoring (3);
 	}
 	return true;
 }

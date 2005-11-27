@@ -63,38 +63,6 @@ Applet::~Applet (void)
 }
 
 /**
- *  Start monitoring all mailboxes. Optionally the delay {\em delay} can be
- *  given, so monitoring starts later.
- *
- *  @param  delay  Delay in seconds (the default is 0).
- */
-void 
-Applet::start (guint delay)
-{
-#ifdef DEBUG
-	if (delay)
-		g_message ("Start monitoring mailboxes in %d second(s)", delay);
-	else
-		g_message ("Start monitoring mailboxes now");
-#endif
-	for (unsigned int i=0; i < biff_->get_number_of_mailboxes (); i++)
-		biff_->mailbox(i)->threaded_start (delay);
-}
-
-/**
- *  Stop monitoring all mailboxes.
- */
-void 
-Applet::stop (void)
-{
-#ifdef DEBUG
-	g_message ("Stop monitoring mailboxes");
-#endif
-	for (unsigned int i=0; i < biff_->get_number_of_mailboxes (); i++)
-		biff_->mailbox(i)->stop ();
-}
-
-/**
  *  Update the applet status. If new messages are present the new
  *  mail command is executed.
  *
@@ -496,7 +464,7 @@ AppletGUI::show_dialog_preferences (void)
 	preferences_->show();
 
 	// Stop monitoring mailboxes
-	stop ();
+	biff_->stop_monitoring ();
 }
 
 /**
@@ -511,7 +479,7 @@ AppletGUI::hide_dialog_preferences (void)
 
 	// Start monitoring of the mailboxes (if wanted)
 	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
-		start (3);
+		biff_->start_monitoring (3);
 
 	// Update applet's status
 	update (true);

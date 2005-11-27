@@ -209,7 +209,7 @@ Biff::get (guint uin)
 }
 
 // ============================================================================
-//  main
+//  main -- mailbox handling
 // ============================================================================
 
 /**
@@ -258,7 +258,7 @@ Biff::get_number_of_unread_messages (guint &num)
 	while (mailbox != mailbox_.end ()) {
 		if ((*mailbox)->status () == MAILBOX_NEW)
 			newmail = true;
-		num = (*mailbox)->unreads ();
+		num += (*mailbox)->unreads ();
 		mailbox++;
 	}
 	g_mutex_unlock (mutex_);
@@ -400,6 +400,48 @@ Biff::remove_mailbox (Mailbox *mailbox)
 			mailbox_.erase (i);
 			break;
 		}
+	g_mutex_unlock (mutex_);
+}
+
+/**
+ *  Start monitoring all mailboxes. Optionally the delay {\em delay} can be
+ *  given, so monitoring starts later.
+ *
+ *  @param  delay  Delay in seconds (the default is 0).
+ */
+void 
+Biff::start_monitoring (guint delay)
+{
+#ifdef DEBUG
+	if (delay)
+		g_message ("Start monitoring mailboxes in %d second(s)", delay);
+	else
+		g_message ("Start monitoring mailboxes now");
+#endif
+	std::vector<class Mailbox *>::iterator mailbox;
+
+	g_mutex_lock (mutex_);
+	mailbox = mailbox_.begin ();
+	while (mailbox != mailbox_.end ())
+	  (*(mailbox++))->threaded_start (delay);
+	g_mutex_unlock (mutex_);
+}
+
+/**
+ *  Stop monitoring all mailboxes.
+ */
+void 
+Biff::stop_monitoring (void)
+{
+#ifdef DEBUG
+	g_message ("Stop monitoring mailboxes");
+#endif
+	std::vector<class Mailbox *>::iterator mailbox;
+
+	g_mutex_lock (mutex_);
+	mailbox = mailbox_.begin ();
+	while (mailbox != mailbox_.end ())
+	  (*(mailbox++))->stop ();
 	g_mutex_unlock (mutex_);
 }
 

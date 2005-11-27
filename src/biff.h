@@ -101,6 +101,8 @@ public:
 	void messages_displayed (void);
 	void remove_mailbox (Mailbox *mailbox);
 	Mailbox *replace_mailbox (Mailbox *from, Mailbox *to);
+	void start_monitoring (guint delay = 0);
+	void stop_monitoring (void);
 
 	// ========================================================================
 	//  options

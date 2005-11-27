@@ -54,8 +54,6 @@ public:
 	// ========================================================================
 	//  main
 	// ========================================================================
-	void start (guint delay=0);
-	void stop  (void);
 	virtual gboolean update (gboolean init = false);
 	void mark_messages_as_read (void);
 	void execute_command (std::string option_command,
