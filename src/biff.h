@@ -52,9 +52,9 @@
 class Biff : public Gnubiff_Options {
 
 public:
-	// ================================================================================
+	// ========================================================================
 	//  general
-	// ================================================================================
+	// ========================================================================
 	std::string		passtable_;					// encryption table
 
 protected:
@@ -95,6 +95,8 @@ public:
 	// ========================================================================
 	void add_mailbox (Mailbox *mailbox);
 	guint get_number_of_mailboxes (void);
+	std::vector<Header *> get_message_headers (gboolean use_max_num = false,
+											   guint max_num = 0);
 	gboolean get_number_of_unread_messages (guint &num);
 	gboolean get_password_for_mailbox (Mailbox *mailbox);
 	void mark_messages_as_read (void);

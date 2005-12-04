@@ -240,6 +240,60 @@ Biff::get_number_of_mailboxes (void)
 }
 
 /**
+ *  Get message headers from the messages in the mailboxes. If
+ *  {\em use_max_num} is true, the number of headers is limited to
+ *  {\em max_num}. If there are more message headers available than are to be
+ *  returned, from each mailbox the same number of headers is taken as far as
+ *  possible.
+ *
+ *  @param  use_max_num  If true only a limited amount of headers is returned
+ *                       (the default is false).
+ *  @param  max_num      If {\em use_max_num} is true, this is the maximum
+ *                       number of message headers to be returned (the default
+ *                       is 0).
+ *  @return              Vector of message headers
+ */
+std::vector<Header *> 
+Biff::get_message_headers (gboolean use_max_num, guint max_num)
+{
+	g_mutex_lock (mutex_);
+
+	// Get number of messages in each mailbox
+	guint num_mails = 0, num_boxes = 0;
+	num_boxes = mailbox_.size();
+	std::vector<guint> max (num_boxes);
+	for (guint i = 0; i < num_boxes; i++)
+		num_mails+= max[i] = mailbox_[i]->unreads();
+
+	// Distribute number of message headers
+	std::vector<guint> count (num_boxes, 0);
+	if (use_max_num) {
+		guint index = 0, all = 0;
+		num_mails = std::min (num_mails, max_num);
+		while (all < num_mails) {
+			if (count[index] < max[index]) {
+				count[index]++;
+				all++;
+			}
+			index = (index + 1) % num_boxes;
+		}
+	}
+	else
+		count = max;
+
+	// Put all the headers to be displayed in one vector.
+	// Note: In the mean time some headers may have been deleted, so less than
+	// count[j] headers could be added to the vector
+	std::vector<Header *> headers;
+	for (guint j = 0; j < num_boxes; j++)
+		mailbox_[j]->get_message_headers (headers, true, count[j]);
+
+	g_mutex_unlock (mutex_);
+
+	return headers;
+}
+
+/**
  *  Get the number of unread messages in all mailboxes.
  *
  *  @param  num  Here the number of unread messages is returned.

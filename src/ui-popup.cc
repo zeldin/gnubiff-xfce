@@ -246,55 +246,18 @@ Popup::update (void)
 
 	saved_strings.clear();
 
-	// FIXME: The following mailbox accesses should be mutex protected
-
-	// At this point we have to display popup_size headers that are
-	// present in the different mailboxes, knowing that last received
-	// mail is at the end of each mailbox. We then need to compute
-	// the exact number of mails to display for each mailbox.
-	std::vector<guint> count (biff_->get_number_of_mailboxes(), 0);
-	std::vector<guint> max (biff_->get_number_of_mailboxes());
-	guint num_mails = 0;
-	for (guint i = 0; i < biff_->get_number_of_mailboxes(); i++)
-		num_mails+= max[i] = biff_->mailbox(i)->unread().size();
-	if (num_mails > biff_->value_uint ("popup_size"))
-		num_mails = biff_->value_uint ("popup_size");
-
-	if (biff_->value_bool ("popup_use_size")) {
-		guint index = 0, all = 0;
-		while (all < num_mails) {
-			if (count[index] < max[index]) {
-				count[index]++;
-				all++;
-			}
-			index = (index + 1) % biff_->get_number_of_mailboxes();
-		}
-	}
-	else
-		count = max;
-
-	// Put all the headers to be displayed (and pointers) in a vector
-	std::vector<Header *> ptr_headers;
-	for (guint j = 0; j < biff_->get_number_of_mailboxes(); j++) {
-		// Do the following directly in mailbox protected by mutex!
-		std::map<std::string, Header>::iterator ie, i;
-		i  = biff_->mailbox(j)->unread().begin ();
-		ie = biff_->mailbox(j)->unread().end ();
-		guint m = biff_->mailbox(j)->unread().size() - count[j];
-		while (i != ie) {
-			if (i->second.position() > m)
-				ptr_headers.push_back (new Header(i->second));
-			i++;
-		}
-	}
+	// Get headers to be displayed in the popup
+	std::vector<Header *> headers;
+	headers = biff_->get_message_headers (biff_->value_bool ("popup_use_size"),
+										  biff_->value_uint ("popup_size"));
 
 	// Sort headers
 	gboolean mb;
-	mb=Header::sort_headers(ptr_headers,biff_->value_string ("popup_sort_by"));
+	mb=Header::sort_headers(headers,biff_->value_string ("popup_sort_by"));
 
 	// Now we populate the list
-	std::vector<Header *>::iterator h = ptr_headers.begin();
-	std::vector<Header *>::iterator he = ptr_headers.end();
+	std::vector<Header *>::iterator h = headers.begin();
+	std::vector<Header *>::iterator he = headers.end();
 	std::set<guint> firstmb;
 	while (h != he) {
 		gtk_list_store_append (store, &iter);

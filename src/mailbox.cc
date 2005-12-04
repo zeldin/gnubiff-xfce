@@ -1050,3 +1050,47 @@ Mailbox::find_mail (std::string mailid, Header &mail)
 
 	return ok;
 }
+
+// ============================================================================
+//  main -- messages
+// ============================================================================
+
+/**
+ *  Add headers of messages in the mailbox to the vector {\em headers}. If
+ *  {\em use_max_num} is true at most {\em max_num} headers are added. If
+ *  {\em empty} is true, the vector will be emptied before adding vectors.
+ *
+ *  @param  headers      Vector of headers to which the headers will be added.
+ *  @þaram  use_max_num  If true only a limited amount of headers will be
+ *                       added (the default is false).
+ *  @param  max_num      If {\em use_max_num} is true, this is the maximum
+ *                       number of headers to be added (the default is 0).
+ *  @param  empty        If true the vector will be emptied (the default is
+ *                       {\em false}.
+ */
+void 
+Mailbox::get_message_headers (std::vector<Header *> &headers,
+							  gboolean use_max_num, guint max_num,
+							  gboolean empty)
+{
+	guint m = 0;
+
+	// Empty headers
+	if (empty)
+		headers.clear ();
+
+	g_mutex_lock (mutex_);
+
+	std::map<std::string, Header>::iterator ie, i;
+	i  = unread_.begin ();
+	ie = unread_.end ();
+	if (use_max_num)
+		m = unread_.size() - max_num;
+	while (i != ie) {
+		if (i->second.position() > m)
+			headers.push_back (new Header(i->second));
+		i++;
+	}
+
+	g_mutex_unlock (mutex_);
+}
