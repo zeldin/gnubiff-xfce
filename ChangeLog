@@ -31,6 +31,7 @@ Version 2.1.8
  * Robert Sowada
    - Changed version to 2.1.8
    - Backport (from gnubiff 2.2.0 CVS) of smaller fixes
+   - Backport (from gnubiff 2.2.0 CVS) of newer version in config file fix
 
 Version 2.1.7		2005-10-31  0:43
  * Robert Sowada
