@@ -564,32 +564,38 @@ Biff::option_update (Option *option)
  *  with changed default values will be converted if possible. If the option
  *  still has the old default value this is no problem, otherwise we might
  *  give a warning message so the user can do this manually.
+ *
+ *  If the config file belongs to a newer version of gnubiff, no conversion
+ *  will be done!
  */
 void 
 Biff::upgrade_options (void)
 {
+	// Get version of gnubiff binary
+	guint gnubiff_version = Support::version_to_integer (PACKAGE_VERSION);
+
 	// Get config file version and reset internal version
 	std::string config_version = value_string ("version");
-	gint version = -1;
-	if (config_version == "0") {
+	guint version = 0;
+	if (config_version == "0")
 		config_version = "<=2.1.1";
-		version = 0;
-	}
+	else
+		version = Support::version_to_integer (config_version);
 	reset ("version");
+
+	// Check for newer version config file
+	if (version > gnubiff_version) {
+		g_warning (_("Loaded config file from newer gnubiff version \"%s\"."),
+					 config_version.c_str ());
+		return; 
+	}
+	if (version == gnubiff_version)
+		return;
+
+	// Config file belongs to an older version of gnubiff
 	g_warning (_("Loaded config file from old gnubiff version \"%s\"."),
 			   config_version.c_str ());
 	g_message (_("Trying to convert all options."));
-	if (version < 0) {
-		std::replace (config_version.begin(), config_version.end(), '.', ' ');
-		std::stringstream tmpstr (config_version);
-		guint tmp;
-		tmpstr >> tmp;
-		version  = 1000*1000*tmp;
-		tmpstr >> tmp;
-		version += 1000*tmp;
-		tmpstr >> tmp;
-		version += tmp;
-	}
 
 	// Store options that need manual conversion
 	std::string options_bad;

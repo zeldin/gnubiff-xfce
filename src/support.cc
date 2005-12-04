@@ -216,6 +216,30 @@ Support::numbersequence_to_vector (const std::string &seq,
 }
 
 /**
+ *  Convert a string in the format "x.y.z" to the integer 1000000x+1000y+z.
+ *
+ *  Note: There are no checks for the string to be in the format "x.y.z".
+ *
+ *  @param  versionstr  The string in "x.y.z" format.
+ *  @param  sep         Separator to be used in the string (default is '.').
+ *  @return             Integer 1000000x+1000y+z.
+ */
+guint 
+Support::version_to_integer (std::string versionstr, gchar sep)
+{
+	std::replace (versionstr.begin(), versionstr.end(), sep, ' ');
+	std::stringstream tmpstr (versionstr);
+	guint tmp, version;
+	tmpstr >> tmp;
+	version  = 1000*1000*tmp;
+	tmpstr >> tmp;
+	version += 1000*tmp;
+	tmpstr >> tmp;
+	version += tmp;
+	return version;
+}
+
+/**
  *  Add the name of a file (or directory) to the given path {\em path}.
  *
  *  @param  path  Path to which {\em file} will be added.

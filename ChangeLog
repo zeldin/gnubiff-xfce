@@ -23,6 +23,7 @@ Version 2.2.0
    - Added Maik Wachsmuth and Satou Kazuhito to contributors
    - Bugfix: Checking for NULL-pointer (in Biff::replace())
    - Bugfix: Threadsafeness of some mailbox access functions
+   - Bugfix: Message when loading config file from newer gnubiff version
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

@@ -64,13 +64,16 @@ protected:
 	template<class Iter> std::string vector_to_numbersequence (Iter start,
 				Iter end, const std::string sep = std::string (", "),
 				const std::string range = std::string ("-"));
+public:
+	static guint version_to_integer (std::string versionstr,
+									 gchar sep = '.');
 
 	// File functions
 	static std::string add_file_to_path (const std::string &path,
 				const std::string file);
 	static std::string path_get_basename (const std::string &path);
 	static std::string path_get_dirname (const std::string &path);
-public:
+
 	// Debugging
 	static void unknown_internal_error_ (const gchar *file, guint line,
 				const gchar *func);
