@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-08-21 00:51+0200\n"
+"POT-Creation-Date: 2005-12-08 23:48+0100\n"
 "PO-Revision-Date: 2005-04-03 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -39,90 +39,95 @@ msgstr "[iyi Umutwempangano Umurongo"
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[GUHINDURA Inyuguti Bivuye Kuri 8"
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:92
 #, fuzzy
 msgid "Start gnome applet from command line"
 msgstr "Gutangira Apuleti... Bivuye Komandi: Umurongo"
 
-#: src/gnubiff.cc:106
+#: src/gnubiff.cc:100
 #, fuzzy
 msgid "Configuration file to use"
 msgstr "IDOSIYE Kuri Gukoresha"
 
 # sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_HFCMD_FILE.text
-#: src/gnubiff.cc:106
+#: src/gnubiff.cc:100
 #, fuzzy
 msgid "file"
 msgstr "IDOSIYE"
 
-#: src/gnubiff.cc:108
+#: src/gnubiff.cc:102
 #, fuzzy
 msgid "Skip the configuration process"
 msgstr "i Iboneza"
 
-#: src/gnubiff.cc:110
+#: src/gnubiff.cc:104
 #, fuzzy
 msgid "Print version information and exit"
 msgstr "Verisiyo Ibisobanuro Na Gusohoka"
 
-#: src/gnubiff.cc:117
+#: src/gnubiff.cc:111
 #, fuzzy
 msgid "General command line options:"
 msgstr "Komandi: Umurongo Amahitamo"
 
-#: src/gnubiff.cc:120
+#: src/gnubiff.cc:114
 #, fuzzy
 msgid "Options for debugging:"
 msgstr "kugirango"
 
-#: src/biff.cc:138
+#: src/biff.cc:137
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "IDOSIYE OYA Byabonetse"
 
-#: src/biff.cc:402
+#: src/biff.cc:588
+#, fuzzy, c-format
+msgid "Loaded config file from newer gnubiff version \"%s\"."
+msgstr "IDOSIYE Bivuye ki/ bishaje Verisiyo"
+
+#: src/biff.cc:596
 #, fuzzy, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "IDOSIYE Bivuye ki/ bishaje Verisiyo"
 
-#: src/biff.cc:404
+#: src/biff.cc:598
 #, fuzzy
 msgid "Trying to convert all options."
 msgstr "Kuri GUHINDURA Byose Amahitamo"
 
-#: src/biff.cc:450
+#: src/biff.cc:633
 #, fuzzy
 msgid "Successfully converted all options."
 msgstr "Byose Amahitamo"
 
-#: src/biff.cc:453
+#: src/biff.cc:636
 #, fuzzy, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr "Amahitamo Amahitamo"
 
-#: src/biff.cc:600
+#: src/biff.cc:787
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Gufungura Iboneza IDOSIYE"
 
-#: src/biff.cc:616
+#: src/biff.cc:803
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Kurema kugirango IDOSIYE"
 
-#: src/biff.cc:633
+#: src/biff.cc:820
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Oya Insobanuro in Iboneza IDOSIYE"
 
-#: src/biff.cc:680
+#: src/biff.cc:867
 #, fuzzy
 msgid "Illegal parameter format in config file"
 msgstr "Imiterere in IDOSIYE"
 
-#: src/biff.cc:709
+#: src/biff.cc:896
 #, fuzzy, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Porotokole kugirango"
@@ -132,48 +137,48 @@ msgstr "Porotokole kugirango"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d]Kuri Kurema Urudodo"
 
-#: src/mailbox.cc:288
+#: src/mailbox.cc:297
 #, c-format
 msgid "mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:593
+#: src/mailbox.cc:602
 #, fuzzy
 msgid "<no date>"
 msgstr "<Oya Itariki"
 
-#: src/mailbox.cc:594
+#: src/mailbox.cc:603
 #, fuzzy
 msgid "<no sender>"
 msgstr "<Oya Uwohereza"
 
 # # generics string
-#: src/mailbox.cc:595
+#: src/mailbox.cc:604
 #, fuzzy
 msgid "<no subject>"
 msgstr "<nta mutwe)"
 
-#: src/mailbox.cc:642
+#: src/mailbox.cc:651
 #, fuzzy
 msgid "[Cannot parse content type header line]"
 msgstr "[Ibikubiyemo Ubwoko Umutwempangano Umurongo"
 
-#: src/mailbox.cc:663
+#: src/mailbox.cc:672
 #, fuzzy
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Ibikubiyemo Imisobekere: Umutwempangano Umurongo"
 
-#: src/mailbox.cc:712
+#: src/mailbox.cc:721
 #, fuzzy
 msgid "[Malformed multipart message]"
 msgstr "[Ubutumwa"
 
-#: src/mailbox.cc:720
+#: src/mailbox.cc:729
 #, fuzzy
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Gushaka Itangira Itangiriro in i Ubutumwa"
 
-#: src/mailbox.cc:766
+#: src/mailbox.cc:775
 #, fuzzy, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Ubutumwa Ibikubiyemo Ubwoko"
@@ -219,42 +224,42 @@ msgstr "OYA Gushyiraho Gusoma Igihe cyarenze: ku"
 msgid "Cannot open %s."
 msgstr "Gufungura"
 
-#: src/imap4.cc:467
+#: src/imap4.cc:462
 #, fuzzy
 msgid "[This message has no part with a supported content type]"
 msgstr "[Ubutumwa Oya Na: a Ibikubiyemo Ubwoko"
 
-#: src/imap4.cc:830
+#: src/imap4.cc:825
 #, fuzzy, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d]Kuri Guhitamo Ububiko ku Ubuturo"
 
-#: src/imap4.cc:918
+#: src/imap4.cc:913
 #, fuzzy, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d]Kuri Kubona Bivuye ku Umuyoboro"
 
-#: src/imap4.cc:977
+#: src/imap4.cc:972
 #, fuzzy, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d]Kohereza Cyangwa"
 
-#: src/imap4.cc:1030
+#: src/imap4.cc:1025
 #, fuzzy, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d]Kohereza"
 
-#: src/imap4.cc:1586
+#: src/imap4.cc:1581
 #, fuzzy, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d]Ukwihuza Ako kanya"
 
-#: src/imap4.cc:1591
+#: src/imap4.cc:1586
 #, fuzzy, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d]Seriveri Cyangwa Kitazwi Ikosa"
 
-#: src/imap4.cc:1596
+#: src/imap4.cc:1591
 #, fuzzy, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d]Bivuye Seriveri"
@@ -264,17 +269,17 @@ msgstr "[%d]Bivuye Seriveri"
 msgid "Cannot open new mail directory (%s)"
 msgstr "Gufungura Gishya Ubutumwa bushyinguro"
 
-#: src/pop.cc:157
+#: src/pop.cc:154
 #, fuzzy, c-format
 msgid "[%d] Empty password"
 msgstr "[%d]Ijambobanga..."
 
-#: src/pop.cc:516
+#: src/pop.cc:513
 #, fuzzy, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d]Ubutumwa Bivuye Seriveri"
 
-#: src/pop.cc:523
+#: src/pop.cc:520
 #, fuzzy, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d]OYA Kubona a Bivuye Seriveri"
@@ -333,33 +338,19 @@ msgid "Could not find signal handler '%s'."
 msgstr "OYA Gushaka"
 
 # filter/source\xsltdialog\xmlfilterdialogstrings.src:STR_UNKNOWN_APPLICATION.text
-#: src/ui-applet.cc:133
+#: src/ui-applet.cc:206
 #, fuzzy
 msgid " unknown"
 msgstr "Kitazwi"
 
-#: src/ui-applet.cc:135
+#: src/ui-applet.cc:211
 #, fuzzy
 msgid " error"
 msgstr "Ikosa"
 
-#: src/ui-applet.cc:140
+#: src/ui-applet.cc:220
 msgid " checking..."
 msgstr ""
-
-# #-#-#-#-#  offmgr.pot (PACKAGE VERSION)  #-#-#-#-#
-# offmgr/sdi\ofaslots.src:SID_MAIL_NEW.text
-# #-#-#-#-#  offmgr.pot (PACKAGE VERSION)  #-#-#-#-#
-# offmgr/sdi\ofaslots.src:SID_MAIL_NEWWITHSERVER.text
-#: src/ui-applet-gtk.cc:163
-#, fuzzy
-msgid "New mail"
-msgstr "Ubutumwa Bushya"
-
-#: src/ui-applet-gtk.cc:176
-#, fuzzy
-msgid "No mail"
-msgstr "Ubutumwa"
 
 #: src/ui-preferences.cc:269 src/ui-popup.cc:160
 msgid "Mailbox"
@@ -379,7 +370,7 @@ msgstr "Imimerere"
 msgid "Security"
 msgstr "Umutekano"
 
-#: src/ui-preferences.cc:329 src/ui-preferences.cc:656
+#: src/ui-preferences.cc:329 src/ui-preferences.cc:688
 #, fuzzy
 msgid "No mailbox selected"
 msgstr "Byahiswemo"
@@ -400,18 +391,18 @@ msgstr "Agaciro"
 # sc/source\ui\src\scfuncs.src:RID_SC_FUNCTION_DESCRIPTIONS2.SC_OPCODE_BETA_DIST.8.text
 # #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
 # sc/source\ui\src\scfuncs.src:RID_SC_FUNCTION_DESCRIPTIONS2.SC_OPCODE_BETA_INV.8.text
-#: src/ui-preferences.cc:590
+#: src/ui-preferences.cc:611
 #, fuzzy
 msgid "_Start"
 msgstr "Gutangira"
 
 # basctl/source\basicide\basidesh.src:RID_BASICIDE_OBJECTBAR.SID_BASICSTOP.text
-#: src/ui-preferences.cc:596 ui/preferences.glade:2998
+#: src/ui-preferences.cc:617 ui/preferences.glade:2998
 #, fuzzy
 msgid "_Stop"
 msgstr "Guhagarara"
 
-#: src/ui-preferences.cc:607 src/ui-preferences.cc:614
+#: src/ui-preferences.cc:628 src/ui-preferences.cc:635
 #, fuzzy
 msgid "Browse for a new mail image"
 msgstr "kugirango a Gishya Ubutumwa Ishusho"
@@ -488,7 +479,7 @@ msgstr "Ikivugwaho"
 msgid "Date"
 msgstr "Itariki"
 
-#: src/support.cc:297
+#: src/support.cc:321
 #, fuzzy
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
@@ -553,14 +544,6 @@ msgstr "Porogaramu ni Bya i Umushinga i Bya"
 #: ui/applet-gtk.glade:363
 msgid "Ok"
 msgstr "Oke"
-
-#: ui/applet-gnome.glade:8
-msgid "Applet"
-msgstr "Guhindura Applet"
-
-#: ui/applet-gnome.glade:78
-msgid "00"
-msgstr ""
 
 #: ui/preferences.glade:7
 #, fuzzy
@@ -631,20 +614,17 @@ msgstr "kugirango Ishusho IDOSIYE"
 msgid "_Browse..."
 msgstr "Gushakisha..."
 
-#: ui/preferences.glade:567
+#: ui/preferences.glade:567 ui/preferences.glade:632
 #, fuzzy
-msgid "Text to display (%d is the number of new messages)"
+msgid ""
+"Text to display (%d and %D is the number of new messages, %d is zero "
+"padded). Pango markup may be used."
 msgstr "Kuri Kugaragaza ni i Umubare Bya Gishya Ubutumwa"
 
 #: ui/preferences.glade:613
 #, fuzzy
 msgid "B_rowse..."
 msgstr "Gushakisha..."
-
-#: ui/preferences.glade:632
-#, fuzzy
-msgid "Text to display"
-msgstr "Kuri Kugaragaza"
 
 #: ui/preferences.glade:654
 #, fuzzy
@@ -1193,6 +1173,25 @@ msgstr "<Gitoya B B Gitoya"
 #, fuzzy
 msgid "<small><b>Date</b></small>"
 msgstr "<Gitoya B B Gitoya"
+
+# #-#-#-#-#  offmgr.pot (PACKAGE VERSION)  #-#-#-#-#
+# offmgr/sdi\ofaslots.src:SID_MAIL_NEW.text
+# #-#-#-#-#  offmgr.pot (PACKAGE VERSION)  #-#-#-#-#
+# offmgr/sdi\ofaslots.src:SID_MAIL_NEWWITHSERVER.text
+#, fuzzy
+#~ msgid "New mail"
+#~ msgstr "Ubutumwa Bushya"
+
+#, fuzzy
+#~ msgid "No mail"
+#~ msgstr "Ubutumwa"
+
+#~ msgid "Applet"
+#~ msgstr "Guhindura Applet"
+
+#, fuzzy
+#~ msgid "Text to display"
+#~ msgstr "Kuri Kugaragaza"
 
 #, fuzzy
 #~ msgid "Cannot find new mail directory (%s)"

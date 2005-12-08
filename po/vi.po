@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.3\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-08-21 00:51+0200\n"
+"POT-Creation-Date: 2005-12-08 23:48+0100\n"
 "PO-Revision-Date: 2005-04-11 17:17+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -29,53 +29,58 @@ msgstr "[Không giải mã được dòng đầu này]"
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Không chuyển đổi được bộ ký tự từ \"%s\" sang \"utf-8\")]"
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:92
 msgid "Start gnome applet from command line"
 msgstr "Khởi động tiểu dụng gnome từ dòng lệnh"
 
-#: src/gnubiff.cc:106
+#: src/gnubiff.cc:100
 msgid "Configuration file to use"
 msgstr "Chọn tập tin cấu hình để sư dụng"
 
-#: src/gnubiff.cc:106
+#: src/gnubiff.cc:100
 msgid "file"
 msgstr "tập tin"
 
-#: src/gnubiff.cc:108
+#: src/gnubiff.cc:102
 msgid "Skip the configuration process"
 msgstr "Bỏ qua tiến trình định cấu hình"
 
-#: src/gnubiff.cc:110
+#: src/gnubiff.cc:104
 msgid "Print version information and exit"
 msgstr "In ra thông tin phiên bản rồi thoát."
 
-#: src/gnubiff.cc:117
+#: src/gnubiff.cc:111
 msgid "General command line options:"
 msgstr "Tùy chọn dòng lệnh chung:"
 
-#: src/gnubiff.cc:120
+#: src/gnubiff.cc:114
 msgid "Options for debugging:"
 msgstr "Tùy chọn gỡ lỗi:"
 
-#: src/biff.cc:138
+#: src/biff.cc:137
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Không tìm thấy tập tin cấu hình (%s)."
 
-#: src/biff.cc:402
+#: src/biff.cc:588
+#, fuzzy, c-format
+msgid "Loaded config file from newer gnubiff version \"%s\"."
+msgstr "Nạp tập tin cấu hình từ phiên bản gnubiff cũ \"%s\" rồi."
+
+#: src/biff.cc:596
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Nạp tập tin cấu hình từ phiên bản gnubiff cũ \"%s\" rồi."
 
-#: src/biff.cc:404
+#: src/biff.cc:598
 msgid "Trying to convert all options."
 msgstr "Cố chuyển đổi tất cả tùy chọn..."
 
-#: src/biff.cc:450
+#: src/biff.cc:633
 msgid "Successfully converted all options."
 msgstr "Chuyển đổi tất cả tùy chọn rồi."
 
-#: src/biff.cc:453
+#: src/biff.cc:636
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -84,26 +89,26 @@ msgstr ""
 "Chuyển đổi một phần tùy chọn rồi. Phải tự cập nhật những tùy chọn theo đây: %"
 "s."
 
-#: src/biff.cc:600
+#: src/biff.cc:787
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Không mở được tập tin cấu hình (%s) của bạn."
 
-#: src/biff.cc:616
+#: src/biff.cc:803
 msgid "Cannot create XML parser for config file"
 msgstr "Không tao được trình phân tách XML cho tập tin cấu hình"
 
-#: src/biff.cc:633
+#: src/biff.cc:820
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Chưa tìm thấy lời định nghĩa hộp thư trong tập tin cấu hình (%s) của bạn."
 
-#: src/biff.cc:680
+#: src/biff.cc:867
 msgid "Illegal parameter format in config file"
 msgstr "Gặp khuôn dạng tham số bất hợp lệ trong tập tin cấu hình"
 
-#: src/biff.cc:709
+#: src/biff.cc:896
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Chưa ghi rõ giao thức cho hộp thư %d"
@@ -113,40 +118,40 @@ msgstr "Chưa ghi rõ giao thức cho hộp thư %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Không tạo được mạch: %s"
 
-#: src/mailbox.cc:288
+#: src/mailbox.cc:297
 #, c-format
 msgid "mailbox %d"
 msgstr "hộp thư %d"
 
-#: src/mailbox.cc:593
+#: src/mailbox.cc:602
 msgid "<no date>"
 msgstr "<không có ngày>"
 
-#: src/mailbox.cc:594
+#: src/mailbox.cc:603
 msgid "<no sender>"
 msgstr "<không có người gởi>"
 
-#: src/mailbox.cc:595
+#: src/mailbox.cc:604
 msgid "<no subject>"
 msgstr "<không có chủ đề>"
 
-#: src/mailbox.cc:642
+#: src/mailbox.cc:651
 msgid "[Cannot parse content type header line]"
 msgstr "[Không phân tách được dòng đầu loạị nội dụng]"
 
-#: src/mailbox.cc:663
+#: src/mailbox.cc:672
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Không phân tách được dòng đầu mã truyền nội dụng]"
 
-#: src/mailbox.cc:712
+#: src/mailbox.cc:721
 msgid "[Malformed multipart message]"
 msgstr "[Thư đa phần khuyết tật]"
 
-#: src/mailbox.cc:720
+#: src/mailbox.cc:729
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Không tìm được đầu của phân thứ nhất trong thư đa phần]"
 
-#: src/mailbox.cc:766
+#: src/mailbox.cc:775
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Thư này có loại nội dụng không được hỗ trợ: \"%s/%s\"]"
@@ -192,41 +197,41 @@ msgstr "Không lập được thời hạn đọc tại ổ cắm: %s"
 msgid "Cannot open %s."
 msgstr "Không mở được %s."
 
-#: src/imap4.cc:467
+#: src/imap4.cc:462
 msgid "[This message has no part with a supported content type]"
 msgstr "[Thư này không có phần có loại nội dụng được hỗ trợ]"
 
-#: src/imap4.cc:830
+#: src/imap4.cc:825
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Không chọn được danh mục %s trên máy chủ %s"
 
-#: src/imap4.cc:918
+#: src/imap4.cc:913
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Không gọi được trả lời từ %s qua cổng %d"
 
-#: src/imap4.cc:977
+#: src/imap4.cc:972
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d] Máy chủ không gởi trả lời \"%s\" không có thẻ ghi"
 
-#: src/imap4.cc:1030
+#: src/imap4.cc:1025
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Máy chủ không gởi trả lời \"%s\" không có thẻ ghi"
 
-#: src/imap4.cc:1586
+#: src/imap4.cc:1581
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Máy chủ tắt kết nối ngay:%s"
 
-#: src/imap4.cc:1591
+#: src/imap4.cc:1586
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Máy chủ gặp khó nội bộ, hay gặp lỗi chưa biết:%s"
 
-#: src/imap4.cc:1596
+#: src/imap4.cc:1591
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Cảnh báo từ máy chủ:%s"
@@ -236,17 +241,17 @@ msgstr "[%d] Cảnh báo từ máy chủ:%s"
 msgid "Cannot open new mail directory (%s)"
 msgstr "Không mở được thư mục thư mới (%s)"
 
-#: src/pop.cc:157
+#: src/pop.cc:154
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Mật khẩu trống"
 
-#: src/pop.cc:516
+#: src/pop.cc:513
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Thông báo lỗi từ máy chủ POP3:%s"
 
-#: src/pop.cc:523
+#: src/pop.cc:520
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Chưa nhận trả lời dương từ máy chủ POP3"
@@ -314,25 +319,17 @@ msgstr "Tùy chọn GUI_connect cần đến môđun gmodule hoặt động"
 msgid "Could not find signal handler '%s'."
 msgstr "Không tìm thấy được điều quản lý tín hiệu '%s'."
 
-#: src/ui-applet.cc:133
+#: src/ui-applet.cc:206
 msgid " unknown"
 msgstr " không biết"
 
-#: src/ui-applet.cc:135
+#: src/ui-applet.cc:211
 msgid " error"
 msgstr " lỗi"
 
-#: src/ui-applet.cc:140
+#: src/ui-applet.cc:220
 msgid " checking..."
 msgstr " kiểm tra..."
-
-#: src/ui-applet-gtk.cc:163
-msgid "New mail"
-msgstr "Thư mới"
-
-#: src/ui-applet-gtk.cc:176
-msgid "No mail"
-msgstr "Không có thư mới"
 
 #: src/ui-preferences.cc:269 src/ui-popup.cc:160
 msgid "Mailbox"
@@ -350,7 +347,7 @@ msgstr "Trạng thái"
 msgid "Security"
 msgstr "Bảo mật"
 
-#: src/ui-preferences.cc:329 src/ui-preferences.cc:656
+#: src/ui-preferences.cc:329 src/ui-preferences.cc:688
 msgid "No mailbox selected"
 msgstr "Chưa chọn hộp thư"
 
@@ -362,15 +359,15 @@ msgstr "Tùy chọn"
 msgid "Value"
 msgstr "Giá trị"
 
-#: src/ui-preferences.cc:590
+#: src/ui-preferences.cc:611
 msgid "_Start"
 msgstr "_Bắt đầu"
 
-#: src/ui-preferences.cc:596 ui/preferences.glade:2998
+#: src/ui-preferences.cc:617 ui/preferences.glade:2998
 msgid "_Stop"
 msgstr "_Ngừng"
 
-#: src/ui-preferences.cc:607 src/ui-preferences.cc:614
+#: src/ui-preferences.cc:628 src/ui-preferences.cc:635
 msgid "Browse for a new mail image"
 msgstr "Duyệt để tìm thấy hình ảnh thư mới"
 
@@ -433,7 +430,7 @@ msgstr "Chủ đề"
 msgid "Date"
 msgstr "Ngày"
 
-#: src/support.cc:297
+#: src/support.cc:321
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -497,14 +494,6 @@ msgstr ""
 msgid "Ok"
 msgstr "Được"
 
-#: ui/applet-gnome.glade:8
-msgid "Applet"
-msgstr "Tiểu dụng"
-
-#: ui/applet-gnome.glade:78
-msgid "00"
-msgstr "00"
-
 #: ui/preferences.glade:7
 msgid "gnubiff preferences"
 msgstr "sở thích gnubiff"
@@ -561,17 +550,16 @@ msgstr "Duyệt để tìm thấy tập tin hình ảnh"
 msgid "_Browse..."
 msgstr "_Duyệt..."
 
-#: ui/preferences.glade:567
-msgid "Text to display (%d is the number of new messages)"
+#: ui/preferences.glade:567 ui/preferences.glade:632
+#, fuzzy
+msgid ""
+"Text to display (%d and %D is the number of new messages, %d is zero "
+"padded). Pango markup may be used."
 msgstr "Trình bày văn bản này (%d là số thư mới)"
 
 #: ui/preferences.glade:613
 msgid "B_rowse..."
 msgstr "_Duyệt"
-
-#: ui/preferences.glade:632
-msgid "Text to display"
-msgstr "Trình bày văn bản này"
 
 #: ui/preferences.glade:654
 msgid "Applet geometry"
@@ -1020,6 +1008,21 @@ msgstr "<small><b>Chủ đề</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Ngày</b></small>"
+
+#~ msgid "New mail"
+#~ msgstr "Thư mới"
+
+#~ msgid "No mail"
+#~ msgstr "Không có thư mới"
+
+#~ msgid "Applet"
+#~ msgstr "Tiểu dụng"
+
+#~ msgid "00"
+#~ msgstr "00"
+
+#~ msgid "Text to display"
+#~ msgstr "Trình bày văn bản này"
 
 #~ msgid "Cannot find new mail directory (%s)"
 #~ msgstr "Không tìm thấy được thư mục thư mới (%s)"

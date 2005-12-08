@@ -30,7 +30,6 @@ src/GNOME_gnubiffApplet.xml.h
 src/GNOME_gnubiffApplet.server.in
 src/GNOME_gnubiffApplet.server.in.h
 ui/applet-gtk.glade
-ui/applet-gnome.glade
 ui/preferences.glade
 ui/properties.glade
 ui/authentication.glade

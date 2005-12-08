@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.0.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-08-21 00:51+0200\n"
+"POT-Creation-Date: 2005-12-08 23:48+0100\n"
 "PO-Revision-Date: 2004-10-19 20:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -30,81 +30,86 @@ msgstr ""
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:92
 msgid "Start gnome applet from command line"
 msgstr ""
 
-#: src/gnubiff.cc:106
+#: src/gnubiff.cc:100
 #, fuzzy
 msgid "Configuration file to use"
 msgstr "configuratiebestand om te gebruiken"
 
-#: src/gnubiff.cc:106
+#: src/gnubiff.cc:100
 msgid "file"
 msgstr "bestand"
 
-#: src/gnubiff.cc:108
+#: src/gnubiff.cc:102
 #, fuzzy
 msgid "Skip the configuration process"
 msgstr "configuratieproces overslaan"
 
-#: src/gnubiff.cc:110
+#: src/gnubiff.cc:104
 msgid "Print version information and exit"
 msgstr ""
 
-#: src/gnubiff.cc:117
+#: src/gnubiff.cc:111
 msgid "General command line options:"
 msgstr ""
 
-#: src/gnubiff.cc:120
+#: src/gnubiff.cc:114
 msgid "Options for debugging:"
 msgstr ""
 
-#: src/biff.cc:138
+#: src/biff.cc:137
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Configuratiebestand (%s) niet gevonden!"
 
-#: src/biff.cc:402
+#: src/biff.cc:588
+#, c-format
+msgid "Loaded config file from newer gnubiff version \"%s\"."
+msgstr ""
+
+#: src/biff.cc:596
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:404
+#: src/biff.cc:598
 msgid "Trying to convert all options."
 msgstr ""
 
-#: src/biff.cc:450
+#: src/biff.cc:633
 msgid "Successfully converted all options."
 msgstr ""
 
-#: src/biff.cc:453
+#: src/biff.cc:636
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: src/biff.cc:600
+#: src/biff.cc:787
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
-#: src/biff.cc:616
+#: src/biff.cc:803
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
-#: src/biff.cc:633
+#: src/biff.cc:820
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Geen postvak-definitie gevonden in uw configuratiebestand (%s)"
 
-#: src/biff.cc:680
+#: src/biff.cc:867
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:709
+#: src/biff.cc:896
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
@@ -114,40 +119,40 @@ msgstr ""
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Kon thread niet aanmaken: %s\n"
 
-#: src/mailbox.cc:288
+#: src/mailbox.cc:297
 #, c-format
 msgid "mailbox %d"
 msgstr "postvak %d"
 
-#: src/mailbox.cc:593
+#: src/mailbox.cc:602
 msgid "<no date>"
 msgstr "<geen datum>"
 
-#: src/mailbox.cc:594
+#: src/mailbox.cc:603
 msgid "<no sender>"
 msgstr "<geen verzender>"
 
-#: src/mailbox.cc:595
+#: src/mailbox.cc:604
 msgid "<no subject>"
 msgstr "<geen onderwerp>"
 
-#: src/mailbox.cc:642
+#: src/mailbox.cc:651
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: src/mailbox.cc:663
+#: src/mailbox.cc:672
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: src/mailbox.cc:712
+#: src/mailbox.cc:721
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:720
+#: src/mailbox.cc:729
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:766
+#: src/mailbox.cc:775
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr ""
@@ -193,41 +198,41 @@ msgstr ""
 msgid "Cannot open %s."
 msgstr "Kan %s niet openen."
 
-#: src/imap4.cc:467
+#: src/imap4.cc:462
 msgid "[This message has no part with a supported content type]"
 msgstr ""
 
-#: src/imap4.cc:830
+#: src/imap4.cc:825
 #, fuzzy, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kan niet met %s verbinden op poort %d"
 
-#: src/imap4.cc:918
+#: src/imap4.cc:913
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Kan geen bevestiging opvragen van %s op poort %d"
 
-#: src/imap4.cc:977
+#: src/imap4.cc:972
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: src/imap4.cc:1030
+#: src/imap4.cc:1025
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
-#: src/imap4.cc:1586
+#: src/imap4.cc:1581
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
-#: src/imap4.cc:1591
+#: src/imap4.cc:1586
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
-#: src/imap4.cc:1596
+#: src/imap4.cc:1591
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
@@ -237,17 +242,17 @@ msgstr ""
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kan nieuwe e-mail map niet openen (%s)"
 
-#: src/pop.cc:157
+#: src/pop.cc:154
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Leeg wachtwoord"
 
-#: src/pop.cc:516
+#: src/pop.cc:513
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr ""
 
-#: src/pop.cc:523
+#: src/pop.cc:520
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr ""
@@ -315,26 +320,18 @@ msgstr "GUI_connect vereist een werkende gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Kon signaalbehandelaar '%s' niet vinden."
 
-#: src/ui-applet.cc:133
+#: src/ui-applet.cc:206
 msgid " unknown"
 msgstr ""
 
-#: src/ui-applet.cc:135
+#: src/ui-applet.cc:211
 #, fuzzy
 msgid " error"
 msgstr "fout"
 
-#: src/ui-applet.cc:140
+#: src/ui-applet.cc:220
 msgid " checking..."
 msgstr " bezig met controleren..."
-
-#: src/ui-applet-gtk.cc:163
-msgid "New mail"
-msgstr "Nieuwe post"
-
-#: src/ui-applet-gtk.cc:176
-msgid "No mail"
-msgstr "Geen post"
 
 #: src/ui-preferences.cc:269 src/ui-popup.cc:160
 msgid "Mailbox"
@@ -353,7 +350,7 @@ msgstr "Status"
 msgid "Security"
 msgstr ""
 
-#: src/ui-preferences.cc:329 src/ui-preferences.cc:656
+#: src/ui-preferences.cc:329 src/ui-preferences.cc:688
 msgid "No mailbox selected"
 msgstr "Geen postvak gekozen"
 
@@ -367,15 +364,15 @@ msgstr "Opties"
 msgid "Value"
 msgstr "_Geluidssterkte:"
 
-#: src/ui-preferences.cc:590
+#: src/ui-preferences.cc:611
 msgid "_Start"
 msgstr "_Starten"
 
-#: src/ui-preferences.cc:596 ui/preferences.glade:2998
+#: src/ui-preferences.cc:617 ui/preferences.glade:2998
 msgid "_Stop"
 msgstr "_Stoppen"
 
-#: src/ui-preferences.cc:607 src/ui-preferences.cc:614
+#: src/ui-preferences.cc:628 src/ui-preferences.cc:635
 msgid "Browse for a new mail image"
 msgstr "Bladeren voor nieuwe-post afbeelding"
 
@@ -442,7 +439,7 @@ msgstr "Onderwerp"
 msgid "Date"
 msgstr "Datum"
 
-#: src/support.cc:297
+#: src/support.cc:321
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -504,14 +501,6 @@ msgstr ""
 #: ui/applet-gtk.glade:363
 msgid "Ok"
 msgstr "OK"
-
-#: ui/applet-gnome.glade:8
-msgid "Applet"
-msgstr "Applet"
-
-#: ui/applet-gnome.glade:78
-msgid "00"
-msgstr "00"
 
 #: ui/preferences.glade:7
 #, fuzzy
@@ -576,18 +565,20 @@ msgstr "Bladeren voor nieuwe-post afbeelding"
 msgid "_Browse..."
 msgstr "Bladeren..."
 
-#: ui/preferences.glade:567
-msgid "Text to display (%d is the number of new messages)"
+#: ui/preferences.glade:567 ui/preferences.glade:632
+#, fuzzy
+msgid ""
+"Text to display (%d and %D is the number of new messages, %d is zero "
+"padded). Pango markup may be used."
 msgstr ""
+"Tekst om weer te geven als er geen nieuwe post is; %d is het aantal "
+"berichten. Er moet geldige XML worden ingevoerd, waarbij Pango-opmaak mag "
+"worden gebruikt."
 
 #: ui/preferences.glade:613
 #, fuzzy
 msgid "B_rowse..."
 msgstr "Bladeren..."
-
-#: ui/preferences.glade:632
-msgid "Text to display"
-msgstr ""
 
 #: ui/preferences.glade:654
 #, fuzzy
@@ -1051,6 +1042,18 @@ msgstr ""
 msgid "<small><b>Date</b></small>"
 msgstr ""
 
+#~ msgid "New mail"
+#~ msgstr "Nieuwe post"
+
+#~ msgid "No mail"
+#~ msgstr "Geen post"
+
+#~ msgid "Applet"
+#~ msgstr "Applet"
+
+#~ msgid "00"
+#~ msgstr "00"
+
 #~ msgid "Cannot find new mail directory (%s)"
 #~ msgstr "Kan nieuwe e-mail map niet vinden (%s)"
 
@@ -1288,14 +1291,6 @@ msgstr ""
 #~ "Tekst om weer te geven bij nieuwe post; %d is het aantal berichten. Er "
 #~ "moet geldige XML worden ingevoerd, waarbij Pango-opmaak mag worden "
 #~ "gebruikt."
-
-#~ msgid ""
-#~ "Text to be displayed when no mail is present, %d is the number of mails. "
-#~ "Valid XML must be entered, pango markup may be used."
-#~ msgstr ""
-#~ "Tekst om weer te geven als er geen nieuwe post is; %d is het aantal "
-#~ "berichten. Er moet geldige XML worden ingevoerd, waarbij Pango-opmaak mag "
-#~ "worden gebruikt."
 
 #~ msgid "Use image"
 #~ msgstr "Afbeelding gebruiken"

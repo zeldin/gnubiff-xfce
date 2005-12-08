@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-08-21 00:51+0200\n"
+"POT-Creation-Date: 2005-12-08 23:48+0100\n"
 "PO-Revision-Date: 2005-03-31 11:05+0200\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -30,53 +30,58 @@ msgstr "[Kann diese Kopfzeile nicht dekodieren]"
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Kann Zeichenkodierung nicht konvertieren (von »%s« nach »utf-8«)]"
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:92
 msgid "Start gnome applet from command line"
 msgstr "Gnome Applet von der Kommandozeile aus starten"
 
-#: src/gnubiff.cc:106
+#: src/gnubiff.cc:100
 msgid "Configuration file to use"
 msgstr "Zu verwendende Konfigurationsdatei"
 
-#: src/gnubiff.cc:106
+#: src/gnubiff.cc:100
 msgid "file"
 msgstr "Datei"
 
-#: src/gnubiff.cc:108
+#: src/gnubiff.cc:102
 msgid "Skip the configuration process"
 msgstr "Konfiguration überspringen"
 
-#: src/gnubiff.cc:110
+#: src/gnubiff.cc:104
 msgid "Print version information and exit"
 msgstr "Versionsinformation ausgeben und beenden"
 
-#: src/gnubiff.cc:117
+#: src/gnubiff.cc:111
 msgid "General command line options:"
 msgstr "Allgemeine Kommandozeilenoptionen:"
 
-#: src/gnubiff.cc:120
+#: src/gnubiff.cc:114
 msgid "Options for debugging:"
 msgstr "Debugging-Optionen:"
 
-#: src/biff.cc:138
+#: src/biff.cc:137
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Konnte Konfigurationsdatei »%s« nicht finden!"
 
-#: src/biff.cc:402
+#: src/biff.cc:588
+#, fuzzy, c-format
+msgid "Loaded config file from newer gnubiff version \"%s\"."
+msgstr "Konfigurationsdatei aus alter Gnubiff-Version »%s« geladen."
+
+#: src/biff.cc:596
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Konfigurationsdatei aus alter Gnubiff-Version »%s« geladen."
 
-#: src/biff.cc:404
+#: src/biff.cc:598
 msgid "Trying to convert all options."
 msgstr "Versuche alle Optionen zu konvertieren."
 
-#: src/biff.cc:450
+#: src/biff.cc:633
 msgid "Successfully converted all options."
 msgstr "Erfolgreich alle Optionen konvertiert."
 
-#: src/biff.cc:453
+#: src/biff.cc:636
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -85,25 +90,25 @@ msgstr ""
 "Erfolgreich einige Optionen konvertiert. Die folgenden Optionen müssen "
 "manuell aktualisiert werden: %s."
 
-#: src/biff.cc:600
+#: src/biff.cc:787
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kann die Konfigurationsdatei »%s« nicht öffnen!"
 
-#: src/biff.cc:616
+#: src/biff.cc:803
 msgid "Cannot create XML parser for config file"
 msgstr "Kann keinen XML-Parser für die Konfigurationsdatei erzeugen!"
 
-#: src/biff.cc:633
+#: src/biff.cc:820
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Keine Briefkastendefinition in der Konfigurationsdatei »%s« gefunden!"
 
-#: src/biff.cc:680
+#: src/biff.cc:867
 msgid "Illegal parameter format in config file"
 msgstr "Illegales Parameterformat in der Konfigurationsdatei!"
 
-#: src/biff.cc:709
+#: src/biff.cc:896
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Kein Protokoll für Briefkasten %d angegeben"
@@ -113,40 +118,40 @@ msgstr "Kein Protokoll für Briefkasten %d angegeben"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Kann Thread nicht erzeugen: %s"
 
-#: src/mailbox.cc:288
+#: src/mailbox.cc:297
 #, c-format
 msgid "mailbox %d"
 msgstr "Briefkasten %d"
 
-#: src/mailbox.cc:593
+#: src/mailbox.cc:602
 msgid "<no date>"
 msgstr "<Kein Datum>"
 
-#: src/mailbox.cc:594
+#: src/mailbox.cc:603
 msgid "<no sender>"
 msgstr "<Kein Absender>"
 
-#: src/mailbox.cc:595
+#: src/mailbox.cc:604
 msgid "<no subject>"
 msgstr "<Kein Betreff>"
 
-#: src/mailbox.cc:642
+#: src/mailbox.cc:651
 msgid "[Cannot parse content type header line]"
 msgstr "[Kann die Kopfzeile für den Inhaltstyp nicht parsen]"
 
-#: src/mailbox.cc:663
+#: src/mailbox.cc:672
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Kann die Kopfzeile für die Kodierung nicht parsen]"
 
-#: src/mailbox.cc:712
+#: src/mailbox.cc:721
 msgid "[Malformed multipart message]"
 msgstr "[Missgebildete Multipart-Nachricht]"
 
-#: src/mailbox.cc:720
+#: src/mailbox.cc:729
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Kann den ersten Teil der Multipart-Nachricht nicht finden]"
 
-#: src/mailbox.cc:766
+#: src/mailbox.cc:775
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Diese Nachricht besitzt keinen unterstützten Inhaltstyp: »%s/%s«]"
@@ -192,41 +197,41 @@ msgstr "Kann nicht das Timeout zum Lesen auf dem Socket setzen: %s"
 msgid "Cannot open %s."
 msgstr "Kann »%s« nicht öffnen."
 
-#: src/imap4.cc:467
+#: src/imap4.cc:462
 msgid "[This message has no part with a supported content type]"
 msgstr "[Diese Nachricht besitzt keinen Teil mit unterstütztem Inhaltstyp]"
 
-#: src/imap4.cc:830
+#: src/imap4.cc:825
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kann Ordner »%s« auf dem Server »%s« nicht auswählen"
 
-#: src/imap4.cc:918
+#: src/imap4.cc:913
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Bekomme keine Bestätigung von »%s« auf Port %d"
 
-#: src/imap4.cc:977
+#: src/imap4.cc:972
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d] Der Server sendet keine unmarkierte »%s«-Antwort oder Bestätigung"
 
-#: src/imap4.cc:1030
+#: src/imap4.cc:1025
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Der Server sendet keine unmarkierte »%s«-Antwort"
 
-#: src/imap4.cc:1586
+#: src/imap4.cc:1581
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Der Server beendet die Verbindung unverzüglich:%s"
 
-#: src/imap4.cc:1591
+#: src/imap4.cc:1586
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Interner Fehler des Servers oder unbekannter Fehler:%s"
 
-#: src/imap4.cc:1596
+#: src/imap4.cc:1591
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Warnung des Servers:%s"
@@ -236,17 +241,17 @@ msgstr "[%d] Warnung des Servers:%s"
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kann neues Mail-Verzeichnis nicht öffnen (»%s«)."
 
-#: src/pop.cc:157
+#: src/pop.cc:154
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Leeres Passwort"
 
-#: src/pop.cc:516
+#: src/pop.cc:513
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Fehlermeldung des POP3-Servers:%s"
 
-#: src/pop.cc:523
+#: src/pop.cc:520
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Keine positive Antwort vom POP3 server bekommen"
@@ -315,25 +320,17 @@ msgstr "GUI_connect benötigt funktionierendes gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Konnte Signalhandler »%s« nicht finden."
 
-#: src/ui-applet.cc:133
+#: src/ui-applet.cc:206
 msgid " unknown"
 msgstr " unbekannt"
 
-#: src/ui-applet.cc:135
+#: src/ui-applet.cc:211
 msgid " error"
 msgstr " Fehler"
 
-#: src/ui-applet.cc:140
+#: src/ui-applet.cc:220
 msgid " checking..."
 msgstr " wird geprüft..."
-
-#: src/ui-applet-gtk.cc:163
-msgid "New mail"
-msgstr "Neue Nachrichten"
-
-#: src/ui-applet-gtk.cc:176
-msgid "No mail"
-msgstr "Keine Nachrichten"
 
 #: src/ui-preferences.cc:269 src/ui-popup.cc:160
 msgid "Mailbox"
@@ -351,7 +348,7 @@ msgstr "Status"
 msgid "Security"
 msgstr "Sicherheit"
 
-#: src/ui-preferences.cc:329 src/ui-preferences.cc:656
+#: src/ui-preferences.cc:329 src/ui-preferences.cc:688
 msgid "No mailbox selected"
 msgstr "Kein Briefkasten ausgewählt"
 
@@ -363,15 +360,15 @@ msgstr "Option"
 msgid "Value"
 msgstr "Wert"
 
-#: src/ui-preferences.cc:590
+#: src/ui-preferences.cc:611
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:596 ui/preferences.glade:2998
+#: src/ui-preferences.cc:617 ui/preferences.glade:2998
 msgid "_Stop"
 msgstr "_Stopp"
 
-#: src/ui-preferences.cc:607 src/ui-preferences.cc:614
+#: src/ui-preferences.cc:628 src/ui-preferences.cc:635
 msgid "Browse for a new mail image"
 msgstr "Datei für ein neues Nachrichtenbild wählen"
 
@@ -435,7 +432,7 @@ msgstr "Betreff"
 msgid "Date"
 msgstr "Datum"
 
-#: src/support.cc:297
+#: src/support.cc:321
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -500,14 +497,6 @@ msgstr ""
 msgid "Ok"
 msgstr "OK"
 
-#: ui/applet-gnome.glade:8
-msgid "Applet"
-msgstr "Applet"
-
-#: ui/applet-gnome.glade:78
-msgid "00"
-msgstr "00"
-
 #: ui/preferences.glade:7
 msgid "gnubiff preferences"
 msgstr "Einstellungen für Gnubiff"
@@ -564,8 +553,11 @@ msgstr "Wähle Bilddatei"
 msgid "_Browse..."
 msgstr "Aus_wählen..."
 
-#: ui/preferences.glade:567
-msgid "Text to display (%d is the number of new messages)"
+#: ui/preferences.glade:567 ui/preferences.glade:632
+#, fuzzy
+msgid ""
+"Text to display (%d and %D is the number of new messages, %d is zero "
+"padded). Pango markup may be used."
 msgstr ""
 "Anzuzeigender Text bei neuen Nachrichten (»%d« bezeichnet die Anzahl der "
 "neuen Nachrichten)."
@@ -573,10 +565,6 @@ msgstr ""
 #: ui/preferences.glade:613
 msgid "B_rowse..."
 msgstr "Aus_wählen..."
-
-#: ui/preferences.glade:632
-msgid "Text to display"
-msgstr "Anzuzeigender Text"
 
 #: ui/preferences.glade:654
 msgid "Applet geometry"
@@ -1030,6 +1018,21 @@ msgstr "<small><b>Betreff</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Datum</b></small>"
+
+#~ msgid "New mail"
+#~ msgstr "Neue Nachrichten"
+
+#~ msgid "No mail"
+#~ msgstr "Keine Nachrichten"
+
+#~ msgid "Applet"
+#~ msgstr "Applet"
+
+#~ msgid "00"
+#~ msgstr "00"
+
+#~ msgid "Text to display"
+#~ msgstr "Anzuzeigender Text"
 
 #~ msgid "Cannot find new mail directory (%s)"
 #~ msgstr "Kann neues Mail-Verzeichnis nicht finden (»%s«)."

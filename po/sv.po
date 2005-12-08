@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.0\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-08-21 00:51+0200\n"
+"POT-Creation-Date: 2005-12-08 23:48+0100\n"
 "PO-Revision-Date: 2005-01-17 22:04+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -29,79 +29,84 @@ msgstr ""
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:92
 msgid "Start gnome applet from command line"
 msgstr "Starta gnomeapplet från kommandorad"
 
-#: src/gnubiff.cc:106
+#: src/gnubiff.cc:100
 msgid "Configuration file to use"
 msgstr "Konfigurationsfil att använda"
 
-#: src/gnubiff.cc:106
+#: src/gnubiff.cc:100
 msgid "file"
 msgstr "fil"
 
-#: src/gnubiff.cc:108
+#: src/gnubiff.cc:102
 msgid "Skip the configuration process"
 msgstr "Hoppa över konfigurationsprocessen"
 
-#: src/gnubiff.cc:110
+#: src/gnubiff.cc:104
 msgid "Print version information and exit"
 msgstr "Skriv ut versionsinformation och avsluta"
 
-#: src/gnubiff.cc:117
+#: src/gnubiff.cc:111
 msgid "General command line options:"
 msgstr "Vanliga kommandoradsinställningar"
 
-#: src/gnubiff.cc:120
+#: src/gnubiff.cc:114
 msgid "Options for debugging:"
 msgstr "Inställningar för avlusning:"
 
-#: src/biff.cc:138
+#: src/biff.cc:137
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Konfigurationsfil (%s) hittades inte !"
 
-#: src/biff.cc:402
+#: src/biff.cc:588
+#, c-format
+msgid "Loaded config file from newer gnubiff version \"%s\"."
+msgstr ""
+
+#: src/biff.cc:596
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:404
+#: src/biff.cc:598
 msgid "Trying to convert all options."
 msgstr ""
 
-#: src/biff.cc:450
+#: src/biff.cc:633
 msgid "Successfully converted all options."
 msgstr ""
 
-#: src/biff.cc:453
+#: src/biff.cc:636
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: src/biff.cc:600
+#: src/biff.cc:787
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan inte öppna din konfigurationsfil (%s)"
 
-#: src/biff.cc:616
+#: src/biff.cc:803
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Kan inte öppna din konfigurationsfil (%s)"
 
-#: src/biff.cc:633
+#: src/biff.cc:820
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Hittade ingen brevlådedefinition i din konfigureringsfil (%s)"
 
-#: src/biff.cc:680
+#: src/biff.cc:867
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:709
+#: src/biff.cc:896
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
@@ -111,40 +116,40 @@ msgstr ""
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Kan inte skapa tråd: %s"
 
-#: src/mailbox.cc:288
+#: src/mailbox.cc:297
 #, c-format
 msgid "mailbox %d"
 msgstr "Brevlåda %d"
 
-#: src/mailbox.cc:593
+#: src/mailbox.cc:602
 msgid "<no date>"
 msgstr "<Inget datum>"
 
-#: src/mailbox.cc:594
+#: src/mailbox.cc:603
 msgid "<no sender>"
 msgstr "<ingen avsändare>"
 
-#: src/mailbox.cc:595
+#: src/mailbox.cc:604
 msgid "<no subject>"
 msgstr "<inget ämne>"
 
-#: src/mailbox.cc:642
+#: src/mailbox.cc:651
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: src/mailbox.cc:663
+#: src/mailbox.cc:672
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: src/mailbox.cc:712
+#: src/mailbox.cc:721
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:720
+#: src/mailbox.cc:729
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:766
+#: src/mailbox.cc:775
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr ""
@@ -190,41 +195,41 @@ msgstr ""
 msgid "Cannot open %s."
 msgstr "Kan inte öppna %s."
 
-#: src/imap4.cc:467
+#: src/imap4.cc:462
 msgid "[This message has no part with a supported content type]"
 msgstr ""
 
-#: src/imap4.cc:830
+#: src/imap4.cc:825
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kan inte välja mapp %s hos värden %s"
 
-#: src/imap4.cc:918
+#: src/imap4.cc:913
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Kan inte få godkännande från %s på port %d"
 
-#: src/imap4.cc:977
+#: src/imap4.cc:972
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: src/imap4.cc:1030
+#: src/imap4.cc:1025
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
-#: src/imap4.cc:1586
+#: src/imap4.cc:1581
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
-#: src/imap4.cc:1591
+#: src/imap4.cc:1586
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
-#: src/imap4.cc:1596
+#: src/imap4.cc:1591
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
@@ -234,17 +239,17 @@ msgstr ""
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kan inte öppna nytt brevbibliotek (%s)"
 
-#: src/pop.cc:157
+#: src/pop.cc:154
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Tomt lösenord"
 
-#: src/pop.cc:516
+#: src/pop.cc:513
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr ""
 
-#: src/pop.cc:523
+#: src/pop.cc:520
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr ""
@@ -312,25 +317,17 @@ msgstr "GUI_connect kräver fungerande gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Kunde inte hitta signalhanterare '%s'."
 
-#: src/ui-applet.cc:133
+#: src/ui-applet.cc:206
 msgid " unknown"
 msgstr " okänd"
 
-#: src/ui-applet.cc:135
+#: src/ui-applet.cc:211
 msgid " error"
 msgstr "fel"
 
-#: src/ui-applet.cc:140
+#: src/ui-applet.cc:220
 msgid " checking..."
 msgstr "Kontrollerar..."
-
-#: src/ui-applet-gtk.cc:163
-msgid "New mail"
-msgstr "Nya meddelanden"
-
-#: src/ui-applet-gtk.cc:176
-msgid "No mail"
-msgstr "Inga meddelanden"
 
 #: src/ui-preferences.cc:269 src/ui-popup.cc:160
 msgid "Mailbox"
@@ -348,7 +345,7 @@ msgstr "Status"
 msgid "Security"
 msgstr "Säkerhet"
 
-#: src/ui-preferences.cc:329 src/ui-preferences.cc:656
+#: src/ui-preferences.cc:329 src/ui-preferences.cc:688
 msgid "No mailbox selected"
 msgstr "Ingen brevlåda vald"
 
@@ -362,15 +359,15 @@ msgstr "Inställningar"
 msgid "Value"
 msgstr "_Volym:"
 
-#: src/ui-preferences.cc:590
+#: src/ui-preferences.cc:611
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:596 ui/preferences.glade:2998
+#: src/ui-preferences.cc:617 ui/preferences.glade:2998
 msgid "_Stop"
 msgstr "_Stop"
 
-#: src/ui-preferences.cc:607 src/ui-preferences.cc:614
+#: src/ui-preferences.cc:628 src/ui-preferences.cc:635
 msgid "Browse for a new mail image"
 msgstr "Bläddra efter en ny meddelandebild"
 
@@ -435,7 +432,7 @@ msgstr "Ämne"
 msgid "Date"
 msgstr "Datum"
 
-#: src/support.cc:297
+#: src/support.cc:321
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -496,14 +493,6 @@ msgstr ""
 msgid "Ok"
 msgstr "Ok"
 
-#: ui/applet-gnome.glade:8
-msgid "Applet"
-msgstr "Applet"
-
-#: ui/applet-gnome.glade:78
-msgid "00"
-msgstr "00"
-
 #: ui/preferences.glade:7
 msgid "gnubiff preferences"
 msgstr "gnubiffinställningar"
@@ -560,18 +549,16 @@ msgstr "Bläddra efter en bildfil"
 msgid "_Browse..."
 msgstr "_Bläddra..."
 
-#: ui/preferences.glade:567
+#: ui/preferences.glade:567 ui/preferences.glade:632
 #, fuzzy
-msgid "Text to display (%d is the number of new messages)"
+msgid ""
+"Text to display (%d and %D is the number of new messages, %d is zero "
+"padded). Pango markup may be used."
 msgstr "Text som skall visas (%d är antalet nya meddelanden)"
 
 #: ui/preferences.glade:613
 msgid "B_rowse..."
 msgstr "Blädd_ra..."
-
-#: ui/preferences.glade:632
-msgid "Text to display"
-msgstr "Text att visa"
 
 #: ui/preferences.glade:654
 msgid "Applet geometry"
@@ -1011,6 +998,21 @@ msgstr "<small><b>Ämne</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Datum</b></small>"
+
+#~ msgid "New mail"
+#~ msgstr "Nya meddelanden"
+
+#~ msgid "No mail"
+#~ msgstr "Inga meddelanden"
+
+#~ msgid "Applet"
+#~ msgstr "Applet"
+
+#~ msgid "00"
+#~ msgstr "00"
+
+#~ msgid "Text to display"
+#~ msgstr "Text att visa"
 
 #~ msgid "Cannot find new mail directory (%s)"
 #~ msgstr "Kan inte hitta nytt brevbibliotek (%s)"

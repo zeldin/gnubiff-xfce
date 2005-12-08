@@ -24,6 +24,8 @@ Version 2.2.0
    - Bugfix: Checking for NULL-pointer (in Biff::replace())
    - Bugfix: Threadsafeness of some mailbox access functions
    - Bugfix: Message when loading config file from newer gnubiff version
+   - Updated Italian translation (thanks to Stefano Fabri; for version 2.1.x)
+   - Bugfix: Removed no longer needed files from po/POTFILES.in
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
@@ -32,6 +34,7 @@ Version 2.1.8
    - Changed version to 2.1.8
    - Backport (from gnubiff 2.2.0 CVS) of smaller fixes
    - Backport (from gnubiff 2.2.0 CVS) of newer version in config file fix
+   - Updated Italian translation (thanks to Stefano Fabri)
 
 Version 2.1.7		2005-10-31  0:43
  * Robert Sowada
