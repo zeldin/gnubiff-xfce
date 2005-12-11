@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.3\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-12-08 23:48+0100\n"
+"POT-Creation-Date: 2005-12-11 19:54+0100\n"
 "PO-Revision-Date: 2005-04-11 17:17+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -29,31 +29,35 @@ msgstr "[Không giải mã được dòng đầu này]"
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Không chuyển đổi được bộ ký tự từ \"%s\" sang \"utf-8\")]"
 
-#: src/gnubiff.cc:92
+#: src/gnubiff.cc:91
 msgid "Start gnome applet from command line"
 msgstr "Khởi động tiểu dụng gnome từ dòng lệnh"
 
-#: src/gnubiff.cc:100
+#: src/gnubiff.cc:98
 msgid "Configuration file to use"
 msgstr "Chọn tập tin cấu hình để sư dụng"
 
-#: src/gnubiff.cc:100
+#: src/gnubiff.cc:98
 msgid "file"
 msgstr "tập tin"
 
-#: src/gnubiff.cc:102
+#: src/gnubiff.cc:100
 msgid "Skip the configuration process"
 msgstr "Bỏ qua tiến trình định cấu hình"
+
+#: src/gnubiff.cc:102
+msgid "Start gnubiff without GUI"
+msgstr ""
 
 #: src/gnubiff.cc:104
 msgid "Print version information and exit"
 msgstr "In ra thông tin phiên bản rồi thoát."
 
-#: src/gnubiff.cc:111
+#: src/gnubiff.cc:110
 msgid "General command line options:"
 msgstr "Tùy chọn dòng lệnh chung:"
 
-#: src/gnubiff.cc:114
+#: src/gnubiff.cc:113
 msgid "Options for debugging:"
 msgstr "Tùy chọn gỡ lỗi:"
 
@@ -62,25 +66,25 @@ msgstr "Tùy chọn gỡ lỗi:"
 msgid "Configuration file (%s) not found!"
 msgstr "Không tìm thấy tập tin cấu hình (%s)."
 
-#: src/biff.cc:588
+#: src/biff.cc:591
 #, fuzzy, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr "Nạp tập tin cấu hình từ phiên bản gnubiff cũ \"%s\" rồi."
 
-#: src/biff.cc:596
+#: src/biff.cc:599
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Nạp tập tin cấu hình từ phiên bản gnubiff cũ \"%s\" rồi."
 
-#: src/biff.cc:598
+#: src/biff.cc:601
 msgid "Trying to convert all options."
 msgstr "Cố chuyển đổi tất cả tùy chọn..."
 
-#: src/biff.cc:633
+#: src/biff.cc:636
 msgid "Successfully converted all options."
 msgstr "Chuyển đổi tất cả tùy chọn rồi."
 
-#: src/biff.cc:636
+#: src/biff.cc:639
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -89,26 +93,26 @@ msgstr ""
 "Chuyển đổi một phần tùy chọn rồi. Phải tự cập nhật những tùy chọn theo đây: %"
 "s."
 
-#: src/biff.cc:787
+#: src/biff.cc:790
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Không mở được tập tin cấu hình (%s) của bạn."
 
-#: src/biff.cc:803
+#: src/biff.cc:806
 msgid "Cannot create XML parser for config file"
 msgstr "Không tao được trình phân tách XML cho tập tin cấu hình"
 
-#: src/biff.cc:820
+#: src/biff.cc:823
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Chưa tìm thấy lời định nghĩa hộp thư trong tập tin cấu hình (%s) của bạn."
 
-#: src/biff.cc:867
+#: src/biff.cc:870
 msgid "Illegal parameter format in config file"
 msgstr "Gặp khuôn dạng tham số bất hợp lệ trong tập tin cấu hình"
 
-#: src/biff.cc:896
+#: src/biff.cc:899
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Chưa ghi rõ giao thức cho hộp thư %d"
@@ -319,15 +323,15 @@ msgstr "Tùy chọn GUI_connect cần đến môđun gmodule hoặt động"
 msgid "Could not find signal handler '%s'."
 msgstr "Không tìm thấy được điều quản lý tín hiệu '%s'."
 
-#: src/ui-applet.cc:206
+#: src/ui-applet.cc:221
 msgid " unknown"
 msgstr " không biết"
 
-#: src/ui-applet.cc:211
+#: src/ui-applet.cc:226
 msgid " error"
 msgstr " lỗi"
 
-#: src/ui-applet.cc:220
+#: src/ui-applet.cc:235
 msgid " checking..."
 msgstr " kiểm tra..."
 
@@ -363,7 +367,7 @@ msgstr "Giá trị"
 msgid "_Start"
 msgstr "_Bắt đầu"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:2998
+#: src/ui-preferences.cc:617 ui/preferences.glade:3322
 msgid "_Stop"
 msgstr "_Ngừng"
 
@@ -482,7 +486,7 @@ msgstr "_Thoát"
 msgid "About gnubiff"
 msgstr "Về gnubiff"
 
-#: ui/applet-gtk.glade:255 ui/preferences.glade:1895
+#: ui/applet-gtk.glade:255 ui/preferences.glade:2002
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
@@ -498,210 +502,210 @@ msgstr "Được"
 msgid "gnubiff preferences"
 msgstr "sở thích gnubiff"
 
-#: ui/preferences.glade:130
+#: ui/preferences.glade:131
 msgid "When _double-clicked:"
 msgstr "Khi nhắp _đôi:"
 
-#: ui/preferences.glade:152
+#: ui/preferences.glade:153
 msgid "<b>General</b>"
 msgstr "<b>Chung</b>"
 
-#: ui/preferences.glade:188
+#: ui/preferences.glade:193
 msgid "<b>Mailboxes</b>"
 msgstr "<b>Hộp thư</b>"
 
-#: ui/preferences.glade:226
+#: ui/preferences.glade:235
 msgid "<b>Commands</b>"
 msgstr "<b>Lệnh</b>"
 
-#: ui/preferences.glade:309
+#: ui/preferences.glade:329
 msgid "When _new mail:"
 msgstr "Khi nhận thư mới:"
 
-#: ui/preferences.glade:331
+#: ui/preferences.glade:351
 msgid "The command to run when new mail arrives"
 msgstr "Chạy lệnh này khi nhận được thư mới"
 
-#: ui/preferences.glade:353
+#: ui/preferences.glade:373
 msgid "The command to run when the icon is double-clicked"
 msgstr "Chạy lệnh này khi nhắp đôi vào biểu tượng"
 
-#: ui/preferences.glade:407
+#: ui/preferences.glade:431
 msgid "_Restrict collected mail to"
 msgstr "_Tốí đa cỡ các thư đã thu thập"
 
-#: ui/preferences.glade:445
+#: ui/preferences.glade:469
 msgid "mail(s)"
 msgstr "thư"
 
-#: ui/preferences.glade:483
+#: ui/preferences.glade:511
 msgid "Mailboxes"
 msgstr "Hộp thư"
 
-#: ui/preferences.glade:524 ui/preferences.glade:589
+#: ui/preferences.glade:556 ui/preferences.glade:621
 msgid "Image filename"
 msgstr "Tên tập tin hình ảnh"
 
-#: ui/preferences.glade:546 ui/preferences.glade:611
+#: ui/preferences.glade:578 ui/preferences.glade:643
 msgid "Browse for an image file"
 msgstr "Duyệt để tìm thấy tập tin hình ảnh"
 
-#: ui/preferences.glade:548 ui/properties.glade:295
+#: ui/preferences.glade:580 ui/properties.glade:295
 msgid "_Browse..."
 msgstr "_Duyệt..."
 
-#: ui/preferences.glade:567 ui/preferences.glade:632
+#: ui/preferences.glade:599 ui/preferences.glade:664
 #, fuzzy
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
 "padded). Pango markup may be used."
 msgstr "Trình bày văn bản này (%d là số thư mới)"
 
-#: ui/preferences.glade:613
+#: ui/preferences.glade:645
 msgid "B_rowse..."
 msgstr "_Duyệt"
 
-#: ui/preferences.glade:654
+#: ui/preferences.glade:686
 msgid "Applet geometry"
 msgstr "Dạng hình tiểu dụng"
 
-#: ui/preferences.glade:676 ui/preferences.glade:1248
+#: ui/preferences.glade:708 ui/preferences.glade:1316
 msgid "Whether to use geometry"
 msgstr "Sử dụng dạng hình không?"
 
-#: ui/preferences.glade:678 ui/preferences.glade:1250
+#: ui/preferences.glade:710 ui/preferences.glade:1318
 msgid "Use _geometry:"
 msgstr "Sử dụng dạng _hình:"
 
-#: ui/preferences.glade:700 ui/preferences.glade:748
+#: ui/preferences.glade:732 ui/preferences.glade:780
 msgid "Whether to display a text"
 msgstr "Trình bày văn bản không?"
 
-#: ui/preferences.glade:702
+#: ui/preferences.glade:734
 msgid "Show _text:"
 msgstr "Hiển thị _văn bản:"
 
-#: ui/preferences.glade:724
+#: ui/preferences.glade:756
 msgid "Whether to show an image"
 msgstr "Hiển thị ảnh không?"
 
-#: ui/preferences.glade:726
+#: ui/preferences.glade:758
 msgid "Show _image:"
 msgstr "H_iển thị ảnh:"
 
-#: ui/preferences.glade:750
+#: ui/preferences.glade:782
 msgid "Show t_ext:"
 msgstr "Hiển thị văn _bản:"
 
-#: ui/preferences.glade:772
+#: ui/preferences.glade:804
 msgid "Whether to display an image"
 msgstr "Trình bay ảnh không?"
 
-#: ui/preferences.glade:774
+#: ui/preferences.glade:806
 msgid "Show i_mage:"
 msgstr "Hiển thị ả_nh:"
 
-#: ui/preferences.glade:796 ui/preferences.glade:1296
+#: ui/preferences.glade:828 ui/preferences.glade:1364
 msgid "<b>Layout</b>"
 msgstr "<b>Bố trí</b>"
 
-#: ui/preferences.glade:832
+#: ui/preferences.glade:868
 msgid "<b>When new mail</b>"
 msgstr "<b>Khi nhận thư mới</b>"
 
-#: ui/preferences.glade:870
+#: ui/preferences.glade:910
 msgid "<b>When no mail</b>"
 msgstr "<b>Khi chưa nhận thư mới</b>"
 
-#: ui/preferences.glade:896 ui/preferences.glade:1223
+#: ui/preferences.glade:940 ui/preferences.glade:1287
 msgid "_Font:"
 msgstr "_Phông chữ:"
 
-#: ui/preferences.glade:921 ui/preferences.glade:1357
+#: ui/preferences.glade:969 ui/preferences.glade:1433
 msgid "The font to use to display information"
 msgstr "Sử dụng phông chữ này để trình bày thông tin"
 
-#: ui/preferences.glade:941 ui/preferences.glade:1378
+#: ui/preferences.glade:989 ui/preferences.glade:1454
 msgid "Whether to use window manager decoration"
 msgstr "Sử dụng sự trang trí loại trình quản lý cửa sổ không?"
 
-#: ui/preferences.glade:943 ui/preferences.glade:1380
+#: ui/preferences.glade:991 ui/preferences.glade:1456
 msgid "Use _decoration"
 msgstr "Sử dụng _trang trí"
 
-#: ui/preferences.glade:997
+#: ui/preferences.glade:1049
 msgid "Applet or Biff"
 msgstr "Tiểu dụng hay Biff"
 
-#: ui/preferences.glade:1038
+#: ui/preferences.glade:1094
 msgid "second(s)"
 msgstr "giây"
 
-#: ui/preferences.glade:1061
+#: ui/preferences.glade:1121
 msgid "Time to display popup window"
 msgstr "Giờ để bật lên cửa sổ"
 
-#: ui/preferences.glade:1084
+#: ui/preferences.glade:1144
 msgid "Popup geometry"
 msgstr "Dạng hình bật lênm"
 
-#: ui/preferences.glade:1106
+#: ui/preferences.glade:1166
 msgid "Whether to use format for header"
 msgstr "Định dang dòng đầu thư không?"
 
-#: ui/preferences.glade:1108
+#: ui/preferences.glade:1168
 msgid "_Format:"
 msgstr "_Dạng:"
 
-#: ui/preferences.glade:1130
+#: ui/preferences.glade:1190
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr "[người gởi tối đa cỡ]:[chủ đề tối đa cỡ]:[ngày tối đa cỡ]"
 
-#: ui/preferences.glade:1152
+#: ui/preferences.glade:1212
 msgid "Whether to restrict number of displayed headers"
 msgstr "Trình bày số ít dòng đầu thư không?"
 
-#: ui/preferences.glade:1154
+#: ui/preferences.glade:1214
 msgid "_Restrict number to"
 msgstr "_Tối đa số"
 
-#: ui/preferences.glade:1176
+#: ui/preferences.glade:1236
 msgid "Maximum number of headers to display"
 msgstr "Tối đa số dòng đầu thư để trình bày"
 
-#: ui/preferences.glade:1199
+#: ui/preferences.glade:1259
 msgid "header(s)"
 msgstr "dòng đầu thư"
 
-#: ui/preferences.glade:1272
+#: ui/preferences.glade:1340
 msgid "Whether to display the popup window"
 msgstr "Bật lên cửa sổ không?"
 
-#: ui/preferences.glade:1274
+#: ui/preferences.glade:1342
 msgid "_Display for"
 msgstr "_Trình bày được"
 
-#: ui/preferences.glade:1332
+#: ui/preferences.glade:1404
 msgid "<b>Headers</b>"
 msgstr "<b>Dòng đầu thư</b>"
 
-#: ui/preferences.glade:1453 ui/popup.glade:7
+#: ui/preferences.glade:1533 ui/popup.glade:7
 msgid "Popup"
 msgstr "Bật lên"
 
-#: ui/preferences.glade:1506
+#: ui/preferences.glade:1590
 msgid "<b>Expert editing mode</b>"
 msgstr "<b>Chế độ hiệu chỉnh cấp cao</b>"
 
-#: ui/preferences.glade:1530
+#: ui/preferences.glade:1618
 msgid "Whether options can be edited in expert mode"
 msgstr "Hiệu lực chế độ cấp cao để hiệu chỉnh tùy chọn"
 
-#: ui/preferences.glade:1532
+#: ui/preferences.glade:1620
 msgid "_Edit options in expert mode"
 msgstr "_Hiệu chỉnh tùy chọn trong chế độ cấp cao"
 
-#: ui/preferences.glade:1554
+#: ui/preferences.glade:1642
 msgid ""
 "Whether to show the expert tab. Note: Disabling this option can only be "
 "reversed by editing the config file manually!"
@@ -709,11 +713,11 @@ msgstr ""
 "Hiển thị thanh cấp cao không? Chú ghi: khi đã vô hiệu hóa tùy chọn này thì "
 "chỉ có thể hiệu lực nó lậi bằng cách tự hiệu chỉnh tập tin cầu hình."
 
-#: ui/preferences.glade:1556
+#: ui/preferences.glade:1644
 msgid "_Show expert tab"
 msgstr "_Hiển thị thanh cấp cao"
 
-#: ui/preferences.glade:1578
+#: ui/preferences.glade:1666
 msgid ""
 "The editing dialog for all options that gnubiff uses internally can be "
 "enabled here. So it is possible to change the value of options for which no "
@@ -728,22 +732,22 @@ msgstr ""
 "<b>Cảnh báo:</b> khi thay đổi tùy chọn này thì có lẽ trình gnubiff không làm "
 "việc cho đúng, hay gặp khó bảo mật."
 
-#: ui/preferences.glade:1669
+#: ui/preferences.glade:1765
 msgid "List all options."
 msgstr "Liệt kê tất cả tùy chọn."
 
-#: ui/preferences.glade:1687
+#: ui/preferences.glade:1783
 msgid "String to be searched for."
 msgstr "Tìm kiếm chuỗi này."
 
-#: ui/preferences.glade:1709
+#: ui/preferences.glade:1805
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr ""
 "Tìm kiếm những tùy chọn (được trình bày) mà chứa chuỗi ấy trong mục văn bản."
 
-#: ui/preferences.glade:1743
+#: ui/preferences.glade:1839
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
@@ -751,11 +755,11 @@ msgstr ""
 "Đây là danh sách các tùy chọn với loại và giá trị hiện có. Để hiệu chỉnh tùy "
 "chọn thì hãy nhắp đôi vào giá trị của nó."
 
-#: ui/preferences.glade:1815
+#: ui/preferences.glade:1914
 msgid "Expert"
 msgstr "Cấp cao"
 
-#: ui/preferences.glade:2073
+#: ui/preferences.glade:2204
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
@@ -763,19 +767,19 @@ msgstr ""
 "<small>Hãy báo cáo lỗi cho <span foreground=\"blue\">gnubiff-bugs@lists."
 "sourceforge.net</span></small>"
 
-#: ui/preferences.glade:2108
+#: ui/preferences.glade:2243
 msgid "Developers"
 msgstr "Lập trình viên"
 
-#: ui/preferences.glade:2237
+#: ui/preferences.glade:2392
 msgid "Maintainers"
 msgstr "Bảo quản viên"
 
-#: ui/preferences.glade:2794
+#: ui/preferences.glade:3102
 msgid "Translators"
 msgstr "Người dịch"
 
-#: ui/preferences.glade:2820
+#: ui/preferences.glade:3132
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -789,23 +793,23 @@ msgstr ""
 "  - tạo mã nguồn thật\n"
 "Đây là danh sách người này:</small>"
 
-#: ui/preferences.glade:2887
+#: ui/preferences.glade:3203
 msgid "Contributors"
 msgstr "Người đóng góp"
 
-#: ui/preferences.glade:2919
+#: ui/preferences.glade:3239
 msgid "Credits"
 msgstr "Lời cám ơn"
 
-#: ui/preferences.glade:3050
+#: ui/preferences.glade:3378
 msgid "Set to default value"
 msgstr "Trở về gia trị mặc định"
 
-#: ui/preferences.glade:3071
+#: ui/preferences.glade:3399
 msgid "Toggle option"
 msgstr "Bập bênh tùy chọn"
 
-#: ui/preferences.glade:3092
+#: ui/preferences.glade:3420
 msgid "Edit option"
 msgstr "Hiệu chỉnh tùy chọn"
 

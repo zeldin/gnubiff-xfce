@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.3\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-12-08 23:48+0100\n"
+"POT-Creation-Date: 2005-12-11 19:54+0100\n"
 "PO-Revision-Date: 2005-05-07 13:50+0200\n"
 "Last-Translator: Josef Vybiral <josef.vybiral@gmail.com>\n"
 "Language-Team: Czech < >\n"
@@ -30,31 +30,35 @@ msgstr "[Nemohu překódovat tuto hlavičku]"
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Nemohu převést znakové sady (z \"%s\" do \"utf-8\")]"
 
-#: src/gnubiff.cc:92
+#: src/gnubiff.cc:91
 msgid "Start gnome applet from command line"
 msgstr "Spustit applet gnome z příkazové řádky"
 
-#: src/gnubiff.cc:100
+#: src/gnubiff.cc:98
 msgid "Configuration file to use"
 msgstr "Který konfigurační soubor použít"
 
-#: src/gnubiff.cc:100
+#: src/gnubiff.cc:98
 msgid "file"
 msgstr "soubor"
 
-#: src/gnubiff.cc:102
+#: src/gnubiff.cc:100
 msgid "Skip the configuration process"
 msgstr "Přeskočit konfiguraci"
+
+#: src/gnubiff.cc:102
+msgid "Start gnubiff without GUI"
+msgstr ""
 
 #: src/gnubiff.cc:104
 msgid "Print version information and exit"
 msgstr "Zobrazit informaci o verzi a skončit"
 
-#: src/gnubiff.cc:111
+#: src/gnubiff.cc:110
 msgid "General command line options:"
 msgstr "Obecné volby pro příkazovou řádku:"
 
-#: src/gnubiff.cc:114
+#: src/gnubiff.cc:113
 msgid "Options for debugging:"
 msgstr "Volby pro ladění"
 
@@ -63,25 +67,25 @@ msgstr "Volby pro ladění"
 msgid "Configuration file (%s) not found!"
 msgstr "Konfigurační soubor (%s) nebyl nalezen!"
 
-#: src/biff.cc:588
+#: src/biff.cc:591
 #, fuzzy, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr "Načten konfigurační soubor ze staré verze gnubiff \"%s\"."
 
-#: src/biff.cc:596
+#: src/biff.cc:599
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Načten konfigurační soubor ze staré verze gnubiff \"%s\"."
 
-#: src/biff.cc:598
+#: src/biff.cc:601
 msgid "Trying to convert all options."
 msgstr "Zkouším převést všechna nastavení."
 
-#: src/biff.cc:633
+#: src/biff.cc:636
 msgid "Successfully converted all options."
 msgstr "Úspěšně se podařilo konvertovat všechna nastavení"
 
-#: src/biff.cc:636
+#: src/biff.cc:639
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -90,26 +94,26 @@ msgstr ""
 "Úspěšně jsem konvertoval některá nastavení. Následující nastavení musí být "
 "upraveny ručně: %s"
 
-#: src/biff.cc:787
+#: src/biff.cc:790
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Nemohu otevřít Váš konfigurační soubor (%s)"
 
-#: src/biff.cc:803
+#: src/biff.cc:806
 msgid "Cannot create XML parser for config file"
 msgstr "Nemohu vytvořit XML parser pro konfigurační soubor"
 
-#: src/biff.cc:820
+#: src/biff.cc:823
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Ve vašem konfiguračním souboru (%s) nebyly nalezeny žádné definice schránek"
 
-#: src/biff.cc:867
+#: src/biff.cc:870
 msgid "Illegal parameter format in config file"
 msgstr "Neplatný formát parametru v konfiguračním souboru"
 
-#: src/biff.cc:896
+#: src/biff.cc:899
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Pro schránku %d nebyl určen žádný protokol"
@@ -317,15 +321,15 @@ msgstr "GUI_connect vyžaduje funkční gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Nemohu nalézt handly signálu '%s'."
 
-#: src/ui-applet.cc:206
+#: src/ui-applet.cc:221
 msgid " unknown"
 msgstr " neznámý"
 
-#: src/ui-applet.cc:211
+#: src/ui-applet.cc:226
 msgid " error"
 msgstr " chyba"
 
-#: src/ui-applet.cc:220
+#: src/ui-applet.cc:235
 msgid " checking..."
 msgstr " kontroluji..."
 
@@ -361,7 +365,7 @@ msgstr "Hodnota"
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:2998
+#: src/ui-preferences.cc:617 ui/preferences.glade:3322
 msgid "_Stop"
 msgstr "_Stop"
 
@@ -480,7 +484,7 @@ msgstr "Ukončit"
 msgid "About gnubiff"
 msgstr "O gnubiff"
 
-#: ui/applet-gtk.glade:255 ui/preferences.glade:1895
+#: ui/applet-gtk.glade:255 ui/preferences.glade:2002
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
@@ -496,211 +500,211 @@ msgstr "Ok"
 msgid "gnubiff preferences"
 msgstr "nastavení gnubiff"
 
-#: ui/preferences.glade:130
+#: ui/preferences.glade:131
 msgid "When _double-clicked:"
 msgstr "Po _dvoj-kliknutí:"
 
-#: ui/preferences.glade:152
+#: ui/preferences.glade:153
 msgid "<b>General</b>"
 msgstr "<b>Obecné</b>"
 
-#: ui/preferences.glade:188
+#: ui/preferences.glade:193
 msgid "<b>Mailboxes</b>"
 msgstr "<b>Schránky</b>"
 
-#: ui/preferences.glade:226
+#: ui/preferences.glade:235
 msgid "<b>Commands</b>"
 msgstr "<b>Příkazy</b>"
 
-#: ui/preferences.glade:309
+#: ui/preferences.glade:329
 msgid "When _new mail:"
 msgstr "Při _nové poště:"
 
-#: ui/preferences.glade:331
+#: ui/preferences.glade:351
 msgid "The command to run when new mail arrives"
 msgstr "Příkaz, který se má spustit když příjde nová pošta"
 
-#: ui/preferences.glade:353
+#: ui/preferences.glade:373
 msgid "The command to run when the icon is double-clicked"
 msgstr "Příkaz, který se má spustit po dvojitém kliknutí na ikonu"
 
-#: ui/preferences.glade:407
+#: ui/preferences.glade:431
 msgid "_Restrict collected mail to"
 msgstr "Omezit shromážděnou poštu na"
 
-#: ui/preferences.glade:445
+#: ui/preferences.glade:469
 msgid "mail(s)"
 msgstr "e-mail(y)"
 
-#: ui/preferences.glade:483
+#: ui/preferences.glade:511
 msgid "Mailboxes"
 msgstr "Poštovní schránky"
 
-#: ui/preferences.glade:524 ui/preferences.glade:589
+#: ui/preferences.glade:556 ui/preferences.glade:621
 msgid "Image filename"
 msgstr "Jméno souboru s obrázkem"
 
-#: ui/preferences.glade:546 ui/preferences.glade:611
+#: ui/preferences.glade:578 ui/preferences.glade:643
 msgid "Browse for an image file"
 msgstr "Vyhledat soubor s obrázkem"
 
-#: ui/preferences.glade:548 ui/properties.glade:295
+#: ui/preferences.glade:580 ui/properties.glade:295
 msgid "_Browse..."
 msgstr "Procházet:"
 
-#: ui/preferences.glade:567 ui/preferences.glade:632
+#: ui/preferences.glade:599 ui/preferences.glade:664
 #, fuzzy
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
 "padded). Pango markup may be used."
 msgstr "Zobrazený text (%d je počet nových zpráv)"
 
-#: ui/preferences.glade:613
+#: ui/preferences.glade:645
 msgid "B_rowse..."
 msgstr "P_rocházet:"
 
-#: ui/preferences.glade:654
+#: ui/preferences.glade:686
 msgid "Applet geometry"
 msgstr "Rozměry appletu"
 
-#: ui/preferences.glade:676 ui/preferences.glade:1248
+#: ui/preferences.glade:708 ui/preferences.glade:1316
 msgid "Whether to use geometry"
 msgstr "Zda použít geometrii"
 
-#: ui/preferences.glade:678 ui/preferences.glade:1250
+#: ui/preferences.glade:710 ui/preferences.glade:1318
 msgid "Use _geometry:"
 msgstr "Použít _geometrii:"
 
-#: ui/preferences.glade:700 ui/preferences.glade:748
+#: ui/preferences.glade:732 ui/preferences.glade:780
 msgid "Whether to display a text"
 msgstr "Zda zobrazit text"
 
-#: ui/preferences.glade:702
+#: ui/preferences.glade:734
 msgid "Show _text:"
 msgstr "Ukázat _text:"
 
-#: ui/preferences.glade:724
+#: ui/preferences.glade:756
 msgid "Whether to show an image"
 msgstr "Zda zobrazit obrázek"
 
-#: ui/preferences.glade:726
+#: ui/preferences.glade:758
 msgid "Show _image:"
 msgstr "Ukázat obrázek:"
 
-#: ui/preferences.glade:750
+#: ui/preferences.glade:782
 msgid "Show t_ext:"
 msgstr "Ukázat t_ext:"
 
-#: ui/preferences.glade:772
+#: ui/preferences.glade:804
 msgid "Whether to display an image"
 msgstr "Zda zobrazit obrázek"
 
-#: ui/preferences.glade:774
+#: ui/preferences.glade:806
 msgid "Show i_mage:"
 msgstr "Ukázat obrázek:"
 
-#: ui/preferences.glade:796 ui/preferences.glade:1296
+#: ui/preferences.glade:828 ui/preferences.glade:1364
 msgid "<b>Layout</b>"
 msgstr "<b>Rozvržení</b>"
 
-#: ui/preferences.glade:832
+#: ui/preferences.glade:868
 msgid "<b>When new mail</b>"
 msgstr "<b>Při nové poště</b>"
 
-#: ui/preferences.glade:870
+#: ui/preferences.glade:910
 msgid "<b>When no mail</b>"
 msgstr "<b>Při žádné poště</b>"
 
-#: ui/preferences.glade:896 ui/preferences.glade:1223
+#: ui/preferences.glade:940 ui/preferences.glade:1287
 msgid "_Font:"
 msgstr "_Písmo:"
 
-#: ui/preferences.glade:921 ui/preferences.glade:1357
+#: ui/preferences.glade:969 ui/preferences.glade:1433
 msgid "The font to use to display information"
 msgstr "Písmo jakým se zobrazí informace"
 
-#: ui/preferences.glade:941 ui/preferences.glade:1378
+#: ui/preferences.glade:989 ui/preferences.glade:1454
 msgid "Whether to use window manager decoration"
 msgstr "Zda použít dekoraci správce oken"
 
-#: ui/preferences.glade:943 ui/preferences.glade:1380
+#: ui/preferences.glade:991 ui/preferences.glade:1456
 msgid "Use _decoration"
 msgstr "Použít _dekoraci"
 
-#: ui/preferences.glade:997
+#: ui/preferences.glade:1049
 msgid "Applet or Biff"
 msgstr "Applet nebo Okno"
 
-#: ui/preferences.glade:1038
+#: ui/preferences.glade:1094
 msgid "second(s)"
 msgstr "sekund(a/y)"
 
-#: ui/preferences.glade:1061
+#: ui/preferences.glade:1121
 msgid "Time to display popup window"
 msgstr "Čas zobrazení vyskakovacího okna"
 
-#: ui/preferences.glade:1084
+#: ui/preferences.glade:1144
 msgid "Popup geometry"
 msgstr "Geometrie vyskakovacího okna"
 
-#: ui/preferences.glade:1106
+#: ui/preferences.glade:1166
 msgid "Whether to use format for header"
 msgstr "Zda formátovat hlavičku"
 
-#: ui/preferences.glade:1108
+#: ui/preferences.glade:1168
 msgid "_Format:"
 msgstr "_Formát:"
 
-#: ui/preferences.glade:1130
+#: ui/preferences.glade:1190
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 "[odesílatel max. velikost]:[předmět max. velikost]:[datum max. velikost]"
 
-#: ui/preferences.glade:1152
+#: ui/preferences.glade:1212
 msgid "Whether to restrict number of displayed headers"
 msgstr "Zda omezit počet zobrazených hlaviček"
 
-#: ui/preferences.glade:1154
+#: ui/preferences.glade:1214
 msgid "_Restrict number to"
 msgstr "Omezit počet na"
 
-#: ui/preferences.glade:1176
+#: ui/preferences.glade:1236
 msgid "Maximum number of headers to display"
 msgstr "Maximální počet hlaviček k zobrazení"
 
-#: ui/preferences.glade:1199
+#: ui/preferences.glade:1259
 msgid "header(s)"
 msgstr "hlavička(y)"
 
-#: ui/preferences.glade:1272
+#: ui/preferences.glade:1340
 msgid "Whether to display the popup window"
 msgstr "Zda zobrazit vyskakovací okno"
 
-#: ui/preferences.glade:1274
+#: ui/preferences.glade:1342
 msgid "_Display for"
 msgstr "Zobrazit pro"
 
-#: ui/preferences.glade:1332
+#: ui/preferences.glade:1404
 msgid "<b>Headers</b>"
 msgstr "<b>Hlavičky</b>"
 
-#: ui/preferences.glade:1453 ui/popup.glade:7
+#: ui/preferences.glade:1533 ui/popup.glade:7
 msgid "Popup"
 msgstr "Vyskakovací okno"
 
-#: ui/preferences.glade:1506
+#: ui/preferences.glade:1590
 msgid "<b>Expert editing mode</b>"
 msgstr "<b>Režim expertního nastavení</b>"
 
-#: ui/preferences.glade:1530
+#: ui/preferences.glade:1618
 msgid "Whether options can be edited in expert mode"
 msgstr "Zda mají být nastavení upravována v expertním módu."
 
-#: ui/preferences.glade:1532
+#: ui/preferences.glade:1620
 msgid "_Edit options in expert mode"
 msgstr "Upravit volby v expertním módu"
 
-#: ui/preferences.glade:1554
+#: ui/preferences.glade:1642
 msgid ""
 "Whether to show the expert tab. Note: Disabling this option can only be "
 "reversed by editing the config file manually!"
@@ -708,11 +712,11 @@ msgstr ""
 "Zda ukázat záložku \"Expertní volby\". Poznámka: Vypnutí této volby je možné "
 "zvrátit pouze ruční úpravou konfiguračního souboru!"
 
-#: ui/preferences.glade:1556
+#: ui/preferences.glade:1644
 msgid "_Show expert tab"
 msgstr "Ukázat záložku pro experty"
 
-#: ui/preferences.glade:1578
+#: ui/preferences.glade:1666
 msgid ""
 "The editing dialog for all options that gnubiff uses internally can be "
 "enabled here. So it is possible to change the value of options for which no "
@@ -726,21 +730,21 @@ msgstr ""
 "<b>Varování:</b> Změnou těchto nastavení se může gnubiff začít chovat "
 "nepředvídatelně nebo vytvářet bezpečnostní rizika."
 
-#: ui/preferences.glade:1669
+#: ui/preferences.glade:1765
 msgid "List all options."
 msgstr "Zobrazit všechny možnosti."
 
-#: ui/preferences.glade:1687
+#: ui/preferences.glade:1783
 msgid "String to be searched for."
 msgstr "Hledaný řetězec."
 
-#: ui/preferences.glade:1709
+#: ui/preferences.glade:1805
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr "Vyhledat ty (zobrazené) volby, obsahující řetězec v textovém záznamu"
 
-#: ui/preferences.glade:1743
+#: ui/preferences.glade:1839
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
@@ -748,11 +752,11 @@ msgstr ""
 "Seznam voleb, jejich typ a současná hodnota. Volbu upravíte dvojklikem na "
 "její hodnotu."
 
-#: ui/preferences.glade:1815
+#: ui/preferences.glade:1914
 msgid "Expert"
 msgstr "Expert"
 
-#: ui/preferences.glade:2073
+#: ui/preferences.glade:2204
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
@@ -760,19 +764,19 @@ msgstr ""
 "<small>Chyby mohou být oznamovány na <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 
-#: ui/preferences.glade:2108
+#: ui/preferences.glade:2243
 msgid "Developers"
 msgstr "Vývojáři"
 
-#: ui/preferences.glade:2237
+#: ui/preferences.glade:2392
 msgid "Maintainers"
 msgstr "Údržba"
 
-#: ui/preferences.glade:2794
+#: ui/preferences.glade:3102
 msgid "Translators"
 msgstr "Překladatelé"
 
-#: ui/preferences.glade:2820
+#: ui/preferences.glade:3132
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -786,23 +790,23 @@ msgstr ""
 "  - zasíláním aktuálního kódu\n"
 "Tady je seznam těchto lidí:</small>"
 
-#: ui/preferences.glade:2887
+#: ui/preferences.glade:3203
 msgid "Contributors"
 msgstr "Přispěvatelé"
 
-#: ui/preferences.glade:2919
+#: ui/preferences.glade:3239
 msgid "Credits"
 msgstr "Kredity"
 
-#: ui/preferences.glade:3050
+#: ui/preferences.glade:3378
 msgid "Set to default value"
 msgstr "Nastavit na výchozí hodnotu"
 
-#: ui/preferences.glade:3071
+#: ui/preferences.glade:3399
 msgid "Toggle option"
 msgstr "Přepnout volbu"
 
-#: ui/preferences.glade:3092
+#: ui/preferences.glade:3420
 msgid "Edit option"
 msgstr "Upravit volbu"
 

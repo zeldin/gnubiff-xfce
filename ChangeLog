@@ -29,6 +29,8 @@ Version 2.2.0
    - Feature: Gnubiff can now be started without GUI (option '--nogui')
    - Feature: Gnubiff can now be started without X (this was feature request
         #1059347 by Iulian Tocu)
+   - Feature: Hungarian translation (thanks to Wallner Adam; for version 2.1.x)
+   - Added Wallner Adam to translators and contributors
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
@@ -38,6 +40,8 @@ Version 2.1.8
    - Backport (from gnubiff 2.2.0 CVS) of smaller fixes
    - Backport (from gnubiff 2.2.0 CVS) of newer version in config file fix
    - Updated Italian translation (thanks to Stefano Fabri)
+   - Feature: Hungarian translation (thanks to Wallner Adam)
+   - Added Wallner Adam to translators and contributors
 
 Version 2.1.7		2005-10-31  0:43
  * Robert Sowada

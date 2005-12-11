@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.0.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-12-08 23:48+0100\n"
+"POT-Creation-Date: 2005-12-11 19:54+0100\n"
 "PO-Revision-Date: 2004-10-19 20:18+0200\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -30,33 +30,37 @@ msgstr ""
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
 
-#: src/gnubiff.cc:92
+#: src/gnubiff.cc:91
 msgid "Start gnome applet from command line"
 msgstr ""
 
-#: src/gnubiff.cc:100
+#: src/gnubiff.cc:98
 #, fuzzy
 msgid "Configuration file to use"
 msgstr "configuratiebestand om te gebruiken"
 
-#: src/gnubiff.cc:100
+#: src/gnubiff.cc:98
 msgid "file"
 msgstr "bestand"
 
-#: src/gnubiff.cc:102
+#: src/gnubiff.cc:100
 #, fuzzy
 msgid "Skip the configuration process"
 msgstr "configuratieproces overslaan"
+
+#: src/gnubiff.cc:102
+msgid "Start gnubiff without GUI"
+msgstr ""
 
 #: src/gnubiff.cc:104
 msgid "Print version information and exit"
 msgstr ""
 
-#: src/gnubiff.cc:111
+#: src/gnubiff.cc:110
 msgid "General command line options:"
 msgstr ""
 
-#: src/gnubiff.cc:114
+#: src/gnubiff.cc:113
 msgid "Options for debugging:"
 msgstr ""
 
@@ -65,51 +69,51 @@ msgstr ""
 msgid "Configuration file (%s) not found!"
 msgstr "Configuratiebestand (%s) niet gevonden!"
 
-#: src/biff.cc:588
+#: src/biff.cc:591
 #, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:596
+#: src/biff.cc:599
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:598
+#: src/biff.cc:601
 msgid "Trying to convert all options."
 msgstr ""
 
-#: src/biff.cc:633
+#: src/biff.cc:636
 msgid "Successfully converted all options."
 msgstr ""
 
-#: src/biff.cc:636
+#: src/biff.cc:639
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: src/biff.cc:787
+#: src/biff.cc:790
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
-#: src/biff.cc:803
+#: src/biff.cc:806
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Kan uw configuratiebestand (%s) niet openen"
 
-#: src/biff.cc:820
+#: src/biff.cc:823
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Geen postvak-definitie gevonden in uw configuratiebestand (%s)"
 
-#: src/biff.cc:867
+#: src/biff.cc:870
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:896
+#: src/biff.cc:899
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
@@ -320,16 +324,16 @@ msgstr "GUI_connect vereist een werkende gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Kon signaalbehandelaar '%s' niet vinden."
 
-#: src/ui-applet.cc:206
+#: src/ui-applet.cc:221
 msgid " unknown"
 msgstr ""
 
-#: src/ui-applet.cc:211
+#: src/ui-applet.cc:226
 #, fuzzy
 msgid " error"
 msgstr "fout"
 
-#: src/ui-applet.cc:220
+#: src/ui-applet.cc:235
 msgid " checking..."
 msgstr " bezig met controleren..."
 
@@ -368,7 +372,7 @@ msgstr "_Geluidssterkte:"
 msgid "_Start"
 msgstr "_Starten"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:2998
+#: src/ui-preferences.cc:617 ui/preferences.glade:3322
 msgid "_Stop"
 msgstr "_Stoppen"
 
@@ -489,7 +493,7 @@ msgstr ""
 msgid "About gnubiff"
 msgstr "Over gnubiff"
 
-#: ui/applet-gtk.glade:255 ui/preferences.glade:1895
+#: ui/applet-gtk.glade:255 ui/preferences.glade:2002
 #, fuzzy
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
@@ -507,65 +511,65 @@ msgstr "OK"
 msgid "gnubiff preferences"
 msgstr "Voorkeuren"
 
-#: ui/preferences.glade:130
+#: ui/preferences.glade:131
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ui/preferences.glade:152
+#: ui/preferences.glade:153
 msgid "<b>General</b>"
 msgstr "<b>Algemeen</b>"
 
-#: ui/preferences.glade:188
+#: ui/preferences.glade:193
 msgid "<b>Mailboxes</b>"
 msgstr "<b>Postvakken</b>"
 
-#: ui/preferences.glade:226
+#: ui/preferences.glade:235
 #, fuzzy
 msgid "<b>Commands</b>"
 msgstr "<b>Geluid</b>"
 
-#: ui/preferences.glade:309
+#: ui/preferences.glade:329
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Nieuwe post:"
 
-#: ui/preferences.glade:331
+#: ui/preferences.glade:351
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Geen geluid als nieuwe e-mail is aangekomen"
 
-#: ui/preferences.glade:353
+#: ui/preferences.glade:373
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
-#: ui/preferences.glade:407
+#: ui/preferences.glade:431
 msgid "_Restrict collected mail to"
 msgstr ""
 
-#: ui/preferences.glade:445
+#: ui/preferences.glade:469
 #, fuzzy
 msgid "mail(s)"
 msgstr "kmail"
 
-#: ui/preferences.glade:483
+#: ui/preferences.glade:511
 msgid "Mailboxes"
 msgstr "Postvakken"
 
-#: ui/preferences.glade:524 ui/preferences.glade:589
+#: ui/preferences.glade:556 ui/preferences.glade:621
 msgid "Image filename"
 msgstr ""
 
-#: ui/preferences.glade:546 ui/preferences.glade:611
+#: ui/preferences.glade:578 ui/preferences.glade:643
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "Bladeren voor nieuwe-post afbeelding"
 
-#: ui/preferences.glade:548 ui/properties.glade:295
+#: ui/preferences.glade:580 ui/properties.glade:295
 #, fuzzy
 msgid "_Browse..."
 msgstr "Bladeren..."
 
-#: ui/preferences.glade:567 ui/preferences.glade:632
+#: ui/preferences.glade:599 ui/preferences.glade:664
 #, fuzzy
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
@@ -575,180 +579,180 @@ msgstr ""
 "berichten. Er moet geldige XML worden ingevoerd, waarbij Pango-opmaak mag "
 "worden gebruikt."
 
-#: ui/preferences.glade:613
+#: ui/preferences.glade:645
 #, fuzzy
 msgid "B_rowse..."
 msgstr "Bladeren..."
 
-#: ui/preferences.glade:654
+#: ui/preferences.glade:686
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Afmeting gebruiken"
 
-#: ui/preferences.glade:676 ui/preferences.glade:1248
+#: ui/preferences.glade:708 ui/preferences.glade:1316
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Afmeting gebruiken"
 
-#: ui/preferences.glade:678 ui/preferences.glade:1250
+#: ui/preferences.glade:710 ui/preferences.glade:1318
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Afmeting gebruiken"
 
-#: ui/preferences.glade:700 ui/preferences.glade:748
+#: ui/preferences.glade:732 ui/preferences.glade:780
 msgid "Whether to display a text"
 msgstr ""
 
-#: ui/preferences.glade:702
+#: ui/preferences.glade:734
 msgid "Show _text:"
 msgstr ""
 
-#: ui/preferences.glade:724
+#: ui/preferences.glade:756
 msgid "Whether to show an image"
 msgstr ""
 
-#: ui/preferences.glade:726
+#: ui/preferences.glade:758
 msgid "Show _image:"
 msgstr ""
 
-#: ui/preferences.glade:750
+#: ui/preferences.glade:782
 msgid "Show t_ext:"
 msgstr ""
 
-#: ui/preferences.glade:772
+#: ui/preferences.glade:804
 msgid "Whether to display an image"
 msgstr ""
 
-#: ui/preferences.glade:774
+#: ui/preferences.glade:806
 msgid "Show i_mage:"
 msgstr ""
 
-#: ui/preferences.glade:796 ui/preferences.glade:1296
+#: ui/preferences.glade:828 ui/preferences.glade:1364
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "<b>Lettertype</b>"
 
-#: ui/preferences.glade:832
+#: ui/preferences.glade:868
 #, fuzzy
 msgid "<b>When new mail</b>"
 msgstr "<b>Algemeen</b>"
 
-#: ui/preferences.glade:870
+#: ui/preferences.glade:910
 #, fuzzy
 msgid "<b>When no mail</b>"
 msgstr "<b>Algemeen</b>"
 
-#: ui/preferences.glade:896 ui/preferences.glade:1223
+#: ui/preferences.glade:940 ui/preferences.glade:1287
 #, fuzzy
 msgid "_Font:"
 msgstr "_Poort:"
 
-#: ui/preferences.glade:921 ui/preferences.glade:1357
+#: ui/preferences.glade:969 ui/preferences.glade:1433
 msgid "The font to use to display information"
 msgstr ""
 
-#: ui/preferences.glade:941 ui/preferences.glade:1378
+#: ui/preferences.glade:989 ui/preferences.glade:1454
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Pop-up venster met of zonder vensterbeheerder-versieringen"
 
-#: ui/preferences.glade:943 ui/preferences.glade:1380
+#: ui/preferences.glade:991 ui/preferences.glade:1456
 #, fuzzy
 msgid "Use _decoration"
 msgstr "Versiering gebruiken"
 
-#: ui/preferences.glade:997
+#: ui/preferences.glade:1049
 #, fuzzy
 msgid "Applet or Biff"
 msgstr "Applet"
 
-#: ui/preferences.glade:1038
+#: ui/preferences.glade:1094
 #, fuzzy
 msgid "second(s)"
 msgstr "seconden"
 
-#: ui/preferences.glade:1061
+#: ui/preferences.glade:1121
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Pop-up venster weergeven _gedurende"
 
-#: ui/preferences.glade:1084
+#: ui/preferences.glade:1144
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Afmeting gebruiken"
 
-#: ui/preferences.glade:1106
+#: ui/preferences.glade:1166
 msgid "Whether to use format for header"
 msgstr ""
 
-#: ui/preferences.glade:1108
+#: ui/preferences.glade:1168
 #, fuzzy
 msgid "_Format:"
 msgstr "Formaat"
 
-#: ui/preferences.glade:1130
+#: ui/preferences.glade:1190
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ui/preferences.glade:1152
+#: ui/preferences.glade:1212
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ui/preferences.glade:1154
+#: ui/preferences.glade:1214
 msgid "_Restrict number to"
 msgstr ""
 
-#: ui/preferences.glade:1176
+#: ui/preferences.glade:1236
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr "Maximale aantal weer te geven berichten"
 
-#: ui/preferences.glade:1199
+#: ui/preferences.glade:1259
 msgid "header(s)"
 msgstr ""
 
-#: ui/preferences.glade:1272
+#: ui/preferences.glade:1340
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Pop-up venster weergeven _gedurende"
 
-#: ui/preferences.glade:1274
+#: ui/preferences.glade:1342
 #, fuzzy
 msgid "_Display for"
 msgstr "Datum _weergeven"
 
-#: ui/preferences.glade:1332
+#: ui/preferences.glade:1404
 #, fuzzy
 msgid "<b>Headers</b>"
 msgstr "<b>Algemeen</b>"
 
-#: ui/preferences.glade:1453 ui/popup.glade:7
+#: ui/preferences.glade:1533 ui/popup.glade:7
 msgid "Popup"
 msgstr "Pop-up"
 
-#: ui/preferences.glade:1506
+#: ui/preferences.glade:1590
 msgid "<b>Expert editing mode</b>"
 msgstr ""
 
-#: ui/preferences.glade:1530
+#: ui/preferences.glade:1618
 msgid "Whether options can be edited in expert mode"
 msgstr ""
 
-#: ui/preferences.glade:1532
+#: ui/preferences.glade:1620
 msgid "_Edit options in expert mode"
 msgstr ""
 
-#: ui/preferences.glade:1554
+#: ui/preferences.glade:1642
 msgid ""
 "Whether to show the expert tab. Note: Disabling this option can only be "
 "reversed by editing the config file manually!"
 msgstr ""
 
-#: ui/preferences.glade:1556
+#: ui/preferences.glade:1644
 msgid "_Show expert tab"
 msgstr ""
 
-#: ui/preferences.glade:1578
+#: ui/preferences.glade:1666
 msgid ""
 "The editing dialog for all options that gnubiff uses internally can be "
 "enabled here. So it is possible to change the value of options for which no "
@@ -757,49 +761,49 @@ msgid ""
 "or result in security problems."
 msgstr ""
 
-#: ui/preferences.glade:1669
+#: ui/preferences.glade:1765
 msgid "List all options."
 msgstr ""
 
-#: ui/preferences.glade:1687
+#: ui/preferences.glade:1783
 msgid "String to be searched for."
 msgstr ""
 
-#: ui/preferences.glade:1709
+#: ui/preferences.glade:1805
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr ""
 
-#: ui/preferences.glade:1743
+#: ui/preferences.glade:1839
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
 msgstr ""
 
-#: ui/preferences.glade:1815
+#: ui/preferences.glade:1914
 msgid "Expert"
 msgstr ""
 
-#: ui/preferences.glade:2073
+#: ui/preferences.glade:2204
 msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 msgstr ""
 
-#: ui/preferences.glade:2108
+#: ui/preferences.glade:2243
 msgid "Developers"
 msgstr ""
 
-#: ui/preferences.glade:2237
+#: ui/preferences.glade:2392
 msgid "Maintainers"
 msgstr ""
 
-#: ui/preferences.glade:2794
+#: ui/preferences.glade:3102
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade:2820
+#: ui/preferences.glade:3132
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -808,23 +812,23 @@ msgid ""
 "Here is a list of these people:</small>"
 msgstr ""
 
-#: ui/preferences.glade:2887
+#: ui/preferences.glade:3203
 msgid "Contributors"
 msgstr ""
 
-#: ui/preferences.glade:2919
+#: ui/preferences.glade:3239
 msgid "Credits"
 msgstr "Ontwikkelaars"
 
-#: ui/preferences.glade:3050
+#: ui/preferences.glade:3378
 msgid "Set to default value"
 msgstr ""
 
-#: ui/preferences.glade:3071
+#: ui/preferences.glade:3399
 msgid "Toggle option"
 msgstr ""
 
-#: ui/preferences.glade:3092
+#: ui/preferences.glade:3420
 msgid "Edit option"
 msgstr ""
 
