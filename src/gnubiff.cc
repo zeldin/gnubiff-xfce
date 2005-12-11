@@ -47,7 +47,6 @@
 #include "ui-applet-gtk.h"
 
 int main (int argc, char **argv);
-int mainGTK (int argc, char **argv);
 int mainGNOME (int argc, char **argv);
 
 
@@ -72,13 +71,11 @@ int main (int argc, char **argv) {
  	for (gint i=0; i<argc; i++)
 		if (std::string(argv[i]).find("--oaf-ior-fd")==0)
 			return mainGNOME (argc, argv);
- 	return mainGTK (argc, argv);
-#else
-	return mainGTK (argc, argv);
-#endif  
-}
+#endif
 
-int mainGTK (int argc, char **argv) {
+	//
+	// Parse Options
+	//
 	poptContext poptcon;
 	int status;
 	char *config_file = 0;
@@ -93,7 +90,6 @@ int mainGTK (int argc, char **argv) {
 		POPT_TABLEEND
 	};
 #endif
-
 	static struct poptOption options_general[] =
 	{
 	   	{"config",      'c' , POPT_ARG_STRING, &config_file,   0,
@@ -104,7 +100,6 @@ int mainGTK (int argc, char **argv) {
 		 N_("Print version information and exit"), NULL},
 		POPT_TABLEEND
 	};
-
 	static struct poptOption options[] =
 	{
 	   	{NULL, '\0', POPT_ARG_INCLUDE_TABLE, &options_general, 0,
@@ -132,7 +127,7 @@ int mainGTK (int argc, char **argv) {
 
 #if defined DEBUG && defined USE_GNOME
 	if (debug_applet)
-		return mainGNOME(argc,argv);
+		return mainGNOME (argc,argv);
 #endif
 	
 	// GTK initialisation
@@ -155,15 +150,8 @@ int mainGTK (int argc, char **argv) {
 	else
 		biff = new Biff(GTK_MODE);
 
-	// Show setup panel or start gnubiff directly
-	if (no_configure) {
-		biff->applet()->update(true);
-		((AppletGtk *)biff->applet())->show();
-		if (biff->value_uint ("check_mode") == AUTOMATIC_CHECK)
-			biff->start_monitoring (3);
-	}
-	else
-		((AppletGUI *)biff->applet())->show_dialog_preferences();
+	// Start applet
+	biff->applet()->start (!no_configure);
 
 	// GTK main loop
 	gdk_threads_enter();
@@ -182,11 +170,7 @@ static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid,
 		Biff *biff = new Biff (GNOME_MODE);
 		AppletGnome *biffapplet = (AppletGnome *)biff->applet();
 		biffapplet->dock ((GtkWidget *) applet);
-//		biff->preferences()->synchronize();
-		biffapplet->show ();
-		biffapplet->update (true);
-		if (biff->value_uint ("check_mode") == AUTOMATIC_CHECK)
-			biff->start_monitoring (3);
+		biffapplet->start (false);
 	}
 	return true;
 }

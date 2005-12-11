@@ -63,6 +63,21 @@ Applet::~Applet (void)
 }
 
 /**
+ *  Start the applet.
+ *
+ *  @param  showpref  If true and supported by the frontend the preferences
+ *                    dialog is shown before monitoring starts (the default is
+ *                    false).
+ */
+void 
+Applet::start (gboolean showpref)
+{
+	if (!showpref)
+		if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
+			biff_->start_monitoring (3);
+}
+
+/**
  *  Update the applet status. If new messages are present the new
  *  mail command is executed.
  *
@@ -280,6 +295,26 @@ AppletGUI::AppletGUI (Biff *biff, std::string filename, gpointer callbackdata)
 /// Destructor
 AppletGUI::~AppletGUI (void)
 {
+}
+
+
+/**
+ *  Start the applet.
+ *
+ *  @param  showpref  If true and supported by the frontend the preferences
+ *                    dialog is shown before monitoring starts (the default is
+ *                    false).
+ */
+void 
+AppletGUI::start (gboolean showpref)
+{
+	if (showpref)
+		show_dialog_preferences ();
+	else {
+		update (true);
+		show ();
+		Applet::start (false);
+	}
 }
 
 /**

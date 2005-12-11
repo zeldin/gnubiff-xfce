@@ -50,6 +50,7 @@ public:
 	// ========================================================================
 	Applet (class Biff *biff);
 	virtual ~Applet (void);
+	virtual void start (gboolean showpref = false);
 
 	// ========================================================================
 	//  main
@@ -90,6 +91,7 @@ public:
 	// ========================================================================
 	AppletGUI (class Biff *biff, std::string filename, gpointer callbackdata);
 	virtual ~AppletGUI (void);
+	virtual void start (gboolean showpref = false);
 
 	// ========================================================================
 	//  main
