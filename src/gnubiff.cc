@@ -76,6 +76,7 @@ int main (int argc, char **argv) {
 	//
 	// Parse Options
 	//
+	GMainLoop*  gmainloop = NULL;
 	poptContext poptcon;
 	guint ui_mode = MODE_GTK;
 	int status;
@@ -139,8 +140,11 @@ int main (int argc, char **argv) {
 		return mainGNOME (argc,argv);
 #endif
 	
-	// GTK initialization
-	gtk_init (&argc, &argv);
+	// Initialization of Glib and (if needed) GTK
+	if (no_gui)
+		gmainloop = g_main_loop_new (NULL, true);
+	else
+		gtk_init (&argc, &argv);
 
 	// Print version information if requested and exit
 	if (print_version) {
@@ -162,10 +166,14 @@ int main (int argc, char **argv) {
 	// Start applet
 	biff->applet()->start (!no_configure);
 
-	// GTK main loop
-	gdk_threads_enter();
-	gtk_main();
-	gdk_threads_leave();
+	// Main loop
+	if (no_gui)
+		g_main_loop_run (gmainloop);
+	else {
+		gdk_threads_enter();
+		gtk_main();
+		gdk_threads_leave();
+	}
 
 	// Exit
 	return 0;

@@ -27,6 +27,7 @@ Version 2.2.0
    - Updated Italian translation (thanks to Stefano Fabri; for version 2.1.x)
    - Bugfix: Removed no longer needed files from po/POTFILES.in
    - Feature: Gnubiff can now be started without GUI (option '--nogui')
+   - Feature: Gnubiff can now be started without X
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
