@@ -45,8 +45,9 @@
 const guint	MANUAL_CHECK		=	0;
 const guint	AUTOMATIC_CHECK		=	1;
 
-const guint	GTK_MODE			=	0;
-const guint	GNOME_MODE			=	1;
+const guint	MODE_GTK			=	0;
+const guint	MODE_GNOME			=	1;
+const guint MODE_NOGUI			=   2;
 
 const guint	PROTOCOL_NONE		=	0;
 const guint	PROTOCOL_FILE		=	1;

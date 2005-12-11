@@ -115,9 +115,11 @@ panel.
 @table @samp
 @item -c file, --config file
 This option allows to specify an alternate configuration file,
-default is '$HOME/.gnubiffrc'.
+default is '$HOME/.gnubiffrc'
 @item -n, --noconfigure
-Skip the configuration process.
+Skip the configuration process
+@item --nogui
+Start gnubiff without GUI
 @item -v, --version
 Displays version number and exit
 @item -?, --help

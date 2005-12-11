@@ -26,6 +26,7 @@ Version 2.2.0
    - Bugfix: Message when loading config file from newer gnubiff version
    - Updated Italian translation (thanks to Stefano Fabri; for version 2.1.x)
    - Bugfix: Removed no longer needed files from po/POTFILES.in
+   - Feature: Gnubiff can now be started without GUI (option '--nogui')
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

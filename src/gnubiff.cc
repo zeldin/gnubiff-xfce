@@ -77,9 +77,10 @@ int main (int argc, char **argv) {
 	// Parse Options
 	//
 	poptContext poptcon;
+	guint ui_mode = MODE_GTK;
 	int status;
 	char *config_file = 0;
-	int no_configure = false, print_version=false;
+	int no_configure = false, print_version = false, no_gui = false;
 #if defined DEBUG && defined USE_GNOME
 	int debug_applet=false;
 
@@ -96,6 +97,8 @@ int main (int argc, char **argv) {
 		 N_("Configuration file to use"),  N_("file")},
 		{"noconfigure", 'n' , POPT_ARG_NONE,   &no_configure,  0,
 		 N_("Skip the configuration process"), NULL},
+		{"nogui",		'\0', POPT_ARG_NONE,   &no_gui,		   0,
+		 N_("Start gnubiff without GUI"), NULL},
 		{"version",     'v' , POPT_ARG_NONE,   &print_version, 0,
 		 N_("Print version information and exit"), NULL},
 		POPT_TABLEEND
@@ -125,12 +128,18 @@ int main (int argc, char **argv) {
 	}
 	poptGetNextOpt(poptcon);
 
+	// Decide which frontend to use
+	if (no_gui) {
+		ui_mode = MODE_NOGUI;
+		no_configure = true;
+	}
+
 #if defined DEBUG && defined USE_GNOME
 	if (debug_applet)
 		return mainGNOME (argc,argv);
 #endif
 	
-	// GTK initialisation
+	// GTK initialization
 	gtk_init (&argc, &argv);
 
 	// Print version information if requested and exit
@@ -146,9 +155,9 @@ int main (int argc, char **argv) {
 	// Create biff with configuration file (or not)
 	Biff *biff;
 	if (config_file)
-		biff = new Biff(GTK_MODE, config_file);
+		biff = new Biff (ui_mode, config_file);
 	else
-		biff = new Biff(GTK_MODE);
+		biff = new Biff (ui_mode);
 
 	// Start applet
 	biff->applet()->start (!no_configure);
@@ -167,7 +176,7 @@ static gboolean gnubiff_applet_factory (PanelApplet *applet, const gchar *iid,
 										gpointer data)
 {
 	if (!strcmp (iid, "OAFIID:GNOME_gnubiffApplet")) {
-		Biff *biff = new Biff (GNOME_MODE);
+		Biff *biff = new Biff (MODE_GNOME);
 		AppletGnome *biffapplet = (AppletGnome *)biff->applet();
 		biffapplet->dock ((GtkWidget *) applet);
 		biffapplet->start (false);

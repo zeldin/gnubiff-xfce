@@ -293,11 +293,11 @@ Gnubiff_Options::add_options_information (void)
 								 |OPTFLG_FIXED | OPTFLG_NOSAVE | OPTFLG_NOSHOW,
 								 protocol_int, protocol_gchar));
 	// UI_MODE
-	const static guint i2[] = {GTK_MODE, GNOME_MODE, 0};
-	const static gchar *s2[] = {"gtk", "gnome", NULL};
+	const static guint i2[] = {MODE_GTK, MODE_GNOME, MODE_NOGUI, 0};
+	const static gchar *s2[] = {"gtk", "gnome", "nogui", NULL};
 	add_option (new Option_UInt ("ui_mode", OPTGRP_INFORMATION,
 		"User interface mode in which gnubiff is running.",
-								 GTK_MODE, OPTFLG_CHANGE | OPTFLG_ID_INT_STRICT
+								 MODE_GTK, OPTFLG_CHANGE | OPTFLG_ID_INT_STRICT
 								 | OPTFLG_FIXED | OPTFLG_NOSAVE
 								 | OPTFLG_NOSHOW, i2, s2));
 	// VERSION
