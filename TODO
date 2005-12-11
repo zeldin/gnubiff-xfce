@@ -9,7 +9,6 @@ To do:
 - Cleanup Mailbox::parse()
 - Cleanup Options::update_gui()
 - Fix bugs ;-)
-- Obtaining mails in Popup::update() should be thread safe
 
 Version 2.2.0:
 --------------
@@ -30,3 +29,4 @@ Version 2.2.0:
   system dependent and does not steal the keyboard focus
 * HTML mails?
 * Bug in Mailbox::mark_messages_as_read
+* Cleanup of src/gnubiff.cc
