@@ -49,6 +49,8 @@ common_sources = \
 	gtk_image_animation.cc	gtk_image_animation.h 	\
 	ui-popup.cc				ui-popup.h				\
 	\
+	signals.cc				signals.h				\
+	\
 	eggtrayicon.c			eggtrayicon.h
 
 

@@ -32,6 +32,7 @@ Version 2.2.0
    - Feature: Hungarian translation (thanks to Wallner Adam; for version 2.1.x)
    - Added Wallner Adam to translators and contributors
    - Bugfix: Added an include to src/support.cc (for FreeBSD 4)
+   - Feature: Control gnubiff via USR1 and USR2 signal
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

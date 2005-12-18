@@ -74,6 +74,11 @@ const guint	MAILBOX_CHECK		=	4;
 const guint	MAILBOX_STOP		=	5;
 const guint	MAILBOX_UNKNOWN		=	6;
 
+const guint SIGNAL_NONE			=   0;
+const guint SIGNAL_MARK_AS_READ	=   1;
+const guint SIGNAL_START		=	2;
+const guint SIGNAL_STOP			=	3;
+
 const guint OPTGRP_GENERAL		=	1;
 const guint OPTGRP_APPLET		=	2;
 const guint OPTGRP_POPUP		=	4;

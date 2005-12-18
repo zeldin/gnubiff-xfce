@@ -53,7 +53,7 @@
 #include "imap4.h"
 #include "pop3.h"
 #include "apop.h"
-
+#include "signals.h"
 
 // ============================================================================
 //  "C" binding
@@ -156,6 +156,9 @@ Biff::Biff (guint ui_mode, std::string filename)
 		applet_ = new AppletGtk (this);
 		break;
 	}
+
+	// Initialize Signals
+	Signals::init_signals (this);
 }
 
 /// Destructor
@@ -382,11 +385,10 @@ void
 Biff::mark_messages_as_read (void)
 {
 	std::vector<class Mailbox *>::iterator mailbox;
-
 	g_mutex_lock (mutex_);
 	mailbox = mailbox_.begin ();
 	while (mailbox != mailbox_.end ())
-	  (*(mailbox++))->mark_messages_as_read ();
+		(*(mailbox++))->mark_messages_as_read ();
 	g_mutex_unlock (mutex_);
 }
 
