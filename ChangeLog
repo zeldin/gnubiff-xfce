@@ -31,6 +31,7 @@ Version 2.2.0
         #1059347 by Iulian Tocu)
    - Feature: Hungarian translation (thanks to Wallner Adam; for version 2.1.x)
    - Added Wallner Adam to translators and contributors
+   - Bugfix: Added an include to src/support.cc (for FreeBSD 4)
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
@@ -42,6 +43,8 @@ Version 2.1.8
    - Updated Italian translation (thanks to Stefano Fabri)
    - Feature: Hungarian translation (thanks to Wallner Adam)
    - Added Wallner Adam to translators and contributors
+   - Updated TODO
+   - Bugfix: Added an include to src/support.cc (for FreeBSD 4)
 
 Version 2.1.7		2005-10-31  0:43
  * Robert Sowada

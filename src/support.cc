@@ -29,6 +29,7 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
+#include <algorithm>
 #include <sys/utsname.h>
 #include <glib.h>
 #include <gtk/gtk.h>
