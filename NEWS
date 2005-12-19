@@ -4,6 +4,12 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.1.8
+This is a minor bugfix release. Changes:
+ * Updated Italian translation (thanks to Stefano Fabri)
+ * Added Hungarian translation (thanks to Wallner Adam)
+ * Some small bugfixes
+
 Version 2.1.7
 This is a minor bugfix release. Changes:
  * Fixed a bug that prevented 2.1.6 to be installed on certain systems
