@@ -44,7 +44,7 @@ class Signals {
 
 public:
 	static gboolean init_signals (class Biff *biff);
-	static void signal_handler (int signal);
+	static void signal_handler (int signum);
 
 private:
 	static class Biff				*biff_;

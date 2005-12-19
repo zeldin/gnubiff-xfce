@@ -299,13 +299,14 @@ Support::path_get_dirname (const std::string &path)
  *  asks the user to send a bug report. Print some additional information
  *  that may be of use.
  *
- *  @param file  Source file in which the error is
- *  @param line  Source line in which the error is
- *  @param func  Name of the function in which the error is
+ *  @param file   Source file in which the error is
+ *  @param line   Source line in which the error is
+ *  @param func   Name of the function in which the error is
+ *  @param signal Signal that caused the error
  */
 void 
 Support::unknown_internal_error_ (const gchar *file, guint line,
-								  const gchar *func)
+								  const gchar *func, gint signal)
 {
 	std::stringstream ss;
 	utsname uts;
@@ -322,9 +323,13 @@ Support::unknown_internal_error_ (const gchar *file, guint line,
 	ss << _("You just found an unknown internal error. Please send a detailed "
 			"bug report to \"gnubiff-bugs@lists.sourceforge.net\".\n\n"
 			"Additional information:\n");
-	ss << "file        : " << file << "\n";
-	ss << "line        : " << line << "\n";
-	ss << "function    : " << func << "\n";
+	if (file) {
+		ss << "file        : " << file << "\n";
+		ss << "line        : " << line << "\n";
+		ss << "function    : " << func << "\n";
+	}
+	if (signal)
+		ss << "signal      : " << signal << "\n";
 	ss << "date        : " << __DATE__ << " " << __TIME__ << "\n";
 	ss << "gnubiff     : " << PACKAGE_VERSION << " ";
 	ss <<                     (IS_CVS_VERSION ? "CVS\n" : "\n");

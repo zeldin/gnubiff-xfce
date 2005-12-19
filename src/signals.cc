@@ -53,6 +53,12 @@ Signals::init_signals (class Biff *biff)
 		return false;
 	if (signal (SIGUSR2, Signals::signal_handler) == SIG_ERR)
 		return false;
+	if (signal (SIGFPE, Signals::signal_handler) == SIG_ERR)
+		return false;
+	if (signal (SIGILL, Signals::signal_handler) == SIG_ERR)
+		return false;
+	if (signal (SIGSEGV, Signals::signal_handler) == SIG_ERR)
+		return false;
 
 	return true;
 }
@@ -63,22 +69,28 @@ Signals::init_signals (class Biff *biff)
  *  @param  signal  Number of the signal that was caught.
  */
 void 
-Signals::signal_handler (int signal)
+Signals::signal_handler (int signum)
 {
 #ifdef DEBUG
-	g_message ("Caught signal %d.", signal);
+	g_message ("Caught signal %d.", signum);
 #endif
 	if (!biff_)
 		return;
 
 	// What signal was caught?
 	guint cmd;
-	switch (signal) {
-	case SIGUSR1 :
-		cmd=biff_->value_uint ("signal_sigusr1");
+	switch (signum) {
+	case SIGUSR1:
+		cmd = biff_->value_uint ("signal_sigusr1");
 		break;
-	case SIGUSR2 :
-		cmd=biff_->value_uint ("signal_sigusr2");
+	case SIGUSR2:
+		cmd = biff_->value_uint ("signal_sigusr2");
+		break;
+	case SIGFPE:
+	case SIGILL:
+	case SIGSEGV:
+		Support::unknown_internal_error_ (NULL, 0, NULL, signum);
+		exit (EXIT_FAILURE);
 		break;
 	default:
 		return;

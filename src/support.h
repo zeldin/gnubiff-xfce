@@ -76,7 +76,7 @@ public:
 
 	// Debugging
 	static void unknown_internal_error_ (const gchar *file, guint line,
-				const gchar *func);
+										 const gchar *func, gint signal);
 };
 
 /**
@@ -139,6 +139,6 @@ Support::vector_to_numbersequence (Iter start, Iter end, const std::string sep,
  *  Print debug information. This function should be called in a situation
  *  that should never happen to provide more information in a bug report.
  */
-#define unknown_internal_error() (Support::unknown_internal_error_ (__FILE__, __LINE__, __func__))
+#define unknown_internal_error() (Support::unknown_internal_error_ (__FILE__, __LINE__, __func__, 0))
 
 #endif
