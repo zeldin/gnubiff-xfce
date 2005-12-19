@@ -878,7 +878,8 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 		}
 	}
 	gtk_text_buffer_insert (tb, &iter, "\n\nProperties: ", -1);
-	tmp = option->flags_string().c_str();
+	std::string tmpstr = option->flags_string();
+	tmp = tmpstr.c_str();
 	gtk_text_buffer_insert (tb, &iter, tmp, -1);
 }
 

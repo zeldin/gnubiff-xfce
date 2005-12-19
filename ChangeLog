@@ -33,12 +33,14 @@ Version 2.2.0
    - Added Wallner Adam to translators and contributors
    - Bugfix: Added an include to src/support.cc (for FreeBSD 4)
    - Feature: Control gnubiff via USR1 and USR2 signal
+   - Bugfix: Creating properties line in expert dialog
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
 Version 2.1.9
  * Robert Sowada
    - Changed version to 2.1.9
+   - Backport (from gnubiff 2.2.0 CVS) of properties line in expert dialog fix
 	
 Version 2.1.8		2005-12-19 22:01
  * Robert Sowada

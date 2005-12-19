@@ -87,7 +87,7 @@ Option::flags_string (std::string sep)
 		result += "option is a list" + sep;
 	if (flags_ & OPTFLG_NOSHOW)
 		result += "option is not to be shown" + sep;
-	return result.substr (0, result.size()-2);
+	return result.substr (0, result.size()-sep.size());
 }
 
 Option_UInt::Option_UInt (std::string name, guint group, std::string help,
