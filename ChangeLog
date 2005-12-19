@@ -42,6 +42,7 @@ Version 2.1.9
  * Robert Sowada
    - Changed version to 2.1.9
    - Backport (from gnubiff 2.2.0 CVS) of properties line in expert dialog fix
+   - Backport (from gnubiff 2.2.0 CVS) of a.v. line in expert dialog fix
 	
 Version 2.1.8		2005-12-19 22:01
  * Robert Sowada
