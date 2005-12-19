@@ -840,6 +840,8 @@ Preferences::expert_add_option_list (void)
 void 
 Preferences::expert_on_selection (GtkTreeSelection *selection)
 {
+	std::string tmpstr;
+
 	// Get option
 	Options *opts;
 	Option *option;
@@ -867,7 +869,8 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 	gtk_text_buffer_insert (tb, &iter, option->default_string().c_str(), -1);
 	if (option->type () == OPTTYPE_UINT) {
 		gtk_text_buffer_insert (tb, &iter, "\n\nAllowed values: ", -1);
-		tmp = ((Option_UInt *)option)->allowed_ids (", ").c_str();
+		tmpstr = ((Option_UInt *)option)->allowed_ids (", ");
+		tmp = tmpstr.c_str ();
 		gtk_text_buffer_insert (tb, &iter, tmp, -1);
 		if (!(option->flags () & OPTFLG_ID_INT_STRICT)) {
 			if (*tmp)
@@ -878,8 +881,8 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 		}
 	}
 	gtk_text_buffer_insert (tb, &iter, "\n\nProperties: ", -1);
-	std::string tmpstr = option->flags_string();
-	tmp = tmpstr.c_str();
+	tmpstr = option->flags_string ();
+	tmp = tmpstr.c_str ();
 	gtk_text_buffer_insert (tb, &iter, tmp, -1);
 }
 

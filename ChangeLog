@@ -34,6 +34,7 @@ Version 2.2.0
    - Bugfix: Added an include to src/support.cc (for FreeBSD 4)
    - Feature: Control gnubiff via USR1 and USR2 signal
    - Bugfix: Creating properties line in expert dialog
+   - Bugfix: Creating allowed values line in expert dialog
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
