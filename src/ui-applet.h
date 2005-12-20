@@ -32,8 +32,8 @@
 #ifndef __APPLET_H__
 #define __APPLET_H__
 
-#include "gui.h"
-#include "biff.h"
+#include <glib.h>
+#include "support.h"
 
 /**
  *  Generic non-GUI code common for all types of applets.
@@ -68,52 +68,6 @@ public:
 	/// @see AppletGUI::get_password_for_mailbox ()
 	virtual void get_password_for_mailbox (class Mailbox *mb) {};
 	virtual gboolean can_monitor_mailboxes (void);
-};
-
-/**
- *  Generic GUI code common for all types of applets.
- */ 
-class AppletGUI : public Applet, public GUI {
-protected:
-	/// Pointer to the gnubiff popup
-	class Popup						*popup_;
-	/// Pointer to the preferences dialog
-	class Preferences				*preferences_;
-	/** Pointer to the authentication dialog (needed for getting the user id
-	 *  and password)
-	 */
-	class Authentication			*ui_auth_;
-	/// Shall the popup be forced on the next update?
-	gboolean						force_popup_;
-public:
-	// ========================================================================
-	//  base
-	// ========================================================================
-	AppletGUI (class Biff *biff, std::string filename, gpointer callbackdata);
-	virtual ~AppletGUI (void);
-	virtual void start (gboolean showpref = false);
-
-	// ========================================================================
-	//  main
-	// ========================================================================
-	virtual gboolean update (gboolean init = false,
-							 std::string widget_image = "",
-							 std::string widget_text = "",
-							 std::string widget_container = "",
-							 guint m_width = G_MAXUINT,
-							 guint m_height = G_MAXUINT);
-	virtual std::string get_number_of_unread_messages (void);
-
-	void mailbox_to_be_replaced (class Mailbox *from, class Mailbox *to);
-	virtual void get_password_for_mailbox (class Mailbox *mb);
-	virtual gboolean can_monitor_mailboxes (void);
-
-	void show_dialog_preferences (void);
-	void hide_dialog_preferences (void);
-	gboolean visible_dialog_preferences (void);
-	void show_dialog_about (void);
-	void hide_dialog_about (void);
-	gboolean visible_dialog_popup (void);
 };
 
 #endif

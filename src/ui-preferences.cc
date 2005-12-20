@@ -33,7 +33,7 @@
 
 #include "ui-preferences.h"
 #include "ui-properties.h"
-#include "ui-applet.h"
+#include "ui-applet-gui.h"
 #include "gtk_image_animation.h"
 #include "biff.h"
 #include "mailbox.h"

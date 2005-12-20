@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2005 Nicolas Rougier, 2004-2005 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -21,7 +21,7 @@
 // File          : $RCSfile$
 // Revision      : $Revision$
 // Revision date : $Date$
-// Author(s)     : Nicolas Rougier
+// Author(s)     : Nicolas Rougier, Robert Sowada
 // Short         : 
 //
 // This file is part of gnubiff.
@@ -29,33 +29,56 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#ifndef __APPLET_GTK_H__
-#define __APPLET_GTK_H__
+#ifndef __APPLET_GUI_H__
+#define __APPLET_GUI_H__
 
-#include "ui-applet-gui.h"
+#include "gui.h"
+#include "ui-applet.h"
 
-
-class AppletGtk : public AppletGUI {
-
- public:
+/**
+ *  Generic GUI code common for all types of applets.
+ */ 
+class AppletGUI : public Applet, public GUI {
+protected:
+	/// Pointer to the gnubiff popup
+	class Popup						*popup_;
+	/// Pointer to the preferences dialog
+	class Preferences				*preferences_;
+	/** Pointer to the authentication dialog (needed for getting the user id
+	 *  and password)
+	 */
+	class Authentication			*ui_auth_;
+	/// Shall the popup be forced on the next update?
+	gboolean						force_popup_;
+public:
 	// ========================================================================
 	//  base
 	// ========================================================================
-	AppletGtk (class Biff *biff);
-	~AppletGtk (void);
+	AppletGUI (class Biff *biff, std::string filename, gpointer callbackdata);
+	virtual ~AppletGUI (void);
+	virtual void start (gboolean showpref = false);
 
 	// ========================================================================
 	//  main
 	// ========================================================================
-	gboolean update (gboolean init = false);
-	void show (std::string name = "dialog");
-	void tooltip_update (void);
+	virtual gboolean update (gboolean init = false,
+							 std::string widget_image = "",
+							 std::string widget_text = "",
+							 std::string widget_container = "",
+							 guint m_width = G_MAXUINT,
+							 guint m_height = G_MAXUINT);
+	virtual std::string get_number_of_unread_messages (void);
 
-	// ========================================================================
-	//  callbacks
-	// ========================================================================
-	gboolean on_button_press (GdkEventButton *event);
-	void on_menu_quit (void);
+	void mailbox_to_be_replaced (class Mailbox *from, class Mailbox *to);
+	virtual void get_password_for_mailbox (class Mailbox *mb);
+	virtual gboolean can_monitor_mailboxes (void);
+
+	void show_dialog_preferences (void);
+	void hide_dialog_preferences (void);
+	gboolean visible_dialog_preferences (void);
+	void show_dialog_about (void);
+	void hide_dialog_about (void);
+	gboolean visible_dialog_popup (void);
 };
 
 #endif

@@ -42,6 +42,7 @@ common_sources = \
 	gui.cc					gui.h					\
 	ui-applet.cc			ui-applet.h				\
 	ui-applet-gtk.cc 		ui-applet-gtk.h			\
+	ui-applet-gui.cc		ui-applet-gui.h			\
 	ui-preferences.cc 		ui-preferences.h		\
 	ui-authentication.cc	ui-authentication.h		\
 	ui-certificate.cc		ui-certificate.h		\

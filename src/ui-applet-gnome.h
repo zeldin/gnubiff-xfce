@@ -35,25 +35,26 @@
 #include <gnome.h>
 #include <panel-applet.h>
 #include <panel-applet-gconf.h>
-#include "ui-applet.h"
+#include "ui-applet-gui.h"
 
 
 class AppletGnome : public AppletGUI {
 
 protected:
-	GtkWidget *		applet_;
+	// Pointer to the GtkWidget of the applet
+	GtkWidget						*applet_;
 
 public:
 	// ========================================================================
 	//  base
-	// ========================================================================	
+	// ========================================================================
 	AppletGnome (class Biff *biff);
 	~AppletGnome (void);
 
 	// ========================================================================
 	//  main
-	// ========================================================================	
-	PanelApplet *panelapplet() {return(PANEL_APPLET(applet_));};
+	// ========================================================================
+	PanelApplet *panelapplet() {return (PANEL_APPLET (applet_));};
 	void dock (GtkWidget *applet);
 	gboolean update (gboolean init = false);
 	void show (std::string name = "dialog");
@@ -62,7 +63,7 @@ public:
 
 	// ========================================================================
 	//  callbacks
-	// ========================================================================	
+	// ========================================================================
 	gboolean on_button_press (GdkEventButton *event);
 };
 
