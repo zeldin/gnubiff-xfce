@@ -32,7 +32,8 @@ Version 2.2.0
    - Feature: Hungarian translation (thanks to Wallner Adam; for version 2.1.x)
    - Added Wallner Adam to translators and contributors
    - Bugfix: Added an include to src/support.cc (for FreeBSD 4)
-   - Feature: Control gnubiff via USR1 and USR2 signal
+   - Feature: Control gnubiff via USR1 and USR2 signal (feature request
+        #1287946; thanks to a patch by Wallner Adam)
    - Bugfix: Creating properties line in expert dialog
    - Bugfix: Creating allowed values line in expert dialog
    - Feature: Catch some additional signals and give an error message
@@ -45,7 +46,7 @@ Version 2.1.9
    - Changed version to 2.1.9
    - Backport (from gnubiff 2.2.0 CVS) of properties line in expert dialog fix
    - Backport (from gnubiff 2.2.0 CVS) of a.v. line in expert dialog fix
-   - Backport (from gnubiff 2.2.0 CVS) of compiler warning bug
+   - Backport (from gnubiff 2.2.0 CVS) of compiler warning bugfix
 	
 Version 2.1.8		2005-12-19 22:01
  * Robert Sowada
