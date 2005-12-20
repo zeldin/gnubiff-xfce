@@ -856,12 +856,14 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 	gtk_text_buffer_get_start_iter (tb, &iter);
 	gtk_text_buffer_insert (tb, &iter, "Option ", -1);
 	tmp = option->name().c_str();
-	gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold", 0);
+	gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold",
+											  NULL);
 	gtk_text_buffer_insert (tb, &iter, ": ", -1);
 	gtk_text_buffer_insert (tb, &iter, option->help().c_str(), -1);
 	gtk_text_buffer_insert (tb, &iter, "\n\nGroup ", -1);
 	tmp = opts->group_name(option->group()).c_str();
-	gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold", 0);
+	gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1, "bold",
+											  NULL);
 	gtk_text_buffer_insert (tb, &iter, ": ", -1);
 	tmp = opts->group_help(option->group()).c_str();
 	gtk_text_buffer_insert (tb, &iter, tmp, -1);
@@ -877,7 +879,7 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 				gtk_text_buffer_insert (tb, &iter, ", ", -1);
 			tmp = "any positive integer";
 			gtk_text_buffer_insert_with_tags_by_name (tb, &iter, tmp, -1,
-													  "italic", 0);
+													  "italic", NULL);
 		}
 	}
 	gtk_text_buffer_insert (tb, &iter, "\n\nProperties: ", -1);
