@@ -1,4 +1,5 @@
 INCLUDES = \
+	$(FAM_CFLAGS) \
 	$(GNUBIFF_DEP_CFLAGS)							\
 	$(GNOME_PANEL_DEP_CFLAGS)						\
 	-DGNUBIFF_LOCALEDIR=\""$(datadir)/locale"\"		\
@@ -78,7 +79,7 @@ gnubiff$(EXEEXT): $(gnubiff_OBJECTS) $(gnubiff_DEPENDENCIES)
 
 gnubiff_SOURCES = $(common_sources)
 
-gnubiff_LDADD = $(INTLLIBS) $(GNUBIFF_DEP_LIBS)
+gnubiff_LDADD = $(INTLLIBS) $(GNUBIFF_DEP_LIBS) $(FAM_LIBS)
 
 serverdir       = $(libdir)/bonobo/servers
 server_in_files = 

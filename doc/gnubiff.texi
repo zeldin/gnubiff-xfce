@@ -247,6 +247,7 @@ Various contributors:@*
 @item Philippe Berger
 @item Wade Berrier
 @item Dennis Bjorklund
+@item Jan Blunck
 @item Alexis S. L. Carvalho
 @item John Ellson
 @item Nicolas Evrard

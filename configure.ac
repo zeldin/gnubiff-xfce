@@ -64,12 +64,29 @@ AC_CHECK_LIB([popt],[main], ,
 	])
 )
 
-AC_CHECK_LIB([fam],[main], ,
+AC_CHECK_LIB([fam], [main], [
+	FAM_LIBS="-lfam"
+	AC_DEFINE([HAVE_LIBFAM], [1], [libfam])
+	AC_DEFINE([HAVE_FAM_H], [1], [fam.h])
+])
+if test -z "$FAM_LIBS" ; then
+	PKG_CHECK_MODULES(FAM, gamin >= 0.1.0)
+else
+	dnl From pkg.m4:
+	dnl # Note that if there is a possibility the first call to
+	dnl # PKG_CHECK_MODULES might not happen, you should be sure to
+	dnl # include an explicit call to PKG_PROG_PKG_CONFIG in your
+	dnl # configure.ac
+	PKG_PROG_PKG_CONFIG
+fi
+if test -z "$FAM_LIBS" ; then
 	AC_MSG_ERROR([
 	Cannot find fam (File Alteration Monitor) library
 	Please consider installing it before installing gnubiff
-    ])
-)
+	])
+fi
+AC_SUBST(FAM_CFLAGS)
+AC_SUBST(FAM_LIBS)
 
 AC_CHECK_LIB([ssl],[main])
 
