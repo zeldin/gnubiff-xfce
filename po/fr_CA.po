@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-12-11 19:54+0100\n"
+"POT-Creation-Date: 2005-12-21 00:22+0100\n"
 "PO-Revision-Date: 2005-04-04 13:23+0200\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -33,35 +33,39 @@ msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
 "[Impossible de convertir le jeu de caractères (fr \"%s\" vers \"utf-8\")]"
 
-#: src/gnubiff.cc:91
+#: src/gnubiff.cc:92
 msgid "Start gnome applet from command line"
 msgstr "Démarrer l'applet gnome depuis la ligne de commande"
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:99
 msgid "Configuration file to use"
 msgstr "Fichier de configuration à utiliser "
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:99
 msgid "file"
 msgstr "fichier"
 
-#: src/gnubiff.cc:100
+#: src/gnubiff.cc:101
 msgid "Skip the configuration process"
 msgstr "Passer l'étape de configuration"
 
-#: src/gnubiff.cc:102
+#: src/gnubiff.cc:103
 msgid "Start gnubiff without GUI"
 msgstr ""
 
-#: src/gnubiff.cc:104
+#: src/gnubiff.cc:105
+msgid "Put gnubiff's icon into the system tray"
+msgstr ""
+
+#: src/gnubiff.cc:107
 msgid "Print version information and exit"
 msgstr "Afficher la version et sortir"
 
-#: src/gnubiff.cc:110
+#: src/gnubiff.cc:113
 msgid "General command line options:"
 msgstr "Options de la ligne de commande"
 
-#: src/gnubiff.cc:113
+#: src/gnubiff.cc:116
 msgid "Options for debugging:"
 msgstr "Options de déboggage"
 
@@ -70,29 +74,29 @@ msgstr "Options de déboggage"
 msgid "Configuration file (%s) not found!"
 msgstr "Fichier de configuration (%s) non trouvé"
 
-#: src/biff.cc:591
+#: src/biff.cc:596
 #, fuzzy, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr ""
 "Chargement du fichier de configuration à partir d'une vieille version de "
 "gnubiff \"%s\""
 
-#: src/biff.cc:599
+#: src/biff.cc:604
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 "Chargement du fichier de configuration à partir d'une vieille version de "
 "gnubiff \"%s\""
 
-#: src/biff.cc:601
+#: src/biff.cc:606
 msgid "Trying to convert all options."
 msgstr "Tentative de conversion des options"
 
-#: src/biff.cc:636
+#: src/biff.cc:641
 msgid "Successfully converted all options."
 msgstr "Tentative de conversion réussie"
 
-#: src/biff.cc:639
+#: src/biff.cc:644
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -101,27 +105,27 @@ msgstr ""
 "Tentative de conversion réussie pour quelques options. Les options suivantes "
 "doivent être manuellement converties: %s "
 
-#: src/biff.cc:790
+#: src/biff.cc:795
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: src/biff.cc:806
+#: src/biff.cc:811
 msgid "Cannot create XML parser for config file"
 msgstr "Impossible de créer le parser XML pour le fichier de configuration"
 
-#: src/biff.cc:823
+#: src/biff.cc:828
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Votre fichier de configuration n'as pas de définition de boîte aux lettres (%"
 "s)"
 
-#: src/biff.cc:870
+#: src/biff.cc:875
 msgid "Illegal parameter format in config file"
 msgstr "Format de paramètre illégal dans le fichier de configuration"
 
-#: src/biff.cc:899
+#: src/biff.cc:904
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Pas de protocole spécifié pour la boîte aux lettres %d"
@@ -332,15 +336,15 @@ msgstr "GUI_connect requiert la librairie gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Handler '%s' non trouvé."
 
-#: src/ui-applet.cc:221
+#: src/ui-applet.cc:217
 msgid " unknown"
 msgstr "inconnu"
 
-#: src/ui-applet.cc:226
+#: src/ui-applet.cc:222
 msgid " error"
 msgstr "erreur"
 
-#: src/ui-applet.cc:235
+#: src/ui-applet.cc:231
 msgid " checking..."
 msgstr " consultation..."
 
@@ -376,7 +380,7 @@ msgstr "Valeur"
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:3322
+#: src/ui-preferences.cc:617 ui/preferences.glade:3323
 msgid "_Stop"
 msgstr "_Stopper"
 
@@ -446,7 +450,7 @@ msgstr "Sujet"
 msgid "Date"
 msgstr "Date"
 
-#: src/support.cc:321
+#: src/support.cc:323
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -771,26 +775,29 @@ msgid "Expert"
 msgstr "Expert"
 
 #: ui/preferences.glade:2204
+#, fuzzy
 msgid ""
+"<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
+"devel@lists.sourceforge.net</span>.</small>\n"
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
-"bugs@lists.sourceforge.net</span></small>"
+"bugs@lists.sourceforge.net</span>.</small>"
 msgstr ""
 "<small>Les bogues doivent etre reportés à <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 
-#: ui/preferences.glade:2243
+#: ui/preferences.glade:2244
 msgid "Developers"
 msgstr "Développeurs"
 
-#: ui/preferences.glade:2392
+#: ui/preferences.glade:2393
 msgid "Maintainers"
 msgstr "Mainteneurs"
 
-#: ui/preferences.glade:3102
+#: ui/preferences.glade:3103
 msgid "Translators"
 msgstr "Traducteurs"
 
-#: ui/preferences.glade:3132
+#: ui/preferences.glade:3133
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -804,23 +811,23 @@ msgstr ""
 "  - soumettant du code\n"
 "Voici une liste de ces personnes:</small>"
 
-#: ui/preferences.glade:3203
+#: ui/preferences.glade:3204
 msgid "Contributors"
 msgstr "Contributeurs"
 
-#: ui/preferences.glade:3239
+#: ui/preferences.glade:3240
 msgid "Credits"
 msgstr "Remerciements"
 
-#: ui/preferences.glade:3378
+#: ui/preferences.glade:3379
 msgid "Set to default value"
 msgstr "Mettre la valeur par défaut"
 
-#: ui/preferences.glade:3399
+#: ui/preferences.glade:3400
 msgid "Toggle option"
 msgstr "Basculer l'option"
 
-#: ui/preferences.glade:3420
+#: ui/preferences.glade:3421
 msgid "Edit option"
 msgstr "Editer l'option"
 

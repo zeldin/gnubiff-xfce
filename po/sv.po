@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.0\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-12-11 19:54+0100\n"
+"POT-Creation-Date: 2005-12-21 00:22+0100\n"
 "PO-Revision-Date: 2005-01-17 22:04+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -29,35 +29,39 @@ msgstr ""
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
 
-#: src/gnubiff.cc:91
+#: src/gnubiff.cc:92
 msgid "Start gnome applet from command line"
 msgstr "Starta gnomeapplet från kommandorad"
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:99
 msgid "Configuration file to use"
 msgstr "Konfigurationsfil att använda"
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:99
 msgid "file"
 msgstr "fil"
 
-#: src/gnubiff.cc:100
+#: src/gnubiff.cc:101
 msgid "Skip the configuration process"
 msgstr "Hoppa över konfigurationsprocessen"
 
-#: src/gnubiff.cc:102
+#: src/gnubiff.cc:103
 msgid "Start gnubiff without GUI"
 msgstr ""
 
-#: src/gnubiff.cc:104
+#: src/gnubiff.cc:105
+msgid "Put gnubiff's icon into the system tray"
+msgstr ""
+
+#: src/gnubiff.cc:107
 msgid "Print version information and exit"
 msgstr "Skriv ut versionsinformation och avsluta"
 
-#: src/gnubiff.cc:110
+#: src/gnubiff.cc:113
 msgid "General command line options:"
 msgstr "Vanliga kommandoradsinställningar"
 
-#: src/gnubiff.cc:113
+#: src/gnubiff.cc:116
 msgid "Options for debugging:"
 msgstr "Inställningar för avlusning:"
 
@@ -66,51 +70,51 @@ msgstr "Inställningar för avlusning:"
 msgid "Configuration file (%s) not found!"
 msgstr "Konfigurationsfil (%s) hittades inte !"
 
-#: src/biff.cc:591
+#: src/biff.cc:596
 #, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:599
+#: src/biff.cc:604
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:601
+#: src/biff.cc:606
 msgid "Trying to convert all options."
 msgstr ""
 
-#: src/biff.cc:636
+#: src/biff.cc:641
 msgid "Successfully converted all options."
 msgstr ""
 
-#: src/biff.cc:639
+#: src/biff.cc:644
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: src/biff.cc:790
+#: src/biff.cc:795
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan inte öppna din konfigurationsfil (%s)"
 
-#: src/biff.cc:806
+#: src/biff.cc:811
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Kan inte öppna din konfigurationsfil (%s)"
 
-#: src/biff.cc:823
+#: src/biff.cc:828
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Hittade ingen brevlådedefinition i din konfigureringsfil (%s)"
 
-#: src/biff.cc:870
+#: src/biff.cc:875
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:899
+#: src/biff.cc:904
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
@@ -321,15 +325,15 @@ msgstr "GUI_connect kräver fungerande gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Kunde inte hitta signalhanterare '%s'."
 
-#: src/ui-applet.cc:221
+#: src/ui-applet.cc:217
 msgid " unknown"
 msgstr " okänd"
 
-#: src/ui-applet.cc:226
+#: src/ui-applet.cc:222
 msgid " error"
 msgstr "fel"
 
-#: src/ui-applet.cc:235
+#: src/ui-applet.cc:231
 msgid " checking..."
 msgstr "Kontrollerar..."
 
@@ -367,7 +371,7 @@ msgstr "_Volym:"
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:3322
+#: src/ui-preferences.cc:617 ui/preferences.glade:3323
 msgid "_Stop"
 msgstr "_Stop"
 
@@ -436,7 +440,7 @@ msgstr "Ämne"
 msgid "Date"
 msgstr "Datum"
 
-#: src/support.cc:321
+#: src/support.cc:323
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -749,26 +753,29 @@ msgid "Expert"
 msgstr ""
 
 #: ui/preferences.glade:2204
+#, fuzzy
 msgid ""
+"<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
+"devel@lists.sourceforge.net</span>.</small>\n"
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
-"bugs@lists.sourceforge.net</span></small>"
+"bugs@lists.sourceforge.net</span>.</small>"
 msgstr ""
 "<small>Fel bör rapporteras till <span foreground=\"blue\">gnubiff-bugs@lists."
 "sourceforge.net</span></small>"
 
-#: ui/preferences.glade:2243
+#: ui/preferences.glade:2244
 msgid "Developers"
 msgstr "Utvecklare"
 
-#: ui/preferences.glade:2392
+#: ui/preferences.glade:2393
 msgid "Maintainers"
 msgstr "Underhållare"
 
-#: ui/preferences.glade:3102
+#: ui/preferences.glade:3103
 msgid "Translators"
 msgstr "Översättare"
 
-#: ui/preferences.glade:3132
+#: ui/preferences.glade:3133
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -782,23 +789,23 @@ msgstr ""
 "  - skickat in faktiskt kod\n"
 "Här är en lista på dessa personer:</small>"
 
-#: ui/preferences.glade:3203
+#: ui/preferences.glade:3204
 msgid "Contributors"
 msgstr "Bidragare"
 
-#: ui/preferences.glade:3239
+#: ui/preferences.glade:3240
 msgid "Credits"
 msgstr "Tack"
 
-#: ui/preferences.glade:3378
+#: ui/preferences.glade:3379
 msgid "Set to default value"
 msgstr ""
 
-#: ui/preferences.glade:3399
+#: ui/preferences.glade:3400
 msgid "Toggle option"
 msgstr ""
 
-#: ui/preferences.glade:3420
+#: ui/preferences.glade:3421
 msgid "Edit option"
 msgstr ""
 

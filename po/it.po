@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-12-11 19:54+0100\n"
+"POT-Creation-Date: 2005-12-21 00:22+0100\n"
 "PO-Revision-Date: 2005-12-07 23:43+0100\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -25,35 +25,39 @@ msgstr "[Non è possibile decodificare questa linea dell'intestazione]"
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Impossibile convertire il set di caratteri (da \"%s\" a \"utf-8\")]"
 
-#: src/gnubiff.cc:91
+#: src/gnubiff.cc:92
 msgid "Start gnome applet from command line"
 msgstr "Avviare l'applet gnome dalla linea di comando"
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:99
 msgid "Configuration file to use"
 msgstr "File di configurazione da usare"
 
-#: src/gnubiff.cc:98
+#: src/gnubiff.cc:99
 msgid "file"
 msgstr "file"
 
-#: src/gnubiff.cc:100
+#: src/gnubiff.cc:101
 msgid "Skip the configuration process"
 msgstr "Salta il processo di configurazione"
 
-#: src/gnubiff.cc:102
+#: src/gnubiff.cc:103
 msgid "Start gnubiff without GUI"
 msgstr ""
 
-#: src/gnubiff.cc:104
+#: src/gnubiff.cc:105
+msgid "Put gnubiff's icon into the system tray"
+msgstr ""
+
+#: src/gnubiff.cc:107
 msgid "Print version information and exit"
 msgstr "Stampare le informazione sulla versione ed uscire"
 
-#: src/gnubiff.cc:110
+#: src/gnubiff.cc:113
 msgid "General command line options:"
 msgstr "Opzioni generali da linea di comando:"
 
-#: src/gnubiff.cc:113
+#: src/gnubiff.cc:116
 msgid "Options for debugging:"
 msgstr "Opzioni per il debug:"
 
@@ -62,27 +66,27 @@ msgstr "Opzioni per il debug:"
 msgid "Configuration file (%s) not found!"
 msgstr "File di configurazione (%s) non trovato !"
 
-#: src/biff.cc:591
+#: src/biff.cc:596
 #, fuzzy, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr ""
 "File di configurazione caricato da una vecchia versione di gnubiff \"%s\"."
 
-#: src/biff.cc:599
+#: src/biff.cc:604
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 "File di configurazione caricato da una vecchia versione di gnubiff \"%s\"."
 
-#: src/biff.cc:601
+#: src/biff.cc:606
 msgid "Trying to convert all options."
 msgstr "Tentativo di conversione di tutte le opzioni in corso."
 
-#: src/biff.cc:636
+#: src/biff.cc:641
 msgid "Successfully converted all options."
 msgstr "Tutte le opzioni sono state convertite correttamente."
 
-#: src/biff.cc:639
+#: src/biff.cc:644
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -91,28 +95,28 @@ msgstr ""
 "Alcune opzioni sono state convertite correttamente. Le seguenti opzioni "
 "devono essere aggiornate manualmente: %s."
 
-#: src/biff.cc:790
+#: src/biff.cc:795
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Non riesco ad aprire il tuo file di configurazione (%s)"
 
-#: src/biff.cc:806
+#: src/biff.cc:811
 msgid "Cannot create XML parser for config file"
 msgstr ""
 "Non riesco a creare il parser XML per il tuo file di configurazione (%s)"
 
-#: src/biff.cc:823
+#: src/biff.cc:828
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Non è stata trovata l'impostazione di una casella di posta impostata nel tuo "
 "file di configurazione (%s)"
 
-#: src/biff.cc:870
+#: src/biff.cc:875
 msgid "Illegal parameter format in config file"
 msgstr "Formato del parametro illegale nel file di configurazione"
 
-#: src/biff.cc:899
+#: src/biff.cc:904
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Nessun protocollo è stato specificato per la casella di posta %d"
@@ -330,15 +334,15 @@ msgstr "GUI_connect richiede un gmodule funzionante"
 msgid "Could not find signal handler '%s'."
 msgstr "Non riesco a trovare il signal handler '%s'."
 
-#: src/ui-applet.cc:221
+#: src/ui-applet.cc:217
 msgid " unknown"
 msgstr " sconosciuto"
 
-#: src/ui-applet.cc:226
+#: src/ui-applet.cc:222
 msgid " error"
 msgstr " errore"
 
-#: src/ui-applet.cc:235
+#: src/ui-applet.cc:231
 msgid " checking..."
 msgstr " sto controllando..."
 
@@ -374,7 +378,7 @@ msgstr "_Valore:"
 msgid "_Start"
 msgstr "_Avvia"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:3322
+#: src/ui-preferences.cc:617 ui/preferences.glade:3323
 msgid "_Stop"
 msgstr "_Ferma"
 
@@ -442,7 +446,7 @@ msgstr "Oggetto"
 msgid "Date"
 msgstr "Data"
 
-#: src/support.cc:321
+#: src/support.cc:323
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -774,26 +778,29 @@ msgid "Expert"
 msgstr "Esperto"
 
 #: ui/preferences.glade:2204
+#, fuzzy
 msgid ""
+"<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
+"devel@lists.sourceforge.net</span>.</small>\n"
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
-"bugs@lists.sourceforge.net</span></small>"
+"bugs@lists.sourceforge.net</span>.</small>"
 msgstr ""
 "<small>Gli errori possono essere segnalati a <span foreground=\"blue"
 "\">gnubiff-bugs@lists.sourceforge.net</span></small>"
 
-#: ui/preferences.glade:2243
+#: ui/preferences.glade:2244
 msgid "Developers"
 msgstr "Sviluppatori"
 
-#: ui/preferences.glade:2392
+#: ui/preferences.glade:2393
 msgid "Maintainers"
 msgstr "Manutentori"
 
-#: ui/preferences.glade:3102
+#: ui/preferences.glade:3103
 msgid "Translators"
 msgstr "Traduttori"
 
-#: ui/preferences.glade:3132
+#: ui/preferences.glade:3133
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -807,23 +814,23 @@ msgstr ""
 "  - l'invio del codice attuale\n"
 "Ecco una lista di queste persone:</small>"
 
-#: ui/preferences.glade:3203
+#: ui/preferences.glade:3204
 msgid "Contributors"
 msgstr "Hanno contribuito"
 
-#: ui/preferences.glade:3239
+#: ui/preferences.glade:3240
 msgid "Credits"
 msgstr "Crediti"
 
-#: ui/preferences.glade:3378
+#: ui/preferences.glade:3379
 msgid "Set to default value"
 msgstr "Imposta al valore predefinito"
 
-#: ui/preferences.glade:3399
+#: ui/preferences.glade:3400
 msgid "Toggle option"
 msgstr ""
 
-#: ui/preferences.glade:3420
+#: ui/preferences.glade:3421
 msgid "Edit option"
 msgstr "Opzioni di editazione"
 
