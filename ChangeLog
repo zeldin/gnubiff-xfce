@@ -38,6 +38,7 @@ Version 2.2.0
    - Bugfix: Creating allowed values line in expert dialog
    - Feature: Catch some additional signals and give an error message
    - Bugfix: Changed 0 to NULL to get rid of compiler warning
+   - Updated intltool (to version 0.34.1) and gettext (to version 0.14.4) files
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
