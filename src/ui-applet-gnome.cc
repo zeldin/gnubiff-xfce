@@ -178,6 +178,7 @@ AppletGnome::dock (GtkWidget *applet)
 	gtk_container_set_border_width (GTK_CONTAINER (applet), 0);
 	GtkTooltips *applet_tips = gtk_tooltips_new ();
 	gtk_tooltips_set_tip (applet_tips, applet, "", "");
+	tooltip_widget_ = applet;
 
 	g_signal_connect (G_OBJECT (applet), "enter_notify_event",  GTK_SIGNAL_FUNC (APPLET_GNOME_on_enter), this);
 	g_signal_connect (G_OBJECT (applet), "change_orient",       GTK_SIGNAL_FUNC (APPLET_GNOME_on_change_orient), this);
@@ -249,12 +250,6 @@ void
 AppletGnome::hide (std::string name)
 {
 	gtk_widget_hide (applet_);
-}
-
-void 
-AppletGnome::tooltip_update (void)
-{
-	AppletGUI::tooltip_update (applet_);
 }
 
 gboolean

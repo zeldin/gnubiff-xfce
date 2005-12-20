@@ -131,6 +131,7 @@ extern "C" {
 AppletGtk::AppletGtk (Biff *biff)
 		  : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade", this)
 {
+	tooltip_widget_ = GTK_WIDGET (get ("dialog"));
 }
 
 /**
@@ -205,13 +206,7 @@ AppletGtk::show (std::string name)
 	gtk_window_set_skip_pager_hint (dialog,!biff_->value_bool("applet_pager"));
 }
 
-void 
-AppletGtk::tooltip_update (void)
-{
-	AppletGUI::tooltip_update (get ("dialog"));
-}
-
-gboolean
+gboolean 
 AppletGtk::on_button_press (GdkEventButton *event)
 {
 	// Double left click: start mail app
@@ -261,6 +256,11 @@ AppletSystray::AppletSystray (Biff *biff) : AppletGtk (biff, this)
 {
 	// Create the system tray icon
 	trayicon_ = egg_tray_icon_new ("trayicon");
+
+	// Tooltips shall be displayed in the system tray
+	GtkTooltips *applet_tips = gtk_tooltips_new ();
+	gtk_tooltips_set_tip (applet_tips, GTK_WIDGET (trayicon_), "", "");
+	tooltip_widget_ = GTK_WIDGET (trayicon_);
 
 	// We want to reuse the widgets for AppletGtk. So we have to change the
 	// parent from the top level window to the system tray icon
