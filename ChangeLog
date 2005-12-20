@@ -44,6 +44,7 @@ Version 2.2.0
    - Bugfix: Detection of FAM/GAMIN in configure (thanks to Jan Blunck for
         providing a patch)
    - Added Jan Blunck to contributors
+   - Updated German translation
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
