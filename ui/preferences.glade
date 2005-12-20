@@ -2199,9 +2199,10 @@
 			      <property name="spacing">0</property>
 
 			      <child>
-				<widget class="GtkLabel" id="label34">
+				<widget class="GtkLabel" id="label52">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">&lt;small&gt;Bugs should be reported to &lt;span foreground=&quot;blue&quot;&gt;gnubiff-bugs@lists.sourceforge.net&lt;/span&gt;&lt;/small&gt;</property>
+				  <property name="label" translatable="yes">&lt;small&gt;Developers can be contacted via &lt;span foreground=&quot;blue&quot;&gt;gnubiff-devel@lists.sourceforge.net&lt;/span&gt;.&lt;/small&gt;
+&lt;small&gt;Bugs should be reported to &lt;span foreground=&quot;blue&quot;&gt;gnubiff-bugs@lists.sourceforge.net&lt;/span&gt;.&lt;/small&gt;</property>
 				  <property name="use_underline">False</property>
 				  <property name="use_markup">True</property>
 				  <property name="justify">GTK_JUSTIFY_LEFT</property>
