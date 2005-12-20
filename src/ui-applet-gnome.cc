@@ -251,12 +251,10 @@ AppletGnome::hide (std::string name)
 	gtk_widget_hide (applet_);
 }
 
-void
+void 
 AppletGnome::tooltip_update (void)
 {
-	std::string text = get_mailbox_status_text ();
-	GtkTooltipsData *data = gtk_tooltips_data_get (applet_);
-	gtk_tooltips_set_tip (data->tooltips, applet_, text.c_str(), "");
+	AppletGUI::tooltip_update (applet_);
 }
 
 gboolean

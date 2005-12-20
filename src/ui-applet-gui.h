@@ -79,6 +79,7 @@ public:
 	void show_dialog_about (void);
 	void hide_dialog_about (void);
 	gboolean visible_dialog_popup (void);
+	void tooltip_update (GtkWidget *widget);
 };
 
 #endif

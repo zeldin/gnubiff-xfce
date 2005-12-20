@@ -383,3 +383,20 @@ AppletGUI::get_password_for_mailbox (Mailbox *mb)
 {
 	ui_auth_->select (mb);
 }
+
+/**
+ *  Attach a tooltip to an applet's widget. This tooltip contains information
+ *  about the status of the applet's mailboxes.
+ *
+ *  @param  widget  Applet's widget that shall get the tooltip.
+ */
+void 
+AppletGUI::tooltip_update (GtkWidget *widget)
+{
+	// Get text for tooltip
+	std::string text = get_mailbox_status_text ();
+
+	// Put text in tooltip
+	GtkTooltipsData *data = gtk_tooltips_data_get (widget);
+	gtk_tooltips_set_tip (data->tooltips, widget, text.c_str(), "");
+}

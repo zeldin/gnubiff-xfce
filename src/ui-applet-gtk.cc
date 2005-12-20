@@ -120,41 +120,80 @@ extern "C" {
 	}
 }
 
-AppletGtk::AppletGtk (Biff *biff) : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade", this)
+// ============================================================================
+//  base
+// ============================================================================
+/**
+ *  Constructor.
+ *
+ *  @param  biff  Pointer to gnubiff's biff
+ */
+AppletGtk::AppletGtk (Biff *biff)
+		  : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade", this)
 {
 }
 
+/**
+ *  Constructor to be called from a constructor in a subclass of AppletGtk.
+ *
+ *  @param  biff   Pointer to gnubiff's biff
+ *  @param  applet Pointer to the applet itself
+ */
+AppletGtk::AppletGtk (class Biff *biff, class Applet *applet)
+		  : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade", applet)
+{
+}
+
+/// Destructor
 AppletGtk::~AppletGtk (void)
 {
 }
 
+// ============================================================================
+//  main
+// ============================================================================
+
+/**
+ *  Update applet's status and appearance.
+ *
+ *  @param  init  True if called when initializing gnubiff (the default is
+ *                false)
+ *  @return       True if new messages are present
+ */
 gboolean 
 AppletGtk::update (gboolean init)
 {
-	// Is there another update going on ?
+	// Is there another update going on?
 	if (!g_mutex_trylock (update_mutex_))
 		return false;
 
-	gboolean newmail=AppletGUI::update (init, "image", "unread", "fixed");
+	gboolean newmail = AppletGUI::update (init, "image", "unread", "fixed");
 
-	// Update window manager decorations
-	gboolean decorated = gtk_window_get_decorated (GTK_WINDOW(get("dialog")));
-	if (decorated != biff_->value_bool ("applet_use_decoration"))
-		gtk_window_set_decorated (GTK_WINDOW(get("dialog")),
-								  biff_->value_bool ("applet_use_decoration"));
-
-	tooltip_update();
-	show();
+	tooltip_update ();
+	show ();
 
 	g_mutex_unlock (update_mutex_);
 	return newmail;
 }
 
+/**
+ *  Show the applet. Also the applet's appearance is updated.
+ *
+ *  @param  name  This parameter is ignored (the default is "dialog").
+ */
 void 
 AppletGtk::show (std::string name)
 {
-	GtkWindow *dialog=GTK_WINDOW(get("dialog"));
-	gtk_widget_show (get("dialog"));
+	GtkWindow *dialog = GTK_WINDOW (get ("dialog"));
+
+	// Update window manager decorations
+	gboolean decorated = gtk_window_get_decorated (dialog);
+	if (decorated != biff_->value_bool ("applet_use_decoration"))
+		gtk_window_set_decorated (dialog,
+								  biff_->value_bool ("applet_use_decoration"));
+
+	gtk_widget_show (GTK_WIDGET (dialog));
+
 	if (biff_->value_bool ("applet_use_geometry"))
 		gtk_window_parse_geometry (dialog,
 								   biff_->value_gchar ("applet_geometry"));
@@ -166,12 +205,10 @@ AppletGtk::show (std::string name)
 	gtk_window_set_skip_pager_hint (dialog,!biff_->value_bool("applet_pager"));
 }
 
-void
+void 
 AppletGtk::tooltip_update (void)
 {
-	std::string tooltip = get_mailbox_status_text ();
-	GtkTooltipsData *tt = gtk_tooltips_data_get  (get("dialog"));
-	gtk_tooltips_set_tip (tt->tooltips, get("dialog"), tooltip.c_str(), "");
+	AppletGUI::tooltip_update (get ("dialog"));
 }
 
 gboolean
@@ -207,4 +244,49 @@ void
 AppletGtk::on_menu_quit (void)
 {
 	gtk_main_quit();
+}
+
+
+#include "eggtrayicon.h"
+// ============================================================================
+//  base
+// ============================================================================
+
+/**
+ *  Constructor.
+ *
+ *  @param  biff  Pointer to gnubiff's biff
+ */
+AppletSystray::AppletSystray (Biff *biff) : AppletGtk (biff, this)
+{
+	// Create the system tray icon
+	trayicon_ = egg_tray_icon_new ("trayicon");
+
+	// We want to reuse the widgets for AppletGtk. So we have to change the
+	// parent from the top level window to the system tray icon
+	GtkWidget *eventbox = GTK_WIDGET (get ("event"));
+	gtk_widget_reparent (eventbox, GTK_WIDGET (trayicon_));
+
+	// Show the tray icon
+	gtk_widget_show_all (GTK_WIDGET (trayicon_));
+}
+
+/// Destructor.
+AppletSystray::~AppletSystray (void)
+{
+}
+
+// ============================================================================
+//  main
+// ============================================================================
+
+/**
+ *  Show the applet. Also the applet's appearance is updated.
+ *
+ *  @param  name  This parameter is ignored (the default is "dialog").
+ */
+void 
+AppletSystray::show (std::string name)
+{
+	gtk_widget_show (GTK_WIDGET (trayicon_));
 }

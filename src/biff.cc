@@ -141,16 +141,19 @@ Biff::Biff (guint ui_mode, std::string filename)
 
 	// Applet
 	switch (ui_mode) {
-	case MODE_GTK:
-		applet_ = new AppletGtk (this);
-		break;
 #ifdef USE_GNOME
 	case MODE_GNOME:
 		applet_ = new AppletGnome (this);
 		break;
 #endif
+	case MODE_GTK:
+		applet_ = new AppletGtk (this);
+		break;
 	case MODE_NOGUI:
 		applet_ = new Applet (this);
+		break;
+	case MODE_SYSTEMTRAY:
+		applet_ = new AppletSystray (this);
 		break;
 	default:
 		applet_ = new AppletGtk (this);
