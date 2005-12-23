@@ -75,7 +75,7 @@ class AppletSystray : public AppletGtk {
 	//  main
 	// ========================================================================
 	void show (std::string name = "dialog");
-	void resize (gint width, gint height);
+	void resize (guint width, guint height);
 
 	// ========================================================================
 	//  callbacks

@@ -52,6 +52,14 @@ protected:
 	GtkWidget						*tooltip_widget_;
 	/// Shall the popup be forced on the next update?
 	gboolean						force_popup_;
+	/** Maximum height of the applet's widgets. If there shall be no
+	 *  restriction of the size this value should be G_MAXUINT.
+	 */
+	guint 							widget_max_height_;
+	/** Maximum width of the applet's widgets. If there shall be no restriction
+	 *  of the size this value should be G_MAXUINT.
+	 */
+	guint 							widget_max_width_;
 public:
 	// ========================================================================
 	//  base
@@ -74,9 +82,7 @@ public:
 	virtual gboolean update (gboolean init = false,
 							 std::string widget_image = "",
 							 std::string widget_text = "",
-							 std::string widget_container = "",
-							 guint m_width = G_MAXUINT,
-							 guint m_height = G_MAXUINT);
+							 std::string widget_container = "");
 	virtual std::string get_number_of_unread_messages (void);
 
 	void mailbox_to_be_replaced (class Mailbox *from, class Mailbox *to);

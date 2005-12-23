@@ -47,6 +47,9 @@
 AppletGUI::AppletGUI (Biff *biff, std::string filename, gpointer callbackdata)
           : Applet (biff), GUI (filename)
 {
+	// Set default values
+	widget_max_height_ = G_MAXUINT;
+	widget_max_width_ = G_MAXUINT;
 	tooltip_widget_ = NULL;
 
 	GUI::create (callbackdata);
@@ -224,16 +227,11 @@ AppletGUI::get_number_of_unread_messages (void)
  *                           text widget. If it's an empty string the container
  *                           widget (if present) will not be updated. The
  *                           default is the empty string.
- *  @param  m_width          Maximum width of the widgets. The default value
- *                           is G_MAXUINT.
- *  @param  m_height         Maximum height of the widgets. The default value
- *                           is G_MAXUINT.
  *  @return                  True if new messages are present
  */
 gboolean 
 AppletGUI::update (gboolean init, std::string widget_image,
-				   std::string widget_text, std::string widget_container,
-				   guint m_width, guint m_height)
+				   std::string widget_text, std::string widget_container)
 {
 	// Update applet's status: GUI-independent things to do
 	gboolean newmail = Applet::update (init);
@@ -276,7 +274,7 @@ AppletGUI::update (gboolean init, std::string widget_image,
 		if (image != "") {
 			anim->open (image);
 			// Resize image (if needed)
-			resize_image (widget_image, m_width, m_height);
+			resize_image (widget_image, widget_max_width_, widget_max_height_);
 			// Get image's size
 			get_image_size (widget_image, i_width, i_height);
 			// Start animation in updated widget

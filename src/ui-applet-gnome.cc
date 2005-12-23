@@ -201,21 +201,33 @@ AppletGnome::update (gboolean init)
 	guint size = panel_applet_get_size (panelapplet ());
 	PanelAppletOrient orient = panel_applet_get_orient (panelapplet ());
 
+	// Determine the new maximum size of the applet (depending on the
+	// orientation)
+	widget_max_height_ = G_MAXUINT;
+	widget_max_width_ = G_MAXUINT;
+	switch (orient) {
+	case PANEL_APPLET_ORIENT_DOWN:
+	case PANEL_APPLET_ORIENT_UP:
+		widget_max_width_ = size;
+		break;
+	case PANEL_APPLET_ORIENT_LEFT:
+	case PANEL_APPLET_ORIENT_RIGHT:
+		widget_max_height_ = size;
+		break;
+	default:
+		// Should never happen
+		break;
+	}
+
 	// Update applet (depending on the orientation of the panel)
-	gboolean newmail;
-	if ((orient == PANEL_APPLET_ORIENT_DOWN)
-		|| (orient == PANEL_APPLET_ORIENT_UP))
-		newmail = AppletGUI::update (init, "image", "unread", "fixed", size,
-									 G_MAXUINT);
-	else
-		newmail = AppletGUI::update (init, "image", "unread", "fixed",
-									 G_MAXUINT, size);
+	gboolean newmail = AppletGUI::update (init, "image", "unread", "fixed");
 
 	// Background
 	PanelAppletBackgroundType type;
 	GdkColor color;
 	GdkPixmap *pixmap = NULL;
-	type = panel_applet_get_background (PANEL_APPLET(applet_), &color, &pixmap);
+	type = panel_applet_get_background (PANEL_APPLET (applet_), &color,
+										&pixmap);
 	if (pixmap && G_IS_OBJECT(pixmap)) {		
 		GtkStyle* style = gtk_style_copy (gtk_widget_get_style (applet_));
 		style->bg_pixmap[0] = pixmap;

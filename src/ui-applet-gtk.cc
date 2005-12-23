@@ -302,7 +302,7 @@ AppletSystray::show (std::string name)
  *  @param  height New height of the icon.
  */
 void 
-AppletSystray::resize (gint width, gint height)
+AppletSystray::resize (guint width, guint height)
 {
 	// Get image's current size
 	guint ic_width = 0, ic_height = 0;
@@ -310,7 +310,9 @@ AppletSystray::resize (gint width, gint height)
 
 	// Do we need to have the image rescaled?
 	if ((ic_width != width) || (ic_height != height)) {
-		// TODO
+		widget_max_width_ = width;
+		widget_max_height_ = height;
+//		update (); 
 	}
 }
 
