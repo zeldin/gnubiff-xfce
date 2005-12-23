@@ -257,6 +257,10 @@ AppletSystray::AppletSystray (Biff *biff) : AppletGtk (biff, this)
 	// Create the system tray icon
 	trayicon_ = egg_tray_icon_new ("trayicon");
 
+	// Connect signals to system tray icon
+	g_signal_connect (G_OBJECT (trayicon_), "size-allocate",
+					  GTK_SIGNAL_FUNC (signal_size_allocate), this);
+
 	// Tooltips shall be displayed in the system tray
 	GtkTooltips *applet_tips = gtk_tooltips_new ();
 	gtk_tooltips_set_tip (applet_tips, GTK_WIDGET (trayicon_), "", "");
@@ -289,4 +293,37 @@ void
 AppletSystray::show (std::string name)
 {
 	gtk_widget_show (GTK_WIDGET (trayicon_));
+}
+
+/**
+ *  This function is called automatically when the system tray icon is resized.
+ *
+ *  @param  width  New width of the icon.
+ *  @param  height New height of the icon.
+ */
+void 
+AppletSystray::resize (gint width, gint height)
+{
+}
+
+// ============================================================================
+//  callbacks
+// ============================================================================
+/**
+ *  Callback function that is called when the size of the system tray icon
+ *  is changed. This function calls
+ *
+ *  @param  widget     System tray icon
+ *  @param  allocation Position and size of {\em widget}
+ *  @param  user_data  Pointer to the corresponding AppletSystray object
+ */
+void 
+AppletSystray::signal_size_allocate (GtkWidget *widget,
+									 GtkAllocation *allocation, gpointer data)
+{
+	if (data)
+		((AppletSystray *) data)->resize (allocation->width,
+										  allocation->height);
+	else
+		unknown_internal_error ();
 }

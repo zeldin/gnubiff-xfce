@@ -75,6 +75,13 @@ class AppletSystray : public AppletGtk {
 	//  main
 	// ========================================================================
 	void show (std::string name = "dialog");
+	void resize (gint width, gint height);
+
+	// ========================================================================
+	//  callbacks
+	// ========================================================================
+	static void signal_size_allocate (GtkWidget *widget,
+									  GtkAllocation *allocation,gpointer data);
 };
 
 #endif
