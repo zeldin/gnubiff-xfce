@@ -106,9 +106,58 @@ AppletGUI::get_image_size (std::string widget_image, guint &width,
 		return false;
 
 	// Get image's current size
-	width = anim->scaled_width();
-	height = anim->scaled_height();
+	width = anim->scaled_width ();
+	height = anim->scaled_height ();
 
+	return true;
+}
+
+/**
+ *  Resize the applet's image if it is currently too large.
+ *
+ *  @param widget_image Name of the image's widget.
+ *  @param max_width    Maximum width of the image (default is G_MAXUINT).
+ *  @param max_height   Maximum height of the image (default is G_MAXUINT).
+ *  @return             True if the image has been rescaled, false if there
+ *                      is no image or if the image was not too large.
+ */
+gboolean 
+AppletGUI::resize_image (std::string widget_image, guint max_width,
+						 guint max_height)
+{
+	guint cur_width = 0, cur_height = 0;
+
+	// Get widget (as GObject)
+	GObject *widget = G_OBJECT (get (widget_image.c_str ()));
+	if (!widget)
+		return false;
+
+	// Get animation
+	GtkImageAnimation *anim;
+	anim = (GtkImageAnimation *) g_object_get_data (widget, "_animation_");
+	if (!anim)
+		return false;
+
+	// Get image's current size
+	cur_width = anim->scaled_width ();
+	cur_height = anim->scaled_height ();
+
+	// Determine new size of the image
+	gboolean resize = false;
+	if (cur_width > max_width) {
+		cur_height = cur_height * max_width / cur_width;
+		cur_width  = max_width;
+		resize  = true;
+	}
+	if (cur_height > max_height) {
+		cur_width  = cur_width * max_height / cur_height;
+		cur_height = max_height;
+		resize  = true;
+	}
+
+	// Resize the image if needed
+	if (resize)
+		anim->resize (cur_width, cur_height);
 	return true;
 }
 
@@ -226,23 +275,10 @@ AppletGUI::update (gboolean init, std::string widget_image,
 		// Show/hide image
 		if (image != "") {
 			anim->open (image);
-			// Get image's current size
-			i_width = anim->scaled_width();
-			i_height = anim->scaled_height();
-			// Rescale image if it's too large
-			gboolean rescale = false;
-			if (i_width > m_width) {
-				i_height = i_height * m_width / i_width;
-				i_width  = m_width;
-				rescale  = true;
-			}
-			if (i_height > m_height) {
-				i_width  = i_width * m_height / i_height;
-				i_height = m_height;
-				rescale  = true;
-			}
-			if (rescale)
-				anim->resize (i_width, i_height);
+			// Resize image (if needed)
+			resize_image (widget_image, m_width, m_height);
+			// Get image's size
+			get_image_size (widget_image, i_width, i_height);
 			// Start animation in updated widget
 			gtk_widget_set_size_request (widget, i_width, i_height);
 			gtk_widget_show (widget);
