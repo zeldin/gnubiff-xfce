@@ -75,7 +75,46 @@ AppletGUI::~AppletGUI (void)
 {
 }
 
+// ============================================================================
+//  tools
+// ============================================================================
+/**
+ *  Get the size of the image/animation currently in use for the applet.
+ *
+ *  @param  widget_image Name of the image's widget.
+ *  @param  width        Width of the image (or 0 if there is no image).
+ *  @param  height       Height of the image  (or 0 if there is no image).
+ *  @return              False if there is currently no image available, true
+ *                       otherwise.
+ */
+gboolean 
+AppletGUI::get_image_size (std::string widget_image, guint &width,
+						   guint &height)
+{
+	width = 0;
+	height = 0;
 
+	// Get widget (as GObject)
+	GObject *widget = G_OBJECT (get (widget_image.c_str ()));
+	if (!widget)
+		return false;
+
+	// Get animation
+	GtkImageAnimation *anim;
+	anim = (GtkImageAnimation *) g_object_get_data (widget, "_animation_");
+	if (!anim)
+		return false;
+
+	// Get image's current size
+	width = anim->scaled_width();
+	height = anim->scaled_height();
+
+	return true;
+}
+
+// ============================================================================
+//  main
+// ============================================================================
 /**
  *  Start the applet.
  *
@@ -173,9 +212,9 @@ AppletGUI::update (gboolean init, std::string widget_image,
 	guint i_height = 0, i_width = 0;
 	if (widget_image != "") {
 		GtkImageAnimation *anim;
-		anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT(get("image")),
-														"_animation_");
 		widget = get (widget_image.c_str ());
+		anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT (widget),
+														"_animation_");
 
 		// Determine image
 		std::string image;

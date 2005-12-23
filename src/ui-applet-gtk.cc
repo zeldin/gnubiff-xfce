@@ -304,6 +304,14 @@ AppletSystray::show (std::string name)
 void 
 AppletSystray::resize (gint width, gint height)
 {
+	// Get image's current size
+	guint ic_width = 0, ic_height = 0;
+	get_image_size ("image", ic_width, ic_height);
+
+	// Do we need to have the image rescaled?
+	if ((ic_width != width) || (ic_height != height)) {
+		// TODO
+	}
 }
 
 // ============================================================================

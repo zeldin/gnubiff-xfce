@@ -61,6 +61,12 @@ public:
 	virtual void start (gboolean showpref = false);
 
 	// ========================================================================
+	//  tools
+	// ========================================================================
+	gboolean get_image_size (std::string widget_image, guint &width,
+							 guint &height);
+
+	// ========================================================================
 	//  main
 	// ========================================================================
 	virtual gboolean update (gboolean init = false,
