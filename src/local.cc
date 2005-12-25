@@ -71,33 +71,71 @@ Local::Local (const Mailbox &other) : Mailbox (other)
 Local::~Local (void)
 {
 	// Close FAM connection and free its mutex
-	g_mutex_lock (fam_mutex_);
-	if (fam_is_open_) {
-		FAMClose (&fam_connection_);
-		fam_is_open_ = false;
-	}
-	g_mutex_unlock (fam_mutex_);
+	fam_close ();
 	g_mutex_free (fam_mutex_);
 }
 
 // ========================================================================
 //  main
 // ========================================================================	
+
+/**
+ *  Monitor the files that need to be monitored by this mailbox via
+ *  polling. The thread calling this function must have been locked
+ *  Local::monitor_mutex_.
+ */
 void 
 Local::start (void)
 {
 	// Is there already someone watching this mailbox?
 	if (!g_mutex_trylock (monitor_mutex_))
-		return;
+		return;	
 
-	gboolean fammon = true;
-	while (fammon) {
+	if (value_bool ("file_fam_enable"))
+		start_fam_monitoring ();
+	else {
+		try {
+			start_checking ();
+			gdk_threads_enter();
+			biff_->applet()->update();
+			gdk_threads_leave();
+		}
+		catch (local_err &err) {
+			// Catch all errors that are un-recoverable
+#if DEBUG
+			g_warning ("[%d] Local mailbox exception: %s", uin(), err.what());
+#endif
+			status (MAILBOX_ERROR);
+			unread_.clear ();
+			seen_.clear ();
+		}
+	}
+
+	g_mutex_unlock (monitor_mutex_);
+
+	// If we are polling, there must be another check after the delay time
+	if (value_bool ("file_fam_enable") == false)
+		threaded_start (delay ());
+}
+
+/**
+ *  Start monitoring the files that need to be monitored by this
+ *  mailbox via FAM. If the FAM connection terminates because of an
+ *  error, it is started again. The thread calling this function must
+ *  have been locked Local::monitor_mutex_.
+ */
+void 
+Local::start_fam_monitoring (void)
+{
+	gboolean keep_monitoring = true;
+
+	while (keep_monitoring) {
 		// Start FAM monitoring
 		try {
 			fam_monitoring ();
-			fammon = false;
+			keep_monitoring = false;
 		}
-		catch (local_err& err) {
+		catch (local_err &err) {
 			// Catch all errors that are un-recoverable
 #if DEBUG
 			g_warning ("[%d] Local mailbox exception: %s", uin(), err.what());
@@ -108,27 +146,34 @@ Local::start (void)
 			seen_.clear ();
 
 			// If we have a fam connection then close it
-			g_mutex_lock (fam_mutex_);
-			if (fam_is_open_) {
-				FAMClose (&fam_connection_);
-				fam_is_open_ = false;
-			}
-			g_mutex_unlock (fam_mutex_);
+			fam_close ();
 
 			// Wait the delay time before monitoring again
-			sleep (delay());
+			sleep (delay ());
 		}
 	}
-
-	g_mutex_unlock (monitor_mutex_);
 }
 
 /**
- * Monitor the files that need to be monitored by this mailbox via
- * FAM. The thread calling this function must have been locked
- * Local::monitor_mutex_.
+ *  Close the FAM connection if it's open.
+ */
+void 
+Local::fam_close (void)
+{
+	g_mutex_lock (fam_mutex_);
+	if (fam_is_open_) {
+		FAMClose (&fam_connection_);
+		fam_is_open_ = false;
+	}
+	g_mutex_unlock (fam_mutex_);
+}
+
+/**
+ *  Monitor the files that need to be monitored by this mailbox via
+ *  FAM. The thread calling this function must have been locked
+ *  Local::monitor_mutex_.
  *
- * @exception local_fam_err
+ *  @exception local_fam_err
  *                     This exception is thrown when there is a problem with
  *                     FAM (File Alteration Monitor).
  */
@@ -177,7 +222,7 @@ Local::fam_monitoring (void) throw (local_err)
 	status = 1;
 	while (status == 1) {
 		// Wait for next event
-		if (select (FAMCONNECTION_GETFD(&fam_connection_)+1, &readfds, NULL,
+		if (select (FAMCONNECTION_GETFD (&fam_connection_) + 1, &readfds, NULL,
 					NULL, NULL) < 0) {
 			if (errno==EINTR)
 				break;
@@ -204,10 +249,7 @@ Local::fam_monitoring (void) throw (local_err)
 	}
 
 	// Close FAM connection
-	g_mutex_lock (fam_mutex_);
-	FAMClose (&fam_connection_);
-	fam_is_open_ = false;
-	g_mutex_unlock (fam_mutex_);
+	fam_close ();
 
 	// Ok, we got an error, just retry monitoring
 	if (status != 1) throw local_fam_err();
