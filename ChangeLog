@@ -47,6 +47,8 @@ Version 2.2.0
    - Updated German translation
    - Feature: Ability to switch off FAM monitoring in favor of polling (option
         "mailbox/file_fam_enable")
+   - Bugfix: Added FAM mutex lock when getting all pending FAM events
+   - Bugfix: Check FAM connection when getting all pending FAM events
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

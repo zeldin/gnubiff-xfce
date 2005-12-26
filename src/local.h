@@ -97,6 +97,7 @@ public:
 	void start (void);
 	void start_fam_monitoring (void);
 	void fam_close (void);
+	void fam_get_all_pending_events (void);
 	void fam_monitoring (void) throw (local_err);
 	void stop (void);								// stop method
 	virtual std::string file_to_monitor (void);

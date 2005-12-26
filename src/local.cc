@@ -168,6 +168,26 @@ Local::fam_close (void)
 	g_mutex_unlock (fam_mutex_);
 }
 
+
+/**
+ * Get all pending FAM events.
+ *
+ * Note: Depending on how this function
+ * was called this call may result in some new messages not being
+ * noticed because of race conditions.
+ */
+
+void 
+Local::fam_get_all_pending_events (void)
+{
+	g_mutex_lock (fam_mutex_);
+	if (fam_is_open_)
+		while (FAMPending (&fam_connection_))
+			if (FAMNextEvent (&fam_connection_, &fam_event_) < 0)
+					break;
+	g_mutex_unlock (fam_mutex_);
+}
+
 /**
  *  Monitor the files that need to be monitored by this mailbox via
  *  FAM. The thread calling this function must have been locked

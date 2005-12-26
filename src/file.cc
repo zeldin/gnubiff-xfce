@@ -146,8 +146,6 @@ void File::fetch (void) throw (local_err)
 		// Get all pending FAM events. This is necassary because calling utime
 		// causes FAM events. It may result in some new mails not being
 		// noticed because of race conditions.
-		while (FAMPending(&fam_connection_))
-			if (FAMNextEvent (&fam_connection_, &fam_event_)<0)
-				break;
+		fam_get_all_pending_events ();
 	}
 }
