@@ -378,8 +378,8 @@ Properties::on_apply (GtkWidget *widget)
 			mailbox_->protocol (PROTOCOL_NONE);
 			// If possible create a correct mailbox, otherwise a generic one
 			// (to force lookup)
-			if (!(mailbox=Mailbox::lookup_local(*mailbox_)))
-				mailbox=new Mailbox (*mailbox_);
+			if (!(mailbox = Mailbox::lookup_local (*mailbox_)))
+				mailbox = new Mailbox (*mailbox_);
 			preferences_->biff()->replace_mailbox (mailbox_, mailbox);
 		}
 	}
@@ -393,7 +393,6 @@ Properties::on_apply (GtkWidget *widget)
 			preferences_->biff()->replace_mailbox (mailbox_, mailbox);
 		}
 	}
-
 
 	// Fourth case: type is set to pop
 	else if (selected_type_ == TYPE_POP) {
@@ -409,7 +408,7 @@ Properties::on_apply (GtkWidget *widget)
 			preferences_->biff()->replace_mailbox (mailbox_, mailbox);
 		}
 	}
-	preferences_->synchronize();
+	preferences_->synchronize ();
 }
 
 void
