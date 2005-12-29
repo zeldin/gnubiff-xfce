@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
 "POT-Creation-Date: 2005-12-21 00:22+0100\n"
-"PO-Revision-Date: 2005-03-31 11:05+0200\n"
+"PO-Revision-Date: 2005-12-29 01:35+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "Gnubiff ohne grafische Benutzeroberfläche (GUI) starten"
 
 #: src/gnubiff.cc:105
 msgid "Put gnubiff's icon into the system tray"
-msgstr "Gnubiffs Piktogramm in der System Tray ablegen"
+msgstr "Gnubiffs Piktogramm im Benachrichtigungsfeld ablegen"
 
 #: src/gnubiff.cc:107
 msgid "Print version information and exit"

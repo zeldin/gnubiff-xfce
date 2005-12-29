@@ -29,33 +29,39 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
-#ifndef __APPLET_GTK_H__
-#define __APPLET_GTK_H__
+#ifndef __APPLET_SYSTRAY_H__
+#define __APPLET_SYSTRAY_H__
 
-#include "ui-applet-gui.h"
+#include <gtk/gtk.h>
+
+#include "eggtrayicon.h"
+#include "ui-applet-gtk.h"
 
 
-class AppletGtk : public AppletGUI {
+class AppletSystray : public AppletGtk {
+ private:
+	/// Icon in the system tray
+	EggTrayIcon *trayicon_;
 
  public:
 	// ========================================================================
 	//  base
 	// ========================================================================
-	AppletGtk (class Biff *biff);
-	AppletGtk (class Biff *biff, class Applet *applet);
-	~AppletGtk (void);
+	AppletSystray (class Biff *biff);
+	~AppletSystray (void);
 
 	// ========================================================================
 	//  main
 	// ========================================================================
-	gboolean update (gboolean init = false);
 	void show (std::string name = "dialog");
+	void resize (guint width, guint height);
 
 	// ========================================================================
 	//  callbacks
 	// ========================================================================
-	gboolean on_button_press (GdkEventButton *event);
-	void on_menu_quit (void);
+	static void signal_size_allocate (GtkWidget *widget,
+									  GtkAllocation *allocation,
+									  gpointer data);
 };
 
 #endif
