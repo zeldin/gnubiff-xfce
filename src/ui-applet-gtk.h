@@ -21,7 +21,7 @@
 // File          : $RCSfile$
 // Revision      : $Revision$
 // Revision date : $Date$
-// Author(s)     : Nicolas Rougier
+// Author(s)     : Nicolas Rougier, Robert Sowada
 // Short         : 
 //
 // This file is part of gnubiff.
