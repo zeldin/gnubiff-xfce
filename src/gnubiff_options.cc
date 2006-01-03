@@ -45,33 +45,39 @@ const gchar *Gnubiff_Options::protocol_gchar[] = {
 /**
  *  Add options of the given groups.
  *
- *  @param  groups  Groups of which the options shall be added.
+ *  @param  groups     Groups of which the options shall be added.
+ *  @param  deprecated Shall deprecated options be added? The default is
+ *                     false.
  */
 void 
-Gnubiff_Options::add_options (guint groups)
+Gnubiff_Options::add_options (guint groups, gboolean deprecated)
 {
 	if (groups & OPTGRP_APPLET)
-		add_options_applet ();
+		add_options_applet (deprecated);
 
 	if (groups & OPTGRP_GENERAL)
-		add_options_general ();
+		add_options_general (deprecated);
 
 	if (groups & OPTGRP_INFORMATION)
-		add_options_information ();
+		add_options_information (deprecated);
 
 	if (groups & OPTGRP_MAILBOX)
-		add_options_mailbox ();
+		add_options_mailbox (deprecated);
 
 	if (groups & OPTGRP_POPUP)
-		add_options_popup ();
+		add_options_popup (deprecated);
 
 	if (groups & OPTGRP_SECURITY)
-		add_options_security ();
+		add_options_security (deprecated);
 }
 
-/// Add options for the appearance of the applet
+/**
+ *  Add options for the appearance of the applet.
+ *
+ *  @param  deprecated  Shall deprecated options be added?
+ */
 void 
-Gnubiff_Options::add_options_applet (void)
+Gnubiff_Options::add_options_applet (gboolean deprecated)
 {
 	add_group (new Option_Group ("applet", OPTGRP_APPLET,
 		"Appearance of the applet."));
@@ -161,11 +167,17 @@ Gnubiff_Options::add_options_applet (void)
 		"Font to be used in the applet.",
 								   "sans 10", OPTFLG_NONE, OPTGUI_FONT,
 								   "applet_font_button"));
+	if (!deprecated)
+		return;
 }
 
-/// Add general options
+/**
+ *  Add general options
+ *
+ *  @param  deprecated  Shall deprecated options be added?
+ */
 void 
-Gnubiff_Options::add_options_general (void)
+Gnubiff_Options::add_options_general (gboolean deprecated)
 {
 	add_group (new Option_Group ("general", OPTGRP_GENERAL,
 		"General options."));
@@ -287,15 +299,26 @@ Gnubiff_Options::add_options_general (void)
 		"SIGNAL_SIGUSR1.",
 								 SIGNAL_NONE,
 								 OPTFLG_ID_INT_STRICT, i7,s7));
+	if (!deprecated)
+		return;
 }
 
-/// Add options that are for information purposes only
+/**
+ *  Add options that are for information purposes only.
+ *
+ *  @param  deprecated  Shall deprecated options be added?
+ */
 void 
-Gnubiff_Options::add_options_information (void)
+Gnubiff_Options::add_options_information (gboolean deprecated)
 {
 	add_group (new Option_Group ("information", OPTGRP_INFORMATION,
 		"Not to be changed, for information purposes only."));
 
+	// CONFIG_FILE_LOADED
+	add_option (new Option_Bool ("config_file_loaded", OPTGRP_INFORMATION,
+		"Has the configuration file been loaded?",
+								 false,
+								 OPTFLG_NOSAVE | OPTFLG_AUTO | OPTFLG_NOSHOW));
 	// GTK_MODE
 	const static gchar *s1[] = {"applet_geometry_check",
 								"applet_geometry_entry",
@@ -327,11 +350,17 @@ Gnubiff_Options::add_options_information (void)
 		"that were changed by the user usually have to be converted manually.",
 								   PACKAGE_VERSION,
 								   OPTFLG_FIXED | OPTFLG_NOSHOW));
+	if (!deprecated)
+		return;
 }
 
-/// Add options that are different for each mailbox.
+/**
+ *  Add options that are different for each mailbox.
+ *
+ *  @param  deprecated  Shall deprecated options be added?
+ */
 void 
-Gnubiff_Options::add_options_mailbox (void)
+Gnubiff_Options::add_options_mailbox (gboolean deprecated)
 {
 	add_group (new Option_Group ("mailbox", OPTGRP_MAILBOX,
 		"Options that are mailbox dependant."));
@@ -498,11 +527,17 @@ Gnubiff_Options::add_options_mailbox (void)
 		"\"delay\" option of this mailbox.\n"
 		"This option is used for the local protocols only.",
 								 true));
+	if (!deprecated)
+		return;
 }
 
-/// Add options for the appearance of the popup
+/**
+ *  Add options for the appearance of the popup
+ *
+ *  @param  deprecated  Shall deprecated options be added?
+ */
 void 
-Gnubiff_Options::add_options_popup (void)
+Gnubiff_Options::add_options_popup (gboolean deprecated)
 {
 	add_group (new Option_Group ("popup", OPTGRP_POPUP,
 		"Appearance of the popup."));
@@ -616,11 +651,17 @@ Gnubiff_Options::add_options_popup (void)
 		"The sorting order of each property can be reversed by prefixing a "
 		"\"!\".",
 								   "!position mailbox"));
+	if (!deprecated)
+		return;
 }
 
-/// Add options that affect security issues.
+/**
+ *  Add options that affect security issues.
+ *
+ *  @param  deprecated  Shall deprecated options be added?
+ */
 void 
-Gnubiff_Options::add_options_security (void)
+Gnubiff_Options::add_options_security (gboolean deprecated)
 {
 	add_group (new Option_Group ("security", OPTGRP_SECURITY,
 		"Options that affect security issues. Most of these options help "
@@ -699,4 +740,6 @@ Gnubiff_Options::add_options_security (void)
         "standard.\n"
 		"This option is used for the POP3 protocol.",
 								 70));
+	if (!deprecated)
+		return;
 }

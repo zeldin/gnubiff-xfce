@@ -87,6 +87,8 @@ Option::flags_string (std::string sep)
 		result += "option is a list" + sep;
 	if (flags_ & OPTFLG_NOSHOW)
 		result += "option is not to be shown" + sep;
+	if (flags_ & OPTFLG_DEPRECATED)
+		result += "option is deprecated" + sep;
 	return result.substr (0, result.size()-sep.size());
 }
 

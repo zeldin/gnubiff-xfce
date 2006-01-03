@@ -90,14 +90,16 @@ const guint OPTGRP_SECURITY		=	32;
 class Gnubiff_Options : public Options {
 public:
 protected:
-	void add_options (guint groups);
-	void add_options_applet (void);
-	void add_options_general (void);
-	void add_options_information (void);
-	void add_options_mailbox (void);
-	void add_options_popup (void);
-	void add_options_security (void);
+	void add_options (guint groups, gboolean deprecated = false);
+
 private:
+	void add_options_applet (gboolean deprecated);
+	void add_options_general (gboolean deprecated);
+	void add_options_information (gboolean deprecated);
+	void add_options_mailbox (gboolean deprecated);
+	void add_options_popup (gboolean deprecated);
+	void add_options_security (gboolean deprecated);
+
 	const static guint protocol_int[];
 	const static gchar *protocol_gchar[];
 };

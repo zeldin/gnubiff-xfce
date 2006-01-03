@@ -50,6 +50,7 @@ Version 2.2.0
    - Bugfix: Added FAM mutex lock when getting all pending FAM events
    - Bugfix: Check FAM connection when getting all pending FAM events
    - Changed the last copyright year in all sourcefiles to 2006
+   - Feature: Options in the config file can now become deprecated
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

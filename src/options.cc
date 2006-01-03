@@ -126,6 +126,28 @@ Options::add_option (Options &options)
 }
 
 /**
+ *  Remove all options that are flagged by {\em flags} from the set of
+ *  options.
+ *  
+ *  @param  flags  Flags for determining the options to be removed.
+ *  @return        Always true.
+ */
+gboolean 
+Options::remove_options (guint flags)
+{
+	iterator opt = options_.begin ();
+
+	while (opt != options_.end ()) {
+		Option *option = opt->second;
+		if (option && ((option->flags () & flags) == flags))
+			options_.erase (opt++);
+		else
+			opt++;
+	}
+	return true;
+}
+
+/**
  *  Reset the option to the default value. This function handles the
  *  OPTFLG_CHANGE flag, so use this function instead of calling Option::reset()
  *  directly.

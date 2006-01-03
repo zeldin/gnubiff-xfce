@@ -58,6 +58,7 @@ public:
 	gboolean add_group (Option_Group *group);
 	gboolean add_option (Option *option);
 	gboolean add_option (Options &options);
+	gboolean remove_options (guint flags);
 	Option *find_option (const std::string &name,OptionType type=OPTTYPE_NONE);
 
 	gboolean reset (const std::string &name, gboolean respect_change = true);

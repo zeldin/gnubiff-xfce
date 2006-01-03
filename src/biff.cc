@@ -120,7 +120,7 @@ Biff::Biff (guint ui_mode, std::string filename)
 	auth_mutex_ = g_mutex_new ();
 
 	// Add options
-	add_options (OPTGRP_ALL & (~OPTGRP_MAILBOX));
+	add_options (OPTGRP_ALL & (~OPTGRP_MAILBOX), true);
 
 	// Set session specific options
 	if (filename.size() > 0)
@@ -139,6 +139,12 @@ Biff::Biff (guint ui_mode, std::string filename)
 				   value_gchar ("config_file"));
 		mailbox_.push_back (new Mailbox (this));
 	}
+	value ("config_file_loaded", true);
+
+	// Remove all deprecated options
+	remove_options (OPTFLG_DEPRECATED);
+	for (guint i = 0; i < mailbox_.size(); i++)
+		mailbox_[i]->remove_options (OPTFLG_DEPRECATED);
 
 	// Applet
 	switch (ui_mode) {

@@ -73,6 +73,9 @@ const guint OPTFLG_STRINGLIST = 128;
  *  used for internal options that cannot be changed. Options that may be of
  *  information interest for the user should not be flagged.*/
 const guint OPTFLG_NOSHOW = 256;
+/** This option is deprecated. It is only present to load and convert old
+ *  configuration files.*/
+const guint OPTFLG_DEPRECATED = 512;
 
 /// Option cannot be changed by the user
 const guint OPTFLG_USER_NO_CHANGE = OPTFLG_FIXED | OPTFLG_AUTO;
