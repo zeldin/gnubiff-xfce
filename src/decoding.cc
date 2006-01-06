@@ -748,3 +748,78 @@ Decoding::decrypt_password (const std::string &password,
 	return std::string("");
 #endif
 }
+
+/**
+ *  Decrypt the AES encrypted data {\em data} using the passphrase
+ *  {\em passphrase}. The 128 bit AES algorithm is used.
+ *
+ *  Note: If no AES libraries are available, this function returns an empty
+ *        string.
+ *
+ *  @param  passphrase Passphrase to be used for decryption (must be 16
+ *                     characters long)
+ *  @param  data       Encrypted data
+ *  @return            Decrypted data
+ */
+std::string 
+Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
+{
+#ifdef HAVE_AES
+	guint size = data.size()/2;
+
+	// ASCII to Binary
+	unsigned char *bin = new unsigned char[size+1];
+	for (guint i = 0; i < size; i++)
+		bin[i] = 16*g_ascii_xdigit_value (data[2*i])
+				 +  g_ascii_xdigit_value (data[2*i+1]);
+	bin[size] = '\0';
+
+	// Decrypt via AES
+	AES_KEY aes_key;
+	unsigned char *result = new unsigned char[size+1];
+	AES_set_decrypt_key ((const unsigned char *)passphrase.c_str (), 128,
+						 &aes_key);
+	AES_decrypt (bin, result, &aes_key);
+
+	return std::string ((char *)result);
+#else
+	return std::string ("");
+#endif
+}
+
+/**
+ *  Encrypt the AES encrypted data {\em data} using the passphrase
+ *  {\em passphrase}. The 128 bit AES algorithm is used.
+ *
+ *  Note: If no AES libraries are available, this function returns an empty
+ *        string.
+ *
+ *  @param  passphrase Passphrase to be used for encryption (must be 16
+ *                     characters long)
+ *  @param  data       Decrypted data
+ *  @return            Encrypted data
+ */
+std::string 
+Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
+{
+#ifdef HAVE_AES
+	const char hex[] = "0123456789ABCDEF";
+	guint size = (data.size()+15)/16*16;
+
+	// Encrypt via AES
+	AES_KEY aes_key;
+	unsigned char *result = new unsigned char[2*size];
+	AES_set_encrypt_key ((const unsigned char *)passphrase.c_str (), 128,
+						 &aes_key);
+	AES_encrypt ((const unsigned char *)data.c_str (), result, &aes_key);
+
+	// Binary to ASCII
+	for (guint i = size; i > 0; i--) {
+		result[2*i-1] = hex[result[i-1]&0x0f];
+		result[2*i-2] = hex[result[i-1]/16];
+	}
+	return std::string ((char *)result, 2*size);
+#else
+	return std::string ("");
+#endif
+}

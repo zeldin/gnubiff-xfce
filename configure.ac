@@ -57,6 +57,7 @@ AC_PROG_MAKE_SET
 ######################################################################
 #                         Checks for libraries                       #
 ######################################################################
+dnl LIBPOPT (for parsing options)
 AC_CHECK_LIB([popt],[main], ,
 	AC_MSG_ERROR([
 	Cannot find popt library
@@ -64,6 +65,7 @@ AC_CHECK_LIB([popt],[main], ,
 	])
 )
 
+dnl LIBFAM, LIBGAMIN (for monitoring files)
 AC_CHECK_LIB([fam], [main], [
 	FAM_LIBS="-lfam"
 	AC_DEFINE([HAVE_LIBFAM], [1], [libfam])
@@ -88,13 +90,21 @@ fi
 AC_SUBST(FAM_CFLAGS)
 AC_SUBST(FAM_LIBS)
 
+dnl LIBSSL (for network security)
 AC_CHECK_LIB([ssl],[main])
 
+dnl LIBCRYPTO, LIBSSL (for MD5 hash algorithm)
 AC_CHECK_LIB(crypto, MD5_Init, [
 	AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions)
 	LIBS="$LIBS -lcrypto"], [
 	AC_CHECK_LIB(ssl, MD5_init, AC_DEFINE(HAVE_CRYPTO, 1, Define to 1 if you have crypto base functions))])
 
+dnl LIBSSL (for AES encryption/decryption)
+AC_CHECK_LIB(ssl, AES_encrypt, AC_DEFINE_UNQUOTED(HAVE_AES, 1, 
+			 Define to 1 if AES encryption is available), [
+	AC_CHECK_LIB(crypto, AES_encrypt, AC_DEFINE_UNQUOTED(HAVE_AES, 1))])
+
+dnl GLIB, GTK, ...
 GTK_REQUIRED="gtk+-2.0 >= 2.4"
 GDK_PIXBUF_REQUIRED="gdk-pixbuf-2.0 >= 2.4"
 GMODULE_REQUIRED="gmodule-2.0 >= 2.4"

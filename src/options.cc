@@ -129,7 +129,9 @@ Options::add_option (Options &options)
  *  Remove all options that are flagged by {\em flags} from the set of
  *  options.
  *  
- *  @param  flags  Flags for determining the options to be removed.
+ *  @param  flags  Flags for determining the options to be removed. It is
+ *                 sufficient for an option to be removed if it has one of the
+ *                 flags in {\em flags}.
  *  @return        Always true.
  */
 gboolean 

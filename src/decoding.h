@@ -35,6 +35,15 @@
 #ifdef HAVE_CONFIG_H
 #   include <config.h>
 #endif
+
+#ifdef HAVE_AES
+#   ifdef HAVE_LIBSSL
+#       include <openssl/aes.h>
+#   elif HAVE_LIBCRYPTO
+#       include <crypto/aes.h>
+#   endif
+#endif
+
 #include <glib.h>
 #include <string>
 #include <vector>
@@ -84,6 +93,10 @@ public:
 										 const std::string &passtable);
 	static std::string decrypt_password (const std::string &password,
 										 const std::string &passtable);
+	static std::string decrypt_aes (const std::string &passphrase,
+									const std::string &data);
+	static std::string encrypt_aes (const std::string &passphrase,
+									const std::string &data);
 };
 
 #endif
