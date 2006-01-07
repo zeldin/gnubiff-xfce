@@ -285,6 +285,16 @@ Mailbox::option_changed (Option *option)
 		return;
 	}
 
+#ifdef USE_PASSWORD
+	// PASSWORD_AES
+	if (option->name() == "password_aes") {
+		std::string decpass = decrypt_aes (biff_->value_string ("passphrase"),
+										   ((Option_String *)option)->value());  
+		value ("password", decpass);
+		return;
+	}
+#endif
+
 	// SEEN
 	if (option->name() == "seen") {
 		get_values ("seen", hidden_, true, false);
@@ -314,6 +324,16 @@ Mailbox::option_update (Option *option)
 {
 	if (!option)
 		return;
+
+#ifdef USE_PASSWORD
+	// PASSWORD_AES
+	if (option->name() == "password_aes") {
+		std::string enc_aes = encrypt_aes (biff_->value_string ("passphrase"),
+										   value_string ("password"));
+		((Option_String *)option)->value (enc_aes);
+		return;
+	}
+#endif
 
 	// SEEN
 	if (option->name() == "seen") {

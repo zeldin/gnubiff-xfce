@@ -680,59 +680,30 @@ Decoding::ascii_strdown (const std::string &str)
 }
 
 /**
- * Encrypt the password for saving.
- * Pop3 and Imap4 protocols require password in clear so we have to
- * save passwords in clear within the configuration file. No need to say
- * this is higly unsecure if somebody looks at the file. So we try to
- * take some measures:
- * \begin{itemize}
- *    \item The file is made readable by owner only.
- *	  \item Password is "crypted" so it's not directly human readable.
- * \end{\itemize}
- * Of course, these measures won't prevent a determined person to break
- * in but will at least prevent "ordinary" people to be able to steal
- * password easily.
+ *  Decrypt a password that was stored before version 2.2.0.
  *
- * If no password saving is selected at configure time, an empty string is
- * returned.
+ *  If no password saving is selected at configure time, an empty string is
+ *  returned.
  *
- * @param password  Password to be encrypted
- * @param passtable Passtable to be used for the encryption
- * @return          "Encrypted" password or empty string
+ *  @param  passphrase Passphrase to be used for decryption
+ *  @param  password   Encrypted password
+ *  @return            Decrypted password
  */
 std::string 
-Decoding::encrypt_password (const std::string &password,
-							const std::string &passtable)
+Decoding::decrypt_password_legacy (const std::string &passphrase,
+								   const std::string &password)
 {
 #ifdef USE_PASSWORD
-	std::stringstream encrypted;
+	// Build passtable
+	std::string passtable = passphrase;
+	std::string buffer;
+	for (std::string::size_type i = 0; i < passtable.size(); i++)
+		if (buffer.find(passtable[i]) == std::string::npos)
+			buffer += passtable[i];
+	passtable = buffer;
 
-	for (std::string::size_type j = 0; j < password.size(); j++)
-		encrypted << passtable[password[j]/16] << passtable[password[j]%16];
-	return encrypted.str();
-#else
-	return std::string("");
-#endif
-}
-
-/**
- * Decrypt a password from the config file.
- *
- * If no password saving is selected at configure time, an empty string is
- * returned.
- *
- * @param password  Password to be decrypted
- * @param passtable Passtable to be used for the decryption
- * @return          Decrypted password or empty string
- * @see             Decoding::crypt_password()
- */
-std::string 
-Decoding::decrypt_password (const std::string &password,
-							const std::string &passtable)
-{
-#ifdef USE_PASSWORD
+	// Decrypt password
 	std::stringstream decrypted;
-
 	for (std::string::size_type i = 0; i+1 < password.size(); i += 2) {
 		char c = 0;
 		for (guint j = 0; j < 16; j++) {
@@ -753,8 +724,8 @@ Decoding::decrypt_password (const std::string &password,
  *  Decrypt the AES encrypted data {\em data} using the passphrase
  *  {\em passphrase}. The 128 bit AES algorithm is used.
  *
- *  Note: If no AES libraries are available, this function returns an empty
- *        string.
+ *  Note: If no AES libraries are available or if an error occurs, this
+ *        function returns an empty string.
  *
  *  @param  passphrase Passphrase to be used for decryption (must be 16
  *                     characters long)
@@ -765,10 +736,22 @@ std::string
 Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 {
 #ifdef HAVE_AES
+	// Check Passphrase
+	if (passphrase.size() < 16)
+		return std::string ("");
+
+	// Determine size and allocate memory
 	guint size = data.size()/2;
+	if (size == 0)
+		return std::string ("");
+	unsigned char *bin = new unsigned char[size+1];
+	if (!bin)
+		return std::string ("");
+	unsigned char *result = new unsigned char[size+1];
+	if (!result)
+		return std::string ("");
 
 	// ASCII to Binary
-	unsigned char *bin = new unsigned char[size+1];
 	for (guint i = 0; i < size; i++)
 		bin[i] = 16*g_ascii_xdigit_value (data[2*i])
 				 +  g_ascii_xdigit_value (data[2*i+1]);
@@ -776,12 +759,15 @@ Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 
 	// Decrypt via AES
 	AES_KEY aes_key;
-	unsigned char *result = new unsigned char[size+1];
-	AES_set_decrypt_key ((const unsigned char *)passphrase.c_str (), 128,
-						 &aes_key);
+	AES_set_decrypt_key ((unsigned char *)passphrase.c_str (), 128, &aes_key);
 	AES_decrypt (bin, result, &aes_key);
 
-	return std::string ((char *)result);
+	// Free memory
+	std::string result_str = std::string ((char *)result);
+	delete (bin);
+	delete (result);
+
+	return result_str;
 #else
 	return std::string ("");
 #endif
@@ -791,8 +777,8 @@ Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
  *  Encrypt the AES encrypted data {\em data} using the passphrase
  *  {\em passphrase}. The 128 bit AES algorithm is used.
  *
- *  Note: If no AES libraries are available, this function returns an empty
- *        string.
+ *  Note: If no AES libraries are available or if an error occurs, this
+ *        function returns an empty string.
  *
  *  @param  passphrase Passphrase to be used for encryption (must be 16
  *                     characters long)
@@ -804,21 +790,35 @@ Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
 {
 #ifdef HAVE_AES
 	const char hex[] = "0123456789ABCDEF";
+
+	// Check Passphrase
+	if (passphrase.size() < 16)
+		return std::string ("");
+
+	// Determine size and allocate memory
 	guint size = (data.size()+15)/16*16;
+	if (size == 0)
+		return std::string ("");
+	unsigned char *result = new unsigned char[2*size];
+	if (!result)
+		return std::string ("");
 
 	// Encrypt via AES
 	AES_KEY aes_key;
-	unsigned char *result = new unsigned char[2*size];
-	AES_set_encrypt_key ((const unsigned char *)passphrase.c_str (), 128,
-						 &aes_key);
-	AES_encrypt ((const unsigned char *)data.c_str (), result, &aes_key);
+	AES_set_encrypt_key ((unsigned char *)passphrase.c_str (), 128, &aes_key);
+	AES_encrypt ((unsigned char *)data.c_str (), result, &aes_key);
 
 	// Binary to ASCII
 	for (guint i = size; i > 0; i--) {
 		result[2*i-1] = hex[result[i-1]&0x0f];
 		result[2*i-2] = hex[result[i-1]/16];
 	}
-	return std::string ((char *)result, 2*size);
+
+	// Free memory
+	std::string result_str = std::string ((char *)result, 2*size);
+	delete (result);
+
+	return result_str;
 #else
 	return std::string ("");
 #endif

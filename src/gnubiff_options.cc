@@ -441,12 +441,18 @@ Gnubiff_Options::add_options_mailbox (gboolean deprecated)
 		"Password of the mailbox. This is needed to login into network "
 		"mailboxes.",
 								   "",
-#ifdef USE_PASSWORD
-								   OPTFLG_NONE,
-#else
-								   OPTFLG_NOSAVE,
-#endif
+								   OPTFLG_NOSAVE | OPTFLG_NOSHOW,
 								   OPTGUI_ENTRY, "password_entry"));
+	// PASSWORD_AES
+	add_option (new Option_String ("password_aes", OPTGRP_MAILBOX,
+		"AES encrypted version of this mailbox's password.",
+								   "",
+#ifdef USE_PASSWORD
+								   OPTFLG_CHANGE | OPTFLG_UPDATE
+#else
+								   OPTFLG_NOSAVE | OPTFLG_NOSHOW
+#endif
+								   ));
 	// USE_OTHER_PORT
 	const static gchar *s2[] = {"port_spin", NULL};
 	add_option (new Option_Bool ("use_other_port", OPTGRP_MAILBOX,
@@ -680,6 +686,16 @@ Gnubiff_Options::add_options_security (gboolean deprecated)
 		"mailbox.",
 								 100, OPTFLG_NONE, OPTGUI_SPIN,
 								 "max_mail_spin"));
+	// PASSPHRASE
+	add_option (new Option_String ("passphrase", OPTGRP_SECURITY,
+		"This is the password phrase used for the encryption of the passwords "
+		"in the configuration file (if this feature has been enabled at "
+		"configuration time).\n"
+		"Note: This phrase is stored in the gnubiff binary and can so "
+		"obtained by anyone that can read it.",
+								   PASSWORD_STRING"FEDCBA9876543210",
+								   OPTFLG_FIXED | OPTFLG_AUTO
+								   | OPTFLG_NOSAVE ));
 	// PREVDOS_ADDITIONAL_LINES
 	add_option (new Option_UInt ("prevdos_additional_lines", OPTGRP_SECURITY,
 		"Maximum number of lines that are read from the network additionally "

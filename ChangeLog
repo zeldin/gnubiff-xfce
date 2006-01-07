@@ -52,6 +52,13 @@ Version 2.2.0
    - Changed the last copyright year in all sourcefiles to 2006
    - Feature: Options in the config file can now become deprecated
    - Feature: Functions for encrypting and decrypting via AES
+   - Security: Don't display the password in the expert dialog as plain text
+   - Security/Feature: Password is now stored AES encrypted in the config file
+   - Security/Feature: Converting passwords when loading old config files
+   - Cleanup: Removed old password handling code
+   - Security note: The passphrase must be stored in the binary, so anyone
+        that has access to this binary can get it and thus decrypt the
+        passwords in gnubiff configuration files
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

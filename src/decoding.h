@@ -88,11 +88,9 @@ protected:
 	gchar *charset_to_utf8 (std::string text, std::string charset);
 
 public:
-	// Password
-	static std::string encrypt_password (const std::string &password,
-										 const std::string &passtable);
-	static std::string decrypt_password (const std::string &password,
-										 const std::string &passtable);
+	// Decryption/Encryption
+	static std::string decrypt_password_legacy (const std::string &passphrase,
+												const std::string &password);
 	static std::string decrypt_aes (const std::string &passphrase,
 									const std::string &data);
 	static std::string encrypt_aes (const std::string &passphrase,
