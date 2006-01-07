@@ -306,7 +306,7 @@ Support::path_get_dirname (const std::string &path)
  */
 void 
 Support::unknown_internal_error_ (const gchar *file, guint line,
-								  const gchar *func, gint signal)
+								  const gchar *func, const gchar *signal)
 {
 	std::stringstream ss;
 	utsname uts;

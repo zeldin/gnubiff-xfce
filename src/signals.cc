@@ -53,6 +53,8 @@ Signals::init_signals (class Biff *biff)
 		return false;
 	if (signal (SIGUSR2, Signals::signal_handler) == SIG_ERR)
 		return false;
+	if (signal (SIGBUS, Signals::signal_handler) == SIG_ERR)
+		return false;
 	if (signal (SIGFPE, Signals::signal_handler) == SIG_ERR)
 		return false;
 	if (signal (SIGILL, Signals::signal_handler) == SIG_ERR)
@@ -86,12 +88,18 @@ Signals::signal_handler (int signum)
 	case SIGUSR2:
 		cmd = biff_->value_uint ("signal_sigusr2");
 		break;
-	case SIGFPE:
-	case SIGILL:
-	case SIGSEGV:
-		Support::unknown_internal_error_ (NULL, 0, NULL, signum);
+	case SIGBUS:
+		Support::unknown_internal_error_ (NULL, 0, NULL, "SIGBUS");
 		exit (EXIT_FAILURE);
-		break;
+	case SIGFPE:
+		Support::unknown_internal_error_ (NULL, 0, NULL, "SIGFPE");
+		exit (EXIT_FAILURE);
+	case SIGILL:
+		Support::unknown_internal_error_ (NULL, 0, NULL, "SIGILL");
+		exit (EXIT_FAILURE);
+	case SIGSEGV:
+		Support::unknown_internal_error_ (NULL, 0, NULL, "SIGSEGV");
+		exit (EXIT_FAILURE);
 	default:
 		return;
 	}
