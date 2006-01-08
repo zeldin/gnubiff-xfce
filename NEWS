@@ -4,6 +4,13 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.1.9
+This is a minor bugfix release. Changes:
+ * Better detection of FAM/GAMIN at configuration time
+ * FAM can be disabled for monitoring mailboxes (and polling be used instead)
+ * Some additional FAM bugfixes
+ * Some other small bugfixes
+
 Version 2.1.8
 This is a minor bugfix release. Changes:
  * Updated Italian translation (thanks to Stefano Fabri)
