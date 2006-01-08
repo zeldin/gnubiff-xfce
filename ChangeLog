@@ -4,7 +4,7 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
-Version 2.2.0		2006-01-08 10:54
+Version 2.2.0
  * Robert Sowada
    - Changed version to 2.2.0 (from version 2.1.5)
    - Removed not needed include files from "src/gnubiff.cc"
@@ -62,7 +62,11 @@ Version 2.2.0		2006-01-08 10:54
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
-Version 2.1.9
+Version 2.1.10
+ * Robert Sowada
+    - Changed version to 2.1.10
+
+Version 2.1.9           2006-01-08 10:54
  * Robert Sowada
    - Changed version to 2.1.9
    - Backport (from gnubiff 2.2.0 CVS) of properties line in expert dialog fix
