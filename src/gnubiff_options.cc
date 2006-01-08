@@ -525,8 +525,8 @@ Gnubiff_Options::add_options_mailbox (gboolean deprecated)
 		"being noticed because of race conditions.\n"
 		"This option is used for the file protocol only.",
 								 false));
-	// FILE_FAM_ENABLE
-	add_option (new Option_Bool ("file_fam_enable", OPTGRP_MAILBOX,
+	// LOCAL_FAM_ENABLE
+	add_option (new Option_Bool ("local_fam_enable", OPTGRP_MAILBOX,
 		"Shall the mailbox be monitored by the FAM demon (or a substitution "
 		"like GAMIN)? If this option is set to false, polling will be used "
 		"instead. The time between two checks is determined by the "

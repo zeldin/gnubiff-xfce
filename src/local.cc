@@ -91,7 +91,7 @@ Local::start (void)
 	if (!g_mutex_trylock (monitor_mutex_))
 		return;	
 
-	if (value_bool ("file_fam_enable"))
+	if (value_bool ("local_fam_enable"))
 		start_fam_monitoring ();
 	else {
 		try {
@@ -114,7 +114,7 @@ Local::start (void)
 	g_mutex_unlock (monitor_mutex_);
 
 	// If we are polling, there must be another check after the delay time
-	if (value_bool ("file_fam_enable") == false)
+	if (value_bool ("local_fam_enable") == false)
 		threaded_start (delay ());
 }
 

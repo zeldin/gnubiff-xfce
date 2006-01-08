@@ -46,7 +46,7 @@ Version 2.2.0
    - Added Jan Blunck to contributors
    - Updated German translation
    - Feature: Possibility to switch off FAM monitoring in favor of polling
-        (option "mailbox/file_fam_enable")
+        (option "mailbox/local_fam_enable")
    - Bugfix: Added FAM mutex lock when getting all pending FAM events
    - Bugfix: Check FAM connection when getting all pending FAM events
    - Changed the last copyright year in all sourcefiles to 2006
