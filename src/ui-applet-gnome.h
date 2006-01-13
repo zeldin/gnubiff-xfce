@@ -64,6 +64,8 @@ public:
 	//  callbacks
 	// ========================================================================
 	gboolean on_button_press (GdkEventButton *event);
+	static gboolean gnubiff_applet_factory (PanelApplet *applet,
+											const gchar *iid, gpointer data);
 };
 
 #endif

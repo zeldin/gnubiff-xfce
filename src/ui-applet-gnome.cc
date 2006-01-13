@@ -264,6 +264,10 @@ AppletGnome::hide (std::string name)
 	gtk_widget_hide (applet_);
 }
 
+// ============================================================================
+//  callbacks
+// ============================================================================
+
 gboolean
 AppletGnome::on_button_press (GdkEventButton *event)
 {
@@ -280,4 +284,26 @@ AppletGnome::on_button_press (GdkEventButton *event)
 		mark_messages_as_read ();	
 
 	return false;
+}
+
+/**
+ *  This callback is called when gnome panel applet has been created. 
+ *
+ *  @param  applet Pointer to the panel applet.
+ *  @param  iid    FIXME
+ *  @param  data   This is currently always the NULL pointer.
+ *  @return        Always true.
+ */
+gboolean 
+AppletGnome::gnubiff_applet_factory (PanelApplet *applet, const gchar *iid,
+									 gpointer data)
+{
+	if (strcmp (iid, "OAFIID:GNOME_gnubiffApplet"))
+	  return true;
+
+	Biff *biff = new Biff (MODE_GNOME);
+	AppletGnome *biffapplet = (AppletGnome *)biff->applet();
+	biffapplet->dock ((GtkWidget *) applet);
+	biffapplet->start (false);
+	return true;
 }
