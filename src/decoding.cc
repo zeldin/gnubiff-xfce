@@ -695,10 +695,12 @@ Decoding::charset_to_utf8 (std::string text, std::string charset,
 	else
 		utf8 = g_locale_to_utf8 (text.c_str(), -1, 0, 0, 0);
 
+	// Could not convert. Retry?
 	if (!utf8 && retries)
 		return charset_to_utf8 (text.substr (0, text.size()-1), charset,
 								retries - 1);
 
+	// Could not convert at all!
 	if (!utf8) {
 		gchar *tmp = g_strdup_printf (_("[Cannot convert character sets "
 										"(from \"%s\" to \"utf-8\")]"),
