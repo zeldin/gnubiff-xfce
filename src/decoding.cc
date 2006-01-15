@@ -73,15 +73,21 @@ Decoding::decode_body (std::vector<std::string> &mail, std::string encoding,
 	// 7bit, 8bit encoding: nothing to do
 	if ((encoding=="7bit") || (encoding=="8bit")); // || (encoding=="binary"));
 	// Quoted-Printable
-	else if (encoding=="quoted-printable") {
+	else if (encoding == "quoted-printable") {
 		std::vector<std::string> decoded=decode_quotedprintable(mail, bodypos);
-		mail.erase(mail.begin()+bodypos, mail.end());
-		for (std::string::size_type i = 0; i < decoded.size(); i++)
-			mail.push_back(decoded[i]);
+		mail.erase (mail.begin() + bodypos, mail.end());
+		for (guint i = 0; i < decoded.size(); i++)
+			mail.push_back (decoded[i]);
+	}
+	// Base64
+	else if (encoding == "base64") {
+		std::string decoded = decode_base64 (mail, bodypos);
+		mail.erase (mail.begin() + bodypos, mail.end());
+		mail.push_back (decoded);
 	}
 	// Unknown encoding: Replace body text by a error message
 	else {
-		mail.erase (mail.begin()+bodypos, mail.end());
+		mail.erase (mail.begin() + bodypos, mail.end());
 		gchar *tmp = g_strdup_printf (_("[The encoding \"%s\" of this mail "
 										"can't be decoded]"),
 									  encoding.c_str());
@@ -375,6 +381,35 @@ Decoding::decode_base64 (const std::string &todec)
 }
 
 /**
+ * Decoding of a vector of base64 encoded strings. It is assumed that
+ * each string in the vector {\em todec} represents one line of the
+ * base64 encoded text. Lines that have an invalid encoding are
+ * omitted.
+ *
+ * Note: The last character of the decoded string may not be validly encoded
+ * in its charset.
+ *
+ * See RFC 3548, 2045 6.8 for the definition of base64 encoding.
+ *
+ * @param todec  Vector of base64 encoded C++ strings that will be decoded.
+ * @param pos    Number of the first line in the vector that shall be decoded.
+ *               The default value is 0.
+ * @return       String consisting of the decoded text
+ */
+std::string 
+Decoding::decode_base64 (const std::vector<std::string> &todec,
+						 std::string::size_type pos)
+{
+	// Append all lines
+	std::string body;
+	while (pos < todec.size ())
+		body += todec[pos++];
+
+	// Decode line
+	return decode_base64 (body);
+}
+
+/**
  * Decoding of a q-encoded strings. Q-Encoding is similar to quoted-printable
  * encoding and is used in mail headers. See RFC 2047 4.2. for a definition.
  * If the given string {\em todec} is not valid an empty string is returned.
@@ -464,10 +499,11 @@ Decoding::decode_quotedprintable (const std::string &todec)
  *
  * Note: For mail headers q-encoding is used instead of quoted-printable.
  *
- * @param todec  Reference to a C++ vector of C++ strings that will be decoded.
- * @param pos    Number of the first line in the vector that has to be decoded.
+ * @param todec  Vector of quoted printable encoded C++ strings that will be
+ *               decoded.
+ * @param pos    Number of the first line in the vector that shall be decoded.
  *               The default value is 0.
- * @return       C++ vector of C++ strings consisting of the decoded text
+ * @return       Vector of C++ strings consisting of the decoded text
  */
 std::vector<std::string> 
 Decoding::decode_quotedprintable (const std::vector<std::string> &todec,
@@ -635,22 +671,33 @@ Decoding::utf8_to_imaputf7 (const gchar *str, gssize len)
 /**
  *  Convert the string {\em text} from the character set {\em charset} to
  *  utf-8. If no character set is given the string is assumed to be in the
- *  C runtime character set. If the string cannot be converted a error message
- *  is returned.
+ *  C runtime character set.
+ *
+ *  If the string cannot be converted and if {\em retries} is non
+ *  zero, the string {\em text} without the last byte is converted (if
+ *  possible). This is done because gnubiff cannot know the end of
+ *  characters when decoding certain encodings (e.g. base64). If
+ *  {\em retries} is zero an error message is returned.
  *
  *  @param  text     String to be converted
  *  @param  charset  Character set of the string {\em text} or empty
+ *  @param  retries  Maximum number of retries. The default is 0.
  *  @return          Converted string or error message (as character array).
  *                   This string has to be freed with g_free().
  */
 gchar * 
-Decoding::charset_to_utf8 (std::string text, std::string charset)
+Decoding::charset_to_utf8 (std::string text, std::string charset,
+						   guint retries)
 {
 	gchar *utf8 = (gchar *) text.c_str();
 	if (!charset.empty())
 		utf8 = g_convert (text.c_str(), -1, "utf-8", charset.c_str(), 0,0,0);
 	else
 		utf8 = g_locale_to_utf8 (text.c_str(), -1, 0, 0, 0);
+
+	if (!utf8 && retries)
+		return charset_to_utf8 (text.substr (0, text.size()-1), charset,
+								retries - 1);
 
 	if (!utf8) {
 		gchar *tmp = g_strdup_printf (_("[Cannot convert character sets "

@@ -519,9 +519,12 @@ Popup::on_select (GtkTreeSelection *selection)
 		g_free (markup);
 
 		// Body
-		text = charset_to_utf8 (selected_header_.body(), selected_header_.charset());
+		text = charset_to_utf8 (selected_header_.body(),
+								selected_header_.charset(),
+								biff_->value_uint ("popup_convert_retries"));
 		if (text) {
-			gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, text, -1, "normal", NULL);
+			gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, text, -1,
+													  "normal", NULL);
 			g_free (text);
 		}
 	}

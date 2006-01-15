@@ -59,6 +59,7 @@ Version 2.2.0
    - Security note: The passphrase must be stored in the binary, so anyone
         that has access to this binary can get it and thus decrypt the
         passwords in gnubiff configuration files
+   - Feature: Decoding of base64 encoded message bodies
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

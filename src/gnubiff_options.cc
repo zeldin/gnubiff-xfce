@@ -641,6 +641,15 @@ Gnubiff_Options::add_options_popup (gboolean deprecated)
 		"Maximum number of mail body lines that will be displayed in the "
 		"popup.",
 								 10));
+	// POPUP_CONVERT_RETRIES
+	add_option (new Option_UInt ("popup_convert_retries", OPTGRP_POPUP,
+		"Maximum number of retries when converting a message's body to UTF-8. "
+		"Because gnubiff does not fetch the whole body but only the first "
+		"lines the last character may be invalid after decoding from certain "
+		"encodings (e.g. base64). This option gives the maximum number of "
+		"retries when trying to convert such strings to get a validly "
+		"encoded string.",
+								 5));
 	// POPUP_SORT_BY
 	add_option (new Option_String ("popup_sort_by", OPTGRP_POPUP,
 		"A space separated list of header properties by which the headers "

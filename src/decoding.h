@@ -75,17 +75,20 @@ protected:
 
 	// Encodings
 	std::string decode_base64 (const std::string &);
+	std::string decode_base64 (const std::vector<std::string> &,
+							   std::string::size_type pos = 0);
 	std::string decode_qencoding (const std::string &);
 	std::string decode_quotedprintable (const std::string &);
 	std::vector<std::string> decode_quotedprintable (
 				const std::vector<std::string> &,
-				std::string::size_type pos=0);
+				std::string::size_type pos = 0);
 
 	// Converting
 	std::string utf8_to_imaputf7 (std::string str);
 	gchar* utf8_to_imaputf7 (const gchar *, gssize);
 	std::string ascii_strdown (const std::string &str);
-	gchar *charset_to_utf8 (std::string text, std::string charset);
+	gchar *charset_to_utf8 (std::string text, std::string charset,
+							guint retries = 0);
 
 public:
 	// Decryption/Encryption
