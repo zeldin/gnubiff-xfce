@@ -445,7 +445,7 @@ AppletGUI::mailbox_to_be_replaced (class Mailbox *from, class Mailbox *to)
 gboolean 
 AppletGUI::can_monitor_mailboxes (void)
 {
-	return !(visible_dialog_popup ());
+	return !(visible_dialog_preferences ());
 }
 
 /**

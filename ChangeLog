@@ -60,6 +60,8 @@ Version 2.2.0
         that has access to this binary can get it and thus decrypt the
         passwords in gnubiff configuration files
    - Feature: Decoding of base64 encoded message bodies
+   - Bugfix: Do not start monitoring when the "apply" button in the properties
+        dialog is clicked
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
