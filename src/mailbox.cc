@@ -1015,6 +1015,23 @@ Mailbox::start_checking (void)
 }
 
 /**
+ *  Set the mailbox status into error state. Also resets the read status of
+ *  all messages if the corresponding mailbox option is set to true.
+ */
+void 
+Mailbox::set_status_mailbox_error (void)
+{
+	// Set mailbox status
+	status (MAILBOX_ERROR);
+
+	// Reset read status of messages if wanted by the user
+	if (value_bool ("error_reset_msgs")) {
+		unread_.clear ();
+		seen_.clear ();
+	}
+}
+
+/**
  * Decide whether a mail has to be fetched and parsed. If the mail is already
  * known it is inserted into the new_unread_ map. So it can be displayed later.
  *

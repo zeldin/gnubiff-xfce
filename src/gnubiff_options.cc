@@ -533,6 +533,12 @@ Gnubiff_Options::add_options_mailbox (gboolean deprecated)
 		"\"delay\" option of this mailbox.\n"
 		"This option is used for the local protocols only.",
 								 true));
+	// ERROR_RESET_MSGS
+	add_option (new Option_Bool ("error_reset_msgs", OPTGRP_MAILBOX,
+		"Shall the read status of all messages be reset to unread if there is "
+		"a failure in retrieving the mailbox's messages? This results in all "
+		"messages be presented as new once messages can be obtained again.",
+								 false));
 	if (!deprecated)
 		return;
 }

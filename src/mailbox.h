@@ -148,6 +148,7 @@ public:
 	gboolean new_mail (std::string &);
 	void update_mailbox_status (void);
 	void start_checking (void);
+	void set_status_mailbox_error (void);
 	void mail_displayed (void);
 	void parse (std::vector<std::string> &mail,
 				std::string uid = std::string(""),

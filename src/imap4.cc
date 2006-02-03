@@ -129,11 +129,8 @@ Imap4::start (void)
 #if DEBUG
 		g_warning ("[%d] Imap exception: %s", uin(), err.what());
 #endif
-		if (err.is_mailboxerror()) {
-			status (MAILBOX_ERROR);
-			unread_.clear ();
-			seen_.clear ();
-		}
+		if (err.is_mailboxerror())
+			set_status_mailbox_error ();
 		socket_->close ();
 
 		idled_ = false;

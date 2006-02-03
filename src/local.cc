@@ -105,9 +105,7 @@ Local::start (void)
 #if DEBUG
 			g_warning ("[%d] Local mailbox exception: %s", uin(), err.what());
 #endif
-			status (MAILBOX_ERROR);
-			unread_.clear ();
-			seen_.clear ();
+			set_status_mailbox_error ();
 		}
 	}
 

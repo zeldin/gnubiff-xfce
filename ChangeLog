@@ -62,6 +62,8 @@ Version 2.2.0
    - Feature: Decoding of base64 encoded message bodies
    - Bugfix: Do not start monitoring when the "apply" button in the properties
         dialog is clicked
+   - Feature: Option for enabling resetting the mailbox in case of a connection
+        failure (the new default value changes the default behavior of gnubiff)
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
