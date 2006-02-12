@@ -110,14 +110,6 @@ extern "C" {
 		else
 			unknown_internal_error ();
 	}
-
-	void APPLET_GTK_on_hide_about (GtkWidget *widget, gpointer data)
-	{
-		if (data)
-			((AppletGtk *) data)->hide_dialog_about ();
-		else
-			unknown_internal_error ();
-	}
 }
 
 // ============================================================================

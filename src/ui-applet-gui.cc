@@ -394,7 +394,7 @@ AppletGUI::show_dialog_about (void)
 	preferences_->hide();
 
 	// Show the dialog
-	GUI::show ("about");
+	GUI::show ("gnubiffabout");
 }
 
 /**
@@ -403,7 +403,7 @@ AppletGUI::show_dialog_about (void)
 void 
 AppletGUI::hide_dialog_about (void)
 {
-	GUI::hide ("about");
+	GUI::hide ("gnubiffabout");
 }
 
 /**

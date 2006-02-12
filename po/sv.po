@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.0\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-12-21 00:22+0100\n"
+"POT-Creation-Date: 2006-02-12 18:51+0100\n"
 "PO-Revision-Date: 2005-01-17 22:04+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -15,16 +15,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/decoding.cc:85
+#: src/decoding.cc:91
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr ""
 
-#: src/decoding.cc:128 src/decoding.cc:135 src/decoding.cc:140
+#: src/decoding.cc:134 src/decoding.cc:141 src/decoding.cc:146
 msgid "[Cannot decode this header line]"
 msgstr ""
 
-#: src/decoding.cc:656
+#: src/decoding.cc:705
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
@@ -65,56 +65,56 @@ msgstr "Vanliga kommandoradsinställningar"
 msgid "Options for debugging:"
 msgstr "Inställningar för avlusning:"
 
-#: src/biff.cc:137
+#: src/biff.cc:125
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Konfigurationsfil (%s) hittades inte !"
 
-#: src/biff.cc:596
+#: src/biff.cc:590
 #, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:604
+#: src/biff.cc:598
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:606
+#: src/biff.cc:600
 msgid "Trying to convert all options."
 msgstr ""
 
-#: src/biff.cc:641
+#: src/biff.cc:644
 msgid "Successfully converted all options."
 msgstr ""
 
-#: src/biff.cc:644
+#: src/biff.cc:647
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: src/biff.cc:795
+#: src/biff.cc:790
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Kan inte öppna din konfigurationsfil (%s)"
 
-#: src/biff.cc:811
+#: src/biff.cc:806
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Kan inte öppna din konfigurationsfil (%s)"
 
-#: src/biff.cc:828
+#: src/biff.cc:823
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Hittade ingen brevlådedefinition i din konfigureringsfil (%s)"
 
-#: src/biff.cc:875
+#: src/biff.cc:870
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:904
+#: src/biff.cc:899
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
@@ -124,40 +124,40 @@ msgstr ""
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Kan inte skapa tråd: %s"
 
-#: src/mailbox.cc:297
+#: src/mailbox.cc:307
 #, c-format
 msgid "mailbox %d"
 msgstr "Brevlåda %d"
 
-#: src/mailbox.cc:602
+#: src/mailbox.cc:622
 msgid "<no date>"
 msgstr "<Inget datum>"
 
-#: src/mailbox.cc:603
+#: src/mailbox.cc:623
 msgid "<no sender>"
 msgstr "<ingen avsändare>"
 
-#: src/mailbox.cc:604
+#: src/mailbox.cc:624
 msgid "<no subject>"
 msgstr "<inget ämne>"
 
-#: src/mailbox.cc:651
+#: src/mailbox.cc:671
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: src/mailbox.cc:672
+#: src/mailbox.cc:692
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: src/mailbox.cc:721
+#: src/mailbox.cc:741
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:729
+#: src/mailbox.cc:749
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:775
+#: src/mailbox.cc:795
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr ""
@@ -203,41 +203,41 @@ msgstr ""
 msgid "Cannot open %s."
 msgstr "Kan inte öppna %s."
 
-#: src/imap4.cc:462
+#: src/imap4.cc:459
 msgid "[This message has no part with a supported content type]"
 msgstr ""
 
-#: src/imap4.cc:825
+#: src/imap4.cc:822
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Kan inte välja mapp %s hos värden %s"
 
-#: src/imap4.cc:913
+#: src/imap4.cc:910
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Kan inte få godkännande från %s på port %d"
 
-#: src/imap4.cc:972
+#: src/imap4.cc:969
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: src/imap4.cc:1025
+#: src/imap4.cc:1022
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
-#: src/imap4.cc:1581
+#: src/imap4.cc:1578
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
-#: src/imap4.cc:1586
+#: src/imap4.cc:1583
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
-#: src/imap4.cc:1591
+#: src/imap4.cc:1588
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
@@ -247,17 +247,17 @@ msgstr ""
 msgid "Cannot open new mail directory (%s)"
 msgstr "Kan inte öppna nytt brevbibliotek (%s)"
 
-#: src/pop.cc:154
+#: src/pop.cc:152
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Tomt lösenord"
 
-#: src/pop.cc:513
+#: src/pop.cc:511
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr ""
 
-#: src/pop.cc:520
+#: src/pop.cc:518
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr ""
@@ -279,23 +279,23 @@ msgstr ""
 "[%d] Problem med kryptering som borde ha upptäckts vid "
 "konfigureringstillfället"
 
-#: src/options.cc:506
+#: src/options.cc:530
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr ""
 
-#: src/options.cc:513
+#: src/options.cc:537
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr ""
 
-#: src/options.cc:665 src/gui.cc:263
+#: src/options.cc:689 src/gui.cc:274
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
 "Kan inte hitta den angivna widgeten (\"%s\") inuti xml-strukturen (\"%s\")"
 
-#: src/gnubiff_options.cc:132
+#: src/gnubiff_options.cc:138
 msgid "no mail"
 msgstr "Inga meddelanden"
 
@@ -316,11 +316,11 @@ msgstr ""
 "\n"
 "Vänligen se till att paketet har blivit installerat ordentligt."
 
-#: src/gui.cc:371
+#: src/gui.cc:382
 msgid "GUI_connect requires working gmodule"
 msgstr "GUI_connect kräver fungerande gmodule"
 
-#: src/gui.cc:378
+#: src/gui.cc:389
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr "Kunde inte hitta signalhanterare '%s'."
@@ -448,7 +448,7 @@ msgid ""
 "Additional information:\n"
 msgstr ""
 
-#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade:125
+#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade:131
 msgid "Mark mailboxes read"
 msgstr "Markera e-postlådor som lästa"
 
@@ -472,34 +472,33 @@ msgstr "gnubiff"
 msgid "tooltip"
 msgstr "tooltip"
 
-#: ui/applet-gtk.glade:104
+#: ui/applet-gtk.glade:110
 msgid "Start command"
 msgstr "Startkommando"
 
-#: ui/applet-gtk.glade:146
+#: ui/applet-gtk.glade:152
 msgid "About"
 msgstr "Om"
 
-#: ui/applet-gtk.glade:173
+#: ui/applet-gtk.glade:179
 msgid "_Quit"
 msgstr ""
 
-#: ui/applet-gtk.glade:193
-msgid "About gnubiff"
-msgstr "Om gnubiff"
-
-#: ui/applet-gtk.glade:255 ui/preferences.glade:2002
+#: ui/applet-gtk.glade:203
 #, fuzzy
-msgid ""
-"<small> Gnubiff is part of the GNU project.\n"
-" It is released under the aegis of GNU.</small>"
-msgstr ""
-"Det här programmet är en del av GNU-projektet, och är släppt under GNUs "
-"rättighetsskydd."
+msgid "Gnubiff is a mail notification program."
+msgstr "Meddelandenotiferingsprogram"
 
-#: ui/applet-gtk.glade:363
-msgid "Ok"
-msgstr "Ok"
+#: ui/applet-gtk.glade:204
+msgid ""
+"Gnubiff is part of the GNU project.\n"
+"It is released under the aegis of GNU.\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+msgstr ""
 
 #: ui/preferences.glade:7
 msgid "gnubiff preferences"
@@ -751,6 +750,15 @@ msgstr ""
 #: ui/preferences.glade:1914
 msgid "Expert"
 msgstr ""
+
+#: ui/preferences.glade:2002
+#, fuzzy
+msgid ""
+"<small> Gnubiff is part of the GNU project.\n"
+" It is released under the aegis of GNU.</small>"
+msgstr ""
+"Det här programmet är en del av GNU-projektet, och är släppt under GNUs "
+"rättighetsskydd."
 
 #: ui/preferences.glade:2204
 #, fuzzy
@@ -1009,6 +1017,12 @@ msgstr "<small><b>Ämne</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Datum</b></small>"
+
+#~ msgid "About gnubiff"
+#~ msgstr "Om gnubiff"
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
 
 #~ msgid "New mail"
 #~ msgstr "Nya meddelanden"

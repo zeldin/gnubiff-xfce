@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-12-21 00:22+0100\n"
+"POT-Creation-Date: 2006-02-12 18:51+0100\n"
 "PO-Revision-Date: 2005-12-07 23:43+0100\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -11,16 +11,16 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/decoding.cc:85
+#: src/decoding.cc:91
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[La codifica \"%s\" di questo messaggio non può essere decodificata]"
 
-#: src/decoding.cc:128 src/decoding.cc:135 src/decoding.cc:140
+#: src/decoding.cc:134 src/decoding.cc:141 src/decoding.cc:146
 msgid "[Cannot decode this header line]"
 msgstr "[Non è possibile decodificare questa linea dell'intestazione]"
 
-#: src/decoding.cc:656
+#: src/decoding.cc:705
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Impossibile convertire il set di caratteri (da \"%s\" a \"utf-8\")]"
@@ -61,32 +61,32 @@ msgstr "Opzioni generali da linea di comando:"
 msgid "Options for debugging:"
 msgstr "Opzioni per il debug:"
 
-#: src/biff.cc:137
+#: src/biff.cc:125
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "File di configurazione (%s) non trovato !"
 
-#: src/biff.cc:596
+#: src/biff.cc:590
 #, fuzzy, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr ""
 "File di configurazione caricato da una vecchia versione di gnubiff \"%s\"."
 
-#: src/biff.cc:604
+#: src/biff.cc:598
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 "File di configurazione caricato da una vecchia versione di gnubiff \"%s\"."
 
-#: src/biff.cc:606
+#: src/biff.cc:600
 msgid "Trying to convert all options."
 msgstr "Tentativo di conversione di tutte le opzioni in corso."
 
-#: src/biff.cc:641
+#: src/biff.cc:644
 msgid "Successfully converted all options."
 msgstr "Tutte le opzioni sono state convertite correttamente."
 
-#: src/biff.cc:644
+#: src/biff.cc:647
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -95,28 +95,28 @@ msgstr ""
 "Alcune opzioni sono state convertite correttamente. Le seguenti opzioni "
 "devono essere aggiornate manualmente: %s."
 
-#: src/biff.cc:795
+#: src/biff.cc:790
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Non riesco ad aprire il tuo file di configurazione (%s)"
 
-#: src/biff.cc:811
+#: src/biff.cc:806
 msgid "Cannot create XML parser for config file"
 msgstr ""
 "Non riesco a creare il parser XML per il tuo file di configurazione (%s)"
 
-#: src/biff.cc:828
+#: src/biff.cc:823
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Non è stata trovata l'impostazione di una casella di posta impostata nel tuo "
 "file di configurazione (%s)"
 
-#: src/biff.cc:875
+#: src/biff.cc:870
 msgid "Illegal parameter format in config file"
 msgstr "Formato del parametro illegale nel file di configurazione"
 
-#: src/biff.cc:904
+#: src/biff.cc:899
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Nessun protocollo è stato specificato per la casella di posta %d"
@@ -126,44 +126,44 @@ msgstr "Nessun protocollo è stato specificato per la casella di posta %d"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossibile creare il thread: %s"
 
-#: src/mailbox.cc:297
+#: src/mailbox.cc:307
 #, c-format
 msgid "mailbox %d"
 msgstr "casella di posta %d"
 
-#: src/mailbox.cc:602
+#: src/mailbox.cc:622
 msgid "<no date>"
 msgstr "<nessuna data>"
 
-#: src/mailbox.cc:603
+#: src/mailbox.cc:623
 msgid "<no sender>"
 msgstr "<nessun mittente>"
 
-#: src/mailbox.cc:604
+#: src/mailbox.cc:624
 msgid "<no subject>"
 msgstr "<nessun oggetto>"
 
-#: src/mailbox.cc:651
+#: src/mailbox.cc:671
 msgid "[Cannot parse content type header line]"
 msgstr ""
 "[Analisi della linea d'intestazione del tipo di contenuto non riuscita]"
 
-#: src/mailbox.cc:672
+#: src/mailbox.cc:692
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 "[Analisi della linea di intestazione della codifica di trasferimento dei "
 "contenuti non riuscita]"
 
-#: src/mailbox.cc:721
+#: src/mailbox.cc:741
 msgid "[Malformed multipart message]"
 msgstr "[Messaggio multi parte non conforme]"
 
-#: src/mailbox.cc:729
+#: src/mailbox.cc:749
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 "[L'inizio della prima parte nel messaggio multi parti non è stata trovata]"
 
-#: src/mailbox.cc:775
+#: src/mailbox.cc:795
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Questo messaggio ha un tipo di contenuto non supportato: \"%s/%s\"]"
@@ -209,42 +209,42 @@ msgstr "Impostazione del timeout sulla socket non riuscito: %s"
 msgid "Cannot open %s."
 msgstr "Non riesco ad aprire %s."
 
-#: src/imap4.cc:462
+#: src/imap4.cc:459
 msgid "[This message has no part with a supported content type]"
 msgstr ""
 "[Questo messaggio non ha nessuna parte con un tipo di contenuto supportato]"
 
-#: src/imap4.cc:825
+#: src/imap4.cc:822
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossibile selezionare la cartella %s sull'host %s"
 
-#: src/imap4.cc:913
+#: src/imap4.cc:910
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossibile prendere il riconoscimento da %s alla porta %d"
 
-#: src/imap4.cc:972
+#: src/imap4.cc:969
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 
-#: src/imap4.cc:1025
+#: src/imap4.cc:1022
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Il server non invia risposte non etichettate \"%s\""
 
-#: src/imap4.cc:1581
+#: src/imap4.cc:1578
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Il server ha chiuso la connessione immediatamente:%s"
 
-#: src/imap4.cc:1586
+#: src/imap4.cc:1583
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Errore interno del server o errore sconosciuto:%s"
 
-#: src/imap4.cc:1591
+#: src/imap4.cc:1588
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Avviso dal server:%s"
@@ -254,17 +254,17 @@ msgstr "[%d] Avviso dal server:%s"
 msgid "Cannot open new mail directory (%s)"
 msgstr "Non riesco ad aprire la directory per la nuova posta (%s)"
 
-#: src/pop.cc:154
+#: src/pop.cc:152
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Password vuota"
 
-#: src/pop.cc:513
+#: src/pop.cc:511
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Messaggio d'errore dal server POP3:%s"
 
-#: src/pop.cc:520
+#: src/pop.cc:518
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Non è stata ricevuta una risposta positiva dal server POP3"
@@ -286,24 +286,24 @@ msgstr ""
 "[%d] Problemi con la crittografia che potrebbero essere stati riscontrati al "
 "momento della configurazione"
 
-#: src/options.cc:506
+#: src/options.cc:530
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr "Opzione sconosciuta \"%s\""
 
-#: src/options.cc:513
+#: src/options.cc:537
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Impossibile impostare l'opzione \"%s\" a \"%s\""
 
-#: src/options.cc:665 src/gui.cc:263
+#: src/options.cc:689 src/gui.cc:274
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
 "Non riesco a trovere il widget specificato (\"%s\") nella struttura xml (\"%s"
 "\")"
 
-#: src/gnubiff_options.cc:132
+#: src/gnubiff_options.cc:138
 msgid "no mail"
 msgstr "niente posta"
 
@@ -325,11 +325,11 @@ msgstr ""
 "Sei pregato di assicurarti che il paccheto sia stato installato "
 "correttamente."
 
-#: src/gui.cc:371
+#: src/gui.cc:382
 msgid "GUI_connect requires working gmodule"
 msgstr "GUI_connect richiede un gmodule funzionante"
 
-#: src/gui.cc:378
+#: src/gui.cc:389
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr "Non riesco a trovare il signal handler '%s'."
@@ -458,7 +458,7 @@ msgstr ""
 "\n"
 "Informazioni addizionali:\n"
 
-#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade:125
+#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade:131
 msgid "Mark mailboxes read"
 msgstr "Segna la posta come letta"
 
@@ -482,33 +482,33 @@ msgstr "gnubiff"
 msgid "tooltip"
 msgstr "suggerimento"
 
-#: ui/applet-gtk.glade:104
+#: ui/applet-gtk.glade:110
 msgid "Start command"
 msgstr "Esegui il comando"
 
-#: ui/applet-gtk.glade:146
+#: ui/applet-gtk.glade:152
 msgid "About"
 msgstr "Informazioni"
 
-#: ui/applet-gtk.glade:173
+#: ui/applet-gtk.glade:179
 msgid "_Quit"
 msgstr "_Esci"
 
-#: ui/applet-gtk.glade:193
-msgid "About gnubiff"
-msgstr "Informazioni su gnubiff"
+#: ui/applet-gtk.glade:203
+#, fuzzy
+msgid "Gnubiff is a mail notification program."
+msgstr "Un programma per la notifica della posta"
 
-#: ui/applet-gtk.glade:255 ui/preferences.glade:2002
+#: ui/applet-gtk.glade:204
 msgid ""
-"<small> Gnubiff is part of the GNU project.\n"
-" It is released under the aegis of GNU.</small>"
+"Gnubiff is part of the GNU project.\n"
+"It is released under the aegis of GNU.\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
 msgstr ""
-"<small> Gnubiff è parte del progetto GNU.\n"
-" E' rilasciato sotto i termini di GNU.</small>"
-
-#: ui/applet-gtk.glade:363
-msgid "Ok"
-msgstr "Ok"
 
 #: ui/preferences.glade:7
 msgid "gnubiff preferences"
@@ -777,6 +777,14 @@ msgstr ""
 msgid "Expert"
 msgstr "Esperto"
 
+#: ui/preferences.glade:2002
+msgid ""
+"<small> Gnubiff is part of the GNU project.\n"
+" It is released under the aegis of GNU.</small>"
+msgstr ""
+"<small> Gnubiff è parte del progetto GNU.\n"
+" E' rilasciato sotto i termini di GNU.</small>"
+
 #: ui/preferences.glade:2204
 #, fuzzy
 msgid ""
@@ -1033,6 +1041,12 @@ msgstr "<small><b>Oggeto</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Data</b></small>"
+
+#~ msgid "About gnubiff"
+#~ msgstr "Informazioni su gnubiff"
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
 
 #~ msgid "New mail"
 #~ msgstr "Nuova posta"

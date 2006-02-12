@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-12-21 00:22+0100\n"
+"POT-Creation-Date: 2006-02-12 18:51+0100\n"
 "PO-Revision-Date: 2005-04-03 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -24,17 +24,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/decoding.cc:85
+#: src/decoding.cc:91
 #, fuzzy, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Imisobekere: Bya iyi Ubutumwa"
 
-#: src/decoding.cc:128 src/decoding.cc:135 src/decoding.cc:140
+#: src/decoding.cc:134 src/decoding.cc:141 src/decoding.cc:146
 #, fuzzy
 msgid "[Cannot decode this header line]"
 msgstr "[iyi Umutwempangano Umurongo"
 
-#: src/decoding.cc:656
+#: src/decoding.cc:705
 #, fuzzy, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[GUHINDURA Inyuguti Bivuye Kuri 8"
@@ -83,59 +83,59 @@ msgstr "Komandi: Umurongo Amahitamo"
 msgid "Options for debugging:"
 msgstr "kugirango"
 
-#: src/biff.cc:137
+#: src/biff.cc:125
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "IDOSIYE OYA Byabonetse"
 
-#: src/biff.cc:596
+#: src/biff.cc:590
 #, fuzzy, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr "IDOSIYE Bivuye ki/ bishaje Verisiyo"
 
-#: src/biff.cc:604
+#: src/biff.cc:598
 #, fuzzy, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "IDOSIYE Bivuye ki/ bishaje Verisiyo"
 
-#: src/biff.cc:606
+#: src/biff.cc:600
 #, fuzzy
 msgid "Trying to convert all options."
 msgstr "Kuri GUHINDURA Byose Amahitamo"
 
-#: src/biff.cc:641
+#: src/biff.cc:644
 #, fuzzy
 msgid "Successfully converted all options."
 msgstr "Byose Amahitamo"
 
-#: src/biff.cc:644
+#: src/biff.cc:647
 #, fuzzy, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr "Amahitamo Amahitamo"
 
-#: src/biff.cc:795
+#: src/biff.cc:790
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Gufungura Iboneza IDOSIYE"
 
-#: src/biff.cc:811
+#: src/biff.cc:806
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Kurema kugirango IDOSIYE"
 
-#: src/biff.cc:828
+#: src/biff.cc:823
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Oya Insobanuro in Iboneza IDOSIYE"
 
-#: src/biff.cc:875
+#: src/biff.cc:870
 #, fuzzy
 msgid "Illegal parameter format in config file"
 msgstr "Imiterere in IDOSIYE"
 
-#: src/biff.cc:904
+#: src/biff.cc:899
 #, fuzzy, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Porotokole kugirango"
@@ -145,48 +145,48 @@ msgstr "Porotokole kugirango"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d]Kuri Kurema Urudodo"
 
-#: src/mailbox.cc:297
+#: src/mailbox.cc:307
 #, c-format
 msgid "mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:602
+#: src/mailbox.cc:622
 #, fuzzy
 msgid "<no date>"
 msgstr "<Oya Itariki"
 
-#: src/mailbox.cc:603
+#: src/mailbox.cc:623
 #, fuzzy
 msgid "<no sender>"
 msgstr "<Oya Uwohereza"
 
 # # generics string
-#: src/mailbox.cc:604
+#: src/mailbox.cc:624
 #, fuzzy
 msgid "<no subject>"
 msgstr "<nta mutwe)"
 
-#: src/mailbox.cc:651
+#: src/mailbox.cc:671
 #, fuzzy
 msgid "[Cannot parse content type header line]"
 msgstr "[Ibikubiyemo Ubwoko Umutwempangano Umurongo"
 
-#: src/mailbox.cc:672
+#: src/mailbox.cc:692
 #, fuzzy
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Ibikubiyemo Imisobekere: Umutwempangano Umurongo"
 
-#: src/mailbox.cc:721
+#: src/mailbox.cc:741
 #, fuzzy
 msgid "[Malformed multipart message]"
 msgstr "[Ubutumwa"
 
-#: src/mailbox.cc:729
+#: src/mailbox.cc:749
 #, fuzzy
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Gushaka Itangira Itangiriro in i Ubutumwa"
 
-#: src/mailbox.cc:775
+#: src/mailbox.cc:795
 #, fuzzy, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Ubutumwa Ibikubiyemo Ubwoko"
@@ -232,42 +232,42 @@ msgstr "OYA Gushyiraho Gusoma Igihe cyarenze: ku"
 msgid "Cannot open %s."
 msgstr "Gufungura"
 
-#: src/imap4.cc:462
+#: src/imap4.cc:459
 #, fuzzy
 msgid "[This message has no part with a supported content type]"
 msgstr "[Ubutumwa Oya Na: a Ibikubiyemo Ubwoko"
 
-#: src/imap4.cc:825
+#: src/imap4.cc:822
 #, fuzzy, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d]Kuri Guhitamo Ububiko ku Ubuturo"
 
-#: src/imap4.cc:913
+#: src/imap4.cc:910
 #, fuzzy, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d]Kuri Kubona Bivuye ku Umuyoboro"
 
-#: src/imap4.cc:972
+#: src/imap4.cc:969
 #, fuzzy, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d]Kohereza Cyangwa"
 
-#: src/imap4.cc:1025
+#: src/imap4.cc:1022
 #, fuzzy, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d]Kohereza"
 
-#: src/imap4.cc:1581
+#: src/imap4.cc:1578
 #, fuzzy, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d]Ukwihuza Ako kanya"
 
-#: src/imap4.cc:1586
+#: src/imap4.cc:1583
 #, fuzzy, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d]Seriveri Cyangwa Kitazwi Ikosa"
 
-#: src/imap4.cc:1591
+#: src/imap4.cc:1588
 #, fuzzy, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d]Bivuye Seriveri"
@@ -277,17 +277,17 @@ msgstr "[%d]Bivuye Seriveri"
 msgid "Cannot open new mail directory (%s)"
 msgstr "Gufungura Gishya Ubutumwa bushyinguro"
 
-#: src/pop.cc:154
+#: src/pop.cc:152
 #, fuzzy, c-format
 msgid "[%d] Empty password"
 msgstr "[%d]Ijambobanga..."
 
-#: src/pop.cc:513
+#: src/pop.cc:511
 #, fuzzy, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d]Ubutumwa Bivuye Seriveri"
 
-#: src/pop.cc:520
+#: src/pop.cc:518
 #, fuzzy, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d]OYA Kubona a Bivuye Seriveri"
@@ -305,22 +305,22 @@ msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr "[%d]Na: ku Kugena Imiterere Igihe"
 
-#: src/options.cc:506
+#: src/options.cc:530
 #, fuzzy, c-format
 msgid "Unknown option \"%s\""
 msgstr "Ihitamo ritazwi:"
 
-#: src/options.cc:513
+#: src/options.cc:537
 #, fuzzy, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Gushyiraho Ihitamo Kuri"
 
-#: src/options.cc:665 src/gui.cc:263
+#: src/options.cc:689 src/gui.cc:274
 #, fuzzy, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Gushaka i muri xml Imiterere"
 
-#: src/gnubiff_options.cc:132
+#: src/gnubiff_options.cc:138
 #, fuzzy
 msgid "no mail"
 msgstr "Oya Ubutumwa"
@@ -336,11 +336,11 @@ msgid ""
 "Please make sure package has been installed correctly."
 msgstr "i Ubwoko"
 
-#: src/gui.cc:371
+#: src/gui.cc:382
 msgid "GUI_connect requires working gmodule"
 msgstr ""
 
-#: src/gui.cc:378
+#: src/gui.cc:389
 #, fuzzy, c-format
 msgid "Could not find signal handler '%s'."
 msgstr "OYA Gushaka"
@@ -496,7 +496,7 @@ msgid ""
 "Additional information:\n"
 msgstr "Cyuzuye."
 
-#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade:125
+#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade:131
 #, fuzzy
 msgid "Mark mailboxes read"
 msgstr "Gusoma"
@@ -525,33 +525,34 @@ msgstr ""
 msgid "tooltip"
 msgstr "Umwanyanyobora:"
 
-#: ui/applet-gtk.glade:104
+#: ui/applet-gtk.glade:110
 #, fuzzy
 msgid "Start command"
 msgstr "Gutangira Komandi:"
 
-#: ui/applet-gtk.glade:146
+#: ui/applet-gtk.glade:152
 msgid "About"
 msgstr "Bigyanye"
 
-#: ui/applet-gtk.glade:173
+#: ui/applet-gtk.glade:179
 msgid "_Quit"
 msgstr ""
 
-#: ui/applet-gtk.glade:193
-msgid "About gnubiff"
-msgstr ""
-
-#: ui/applet-gtk.glade:255 ui/preferences.glade:2002
+#: ui/applet-gtk.glade:203
 #, fuzzy
-msgid ""
-"<small> Gnubiff is part of the GNU project.\n"
-" It is released under the aegis of GNU.</small>"
-msgstr "Porogaramu ni Bya i Umushinga i Bya"
+msgid "Gnubiff is a mail notification program."
+msgstr "Ikimenyetso Porogaramu"
 
-#: ui/applet-gtk.glade:363
-msgid "Ok"
-msgstr "Oke"
+#: ui/applet-gtk.glade:204
+msgid ""
+"Gnubiff is part of the GNU project.\n"
+"It is released under the aegis of GNU.\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+msgstr ""
 
 #: ui/preferences.glade:7
 #, fuzzy
@@ -860,6 +861,13 @@ msgstr "Bya Amahitamo Ubwoko Na KIGEZWEHO Uduciro Guhindura Ihitamo ku Agaciro"
 #: ui/preferences.glade:1914
 msgid "Expert"
 msgstr ""
+
+#: ui/preferences.glade:2002
+#, fuzzy
+msgid ""
+"<small> Gnubiff is part of the GNU project.\n"
+" It is released under the aegis of GNU.</small>"
+msgstr "Porogaramu ni Bya i Umushinga i Bya"
 
 #: ui/preferences.glade:2204
 #, fuzzy
@@ -1183,6 +1191,9 @@ msgstr "<Gitoya B B Gitoya"
 #, fuzzy
 msgid "<small><b>Date</b></small>"
 msgstr "<Gitoya B B Gitoya"
+
+#~ msgid "Ok"
+#~ msgstr "Oke"
 
 # #-#-#-#-#  offmgr.pot (PACKAGE VERSION)  #-#-#-#-#
 # offmgr/sdi\ofaslots.src:SID_MAIL_NEW.text

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-12-21 00:22+0100\n"
+"POT-Creation-Date: 2006-02-12 18:51+0100\n"
 "PO-Revision-Date: 2005-12-03 23:07+0100\n"
 "Last-Translator: Adam Wallner <wallner.adam@hktv.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -17,16 +17,16 @@ msgstr ""
 "X-Generator: KBabel 1.10.2\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
 
-#: src/decoding.cc:85
+#: src/decoding.cc:91
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Ennek a levélnek a kódolását \"%s\" nem ismerem]"
 
-#: src/decoding.cc:128 src/decoding.cc:135 src/decoding.cc:140
+#: src/decoding.cc:134 src/decoding.cc:141 src/decoding.cc:146
 msgid "[Cannot decode this header line]"
 msgstr "[Nem tudom dekódolni ezt a fejlécsort]"
 
-#: src/decoding.cc:656
+#: src/decoding.cc:705
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Nem tudom konvertálni a karakterkódolást \"%s\"-ről \"utf-8\"ra.]"
@@ -67,30 +67,30 @@ msgstr "Általános parancssori opciók:"
 msgid "Options for debugging:"
 msgstr "Hibakeresési opciók:"
 
-#: src/biff.cc:137
+#: src/biff.cc:125
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "A konfigurációs fájl (%s) nem található!"
 
-#: src/biff.cc:596
+#: src/biff.cc:590
 #, fuzzy, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr "Régi gnubiff (\"%s\" verzió) konfigurációs fájl betöltődött."
 
-#: src/biff.cc:604
+#: src/biff.cc:598
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Régi gnubiff (\"%s\" verzió) konfigurációs fájl betöltődött."
 
-#: src/biff.cc:606
+#: src/biff.cc:600
 msgid "Trying to convert all options."
 msgstr "Megpróbájuk konvertálni az összes opciót."
 
-#: src/biff.cc:641
+#: src/biff.cc:644
 msgid "Successfully converted all options."
 msgstr "Minden opció sikeresen konvertálva."
 
-#: src/biff.cc:644
+#: src/biff.cc:647
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -99,25 +99,25 @@ msgstr ""
 "Néhány opció sikeresen konvertálva. A következő opciókat kézzel kell "
 "frissíteni: %s."
 
-#: src/biff.cc:795
+#: src/biff.cc:790
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Nem tudom megnyitni a konfigurációs fájlodat (%s)."
 
-#: src/biff.cc:811
+#: src/biff.cc:806
 msgid "Cannot create XML parser for config file"
 msgstr "Nem tudok XML feldolgozót készíteni a konfigurációs fájlhoz."
 
-#: src/biff.cc:828
+#: src/biff.cc:823
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Nem találtam levélfiók-információt a konfigurációs fájlodban (%s)."
 
-#: src/biff.cc:875
+#: src/biff.cc:870
 msgid "Illegal parameter format in config file"
 msgstr "Nem megfelelő paraméter formátum a konfigfájlban."
 
-#: src/biff.cc:904
+#: src/biff.cc:899
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Nincs protokoll megadva a %d. levélfiókhoz."
@@ -127,40 +127,40 @@ msgstr "Nincs protokoll megadva a %d. levélfiókhoz."
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Nem sikerül szálat készíteni: %s"
 
-#: src/mailbox.cc:297
+#: src/mailbox.cc:307
 #, c-format
 msgid "mailbox %d"
 msgstr "%d. levélfiók"
 
-#: src/mailbox.cc:602
+#: src/mailbox.cc:622
 msgid "<no date>"
 msgstr "<nincs dátum>"
 
-#: src/mailbox.cc:603
+#: src/mailbox.cc:623
 msgid "<no sender>"
 msgstr "<nincs küldő>"
 
-#: src/mailbox.cc:604
+#: src/mailbox.cc:624
 msgid "<no subject>"
 msgstr "<nincs tárgy>"
 
-#: src/mailbox.cc:651
+#: src/mailbox.cc:671
 msgid "[Cannot parse content type header line]"
 msgstr "[Nem sikerül a \"content type \" fejlécsor feldolgozása]"
 
-#: src/mailbox.cc:672
+#: src/mailbox.cc:692
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Nem sikerül a \"content transfer encoding\" fejlécsor feldolgozása]"
 
-#: src/mailbox.cc:721
+#: src/mailbox.cc:741
 msgid "[Malformed multipart message]"
 msgstr "[Hibás többrészes levél]"
 
-#: src/mailbox.cc:729
+#: src/mailbox.cc:749
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[A többrészes üzenet első részének az eleje nem található]"
 
-#: src/mailbox.cc:775
+#: src/mailbox.cc:795
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Ennek az üzenet nem támogatott tartalomtípust tartalmaz: \"%s/%s\"]"
@@ -206,42 +206,42 @@ msgstr ""
 msgid "Cannot open %s."
 msgstr "Nem lehet megnyitni %s-t. "
 
-#: src/imap4.cc:462
+#: src/imap4.cc:459
 msgid "[This message has no part with a supported content type]"
 msgstr ""
 "[Ennek az üzenetnek nincs támogatott tartalomtípussal rendelkező része]"
 
-#: src/imap4.cc:825
+#: src/imap4.cc:822
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Nem sikerült kiválasztani a(z) %s mappát a(z) %s gépen"
 
-#: src/imap4.cc:913
+#: src/imap4.cc:910
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Nem kapok visszaigazolást a %s-től a %d porton"
 
-#: src/imap4.cc:972
+#: src/imap4.cc:969
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: src/imap4.cc:1025
+#: src/imap4.cc:1022
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
-#: src/imap4.cc:1581
+#: src/imap4.cc:1578
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] A szerver azonnal lezárta a kapcsolatot: %s"
 
-#: src/imap4.cc:1586
+#: src/imap4.cc:1583
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Belső szerver hibam, vagy ismeretlen hiba: %s"
 
-#: src/imap4.cc:1591
+#: src/imap4.cc:1588
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Figyelmeztetés a szervertől: %s"
@@ -251,17 +251,17 @@ msgstr "[%d] Figyelmeztetés a szervertől: %s"
 msgid "Cannot open new mail directory (%s)"
 msgstr "Nem lehet megnyitni az új email könyvtárat (%s)"
 
-#: src/pop.cc:154
+#: src/pop.cc:152
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] üres jelszó"
 
-#: src/pop.cc:513
+#: src/pop.cc:511
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Hibaüzenet a POP3 szervertől: %s"
 
-#: src/pop.cc:520
+#: src/pop.cc:518
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Nem kaptam pozitív választ a POP3 szervertől"
@@ -279,22 +279,22 @@ msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 
-#: src/options.cc:506
+#: src/options.cc:530
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr "Ismeretlen opció \"%s\""
 
-#: src/options.cc:513
+#: src/options.cc:537
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Nem lehet a \"%s\" opciót \"%s\"-re állítani"
 
-#: src/options.cc:665 src/gui.cc:263
+#: src/options.cc:689 src/gui.cc:274
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
 
-#: src/gnubiff_options.cc:132
+#: src/gnubiff_options.cc:138
 msgid "no mail"
 msgstr "nincs levél"
 
@@ -309,11 +309,11 @@ msgid ""
 "Please make sure package has been installed correctly."
 msgstr ""
 
-#: src/gui.cc:371
+#: src/gui.cc:382
 msgid "GUI_connect requires working gmodule"
 msgstr ""
 
-#: src/gui.cc:378
+#: src/gui.cc:389
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr ""
@@ -435,7 +435,7 @@ msgid ""
 "Additional information:\n"
 msgstr ""
 
-#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade:125
+#: src/GNOME_gnubiffApplet.xml.h:1 ui/applet-gtk.glade:131
 msgid "Mark mailboxes read"
 msgstr "Megjelölés olvasottként"
 
@@ -459,32 +459,32 @@ msgstr ""
 msgid "tooltip"
 msgstr "Eszköztipp"
 
-#: ui/applet-gtk.glade:104
+#: ui/applet-gtk.glade:110
 msgid "Start command"
 msgstr "Indító parancs"
 
-#: ui/applet-gtk.glade:146
+#: ui/applet-gtk.glade:152
 msgid "About"
 msgstr "A programról"
 
-#: ui/applet-gtk.glade:173
+#: ui/applet-gtk.glade:179
 msgid "_Quit"
 msgstr "_Kilépés"
 
-#: ui/applet-gtk.glade:193
-msgid "About gnubiff"
-msgstr "A gnubiffről"
+#: ui/applet-gtk.glade:203
+#, fuzzy
+msgid "Gnubiff is a mail notification program."
+msgstr "Email jelző program"
 
-#: ui/applet-gtk.glade:255 ui/preferences.glade:2002
+#: ui/applet-gtk.glade:204
 msgid ""
-"<small> Gnubiff is part of the GNU project.\n"
-" It is released under the aegis of GNU.</small>"
-msgstr ""
-"<small>A Gnubiff a GNU project része.\n"
-" Licensz: GNU/GPL .</small>"
-
-#: ui/applet-gtk.glade:363
-msgid "Ok"
+"Gnubiff is part of the GNU project.\n"
+"It is released under the aegis of GNU.\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
 msgstr ""
 
 #: ui/preferences.glade:7
@@ -736,6 +736,14 @@ msgstr ""
 #: ui/preferences.glade:1914
 msgid "Expert"
 msgstr "Szakértő"
+
+#: ui/preferences.glade:2002
+msgid ""
+"<small> Gnubiff is part of the GNU project.\n"
+" It is released under the aegis of GNU.</small>"
+msgstr ""
+"<small>A Gnubiff a GNU project része.\n"
+" Licensz: GNU/GPL .</small>"
 
 #: ui/preferences.glade:2204
 msgid ""
@@ -989,6 +997,9 @@ msgstr "<small><b>Tárgy</b></small>"
 #: ui/popup.glade:164
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Dátum</b></small>"
+
+#~ msgid "About gnubiff"
+#~ msgstr "A gnubiffről"
 
 #~ msgid "New mail"
 #~ msgstr "Új levél"
