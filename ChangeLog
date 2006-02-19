@@ -66,6 +66,7 @@ Version 2.2.0
         failure (the new default value changes the default behavior of gnubiff)
    - Cleanup: Use GtkAboutDialog for displaying the about dialog
    - Feature: About dialog can be called from gnome applet menu
+   - Cleanup: Translators tab in the preferences dialog
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 
