@@ -65,6 +65,7 @@ Version 2.2.0
    - Feature: Option for enabling resetting the mailbox in case of a connection
         failure (the new default value changes the default behavior of gnubiff)
    - Cleanup: Use GtkAboutDialog for displaying the about dialog
+   - Feature: About dialog can be called from gnome applet menu
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

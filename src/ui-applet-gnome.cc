@@ -129,6 +129,16 @@ extern "C" {
 			unknown_internal_error ();
 	}
 
+	void APPLET_GNOME_on_menu_info (BonoboUIComponent *uic,
+									gpointer data,
+									const gchar *verbname)
+	{
+		if (data)
+			((AppletGnome *) data)->show_dialog_about ();
+		else
+			unknown_internal_error ();
+	}
+
 	gboolean APPLET_GNOME_reconnect (gpointer data)
 	{
 		if (data) {
@@ -164,6 +174,7 @@ AppletGnome::dock (GtkWidget *applet)
 		BONOBO_UI_VERB ("Props",   APPLET_GNOME_on_menu_properties),
 		BONOBO_UI_VERB ("MailApp", APPLET_GNOME_on_menu_command),
 		BONOBO_UI_VERB ("MailRead", APPLET_GNOME_on_menu_mail_read),
+		BONOBO_UI_VERB ("Info", APPLET_GNOME_on_menu_info),
 		BONOBO_UI_VERB_END
 	};
  
