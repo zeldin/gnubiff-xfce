@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.0\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-02-12 18:51+0100\n"
+"POT-Creation-Date: 2006-03-05 18:53+0100\n"
 "PO-Revision-Date: 2005-01-17 22:04+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -371,7 +371,7 @@ msgstr "_Volym:"
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:3323
+#: src/ui-preferences.cc:617 ui/preferences.glade:3386
 msgid "_Stop"
 msgstr "_Stop"
 
@@ -498,226 +498,235 @@ msgid ""
 "under the terms of the GNU General Public License as published by the Free "
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin St, Fifth Floor, Boston, MA 02110, USA.\n"
 msgstr ""
 
 #: ui/preferences.glade:7
 msgid "gnubiff preferences"
 msgstr "gnubiffinställningar"
 
-#: ui/preferences.glade:131
+#: ui/preferences.glade:132
 msgid "When _double-clicked:"
 msgstr "Vid dubbelklick:"
 
-#: ui/preferences.glade:153
+#: ui/preferences.glade:154
 msgid "<b>General</b>"
 msgstr "<b>Vanliga</b>"
 
-#: ui/preferences.glade:193
+#: ui/preferences.glade:194
 msgid "<b>Mailboxes</b>"
 msgstr "<b>Brevlådor</b>"
 
-#: ui/preferences.glade:235
+#: ui/preferences.glade:236
 msgid "<b>Commands</b>"
 msgstr "<b>Kommandon</b>"
 
-#: ui/preferences.glade:329
+#: ui/preferences.glade:330
 msgid "When _new mail:"
 msgstr "Vid _nya meddelanden:"
 
-#: ui/preferences.glade:351
+#: ui/preferences.glade:352
 msgid "The command to run when new mail arrives"
 msgstr "Kommando att köra när nya meddelanden anländer"
 
-#: ui/preferences.glade:373
+#: ui/preferences.glade:374
 msgid "The command to run when the icon is double-clicked"
 msgstr "Kommando att köra när ikonen dubbelklickas"
 
-#: ui/preferences.glade:431
+#: ui/preferences.glade:432
 msgid "_Restrict collected mail to"
 msgstr "Beg_ränsa samlade e-post till"
 
-#: ui/preferences.glade:469
+#: ui/preferences.glade:470
 msgid "mail(s)"
 msgstr "meddelande(n)"
 
-#: ui/preferences.glade:511
+#: ui/preferences.glade:512
 msgid "Mailboxes"
 msgstr "Brevlådor"
 
-#: ui/preferences.glade:556 ui/preferences.glade:621
+#: ui/preferences.glade:557 ui/preferences.glade:622
 msgid "Image filename"
 msgstr "Bildfilnamn"
 
-#: ui/preferences.glade:578 ui/preferences.glade:643
+#: ui/preferences.glade:579 ui/preferences.glade:644
 msgid "Browse for an image file"
 msgstr "Bläddra efter en bildfil"
 
-#: ui/preferences.glade:580 ui/properties.glade:295
+#: ui/preferences.glade:581 ui/properties.glade:295
 msgid "_Browse..."
 msgstr "_Bläddra..."
 
-#: ui/preferences.glade:599 ui/preferences.glade:664
+#: ui/preferences.glade:600 ui/preferences.glade:665
 #, fuzzy
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
 "padded). Pango markup may be used."
 msgstr "Text som skall visas (%d är antalet nya meddelanden)"
 
-#: ui/preferences.glade:645
+#: ui/preferences.glade:646
 msgid "B_rowse..."
 msgstr "Blädd_ra..."
 
-#: ui/preferences.glade:686
+#: ui/preferences.glade:687
 msgid "Applet geometry"
 msgstr "Appletens geometri"
 
-#: ui/preferences.glade:708 ui/preferences.glade:1316
+#: ui/preferences.glade:709 ui/preferences.glade:1317
 msgid "Whether to use geometry"
 msgstr "Ifall geometri skall användas"
 
-#: ui/preferences.glade:710 ui/preferences.glade:1318
+#: ui/preferences.glade:711 ui/preferences.glade:1319
 msgid "Use _geometry:"
 msgstr "Använd _geometri"
 
-#: ui/preferences.glade:732 ui/preferences.glade:780
+#: ui/preferences.glade:733 ui/preferences.glade:781
 msgid "Whether to display a text"
 msgstr "Ifall en text skall visas"
 
-#: ui/preferences.glade:734
+#: ui/preferences.glade:735
 msgid "Show _text:"
 msgstr "Visa _text:"
 
-#: ui/preferences.glade:756
+#: ui/preferences.glade:757
 msgid "Whether to show an image"
 msgstr "Ifall en bild skall visas"
 
-#: ui/preferences.glade:758
+#: ui/preferences.glade:759
 msgid "Show _image:"
 msgstr "Visa b_ild:"
 
-#: ui/preferences.glade:782
+#: ui/preferences.glade:783
 msgid "Show t_ext:"
 msgstr "Visa t_ext:"
 
-#: ui/preferences.glade:804
+#: ui/preferences.glade:805
 msgid "Whether to display an image"
 msgstr "Ifall en bild skall visas"
 
-#: ui/preferences.glade:806
+#: ui/preferences.glade:807
 msgid "Show i_mage:"
 msgstr "Visa b_ild:"
 
-#: ui/preferences.glade:828 ui/preferences.glade:1364
+#: ui/preferences.glade:829 ui/preferences.glade:1365
 msgid "<b>Layout</b>"
 msgstr "<b>Layout</b>"
 
-#: ui/preferences.glade:868
+#: ui/preferences.glade:869
 msgid "<b>When new mail</b>"
 msgstr "<b>Vid nya meddelanden</b>"
 
-#: ui/preferences.glade:910
+#: ui/preferences.glade:911
 msgid "<b>When no mail</b>"
 msgstr "<b>Vid inga meddelanden</b>"
 
-#: ui/preferences.glade:940 ui/preferences.glade:1287
+#: ui/preferences.glade:941 ui/preferences.glade:1288
 msgid "_Font:"
 msgstr "T_ypsnitt:"
 
-#: ui/preferences.glade:969 ui/preferences.glade:1433
+#: ui/preferences.glade:970 ui/preferences.glade:1434
 msgid "The font to use to display information"
 msgstr "Typsnitt att använda för att visa information"
 
-#: ui/preferences.glade:989 ui/preferences.glade:1454
+#: ui/preferences.glade:990 ui/preferences.glade:1455
 msgid "Whether to use window manager decoration"
 msgstr "Ifall fönsterhanterarens dekorationer skall användas"
 
-#: ui/preferences.glade:991 ui/preferences.glade:1456
+#: ui/preferences.glade:992 ui/preferences.glade:1457
 msgid "Use _decoration"
 msgstr "Använd _dekorering"
 
-#: ui/preferences.glade:1049
+#: ui/preferences.glade:1050
 msgid "Applet or Biff"
 msgstr "Applet eller Biff"
 
-#: ui/preferences.glade:1094
+#: ui/preferences.glade:1095
 msgid "second(s)"
 msgstr "sekund(er)"
 
-#: ui/preferences.glade:1121
+#: ui/preferences.glade:1122
 msgid "Time to display popup window"
 msgstr "Tid att visa poppuppfönster"
 
-#: ui/preferences.glade:1144
+#: ui/preferences.glade:1145
 msgid "Popup geometry"
 msgstr "Popuppgeometri"
 
-#: ui/preferences.glade:1166
+#: ui/preferences.glade:1167
 msgid "Whether to use format for header"
 msgstr "Ifall format skall användas för huvud"
 
-#: ui/preferences.glade:1168
+#: ui/preferences.glade:1169
 msgid "_Format:"
 msgstr "_Format"
 
-#: ui/preferences.glade:1190
+#: ui/preferences.glade:1191
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr "[maxstorlek avsändare]:[maxstorlek ämne]:[maxstorlek datum]"
 
-#: ui/preferences.glade:1212
+#: ui/preferences.glade:1213
 msgid "Whether to restrict number of displayed headers"
 msgstr "Ifall antal visade huvud skall begränsas"
 
-#: ui/preferences.glade:1214
+#: ui/preferences.glade:1215
 msgid "_Restrict number to"
 msgstr "Beg_ränsa antal till"
 
-#: ui/preferences.glade:1236
+#: ui/preferences.glade:1237
 msgid "Maximum number of headers to display"
 msgstr "Högsta antal huvud som skall visas"
 
-#: ui/preferences.glade:1259
+#: ui/preferences.glade:1260
 msgid "header(s)"
 msgstr "huvud(en)"
 
-#: ui/preferences.glade:1340
+#: ui/preferences.glade:1341
 msgid "Whether to display the popup window"
 msgstr "Ifall poppuppfönstret skall visas"
 
-#: ui/preferences.glade:1342
+#: ui/preferences.glade:1343
 msgid "_Display for"
 msgstr "_Visa för"
 
-#: ui/preferences.glade:1404
+#: ui/preferences.glade:1405
 msgid "<b>Headers</b>"
 msgstr "<b>Huvuden</b>"
 
-#: ui/preferences.glade:1533 ui/popup.glade:7
+#: ui/preferences.glade:1534 ui/popup.glade:7
 msgid "Popup"
 msgstr "Poppupp"
 
-#: ui/preferences.glade:1590
+#: ui/preferences.glade:1591
 msgid "<b>Expert editing mode</b>"
 msgstr ""
 
-#: ui/preferences.glade:1618
+#: ui/preferences.glade:1619
 msgid "Whether options can be edited in expert mode"
 msgstr ""
 
-#: ui/preferences.glade:1620
+#: ui/preferences.glade:1621
 msgid "_Edit options in expert mode"
 msgstr ""
 
-#: ui/preferences.glade:1642
+#: ui/preferences.glade:1643
 msgid ""
 "Whether to show the expert tab. Note: Disabling this option can only be "
 "reversed by editing the config file manually!"
 msgstr ""
 
-#: ui/preferences.glade:1644
+#: ui/preferences.glade:1645
 msgid "_Show expert tab"
 msgstr ""
 
-#: ui/preferences.glade:1666
+#: ui/preferences.glade:1667
 msgid ""
 "The editing dialog for all options that gnubiff uses internally can be "
 "enabled here. So it is possible to change the value of options for which no "
@@ -726,32 +735,32 @@ msgid ""
 "or result in security problems."
 msgstr ""
 
-#: ui/preferences.glade:1765
+#: ui/preferences.glade:1766
 msgid "List all options."
 msgstr ""
 
-#: ui/preferences.glade:1783
+#: ui/preferences.glade:1784
 #, fuzzy
 msgid "String to be searched for."
 msgstr "Typsnitt att använda för kropp"
 
-#: ui/preferences.glade:1805
+#: ui/preferences.glade:1806
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr ""
 
-#: ui/preferences.glade:1839
+#: ui/preferences.glade:1840
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
 msgstr ""
 
-#: ui/preferences.glade:1914
+#: ui/preferences.glade:1915
 msgid "Expert"
 msgstr ""
 
-#: ui/preferences.glade:2002
+#: ui/preferences.glade:2003
 #, fuzzy
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
@@ -760,7 +769,7 @@ msgstr ""
 "Det här programmet är en del av GNU-projektet, och är släppt under GNUs "
 "rättighetsskydd."
 
-#: ui/preferences.glade:2204
+#: ui/preferences.glade:2205
 #, fuzzy
 msgid ""
 "<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
@@ -771,19 +780,26 @@ msgstr ""
 "<small>Fel bör rapporteras till <span foreground=\"blue\">gnubiff-bugs@lists."
 "sourceforge.net</span></small>"
 
-#: ui/preferences.glade:2244
+#: ui/preferences.glade:2245
 msgid "Developers"
 msgstr "Utvecklare"
 
-#: ui/preferences.glade:2393
+#: ui/preferences.glade:2394
 msgid "Maintainers"
 msgstr "Underhållare"
 
-#: ui/preferences.glade:3103
+#: ui/preferences.glade:2429
+msgid ""
+"<small>Here is a list of those people, which translated gnubiff into "
+"different languages (translators of previous versions are marked with an "
+"asterisk):</small>"
+msgstr ""
+
+#: ui/preferences.glade:3166
 msgid "Translators"
 msgstr "Översättare"
 
-#: ui/preferences.glade:3133
+#: ui/preferences.glade:3196
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -797,23 +813,23 @@ msgstr ""
 "  - skickat in faktiskt kod\n"
 "Här är en lista på dessa personer:</small>"
 
-#: ui/preferences.glade:3204
+#: ui/preferences.glade:3267
 msgid "Contributors"
 msgstr "Bidragare"
 
-#: ui/preferences.glade:3240
+#: ui/preferences.glade:3303
 msgid "Credits"
 msgstr "Tack"
 
-#: ui/preferences.glade:3379
+#: ui/preferences.glade:3442
 msgid "Set to default value"
 msgstr ""
 
-#: ui/preferences.glade:3400
+#: ui/preferences.glade:3463
 msgid "Toggle option"
 msgstr ""
 
-#: ui/preferences.glade:3421
+#: ui/preferences.glade:3484
 msgid "Edit option"
 msgstr ""
 

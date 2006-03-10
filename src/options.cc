@@ -600,10 +600,12 @@ Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 	std::vector<GtkWidget *> widgets;
 	while (ss >> gui_name)
 		widgets.push_back (get_widget (gui_name.c_str(), xml, file));
+	if (!widgets.size())
+		return;
 
 	if (whattodo & OPTSGUI_GET) {
 		option->get_gui (widgets);
-		if ((option->flags() & OPTFLG_CHANGE))
+		if (option->flags() & OPTFLG_CHANGE)
 			option_changed (option);
 	}
 

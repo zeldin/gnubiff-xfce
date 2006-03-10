@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-02-12 18:51+0100\n"
+"POT-Creation-Date: 2006-03-05 18:53+0100\n"
 "PO-Revision-Date: 2005-04-03 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -405,7 +405,7 @@ msgid "_Start"
 msgstr "Gutangira"
 
 # basctl/source\basicide\basidesh.src:RID_BASICIDE_OBJECTBAR.SID_BASICSTOP.text
-#: src/ui-preferences.cc:617 ui/preferences.glade:3323
+#: src/ui-preferences.cc:617 ui/preferences.glade:3386
 #, fuzzy
 msgid "_Stop"
 msgstr "Guhagarara"
@@ -552,6 +552,15 @@ msgid ""
 "under the terms of the GNU General Public License as published by the Free "
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin St, Fifth Floor, Boston, MA 02110, USA.\n"
 msgstr ""
 
 #: ui/preferences.glade:7
@@ -559,269 +568,269 @@ msgstr ""
 msgid "gnubiff preferences"
 msgstr "Ibyahiswemo"
 
-#: ui/preferences.glade:131
+#: ui/preferences.glade:132
 #, fuzzy
 msgid "When _double-clicked:"
 msgstr "MAHARAKUBIRI"
 
-#: ui/preferences.glade:153
+#: ui/preferences.glade:154
 #, fuzzy
 msgid "<b>General</b>"
 msgstr "<B B"
 
-#: ui/preferences.glade:193
+#: ui/preferences.glade:194
 #, fuzzy
 msgid "<b>Mailboxes</b>"
 msgstr "<B B"
 
-#: ui/preferences.glade:235
+#: ui/preferences.glade:236
 #, fuzzy
 msgid "<b>Commands</b>"
 msgstr "<B B"
 
-#: ui/preferences.glade:329
+#: ui/preferences.glade:330
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Gishya Ubutumwa"
 
-#: ui/preferences.glade:351
+#: ui/preferences.glade:352
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Komandi: Kuri Gukoresha Ryari: Gishya Ubutumwa"
 
-#: ui/preferences.glade:373
+#: ui/preferences.glade:374
 #, fuzzy
 msgid "The command to run when the icon is double-clicked"
 msgstr "Komandi: Kuri Gukoresha Ryari: i Agashushondanga ni MAHARAKUBIRI"
 
-#: ui/preferences.glade:431
+#: ui/preferences.glade:432
 #, fuzzy
 msgid "_Restrict collected mail to"
 msgstr "Ubutumwa Kuri"
 
-#: ui/preferences.glade:469
+#: ui/preferences.glade:470
 #, fuzzy
 msgid "mail(s)"
 msgstr "Ubutumwa S"
 
-#: ui/preferences.glade:511
+#: ui/preferences.glade:512
 msgid "Mailboxes"
 msgstr ""
 
-#: ui/preferences.glade:556 ui/preferences.glade:621
+#: ui/preferences.glade:557 ui/preferences.glade:622
 #, fuzzy
 msgid "Image filename"
 msgstr "Izina ry'idosiye:"
 
-#: ui/preferences.glade:578 ui/preferences.glade:643
+#: ui/preferences.glade:579 ui/preferences.glade:644
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "kugirango Ishusho IDOSIYE"
 
-#: ui/preferences.glade:580 ui/properties.glade:295
+#: ui/preferences.glade:581 ui/properties.glade:295
 #, fuzzy
 msgid "_Browse..."
 msgstr "Gushakisha..."
 
-#: ui/preferences.glade:599 ui/preferences.glade:664
+#: ui/preferences.glade:600 ui/preferences.glade:665
 #, fuzzy
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
 "padded). Pango markup may be used."
 msgstr "Kuri Kugaragaza ni i Umubare Bya Gishya Ubutumwa"
 
-#: ui/preferences.glade:645
+#: ui/preferences.glade:646
 #, fuzzy
 msgid "B_rowse..."
 msgstr "Gushakisha..."
 
-#: ui/preferences.glade:686
+#: ui/preferences.glade:687
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Iyigamashusho"
 
-#: ui/preferences.glade:708 ui/preferences.glade:1316
+#: ui/preferences.glade:709 ui/preferences.glade:1317
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Kuri Gukoresha Iyigamashusho"
 
-#: ui/preferences.glade:710 ui/preferences.glade:1318
+#: ui/preferences.glade:711 ui/preferences.glade:1319
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Iyigamashusho"
 
-#: ui/preferences.glade:732 ui/preferences.glade:780
+#: ui/preferences.glade:733 ui/preferences.glade:781
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Kuri Kugaragaza a Umwandiko"
 
-#: ui/preferences.glade:734
+#: ui/preferences.glade:735
 #, fuzzy
 msgid "Show _text:"
 msgstr "Umwandiko"
 
-#: ui/preferences.glade:756
+#: ui/preferences.glade:757
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Kuri Garagaza Ishusho"
 
-#: ui/preferences.glade:758
+#: ui/preferences.glade:759
 #, fuzzy
 msgid "Show _image:"
 msgstr "Ishusho"
 
-#: ui/preferences.glade:782
+#: ui/preferences.glade:783
 #, fuzzy
 msgid "Show t_ext:"
 msgstr "Umwandiko"
 
-#: ui/preferences.glade:804
+#: ui/preferences.glade:805
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Kuri Kugaragaza Ishusho"
 
-#: ui/preferences.glade:806
+#: ui/preferences.glade:807
 #, fuzzy
 msgid "Show i_mage:"
 msgstr "Ishusho"
 
-#: ui/preferences.glade:828 ui/preferences.glade:1364
+#: ui/preferences.glade:829 ui/preferences.glade:1365
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "<B B"
 
-#: ui/preferences.glade:868
+#: ui/preferences.glade:869
 #, fuzzy
 msgid "<b>When new mail</b>"
 msgstr "<B Gishya Ubutumwa B"
 
-#: ui/preferences.glade:910
+#: ui/preferences.glade:911
 #, fuzzy
 msgid "<b>When no mail</b>"
 msgstr "<B Oya Ubutumwa B"
 
-#: ui/preferences.glade:940 ui/preferences.glade:1287
+#: ui/preferences.glade:941 ui/preferences.glade:1288
 #, fuzzy
 msgid "_Font:"
 msgstr "Imyandikire:"
 
-#: ui/preferences.glade:969 ui/preferences.glade:1433
+#: ui/preferences.glade:970 ui/preferences.glade:1434
 #, fuzzy
 msgid "The font to use to display information"
 msgstr "Intego- nyuguti Kuri Gukoresha Kuri Kugaragaza Ibisobanuro"
 
-#: ui/preferences.glade:989 ui/preferences.glade:1454
+#: ui/preferences.glade:990 ui/preferences.glade:1455
 #, fuzzy
 msgid "Whether to use window manager decoration"
 msgstr "Kuri Gukoresha Idirishya Muyobozi"
 
-#: ui/preferences.glade:991 ui/preferences.glade:1456
+#: ui/preferences.glade:992 ui/preferences.glade:1457
 msgid "Use _decoration"
 msgstr ""
 
-#: ui/preferences.glade:1049
+#: ui/preferences.glade:1050
 #, fuzzy
 msgid "Applet or Biff"
 msgstr "Cyangwa"
 
-#: ui/preferences.glade:1094
+#: ui/preferences.glade:1095
 msgid "second(s)"
 msgstr "amasegonda"
 
-#: ui/preferences.glade:1121
+#: ui/preferences.glade:1122
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Kuri Kugaragaza Idirishya"
 
-#: ui/preferences.glade:1144
+#: ui/preferences.glade:1145
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Iyigamashusho"
 
-#: ui/preferences.glade:1166
+#: ui/preferences.glade:1167
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Kuri Gukoresha Imiterere kugirango Umutwempangano"
 
 # svx/source\dialog\srchdlg.src:RID_SVXDLG_SEARCH.BTN_FORMAT.text
-#: ui/preferences.glade:1168
+#: ui/preferences.glade:1169
 #, fuzzy
 msgid "_Format:"
 msgstr "Imiterere..."
 
-#: ui/preferences.glade:1190
+#: ui/preferences.glade:1191
 #, fuzzy
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 "[Uwohereza KININI Ingano Ikivugwaho KININI Ingano Itariki KININI Ingano"
 
-#: ui/preferences.glade:1212
+#: ui/preferences.glade:1213
 #, fuzzy
 msgid "Whether to restrict number of displayed headers"
 msgstr "Kuri Umubare Bya Imitwe"
 
-#: ui/preferences.glade:1214
+#: ui/preferences.glade:1215
 #, fuzzy
 msgid "_Restrict number to"
 msgstr "Umubare Kuri"
 
-#: ui/preferences.glade:1236
+#: ui/preferences.glade:1237
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr "Umubare Bya Imitwe Kuri Kugaragaza"
 
-#: ui/preferences.glade:1259
+#: ui/preferences.glade:1260
 #, fuzzy
 msgid "header(s)"
 msgstr "Umutwempangano S"
 
-#: ui/preferences.glade:1340
+#: ui/preferences.glade:1341
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Kuri Kugaragaza i Idirishya"
 
-#: ui/preferences.glade:1342
+#: ui/preferences.glade:1343
 #, fuzzy
 msgid "_Display for"
 msgstr "kugirango"
 
-#: ui/preferences.glade:1404
+#: ui/preferences.glade:1405
 #, fuzzy
 msgid "<b>Headers</b>"
 msgstr "<B B"
 
-#: ui/preferences.glade:1533 ui/popup.glade:7
+#: ui/preferences.glade:1534 ui/popup.glade:7
 msgid "Popup"
 msgstr ""
 
-#: ui/preferences.glade:1590
+#: ui/preferences.glade:1591
 #, fuzzy
 msgid "<b>Expert editing mode</b>"
 msgstr "<B Ubwoko B"
 
-#: ui/preferences.glade:1618
+#: ui/preferences.glade:1619
 #, fuzzy
 msgid "Whether options can be edited in expert mode"
 msgstr "Amahitamo in Ubwoko"
 
-#: ui/preferences.glade:1620
+#: ui/preferences.glade:1621
 #, fuzzy
 msgid "_Edit options in expert mode"
 msgstr "Amahitamo in Ubwoko"
 
-#: ui/preferences.glade:1642
+#: ui/preferences.glade:1643
 #, fuzzy
 msgid ""
 "Whether to show the expert tab. Note: Disabling this option can only be "
 "reversed by editing the config file manually!"
 msgstr "Kuri Garagaza i Isunika iyi Ihitamo Bicuritswe ku i IDOSIYE"
 
-#: ui/preferences.glade:1644
+#: ui/preferences.glade:1645
 #, fuzzy
 msgid "_Show expert tab"
 msgstr "Isunika"
 
-#: ui/preferences.glade:1666
+#: ui/preferences.glade:1667
 #, fuzzy
 msgid ""
 "The editing dialog for all options that gnubiff uses internally can be "
@@ -834,42 +843,42 @@ msgstr ""
 "Amahitamo kugirango Oya A Isobanuramiterere kugirango Ihitamo ni B B "
 "Amahitamo Gicurasi Kuri OYA Cyangwa Igisubizo in Umutekano"
 
-#: ui/preferences.glade:1765
+#: ui/preferences.glade:1766
 #, fuzzy
 msgid "List all options."
 msgstr "Byose Amahitamo"
 
-#: ui/preferences.glade:1783
+#: ui/preferences.glade:1784
 #, fuzzy
 msgid "String to be searched for."
 msgstr "Kuri kugirango"
 
-#: ui/preferences.glade:1805
+#: ui/preferences.glade:1806
 #, fuzzy
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr "kugirango Amahitamo i Ikurikiranyanyuguti in i Umwandiko Icyinjijwe"
 
-#: ui/preferences.glade:1839
+#: ui/preferences.glade:1840
 #, fuzzy
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
 msgstr "Bya Amahitamo Ubwoko Na KIGEZWEHO Uduciro Guhindura Ihitamo ku Agaciro"
 
-#: ui/preferences.glade:1914
+#: ui/preferences.glade:1915
 msgid "Expert"
 msgstr ""
 
-#: ui/preferences.glade:2002
+#: ui/preferences.glade:2003
 #, fuzzy
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
 msgstr "Porogaramu ni Bya i Umushinga i Bya"
 
-#: ui/preferences.glade:2204
+#: ui/preferences.glade:2205
 #, fuzzy
 msgid ""
 "<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
@@ -878,19 +887,26 @@ msgid ""
 "bugs@lists.sourceforge.net</span>.</small>"
 msgstr "<Gitoya Kuri Ubururu Intonde Cyuzuye Gitoya"
 
-#: ui/preferences.glade:2244
+#: ui/preferences.glade:2245
 msgid "Developers"
 msgstr ""
 
-#: ui/preferences.glade:2393
+#: ui/preferences.glade:2394
 msgid "Maintainers"
 msgstr ""
 
-#: ui/preferences.glade:3103
+#: ui/preferences.glade:2429
+msgid ""
+"<small>Here is a list of those people, which translated gnubiff into "
+"different languages (translators of previous versions are marked with an "
+"asterisk):</small>"
+msgstr ""
+
+#: ui/preferences.glade:3166
 msgid "Translators"
 msgstr ""
 
-#: ui/preferences.glade:3133
+#: ui/preferences.glade:3196
 #, fuzzy
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
@@ -900,25 +916,25 @@ msgid ""
 "Here is a list of these people:</small>"
 msgstr "<Gitoya Abantu Kuri ni a Urutonde Bya Abantu Gitoya"
 
-#: ui/preferences.glade:3204
+#: ui/preferences.glade:3267
 msgid "Contributors"
 msgstr "Abaterankunga"
 
-#: ui/preferences.glade:3240
+#: ui/preferences.glade:3303
 msgid "Credits"
 msgstr ""
 
-#: ui/preferences.glade:3379
+#: ui/preferences.glade:3442
 #, fuzzy
 msgid "Set to default value"
 msgstr "Kuri Mburabuzi Agaciro"
 
-#: ui/preferences.glade:3400
+#: ui/preferences.glade:3463
 #, fuzzy
 msgid "Toggle option"
 msgstr "Ihitamo"
 
-#: ui/preferences.glade:3421
+#: ui/preferences.glade:3484
 #, fuzzy
 msgid "Edit option"
 msgstr "Ihitamo"
