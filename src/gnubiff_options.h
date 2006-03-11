@@ -79,6 +79,9 @@ const guint SIGNAL_NONE			=   0;
 const guint SIGNAL_MARK_AS_READ	=   1;
 const guint SIGNAL_START		=	2;
 const guint SIGNAL_STOP			=	3;
+const guint SIGNAL_POPUP_ENABLE	=	4;
+const guint SIGNAL_POPUP_DISABLE=	5;
+const guint SIGNAL_POPUP_TOGGLE =	6;
 
 const guint OPTGRP_GENERAL		=	1;
 const guint OPTGRP_APPLET		=	2;

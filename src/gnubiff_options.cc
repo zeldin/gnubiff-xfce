@@ -283,13 +283,18 @@ Gnubiff_Options::add_options_general (gboolean deprecated)
 								   "/etc/ssl/certs/"));
 	// SIGNAL_SIGUSR1
 	const static guint i7[] = {SIGNAL_NONE, SIGNAL_MARK_AS_READ, SIGNAL_START,
-							   SIGNAL_STOP, 0};
-	const static gchar *s7[] = {"none", "mark_as_read", "start", "stop", NULL};
+							   SIGNAL_STOP, SIGNAL_POPUP_ENABLE,
+							   SIGNAL_POPUP_DISABLE, SIGNAL_POPUP_TOGGLE, 0};
+	const static gchar *s7[] = {"none", "mark_as_read", "start", "stop",
+								"popup_enable", "popup_disable",
+								"popup_toggle", NULL};
 	add_option (new Option_UInt ("signal_sigusr1", OPTGRP_GENERAL,
 		"Action to be executed if the signal SIGUSR1 is caught by gnubiff. "
 		"\nPossible actions are ignoring the signal (\"none\"), marking all "
-		"messages as read (\"mark_as_read\"), starting monitoring (\"start\") "
-		"or stopping monitoring (\"stop\").",
+		"messages as read (\"mark_as_read\"), starting monitoring "
+		"(\"start\"), stopping monitoring (\"stop\"), enabling and disabling "
+        "the popup (\"popup_enable\" and \"popup_disable\") or "
+		"toggling the popup status (\"popup_toggle\").",
 								 SIGNAL_MARK_AS_READ,
 								 OPTFLG_ID_INT_STRICT, i7,s7));
 	// SIGNAL_SIGUSR2

@@ -118,5 +118,11 @@ Signals::signal_handler (int signum)
 	case SIGNAL_STOP:
 		biff_->stop_monitoring ();
 		break;
+	case SIGNAL_POPUP_ENABLE:
+		break;
+	case SIGNAL_POPUP_DISABLE:
+		break;
+	case SIGNAL_POPUP_TOGGLE:
+		break;
 	}
 }
