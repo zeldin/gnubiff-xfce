@@ -70,6 +70,7 @@ Version 2.2.0
    - Bugfix: Obtaining option values from GUI
    - Feature: Enabling/disabling the popup can be controlled via signals (see
         debian bug #354383 by Eric Cooper)
+   - Added Eric Cooper to contributors
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

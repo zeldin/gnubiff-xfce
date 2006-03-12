@@ -251,6 +251,7 @@ Various contributors:@*
 @item Dennis Bjorklund
 @item Jan Blunck
 @item Alexis S. L. Carvalho
+@item Eric Cooper
 @item John Ellson
 @item Nicolas Evrard
 @item Greg Fenton
