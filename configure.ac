@@ -1,5 +1,5 @@
 # gnubiff -- a mail notification program
-# Copyright (C) 2000-2005 Nicolas Rougier
+# Copyright (C) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Library General Public
@@ -69,7 +69,6 @@ dnl LIBFAM, LIBGAMIN (for monitoring files)
 AC_CHECK_LIB([fam], [main], [
 	FAM_LIBS="-lfam"
 	AC_DEFINE([HAVE_LIBFAM], [1], [libfam])
-	AC_DEFINE([HAVE_FAM_H], [1], [fam.h])
 ])
 if test -z "$FAM_LIBS" ; then
 	PKG_CHECK_MODULES(FAM, gamin >= 0.1.0)
@@ -128,7 +127,10 @@ AC_SUBST(GNUBIFF_DEP_LIBS)
 AC_HEADER_STDC
 AC_HEADER_DIRENT
 AC_CHECK_HEADERS([arpa/inet.h fcntl.h libintl.h netdb.h netinet/in.h stdlib.h string.h sys/socket.h unistd.h utime.h])
-
+AC_CHECK_HEADERS([fam.h], [], [
+	AC_MSG_ERROR([
+	Cannot find fam (File Alteration Monitor) library header file fam.h
+	])])
 
 
 ######################################################################
