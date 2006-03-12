@@ -119,10 +119,13 @@ Signals::signal_handler (int signum)
 		biff_->stop_monitoring ();
 		break;
 	case SIGNAL_POPUP_ENABLE:
+		biff_->applet()->enable_popup (true);
 		break;
 	case SIGNAL_POPUP_DISABLE:
+		biff_->applet()->enable_popup (false);
 		break;
 	case SIGNAL_POPUP_TOGGLE:
+		biff_->applet()->enable_popup (!biff_->value_bool ("use_popup"));
 		break;
 	}
 }

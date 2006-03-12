@@ -253,3 +253,16 @@ Applet::can_monitor_mailboxes (void)
 {
 	return true;
 }
+
+/**
+ *  Enable or disable the popup dialog.
+ *
+ *  @param  enable Boolean that indicates whether to enable (if true) or
+ *                 disable (if false) the popup.
+ */
+void 
+Applet::enable_popup (gboolean enable)
+{
+	// Change the value
+	biff_->value ("use_popup", enable);
+}

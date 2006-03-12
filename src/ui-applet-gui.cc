@@ -344,10 +344,12 @@ void
 AppletGUI::show_dialog_preferences (void)
 {
 	// Hide the popup window
-	popup_->hide();
+	if (popup_)
+		popup_->hide();
 
 	// Show the dialog
-	preferences_->show();
+	if (preferences_)
+		preferences_->show();
 
 	// Stop monitoring mailboxes
 	biff_->stop_monitoring ();
@@ -361,7 +363,8 @@ void
 AppletGUI::hide_dialog_preferences (void)
 {
 	// Hide the preferences dialog
-	preferences_->hide();
+	if (preferences_)
+		preferences_->hide();
 
 	// Start monitoring of the mailboxes (if wanted)
 	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK)
@@ -390,8 +393,10 @@ void
 AppletGUI::show_dialog_about (void)
 {
 	// Hide the other dialogs
-	popup_->hide();
-	preferences_->hide();
+	if (popup_)
+		popup_->hide ();
+	if (preferences_)
+		preferences_->hide ();
 
 	// Show the dialog
 	GUI::show ("gnubiffabout");
@@ -404,6 +409,26 @@ void
 AppletGUI::hide_dialog_about (void)
 {
 	GUI::hide ("gnubiffabout");
+}
+
+/**
+ *  Show the popup dialog.
+ */
+void 
+AppletGUI::show_dialog_popup (void)
+{
+	if (popup_)
+		popup_->show ();
+}
+
+/**
+ *  Hide the popup dialog.
+ */
+void 
+AppletGUI::hide_dialog_popup (void)
+{
+	if (popup_)
+		popup_->hide ();
 }
 
 /**
@@ -477,4 +502,31 @@ AppletGUI::tooltip_update (void)
 	// Put text in tooltip
 	GtkTooltipsData *data = gtk_tooltips_data_get (tooltip_widget_);
 	gtk_tooltips_set_tip (data->tooltips, tooltip_widget_, text.c_str(), "");
+}
+
+
+/**
+ *  Enable or disable the popup dialog. The display is updated according to
+ *  the intended action.
+ *
+ *  @param  enable Boolean that indicates whether to enable (if true) or
+ *                 disable (if false) the popup.
+ */
+void 
+AppletGUI::enable_popup (gboolean enable)
+{
+	// Is there no change in the value?
+	if (biff_->value_bool ("use_popup") == enable)
+		return;
+
+	// Change the value
+	Applet::enable_popup (enable);
+
+	// Update the preferences dialog
+	if (visible_dialog_preferences ())
+		preferences_->synchronize ();
+
+	// Update the popup dialog
+	if (!enable)
+		hide_dialog_popup ();
 }

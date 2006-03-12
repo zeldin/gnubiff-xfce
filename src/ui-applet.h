@@ -68,6 +68,7 @@ public:
 	/// @see AppletGUI::get_password_for_mailbox ()
 	virtual void get_password_for_mailbox (class Mailbox *mb) {};
 	virtual gboolean can_monitor_mailboxes (void);
+	virtual void enable_popup (gboolean enable);
 };
 
 #endif

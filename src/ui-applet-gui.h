@@ -94,8 +94,11 @@ public:
 	gboolean visible_dialog_preferences (void);
 	void show_dialog_about (void);
 	void hide_dialog_about (void);
+	void show_dialog_popup (void);
+	void hide_dialog_popup (void);
 	gboolean visible_dialog_popup (void);
 	void tooltip_update (void);
+	void enable_popup (gboolean enable);
 };
 
 #endif
