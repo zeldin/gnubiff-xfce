@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-03-05 18:53+0100\n"
+"POT-Creation-Date: 2006-03-19 21:21+0100\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -288,7 +288,7 @@ msgstr ""
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr ""
 
-#: src/options.cc:689 src/gui.cc:274
+#: src/options.cc:691 src/gui.cc:274
 #, fuzzy, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Nu am putut gãsi widgetul specificat (\"%s\") în structura de tree xml"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-03-05 18:53+0100\n"
+"POT-Creation-Date: 2006-03-19 21:21+0100\n"
 "PO-Revision-Date: 2005-12-07 23:43+0100\n"
 "Last-Translator: Stefano Fabri <bluefuture@email.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -296,7 +296,7 @@ msgstr "Opzione sconosciuta \"%s\""
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Impossibile impostare l'opzione \"%s\" a \"%s\""
 
-#: src/options.cc:689 src/gui.cc:274
+#: src/options.cc:691 src/gui.cc:274
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""

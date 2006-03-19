@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-03-05 18:53+0100\n"
+"POT-Creation-Date: 2006-03-19 21:21+0100\n"
 "PO-Revision-Date: 2005-12-03 23:07+0100\n"
 "Last-Translator: Adam Wallner <wallner.adam@hktv.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -289,7 +289,7 @@ msgstr "Ismeretlen opció \"%s\""
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Nem lehet a \"%s\" opciót \"%s\"-re állítani"
 
-#: src/options.cc:689 src/gui.cc:274
+#: src/options.cc:691 src/gui.cc:274
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""

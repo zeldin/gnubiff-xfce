@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-03-05 18:53+0100\n"
+"POT-Creation-Date: 2006-03-19 21:21+0100\n"
 "PO-Revision-Date: 2005-12-29 01:35+0100\n"
 "Last-Translator: Robert Sowada <sowadart@gmx.de>\n"
 "Language-Team: German\n"
@@ -291,7 +291,7 @@ msgstr "Unbekannte Option »%s«"
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Kann Option »%s« nicht auf »%s« setzen"
 
-#: src/options.cc:689 src/gui.cc:274
+#: src/options.cc:691 src/gui.cc:274
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
@@ -491,7 +491,7 @@ msgstr "_Beenden"
 
 #: ui/applet-gtk.glade:203
 msgid "Gnubiff is a mail notification program."
-msgstr "Gnubiff überwacht Email-Briefkästen."
+msgstr "Gnubiff ist ein Programm zur Briefkastenüberwachung."
 
 #: ui/applet-gtk.glade:204
 msgid ""
@@ -515,7 +515,7 @@ msgstr ""
 "Gnubiff ist Teil des GNU-Projekts.\n"
 "Es ist veröffentlicht unter der Obhut von GNU.\n"
 "\n"
-" Dieses Programm ist freie Software. Sie können es unter den Bedingungen der "
+"Dieses Programm ist freie Software. Sie können es unter den Bedingungen der "
 "GNU General Public License, wie von der Free Software Foundation "
 "veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 2 "
 "der Lizenz oder (nach Ihrer Option) jeder späteren Version.\n"

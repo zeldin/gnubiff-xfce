@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-03-05 18:53+0100\n"
+"POT-Creation-Date: 2006-03-19 21:21+0100\n"
 "PO-Revision-Date: 2005-04-03 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -315,7 +315,7 @@ msgstr "Ihitamo ritazwi:"
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Gushyiraho Ihitamo Kuri"
 
-#: src/options.cc:689 src/gui.cc:274
+#: src/options.cc:691 src/gui.cc:274
 #, fuzzy, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Gushaka i muri xml Imiterere"
