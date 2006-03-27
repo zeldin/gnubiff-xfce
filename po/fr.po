@@ -10,13 +10,12 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-26 21:40+0200\n"
-"PO-Revision-Date: 2005-04-04 13:23+0200\n"
+"PO-Revision-Date: 2006-03-27 11:59+0200\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../src/decoding.cc:91
 #, c-format
@@ -51,11 +50,11 @@ msgstr "Passer l'étape de configuration"
 
 #: ../src/gnubiff.cc:103
 msgid "Start gnubiff without GUI"
-msgstr ""
+msgstr "Démarrer gnubiff sans l'interface"
 
 #: ../src/gnubiff.cc:105
 msgid "Put gnubiff's icon into the system tray"
-msgstr ""
+msgstr "Placer l'icône de gnubiff dans le panneau système"
 
 #: ../src/gnubiff.cc:107
 msgid "Print version information and exit"
@@ -75,11 +74,9 @@ msgid "Configuration file (%s) not found!"
 msgstr "Fichier de configuration (%s) non trouvé"
 
 #: ../src/biff.cc:590
-#, fuzzy, c-format
+#, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
-msgstr ""
-"Chargement du fichier de configuration à partir d'une vieille version de "
-"gnubiff \"%s\""
+msgstr "Chargement du fichier de configuration à partir d'une nouvelle version de gnubiff \"%s\"."
 
 #. Config file belongs to an older version of gnubiff
 #: ../src/biff.cc:598
@@ -474,7 +471,7 @@ msgstr ""
 
 #: ../src/GNOME_gnubiffApplet.xml.h:1
 msgid "Info"
-msgstr ""
+msgstr "info"
 
 #: ../src/GNOME_gnubiffApplet.xml.h:2 ../ui/applet-gtk.glade.h:12
 msgid "Mark mailboxes read"
@@ -501,9 +498,8 @@ msgid "About"
 msgstr "A propos"
 
 #: ../ui/applet-gtk.glade.h:2
-#, fuzzy
 msgid "Gnubiff is a mail notification program."
-msgstr "Programme de notification de courrier"
+msgstr "Gnubiff est un programme de notification de courrier"
 
 #: ../ui/applet-gtk.glade.h:3
 msgid ""
@@ -523,7 +519,15 @@ msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin St, Fifth Floor, Boston, MA 02110, USA.\n"
-msgstr ""
+msgstr "Gnubiff fait partie du projet GNU\n"
+"Il est distribué sous l'égide de GNU\n"
+"\n"
+"Ce programme est libre, vous pouvez le redistribuer et/ou le modifier selon les termes de la Licence Publique Générale GNU publiée par la Free Software Foundation (version 2 ou bien toute autre version ultérieure choisie par vous).\n"
+"\n"
+"Ce programme est distribué car potentiellement utile, mais SANS AUCUNE GARANTIE, ni explicite ni implicite, y compris les garanties de commercialisation ou d'adaptation dans un but spécifique. Reportez-vous à la Licence Publique Générale GNU pour plus de détails.\n"
+"\n"
+"Vous devez avoir reçu une copie de la Licence Publique Générale GNU en même temps que ce programme ; si ce n'est pas le cas, écrivez à la Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, États-Unis.\n"
+""
 
 #: ../ui/applet-gtk.glade.h:13
 msgid "Start command"
@@ -578,14 +582,14 @@ msgstr ""
 "il est distribué sous l'égide de GNU.</small>"
 
 #: ../ui/preferences.glade.h:11
-#, fuzzy
 msgid ""
 "<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
 "devel@lists.sourceforge.net</span>.</small>\n"
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span>.</small>"
-msgstr ""
-"<small>Les bogues doivent etre reportés à <span foreground=\"blue\">gnubiff-"
+msgstr "<small>Les développeurs peuvent être contactés via <span foreground=\"blue\">gnubiff-"
+"devel@lists.sourceforge.net</span>.</small>\n"
+"Les bogues doivent etre reportés à <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 
 #: ../ui/preferences.glade.h:13
@@ -593,7 +597,7 @@ msgid ""
 "<small>Here is a list of those people, which translated gnubiff into "
 "different languages (translators of previous versions are marked with an "
 "asterisk):</small>"
-msgstr ""
+msgstr "<small>Voici la liste des personnes ayant participé à la traduction de gnubiff dans les différents langages (les traducteurs des versions précédentes sont marqués d'un astérisque):</small>"
 
 #: ../ui/preferences.glade.h:14
 msgid ""
@@ -712,11 +716,11 @@ msgid "String to be searched for."
 msgstr "Chaîne à chercher."
 
 #: ../ui/preferences.glade.h:44
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
 "padded). Pango markup may be used."
-msgstr "Texte à afficher (%d est le nombre de nouveaux courriers)"
+msgstr "Texte à afficher (%d et %D sont les nombres de nouveaux courriers, %d est justifié avec des zéros). Le marquage type Pango peut être utilisé."
 
 #: ../ui/preferences.glade.h:45
 msgid "The command to run when new mail arrives"
