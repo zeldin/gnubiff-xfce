@@ -76,8 +76,11 @@ Version 2.2.0
         Tim Bishop for reporting this bug)
    - Bugfix: Only add "passphrase" option when using password (thanks to
         Tim Bishop for reporting this bug)
+   - Copied po/fr.po to po/fr_FR.po and po/fr_CA.po
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
+ * Nicolas Rougier
+   - Update of French translation
 
 Version 2.1.10
  * Robert Sowada
