@@ -267,8 +267,9 @@ if test "$password" = yes; then
 	echo " Password saving : yes"
 	echo " Password string : $pstring"
 	if test "x$pstring" = "x"; then
-		echo "  WARNING: You've not defined a string to encrypt password (--with-password-string)"
-		echo "           Default string will be used but it is less secure than using your own."
+		echo "  WARNING: You've not defined a string to encrypt passwords (this can be done"
+		echo "           (with the option --with-password-string). The default string will"
+		echo "           be used but it is less secure than using your own."
 	fi
 fi
 

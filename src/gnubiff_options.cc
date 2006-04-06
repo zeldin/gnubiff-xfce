@@ -706,6 +706,7 @@ Gnubiff_Options::add_options_security (gboolean deprecated)
 		"mailbox.",
 								 100, OPTFLG_NONE, OPTGUI_SPIN,
 								 "max_mail_spin"));
+#ifdef USE_PASSWORD
 	// PASSPHRASE
 	add_option (new Option_String ("passphrase", OPTGRP_SECURITY,
 		"This is the password phrase used for the encryption of the passwords "
@@ -716,6 +717,7 @@ Gnubiff_Options::add_options_security (gboolean deprecated)
 								   PASSWORD_STRING"FEDCBA9876543210",
 								   OPTFLG_FIXED | OPTFLG_AUTO
 								   | OPTFLG_NOSAVE ));
+#endif
 	// PREVDOS_ADDITIONAL_LINES
 	add_option (new Option_UInt ("prevdos_additional_lines", OPTGRP_SECURITY,
 		"Maximum number of lines that are read from the network additionally "

@@ -72,6 +72,10 @@ Version 2.2.0
         debian bug #354383 by Eric Cooper)
    - Added Eric Cooper to contributors
    - Bugfix: Detection of fam.h header file at configuration time
+   - Bugfix: Include gnome files only when compiling for gnome (thanks to
+        Tim Bishop for reporting this bug)
+   - Bugfix: Only add "passphrase" option when using password (thanks to
+        Tim Bishop for reporting this bug)
  * Roland Stigge
    - Added reference to info pages in man page (Debian bug #335193)
 

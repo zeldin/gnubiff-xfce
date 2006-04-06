@@ -35,15 +35,15 @@
 #include <popt.h>
 
 #ifdef USE_GNOME
-#  include <gnome.h>
-#  include <panel-applet.h>
+#	include <gnome.h>
+#	include <panel-applet.h>
+#	include "ui-applet-gnome.h"
 #endif
 
 #include "biff.h"
 #include "nls.h"
 #include "ui-preferences.h"
 #include "ui-applet.h"
-#include "ui-applet-gnome.h"
 #include "ui-applet-gtk.h"
 
 int main (int argc, char **argv);

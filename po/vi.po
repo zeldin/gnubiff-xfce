@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.3\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-26 21:40+0200\n"
+"Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
+"POT-Creation-Date: 2006-04-01 13:54+0200\n"
 "PO-Revision-Date: 2005-04-11 17:17+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -15,81 +15,80 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/decoding.cc:91
+#: src/decoding.cc:91
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Không thể giải mã \"%s\" của thư này]"
 
-#: ../src/decoding.cc:134 ../src/decoding.cc:141 ../src/decoding.cc:146
+#: src/decoding.cc:134 src/decoding.cc:141 src/decoding.cc:146
 msgid "[Cannot decode this header line]"
 msgstr "[Không giải mã được dòng đầu này]"
 
-#: ../src/decoding.cc:705
+#: src/decoding.cc:705
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Không chuyển đổi được bộ ký tự từ \"%s\" sang \"utf-8\")]"
 
-#: ../src/gnubiff.cc:92
+#: src/gnubiff.cc:92
 msgid "Start gnome applet from command line"
 msgstr "Khởi động tiểu dụng gnome từ dòng lệnh"
 
-#: ../src/gnubiff.cc:99
+#: src/gnubiff.cc:99
 msgid "Configuration file to use"
 msgstr "Chọn tập tin cấu hình để sư dụng"
 
-#: ../src/gnubiff.cc:99
+#: src/gnubiff.cc:99
 msgid "file"
 msgstr "tập tin"
 
-#: ../src/gnubiff.cc:101
+#: src/gnubiff.cc:101
 msgid "Skip the configuration process"
 msgstr "Bỏ qua tiến trình định cấu hình"
 
-#: ../src/gnubiff.cc:103
+#: src/gnubiff.cc:103
 msgid "Start gnubiff without GUI"
 msgstr ""
 
-#: ../src/gnubiff.cc:105
+#: src/gnubiff.cc:105
 msgid "Put gnubiff's icon into the system tray"
 msgstr ""
 
-#: ../src/gnubiff.cc:107
+#: src/gnubiff.cc:107
 msgid "Print version information and exit"
 msgstr "In ra thông tin phiên bản rồi thoát."
 
-#: ../src/gnubiff.cc:113
+#: src/gnubiff.cc:113
 msgid "General command line options:"
 msgstr "Tùy chọn dòng lệnh chung:"
 
-#: ../src/gnubiff.cc:116
+#: src/gnubiff.cc:116
 msgid "Options for debugging:"
 msgstr "Tùy chọn gỡ lỗi:"
 
-#: ../src/biff.cc:125
+#: src/biff.cc:125
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Không tìm thấy tập tin cấu hình (%s)."
 
-#: ../src/biff.cc:590
+#: src/biff.cc:590
 #, fuzzy, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr "Nạp tập tin cấu hình từ phiên bản gnubiff cũ \"%s\" rồi."
 
-#. Config file belongs to an older version of gnubiff
-#: ../src/biff.cc:598
+#: src/biff.cc:598
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Nạp tập tin cấu hình từ phiên bản gnubiff cũ \"%s\" rồi."
 
-#: ../src/biff.cc:600
+#: src/biff.cc:600
 msgid "Trying to convert all options."
 msgstr "Cố chuyển đổi tất cả tùy chọn..."
 
-#: ../src/biff.cc:644
+#: src/biff.cc:644
 msgid "Successfully converted all options."
 msgstr "Chuyển đổi tất cả tùy chọn rồi."
 
-#: ../src/biff.cc:647
+#: src/biff.cc:647
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -98,180 +97,174 @@ msgstr ""
 "Chuyển đổi một phần tùy chọn rồi. Phải tự cập nhật những tùy chọn theo đây: %"
 "s."
 
-#: ../src/biff.cc:790
+#: src/biff.cc:790
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Không mở được tập tin cấu hình (%s) của bạn."
 
-#: ../src/biff.cc:806
+#: src/biff.cc:806
 msgid "Cannot create XML parser for config file"
 msgstr "Không tao được trình phân tách XML cho tập tin cấu hình"
 
-#: ../src/biff.cc:823
+#: src/biff.cc:823
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Chưa tìm thấy lời định nghĩa hộp thư trong tập tin cấu hình (%s) của bạn."
 
-#: ../src/biff.cc:870
+#: src/biff.cc:870
 msgid "Illegal parameter format in config file"
 msgstr "Gặp khuôn dạng tham số bất hợp lệ trong tập tin cấu hình"
 
-#: ../src/biff.cc:899
+#: src/biff.cc:899
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Chưa ghi rõ giao thức cho hộp thư %d"
 
-#: ../src/mailbox.cc:135
+#: src/mailbox.cc:135
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Không tạo được mạch: %s"
 
-#: ../src/mailbox.cc:307
+#: src/mailbox.cc:307
 #, c-format
 msgid "mailbox %d"
 msgstr "hộp thư %d"
 
-#. Insert default values
-#: ../src/mailbox.cc:622
+#: src/mailbox.cc:622
 msgid "<no date>"
 msgstr "<không có ngày>"
 
-#: ../src/mailbox.cc:623
+#: src/mailbox.cc:623
 msgid "<no sender>"
 msgstr "<không có người gởi>"
 
-#: ../src/mailbox.cc:624
+#: src/mailbox.cc:624
 msgid "<no subject>"
 msgstr "<không có chủ đề>"
 
-#: ../src/mailbox.cc:671
+#: src/mailbox.cc:671
 msgid "[Cannot parse content type header line]"
 msgstr "[Không phân tách được dòng đầu loạị nội dụng]"
 
-#: ../src/mailbox.cc:692
+#: src/mailbox.cc:692
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Không phân tách được dòng đầu mã truyền nội dụng]"
 
-#: ../src/mailbox.cc:741
+#: src/mailbox.cc:741
 msgid "[Malformed multipart message]"
 msgstr "[Thư đa phần khuyết tật]"
 
-#: ../src/mailbox.cc:749
+#: src/mailbox.cc:749
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Không tìm được đầu của phân thứ nhất trong thư đa phần]"
 
-#: ../src/mailbox.cc:795
+#: src/mailbox.cc:795
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Thư này có loại nội dụng không được hỗ trợ: \"%s/%s\"]"
 
-#. Otherwise: Ignore it and print error message
-#: ../src/header.cc:149
+#: src/header.cc:149
 #, c-format
 msgid "Can't sort mails by \"%s\""
 msgstr "Không thể sắp xếp thư theo \"%s\""
 
-#: ../src/socket.cc:125 ../src/socket.cc:154 ../src/socket.cc:182
-#: ../src/socket.cc:190 ../src/socket.cc:198 ../src/socket.cc:210
-#: ../src/socket.cc:240 ../src/socket.cc:249
+#: src/socket.cc:125 src/socket.cc:154 src/socket.cc:182 src/socket.cc:190
+#: src/socket.cc:198 src/socket.cc:210 src/socket.cc:240 src/socket.cc:249
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Không kết nối được đến %s qua cổng %d"
 
-#: ../src/socket.cc:225
+#: src/socket.cc:225
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Không nạp được chứng nhận (%s) cho %s"
 
-#: ../src/socket.cc:262
+#: src/socket.cc:262
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Không nhận biết được máy chủ tư xa (%s qua cổng %d)"
 
-#: ../src/socket.cc:347
+#: src/socket.cc:347
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Không ghi được vào %s qua cổng %d"
 
-#: ../src/socket.cc:409
+#: src/socket.cc:409
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Không đọc được từ %s qua cổng %d"
 
-#: ../src/socket.cc:431
+#: src/socket.cc:431
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "Không lập được thời hạn đọc tại ổ cắm: %s"
 
-#: ../src/file.cc:99
+#: src/file.cc:99
 #, c-format
 msgid "Cannot open %s."
 msgstr "Không mở được %s."
 
-#: ../src/imap4.cc:459
+#: src/imap4.cc:459
 msgid "[This message has no part with a supported content type]"
 msgstr "[Thư này không có phần có loại nội dụng được hỗ trợ]"
 
-#: ../src/imap4.cc:822
+#: src/imap4.cc:822
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Không chọn được danh mục %s trên máy chủ %s"
 
-#: ../src/imap4.cc:910
+#: src/imap4.cc:910
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Không gọi được trả lời từ %s qua cổng %d"
 
-#: ../src/imap4.cc:969
+#: src/imap4.cc:969
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d] Máy chủ không gởi trả lời \"%s\" không có thẻ ghi"
 
-#: ../src/imap4.cc:1022
+#: src/imap4.cc:1022
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Máy chủ không gởi trả lời \"%s\" không có thẻ ghi"
 
-#. see RFC 3501 7.1.5
-#: ../src/imap4.cc:1578
+#: src/imap4.cc:1578
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Máy chủ tắt kết nối ngay:%s"
 
-#. see RFC 3501 7.1.3
-#: ../src/imap4.cc:1583
+#: src/imap4.cc:1583
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Máy chủ gặp khó nội bộ, hay gặp lỗi chưa biết:%s"
 
-#. see RFC 3501 7.1.2
-#: ../src/imap4.cc:1588
+#: src/imap4.cc:1588
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Cảnh báo từ máy chủ:%s"
 
-#: ../src/maildir.cc:83
+#: src/maildir.cc:83
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Không mở được thư mục thư mới (%s)"
 
-#: ../src/pop.cc:152
+#: src/pop.cc:152
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Mật khẩu trống"
 
-#: ../src/pop.cc:511
+#: src/pop.cc:511
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Thông báo lỗi từ máy chủ POP3:%s"
 
-#: ../src/pop.cc:518
+#: src/pop.cc:518
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Chưa nhận trả lời dương từ máy chủ POP3"
 
-#: ../src/apop.cc:103
+#: src/apop.cc:103
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -280,35 +273,35 @@ msgstr ""
 "[%d] Hình như máy chủ POP của bạn không chấp nhận giao thức APOP (không ghi "
 "giờ)"
 
-#: ../src/apop.cc:124
+#: src/apop.cc:124
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 "[%d] Gặp khó với mật mã thuật mà không đươc phát hiện khi định cầu hình"
 
-#: ../src/options.cc:530
+#: src/options.cc:530
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr "Không biết tùy chọn \"%s\""
 
-#: ../src/options.cc:537
+#: src/options.cc:537
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Không lập được tùy chọn \"%s\" thành \"%s\""
 
-#: ../src/options.cc:691 ../src/gui.cc:274
+#: src/options.cc:691 src/gui.cc:274
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
 "Không tìm thấy được thành phần được ghi rõ (\"%s\") ở trong cấu trức XML (\"%"
 "s\")"
 
-#: ../src/gnubiff_options.cc:138
+#: src/gnubiff_options.cc:138
 msgid "no mail"
 msgstr "không có thư mới"
 
-#: ../src/gui.cc:196
+#: src/gui.cc:196
 #, c-format
 msgid ""
 "Cannot build the interface.\n"
@@ -325,80 +318,78 @@ msgstr ""
 "\n"
 "Hãy kiểm tra lại xem gói tinha có được cài đặt đúng chưa."
 
-#: ../src/gui.cc:382
+#: src/gui.cc:382
 msgid "GUI_connect requires working gmodule"
 msgstr "Tùy chọn GUI_connect cần đến môđun gmodule hoặt động"
 
-#: ../src/gui.cc:389
+#: src/gui.cc:389
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr "Không tìm thấy được điều quản lý tín hiệu '%s'."
 
-#: ../src/ui-applet.cc:217
+#: src/ui-applet.cc:217
 msgid " unknown"
 msgstr " không biết"
 
-#: ../src/ui-applet.cc:222
+#: src/ui-applet.cc:222
 msgid " error"
 msgstr " lỗi"
 
-#: ../src/ui-applet.cc:231
+#: src/ui-applet.cc:231
 msgid " checking..."
 msgstr " kiểm tra..."
 
-#: ../src/ui-preferences.cc:269 ../src/ui-popup.cc:160
+#: src/ui-preferences.cc:269 src/ui-popup.cc:160
 msgid "Mailbox"
 msgstr "Hôp thư"
 
-#. Column: TYPE
-#: ../src/ui-preferences.cc:283 ../src/ui-preferences.cc:365
+#: src/ui-preferences.cc:283 src/ui-preferences.cc:365
 msgid "Type"
 msgstr "Loại"
 
-#: ../src/ui-preferences.cc:302
+#: src/ui-preferences.cc:302
 msgid "Status"
 msgstr "Trạng thái"
 
-#: ../src/ui-preferences.cc:317
+#: src/ui-preferences.cc:317
 msgid "Security"
 msgstr "Bảo mật"
 
-#. Selection label
-#: ../src/ui-preferences.cc:329 ../src/ui-preferences.cc:688
+#: src/ui-preferences.cc:329 src/ui-preferences.cc:688
 msgid "No mailbox selected"
 msgstr "Chưa chọn hộp thư"
 
-#: ../src/ui-preferences.cc:357
+#: src/ui-preferences.cc:357
 msgid "Option"
 msgstr "Tùy chọn"
 
-#: ../src/ui-preferences.cc:375
+#: src/ui-preferences.cc:375
 msgid "Value"
 msgstr "Giá trị"
 
-#: ../src/ui-preferences.cc:611
+#: src/ui-preferences.cc:611
 msgid "_Start"
 msgstr "_Bắt đầu"
 
-#: ../src/ui-preferences.cc:617 ../ui/preferences.glade.h:77
+#: src/ui-preferences.cc:617 ui/preferences.glade:3386
 msgid "_Stop"
 msgstr "_Ngừng"
 
-#: ../src/ui-preferences.cc:628 ../src/ui-preferences.cc:635
+#: src/ui-preferences.cc:628 src/ui-preferences.cc:635
 msgid "Browse for a new mail image"
 msgstr "Duyệt để tìm thấy hình ảnh thư mới"
 
-#: ../src/ui-authentication.cc:88
+#: src/ui-authentication.cc:88
 #, c-format
 msgid "Please enter your username and password for mailbox '%s'"
 msgstr "Hãy nhập tên người dùng và mật khẩu cho hộp thư '%s'"
 
-#: ../src/ui-certificate.cc:75
+#: src/ui-certificate.cc:75
 #, c-format
 msgid "Unable to verify the identity of %s as a trusted site.\n"
 msgstr "Không kiểm chứng được %s là nơi Mạng được tin.\n"
 
-#: ../src/ui-certificate.cc:76
+#: src/ui-certificate.cc:76
 #, c-format
 msgid ""
 "Either site's certificate is incomplete or you're connected to a site "
@@ -407,48 +398,47 @@ msgstr ""
 "Hoặc chứng nhận của nơi Mạng ấy chưa hoàn thành, hoặc bạn đã kết nối đến một "
 "nơi khác làm ra vẻ là %s, có lẽ để lấy mật khẩu của bạn"
 
-#: ../src/ui-properties.cc:125 ../src/ui-properties.cc:152
+#: src/ui-properties.cc:125 src/ui-properties.cc:152
 msgid "Autodetect"
 msgstr "Tự động phát hiện"
 
-#: ../src/ui-properties.cc:126
+#: src/ui-properties.cc:126
 msgid "File or Folder"
 msgstr "Tập tin hay Danh mục"
 
-#: ../src/ui-properties.cc:154
+#: src/ui-properties.cc:154
 msgid "User/Pass"
 msgstr "Tên/Mật khẩu"
 
-#: ../src/ui-properties.cc:156
+#: src/ui-properties.cc:156
 msgid "Encrypted User/Pass (apop)"
 msgstr "Tên/Mật khẩu mật (APOP)"
 
-#: ../src/ui-properties.cc:160
+#: src/ui-properties.cc:160
 msgid "SSL with certificate"
 msgstr "SSL với chứng nhận"
 
-#: ../src/ui-properties.cc:319
+#: src/ui-properties.cc:319
 msgid "Browse for a file or folder"
 msgstr "Duyệt để tìm thấy tập tin hay danh mục"
 
-#: ../src/ui-properties.cc:325 ../ui/properties.glade.h:5
+#: src/ui-properties.cc:325 ui/properties.glade:616
 msgid "Browse for a certificate file"
 msgstr "Duyệt để tìm thấy tập tin chứng nhận"
 
-#: ../src/ui-popup.cc:172
+#: src/ui-popup.cc:172
 msgid "From"
 msgstr "Từ"
 
-#: ../src/ui-popup.cc:178
+#: src/ui-popup.cc:178
 msgid "Subject"
 msgstr "Chủ đề"
 
-#: ../src/ui-popup.cc:184
+#: src/ui-popup.cc:184
 msgid "Date"
 msgstr "Ngày"
 
-#. Create error message
-#: ../src/support.cc:323
+#: src/support.cc:323
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -460,40 +450,52 @@ msgstr ""
 "\n"
 "Tin tức thêm:\n"
 
-#: ../src/GNOME_gnubiffApplet.xml.h:1
+#: src/GNOME_gnubiffApplet.xml.h:1
 msgid "Info"
 msgstr ""
 
-#: ../src/GNOME_gnubiffApplet.xml.h:2 ../ui/applet-gtk.glade.h:12
+#: src/GNOME_gnubiffApplet.xml.h:2 ui/applet-gtk.glade:131
 msgid "Mark mailboxes read"
 msgstr "Đánh dấu các hộp thư đã đọc"
 
-#: ../src/GNOME_gnubiffApplet.xml.h:3
+#: src/GNOME_gnubiffApplet.xml.h:3
 msgid "Preferences..."
 msgstr "Sở thích..."
 
-#: ../src/GNOME_gnubiffApplet.xml.h:4
+#: src/GNOME_gnubiffApplet.xml.h:4
 msgid "Run command"
 msgstr "Chạy lệnh"
 
-#: ../src/GNOME_gnubiffApplet.server.in.h:1
+#: src/GNOME_gnubiffApplet.server.in.h:1
 msgid "Mail notification program"
 msgstr "Chương trình thông báo có thư"
 
-#: ../src/GNOME_gnubiffApplet.server.in.h:2 ../ui/applet-gtk.glade.h:15
+#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade:8
 msgid "gnubiff"
 msgstr "gnubiff"
 
-#: ../ui/applet-gtk.glade.h:1
+#: ui/applet-gtk.glade:7
+msgid "tooltip"
+msgstr "chú giải công cụ"
+
+#: ui/applet-gtk.glade:110
+msgid "Start command"
+msgstr "Khởi động lệnh"
+
+#: ui/applet-gtk.glade:152
 msgid "About"
 msgstr "Về gnubiff"
 
-#: ../ui/applet-gtk.glade.h:2
+#: ui/applet-gtk.glade:179
+msgid "_Quit"
+msgstr "_Thoát"
+
+#: ui/applet-gtk.glade:203
 #, fuzzy
 msgid "Gnubiff is a mail notification program."
 msgstr "Chương trình thông báo có thư"
 
-#: ../ui/applet-gtk.glade.h:3
+#: ui/applet-gtk.glade:204
 msgid ""
 "Gnubiff is part of the GNU project.\n"
 "It is released under the aegis of GNU.\n"
@@ -513,210 +515,226 @@ msgid ""
 "Franklin St, Fifth Floor, Boston, MA 02110, USA.\n"
 msgstr ""
 
-#: ../ui/applet-gtk.glade.h:13
-msgid "Start command"
-msgstr "Khởi động lệnh"
+#: ui/preferences.glade:7
+msgid "gnubiff preferences"
+msgstr "sở thích gnubiff"
 
-#: ../ui/applet-gtk.glade.h:14
-msgid "_Quit"
-msgstr "_Thoát"
+#: ui/preferences.glade:132
+msgid "When _double-clicked:"
+msgstr "Khi nhắp _đôi:"
 
-#: ../ui/applet-gtk.glade.h:16
-msgid "tooltip"
-msgstr "chú giải công cụ"
-
-#: ../ui/preferences.glade.h:1
-msgid "<b>Commands</b>"
-msgstr "<b>Lệnh</b>"
-
-#: ../ui/preferences.glade.h:2
-msgid "<b>Expert editing mode</b>"
-msgstr "<b>Chế độ hiệu chỉnh cấp cao</b>"
-
-#: ../ui/preferences.glade.h:3
+#: ui/preferences.glade:154
 msgid "<b>General</b>"
 msgstr "<b>Chung</b>"
 
-#: ../ui/preferences.glade.h:4
-msgid "<b>Headers</b>"
-msgstr "<b>Dòng đầu thư</b>"
-
-#: ../ui/preferences.glade.h:5
-msgid "<b>Layout</b>"
-msgstr "<b>Bố trí</b>"
-
-#: ../ui/preferences.glade.h:6
+#: ui/preferences.glade:194
 msgid "<b>Mailboxes</b>"
 msgstr "<b>Hộp thư</b>"
 
-#: ../ui/preferences.glade.h:7
-msgid "<b>When new mail</b>"
-msgstr "<b>Khi nhận thư mới</b>"
+#: ui/preferences.glade:236
+msgid "<b>Commands</b>"
+msgstr "<b>Lệnh</b>"
 
-#: ../ui/preferences.glade.h:8
-msgid "<b>When no mail</b>"
-msgstr "<b>Khi chưa nhận thư mới</b>"
+#: ui/preferences.glade:330
+msgid "When _new mail:"
+msgstr "Khi nhận thư mới:"
 
-#: ../ui/preferences.glade.h:9
-msgid ""
-"<small> Gnubiff is part of the GNU project.\n"
-" It is released under the aegis of GNU.</small>"
-msgstr ""
-"<small>Chương trình này là phần dự án GNU\n"
-"nên đã phát hành dưới sự che chở của GNU.</small>"
+#: ui/preferences.glade:352
+msgid "The command to run when new mail arrives"
+msgstr "Chạy lệnh này khi nhận được thư mới"
 
-#: ../ui/preferences.glade.h:11
-#, fuzzy
-msgid ""
-"<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
-"devel@lists.sourceforge.net</span>.</small>\n"
-"<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
-"bugs@lists.sourceforge.net</span>.</small>"
-msgstr ""
-"<small>Hãy báo cáo lỗi cho <span foreground=\"blue\">gnubiff-bugs@lists."
-"sourceforge.net</span></small>"
+#: ui/preferences.glade:374
+msgid "The command to run when the icon is double-clicked"
+msgstr "Chạy lệnh này khi nhắp đôi vào biểu tượng"
 
-#: ../ui/preferences.glade.h:13
-msgid ""
-"<small>Here is a list of those people, which translated gnubiff into "
-"different languages (translators of previous versions are marked with an "
-"asterisk):</small>"
-msgstr ""
+#: ui/preferences.glade:432
+msgid "_Restrict collected mail to"
+msgstr "_Tốí đa cỡ các thư đã thu thập"
 
-#: ../ui/preferences.glade.h:14
-msgid ""
-"<small>Many people have further contributed to gnubiff by\n"
-"  - reporting problems\n"
-"  - suggesting various improvements\n"
-"  - submitting actual code\n"
-"Here is a list of these people:</small>"
-msgstr ""
-"<small>Có nhiều người đã đóng góp cùng dự án gnubiff: họ\n"
-"  - thông báo lỗi\n"
-"  - góp ý cách tiến bộ khác nhau\n"
-"  - tạo mã nguồn thật\n"
-"Đây là danh sách người này:</small>"
+#: ui/preferences.glade:470
+msgid "mail(s)"
+msgstr "thư"
 
-#: ../ui/preferences.glade.h:19
-msgid "Applet geometry"
-msgstr "Dạng hình tiểu dụng"
-
-#: ../ui/preferences.glade.h:20
-msgid "Applet or Biff"
-msgstr "Tiểu dụng hay Biff"
-
-#: ../ui/preferences.glade.h:21
-msgid "B_rowse..."
-msgstr "_Duyệt"
-
-#: ../ui/preferences.glade.h:22
-msgid "Browse for an image file"
-msgstr "Duyệt để tìm thấy tập tin hình ảnh"
-
-#: ../ui/preferences.glade.h:23
-msgid "Contributors"
-msgstr "Người đóng góp"
-
-#: ../ui/preferences.glade.h:24
-msgid "Credits"
-msgstr "Lời cám ơn"
-
-#: ../ui/preferences.glade.h:25
-msgid "Developers"
-msgstr "Lập trình viên"
-
-#: ../ui/preferences.glade.h:26
-msgid "Edit option"
-msgstr "Hiệu chỉnh tùy chọn"
-
-#: ../ui/preferences.glade.h:27
-msgid "Expert"
-msgstr "Cấp cao"
-
-#: ../ui/preferences.glade.h:28
-msgid "Image filename"
-msgstr "Tên tập tin hình ảnh"
-
-#: ../ui/preferences.glade.h:29
-msgid "List all options."
-msgstr "Liệt kê tất cả tùy chọn."
-
-#: ../ui/preferences.glade.h:30
-msgid ""
-"List of options, their type and current values. To edit an option "
-"doubleclick on its value."
-msgstr ""
-"Đây là danh sách các tùy chọn với loại và giá trị hiện có. Để hiệu chỉnh tùy "
-"chọn thì hãy nhắp đôi vào giá trị của nó."
-
-#: ../ui/preferences.glade.h:31
+#: ui/preferences.glade:512
 msgid "Mailboxes"
 msgstr "Hộp thư"
 
-#: ../ui/preferences.glade.h:32
-msgid "Maintainers"
-msgstr "Bảo quản viên"
+#: ui/preferences.glade:557 ui/preferences.glade:622
+msgid "Image filename"
+msgstr "Tên tập tin hình ảnh"
 
-#: ../ui/preferences.glade.h:33
-msgid "Maximum number of headers to display"
-msgstr "Tối đa số dòng đầu thư để trình bày"
+#: ui/preferences.glade:579 ui/preferences.glade:644
+msgid "Browse for an image file"
+msgstr "Duyệt để tìm thấy tập tin hình ảnh"
 
-#: ../ui/preferences.glade.h:34 ../ui/popup.glade.h:4
-msgid "Popup"
-msgstr "Bật lên"
+#: ui/preferences.glade:581 ui/properties.glade:295
+msgid "_Browse..."
+msgstr "_Duyệt..."
 
-#: ../ui/preferences.glade.h:35
-msgid "Popup geometry"
-msgstr "Dạng hình bật lênm"
-
-#: ../ui/preferences.glade.h:36
-msgid ""
-"Search for those (displayed) options that contain the string in the text "
-"entry."
-msgstr ""
-"Tìm kiếm những tùy chọn (được trình bày) mà chứa chuỗi ấy trong mục văn bản."
-
-#: ../ui/preferences.glade.h:37
-msgid "Set to default value"
-msgstr "Trở về gia trị mặc định"
-
-#: ../ui/preferences.glade.h:38
-msgid "Show _image:"
-msgstr "H_iển thị ảnh:"
-
-#: ../ui/preferences.glade.h:39
-msgid "Show _text:"
-msgstr "Hiển thị _văn bản:"
-
-#: ../ui/preferences.glade.h:40
-msgid "Show i_mage:"
-msgstr "Hiển thị ả_nh:"
-
-#: ../ui/preferences.glade.h:41
-msgid "Show t_ext:"
-msgstr "Hiển thị văn _bản:"
-
-#: ../ui/preferences.glade.h:42
-msgid "String to be searched for."
-msgstr "Tìm kiếm chuỗi này."
-
-#: ../ui/preferences.glade.h:44
-#, fuzzy, no-c-format
+#: ui/preferences.glade:600 ui/preferences.glade:665
+#, fuzzy
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
 "padded). Pango markup may be used."
 msgstr "Trình bày văn bản này (%d là số thư mới)"
 
-#: ../ui/preferences.glade.h:45
-msgid "The command to run when new mail arrives"
-msgstr "Chạy lệnh này khi nhận được thư mới"
+#: ui/preferences.glade:646
+msgid "B_rowse..."
+msgstr "_Duyệt"
 
-#: ../ui/preferences.glade.h:46
-msgid "The command to run when the icon is double-clicked"
-msgstr "Chạy lệnh này khi nhắp đôi vào biểu tượng"
+#: ui/preferences.glade:687
+msgid "Applet geometry"
+msgstr "Dạng hình tiểu dụng"
 
-#. The option's descriptions are in English only! This may be included in a translation of this text.
-#: ../ui/preferences.glade.h:48
+#: ui/preferences.glade:709 ui/preferences.glade:1317
+msgid "Whether to use geometry"
+msgstr "Sử dụng dạng hình không?"
+
+#: ui/preferences.glade:711 ui/preferences.glade:1319
+msgid "Use _geometry:"
+msgstr "Sử dụng dạng _hình:"
+
+#: ui/preferences.glade:733 ui/preferences.glade:781
+msgid "Whether to display a text"
+msgstr "Trình bày văn bản không?"
+
+#: ui/preferences.glade:735
+msgid "Show _text:"
+msgstr "Hiển thị _văn bản:"
+
+#: ui/preferences.glade:757
+msgid "Whether to show an image"
+msgstr "Hiển thị ảnh không?"
+
+#: ui/preferences.glade:759
+msgid "Show _image:"
+msgstr "H_iển thị ảnh:"
+
+#: ui/preferences.glade:783
+msgid "Show t_ext:"
+msgstr "Hiển thị văn _bản:"
+
+#: ui/preferences.glade:805
+msgid "Whether to display an image"
+msgstr "Trình bay ảnh không?"
+
+#: ui/preferences.glade:807
+msgid "Show i_mage:"
+msgstr "Hiển thị ả_nh:"
+
+#: ui/preferences.glade:829 ui/preferences.glade:1365
+msgid "<b>Layout</b>"
+msgstr "<b>Bố trí</b>"
+
+#: ui/preferences.glade:869
+msgid "<b>When new mail</b>"
+msgstr "<b>Khi nhận thư mới</b>"
+
+#: ui/preferences.glade:911
+msgid "<b>When no mail</b>"
+msgstr "<b>Khi chưa nhận thư mới</b>"
+
+#: ui/preferences.glade:941 ui/preferences.glade:1288
+msgid "_Font:"
+msgstr "_Phông chữ:"
+
+#: ui/preferences.glade:970 ui/preferences.glade:1434
+msgid "The font to use to display information"
+msgstr "Sử dụng phông chữ này để trình bày thông tin"
+
+#: ui/preferences.glade:990 ui/preferences.glade:1455
+msgid "Whether to use window manager decoration"
+msgstr "Sử dụng sự trang trí loại trình quản lý cửa sổ không?"
+
+#: ui/preferences.glade:992 ui/preferences.glade:1457
+msgid "Use _decoration"
+msgstr "Sử dụng _trang trí"
+
+#: ui/preferences.glade:1050
+msgid "Applet or Biff"
+msgstr "Tiểu dụng hay Biff"
+
+#: ui/preferences.glade:1095
+msgid "second(s)"
+msgstr "giây"
+
+#: ui/preferences.glade:1122
+msgid "Time to display popup window"
+msgstr "Giờ để bật lên cửa sổ"
+
+#: ui/preferences.glade:1145
+msgid "Popup geometry"
+msgstr "Dạng hình bật lênm"
+
+#: ui/preferences.glade:1167
+msgid "Whether to use format for header"
+msgstr "Định dang dòng đầu thư không?"
+
+#: ui/preferences.glade:1169
+msgid "_Format:"
+msgstr "_Dạng:"
+
+#: ui/preferences.glade:1191
+msgid "[sender max size]:[subject max size]:[date max size]"
+msgstr "[người gởi tối đa cỡ]:[chủ đề tối đa cỡ]:[ngày tối đa cỡ]"
+
+#: ui/preferences.glade:1213
+msgid "Whether to restrict number of displayed headers"
+msgstr "Trình bày số ít dòng đầu thư không?"
+
+#: ui/preferences.glade:1215
+msgid "_Restrict number to"
+msgstr "_Tối đa số"
+
+#: ui/preferences.glade:1237
+msgid "Maximum number of headers to display"
+msgstr "Tối đa số dòng đầu thư để trình bày"
+
+#: ui/preferences.glade:1260
+msgid "header(s)"
+msgstr "dòng đầu thư"
+
+#: ui/preferences.glade:1341
+msgid "Whether to display the popup window"
+msgstr "Bật lên cửa sổ không?"
+
+#: ui/preferences.glade:1343
+msgid "_Display for"
+msgstr "_Trình bày được"
+
+#: ui/preferences.glade:1405
+msgid "<b>Headers</b>"
+msgstr "<b>Dòng đầu thư</b>"
+
+#: ui/preferences.glade:1534 ui/popup.glade:7
+msgid "Popup"
+msgstr "Bật lên"
+
+#: ui/preferences.glade:1591
+msgid "<b>Expert editing mode</b>"
+msgstr "<b>Chế độ hiệu chỉnh cấp cao</b>"
+
+#: ui/preferences.glade:1619
+msgid "Whether options can be edited in expert mode"
+msgstr "Hiệu lực chế độ cấp cao để hiệu chỉnh tùy chọn"
+
+#: ui/preferences.glade:1621
+msgid "_Edit options in expert mode"
+msgstr "_Hiệu chỉnh tùy chọn trong chế độ cấp cao"
+
+#: ui/preferences.glade:1643
+msgid ""
+"Whether to show the expert tab. Note: Disabling this option can only be "
+"reversed by editing the config file manually!"
+msgstr ""
+"Hiển thị thanh cấp cao không? Chú ghi: khi đã vô hiệu hóa tùy chọn này thì "
+"chỉ có thể hiệu lực nó lậi bằng cách tự hiệu chỉnh tập tin cầu hình."
+
+#: ui/preferences.glade:1645
+msgid "_Show expert tab"
+msgstr "_Hiển thị thanh cấp cao"
+
+#: ui/preferences.glade:1667
 msgid ""
 "The editing dialog for all options that gnubiff uses internally can be "
 "enabled here. So it is possible to change the value of options for which no "
@@ -731,199 +749,194 @@ msgstr ""
 "<b>Cảnh báo:</b> khi thay đổi tùy chọn này thì có lẽ trình gnubiff không làm "
 "việc cho đúng, hay gặp khó bảo mật."
 
-#: ../ui/preferences.glade.h:50
-msgid "The font to use to display information"
-msgstr "Sử dụng phông chữ này để trình bày thông tin"
+#: ui/preferences.glade:1766
+msgid "List all options."
+msgstr "Liệt kê tất cả tùy chọn."
 
-#: ../ui/preferences.glade.h:51
-msgid "Time to display popup window"
-msgstr "Giờ để bật lên cửa sổ"
+#: ui/preferences.glade:1784
+msgid "String to be searched for."
+msgstr "Tìm kiếm chuỗi này."
 
-#: ../ui/preferences.glade.h:52
-msgid "Toggle option"
-msgstr "Bập bênh tùy chọn"
+#: ui/preferences.glade:1806
+msgid ""
+"Search for those (displayed) options that contain the string in the text "
+"entry."
+msgstr ""
+"Tìm kiếm những tùy chọn (được trình bày) mà chứa chuỗi ấy trong mục văn bản."
 
-#: ../ui/preferences.glade.h:53
+#: ui/preferences.glade:1840
+msgid ""
+"List of options, their type and current values. To edit an option "
+"doubleclick on its value."
+msgstr ""
+"Đây là danh sách các tùy chọn với loại và giá trị hiện có. Để hiệu chỉnh tùy "
+"chọn thì hãy nhắp đôi vào giá trị của nó."
+
+#: ui/preferences.glade:1915
+msgid "Expert"
+msgstr "Cấp cao"
+
+#: ui/preferences.glade:2003
+msgid ""
+"<small> Gnubiff is part of the GNU project.\n"
+" It is released under the aegis of GNU.</small>"
+msgstr ""
+"<small>Chương trình này là phần dự án GNU\n"
+"nên đã phát hành dưới sự che chở của GNU.</small>"
+
+#: ui/preferences.glade:2205
+#, fuzzy
+msgid ""
+"<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
+"devel@lists.sourceforge.net</span>.</small>\n"
+"<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
+"bugs@lists.sourceforge.net</span>.</small>"
+msgstr ""
+"<small>Hãy báo cáo lỗi cho <span foreground=\"blue\">gnubiff-bugs@lists."
+"sourceforge.net</span></small>"
+
+#: ui/preferences.glade:2245
+msgid "Developers"
+msgstr "Lập trình viên"
+
+#: ui/preferences.glade:2394
+msgid "Maintainers"
+msgstr "Bảo quản viên"
+
+#: ui/preferences.glade:2429
+msgid ""
+"<small>Here is a list of those people, which translated gnubiff into "
+"different languages (translators of previous versions are marked with an "
+"asterisk):</small>"
+msgstr ""
+
+#: ui/preferences.glade:3166
 msgid "Translators"
 msgstr "Người dịch"
 
-#: ../ui/preferences.glade.h:54
-msgid "Use _decoration"
-msgstr "Sử dụng _trang trí"
-
-#: ../ui/preferences.glade.h:55
-msgid "Use _geometry:"
-msgstr "Sử dụng dạng _hình:"
-
-#: ../ui/preferences.glade.h:56
-msgid "When _double-clicked:"
-msgstr "Khi nhắp _đôi:"
-
-#: ../ui/preferences.glade.h:57
-msgid "When _new mail:"
-msgstr "Khi nhận thư mới:"
-
-#: ../ui/preferences.glade.h:58
-msgid "Whether options can be edited in expert mode"
-msgstr "Hiệu lực chế độ cấp cao để hiệu chỉnh tùy chọn"
-
-#: ../ui/preferences.glade.h:59
-msgid "Whether to display a text"
-msgstr "Trình bày văn bản không?"
-
-#: ../ui/preferences.glade.h:60
-msgid "Whether to display an image"
-msgstr "Trình bay ảnh không?"
-
-#: ../ui/preferences.glade.h:61
-msgid "Whether to display the popup window"
-msgstr "Bật lên cửa sổ không?"
-
-#: ../ui/preferences.glade.h:62
-msgid "Whether to restrict number of displayed headers"
-msgstr "Trình bày số ít dòng đầu thư không?"
-
-#: ../ui/preferences.glade.h:63
-msgid "Whether to show an image"
-msgstr "Hiển thị ảnh không?"
-
-#: ../ui/preferences.glade.h:64
+#: ui/preferences.glade:3196
 msgid ""
-"Whether to show the expert tab. Note: Disabling this option can only be "
-"reversed by editing the config file manually!"
+"<small>Many people have further contributed to gnubiff by\n"
+"  - reporting problems\n"
+"  - suggesting various improvements\n"
+"  - submitting actual code\n"
+"Here is a list of these people:</small>"
 msgstr ""
-"Hiển thị thanh cấp cao không? Chú ghi: khi đã vô hiệu hóa tùy chọn này thì "
-"chỉ có thể hiệu lực nó lậi bằng cách tự hiệu chỉnh tập tin cầu hình."
+"<small>Có nhiều người đã đóng góp cùng dự án gnubiff: họ\n"
+"  - thông báo lỗi\n"
+"  - góp ý cách tiến bộ khác nhau\n"
+"  - tạo mã nguồn thật\n"
+"Đây là danh sách người này:</small>"
 
-#: ../ui/preferences.glade.h:65
-msgid "Whether to use format for header"
-msgstr "Định dang dòng đầu thư không?"
+#: ui/preferences.glade:3267
+msgid "Contributors"
+msgstr "Người đóng góp"
 
-#: ../ui/preferences.glade.h:66
-msgid "Whether to use geometry"
-msgstr "Sử dụng dạng hình không?"
+#: ui/preferences.glade:3303
+msgid "Credits"
+msgstr "Lời cám ơn"
 
-#: ../ui/preferences.glade.h:67
-msgid "Whether to use window manager decoration"
-msgstr "Sử dụng sự trang trí loại trình quản lý cửa sổ không?"
+#: ui/preferences.glade:3442
+msgid "Set to default value"
+msgstr "Trở về gia trị mặc định"
 
-#: ../ui/preferences.glade.h:68
-msgid "[sender max size]:[subject max size]:[date max size]"
-msgstr "[người gởi tối đa cỡ]:[chủ đề tối đa cỡ]:[ngày tối đa cỡ]"
+#: ui/preferences.glade:3463
+msgid "Toggle option"
+msgstr "Bập bênh tùy chọn"
 
-#: ../ui/preferences.glade.h:69 ../ui/properties.glade.h:21
-msgid "_Browse..."
-msgstr "_Duyệt..."
+#: ui/preferences.glade:3484
+msgid "Edit option"
+msgstr "Hiệu chỉnh tùy chọn"
 
-#: ../ui/preferences.glade.h:70
-msgid "_Display for"
-msgstr "_Trình bày được"
-
-#: ../ui/preferences.glade.h:71
-msgid "_Edit options in expert mode"
-msgstr "_Hiệu chỉnh tùy chọn trong chế độ cấp cao"
-
-#: ../ui/preferences.glade.h:72
-msgid "_Font:"
-msgstr "_Phông chữ:"
-
-#: ../ui/preferences.glade.h:73
-msgid "_Format:"
-msgstr "_Dạng:"
-
-#: ../ui/preferences.glade.h:74
-msgid "_Restrict collected mail to"
-msgstr "_Tốí đa cỡ các thư đã thu thập"
-
-#: ../ui/preferences.glade.h:75
-msgid "_Restrict number to"
-msgstr "_Tối đa số"
-
-#: ../ui/preferences.glade.h:76
-msgid "_Show expert tab"
-msgstr "_Hiển thị thanh cấp cao"
-
-#: ../ui/preferences.glade.h:78
-msgid "gnubiff preferences"
-msgstr "sở thích gnubiff"
-
-#: ../ui/preferences.glade.h:79
-msgid "header(s)"
-msgstr "dòng đầu thư"
-
-#: ../ui/preferences.glade.h:80
-msgid "mail(s)"
-msgstr "thư"
-
-#: ../ui/preferences.glade.h:81
-msgid "second(s)"
-msgstr "giây"
-
-#: ../ui/properties.glade.h:1
-msgid "<b>_Details</b>"
-msgstr "<b>_Chi tiết</b>"
-
-#: ../ui/properties.glade.h:2
-msgid "A_ddress:"
-msgstr "_Địa chỉ:"
-
-#: ../ui/properties.glade.h:3
-msgid "Aut_hentication:"
-msgstr "_Xác thức:"
-
-#: ../ui/properties.glade.h:4
-msgid "Bro_wse..."
-msgstr "_Duyệt..."
-
-#: ../ui/properties.glade.h:6
-msgid "Cer_tificate:"
-msgstr "_Chứng nhận:"
-
-#: ../ui/properties.glade.h:7
-msgid "Certificate filename"
-msgstr "Tên tập tin chứng nhận"
-
-#: ../ui/properties.glade.h:8
-msgid "Connection port to connect to server"
-msgstr "Cổng để kết nối đến máy chủ"
-
-#: ../ui/properties.glade.h:9
-msgid "Connection:"
-msgstr "Kết nối:"
-
-#: ../ui/properties.glade.h:10
-msgid "Dela_y:"
-msgstr "T_rễ:"
-
-#: ../ui/properties.glade.h:11
-msgid "Mailbox folder"
-msgstr "Danh mục hộp thư"
-
-#: ../ui/properties.glade.h:12
+#: ui/properties.glade:7
 msgid "Mailbox properties"
 msgstr "Tàì sản hôp thư"
 
-#: ../ui/properties.glade.h:13
+#: ui/properties.glade:52
+msgid "_Name:"
+msgstr "_Tên:"
+
+#: ui/properties.glade:77
+msgid "A_ddress:"
+msgstr "_Địa chỉ:"
+
+#: ui/properties.glade:102
 msgid "Name of the mailbox"
 msgstr "Tên hộp thư"
 
-#: ../ui/properties.glade.h:14
-msgid "Other connection port"
-msgstr "Cổng kết nối khác"
+#: ui/properties.glade:124
+msgid "_Type:"
+msgstr "_Loai:"
 
-#: ../ui/properties.glade.h:15
-msgid "Other mailbox folder"
-msgstr "Danh mục hộp thư khác"
+#: ui/properties.glade:174 ui/authentication.glade:52
+msgid "_Username:"
+msgstr "Tên _người dùng:"
 
-#: ../ui/properties.glade.h:16
+#: ui/properties.glade:199
+msgid "Your username on the mail server"
+msgstr "Tên dùng của bạn trên máy chủ thư này"
+
+#: ui/properties.glade:221 ui/authentication.glade:77
+msgid "_Password:"
+msgstr "_Mật khẩu:"
+
+#: ui/properties.glade:246
+msgid "Your password on the mail server"
+msgstr "Mật khẩu của bạn trên máy chủ thư này"
+
+#: ui/properties.glade:274
+msgid "file or folder or hostname"
+msgstr "tập tin, danh mục hay tên máy chủ"
+
+#: ui/properties.glade:367
+msgid "Connection:"
+msgstr "Kết nối:"
+
+#: ui/properties.glade:391
+msgid "Connection port to connect to server"
+msgstr "Cổng để kết nối đến máy chủ"
+
+#: ui/properties.glade:414
 msgid "Standard connection port"
 msgstr "Cổng kết nối thường"
 
-#: ../ui/properties.glade.h:17
-msgid "Standard mailbox folder"
-msgstr "Danh mục hộp thư chuẩn"
+#: ui/properties.glade:416
+msgid "stan_dard"
+msgstr "_chuẩn"
 
-#: ../ui/properties.glade.h:18
+#: ui/properties.glade:437
+msgid "Other connection port"
+msgstr "Cổng kết nối khác"
+
+#: ui/properties.glade:439
+msgid "_other"
+msgstr "_khác"
+
+#: ui/properties.glade:540
+msgid "Aut_hentication:"
+msgstr "_Xác thức:"
+
+#: ui/properties.glade:594
+msgid "Certificate filename"
+msgstr "Tên tập tin chứng nhận"
+
+#: ui/properties.glade:618
+msgid "Bro_wse..."
+msgstr "_Duyệt..."
+
+#: ui/properties.glade:637
+msgid "Cer_tificate:"
+msgstr "_Chứng nhận:"
+
+#: ui/properties.glade:692
+msgid "minutes"
+msgstr "phút"
+
+#: ui/properties.glade:716
+msgid "seconds"
+msgstr "giây"
+
+#: ui/properties.glade:739 ui/properties.glade:765
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
@@ -931,133 +944,109 @@ msgstr ""
 "Thời gian giữa mỗi lần kiểm tra có thư mới, hay giữa mỗi lần thử lại khi kết "
 "nối bị ngắt"
 
-#: ../ui/properties.glade.h:19
-msgid "Your password on the mail server"
-msgstr "Mật khẩu của bạn trên máy chủ thư này"
+#: ui/properties.glade:791
+msgid "Dela_y:"
+msgstr "T_rễ:"
 
-#: ../ui/properties.glade.h:20
-msgid "Your username on the mail server"
-msgstr "Tên dùng của bạn trên máy chủ thư này"
-
-#: ../ui/properties.glade.h:22
+#: ui/properties.glade:846
 msgid "_Mailbox:"
 msgstr "_Hộp thư:"
 
-#: ../ui/properties.glade.h:23
-msgid "_Name:"
-msgstr "_Tên:"
+#: ui/properties.glade:871
+msgid "Mailbox folder"
+msgstr "Danh mục hộp thư"
 
-#: ../ui/properties.glade.h:24 ../ui/authentication.glade.h:4
-msgid "_Password:"
-msgstr "_Mật khẩu:"
+#: ui/properties.glade:893
+msgid "Other mailbox folder"
+msgstr "Danh mục hộp thư khác"
 
-#: ../ui/properties.glade.h:25
-msgid "_Type:"
-msgstr "_Loai:"
-
-#: ../ui/properties.glade.h:26 ../ui/authentication.glade.h:5
-msgid "_Username:"
-msgstr "Tên _người dùng:"
-
-#: ../ui/properties.glade.h:27
-msgid "_other"
-msgstr "_khác"
-
-#: ../ui/properties.glade.h:28
-msgid "file or folder or hostname"
-msgstr "tập tin, danh mục hay tên máy chủ"
-
-#: ../ui/properties.glade.h:29
-msgid "minutes"
-msgstr "phút"
-
-#: ../ui/properties.glade.h:30
+#: ui/properties.glade:895
 msgid "othe_r"
 msgstr "k_hác"
 
-#: ../ui/properties.glade.h:31
-msgid "seconds"
-msgstr "giây"
+#: ui/properties.glade:916
+msgid "Standard mailbox folder"
+msgstr "Danh mục hộp thư chuẩn"
 
-#: ../ui/properties.glade.h:32
-msgid "stan_dard"
-msgstr "_chuẩn"
-
-#: ../ui/properties.glade.h:33
+#: ui/properties.glade:918
 msgid "stand_ard"
 msgstr "c_huẩn"
 
-#: ../ui/authentication.glade.h:1
+#: ui/properties.glade:951
+msgid "<b>_Details</b>"
+msgstr "<b>_Chi tiết</b>"
+
+#: ui/authentication.glade:7
 msgid "Authentication"
 msgstr "Xác thức"
 
-#: ../ui/authentication.glade.h:2
-msgid "Your password on the server"
-msgstr "Mật khẩu của bạn trên máy chủ"
-
-#: ../ui/authentication.glade.h:3
+#: ui/authentication.glade:102
 msgid "Your username on the server"
 msgstr "Tên người dùng của bạn trên máy chủ"
 
-#: ../ui/certificate.glade.h:1
-msgid "<b>Address</b>"
-msgstr "<b>Địa chỉ</b>"
+#: ui/authentication.glade:124
+msgid "Your password on the server"
+msgstr "Mật khẩu của bạn trên máy chủ"
 
-#: ../ui/certificate.glade.h:2
-msgid "<b>Issued To</b>"
-msgstr "<b>Đã phát hành cho</b>"
-
-#: ../ui/certificate.glade.h:3
-msgid "Accept"
-msgstr "Chấp nhận"
-
-#: ../ui/certificate.glade.h:4
+#: ui/certificate.glade:7
 msgid "Cannot certify server"
 msgstr "Không thị thức được máy chủ"
 
-#: ../ui/certificate.glade.h:5
-msgid "Certificate details"
-msgstr "Chi tiết chứng nhận"
-
-#: ../ui/certificate.glade.h:6
+#: ui/certificate.glade:130
 msgid "Common Name"
 msgstr "Tên chung"
 
-#: ../ui/certificate.glade.h:7
-msgid "Country"
-msgstr "Quốc gia"
-
-#: ../ui/certificate.glade.h:8
-msgid "Locality"
-msgstr "Miền"
-
-#: ../ui/certificate.glade.h:9
+#: ui/certificate.glade:154
 msgid "Organization"
 msgstr "Tổ chức"
 
-#: ../ui/certificate.glade.h:10
+#: ui/certificate.glade:178
 msgid "Organization Unit"
 msgstr "Dơn vị"
 
-#: ../ui/certificate.glade.h:11
+#: ui/certificate.glade:275
+msgid "<b>Issued To</b>"
+msgstr "<b>Đã phát hành cho</b>"
+
+#: ui/certificate.glade:394
+msgid "<b>Address</b>"
+msgstr "<b>Địa chỉ</b>"
+
+#: ui/certificate.glade:418
+msgid "Country"
+msgstr "Quốc gia"
+
+#: ui/certificate.glade:442
+msgid "Locality"
+msgstr "Miền"
+
+#: ui/certificate.glade:540
 msgid "State or Province"
 msgstr "Tiểu bang hay Tĩnh"
 
-#: ../ui/popup.glade.h:1
-msgid "<small><b>Date</b></small>"
-msgstr "<small><b>Ngày</b></small>"
+#: ui/certificate.glade:570
+msgid "Certificate details"
+msgstr "Chi tiết chứng nhận"
 
-#: ../ui/popup.glade.h:2
+#: ui/certificate.glade:668
+msgid "Accept"
+msgstr "Chấp nhận"
+
+#: ui/popup.glade:61
+msgid "mail content"
+msgstr "nội dung thư"
+
+#: ui/popup.glade:116
 msgid "<small><b>From</b></small>"
 msgstr "<small><b>Từ</b></small>"
 
-#: ../ui/popup.glade.h:3
+#: ui/popup.glade:140
 msgid "<small><b>Subject</b></small>"
 msgstr "<small><b>Chủ đề</b></small>"
 
-#: ../ui/popup.glade.h:5
-msgid "mail content"
-msgstr "nội dung thư"
+#: ui/popup.glade:164
+msgid "<small><b>Date</b></small>"
+msgstr "<small><b>Ngày</b></small>"
 
 #~ msgid "About gnubiff"
 #~ msgstr "Về gnubiff"
