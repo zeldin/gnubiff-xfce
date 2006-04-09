@@ -4,6 +4,16 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.2.0
+This is a major feature release. Changes:
+ * Lots of bugfixes and code cleanups
+ * gnubiff applet can be put in the system tray
+ * gnubiff can be run without GUI or X
+ * USR1 and USR2 signals are now monitored
+ * Saved password is now encrypted via AES
+ * Decoding of base64 encoded message bodies
+ * About dialog for Gnome version
+
 Version 2.1.9
 This is a minor bugfix release. Changes:
  * Better detection of FAM/GAMIN at configuration time
