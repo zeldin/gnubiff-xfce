@@ -7,7 +7,7 @@
 
 @copying
 This manual is for gnubiff version @value{VERSION} Copyright @copyright{}
-2000-2005 Nicolas Rougier, 2004-2005 Robert Sowada.
+2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada.
 @quotation
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.2
