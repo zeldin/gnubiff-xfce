@@ -277,6 +277,7 @@ Various contributors:@*
 @item Jakub Raczkowski
 @item Reid Rivenburgh
 @item Hans-Ulrich Schaefer
+@item Andy Schofield
 @item Achim Settelmeier
 @item Phil Shapiro
 @item Clytie Siddall

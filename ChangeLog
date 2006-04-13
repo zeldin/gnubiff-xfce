@@ -9,6 +9,7 @@ Version 2.2.1
    - Changed version to 2.2.1
    - Bugfix: Version check of gtk in configure.ac (thanks to Andy Schofield for
         reporting this bug)
+   - Added Andy Schofield to contributors
 	
 Version 2.2.0           2006-04-09 17:44
  * Robert Sowada
