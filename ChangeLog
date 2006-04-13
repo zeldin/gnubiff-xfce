@@ -7,6 +7,8 @@ Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 Version 2.2.1
  * Robert Sowada
    - Changed version to 2.2.1
+   - Bugfix: Version check of gtk in configure.ac (thanks to Andy Schofield for
+        reporting this bug)
 	
 Version 2.2.0           2006-04-09 17:44
  * Robert Sowada

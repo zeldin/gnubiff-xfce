@@ -104,7 +104,7 @@ AC_CHECK_LIB(ssl, AES_encrypt, AC_DEFINE_UNQUOTED(HAVE_AES, 1,
 	AC_CHECK_LIB(crypto, AES_encrypt, AC_DEFINE_UNQUOTED(HAVE_AES, 1))])
 
 dnl GLIB, GTK, ...
-GTK_REQUIRED="gtk+-2.0 >= 2.4"
+GTK_REQUIRED="gtk+-2.0 >= 2.6"
 GDK_PIXBUF_REQUIRED="gdk-pixbuf-2.0 >= 2.4"
 GMODULE_REQUIRED="gmodule-2.0 >= 2.4"
 LIBGLADE_REQUIRED="libglade-2.0 >= 2.3"
