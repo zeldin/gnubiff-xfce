@@ -7,10 +7,11 @@ EXTRA_DIST = \
 	config/intltool-extract.in	\
 	config/intltool-merge.in	\
 	config/gnubiff.spec.in		\
-	THANKS
+	THANKS				\
+	LICENSE
 
 DISTCLEANFILES = \
 		intltool-extract	\
-		intltool-merge	\
-		intltool-update	\
+		intltool-merge		\
+		intltool-update		\
 		po/.intltool-merge-cache

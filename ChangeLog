@@ -11,6 +11,7 @@ Version 2.2.1
         reporting this bug)
    - Added Andy Schofield to contributors
    - Bugfix: False GPL version in "doc/gnubiff.texi"
+   - Added GPL (version 2) as ASCII text file to the gnubiff directory
 	
 Version 2.2.0           2006-04-09 17:44
  * Robert Sowada
