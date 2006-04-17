@@ -10,6 +10,7 @@ Version 2.2.1
    - Bugfix: Version check of gtk in configure.ac (thanks to Andy Schofield for
         reporting this bug)
    - Added Andy Schofield to contributors
+   - Bugfix: False GPL version in "doc/gnubiff.texi"
 	
 Version 2.2.0           2006-04-09 17:44
  * Robert Sowada
