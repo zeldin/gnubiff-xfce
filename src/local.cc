@@ -91,7 +91,7 @@ Local::start (void)
 	if (!g_mutex_trylock (monitor_mutex_))
 		return;	
 
-	if (value_bool ("local_fam_enable"))
+	if (HAVE_LIBFAM && value_bool ("local_fam_enable"))
 		fam_start_monitoring ();
 	else {
 		try {
@@ -112,7 +112,7 @@ Local::start (void)
 	g_mutex_unlock (monitor_mutex_);
 
 	// If we are polling, there must be another check after the delay time
-	if (value_bool ("local_fam_enable") == false)
+	if (!HAVE_LIBFAM || value_bool ("local_fam_enable") == false)
 		threaded_start (delay ());
 }
 
@@ -122,13 +122,8 @@ Local::stop (void)
 	// Do the usual stopping things
 	Mailbox::stop ();
 
-	// Cancel the fam monitor
-	g_mutex_lock (fam_mutex_);
-	if (fam_is_open_) {
-		FAMCancelMonitor (&fam_connection_, &fam_request_);
-		fam_is_open_ = false;
-	}
-	g_mutex_unlock (fam_mutex_);
+	// Cancel the FAM monitor
+	fam_cancel_monitor ();
 }
 
 /**
@@ -196,6 +191,19 @@ Local::parse_single_message_file (const std::string &filename,
 //  file alteration monitor (FAM)
 // ========================================================================
 
+void 
+Local::fam_cancel_monitor (void)
+{
+#ifdef HAVE_LIBFAM
+	g_mutex_lock (fam_mutex_);
+	if (fam_is_open_) {
+		FAMCancelMonitor (&fam_connection_, &fam_request_);
+		fam_is_open_ = false;
+	}
+	g_mutex_unlock (fam_mutex_);
+#endif
+}
+
 /**
  *  Start monitoring the files that need to be monitored by this
  *  mailbox via FAM. If the FAM connection terminates because of an
@@ -205,6 +213,7 @@ Local::parse_single_message_file (const std::string &filename,
 void 
 Local::fam_start_monitoring (void)
 {
+#ifdef HAVE_LIBFAM
 	gboolean keep_monitoring = true;
 
 	while (keep_monitoring) {
@@ -230,6 +239,7 @@ Local::fam_start_monitoring (void)
 			sleep (delay ());
 		}
 	}
+#endif
 }
 
 /**
@@ -238,12 +248,14 @@ Local::fam_start_monitoring (void)
 void 
 Local::fam_close (void)
 {
+#ifdef HAVE_LIBFAM
 	g_mutex_lock (fam_mutex_);
 	if (fam_is_open_) {
 		FAMClose (&fam_connection_);
 		fam_is_open_ = false;
 	}
 	g_mutex_unlock (fam_mutex_);
+#endif
 }
 
 
@@ -258,12 +270,14 @@ Local::fam_close (void)
 void 
 Local::fam_get_all_pending_events (void)
 {
+#ifdef HAVE_LIBFAM
 	g_mutex_lock (fam_mutex_);
 	if (fam_is_open_)
 		while (FAMPending (&fam_connection_))
 			if (FAMNextEvent (&fam_connection_, &fam_event_) < 0)
 					break;
 	g_mutex_unlock (fam_mutex_);
+#endif
 }
 
 /**
@@ -278,6 +292,7 @@ Local::fam_get_all_pending_events (void)
 void 
 Local::fam_monitoring (void) throw (local_err)
 {
+#ifdef HAVE_LIBFAM
 	gint status = 0;
 
 	// Connection request to FAM (File Alteration Monitor)
@@ -351,4 +366,5 @@ Local::fam_monitoring (void) throw (local_err)
 
 	// Ok, we got an error, just retry monitoring
 	if (status != 1) throw local_fam_err();
+#endif
 }
