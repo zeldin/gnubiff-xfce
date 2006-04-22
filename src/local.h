@@ -95,7 +95,7 @@ public:
 	//  main
 	// ========================================================================
 	void start (void);
-	void start_fam_monitoring (void);
+	void fam_start_monitoring (void);
 	void fam_close (void);
 	void fam_get_all_pending_events (void);
 	void fam_monitoring (void) throw (local_err);
@@ -103,6 +103,10 @@ public:
 	virtual std::string file_to_monitor (void);
 	void parse_single_message_file (const std::string &filename,
 				const std::string uid = std::string ("")) throw (local_err);
+
+	// ========================================================================
+	//  file alteration monitor (FAM)
+	// ========================================================================
 };
 
 #endif

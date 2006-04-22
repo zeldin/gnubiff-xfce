@@ -92,7 +92,7 @@ Local::start (void)
 		return;	
 
 	if (value_bool ("local_fam_enable"))
-		start_fam_monitoring ();
+		fam_start_monitoring ();
 	else {
 		try {
 			start_checking ();
@@ -116,6 +116,86 @@ Local::start (void)
 		threaded_start (delay ());
 }
 
+void 
+Local::stop (void)
+{
+	// Do the usual stopping things
+	Mailbox::stop ();
+
+	// Cancel the fam monitor
+	g_mutex_lock (fam_mutex_);
+	if (fam_is_open_) {
+		FAMCancelMonitor (&fam_connection_, &fam_request_);
+		fam_is_open_ = false;
+	}
+	g_mutex_unlock (fam_mutex_);
+}
+
+/**
+ *  Give the name of the file that shall be monitored by FAM.
+ *
+ *  Note: This may be different from the address when information about new
+ *  messages is stored in a separate file.
+ *
+ *  @return    Name of the file to be monitored.
+ */
+std::string 
+Local::file_to_monitor (void)
+{
+	return address ();
+}
+
+/**
+ *  Read und parse a file that contains a single message.
+ *
+ *  @param  filename  Name of the file
+ *  @param  uid       Unique identifier of the message (if known) or the empty
+ *                    string (the default is the empty string)
+ *  @exception local_file_err
+ *                    This exception is thrown if the file could not be opened.
+ */
+void 
+Local::parse_single_message_file (const std::string &filename,
+								  const std::string uid) throw (local_err)
+{
+	std::ifstream file;
+	std::vector<std::string> mail;
+	std::string line;
+	guint max_cnt = 1 + biff_->value_uint ("min_body_lines");
+
+	// Read message header and first lines of message's body
+	file.open (filename.c_str());
+	if (!file.is_open()) {
+		g_warning (_("Cannot open %s."), filename.c_str());
+		throw local_file_err();
+	}
+
+	// Read header and first lines of message
+	gboolean header = true;
+	guint cnt = max_cnt;
+	getline (file, line);
+	while ((!file.eof ()) && (cnt > 0)) {
+		// End of header?
+		if ((line.size() == 0) && header)
+			header = false;
+		// Store line
+		if (!header)
+			cnt--;
+		mail.push_back (line);
+
+		// Read next line
+		getline(file, line);
+	}
+	file.close ();
+
+	// Parse message
+	parse (mail, uid);
+}
+
+// ========================================================================
+//  file alteration monitor (FAM)
+// ========================================================================
+
 /**
  *  Start monitoring the files that need to be monitored by this
  *  mailbox via FAM. If the FAM connection terminates because of an
@@ -123,7 +203,7 @@ Local::start (void)
  *  have been locked Local::monitor_mutex_.
  */
 void 
-Local::start_fam_monitoring (void)
+Local::fam_start_monitoring (void)
 {
 	gboolean keep_monitoring = true;
 
@@ -271,80 +351,4 @@ Local::fam_monitoring (void) throw (local_err)
 
 	// Ok, we got an error, just retry monitoring
 	if (status != 1) throw local_fam_err();
-}
-
-void 
-Local::stop (void)
-{
-	// Do the usual stopping things
-	Mailbox::stop ();
-
-	// Cancel the fam monitor
-	g_mutex_lock (fam_mutex_);
-	if (fam_is_open_) {
-		FAMCancelMonitor (&fam_connection_, &fam_request_);
-		fam_is_open_ = false;
-	}
-	g_mutex_unlock (fam_mutex_);
-}
-
-/**
- *  Give the name of the file that shall be monitored by FAM.
- *
- *  Note: This may be different from the address when information about new
- *  messages is stored in a separate file.
- *
- *  @return    Name of the file to be monitored.
- */
-std::string 
-Local::file_to_monitor (void)
-{
-	return address ();
-}
-
-/**
- *  Read und parse a file that contains a single message.
- *
- *  @param  filename  Name of the file
- *  @param  uid       Unique identifier of the message (if known) or the empty
- *                    string (the default is the empty string)
- *  @exception local_file_err
- *                    This exception is thrown if the file could not be opened.
- */
-void 
-Local::parse_single_message_file (const std::string &filename,
-								  const std::string uid) throw (local_err)
-{
-	std::ifstream file;
-	std::vector<std::string> mail;
-	std::string line;
-	guint max_cnt = 1 + biff_->value_uint ("min_body_lines");
-
-	// Read message header and first lines of message's body
-	file.open (filename.c_str());
-	if (!file.is_open()) {
-		g_warning (_("Cannot open %s."), filename.c_str());
-		throw local_file_err();
-	}
-
-	// Read header and first lines of message
-	gboolean header = true;
-	guint cnt = max_cnt;
-	getline (file, line);
-	while ((!file.eof ()) && (cnt > 0)) {
-		// End of header?
-		if ((line.size() == 0) && header)
-			header = false;
-		// Store line
-		if (!header)
-			cnt--;
-		mail.push_back (line);
-
-		// Read next line
-		getline(file, line);
-	}
-	file.close ();
-
-	// Parse message
-	parse (mail, uid);
 }
