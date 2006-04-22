@@ -39,6 +39,12 @@
 #include <glib.h>
 #include <string>
 
+#ifdef HAVE_LIBFAM
+const gboolean use_fam = 1;
+#else
+const gboolean use_fam = 0;
+#endif
+
 #define LOCAL(x)					((Local *)(x))
 
 /**

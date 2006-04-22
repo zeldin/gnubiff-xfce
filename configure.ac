@@ -17,8 +17,6 @@
 #
 # Process this file with autoconf to produce a configure script.
 
-
-
 ######################################################################
 #                           Initialization                           #
 ######################################################################
@@ -45,6 +43,25 @@ AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
 
 ######################################################################
+#                           Configure Options                        #
+######################################################################
+dnl syntaxt: AC_ARG_WITH (package, help-string, [action-if-given], [action-if-not-given])
+dnl If the user gave configure the option `--with-package' or
+dnl `--without-package', run shell commands action-if-given. If neither
+dnl option was given, run shell commands action-if-not-given. The name
+dnl package indicates another software package that this program should
+dnl work with. It should consist only of alphanumeric characters and
+dnl dashes.
+AC_ARG_ENABLE(fam,
+              [  --disable-fam           disable the use of FAM (autodetect)],
+              OPT_USEFAM="$enableval", OPT_USEFAM="yes")
+AC_ARG_ENABLE(gnome,
+              [  --disable-gnome         disable the use of gnome (default: enable)],
+              OPT_USEGNOME="$enableval", OPT_USEGNOME="yes")
+
+
+
+######################################################################
 #                         Checks for programs                        #
 ######################################################################
 AC_PROG_CXX
@@ -65,26 +82,24 @@ AC_CHECK_LIB([popt],[main], ,
 	])
 )
 
+dnl From pkg.m4:
+dnl # Note that if there is a possibility the first call to
+dnl # PKG_CHECK_MODULES might not happen, you should be sure to
+dnl # include an explicit call to PKG_PROG_PKG_CONFIG in your
+dnl # configure.ac
+PKG_PROG_PKG_CONFIG
+
 dnl LIBFAM, LIBGAMIN (for monitoring files)
-AC_CHECK_LIB([fam], [main], [
-	FAM_LIBS="-lfam"
-	AC_DEFINE([HAVE_LIBFAM], [1], [libfam])
-])
-if test -z "$FAM_LIBS" ; then
-	PKG_CHECK_MODULES(FAM, gamin >= 0.1.0)
-else
-	dnl From pkg.m4:
-	dnl # Note that if there is a possibility the first call to
-	dnl # PKG_CHECK_MODULES might not happen, you should be sure to
-	dnl # include an explicit call to PKG_PROG_PKG_CONFIG in your
-	dnl # configure.ac
-	PKG_PROG_PKG_CONFIG
-fi
-if test -z "$FAM_LIBS" ; then
-	AC_MSG_ERROR([
-	Cannot find fam (File Alteration Monitor) library
-	Please consider installing it before installing gnubiff
-	])
+if test "x$OPT_USEFAM" = "xyes"; then
+	AC_CHECK_LIB([fam], [main],
+                 [FAM_LIBS="-lfam"
+	              AC_DEFINE([HAVE_LIBFAM], [1], [libfam]) ])
+	if test -z "$FAM_LIBS" ; then
+		PKG_CHECK_MODULES(FAM, gamin >= 0.1.0)
+	fi
+	if test -z "$FAM_LIBS" ; then
+		AC_MSG_ERROR([Cannot find FAM library])
+	fi
 fi
 AC_SUBST(FAM_CFLAGS)
 AC_SUBST(FAM_LIBS)
@@ -127,10 +142,10 @@ AC_SUBST(GNUBIFF_DEP_LIBS)
 AC_HEADER_STDC
 AC_HEADER_DIRENT
 AC_CHECK_HEADERS([arpa/inet.h fcntl.h libintl.h netdb.h netinet/in.h stdlib.h string.h sys/socket.h unistd.h utime.h])
-AC_CHECK_HEADERS([fam.h], [], [
-	AC_MSG_ERROR([
-	Cannot find fam (File Alteration Monitor) library header file fam.h
-	])])
+if test "x$OPT_USEFAM" = "xyes"; then
+	AC_CHECK_HEADERS([fam.h], [],
+		[AC_MSG_ERROR([Cannot find fam (File Alteration Monitor) library header file fam.h])])
+fi
 
 
 ######################################################################
@@ -167,30 +182,19 @@ AM_GNU_GETTEXT([external])
 ######################################################################
 #                           GNOME support                            #
 ######################################################################
-dnl syntaxt: AC_ARG_WITH (package, help-string, [action-if-given], [action-if-not-given])
-dnl If the user gave configure the option `--with-package' or
-dnl `--without-package', run shell commands action-if-given. If neither
-dnl option was given, run shell commands action-if-not-given. The name
-dnl package indicates another software package that this program should
-dnl work with. It should consist only of alphanumeric characters and
-dnl dashes.
-AC_ARG_ENABLE(gnome,
-[  --disable-gnome         disable use of gnome],
-	gnome=$enableval, gnome=yes)
-
-if test "$gnome" = yes; then
+if test "$OPT_USEGNOME" = "yes"; then
   PKG_CHECK_MODULES(GNOME_PANEL_DEP,libpanelapplet-2.0, [
 	AC_SUBST(GNOME_PANEL_DEP_CFLAGS)
 	AC_SUBST(GNOME_PANEL_DEP_LIBS)
 	AH_TEMPLATE([USE_GNOME])
 	AC_DEFINE(USE_GNOME)
 	AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
-	if test x"$GCONFTOOL" = xno; then
+	if test "x$GCONFTOOL" = "xno"; then
 	   AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
 	fi
-  ], gnome=no)
+  ], OPT_USEGNOME="no")
 fi
-AM_CONDITIONAL(USE_GNOME, test $gnome = yes, Define to 1 if you want to have GNOME support)
+AM_CONDITIONAL(USE_GNOME, test $OPT_USEGNOME = yes, Define to 1 if you want to have GNOME support)
 
 
 
@@ -263,6 +267,7 @@ chmod +x config/mkinstalldirs config/ltmain.sh config/depcomp config/missing con
 
 
 echo "--------------------------------------------------------------------------------"
+
 if test "$password" = yes; then
 	echo " Password saving : yes"
 	echo " Password string : $pstring"
@@ -275,13 +280,15 @@ fi
 
 if test "$password" = no; then
 echo " Password saving : no"
-echo "  If you want gnubiff to save password within configuration"
-echo "  file, use ./configure --with-password [--with-password-string=\"any string you like...]\""
+echo "  If you want gnubiff to save password within configuration file, use"
+echo "  ./configure --with-password [--with-password-string=\"any string you like...]\"."
 echo "  But be careful, it is highly unsecure, you've been warned!"
 fi
 
-echo " Gnome support   : $gnome"
-if test "$gnome" = "yes"; then
+echo " FAM support     : $OPT_USEFAM"
+
+echo " Gnome support   : $OPT_USEGNOME"
+if test "$OPT_USEGNOME" = "yes"; then
   if test "$prefix" != "`pkg-config libpanelapplet-2.0 --variable=prefix`"; then
     echo "  NOTE: The installation directory for gnubiff is currently set to"
     echo "        \"$prefix\","
