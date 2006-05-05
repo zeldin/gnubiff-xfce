@@ -16,6 +16,7 @@ Version 2.2.1
    - Cleanup: It should be possible now to compile the code without FAM support
    - Feature: Configuring gnubiff without support for FAM (feature request
         #1461632 by Kyle McDonald and others)
+   - Updated Vietnamese Translation (thanks to Clytie Siddall)
 	
 Version 2.2.0           2006-04-09 17:44
  * Robert Sowada
