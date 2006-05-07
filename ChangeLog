@@ -16,7 +16,8 @@ Version 2.2.1
    - Cleanup: It should be possible now to compile the code without FAM support
    - Feature: Configuring gnubiff without support for FAM (feature request
         #1461632 by Kyle McDonald and others)
-   - Updated Vietnamese Translation (thanks to Clytie Siddall)
+   - Updated Vietnamese translation (thanks to Clytie Siddall)
+   - Feature: New option "startup_preferences"
 	
 Version 2.2.0           2006-04-09 17:44
  * Robert Sowada
@@ -95,10 +96,6 @@ Version 2.2.0           2006-04-09 17:44
    - Added reference to info pages in man page (Debian bug #335193)
  * Nicolas Rougier
    - Update of French translation
-
-Version 2.1.10
- * Robert Sowada
-    - Changed version to 2.1.10
 
 Version 2.1.9           2006-01-08 10:54
  * Robert Sowada

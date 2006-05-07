@@ -168,6 +168,9 @@ int main (int argc, char **argv) {
 	else
 		biff = new Biff (ui_mode);
 
+	// Decide whether the preferences dialog shall be shown now
+	no_configure = no_configure || !biff->value_bool ("startup_preferences");
+
 	// Start applet
 	biff->applet()->start (!no_configure);
 

@@ -304,6 +304,11 @@ Gnubiff_Options::add_options_general (gboolean deprecated)
 		"SIGNAL_SIGUSR1.",
 								 SIGNAL_NONE,
 								 OPTFLG_ID_INT_STRICT, i7,s7));
+	// STARTUP_PREFERENCES
+	add_option (new Option_Bool ("startup_preferences", OPTGRP_GENERAL,
+		"Shall the preferences dialog be shown when starting gnubiff? "
+		"This option is ignored in gnome mode.",
+								 true));
 	if (!deprecated)
 		return;
 }
