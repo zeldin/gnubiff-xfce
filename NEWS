@@ -4,6 +4,13 @@ Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.2.1
+This is a minor feature release. Changes:
+ * Some bug fixes
+ * It is now possible to compile gnubiff without support for FAM
+ * New option for not showing the preferences dialog at startup as default
+ * Updated Vietnamese translation (thanks to Clytie Siddall)
+
 Version 2.2.0
 This is a major feature release. Changes:
  * Lots of bugfixes and code cleanups

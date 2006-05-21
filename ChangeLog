@@ -1,10 +1,11 @@
 gnubiff -- History of visible changes.
 
-Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
+Copyright (C) 2000-2006 Nicolas Rougier <Nicolas.Rougier@loria.fr> and
+              2004-2006 Robert Sowada <sowadart@gmx.de>.
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
-Version 2.2.1
+Version 2.2.1		2006-05-14 20:08
  * Robert Sowada
    - Changed version to 2.2.1
    - Bugfix: Version check of gtk in configure.ac (thanks to Andy Schofield for
@@ -890,7 +891,8 @@ Version 0.1
 -------------------------------------------------------
 Copying information:
 
-Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
+Copyright (C) 2000-2006 Nicolas Rougier <Nicolas.Rougier@loria.fr> and
+              2004-2006 Robert Sowada <sowadart@gmx.de>.
 
    Permission is granted to anyone to make or distribute verbatim copies
    of this document as received, in any medium, provided that the
