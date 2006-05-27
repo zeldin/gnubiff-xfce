@@ -59,7 +59,8 @@ public:
 	gboolean update (gboolean init = false);
 	void show (std::string name = "dialog");
 	void hide (std::string name = "dialog");
-
+	gboolean calculate_size (GtkAllocation *allocation);
+			
 	// ========================================================================
 	//  callbacks
 	// ========================================================================

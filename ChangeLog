@@ -8,6 +8,7 @@ Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 Version 2.2.2
  * Robert Sowada
    - Changed version to 2.2.2
+   - Bugfix: Obtaining the panel's size (GNOME)
 	
 Version 2.2.1		2006-05-14 20:08
  * Robert Sowada

@@ -55,24 +55,15 @@ extern "C" {
 			unknown_internal_error ();
 	}
 
-	void APPLET_GNOME_on_change_orient (GtkWidget *widget,
-										PanelAppletOrient orient,
+	void APPLET_GNOME_on_size_allocate (GtkWidget *widget,
+										GtkAllocation *allocation,
 										gpointer data)
 	{
-		if (data)
-			((AppletGnome *) data)->update();
-		else
+		if (!data)
 			unknown_internal_error ();
-	}
-
-	void APPLET_GNOME_on_change_size (GtkWidget *widget,
-									  int size,
-									  gpointer data)
-	{
-		if (data)
-			((AppletGnome *) data)->update ();
 		else
-			unknown_internal_error ();
+		  	if (!((AppletGnome *) data)->calculate_size (allocation))
+				((AppletGnome *) data)->update ();
 	}
 
 	void APPLET_GNOME_on_change_background (GtkWidget *widget,
@@ -81,10 +72,10 @@ extern "C" {
 											GdkPixmap *pixmap,
 											gpointer data)
 	{
-		if (data)
-			((AppletGnome *) data)->update ();
-		else
-			unknown_internal_error ();
+ 		if (data)
+ 			((AppletGnome *) data)->update ();
+ 		else
+ 			unknown_internal_error ();
 	}
 
 	gboolean APPLET_GNOME_on_button_press (GtkWidget *widget,
@@ -170,6 +161,7 @@ AppletGnome::~AppletGnome (void)
 void 
 AppletGnome::dock (GtkWidget *applet)
 {
+	// Create the applet's menu
 	static const BonoboUIVerb gnubiffMenuVerbs [] = {
 		BONOBO_UI_VERB ("Props",   APPLET_GNOME_on_menu_properties),
 		BONOBO_UI_VERB ("MailApp", APPLET_GNOME_on_menu_command),
@@ -177,28 +169,37 @@ AppletGnome::dock (GtkWidget *applet)
 		BONOBO_UI_VERB ("Info", APPLET_GNOME_on_menu_info),
 		BONOBO_UI_VERB_END
 	};
- 
 	panel_applet_setup_menu_from_file (PANEL_APPLET (applet),
 									   NULL,
 									   GNUBIFF_UIDIR"/GNOME_gnubiffApplet.xml",
 									   NULL,
 									   gnubiffMenuVerbs,
 									   this);
-	gtk_widget_reparent (get ("fixed"), applet);  
 
+	// We need the PANEL_APPLET_EXPAND_MINOR for getting the correct size of
+	// the gnome panel via the "size_allocate" signal
+	panel_applet_set_flags (PANEL_APPLET (applet), PANEL_APPLET_EXPAND_MINOR);
+
+	// Put gnubiff's widgets inside the panel's applet
+	gtk_widget_reparent (get ("fixed"), applet);  
 	gtk_container_set_border_width (GTK_CONTAINER (applet), 0);
+
+	// Tooltips
 	GtkTooltips *applet_tips = gtk_tooltips_new ();
 	gtk_tooltips_set_tip (applet_tips, applet, "", "");
 	tooltip_widget_ = applet;
 
-	g_signal_connect (G_OBJECT (applet), "enter_notify_event",  GTK_SIGNAL_FUNC (APPLET_GNOME_on_enter), this);
-	g_signal_connect (G_OBJECT (applet), "change_orient",       GTK_SIGNAL_FUNC (APPLET_GNOME_on_change_orient), this);
-	g_signal_connect (G_OBJECT (applet), "change_size",         GTK_SIGNAL_FUNC (APPLET_GNOME_on_change_size), this);
-	g_signal_connect (G_OBJECT (applet), "change_background",	GTK_SIGNAL_FUNC (APPLET_GNOME_on_change_background), this);
-	g_signal_connect (G_OBJECT (applet), "button_press_event",	GTK_SIGNAL_FUNC (APPLET_GNOME_on_button_press), this);
+	// Connect callback functions to the applet's signals
+	g_signal_connect (G_OBJECT (applet), "enter_notify_event",
+					  GTK_SIGNAL_FUNC (APPLET_GNOME_on_enter), this);
+	g_signal_connect (G_OBJECT (applet), "size_allocate",
+					  GTK_SIGNAL_FUNC (APPLET_GNOME_on_size_allocate), this);
+	g_signal_connect (G_OBJECT (applet), "change_background",
+					  GTK_SIGNAL_FUNC (APPLET_GNOME_on_change_background), this);
+	g_signal_connect (G_OBJECT (applet), "button_press_event",
+					  GTK_SIGNAL_FUNC (APPLET_GNOME_on_button_press), this);
 
 	applet_ = applet;
-	return;
 }
 
 gboolean 
@@ -207,28 +208,6 @@ AppletGnome::update (gboolean init)
 	// Is there another update going on?
 	if (!g_mutex_trylock (update_mutex_))
 		return false;
-
-	// Get panel's size and orientation
-	guint size = panel_applet_get_size (panelapplet ());
-	PanelAppletOrient orient = panel_applet_get_orient (panelapplet ());
-
-	// Determine the new maximum size of the applet (depending on the
-	// orientation)
-	widget_max_height_ = G_MAXUINT;
-	widget_max_width_ = G_MAXUINT;
-	switch (orient) {
-	case PANEL_APPLET_ORIENT_DOWN:
-	case PANEL_APPLET_ORIENT_UP:
-		widget_max_width_ = size;
-		break;
-	case PANEL_APPLET_ORIENT_LEFT:
-	case PANEL_APPLET_ORIENT_RIGHT:
-		widget_max_height_ = size;
-		break;
-	default:
-		// Should never happen
-		break;
-	}
 
 	// Update applet (depending on the orientation of the panel)
 	gboolean newmail = AppletGUI::update (init, "image", "unread", "fixed");
@@ -252,9 +231,8 @@ AppletGnome::update (gboolean init)
 			gtk_widget_modify_style (applet_, rc_style);
 			gtk_rc_style_unref (rc_style);
 		}
-		else {
+		else
 			gtk_widget_modify_bg (get("applet_"), GTK_STATE_NORMAL, &color);
-		}
 	}
 
 	g_mutex_unlock (update_mutex_);
@@ -273,6 +251,49 @@ void
 AppletGnome::hide (std::string name)
 {
 	gtk_widget_hide (applet_);
+}
+
+/**
+ *  Calculate the applet's size. This function should be called when a
+ *  "size_allocate" signal is caught.
+ *
+ *  @param  allocation  Parameter passed to the "size_allocate" callback.
+ *  @return             True, if there is no change in the applet's size,
+ *                      false otherwise.
+ */
+gboolean 
+AppletGnome::calculate_size (GtkAllocation *allocation)
+{
+	guint widget_max_height_old = widget_max_height_;
+	guint widget_max_width_old = widget_max_width_;
+
+	// Check parameters
+	if (!allocation)
+		return true;
+
+	// Get the orientation of the panel
+	PanelAppletOrient orient = panel_applet_get_orient (PANEL_APPLET(applet_));
+
+	// Determine the new maximum size of the applet (depending on the
+	// orientation)
+	widget_max_height_ = G_MAXUINT;
+	widget_max_width_ = G_MAXUINT;
+	switch (orient) {
+	case PANEL_APPLET_ORIENT_DOWN:
+	case PANEL_APPLET_ORIENT_UP:
+		widget_max_height_ = allocation->height;
+		break;
+	case PANEL_APPLET_ORIENT_LEFT:
+	case PANEL_APPLET_ORIENT_RIGHT:
+		widget_max_width_ = allocation->width;
+		break;
+	default:
+		// Should never happen
+		break;
+	}
+
+	return ((widget_max_height_old == widget_max_height_) &&
+			(widget_max_width_old == widget_max_width_));;
 }
 
 // ============================================================================
