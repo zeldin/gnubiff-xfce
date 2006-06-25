@@ -9,6 +9,7 @@ Version 2.2.2
  * Robert Sowada
    - Changed version to 2.2.2
    - Bugfix: Obtaining the panel's size (GNOME)
+   - Updated Hungarian translation (thanks to Wallner Adam)
 	
 Version 2.2.1		2006-05-14 20:08
  * Robert Sowada

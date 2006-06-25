@@ -7,14 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-04-09 17:44+0200\n"
-"PO-Revision-Date: 2005-12-03 23:07+0100\n"
+"POT-Creation-Date: 2006-06-08 21:56+0200\n"
+"PO-Revision-Date: 2006-06-08 21:26+0200\n"
 "Last-Translator: Adam Wallner <wallner.adam@hktv.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
 
 #: src/decoding.cc:91
@@ -49,11 +48,11 @@ msgstr "A konfigurációs procedúra kihagyása"
 
 #: src/gnubiff.cc:103
 msgid "Start gnubiff without GUI"
-msgstr ""
+msgstr "Gnubiff indítása grafikus felület nélkül"
 
 #: src/gnubiff.cc:105
 msgid "Put gnubiff's icon into the system tray"
-msgstr ""
+msgstr "Gnubiff ikont a tálcára."
 
 #: src/gnubiff.cc:107
 msgid "Print version information and exit"
@@ -73,7 +72,7 @@ msgid "Configuration file (%s) not found!"
 msgstr "A konfigurációs fájl (%s) nem található!"
 
 #: src/biff.cc:590
-#, fuzzy, c-format
+#, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr "Régi gnubiff (\"%s\" verzió) konfigurációs fájl betöltődött."
 
@@ -368,7 +367,7 @@ msgstr "_Leállítás"
 
 #: src/ui-preferences.cc:628 src/ui-preferences.cc:635
 msgid "Browse for a new mail image"
-msgstr ""
+msgstr "Új levél kép tallózása"
 
 #: src/ui-authentication.cc:88
 #, c-format
@@ -449,7 +448,7 @@ msgstr "Beállítások..."
 
 #: src/GNOME_gnubiffApplet.xml.h:4
 msgid "Run command"
-msgstr "Parancs uttatása"
+msgstr "Parancs futtatása"
 
 #: src/GNOME_gnubiffApplet.server.in.h:1
 msgid "Mail notification program"
@@ -476,9 +475,8 @@ msgid "_Quit"
 msgstr "_Kilépés"
 
 #: ui/applet-gtk.glade:203
-#, fuzzy
 msgid "Gnubiff is a mail notification program."
-msgstr "Email jelző program"
+msgstr "A gnubiff egy levéljelző program."
 
 #: ui/applet-gtk.glade:204
 msgid ""
@@ -557,11 +555,11 @@ msgid "_Browse..."
 msgstr "_Tallózás..."
 
 #: ui/preferences.glade:600 ui/preferences.glade:665
-#, fuzzy
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
 "padded). Pango markup may be used."
-msgstr "Megjelenítendő szöveg (%d a levelek száma)"
+msgstr ""
+"Megjelenítendő szöveg (%d és %D a levelek száma, %d 0-kal kiegészített)"
 
 #: ui/preferences.glade:646
 msgid "B_rowse..."
@@ -701,17 +699,19 @@ msgstr "<b>Szakértői szerkesztési mód</b> "
 
 #: ui/preferences.glade:1619
 msgid "Whether options can be edited in expert mode"
-msgstr ""
+msgstr "Az opciók szerkeszthetők-e szakértői módban"
 
 #: ui/preferences.glade:1621
 msgid "_Edit options in expert mode"
-msgstr ""
+msgstr "Az opciók sz_erkesztése szakértői módban"
 
 #: ui/preferences.glade:1643
 msgid ""
 "Whether to show the expert tab. Note: Disabling this option can only be "
 "reversed by editing the config file manually!"
 msgstr ""
+"Megjelenjen-e a szakértői fül. Figyelem: ennek az opciónak a módosítása csak "
+"a configfájl szerkesztésével vonható vissza!"
 
 #: ui/preferences.glade:1645
 msgid "_Show expert tab"
@@ -725,26 +725,34 @@ msgid ""
 "<b>Warning:</b> Changing these options may cause gnubiff to act not properly "
 "or result in security problems."
 msgstr ""
+"A szerkesztő párbeszédablak a gnubiff összes belső használatú beállításaihoz "
+"itt engedélyezhető. Minden opcióhoz tartozik egy rövid leírás.\n"
+"<b>Figyelem</b>Ezeknek a beállításoknak a szerkesztése nem megfelelő "
+"működést okozhat vagy biztonsági problémákat vethet fel."
 
 #: ui/preferences.glade:1766
 msgid "List all options."
-msgstr ""
+msgstr "Az összas opció listázása."
 
 #: ui/preferences.glade:1784
 msgid "String to be searched for."
-msgstr ""
+msgstr "A keresendő szöveg."
 
 #: ui/preferences.glade:1806
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr ""
+"Azoknak a (megjelenített) opcióknak a keresése, amik a szövegmezőt "
+"tartalmazzák."
 
 #: ui/preferences.glade:1840
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
 msgstr ""
+"Az opciók listája, típusa és az aktuális értéke. Szerkesztéshez kattints "
+"duplán:"
 
 #: ui/preferences.glade:1915
 msgid "Expert"
@@ -755,7 +763,7 @@ msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
 msgstr ""
-"<small>A Gnubiff a GNU project része.\n"
+"<small>A gnubiff a GNU project része.\n"
 " Licensz: GNU/GPL .</small>"
 
 #: ui/preferences.glade:2205
@@ -765,6 +773,10 @@ msgid ""
 "<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span>.</small>"
 msgstr ""
+"<small>A fejlesztők elérhetők a <span foreground=\"blue\">gnubiff-"
+"devel@lists.sourceforge.net</span> címen.</small>\n"
+"<small>A hibák a <span foreground=\"blue\">gnubiff-bugs@lists.sourceforge."
+"net</span> címen jelenthetők.</small>"
 
 #: ui/preferences.glade:2245
 msgid "Developers"
@@ -780,6 +792,8 @@ msgid ""
 "different languages (translators of previous versions are marked with an "
 "asterisk):</small>"
 msgstr ""
+"<small>Ez egy lista azokról az emberekről, akik lefordították a gnubiff-et "
+"különböző nyelvekre (csillag jelöli az előző verziók fordítóit):</small>"
 
 #: ui/preferences.glade:3166
 msgid "Translators"
@@ -1032,3 +1046,4 @@ msgstr "<small><b>Dátum</b></small>"
 
 #~ msgid "Text to display"
 #~ msgstr "Megjelenítendő szöveg"
+
