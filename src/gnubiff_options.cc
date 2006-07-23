@@ -583,7 +583,7 @@ Gnubiff_Options::add_options_mailbox (gboolean deprecated)
 		"messages be presented as new once messages can be obtained again.",
 								 false));
 	// FILTER_LOCAL
-	add_option (new Option_String ("filter_global_first", OPTGRP_GENERAL,
+	add_option (new Option_String ("filter_local", OPTGRP_GENERAL,
 		"Space separated list of regular expressions (as defined in "
 		"POSIX 1003.2) used for filtering the header lines of obtained "
         "messages for this mailbox. The regular expressions are processed in "

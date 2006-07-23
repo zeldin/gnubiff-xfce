@@ -1220,7 +1220,6 @@ Mailbox::filter_add (std::vector<std::string> &regex_strs)
 gboolean 
 Mailbox::filter_create (void)
 {
-  g_message ("#####");
 	gboolean ok = true;
 	g_mutex_lock (mutex_);
 
