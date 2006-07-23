@@ -80,6 +80,9 @@ public:
 						 gboolean empty = true,gboolean respect_change = true);
 	gboolean get_values (const std::string &name, std::set<std::string> &var,
 						 gboolean empty = true,gboolean respect_update = true);
+	gboolean get_values (const std::string &name,
+						 std::vector<std::string> &var,
+						 gboolean empty = true,gboolean respect_update = true);
 	const std::string value_to_string (const std::string &name, guint val);
 	std::string to_string (const std::string &name,
 						   gboolean respect_update = true);

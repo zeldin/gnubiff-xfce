@@ -389,6 +389,37 @@ Options::get_values (const std::string &name, std::set<std::string> &var,
 }
 
 /**
+ *  Get the value of the string option {\em name}. The option's value is
+ *  treated as a space separated list of strings. Each string in this list
+ *  is returned in the vector {\em var}. If {\em empty} is true the this vector
+ *  will be emptied before obtaining the values, otherwise the new strings
+ *  are appended to the vector {\em var}.
+ *
+ *  Note: This function handles the OPTFLG_UPDATE flag, so use this
+ *  function instead of getting the values directly.
+ *
+ *  @param  name           Name of the option to be obtained
+ *  @param  var            Vector in which the strings will be returned
+ *  @param  empty          Shall the vector {\em var} be erased before
+ *                         appending the strings (the default is true)?
+ *  @param  respect_update Shall the OPTFLG_UPDATE flag be respected (the
+ *                         default is true)?
+ *  @return                Boolean indicating success
+ */
+gboolean 
+Options::get_values (const std::string &name, std::vector<std::string> &var,
+					 gboolean empty, gboolean respect_update)
+{
+	Option_String *option=(Option_String *) find_option (name, OPTTYPE_STRING);
+	if (!option)
+		return false;
+	if ((option->flags() & OPTFLG_UPDATE) && respect_update)
+		option_update (option);
+	option->get_values (var, empty);
+	return true;
+}
+
+/**
  *  Get the string constant that is equivalent to the value {\em val}. This
  *  value must be a possible value for the option {\em name}.
  *

@@ -359,12 +359,12 @@ Option_String::set_values (const std::set<std::string> &values, gboolean empty)
 }
 
 /**
- *  Get the value of the option. The option's value is
- *  treated as a space separated list of strings. Each string in this list
- *  is returned in the set {\em var}. If {\em empty} is true the this set
- *  will be emptied before obtaining the values, otherwise the new strings
- *  are inserted in {\em var} in addition to the strings that are in this set
- *  before calling this function.
+ *  Get the value of the option. The option's value is treated as a
+ *  space separated list of strings. Each string in this list is
+ *  returned in the set {\em var}. If {\em empty} is true then this set
+ *  will be emptied before obtaining the values, otherwise the new
+ *  strings are inserted in {\em var} in addition to the strings that
+ *  are in this set before calling this function.
  *
  *  Note: Do not use this function directly, use the function
  *  Options::get_values() instead. Then the OPTFLG_UPDATE flag will be
@@ -396,6 +396,50 @@ Option_String::get_values (std::set<std::string> &values, gboolean empty)
 		if (pos < len) {
 			if (get_quotedstring (value_, tmp, pos, ' ', false, true))
 				values.insert (tmp);
+			else
+				break; // we stop if there is an error
+		}
+	}
+}
+
+/**
+ *  Get the value of the option. The option's value is treated as a
+ *  space separated list of strings. Each string in this list is
+ *  returned in the vector {\em var} (in the same order as in the
+ *  string). If {\em empty} is true then this vector will be emptied
+ *  before obtaining the values, otherwise the new strings are
+ *  appended to {\em var}.
+ *
+ *  Note: Do not use this function directly, use the function
+ *  Options::get_values() instead. Then the OPTFLG_UPDATE flag will be
+ *  respected.
+ *
+ *  @param  values         Vector in which the strings will be returned
+ *  @param  empty          Shall the vector {\em var} be erased before 
+ *                         appending the strings (the default is true)?
+ *
+ *  @see See the description of Option_String::set_values() for the handling
+ *       of the '\' character.
+ */
+void 
+Option_String::get_values (std::vector<std::string> &values, gboolean empty)
+{
+	if (empty)
+		values.clear ();
+
+	std::string tmp;
+	std::string::size_type len = value_.size();
+
+	std::string::size_type pos = 0;
+	while (pos < len) {
+		// Remove spaces
+		while ((pos < len) && (value_[pos] == ' '))
+			pos++;
+
+		// Get quoted string
+		if (pos < len) {
+			if (get_quotedstring (value_, tmp, pos, ' ', false, true))
+				values.push_back (tmp);
 			else
 				break; // we stop if there is an error
 		}

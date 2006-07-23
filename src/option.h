@@ -235,6 +235,7 @@ public:
 
 	void set_values (const std::set<std::string> &values, gboolean empty=true);
 	void get_values (std::set<std::string> &values, gboolean empty = true);
+	void get_values (std::vector<std::string> &values, gboolean empty = true);
 	void get_vector (std::vector<guint> &vector, gchar sep = ' ',
 					 gboolean empty = true);
 

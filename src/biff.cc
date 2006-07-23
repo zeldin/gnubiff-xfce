@@ -548,6 +548,14 @@ Biff::option_changed (Option *option)
 		value ("gtk_mode", ((Option_UInt *)option)->value() == MODE_GTK);
 		return;
 	}
+
+	// FILTER_GLOBAL_FIRST, FILTER_GLOBAL_LAST
+	if ((option->name() == "filter_global_first")
+		|| (option->name() == "filter_global_last")) {
+		for (unsigned int i = 0; i < mailbox_.size (); i++)
+			mailbox_[i]->filter_create ();
+		return;
+	}
 }
 
 /**

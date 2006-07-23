@@ -57,6 +57,11 @@ Mailbox::Mailbox (Biff *biff)
 	biff_ = biff;
 	listed_ = false;
 	stopped_ = false;
+	timetag_ = 0;
+
+	// Create mutexes
+	mutex_ = g_mutex_new ();
+	monitor_mutex_ = g_mutex_new ();
 
 	// Add options
 	add_options (OPTGRP_MAILBOX, !biff_->value_bool ("config_file_loaded"));
@@ -64,9 +69,8 @@ Mailbox::Mailbox (Biff *biff)
 	// Set session specific options
 	value ("uin", uin_count_++);
 
-	timetag_ = 0;
-	mutex_ = g_mutex_new ();
-	monitor_mutex_ = g_mutex_new ();
+	// Setup regular expressions for filtering messages
+	filter_create ();
 }
 
 Mailbox::Mailbox (const Mailbox &other)
@@ -94,9 +98,13 @@ Mailbox::operator= (const Mailbox &other)
 
 Mailbox::~Mailbox (void)
 {
+	// Free compiled regular expressions
 	g_mutex_lock (mutex_);
+	filter_free ();
 	g_mutex_unlock (mutex_);
-	g_mutex_free (mutex_);
+
+	// Free all mutexes
+	g_mutex_unlock (mutex_);
 	g_mutex_lock (monitor_mutex_);
 	g_mutex_unlock (monitor_mutex_);
 	g_mutex_free (monitor_mutex_);
@@ -309,6 +317,12 @@ Mailbox::option_changed (Option *option)
 			value ("name", text);
 			g_free (text);
 		}
+		return;
+	}
+
+	// FILTER_LOCAL
+	if (option->name() == "filter_local") {
+		filter_create ();
 		return;
 	}
 }
@@ -600,6 +614,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 {
 	Header h;
 	gboolean status = true; // set to false if mail should not be stored
+	gboolean getstatus = true;
 	guint len = mail.size ();
 	PartInfo partinfo;
 
@@ -641,7 +656,9 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 					   || (mail[pos+1].at(0) == '\t')))
  				line += mail[++pos];
 
-		std::string line_down = ascii_strdown (line);
+		// Filter header line using stored regular expression
+		if (getstatus)
+			getstatus = !filter_match_line (line, status);
 
 		// Sender, Subject, Date:
 		// There should be a whitespace (space or tab) after "From:",
@@ -694,14 +711,6 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 				continue;
 			}
 		}
-
-		// Status
-	    if (line.find ("Status: R") == 0)
-			status = false;
-		else if (line.find ("X-Mozilla-Status: 0001") == 0)
-			status = false;
-		else if (line_down.find ("x-spam-flag: yes") == 0)
-			status = false;
 	}
 
 	// Charset
@@ -804,29 +813,27 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 	// If there is an error message put it into the body
 	h.error_to_body ();
 
+	// Set unique message identifier
+	h.mailid (uid);
+
 	// Store mail depending on status
 	if (status) {
-		// Pines trick
-		if (h.subject().find("DON'T DELETE THIS MESSAGE -- FOLDER INTERNAL DATA") == std::string::npos) {
-			// Ok, at this point mail is
-			//  - not a spam
-			//  - has not been read (R or 0001 status flag)
-			//  - is not a special header (see above)
-			// so we have to decide what to do with it because we may have already displayed it
-			// and maybe it has been gnubifficaly marked as "seen".
-			//
-			h.mailid (uid);
-			if (hidden_.find (h.mailid()) == hidden_.end ()) {
-				h.position (new_unread_.size() + 1);
-				h.mailbox_uin (value_uint ("uin"));
-				new_unread_[h.mailid()] = h;
-			}
-			new_seen_.insert (h.mailid());
-#ifdef DEBUG
-			g_message ("[%d] Parsed mail with id \"%s\"", uin(),
-					   h.mailid().c_str ());
-#endif
+		// Message was not filtered because of regular expressions and is
+		// not marked as seen, so it will be stored now
+		if (hidden_.find (h.mailid()) == hidden_.end ()) {
+			h.position (new_unread_.size() + 1);
+			h.mailbox_uin (value_uint ("uin"));
+			new_unread_[h.mailid()] = h;
 		}
+		new_seen_.insert (h.mailid());
+#ifdef DEBUG
+		g_message ("[%d] Parsed message with id \"%s\"", uin(),
+				   h.mailid().c_str ());
+	}
+	else {
+		g_message ("[%d] Parsed and discarded message with id \"%s\"", uin(),
+				   h.mailid().c_str ());
+#endif
 	}
 }
 
@@ -1130,4 +1137,149 @@ Mailbox::get_message_headers (std::vector<Header *> &headers,
 	}
 
 	g_mutex_unlock (mutex_);
+}
+
+// ============================================================================
+//  filtering
+// ============================================================================
+
+/**
+ *  Compile some regular expressions and add them to those already
+ *  used for filtering messages by header lines in this mailbox. The
+ *  new expressions are applied after those already in existance.
+ *
+ *  Format of the expressions: Each expression has to be prefixed by
+ *  "+" or "-". Messages matching a "+"-expression are displayed,
+ *  messages matching a "-"-expression are ignored. The "+" or "-" may
+ *  be preceded by " "I" for case insensitive pattern matching.
+ *
+ *  @param  regex  Vector of the regular expressions as described above.
+ *  @return        Boolean indicating success (i.e. all expressions could
+ *                 be compiled successfully)
+ */
+gboolean 
+Mailbox::filter_add (std::vector<std::string> &regex_strs)
+{
+	unsigned int			num = regex_strs.size ();
+	std::string::size_type	pos, len, errlen;
+	gboolean				okay = true;
+	int						cflags, errcode;
+	regex_t					*regex;
+
+	for (unsigned int i = 0; i < num; i++) {
+		// Find "+" or "-"
+		len = regex_strs[i].length ();
+		pos = 0;
+		while ((pos < len)
+			   && (regex_strs[i][pos] != '+') && (regex_strs[i][pos] != '-'))
+			pos++;
+		if (pos == len) {
+			okay = false;
+			continue;
+		}
+
+		// Case sensitivity
+		cflags = REG_EXTENDED | REG_NOSUB;
+		if (regex_strs[i].substr(0, pos).find("I") != std::string::npos)
+			cflags |= REG_ICASE;
+
+		// Compile expression
+		regex = new regex_t;
+		errcode = regcomp (regex,
+						   regex_strs[i].substr(pos+1, len-pos-1).c_str(),
+						   cflags);
+
+		// Add compiled expression
+		if (!errcode) {
+			filter_regex_.push_back (regex);
+			filter_opts_.push_back (regex_strs[i].substr(0, pos+1));
+			continue;
+		}
+
+		// Error message
+		errlen = regerror (errcode, regex, NULL, 0);
+		gchar *buffer = new gchar[errlen];
+		regerror (errcode, regex, buffer, errlen);
+		g_message (_("Error when compiling a regular expression.\n"
+					 "Regular expression: %s\n"
+					 "Error message: %s"),
+				   regex_strs[i].substr(pos+1, len-pos-1).c_str(), buffer);
+		delete buffer;
+	}
+
+	return okay;
+}
+
+/**
+ *  Compile the regular expressions used for filtering messages by header
+ *  lines in this mailbox. The compiled expressions are stored for later use,
+ *  any compiled expressions that are already stored are freed.
+ *
+ *  @return Boolean indicating success
+ */
+gboolean 
+Mailbox::filter_create (void)
+{
+  g_message ("#####");
+	gboolean ok = true;
+	g_mutex_lock (mutex_);
+
+	// Free existing compiled expressions
+	filter_free ();
+
+	// Compile expressions in the correct order
+	std::vector<std::string> regex;
+	ok = biff_->get_values ("filter_global_first", regex, true);
+	ok = get_values ("filter_local", regex, false) && ok;
+	ok = biff_->get_values ("filter_global_last", regex, false) && ok;
+	filter_add (regex);
+
+	g_mutex_unlock (mutex_);
+
+	return ok;
+}
+
+/**
+ *  Free all existing compiled regular expressions used for filtering messages
+ *  by header lines in this mailbox.
+ */
+void 
+Mailbox::filter_free (void)
+{
+	unsigned int num = filter_regex_.size ();
+
+	for (unsigned int i = 0; i < num; i++) {
+		regfree (filter_regex_[i]);
+		delete filter_regex_[i];
+	}
+
+	filter_regex_.clear ();
+	filter_opts_.clear ();
+}
+
+/**
+ *  Match the string {\em line} with the stored regular expressions.
+ *
+ *  @param  line   Line to be matched
+ *  @param  status If the return value is true this parameter indicates
+ *                 whether the message shall be shown or not.
+ *  @return        True if {\em status} was set by this function call, false
+ *                 otherwise.
+ */
+gboolean 
+Mailbox::filter_match_line (std::string line, gboolean &status)
+{
+	unsigned int num = filter_regex_.size ();
+
+	for (unsigned int i = 0; i < num; i++) {
+		if (!(regexec (filter_regex_[i],line.c_str (), 0, NULL, 0))) {
+			if (filter_opts_[i].find ("+") != std::string::npos)
+				status = true;
+			else
+				status = false;
+			return true;
+		}
+	}
+
+	return false;
 }

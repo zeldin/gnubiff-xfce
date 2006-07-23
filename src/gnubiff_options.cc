@@ -224,6 +224,11 @@ Gnubiff_Options::add_options_general (gboolean deprecated)
 		"body is shorter then the whole body is read. If supported by the "
 		"protocol gnubiff tries to read exactly this number of lines.",
 								 25));
+	// DIR_CERTIFICATES
+	add_option (new Option_String ("dir_certificates", OPTGRP_GENERAL,
+		"Directory in which to look for certificates when building the "
+		"certificate chain.",
+								   "/etc/ssl/certs/"));
 	// EXPERT_SHOW_TAB
 	const static gchar *s5[] = {"expert_vbox", NULL};
 	add_option (new Option_Bool ("expert_show_tab", OPTGRP_GENERAL,
@@ -272,15 +277,41 @@ Gnubiff_Options::add_options_general (gboolean deprecated)
 		"Shall all options that have not their default values and are "
 		"editable by the user be highlighted?",
 								 true));
+	// FILTER_GLOBAL_FIRST
+	add_option (new Option_String ("filter_global_first", OPTGRP_GENERAL,
+		"Space separated list of regular expressions (as defined in "
+		"POSIX 1003.2) used for filtering the header lines of obtained "
+        "messages in each mailbox. The regular expressions are processed in "
+		"the given order and before the mailbox specific regular expression "
+		"or the regular expressions given in the option "
+		"\"filter_global_last\".\n"
+		"Each expression has to be prefixed by \"+\" or \"-\". Messages "
+        "matching a \"+\"-expression are displayed, messages matching a "
+        "\"-\"-expression are ignored. The \"+\" or \"-\" may be preceded by "
+        "an \"I\" for case insensitive pattern matching.\n"
+		"Note: For some protocols (e.g. IMAP4) not all header lines are "
+		"retrieved.",
+		"-^Status:\\ R "
+		"-^X-Mozilla-Status:\\ 0001 "
+		"I-^x-spam-flag:\\ yes "
+		"-^Subject:.*DON'T\\ DELETE\\ THIS\\ MESSAGE\\ --\\ "
+		"FOLDER\\ INTERNAL\\ DATA",
+								   OPTFLG_CHANGE | OPTFLG_STRINGLIST));
+	// FILTER_GLOBAL_LAST
+	add_option (new Option_String ("filter_global_first", OPTGRP_GENERAL,
+		"Space separated list of regular expressions (as defined in "
+		"POSIX 1003.2) used for filtering the header lines of obtained "
+        "messages in each mailbox. The regular expressions are processed in "
+		"the given order and after the mailbox specific regular expression "
+		"or the regular expressions given in the option "
+		"\"filter_global_first\".\n"
+		"For more details see the description of the option "
+		"\"filter_global_first\".",
+								   "", OPTFLG_CHANGE | OPTFLG_STRINGLIST));
 	// PREF_ALLOW_RESIZE
 	add_option (new Option_Bool ("pref_allow_resize", OPTGRP_GENERAL,
 		"Shall it be allowed to resize the preferences dialog window?",
 								 false));
-	// DIR_CERTIFICATES
-	add_option (new Option_String ("dir_certificates", OPTGRP_GENERAL,
-		"Directory in which to look for certificates when building the "
-		"certificate chain.",
-								   "/etc/ssl/certs/"));
 	// SIGNAL_SIGUSR1
 	const static guint i7[] = {SIGNAL_NONE, SIGNAL_MARK_AS_READ, SIGNAL_START,
 							   SIGNAL_STOP, SIGNAL_POPUP_ENABLE,
@@ -551,6 +582,17 @@ Gnubiff_Options::add_options_mailbox (gboolean deprecated)
 		"a failure in retrieving the mailbox's messages? This results in all "
 		"messages be presented as new once messages can be obtained again.",
 								 false));
+	// FILTER_LOCAL
+	add_option (new Option_String ("filter_global_first", OPTGRP_GENERAL,
+		"Space separated list of regular expressions (as defined in "
+		"POSIX 1003.2) used for filtering the header lines of obtained "
+        "messages for this mailbox. The regular expressions are processed in "
+		"the given order and after the regular expressions given in the "
+		"option \"filter_global_first\" and before those in "
+		"\"filter_global_first\".\n"
+		"For more details see the description of the option "
+		"\"filter_global_first\".",
+								   "", OPTFLG_CHANGE | OPTFLG_STRINGLIST));
 	if (!deprecated)
 		return;
 }
