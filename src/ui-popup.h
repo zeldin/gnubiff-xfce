@@ -53,11 +53,11 @@ enum {
 class Popup : public GUI, public Decoding {
 
 protected:
-	class Biff *		biff_;				// Biff owner
+	class Biff			*biff_;				// Biff owner
 	gint				poptag_;			// Tag for pop timer
-	static GStaticMutex	timer_mutex_;		// Mutex for timer tag access
+	GMutex				*timer_mutex_;		// Mutex for timer tag access
 	Header				selected_header_;	// Current selected header
-	GtkTreeSelection *	tree_selection_;	// Current tree selection
+	GtkTreeSelection	*tree_selection_;	// Current tree selection
 	gboolean			consulting_;		// Tag to know if we're consulting a mail
 	gint				x_;					// Last mouse x position known
 	gint				y_;					// Last mouse y position known

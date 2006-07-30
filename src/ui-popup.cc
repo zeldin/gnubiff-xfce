@@ -109,20 +109,23 @@ extern "C" {
 	}
 }
 
-GStaticMutex Popup::timer_mutex_ = G_STATIC_MUTEX_INIT;
-
 Popup::Popup (Biff *biff) : GUI (GNUBIFF_DATADIR"/popup.glade")
 {
 	biff_ = biff;
-	g_static_mutex_lock (&timer_mutex_);
 	poptag_ = 0;
-	g_static_mutex_unlock (&timer_mutex_);
 	tree_selection_ = 0;
 	consulting_ = false;
+
+	// Create mutexes
+	timer_mutex_ = g_mutex_new ();
 }
 
 Popup::~Popup (void)
 {
+	// Free all mutexes
+	g_mutex_lock (timer_mutex_);
+	g_mutex_unlock (timer_mutex_);
+	g_mutex_free (timer_mutex_);
 }
 
 gint
@@ -339,11 +342,11 @@ Popup::update (void)
 void 
 Popup::hide (std::string name)
 {
-	g_static_mutex_lock (&timer_mutex_);
+	g_mutex_lock (timer_mutex_);
 	if (poptag_ > 0)
 		g_source_remove (poptag_);
 	poptag_ = 0;
-	g_static_mutex_unlock (&timer_mutex_);
+	g_mutex_unlock (timer_mutex_);
 
 	GUI::hide ();
 	gtk_widget_hide (get("popup"));
@@ -374,12 +377,12 @@ Popup::show (std::string name)
 	gtk_window_set_keep_above (dialog, biff_->value_bool ("popup_keep_above"));
 	gtk_window_set_skip_pager_hint (dialog,!biff_->value_bool ("popup_pager"));
 
-	g_static_mutex_lock (&timer_mutex_);
+	g_mutex_lock (timer_mutex_);
 	if (poptag_ > 0) 
 		g_source_remove (poptag_);
 	poptag_ = g_timeout_add (biff_->value_uint ("popup_delay")*1000,
 							 POPUP_on_popdown, this);
-	g_static_mutex_unlock (&timer_mutex_);
+	g_mutex_unlock (timer_mutex_);
 
 	if (tree_selection_)
 		gtk_tree_selection_unselect_all (tree_selection_);
@@ -436,11 +439,11 @@ Popup::on_button_release (GdkEventButton *event)
 void
 Popup::on_enter (GdkEventCrossing *event)
 {
-	g_static_mutex_lock (&timer_mutex_);
+	g_mutex_lock (timer_mutex_);
 	if (poptag_ > 0)
 		g_source_remove (poptag_);
 	poptag_ = 0;
-	g_static_mutex_unlock (&timer_mutex_);
+	g_mutex_unlock (timer_mutex_);
 }
 
 
@@ -448,12 +451,12 @@ void
 Popup::on_leave (GdkEventCrossing *event)
 {
 	if (!consulting_) {
-		g_static_mutex_lock (&timer_mutex_);
+		g_mutex_lock (timer_mutex_);
 		if (poptag_ > 0)
 			g_source_remove (poptag_);  
 		poptag_ = g_timeout_add (biff_->value_uint ("popup_delay")*1000,
 								 POPUP_on_popdown, this);
-		g_static_mutex_unlock (&timer_mutex_);
+		g_mutex_unlock (timer_mutex_);
 	}
 }
 
@@ -478,11 +481,11 @@ Popup::on_select (GtkTreeSelection *selection)
 	// If we're in consulting mode, update the text of the (single) mail popup
 	if (consulting_) {
 		// Nop popdown when we're consulting an email
-		g_static_mutex_lock (&timer_mutex_);
+		g_mutex_lock (timer_mutex_);
 		if (poptag_ > 0)
 			g_source_remove (poptag_);
 		poptag_ = 0;
-		g_static_mutex_unlock (&timer_mutex_);
+		g_mutex_unlock (timer_mutex_);
 
 		// Show popup window for mail displaying 
 		// Name is stupid since we're in Popup 
