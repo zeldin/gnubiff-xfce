@@ -30,6 +30,7 @@
 // ========================================================================
 
 #include <algorithm>
+#include <regex.h>
 #include "support.h"
 #include "mailbox.h"
 #include "file.h"

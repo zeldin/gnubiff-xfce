@@ -141,7 +141,7 @@ AC_SUBST(GNUBIFF_DEP_LIBS)
 ######################################################################
 AC_HEADER_STDC
 AC_HEADER_DIRENT
-AC_CHECK_HEADERS([arpa/inet.h fcntl.h libintl.h netdb.h netinet/in.h stdlib.h string.h sys/socket.h unistd.h utime.h])
+AC_CHECK_HEADERS([arpa/inet.h fcntl.h libintl.h netdb.h netinet/in.h stdlib.h string.h sys/socket.h unistd.h utime.h regex.h])
 if test "x$OPT_USEFAM" = "xyes"; then
 	AC_CHECK_HEADERS([fam.h], [],
 		[AC_MSG_ERROR([Cannot find fam (File Alteration Monitor) library header file fam.h])])
