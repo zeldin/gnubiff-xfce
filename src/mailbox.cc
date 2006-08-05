@@ -599,22 +599,25 @@ Mailbox::lookup_local (Mailbox &oldmailbox)
  *  it can be given to this functions via the optional parameters {\em pi} and
  *  {\em hh}.
  *
- *  @param mail  Message line by line in a vector of strings
- *  @param uid   Unique identifier of the mail (if known), the default is an
- *               empty string.
- *  @param pi    PartInfo structure with information about the first part of
- *               the mail (if known), the default is NULL.
- *  @param hh    Header with retrieved information about the message (if
- *               known), the default is NULL.
- *  @param pos   Number of the first line in the array to be parsed. This is
- *               needed to easily parse multipart messages recusively. The
- *               default is 0.
+ *  @param mail   Message line by line in a vector of strings
+ *  @param uid    Unique identifier of the mail (if known), the default is an
+ *                empty string.
+ *  @param pi     PartInfo structure with information about the first part of
+ *                the mail (if known), the default is NULL.
+ *  @param hh     Header with retrieved information about the message (if
+ *                known), the default is NULL.
+ *  @param pos    Number of the first line in the array to be parsed. This is
+ *                needed to easily parse multipart messages recusively. The
+ *                default is 0.
+ *  @param status Default status of the message. If this is set to false the
+ *                message will not be stored. This option is needed for
+ *                multipart messages that are parsed recursivly (The default is
+ *                true).
  */
 void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
-					 PartInfo *pi, Header *hh, guint pos)
+					 PartInfo *pi, Header *hh, guint pos, gboolean status)
 {
 	Header h;
-	gboolean status = true; // set to false if mail should not be stored
 	gboolean getstatus = true;
 	guint len = mail.size ();
 	PartInfo partinfo;
@@ -780,7 +783,7 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 			partinfo.parameters_.clear ();
 
 			// Parse first part of multipart message
-			parse (mail, uid, &partinfo, &h, saved_pos);
+			parse (mail, uid, &partinfo, &h, saved_pos, status);
 
 			// No need to parse rest of mail
 			return;

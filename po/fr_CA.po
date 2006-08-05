@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-04-09 17:44+0200\n"
+"POT-Creation-Date: 2006-07-30 21:20+0200\n"
 "PO-Revision-Date: 2006-03-27 11:59+0200\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -73,29 +73,29 @@ msgstr "Options de déboggage"
 msgid "Configuration file (%s) not found!"
 msgstr "Fichier de configuration (%s) non trouvé"
 
-#: src/biff.cc:590
+#: src/biff.cc:598
 #, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr ""
 "Chargement du fichier de configuration à partir d'une nouvelle version de "
 "gnubiff \"%s\"."
 
-#: src/biff.cc:598
+#: src/biff.cc:606
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 "Chargement du fichier de configuration à partir d'une vieille version de "
 "gnubiff \"%s\""
 
-#: src/biff.cc:600
+#: src/biff.cc:608
 msgid "Trying to convert all options."
 msgstr "Tentative de conversion des options"
 
-#: src/biff.cc:644
+#: src/biff.cc:652
 msgid "Successfully converted all options."
 msgstr "Tentative de conversion réussie"
 
-#: src/biff.cc:647
+#: src/biff.cc:655
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -104,73 +104,81 @@ msgstr ""
 "Tentative de conversion réussie pour quelques options. Les options suivantes "
 "doivent être manuellement converties: %s "
 
-#: src/biff.cc:790
+#: src/biff.cc:798
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: src/biff.cc:806
+#: src/biff.cc:814
 msgid "Cannot create XML parser for config file"
 msgstr "Impossible de créer le parser XML pour le fichier de configuration"
 
-#: src/biff.cc:823
+#: src/biff.cc:831
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Votre fichier de configuration n'as pas de définition de boîte aux lettres (%"
 "s)"
 
-#: src/biff.cc:870
+#: src/biff.cc:878
 msgid "Illegal parameter format in config file"
 msgstr "Format de paramètre illégal dans le fichier de configuration"
 
-#: src/biff.cc:899
+#: src/biff.cc:907
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Pas de protocole spécifié pour la boîte aux lettres %d"
 
-#: src/mailbox.cc:135
+#: src/mailbox.cc:144
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossible de créer le thread: %s"
 
-#: src/mailbox.cc:307
+#: src/mailbox.cc:316
 #, c-format
 msgid "mailbox %d"
 msgstr "Boîte aux lettres %d"
 
-#: src/mailbox.cc:622
+#: src/mailbox.cc:638
 msgid "<no date>"
 msgstr "<Pas de date>"
 
-#: src/mailbox.cc:623
+#: src/mailbox.cc:639
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: src/mailbox.cc:624
+#: src/mailbox.cc:640
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: src/mailbox.cc:671
+#: src/mailbox.cc:689
 msgid "[Cannot parse content type header line]"
 msgstr "[Impossible de décoder le type de la ligne d'entête]"
 
-#: src/mailbox.cc:692
+#: src/mailbox.cc:710
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Impossible de décoder le code de la ligne d'entête]"
 
-#: src/mailbox.cc:741
+#: src/mailbox.cc:751
 msgid "[Malformed multipart message]"
 msgstr "[Message multi-parties mal formé]"
 
-#: src/mailbox.cc:749
+#: src/mailbox.cc:759
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Impossible de trouver la première partie du message]"
 
-#: src/mailbox.cc:795
+#: src/mailbox.cc:805
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Ce message possède un contenu de type non supporté: \"%s/%s\"]"
+
+#: src/mailbox.cc:1204
+#, c-format
+msgid ""
+"Error when compiling a regular expression.\n"
+"Regular expression: %s\n"
+"Error message: %s"
+msgstr ""
 
 #: src/header.cc:149
 #, c-format
@@ -289,17 +297,17 @@ msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
 
-#: src/options.cc:530
+#: src/options.cc:561
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr "Option inconnue \"%s\""
 
-#: src/options.cc:537
+#: src/options.cc:568
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Impossible de mettre l'option \"%s\" à \"%s\""
 
-#: src/options.cc:691 src/gui.cc:274
+#: src/options.cc:722 src/gui.cc:274
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
@@ -347,7 +355,7 @@ msgstr "erreur"
 msgid " checking..."
 msgstr " consultation..."
 
-#: src/ui-preferences.cc:269 src/ui-popup.cc:160
+#: src/ui-preferences.cc:269 src/ui-popup.cc:163
 msgid "Mailbox"
 msgstr "Boîte aux lettres"
 
@@ -437,15 +445,15 @@ msgstr "Chercher une fichier ou un répertoire"
 msgid "Browse for a certificate file"
 msgstr "Chercher un certificat"
 
-#: src/ui-popup.cc:172
+#: src/ui-popup.cc:175
 msgid "From"
 msgstr "De"
 
-#: src/ui-popup.cc:178
+#: src/ui-popup.cc:181
 msgid "Subject"
 msgstr "Sujet"
 
-#: src/ui-popup.cc:184
+#: src/ui-popup.cc:187
 msgid "Date"
 msgstr "Date"
 

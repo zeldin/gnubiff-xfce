@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-04-09 17:44+0200\n"
+"POT-Creation-Date: 2006-07-30 21:20+0200\n"
 "PO-Revision-Date: 2005-04-03 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -88,108 +88,116 @@ msgstr "kugirango"
 msgid "Configuration file (%s) not found!"
 msgstr "IDOSIYE OYA Byabonetse"
 
-#: src/biff.cc:590
+#: src/biff.cc:598
 #, fuzzy, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr "IDOSIYE Bivuye ki/ bishaje Verisiyo"
 
-#: src/biff.cc:598
+#: src/biff.cc:606
 #, fuzzy, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "IDOSIYE Bivuye ki/ bishaje Verisiyo"
 
-#: src/biff.cc:600
+#: src/biff.cc:608
 #, fuzzy
 msgid "Trying to convert all options."
 msgstr "Kuri GUHINDURA Byose Amahitamo"
 
-#: src/biff.cc:644
+#: src/biff.cc:652
 #, fuzzy
 msgid "Successfully converted all options."
 msgstr "Byose Amahitamo"
 
-#: src/biff.cc:647
+#: src/biff.cc:655
 #, fuzzy, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr "Amahitamo Amahitamo"
 
-#: src/biff.cc:790
+#: src/biff.cc:798
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Gufungura Iboneza IDOSIYE"
 
-#: src/biff.cc:806
+#: src/biff.cc:814
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Kurema kugirango IDOSIYE"
 
-#: src/biff.cc:823
+#: src/biff.cc:831
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Oya Insobanuro in Iboneza IDOSIYE"
 
-#: src/biff.cc:870
+#: src/biff.cc:878
 #, fuzzy
 msgid "Illegal parameter format in config file"
 msgstr "Imiterere in IDOSIYE"
 
-#: src/biff.cc:899
+#: src/biff.cc:907
 #, fuzzy, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Porotokole kugirango"
 
-#: src/mailbox.cc:135
+#: src/mailbox.cc:144
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d]Kuri Kurema Urudodo"
 
-#: src/mailbox.cc:307
+#: src/mailbox.cc:316
 #, c-format
 msgid "mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:622
+#: src/mailbox.cc:638
 #, fuzzy
 msgid "<no date>"
 msgstr "<Oya Itariki"
 
-#: src/mailbox.cc:623
+#: src/mailbox.cc:639
 #, fuzzy
 msgid "<no sender>"
 msgstr "<Oya Uwohereza"
 
 # # generics string
-#: src/mailbox.cc:624
+#: src/mailbox.cc:640
 #, fuzzy
 msgid "<no subject>"
 msgstr "<nta mutwe)"
 
-#: src/mailbox.cc:671
+#: src/mailbox.cc:689
 #, fuzzy
 msgid "[Cannot parse content type header line]"
 msgstr "[Ibikubiyemo Ubwoko Umutwempangano Umurongo"
 
-#: src/mailbox.cc:692
+#: src/mailbox.cc:710
 #, fuzzy
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Ibikubiyemo Imisobekere: Umutwempangano Umurongo"
 
-#: src/mailbox.cc:741
+#: src/mailbox.cc:751
 #, fuzzy
 msgid "[Malformed multipart message]"
 msgstr "[Ubutumwa"
 
-#: src/mailbox.cc:749
+#: src/mailbox.cc:759
 #, fuzzy
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Gushaka Itangira Itangiriro in i Ubutumwa"
 
-#: src/mailbox.cc:795
+#: src/mailbox.cc:805
 #, fuzzy, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Ubutumwa Ibikubiyemo Ubwoko"
+
+#: src/mailbox.cc:1204
+#, c-format
+msgid ""
+"Error when compiling a regular expression.\n"
+"Regular expression: %s\n"
+"Error message: %s"
+msgstr ""
 
 #: src/header.cc:149
 #, fuzzy, c-format
@@ -305,17 +313,17 @@ msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr "[%d]Na: ku Kugena Imiterere Igihe"
 
-#: src/options.cc:530
+#: src/options.cc:561
 #, fuzzy, c-format
 msgid "Unknown option \"%s\""
 msgstr "Ihitamo ritazwi:"
 
-#: src/options.cc:537
+#: src/options.cc:568
 #, fuzzy, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Gushyiraho Ihitamo Kuri"
 
-#: src/options.cc:691 src/gui.cc:274
+#: src/options.cc:722 src/gui.cc:274
 #, fuzzy, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Gushaka i muri xml Imiterere"
@@ -360,7 +368,7 @@ msgstr "Ikosa"
 msgid " checking..."
 msgstr ""
 
-#: src/ui-preferences.cc:269 src/ui-popup.cc:160
+#: src/ui-preferences.cc:269 src/ui-popup.cc:163
 msgid "Mailbox"
 msgstr ""
 
@@ -465,7 +473,7 @@ msgid "Browse for a certificate file"
 msgstr "kugirango a Impamyabushobozi IDOSIYE"
 
 # officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Memo.Elements.From.text
-#: src/ui-popup.cc:172
+#: src/ui-popup.cc:175
 msgid "From"
 msgstr "Bivuye"
 
@@ -479,11 +487,11 @@ msgstr "Bivuye"
 # officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Fax.Save.DocInfoSubject.text
 # #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
 # officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Memo.Save.DocInfoSubject.text
-#: src/ui-popup.cc:178
+#: src/ui-popup.cc:181
 msgid "Subject"
 msgstr "Ikivugwaho"
 
-#: src/ui-popup.cc:184
+#: src/ui-popup.cc:187
 msgid "Date"
 msgstr "Itariki"
 

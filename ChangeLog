@@ -15,6 +15,8 @@ Version 2.2.2
         (feature request #1493670 by sunyata and others)
    - Cleanup: Substituted static mutex for popup by regular mutex
    - Cleanup: Added test for header file "regex.h" in "configure.ac"
+   - Bugfix: Status of multipart messages (thanks to Chris Kemp for reporting
+        and fixing this bug)
 
 Version 2.2.1		2006-05-14 20:08
  * Robert Sowada

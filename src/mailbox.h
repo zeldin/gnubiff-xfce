@@ -154,7 +154,7 @@ public:
 	void parse (std::vector<std::string> &mail,
 				std::string uid = std::string(""),
 				class PartInfo *pi = NULL, class Header *hh = NULL,
-				guint pos = 0);
+				guint pos = 0, gboolean status = true);
 	guint static standard_port (guint protocol, guint auth,
 								gboolean strict = true);
 

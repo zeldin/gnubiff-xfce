@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-04-09 17:44+0200\n"
+"POT-Creation-Date: 2006-07-30 21:20+0200\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -72,97 +72,105 @@ msgstr ""
 msgid "Configuration file (%s) not found!"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: src/biff.cc:590
+#: src/biff.cc:598
 #, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:598
+#: src/biff.cc:606
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 
-#: src/biff.cc:600
+#: src/biff.cc:608
 msgid "Trying to convert all options."
 msgstr ""
 
-#: src/biff.cc:644
+#: src/biff.cc:652
 msgid "Successfully converted all options."
 msgstr ""
 
-#: src/biff.cc:647
+#: src/biff.cc:655
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: src/biff.cc:790
+#: src/biff.cc:798
 #, fuzzy, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: src/biff.cc:806
+#: src/biff.cc:814
 #, fuzzy
 msgid "Cannot create XML parser for config file"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: src/biff.cc:823
+#: src/biff.cc:831
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: src/biff.cc:870
+#: src/biff.cc:878
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: src/biff.cc:899
+#: src/biff.cc:907
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:135
+#: src/mailbox.cc:144
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: src/mailbox.cc:307
+#: src/mailbox.cc:316
 #, fuzzy, c-format
 msgid "mailbox %d"
 msgstr "Nici un mail"
 
-#: src/mailbox.cc:622
+#: src/mailbox.cc:638
 msgid "<no date>"
 msgstr ""
 
-#: src/mailbox.cc:623
+#: src/mailbox.cc:639
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:624
+#: src/mailbox.cc:640
 #, fuzzy
 msgid "<no subject>"
 msgstr "Subiect"
 
-#: src/mailbox.cc:671
+#: src/mailbox.cc:689
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: src/mailbox.cc:692
+#: src/mailbox.cc:710
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: src/mailbox.cc:741
+#: src/mailbox.cc:751
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:749
+#: src/mailbox.cc:759
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:795
+#: src/mailbox.cc:805
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
+msgstr ""
+
+#: src/mailbox.cc:1204
+#, c-format
+msgid ""
+"Error when compiling a regular expression.\n"
+"Regular expression: %s\n"
+"Error message: %s"
 msgstr ""
 
 #: src/header.cc:149
@@ -278,17 +286,17 @@ msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
 msgstr ""
 
-#: src/options.cc:530
+#: src/options.cc:561
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr ""
 
-#: src/options.cc:537
+#: src/options.cc:568
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr ""
 
-#: src/options.cc:691 src/gui.cc:274
+#: src/options.cc:722 src/gui.cc:274
 #, fuzzy, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Nu am putut gãsi widgetul specificat (\"%s\") în structura de tree xml"
@@ -332,7 +340,7 @@ msgstr ""
 msgid " checking..."
 msgstr ""
 
-#: src/ui-preferences.cc:269 src/ui-popup.cc:160
+#: src/ui-preferences.cc:269 src/ui-popup.cc:163
 msgid "Mailbox"
 msgstr "Mailbox"
 
@@ -424,15 +432,15 @@ msgstr "Rãsfoire(browse) dupã fiºier"
 msgid "Browse for a certificate file"
 msgstr "Rãsfoire(browse) dupã fiºier"
 
-#: src/ui-popup.cc:172
+#: src/ui-popup.cc:175
 msgid "From"
 msgstr "De la"
 
-#: src/ui-popup.cc:178
+#: src/ui-popup.cc:181
 msgid "Subject"
 msgstr "Subiect"
 
-#: src/ui-popup.cc:184
+#: src/ui-popup.cc:187
 msgid "Date"
 msgstr "Data"
 
