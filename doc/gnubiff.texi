@@ -266,6 +266,7 @@ Various contributors:@*
 @item Grzegorz Gotawski
 @item Samuel Hym
 @item Satou Kazuhito
+@item Chris Kemp
 @item Earl Killian
 @item Marc-Jano Knopp
 @item Paul Kuliniewicz
