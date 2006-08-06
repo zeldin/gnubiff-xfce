@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-07-30 21:20+0200\n"
+"POT-Creation-Date: 2006-08-06 18:55+0200\n"
 "PO-Revision-Date: 2006-03-27 11:59+0200\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -139,40 +139,40 @@ msgstr "[%d] Impossible de créer le thread: %s"
 msgid "mailbox %d"
 msgstr "Boîte aux lettres %d"
 
-#: src/mailbox.cc:638
+#: src/mailbox.cc:641
 msgid "<no date>"
 msgstr "<Pas de date>"
 
-#: src/mailbox.cc:639
+#: src/mailbox.cc:642
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: src/mailbox.cc:640
+#: src/mailbox.cc:643
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: src/mailbox.cc:689
+#: src/mailbox.cc:692
 msgid "[Cannot parse content type header line]"
 msgstr "[Impossible de décoder le type de la ligne d'entête]"
 
-#: src/mailbox.cc:710
+#: src/mailbox.cc:713
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Impossible de décoder le code de la ligne d'entête]"
 
-#: src/mailbox.cc:751
+#: src/mailbox.cc:754
 msgid "[Malformed multipart message]"
 msgstr "[Message multi-parties mal formé]"
 
-#: src/mailbox.cc:759
+#: src/mailbox.cc:762
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Impossible de trouver la première partie du message]"
 
-#: src/mailbox.cc:805
+#: src/mailbox.cc:808
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Ce message possède un contenu de type non supporté: \"%s/%s\"]"
 
-#: src/mailbox.cc:1204
+#: src/mailbox.cc:1207
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"

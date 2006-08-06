@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gbiff 0.3.0\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-07-30 21:20+0200\n"
+"POT-Creation-Date: 2006-08-06 18:55+0200\n"
 "PO-Revision-Date: 2003-09-14 12:53+0300\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -131,41 +131,41 @@ msgstr ""
 msgid "mailbox %d"
 msgstr "Nici un mail"
 
-#: src/mailbox.cc:638
+#: src/mailbox.cc:641
 msgid "<no date>"
 msgstr ""
 
-#: src/mailbox.cc:639
+#: src/mailbox.cc:642
 msgid "<no sender>"
 msgstr ""
 
-#: src/mailbox.cc:640
+#: src/mailbox.cc:643
 #, fuzzy
 msgid "<no subject>"
 msgstr "Subiect"
 
-#: src/mailbox.cc:689
+#: src/mailbox.cc:692
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: src/mailbox.cc:710
+#: src/mailbox.cc:713
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: src/mailbox.cc:751
+#: src/mailbox.cc:754
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:759
+#: src/mailbox.cc:762
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: src/mailbox.cc:805
+#: src/mailbox.cc:808
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr ""
 
-#: src/mailbox.cc:1204
+#: src/mailbox.cc:1207
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"

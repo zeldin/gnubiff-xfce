@@ -5,6 +5,10 @@ Copyright (C) 2000-2006 Nicolas Rougier <Nicolas.Rougier@loria.fr> and
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.2.3
+ * Robert Sowada
+   - Changed version to 2.2.3
+	
 Version 2.2.2           2006-08-06 18:47
  * Robert Sowada
    - Changed version to 2.2.2
@@ -16,7 +20,7 @@ Version 2.2.2           2006-08-06 18:47
    - Cleanup: Substituted static mutex for popup by regular mutex
    - Cleanup: Added test for header file "regex.h" in "configure.ac"
    - Bugfix: Status of multipart messages (thanks to Chris Kemp for reporting
-        and fixing this bug)
+        and fixing this bug; bug was reported as #1514879 before by mtorroja)
    - Added Chris Kemp to contributors
    - Updated German Translation
 
