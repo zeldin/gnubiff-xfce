@@ -171,6 +171,9 @@ msgid ""
 "Regular expression: %s\n"
 "Error message: %s"
 msgstr ""
+"Fehler beim Übersetzen eines regulären Ausdrucks.\n"
+"Regulärer Ausdruck: %s\n"
+"Fehlermeldung: %s"
 
 #: src/header.cc:149
 #, c-format
