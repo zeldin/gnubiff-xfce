@@ -1,8 +1,16 @@
 gnubiff -- History of visible changes.
 
-Copyright (C) 2000-2005, Nicolas Rougier <Nicolas.Rougier@loria.fr>
+Copyright (C) 2000-2006 Nicolas Rougier <Nicolas.Rougier@loria.fr>,
+              2004-2006 Robert Sowada <sowadart@gmx.de>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
+
+Version 2.2.2
+This is a minor feature release. Changes:
+ * Some bug fixes
+ * Updated Hungarian translation (thanks to Wallner Adam)
+ * Updated Vietnamese translation (thanks to Clytie Siddall)
+ * Options for filtering messages via regular expressions
 
 Version 2.2.1
 This is a minor feature release. Changes:

@@ -5,7 +5,7 @@ Copyright (C) 2000-2006 Nicolas Rougier <Nicolas.Rougier@loria.fr> and
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
-Version 2.2.2
+Version 2.2.2           2006-08-06 18:47
  * Robert Sowada
    - Changed version to 2.2.2
    - Bugfix: Obtaining the panel's size (GNOME)
