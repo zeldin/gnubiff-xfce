@@ -8,6 +8,8 @@ Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 Version 2.2.3
  * Robert Sowada
    - Changed version to 2.2.3
+   - Bugfix: Encrypting passwords that are longer than 16 characters (debian
+        bug #378233; thanks to Julio Mendoza for reporting this bug)
 	
 Version 2.2.2           2006-08-06 18:47
  * Robert Sowada

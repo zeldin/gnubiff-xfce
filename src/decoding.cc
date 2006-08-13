@@ -791,7 +791,7 @@ Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 
 	// Determine size and allocate memory
 	guint size = data.size()/2;
-	if (size == 0)
+	if ((size == 0) || (size%16 != 0))
 		return std::string ("");
 	unsigned char *bin = new unsigned char[size+1];
 	if (!bin)
@@ -808,8 +808,11 @@ Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 
 	// Decrypt via AES
 	AES_KEY aes_key;
-	AES_set_decrypt_key ((unsigned char *)passphrase.c_str (), 128, &aes_key);
-	AES_decrypt (bin, result, &aes_key);
+	for (guint i = 0; i < size; i+=16) {
+		AES_set_decrypt_key ((unsigned char *)passphrase.c_str (), 128,
+							 &aes_key);
+		AES_decrypt (bin + i, result + i, &aes_key);
+	}
 
 	// Free memory
 	std::string result_str = std::string ((char *)result);
@@ -839,6 +842,7 @@ Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
 {
 #ifdef HAVE_AES
 	const char hex[] = "0123456789ABCDEF";
+	unsigned char *dataptr = (unsigned char *)data.c_str ();
 
 	// Check Passphrase
 	if (passphrase.size() < 16)
@@ -854,8 +858,11 @@ Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
 
 	// Encrypt via AES
 	AES_KEY aes_key;
-	AES_set_encrypt_key ((unsigned char *)passphrase.c_str (), 128, &aes_key);
-	AES_encrypt ((unsigned char *)data.c_str (), result, &aes_key);
+	for (guint i = 0; i < size; i+=16) {
+		AES_set_encrypt_key ((unsigned char *)passphrase.c_str (), 128,
+							 &aes_key);
+		AES_encrypt (dataptr + i, result + i, &aes_key);
+	}
 
 	// Binary to ASCII
 	for (guint i = size; i > 0; i--) {
