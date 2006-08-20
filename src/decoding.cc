@@ -785,8 +785,11 @@ std::string
 Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 {
 #ifdef HAVE_AES
+	unsigned char *phraseptr = (unsigned char *)passphrase.c_str ();
+	guint phraselen = passphrase.size();
+
 	// Check Passphrase
-	if (passphrase.size() < 16)
+	if (phraselen < 16)
 		return std::string ("");
 
 	// Determine size and allocate memory
@@ -808,9 +811,10 @@ Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 
 	// Decrypt via AES
 	AES_KEY aes_key;
-	for (guint i = 0; i < size; i+=16) {
-		AES_set_decrypt_key ((unsigned char *)passphrase.c_str (), 128,
-							 &aes_key);
+	for (guint i = 0, j = 0; i < size; i+=16) {
+		if (++j > phraselen - 16)
+			j = 0;
+		AES_set_decrypt_key (phraseptr + j, 128, &aes_key);
 		AES_decrypt (bin + i, result + i, &aes_key);
 	}
 
@@ -843,13 +847,15 @@ Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
 #ifdef HAVE_AES
 	const char hex[] = "0123456789ABCDEF";
 	unsigned char *dataptr = (unsigned char *)data.c_str ();
+	unsigned char *phraseptr = (unsigned char *)passphrase.c_str ();
+	guint phraselen = passphrase.size();
 
 	// Check Passphrase
-	if (passphrase.size() < 16)
+	if (phraselen < 16)
 		return std::string ("");
 
 	// Determine size and allocate memory
-	guint size = (data.size()+15)/16*16;
+	guint size = (data.size()+16)/16*16;
 	if (size == 0)
 		return std::string ("");
 	unsigned char *result = new unsigned char[2*size];
@@ -858,9 +864,10 @@ Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
 
 	// Encrypt via AES
 	AES_KEY aes_key;
-	for (guint i = 0; i < size; i+=16) {
-		AES_set_encrypt_key ((unsigned char *)passphrase.c_str (), 128,
-							 &aes_key);
+	for (guint i = 0, j = 0; i < size; i += 16) {
+		if (++j > phraselen - 16)
+			j = 0;
+		AES_set_encrypt_key (phraseptr + j, 128, &aes_key);
 		AES_encrypt (dataptr + i, result + i, &aes_key);
 	}
 
