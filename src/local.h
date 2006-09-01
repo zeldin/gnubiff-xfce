@@ -53,12 +53,14 @@ const gboolean use_fam = 0;
 class Local : public Mailbox {
 
 protected:
+#ifdef HAVE_FAM_H
 	// ========================================================================
 	//  monitoring stuff (using FAM, File Alteration Monitor)
 	// ========================================================================
 	FAMConnection   fam_connection_;
 	FAMRequest      fam_request_;
 	FAMEvent        fam_event_;
+#endif
 	/**
 	 *  This boolean indicates whether a FAM connection is being open or not.
 	 *  It must only be read or changed when the fam_mutex_ is locked by the
