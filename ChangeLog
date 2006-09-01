@@ -11,6 +11,7 @@ Version 2.2.3
    - Bugfix: Encrypting passwords that are longer than 16 characters (debian
         bug #378233; thanks to Julio Mendoza for reporting this bug)
    - Bugfix: Encrypting passwords that have a length of 16, 32, 48 etc.
+   - Bugfix: Code fixes to avoid gcc warnings
 	
 Version 2.2.2           2006-08-06 18:47
  * Robert Sowada

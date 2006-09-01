@@ -375,7 +375,7 @@ GUI_connect (const gchar *handler_name,
 			 gpointer user_data)
 {
 	GModule *symbols = 0;
-	GtkSignalFunc func;
+	GtkSignalFunc func = NULL, *func_ptr = &func;
  
 	if (!symbols) {
 		if (!g_module_supported()) {
@@ -384,8 +384,8 @@ GUI_connect (const gchar *handler_name,
 		}
 		symbols = g_module_open (0, G_MODULE_BIND_MASK);
 	}
- 
-	if (!g_module_symbol(symbols, handler_name, (gpointer *) &func))
+
+	if (!g_module_symbol(symbols, handler_name,(gpointer *) func_ptr))
 		g_warning(_("Could not find signal handler '%s'."), handler_name);
 	else
 		g_signal_connect (object, signal_name, GTK_SIGNAL_FUNC(func), user_data);
