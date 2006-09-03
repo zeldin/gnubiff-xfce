@@ -812,10 +812,10 @@ Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 	// Decrypt via AES
 	AES_KEY aes_key;
 	for (guint i = 0, j = 0; i < size; i+=16) {
-		if (++j > phraselen - 16)
-			j = 0;
 		AES_set_decrypt_key (phraseptr + j, 128, &aes_key);
 		AES_decrypt (bin + i, result + i, &aes_key);
+		if (++j > phraselen - 16)
+			j = 0;
 	}
 
 	// Free memory
@@ -865,10 +865,10 @@ Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
 	// Encrypt via AES
 	AES_KEY aes_key;
 	for (guint i = 0, j = 0; i < size; i += 16) {
-		if (++j > phraselen - 16)
-			j = 0;
 		AES_set_encrypt_key (phraseptr + j, 128, &aes_key);
 		AES_encrypt (dataptr + i, result + i, &aes_key);
+		if (++j > phraselen - 16)
+			j = 0;
 	}
 
 	// Binary to ASCII
