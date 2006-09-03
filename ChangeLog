@@ -15,6 +15,9 @@ Version 2.2.3
    - Bugfix: Ignore SIGPIPE signal for using SSL properly
    - Bugfix: Compiling without "fam.h" (thanks to Tom K. for reporting this
         bug)
+   - Bugfix: Short password compatibility (debian bug #385625 by Antoine
+        Sirinelli)
+   - Added Julio Mendoza and Antoine Sirinelli to contributors
 
 Version 2.2.2           2006-08-06 18:47
  * Robert Sowada

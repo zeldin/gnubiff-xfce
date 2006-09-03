@@ -275,6 +275,7 @@ Various contributors:@*
 @item Jason Lowdermilk
 @item Sascha Ludecke
 @item Calum Mackay
+@item Julio Mendoza
 @item Michael Moellney
 @item Sophie Morel
 @item David Mosberger
@@ -289,6 +290,7 @@ Various contributors:@*
 @item Achim Settelmeier
 @item Phil Shapiro
 @item Clytie Siddall
+@item Antoine Sirinelli
 @item Erik Sittman
 @item Barry Skidmore
 @item Chris Snell
