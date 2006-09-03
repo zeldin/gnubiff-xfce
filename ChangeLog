@@ -18,6 +18,8 @@ Version 2.2.3
    - Bugfix: Short password compatibility (debian bug #385625 by Antoine
         Sirinelli)
    - Added Julio Mendoza and Antoine Sirinelli to contributors
+   - Bugfix: Including "sys/types.h" when including "regex.h" (needed for
+        FreeBSD 4; thanks to Tim Bishop for reporting)
 
 Version 2.2.2           2006-08-06 18:47
  * Robert Sowada

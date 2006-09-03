@@ -38,6 +38,7 @@
 #include <functional>
 #include <glib.h>
 #include <map>
+#include <sys/types.h>
 #include <regex.h>
 #include <set>
 #include <string>
