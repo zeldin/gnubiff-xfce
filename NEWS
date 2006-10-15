@@ -5,6 +5,12 @@ Copyright (C) 2000-2006 Nicolas Rougier <Nicolas.Rougier@loria.fr>,
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.2.3
+This is a minor feature release. Changes:
+ * Passwords longer than 15 characters are now handled properly
+ * Compiling without fam.h is now possible
+ * Some other bug fixes
+
 Version 2.2.2
 This is a minor feature release. Changes:
  * Some bug fixes

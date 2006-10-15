@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.3\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-08-06 18:55+0200\n"
+"POT-Creation-Date: 2006-10-15 18:40+0200\n"
 "PO-Revision-Date: 2005-05-07 13:50+0200\n"
 "Last-Translator: Josef Vybiral <josef.vybiral@gmail.com>\n"
 "Language-Team: Czech < >\n"
@@ -122,50 +122,50 @@ msgstr "Neplatný formát parametru v konfiguračním souboru"
 msgid "No protocol specified for mailbox %d"
 msgstr "Pro schránku %d nebyl určen žádný protokol"
 
-#: src/mailbox.cc:144
+#: src/mailbox.cc:145
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Nemohu vytvořit vlákno: %s"
 
-#: src/mailbox.cc:316
+#: src/mailbox.cc:317
 #, c-format
 msgid "mailbox %d"
 msgstr "schránka %d"
 
-#: src/mailbox.cc:641
+#: src/mailbox.cc:642
 msgid "<no date>"
 msgstr "<žádné datum>"
 
-#: src/mailbox.cc:642
+#: src/mailbox.cc:643
 msgid "<no sender>"
 msgstr "<žádný odesílatel>"
 
-#: src/mailbox.cc:643
+#: src/mailbox.cc:644
 msgid "<no subject>"
 msgstr "<žádný předmět>"
 
-#: src/mailbox.cc:692
+#: src/mailbox.cc:693
 msgid "[Cannot parse content type header line]"
 msgstr "[Nemohu parsovat hlavičku určující typ obsahu]"
 
-#: src/mailbox.cc:713
+#: src/mailbox.cc:714
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Nemohu parsovat obsah hlavičky určující kódování obsahu]"
 
-#: src/mailbox.cc:754
+#: src/mailbox.cc:755
 msgid "[Malformed multipart message]"
 msgstr "[Špatně formátovaný mail z více částí]"
 
-#: src/mailbox.cc:762
+#: src/mailbox.cc:763
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Nemohu nalézt začátek první části ve zprávě složené z více částí]"
 
-#: src/mailbox.cc:808
+#: src/mailbox.cc:809
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Tato zpráva má nepodporovaný typ obsahu: \"%s/%s\"]"
 
-#: src/mailbox.cc:1207
+#: src/mailbox.cc:1208
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"

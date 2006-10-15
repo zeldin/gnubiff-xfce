@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.2\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-08-06 18:55+0200\n"
+"POT-Creation-Date: 2006-10-15 18:40+0200\n"
 "PO-Revision-Date: 2005-04-03 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -140,58 +140,58 @@ msgstr "Imiterere in IDOSIYE"
 msgid "No protocol specified for mailbox %d"
 msgstr "Porotokole kugirango"
 
-#: src/mailbox.cc:144
+#: src/mailbox.cc:145
 #, fuzzy, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d]Kuri Kurema Urudodo"
 
-#: src/mailbox.cc:316
+#: src/mailbox.cc:317
 #, c-format
 msgid "mailbox %d"
 msgstr ""
 
-#: src/mailbox.cc:641
+#: src/mailbox.cc:642
 #, fuzzy
 msgid "<no date>"
 msgstr "<Oya Itariki"
 
-#: src/mailbox.cc:642
+#: src/mailbox.cc:643
 #, fuzzy
 msgid "<no sender>"
 msgstr "<Oya Uwohereza"
 
 # # generics string
-#: src/mailbox.cc:643
+#: src/mailbox.cc:644
 #, fuzzy
 msgid "<no subject>"
 msgstr "<nta mutwe)"
 
-#: src/mailbox.cc:692
+#: src/mailbox.cc:693
 #, fuzzy
 msgid "[Cannot parse content type header line]"
 msgstr "[Ibikubiyemo Ubwoko Umutwempangano Umurongo"
 
-#: src/mailbox.cc:713
+#: src/mailbox.cc:714
 #, fuzzy
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Ibikubiyemo Imisobekere: Umutwempangano Umurongo"
 
-#: src/mailbox.cc:754
+#: src/mailbox.cc:755
 #, fuzzy
 msgid "[Malformed multipart message]"
 msgstr "[Ubutumwa"
 
-#: src/mailbox.cc:762
+#: src/mailbox.cc:763
 #, fuzzy
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Gushaka Itangira Itangiriro in i Ubutumwa"
 
-#: src/mailbox.cc:808
+#: src/mailbox.cc:809
 #, fuzzy, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Ubutumwa Ibikubiyemo Ubwoko"
 
-#: src/mailbox.cc:1207
+#: src/mailbox.cc:1208
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"
