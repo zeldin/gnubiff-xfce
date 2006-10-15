@@ -6,7 +6,7 @@ See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
 Version 2.2.3
-This is a minor feature release. Changes:
+This is a minor bugfix release. Changes:
  * Passwords longer than 15 characters are now handled properly
  * Compiling without fam.h is now possible
  * Some other bug fixes
