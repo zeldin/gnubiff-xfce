@@ -236,6 +236,7 @@ Translators:@*
 @item Victor Alonso (es)
 @item Elros Cyriatan (nl)
 @item Stefano Fabri (it)
+@item Gunther Furtado (pt_BR)
 @item Nicols Lichtmaler (es)
 @item Michel Robitaille (fr)
 @item Nicolas Rougier (fr)
