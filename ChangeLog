@@ -10,6 +10,7 @@ Version 2.2.4
    - Changed version to 2.2.4
    - Bugfix: Option "filter_global_last" was not available
    - Updated intltool (to version 0.35.0) and gettext (to version 0.15) files
+   - Feature: Portuguese translation (thanks to Gunther Furtado)
 	
 Version 2.2.3		2006-10-15 18:46
  * Robert Sowada
