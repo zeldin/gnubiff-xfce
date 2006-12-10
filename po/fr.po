@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-10-15 18:40+0200\n"
+"POT-Creation-Date: 2006-12-10 19:47+0100\n"
 "PO-Revision-Date: 2006-03-27 11:59+0200\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -387,7 +387,7 @@ msgstr "Valeur"
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:3386
+#: src/ui-preferences.cc:617 ui/preferences.glade:3459
 msgid "_Stop"
 msgstr "_Stopper"
 
@@ -849,11 +849,11 @@ msgstr ""
 "gnubiff dans les différents langages (les traducteurs des versions "
 "précédentes sont marqués d'un astérisque):</small>"
 
-#: ui/preferences.glade:3166
+#: ui/preferences.glade:3239
 msgid "Translators"
 msgstr "Traducteurs"
 
-#: ui/preferences.glade:3196
+#: ui/preferences.glade:3269
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -867,23 +867,23 @@ msgstr ""
 "  - soumettant du code\n"
 "Voici une liste de ces personnes:</small>"
 
-#: ui/preferences.glade:3267
+#: ui/preferences.glade:3340
 msgid "Contributors"
 msgstr "Contributeurs"
 
-#: ui/preferences.glade:3303
+#: ui/preferences.glade:3376
 msgid "Credits"
 msgstr "Remerciements"
 
-#: ui/preferences.glade:3442
+#: ui/preferences.glade:3515
 msgid "Set to default value"
 msgstr "Mettre la valeur par défaut"
 
-#: ui/preferences.glade:3463
+#: ui/preferences.glade:3536
 msgid "Toggle option"
 msgstr "Basculer l'option"
 
-#: ui/preferences.glade:3484
+#: ui/preferences.glade:3557
 msgid "Edit option"
 msgstr "Editer l'option"
 

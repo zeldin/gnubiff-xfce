@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.1.3\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-10-15 18:40+0200\n"
+"POT-Creation-Date: 2006-12-10 19:47+0100\n"
 "PO-Revision-Date: 2005-05-07 13:50+0200\n"
 "Last-Translator: Josef Vybiral <josef.vybiral@gmail.com>\n"
 "Language-Team: Czech < >\n"
@@ -377,7 +377,7 @@ msgstr "Hodnota"
 msgid "_Start"
 msgstr "_Start"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:3386
+#: src/ui-preferences.cc:617 ui/preferences.glade:3459
 msgid "_Stop"
 msgstr "_Stop"
 
@@ -815,11 +815,11 @@ msgid ""
 "asterisk):</small>"
 msgstr ""
 
-#: ui/preferences.glade:3166
+#: ui/preferences.glade:3239
 msgid "Translators"
 msgstr "Překladatelé"
 
-#: ui/preferences.glade:3196
+#: ui/preferences.glade:3269
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -833,23 +833,23 @@ msgstr ""
 "  - zasíláním aktuálního kódu\n"
 "Tady je seznam těchto lidí:</small>"
 
-#: ui/preferences.glade:3267
+#: ui/preferences.glade:3340
 msgid "Contributors"
 msgstr "Přispěvatelé"
 
-#: ui/preferences.glade:3303
+#: ui/preferences.glade:3376
 msgid "Credits"
 msgstr "Kredity"
 
-#: ui/preferences.glade:3442
+#: ui/preferences.glade:3515
 msgid "Set to default value"
 msgstr "Nastavit na výchozí hodnotu"
 
-#: ui/preferences.glade:3463
+#: ui/preferences.glade:3536
 msgid "Toggle option"
 msgstr "Přepnout volbu"
 
-#: ui/preferences.glade:3484
+#: ui/preferences.glade:3557
 msgid "Edit option"
 msgstr "Upravit volbu"
 
