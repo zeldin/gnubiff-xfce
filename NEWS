@@ -5,6 +5,11 @@ Copyright (C) 2000-2006 Nicolas Rougier <Nicolas.Rougier@loria.fr>,
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.2.4
+This is a minor bugfix release. Changes:
+ * Some bug fixes
+ * Portuguese translation now available (thanks to Gunther Furtado)
+
 Version 2.2.3
 This is a minor bugfix release. Changes:
  * Passwords longer than 15 characters are now handled properly
