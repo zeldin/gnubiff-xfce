@@ -56,9 +56,9 @@ AppletGUI::AppletGUI (Biff *biff, std::string filename, gpointer callbackdata)
 
 	// Create image animation
 	GtkImageAnimation *anim = new GtkImageAnimation (GTK_IMAGE(get("image")));
-	g_object_set_data (G_OBJECT(get("image")), "_animation_", anim);
+	g_object_set_data (G_OBJECT (get ("image")), "_animation_", anim);
 	anim->open (biff_->value_string ("newmail_image"));
-	anim->start();
+	anim->start ();
 
 	// Create preferences dialog
 	preferences_ = new Preferences (biff_);
@@ -74,6 +74,9 @@ AppletGUI::AppletGUI (Biff *biff, std::string filename, gpointer callbackdata)
 
 	// Connect signal for close button in about dialog (needed for gtk >=2.10)
 	g_signal_connect (get ("gnubiffabout"), "response",
+					  G_CALLBACK (gtk_widget_hide), get ("gnubiffabout"));
+	// Hide the about dialog when the delete event is signaled
+	g_signal_connect (get ("gnubiffabout"), "delete-event",
 					  G_CALLBACK (gtk_widget_hide), get ("gnubiffabout"));
 }
 
