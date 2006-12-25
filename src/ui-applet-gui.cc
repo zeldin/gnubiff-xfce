@@ -71,6 +71,10 @@ AppletGUI::AppletGUI (Biff *biff, std::string filename, gpointer callbackdata)
 
 	// Create authentication dialog
 	ui_auth_ = new Authentication ();
+
+	// Connect signal for close button in about dialog (needed for gtk >=2.10)
+	g_signal_connect (get ("gnubiffabout"), "response",
+					  G_CALLBACK (gtk_widget_hide), get ("gnubiffabout"));
 }
 
 /// Destructor

@@ -8,10 +8,13 @@ Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 Version 2.3.0
  * Robert Sowada
    - Changed version to 2.3.0 (from version 2.2.5)
+   - Port (from gnubiff 2.2.5 CVS) of about dialog closing bugfix
 	
 Version 2.2.5
  * Robert Sowada
    - Changed version to 2.2.5
+   - Fixed incompatibility in the about dialog (API change from gtk 2.8 to
+        gtk 2.10?; this bug was reported by Sebastian Breier as #1621270)
 
 Version 2.2.4		2006-12-10 19:47
  * Robert Sowada
