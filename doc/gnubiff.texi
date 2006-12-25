@@ -258,6 +258,7 @@ Various contributors:@*
 @item Wade Berrier
 @item Dennis Bjorklund
 @item Jan Blunck
+@item Sebastian Breier
 @item Alexis S. L. Carvalho
 @item Eric Cooper
 @item John Ellson
