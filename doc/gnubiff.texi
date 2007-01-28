@@ -238,6 +238,7 @@ Translators:@*
 @item Stefano Fabri (it)
 @item Gunther Furtado (pt_BR)
 @item Nicols Lichtmaler (es)
+@item Daniel Nylander (sv)
 @item Michel Robitaille (fr)
 @item Nicolas Rougier (fr)
 @item Clytie Siddall (vi)
