@@ -187,7 +187,7 @@ AppletGUI::start (gboolean showpref)
 	if (showpref)
 		show_dialog_preferences ();
 	else {
-		update (true);
+		update (true, "image", "unread", "fixed");
 		show ();
 		Applet::start (false);
 	}
@@ -215,10 +215,11 @@ AppletGUI::get_number_of_unread_messages (void)
  *  Update the applet status. This includes showing the
  *  image/animation that corresponds to the current status of gnubiff
  *  (no new messages or new messages are present). Also the text with
- *  the current number of new messages is updated. If present a container
- *  widget that contains the widgets for the image and the text may be
- *  updated too. The status of the popup window is updated (not when this
- *  function is called during the initialization of gnubiff).
+ *  the current number of new messages is updated. If present a
+ *  container widget that contains the widgets for the image and the
+ *  text may be updated too. The status of the popup window is updated
+ *  (this is not done when this function is called during the
+ *  initialization of gnubiff).
  *
  *  @param  init             True if called when initializing gnubiff (the
  *                           default is false).
@@ -378,7 +379,7 @@ AppletGUI::hide_dialog_preferences (void)
 		biff_->start_monitoring (3);
 
 	// Update applet's status
-	update (true);
+	update (true, "image", "unread", "fixed");
 	show();
 }
 
