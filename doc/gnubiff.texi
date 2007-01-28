@@ -7,7 +7,7 @@
 
 @copying
 This manual is for gnubiff version @value{VERSION} Copyright @copyright{}
-2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada.
+2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada.
 @quotation
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -261,6 +261,7 @@ Various contributors:@*
 @item Sebastian Breier
 @item Alexis S. L. Carvalho
 @item Eric Cooper
+@item Felipe Csaszar
 @item John Ellson
 @item Nicolas Evrard
 @item Greg Fenton
