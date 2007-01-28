@@ -1,7 +1,7 @@
 gnubiff -- History of visible changes.
 
-Copyright (C) 2000-2006 Nicolas Rougier <Nicolas.Rougier@loria.fr> and
-              2004-2006 Robert Sowada <sowadart@gmx.de>.
+Copyright (C) 2000-2007 Nicolas Rougier <Nicolas.Rougier@loria.fr> and
+              2004-2007 Robert Sowada <sowadart@gmx.de>.
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
@@ -12,9 +12,15 @@ Version 2.3.0
    - Added Sebastian Breier to contributors
    - Port (from gnubiff 2.2.5 CVS) of bugfix for determining initial image size
    - Added Felipe Csaszar to contributors
-   - Changed years in the About dialog to 2007
+   - Changed copyright years to 2007
+   - Updated Swedish translation (thanks to Daniel Nylander)
+
+Version 2.2.6
+ * Robert Sowada
+   - Changed version to 2.2.6
+   - Updated Swedish translation (thanks to Daniel Nylander)
 	
-Version 2.2.5
+Version 2.2.5		2007-01-28 16:08
  * Robert Sowada
    - Changed version to 2.2.5
    - Fixed incompatibility in the about dialog (API change from gtk 2.8 to
