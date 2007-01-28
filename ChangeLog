@@ -12,6 +12,7 @@ Version 2.3.0
    - Added Sebastian Breier to contributors
    - Port (from gnubiff 2.2.5 CVS) of bugfix for determining initial image size
    - Added Felipe Csaszar to contributors
+   - Changed years in the About dialog to 2007
 	
 Version 2.2.5
  * Robert Sowada
@@ -23,6 +24,7 @@ Version 2.2.5
    - Bugfix: Determining initial image size (thanks to Felipe Csaszar for
         reporting this bug)
    - Added Felipe Csaszar to contributors
+   - Changed years in the About dialog to 2007
 
 Version 2.2.4		2006-12-10 19:47
  * Robert Sowada
