@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -31,6 +31,7 @@
 
 #include <sstream>
 #include "decoding.h"
+#include "options.h"
 #include "nls.h"
 
 /** 
@@ -676,13 +677,13 @@ Decoding::utf8_to_imaputf7 (const gchar *str, gssize len)
  *  If the string cannot be converted and if {\em retries} is non
  *  zero, the string {\em text} without the last byte is converted (if
  *  possible). This is done because gnubiff cannot know the end of
- *  characters when decoding certain encodings (e.g. base64). If
- *  {\em retries} is zero an error message is returned.
+ *  characters when decoding certain encodings (e.g. base64). If this also
+ *  fails NULL is returned.
  *
  *  @param  text     String to be converted
  *  @param  charset  Character set of the string {\em text} or empty
  *  @param  retries  Maximum number of retries. The default is 0.
- *  @return          Converted string or error message (as character array).
+ *  @return          Converted string (as character array) or NULL.
  *                   This string has to be freed with g_free().
  */
 gchar * 
@@ -700,16 +701,64 @@ Decoding::charset_to_utf8 (std::string text, std::string charset,
 		return charset_to_utf8 (text.substr (0, text.size()-1), charset,
 								retries - 1);
 
-	// Could not convert at all!
-	if (!utf8) {
-		gchar *tmp = g_strdup_printf (_("[Cannot convert character sets "
-										"(from \"%s\" to \"utf-8\")]"),
-									  charset.empty() ? "C" : charset.c_str());
-		utf8 = g_locale_to_utf8 (tmp, -1, 0, 0, 0);
-		g_free (tmp);
+	return utf8;
+}
+
+/**
+ *  Convert the string {\em text} from the character set {\em charset} to
+ *  utf-8. If no character set is given the string is assumed to be in the
+ *  C runtime character set.
+ *
+ *  If the string cannot be converted with the given character set
+ *  {\em charset} the following things are tried (if not disabled by
+ *  setting the corresponding option):
+ *  \begin{itemize}
+ *     \item Removing all non-ASCII characters from {\em text}
+ *     \item Returning an error message
+ *  \end{\itemize}
+ *
+ *  @param  text     String to be converted
+ *  @param  charset  Character set of the string {\em text} or empty
+ *  @param  opts     Options
+ *  @return          Converted string or error message (as character array).
+ *                   This string has to be freed with g_free().
+ */
+gchar *
+Decoding::charset_to_utf8 (std::string text, std::string charset,
+						   class Options *opts)
+{
+	gchar *utf8 = NULL, *err = NULL;
+	if (!opts)
+		return NULL;
+
+	// Convert the text using the given charset
+	utf8 = charset_to_utf8 (text.substr (0, text.size()-1), charset,
+							opts->value_uint ("popup_convert_retries"));
+	if (utf8)
+		return utf8;
+
+	// Create error message
+	gchar *tmp = g_strdup_printf (_("[Cannot convert character sets "
+									"(from \"%s\" to \"utf-8\")]"),
+								  charset.empty() ? "C" : charset.c_str());
+	err = g_locale_to_utf8 (tmp, -1, 0, 0, 0);
+	g_free (tmp);
+
+	// Strip all non-ASCII characters
+	if (opts->value_bool ("popup_convert_strip_non_ascii")) {
+		std::string text_ascii;
+		for (std::string::size_type i = 0; i < text.size(); i++)
+			if (text[i] > 0 )
+				text_ascii += text[i];
+		// Append error message
+		text_ascii += std::string ("\n")+std::string (err)+std::string ("\n");
+		text_ascii += std::string (_("[Stripped non-ASCII characters "
+									 "from message]"));
+		return (gchar *)text_ascii.c_str();
 	}
 
-	return utf8;
+	// The text couldn't converted at all, so an error message is returned
+	return err;
 }
 
 /**

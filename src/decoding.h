@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -89,6 +89,8 @@ protected:
 	std::string ascii_strdown (const std::string &str);
 	gchar *charset_to_utf8 (std::string text, std::string charset,
 							guint retries = 0);
+	gchar *charset_to_utf8 (std::string text, std::string charset,
+							class Options *opts);
 
 public:
 	// Decryption/Encryption

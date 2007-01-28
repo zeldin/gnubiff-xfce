@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -523,8 +523,7 @@ Popup::on_select (GtkTreeSelection *selection)
 
 		// Body
 		text = charset_to_utf8 (selected_header_.body(),
-								selected_header_.charset(),
-								biff_->value_uint ("popup_convert_retries"));
+								selected_header_.charset(), biff_);
 		if (text) {
 			gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, text, -1,
 													  "normal", NULL);
