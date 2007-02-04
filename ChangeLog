@@ -18,6 +18,9 @@ Version 2.3.0
    - Feature: Better handling of messages with a false character set in the
         header
    - Feature: Positioning of text relative to the image
+   - Feature: Positioning of text depending on panel's orientation (this
+        should close debian bug #367649 reported by Bas Zoetekouw and a feature
+        request by Tomas Dohnal)
 
 Version 2.2.6
  * Robert Sowada

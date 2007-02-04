@@ -194,9 +194,13 @@ AppletGUI::widget_positions (guint i_width, guint i_height, guint t_width,
 							 gint &i_x, gint &i_y, gint &t_x, gint &t_y)
 {
 	gboolean okay = true;
+	guint horiz = LABEL_POS_CENTER, vert = LABEL_POS_CENTER;
+
+	// Get the way the text should be positioned relative to the image
+	okay = get_text_positioning (horiz, vert);
 
 	// Horizontal positions
-	switch (biff_->value_uint ("text_pos_horiz")) {
+	switch (horiz) {
 	case LABEL_POS_LEFT_OUT:
 		c_width = i_width + t_width;
 		t_x     = 0;
@@ -232,7 +236,7 @@ AppletGUI::widget_positions (guint i_width, guint i_height, guint t_width,
 	}
 
 	// Vertical positions
-	switch (biff_->value_uint ("text_pos_vert")) {
+	switch (vert) {
 	case LABEL_POS_TOP_OUT:
 		c_height = i_height + t_height;
 		t_y      = 0;
@@ -268,6 +272,88 @@ AppletGUI::widget_positions (guint i_width, guint i_height, guint t_width,
 	}
 
 	return okay;
+}
+
+/**
+ *  Determine the position of the text relative to the image.
+ *
+ *  @param  horiz  Relative horizontal position
+ *  @param  vert   Relative vertical position
+ *  @return        Boolean indicating success
+ */
+gboolean 
+AppletGUI::get_text_positioning (guint &horiz, guint &vert)
+{
+	GtkOrientation orient;
+	gboolean okay = true;
+
+	guint panel = biff_->value_uint ("text_pos_panel");
+
+	// Default values
+	horiz = vert = LABEL_POS_CENTER;
+
+	// Get orientation of widget's panel (if possible)
+	gboolean is_orient = get_orientation (orient);
+
+	// Positioning depending on the orientation
+	if (is_orient && panel != LABEL_POS_MANUALLY) {
+		switch (orient) {
+		case GTK_ORIENTATION_HORIZONTAL:
+			switch (panel) {
+			case LABEL_POS_LEFT_TOP:
+			case LABEL_POS_LEFT_BOT:
+				horiz = LABEL_POS_LEFT_OUT;
+				break;
+			case LABEL_POS_RIGHT_TOP:
+			case LABEL_POS_RIGHT_BOT:
+				horiz = LABEL_POS_RIGHT_OUT;
+				break;
+			default:
+				okay = is_orient = false;
+				break;
+		  	}
+			break;
+		case GTK_ORIENTATION_VERTICAL:
+			switch (panel) {
+			case LABEL_POS_LEFT_TOP:
+			case LABEL_POS_RIGHT_TOP:
+				vert = LABEL_POS_TOP_OUT;
+				break;
+			case LABEL_POS_LEFT_BOT:
+			case LABEL_POS_RIGHT_BOT:
+				vert = LABEL_POS_BOT_OUT;
+				break;
+			default:
+				okay = is_orient = false;
+				break;
+		  	}
+			break;
+		default:
+			okay = is_orient = false;
+			break;
+		}
+	}
+
+	// Fixed positioning?
+	if (!is_orient || panel == LABEL_POS_MANUALLY) {
+		horiz = biff_->value_uint ("text_pos_horiz");
+		vert  = biff_->value_uint ("text_pos_vert");
+	}
+
+	return okay;
+}
+
+/**
+ *  Determine the orientation of the widget's environment. This is a virtual
+ *  function for specific frontends that by default returns just false.
+ *
+ *  @param  orient Orientation of the panel
+ *  @return        Boolean indicating success
+ */
+gboolean 
+AppletGUI::get_orientation (GtkOrientation &orient)
+{
+	return false;
 }
 
 // ============================================================================

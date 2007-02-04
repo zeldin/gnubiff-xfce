@@ -78,6 +78,8 @@ public:
 	gboolean widget_positions (guint i_width, guint i_height, guint t_width,
 							   guint t_height, guint &c_width, guint &c_height,
 							   gint &i_x, gint &i_y, gint &t_x, gint &t_y);
+	gboolean get_text_positioning (guint &horiz, guint &vert);
+	virtual gboolean get_orientation (GtkOrientation &orient);
 
 	// ========================================================================
 	//  main

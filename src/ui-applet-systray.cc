@@ -75,6 +75,23 @@ AppletSystray::~AppletSystray (void)
 }
 
 // ============================================================================
+//  tools
+// ============================================================================
+/**
+ *  Return the panel's orientation.
+ *
+ *  @param  orient Panel's orientation
+ *  @return        Boolean indicating success
+ */
+gboolean 
+AppletSystray::get_orientation (GtkOrientation &orient)
+{
+	orient = egg_tray_icon_get_orientation (trayicon_);
+
+	return true;
+}
+
+// ============================================================================
 //  main
 // ============================================================================
 

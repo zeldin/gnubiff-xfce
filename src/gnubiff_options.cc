@@ -190,6 +190,24 @@ Gnubiff_Options::add_options_applet (gboolean deprecated)
 								 LABEL_POS_BOT_IN,
 								 OPTFLG_ID_INT_STRICT, i7,s7));
 
+	// TEXT_POS_PANEL
+	const static guint i8[] = {LABEL_POS_MANUALLY, LABEL_POS_LEFT_TOP,
+							   LABEL_POS_LEFT_BOT, LABEL_POS_RIGHT_TOP,
+							   LABEL_POS_RIGHT_BOT, 0};
+	const static gchar *s8[] = {"manually", "left_top", "left_bottom",
+								"right_top", "right_bottom", NULL};
+	add_option (new Option_UInt ("text_pos_panel", OPTGRP_APPLET,
+		"The position of the text of a panel's applet relative to the image "
+		"can be set via this option. If set to \"manually\" the position can "
+		"be controlled via the options \"text_pos_horiz\" and "
+		"\"text_pos_vert\". Otherwise the text is positioned beside the image "
+		"to the left or right (if the panel is oriented horizontally) or "
+		"to the top or bottom (if the panel is oriented vertically) depending "
+		"on this option's value.\n"
+		"For non panel frontends this option is ignored.",
+								 LABEL_POS_MANUALLY,
+								 OPTFLG_ID_INT_STRICT, i8,s8));
+
 	if (!deprecated)
 		return;
 }
