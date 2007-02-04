@@ -171,6 +171,105 @@ AppletGUI::resize_image (std::string widget_image, guint max_width,
 	return true;
 }
 
+/**
+ *  Calculate the size of the container containing the image and text to be
+ *  displayed. Also the positions of the text label and the image widget inside
+ *  the container are determined.
+ *
+ *  @param i_width    Width of the image (or 0 if no image is to be displayed)
+ *  @param i_height   Height of the image (or 0 if no image is to be displayed)
+ *  @param t_width    Width of the text (or 0 if no text is to be displayed)
+ *  @param t_height   Height of the text (or 0 if no text is to be displayed)
+ *  @param c_width    Width of the container
+ *  @param c_height   Height of the container
+ *  @param i_x        Horizontal position of the image in the container
+ *  @param i_y        Vertical position of the image in the container
+ *  @param t_x        Horizontal position of the text in the container
+ *  @param t_y        Vertical position of the text in the container
+ *  @return           Boolean indicating success
+ */
+gboolean 
+AppletGUI::widget_positions (guint i_width, guint i_height, guint t_width,
+							 guint t_height, guint &c_width, guint &c_height,
+							 gint &i_x, gint &i_y, gint &t_x, gint &t_y)
+{
+	gboolean okay = true;
+
+	// Horizontal positions
+	switch (biff_->value_uint ("text_pos_horiz")) {
+	case LABEL_POS_LEFT_OUT:
+		c_width = i_width + t_width;
+		t_x     = 0;
+        i_x     = t_width;
+		break;
+	case LABEL_POS_LEFT_IN:
+		c_width = std::max (i_width, t_width);
+		t_x     = 0;
+		i_x     = 0;
+		break;
+	case LABEL_POS_CENTER:
+		c_width = std::max (i_width, t_width);
+		t_x     = ( c_width - t_width ) / 2;
+		i_x     = ( c_width - i_width ) / 2;
+		break;
+	case LABEL_POS_RIGHT_IN:
+		c_width = std::max (i_width, t_width);
+		t_x     = c_width - t_width;
+		i_x     = c_width - i_width;
+		break;
+	case LABEL_POS_RIGHT_OUT:
+		c_width = i_width + t_width;
+        t_x     = i_width;
+		i_x     = 0;
+		break;
+	default:
+		// Should never happen, is treated as LABEL_POS_CENTER
+		c_width = std::max (i_width, t_width);
+		t_x     = ( c_width - t_width ) / 2;
+		i_x     = ( c_width - i_width ) / 2;
+		okay    = false;
+		break;
+	}
+
+	// Vertical positions
+	switch (biff_->value_uint ("text_pos_vert")) {
+	case LABEL_POS_TOP_OUT:
+		c_height = i_height + t_height;
+		t_y      = 0;
+        i_y      = t_height;
+		break;
+	case LABEL_POS_TOP_IN:
+		c_height = std::max (i_height, t_height);
+		t_y      = 0;
+		i_y      = 0;
+		break;
+	case LABEL_POS_CENTER:
+		c_height = std::max (i_height, t_height);
+		t_y      = ( c_height - t_height ) / 2;
+		i_y      = ( c_height - i_height ) / 2;
+		break;
+	case LABEL_POS_BOT_IN:
+		c_height = std::max (i_height, t_height);
+		t_y      = c_height - t_height;
+		i_y      = c_height - i_height;
+		break;
+	case LABEL_POS_BOT_OUT:
+		c_height = i_height + t_height;
+        t_y      = i_height;
+		i_y      = 0;
+		break;
+	default:
+		// Should never happen, is treated as LABEL_POS_CENTER
+		c_height = std::max (i_height, t_height);
+		t_y      = ( c_height - t_height ) / 2;
+		i_y      = ( c_height - i_height ) / 2;
+		okay    = false;
+		break;
+	}
+
+	return okay;
+}
+
 // ============================================================================
 //  main
 // ============================================================================
@@ -322,21 +421,21 @@ AppletGUI::update (gboolean init, std::string widget_image,
 
 	// Update the container widget
 	guint c_width = 0, c_height = 0;
+	gint t_x = 0, t_y = 0, i_x = 0, i_y = 0;
 	if (widget_container != "") {
 		GtkFixed *fixed = GTK_FIXED (get (widget_container.c_str ()));
 
-		// Calculate size of container: Image and text should fit into it.
-		c_width = std::max (i_width, t_width);
-		c_height = std::max (i_height, t_height);
+		// Calculate the size of the container and the widgets' positions
+		widget_positions (i_width, i_height, t_width, t_height, c_width,
+						  c_height, i_x, i_y, t_x, t_y);
 
 		// Resize container and move widgets inside it to the right position
 		if ((c_width > 0) && (c_height > 0)) {
 			gtk_widget_set_size_request (GTK_WIDGET(fixed), c_width, c_height);
 			if (label)
-				gtk_fixed_move (fixed, GTK_WIDGET (label), (c_width-t_width)/2,
-								c_height-t_height);
+				gtk_fixed_move (fixed, GTK_WIDGET (label), t_x, t_y);
 			if (widget)
-				gtk_fixed_move (fixed, widget, (c_width-i_width)/2, 0);
+				gtk_fixed_move (fixed, widget, i_x, i_y);
 		}
 	}
 

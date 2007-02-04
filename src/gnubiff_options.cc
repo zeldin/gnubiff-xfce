@@ -129,25 +129,25 @@ Gnubiff_Options::add_options_applet (gboolean deprecated)
 	// USE_NOMAIL_TEXT
 	const static gchar *s3[] = {"nomail_text_entry", NULL};
 	add_option (new Option_Bool ("use_nomail_text", OPTGRP_APPLET,
-		"Shall a text be printed into the applet if no mails are present?",
+		"Shall a text be printed into the applet if no messages are present?",
 								 true, OPTFLG_NONE, OPTGUI_TOGGLE,
 								 "nomail_text_check", s3));
 	// NOMAIL_TEXT
 	add_option (new Option_String ("nomail_text", OPTGRP_APPLET,
-		"Text to be printed into the applet if no mails are present.",
+		"Text to be printed into the applet if no messages are present.",
 								   _("no mail"), OPTFLG_NONE, OPTGUI_ENTRY,
 								   "nomail_text_entry"));
 	// USE_NOMAIL_IMAGE
 	const static gchar *s4[] = {"nomail_image_entry", "nomail_image_browse",
 								NULL};
 	add_option (new Option_Bool ("use_nomail_image", OPTGRP_APPLET,
-		"Shall a image be displayed in the applet if no mails are present?",
+		"Shall a image be displayed in the applet if no messages are present?",
 								 true, OPTFLG_NONE, OPTGUI_TOGGLE,
 								 "nomail_image_check", s4));
 	// NOMAIL_IMAGE
 	add_option (new Option_String ("nomail_image", OPTGRP_APPLET,
-		"Filename of the image to be displayed in the applet if no mails are "
-        "present.",
+		"Filename of the image to be displayed in the applet if no messages "
+        "are present.",
 								   GNUBIFF_DATADIR"/tux-sleep.png",
 								   OPTFLG_TEST_FILE, OPTGUI_ENTRY,
 								   "nomail_image_entry"));
@@ -167,6 +167,29 @@ Gnubiff_Options::add_options_applet (gboolean deprecated)
 		"Font to be used in the applet.",
 								   "sans 10", OPTFLG_NONE, OPTGUI_FONT,
 								   "applet_font_button"));
+	// TEXT_POS_HORIZ
+	const static guint i6[] = {LABEL_POS_LEFT_OUT, LABEL_POS_LEFT_IN,
+							   LABEL_POS_CENTER, LABEL_POS_RIGHT_IN,
+							   LABEL_POS_RIGHT_OUT, 0};
+	const static gchar *s6[] = {"left_out", "left_in", "center", "right_in",
+								"right_out", NULL};
+	add_option (new Option_UInt ("text_pos_horiz", OPTGRP_APPLET,
+		"Horizontal position of the text relative to the image. If no image "
+        "or text is to be displayed this option is ignored.",
+								 LABEL_POS_CENTER,
+								 OPTFLG_ID_INT_STRICT, i6,s6));
+	// TEXT_POS_VERT
+	const static guint i7[] = {LABEL_POS_TOP_OUT, LABEL_POS_TOP_IN,
+							   LABEL_POS_CENTER, LABEL_POS_BOT_IN,
+							   LABEL_POS_BOT_OUT, 0};
+	const static gchar *s7[] = {"top_out", "top_in", "center", "bottom_in",
+								"bottom_out", NULL};
+	add_option (new Option_UInt ("text_pos_vert", OPTGRP_APPLET,
+		"Vertical position of the text relative to the image. If no image "
+        "or text is to be displayed this option is ignored.",
+								 LABEL_POS_BOT_IN,
+								 OPTFLG_ID_INT_STRICT, i7,s7));
+
 	if (!deprecated)
 		return;
 }

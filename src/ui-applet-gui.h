@@ -75,6 +75,9 @@ public:
 							 guint &height);
 	gboolean resize_image (std::string widget_image, guint max_width=G_MAXUINT,
 						   guint max_height=G_MAXUINT);
+	gboolean widget_positions (guint i_width, guint i_height, guint t_width,
+							   guint t_height, guint &c_width, guint &c_height,
+							   gint &i_x, gint &i_y, gint &t_x, gint &t_y);
 
 	// ========================================================================
 	//  main

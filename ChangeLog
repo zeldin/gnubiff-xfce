@@ -17,6 +17,7 @@ Version 2.3.0
    - Added Daniel Nylander to contributors
    - Feature: Better handling of messages with a false character set in the
         header
+   - Feature: Positioning of text relative to the image
 
 Version 2.2.6
  * Robert Sowada
