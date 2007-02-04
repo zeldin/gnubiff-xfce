@@ -21,6 +21,7 @@ Version 2.3.0
    - Feature: Positioning of text depending on panel's orientation (this
         should close debian bug #367649 reported by Bas Zoetekouw and a feature
         request by Tomas Dohnal)
+   - Added Bas Zoetekouw and Tomas Dohnal to contributors
 
 Version 2.2.6
  * Robert Sowada

@@ -263,6 +263,7 @@ Various contributors:@*
 @item Alexis S. L. Carvalho
 @item Eric Cooper
 @item Felipe Csaszar
+@item Tomas Dohnal
 @item John Ellson
 @item Nicolas Evrard
 @item Greg Fenton
@@ -308,6 +309,7 @@ Various contributors:@*
 @item Maik Wachsmuth
 @item Suzan Wassman
 @item Cai Yu
+@item Bas Zoetekouw
 @end itemize
 
 @bye
