@@ -794,8 +794,7 @@ Biff::load (void)
 	// Is the configuration file a directory?
 	const gchar *config_file = value_gchar ("config_file");
 	if (g_file_test (config_file, G_FILE_TEST_IS_DIR)) {
-		g_warning (_("Configuration file \"%s\" is a directory."),
-				   config_file);
+		g_warning (_("Configuration file \"%s\" is a directory"), config_file);
 		return false;
 	}
 
@@ -805,7 +804,8 @@ Biff::load (void)
 	file.open (config_file);
 	if (!file.is_open ()) {
 		mailbox_.push_back (new Mailbox (this));
-		g_warning (_("Cannot open your configuration file (%s)"), config_file);
+		g_warning (_("Cannot open your configuration file \"%s\""),
+				   config_file);
 		return false;
 	}
 
@@ -820,7 +820,8 @@ Biff::load (void)
 	context = g_markup_parse_context_new (&parser, GMarkupParseFlags (0),
 										  this, 0);
 	if (!context) {
-		g_warning (_("Cannot create XML parser for config file"));
+		g_warning (_("Cannot create XML parser for parsing configuration "
+					 "file"));
 		return false;
 	}
 
@@ -838,7 +839,7 @@ Biff::load (void)
 	// Check if we got at least one mailbox definition
 	if (mailbox_.size() == 0) {
 		g_warning (_("Found no mailbox definition in your configuration "
-					 "file (%s)"), value_gchar ("config_file"));
+					 "file \"%s\""), config_file);
 		mailbox_.push_back (new Mailbox (this));
 	}
 
