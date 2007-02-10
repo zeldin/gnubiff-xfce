@@ -116,6 +116,7 @@ Biff::Biff (guint ui_mode, std::string filename)
 
 	// Does the configuration file exist?
 	std::ifstream file;
+
 	file.open (value_gchar ("config_file"));
 	if (file.is_open ()) {
 		file.close ();
@@ -761,7 +762,7 @@ Biff::save (void)
 		to_strings (it->first, name_value);
 		it++;
 		// Any options in this group to be saved?
-		if (name_value.empty())
+		if (name_value.empty ())
 			continue;
 		save_parameters (name_value, name);
 	}
@@ -772,11 +773,11 @@ Biff::save (void)
 	// Write Configuration to file
 	int fd = open (value_gchar ("config_file"), O_WRONLY | O_CREAT | O_TRUNC,
 				   S_IRUSR | S_IWUSR);
-	if (fd==-1)
+	if (fd == -1)
 	    return false;
-	if (write(fd,save_file.str().c_str(),save_file.str().size())==-1)
+	if (write (fd, save_file.str().c_str(), save_file.str().size()) == -1)
 	    return false;
-	if (close(fd)==-1)
+	if (close (fd) == -1)
 	    return false;
 
 	return true;
@@ -788,15 +789,23 @@ Biff::load (void)
 	// Reset version. This must be done to detect pre 2.1.2 config files
 	value ("version", "0");
 
-	mailbox_.clear();
+	mailbox_.clear ();
 
+	// Is the configuration file a directory?
+	const gchar *config_file = value_gchar ("config_file");
+	if (g_file_test (config_file, G_FILE_TEST_IS_DIR)) {
+		g_warning (_("Configuration file \"%s\" is a directory."),
+				   config_file);
+		return false;
+	}
+
+	// Open configuration file
 	std::ifstream file;
 	std::string line;
-	file.open (value_gchar ("config_file"));
-	if (!file.is_open()) {
+	file.open (config_file);
+	if (!file.is_open ()) {
 		mailbox_.push_back (new Mailbox (this));
-		g_warning (_("Cannot open your configuration file (%s)"),
-				   value_gchar ("config_file"));
+		g_warning (_("Cannot open your configuration file (%s)"), config_file);
 		return false;
 	}
 

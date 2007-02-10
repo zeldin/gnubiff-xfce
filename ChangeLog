@@ -22,12 +22,14 @@ Version 2.3.0
         should close debian bug #367649 reported by Bas Zoetekouw and a feature
         request by Tomas Dohnal)
    - Added Bas Zoetekouw and Tomas Dohnal to contributors
+   - Bugfix: Infinite loop when specifing a directory as configuration file
 
 Version 2.2.6
  * Robert Sowada
    - Changed version to 2.2.6
    - Updated Swedish translation (thanks to Daniel Nylander)
    - Added Daniel Nylander to contributors
+   - Backport of infinite loop bugfix (from gnubiff 2.3.0 CVS)
 	
 Version 2.2.5		2007-01-28 16:08
  * Robert Sowada
