@@ -360,22 +360,27 @@ Popup::show (std::string name)
 	tree_selection_ = 0;
 	consulting_ = false;
 
-	GtkWindow *dialog=GTK_WINDOW(get("dialog"));
+	GtkWindow *dialog = GTK_WINDOW (get ("dialog"));
 
 	// Present the popup window. Keyboard focus should not be obtained
 	// automatically when presenting the window but may then gained manually
-	gtk_window_set_accept_focus (dialog, false);
-	gtk_window_present (dialog);
-//	gtk_window_set_accept_focus (dialog, true);
+	gtk_window_deiconify (dialog);
+	gtk_window_set_accept_focus (dialog, true);
+	gtk_window_set_focus_on_map (dialog, false);
+	gtk_widget_show (GTK_WIDGET (dialog));
+//	gtk_window_present (dialog);
+
 
 	if (biff_->value_bool ("popup_use_geometry"))
-		gtk_window_parse_geometry (dialog, biff_->value_gchar ("popup_geometry"));
+		gtk_window_parse_geometry (dialog,
+								   biff_->value_gchar ("popup_geometry"));
 	if (biff_->value_bool ("popup_be_sticky"))
 		gtk_window_stick (dialog);
 	else
 		gtk_window_unstick (dialog);
 	gtk_window_set_keep_above (dialog, biff_->value_bool ("popup_keep_above"));
-	gtk_window_set_skip_pager_hint (dialog,!biff_->value_bool ("popup_pager"));
+	gtk_window_set_skip_pager_hint (dialog,
+									!biff_->value_bool ("popup_pager"));
 
 	g_mutex_lock (timer_mutex_);
 	if (poptag_ > 0) 
