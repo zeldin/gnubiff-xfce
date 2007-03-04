@@ -24,7 +24,7 @@ Version 2.3.0
    - Added Bas Zoetekouw and Tomas Dohnal to contributors
    - Bugfix: Infinite loop when specifing a directory as configuration file
    - Feature: Allowing popup getting the keyboard focus without getting it
-        automatically when shown
+        automatically when shown (new option "popup/popup_accept_focus")
 
 Version 2.2.6
  * Robert Sowada
