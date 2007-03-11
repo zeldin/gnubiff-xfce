@@ -672,20 +672,24 @@ Gnubiff_Options::add_options_popup (gboolean deprecated)
 		"the focus will not be set to the popup when it is displayed. "
 		"But it may be obtained afterwards manually if this option is set "
         "to true.",
-								 false));
+								 false, OPTFLG_NONE, OPTGUI_TOGGLE,
+								 "popup_acceptfocus_check"));
 	// POPUP_BE_STICKY
 	add_option (new Option_Bool ("popup_be_sticky", OPTGRP_POPUP,
 		"Shall the gnubiff popup window be sticky (i.e. appear on all "
 		"workspaces)?",
-								 false));
+								 false, OPTFLG_NONE, OPTGUI_TOGGLE,
+								 "popup_besticky_check"));
 	// POPUP_KEEP_ABOVE
 	add_option (new Option_Bool ("popup_keep_above", OPTGRP_POPUP,
 		"Shall the gnubiff popup window always be kept above other windows?",
-								 false));
+								 false, OPTFLG_NONE, OPTGUI_TOGGLE,
+								 "popup_keepabove_check"));
 	// POPUP_PAGER
 	add_option (new Option_Bool ("popup_pager", OPTGRP_POPUP,
 		"Shall the gnubiff popup window appear in pagers?",
-								 false));
+								 false, OPTFLG_NONE, OPTGUI_TOGGLE,
+								 "popup_pager_check"));
 	// POPUP_USE_GEOMETRY
 	const static gchar *s5[] = {"popup_geometry_entry", NULL};
 	add_option (new Option_Bool ("popup_use_geometry", OPTGRP_POPUP,
