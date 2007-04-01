@@ -26,6 +26,7 @@ Version 2.3.0
    - Feature: Allowing popup getting the keyboard focus without getting it
         automatically when shown (new option "popup/popup_accept_focus")
    - Feature: More popup options can be configured via the gui
+   - Feature: More applet options can be configured via the gui
 
 Version 2.2.6
  * Robert Sowada

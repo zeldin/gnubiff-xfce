@@ -91,15 +91,18 @@ Gnubiff_Options::add_options_applet (gboolean deprecated)
 	add_option (new Option_Bool ("applet_be_sticky", OPTGRP_APPLET,
 		"Shall the gnubiff applet window be sticky (i.e. appear on all "
 		"workspaces)?",
-								 false));
+								 false, OPTFLG_NONE, OPTGUI_TOGGLE,
+								 "applet_besticky_check"));
 	// APPLET_KEEP_ABOVE
 	add_option (new Option_Bool ("applet_keep_above", OPTGRP_APPLET,
 		"Shall the gnubiff applet window always be kept above other windows?",
-								 false));
+								 false, OPTFLG_NONE, OPTGUI_TOGGLE,
+								 "applet_keepabove_check"));
 	// APPLET_PAGER
 	add_option (new Option_Bool ("applet_pager", OPTGRP_APPLET,
 		"Shall the gnubiff applet window appear in pagers?",
-								 false));
+								 false, OPTFLG_NONE, OPTGUI_TOGGLE,
+								 "applet_pager_check"));
 	// USE_NEWMAIL_TEXT
 	const static gchar *s1[] = {"newmail_text_entry", NULL};
 	add_option (new Option_Bool ("use_newmail_text", OPTGRP_APPLET,
