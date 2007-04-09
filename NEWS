@@ -5,6 +5,11 @@ Copyright (C) 2000-2007 Nicolas Rougier <Nicolas.Rougier@loria.fr>,
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.2.6
+This is a minor feature release. Changes:
+ * Updated Swedish translation (thanks to Daniel Nylander)
+ * A small bugfix
+
 Version 2.2.5
 This is a minor bugfix release. Changes:
  * Fixed some bugs

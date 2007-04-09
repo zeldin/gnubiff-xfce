@@ -28,7 +28,11 @@ Version 2.3.0
    - Feature: More popup options can be configured via the gui
    - Feature: More applet options can be configured via the gui
 
-Version 2.2.6
+Version 2.2.7
+ * Robert Sowada
+   - Changed version to 2.2.7
+	
+Version 2.2.6		2007-04-09 18:37
  * Robert Sowada
    - Changed version to 2.2.6
    - Updated Swedish translation (thanks to Daniel Nylander)
