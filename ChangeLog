@@ -30,6 +30,7 @@ Version 2.3.0
    - Cleanup of signal code (as preparation for the Jonathan Hitchcock patch)
    - Feature: Showing/Hiding the popup via SIGUSR signals (thanks to Jonathan
         Hitchcock for providing a patch)
+   - Bugfix: Accessing freed memory (when converting a wrong character set)
 
 Version 2.2.7
  * Robert Sowada

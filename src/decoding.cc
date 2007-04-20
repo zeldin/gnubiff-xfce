@@ -690,7 +690,7 @@ gchar *
 Decoding::charset_to_utf8 (std::string text, std::string charset,
 						   guint retries)
 {
-	gchar *utf8 = (gchar *) text.c_str();
+	gchar *utf8 = NULL;
 	if (!charset.empty())
 		utf8 = g_convert (text.c_str(), -1, "utf-8", charset.c_str(), 0,0,0);
 	else
@@ -754,7 +754,7 @@ Decoding::charset_to_utf8 (std::string text, std::string charset,
 		text_ascii += std::string ("\n")+std::string (err)+std::string ("\n");
 		text_ascii += std::string (_("[Stripped non-ASCII characters "
 									 "from message]"));
-		return (gchar *)text_ascii.c_str();
+		return g_strdup ((gchar *)text_ascii.c_str ());
 	}
 
 	// The text couldn't converted at all, so an error message is returned

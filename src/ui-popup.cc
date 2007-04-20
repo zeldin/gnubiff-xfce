@@ -520,32 +520,37 @@ Popup::on_select (GtkTreeSelection *selection)
 		gtk_widget_show_all (get("popup"));
 		gtk_window_move (GTK_WINDOW(get("popup")), x_, y_); 
 
-
 		GtkWidget *view = get("textview");
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(view));
 		GtkTextIter iter;
 		gtk_text_buffer_set_text (buffer, "", -1);
 		gtk_text_buffer_get_iter_at_offset (buffer, &iter, 0);
 
-		gchar *markup;
+		gchar *markup = NULL;
 
 		// Sender
 		markup = g_markup_printf_escaped ("<small>%s</small>",
 										  selected_header_.sender().c_str());
-		gtk_label_set_markup (GTK_LABEL(get("from")), markup);
-		g_free (markup);
+		if (markup) {
+			gtk_label_set_markup (GTK_LABEL(get("from")), markup);
+			g_free (markup);
+		}
 
 		// Subject
 		markup = g_markup_printf_escaped ("<small>%s</small>",
 										  selected_header_.subject().c_str());
-		gtk_label_set_markup (GTK_LABEL(get("subject")), markup);
-		g_free (markup);
+		if (markup) {
+			gtk_label_set_markup (GTK_LABEL(get("subject")), markup);
+			g_free (markup);
+		}
 
 		// Date
 		markup = g_markup_printf_escaped ("<small>%s</small>",
 										  selected_header_.date().c_str());
-		gtk_label_set_markup (GTK_LABEL(get("date")), markup);
-		g_free (markup);
+		if (markup) {
+			gtk_label_set_markup (GTK_LABEL(get("date")), markup);
+			g_free (markup);
+		}
 
 		// Body
 		text = charset_to_utf8 (selected_header_.body(),
