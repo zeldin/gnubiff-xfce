@@ -38,6 +38,7 @@ Version 2.2.7
    - Backport of signal code cleanup (from gnubiff 2.3.0 CVS)
    - Backport of showing/hiding popup via signals feature (from
         gnubiff 2.3.0 CVS; thanks to Jonathan Hitchcock for providing a patch)
+   - Bugfix: Pointer tests for being not NULL
 	
 Version 2.2.6		2007-04-09 18:37
  * Robert Sowada
