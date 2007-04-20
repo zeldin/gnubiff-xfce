@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -83,6 +83,17 @@ AppletGUI::AppletGUI (Biff *biff, std::string filename, gpointer callbackdata)
 /// Destructor
 AppletGUI::~AppletGUI (void)
 {
+}
+
+/**
+ *  Return pointer to the applet.
+ *
+ *  @return   pointer to the applet
+ */
+class AppletGUI * 
+AppletGUI::appletgui_ptr (void)
+{
+	return this;
 }
 
 // ============================================================================
@@ -713,7 +724,7 @@ AppletGUI::enable_popup (gboolean enable)
 		return;
 
 	// Change the value
-	Applet::enable_popup (enable);
+	biff_->value ("use_popup", enable);
 
 	// Update the preferences dialog
 	if (visible_dialog_preferences ())
