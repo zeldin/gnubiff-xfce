@@ -141,5 +141,20 @@ Signals::signal_handler (int signum)
 		if (appletgui)
 			appletgui->enable_popup (!biff_->value_bool ("use_popup"));
 		break;
+	case SIGNAL_POPUP_SHOW:
+		if (appletgui)
+			appletgui->show_dialog_popup ();
+		break;
+	case SIGNAL_POPUP_HIDE:
+		if (appletgui)
+			appletgui->hide_dialog_popup ();
+		break;
+	case SIGNAL_POPUP_TOGGLEVISIBLE:
+		if (appletgui) {
+			if (appletgui->visible_dialog_popup ())
+				appletgui->hide_dialog_popup ();
+			else
+				appletgui->show_dialog_popup ();
+		}
 	}
 }

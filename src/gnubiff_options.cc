@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -359,19 +359,24 @@ Gnubiff_Options::add_options_general (gboolean deprecated)
 	// SIGNAL_SIGUSR1
 	const static guint i7[] = {SIGNAL_NONE, SIGNAL_MARK_AS_READ, SIGNAL_START,
 							   SIGNAL_STOP, SIGNAL_POPUP_ENABLE,
-							   SIGNAL_POPUP_DISABLE, SIGNAL_POPUP_TOGGLE, 0};
+							   SIGNAL_POPUP_DISABLE, SIGNAL_POPUP_TOGGLE,
+							   SIGNAL_POPUP_SHOW, SIGNAL_POPUP_HIDE,
+							   SIGNAL_POPUP_TOGGLEVISIBLE, 0};
 	const static gchar *s7[] = {"none", "mark_as_read", "start", "stop",
 								"popup_enable", "popup_disable",
-								"popup_toggle", NULL};
+								"popup_toggle",	"popup_show", "popup_hide",
+								"popup_togglevisible", NULL};
 	add_option (new Option_UInt ("signal_sigusr1", OPTGRP_GENERAL,
 		"Action to be executed if the signal SIGUSR1 is caught by gnubiff. "
 		"\nPossible actions are ignoring the signal (\"none\"), marking all "
 		"messages as read (\"mark_as_read\"), starting monitoring "
 		"(\"start\"), stopping monitoring (\"stop\"), enabling and disabling "
-        "the popup (\"popup_enable\" and \"popup_disable\") or "
-		"toggling the popup status (\"popup_toggle\").",
+        "the popup (\"popup_enable\" and \"popup_disable\"), "
+		"toggling the popup enabled status (\"popup_toggle\"), showing and "
+		"hiding the popup (\"popup_show\" and \"popup_hide\"), or toggling "
+		"the popup's visibility (\"popup_togglevisible\")",
 								 SIGNAL_MARK_AS_READ,
-								 OPTFLG_ID_INT_STRICT, i7,s7));
+								 OPTFLG_ID_INT_STRICT, i7, s7));
 	// SIGNAL_SIGUSR2
 	add_option (new Option_UInt ("signal_sigusr2", OPTGRP_GENERAL,
 		"Action to be executed if the signal SIGUSR2 is caught by gnubiff. "

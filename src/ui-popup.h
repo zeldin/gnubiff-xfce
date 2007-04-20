@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -52,6 +52,15 @@ enum {
 
 class Popup : public GUI, public Decoding {
 
+private:
+/** Some strings have to be stored while the popup is displayed (or
+ *  might be displayed
+ */
+	std::vector <gchar *> stored_strings_;
+
+	/* base */
+	void free_stored_strings (void);
+
 protected:
 	class Biff			*biff_;				// Biff owner
 	gint				poptag_;			// Tag for pop timer
@@ -70,7 +79,7 @@ protected:
 
 	/* main */
 	virtual gint create (gpointer callbackdata);
-	void update (void);
+	guint update (void);
 	void show (std::string name = "dialog");
 	void hide (std::string name = "dialog");
 

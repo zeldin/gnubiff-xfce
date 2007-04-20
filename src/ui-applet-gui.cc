@@ -448,14 +448,12 @@ AppletGUI::update (gboolean init, std::string widget_image,
 	if (!init && (popup_)) {
 		// If there are no mails to display then hide popup
 		if (!unread && (biff_->value_bool ("use_popup") || force_popup_))
-			popup_->hide();
+			hide_dialog_popup ();
 
 		// Update and display the popup
 		if (unread && ((biff_->value_bool ("use_popup")) || force_popup_)
-			&& (newmail || visible_dialog_popup () || force_popup_)) {
-			popup_->update();
-			popup_->show();
-		}
+			&& (newmail || visible_dialog_popup () || force_popup_))
+			show_dialog_popup ();
 	}
 
 	// Update applet's image
@@ -621,8 +619,15 @@ AppletGUI::hide_dialog_about (void)
 void 
 AppletGUI::show_dialog_popup (void)
 {
-	if (popup_)
-		popup_->show ();
+	if (popup_) {
+		// First hide and update the popup
+		hide_dialog_popup ();
+		guint num =	popup_->update ();
+
+		// Show it only if there is at least one header
+		if (num)
+			popup_->show();
+	}
 }
 
 /**

@@ -27,10 +27,16 @@ Version 2.3.0
         automatically when shown (new option "popup/popup_accept_focus")
    - Feature: More popup options can be configured via the gui
    - Feature: More applet options can be configured via the gui
+   - Cleanup of signal code (as preparation for the Jonathan Hitchcock patch)
+   - Feature: Showing/Hiding the popup via SIGUSR signals (thanks to Jonathan
+        Hitchcock for providing a patch)
 
 Version 2.2.7
  * Robert Sowada
    - Changed version to 2.2.7
+   - Backport of signal code cleanup (from gnubiff 2.3.0 CVS)
+   - Backport of showing/hiding popup via signals feature (from
+        gnubiff 2.3.0 CVS; thanks to Jonathan Hitchcock for providing a patch)
 	
 Version 2.2.6		2007-04-09 18:37
  * Robert Sowada

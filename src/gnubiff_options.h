@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -75,13 +75,16 @@ const guint	MAILBOX_CHECK		=	4;
 const guint	MAILBOX_STOP		=	5;
 const guint	MAILBOX_UNKNOWN		=	6;
 
-const guint SIGNAL_NONE			=   0;
-const guint SIGNAL_MARK_AS_READ	=   1;
-const guint SIGNAL_START		=	2;
-const guint SIGNAL_STOP			=	3;
-const guint SIGNAL_POPUP_ENABLE	=	4;
-const guint SIGNAL_POPUP_DISABLE=	5;
-const guint SIGNAL_POPUP_TOGGLE =	6;
+const guint SIGNAL_NONE					=	0;
+const guint SIGNAL_MARK_AS_READ			=	1;
+const guint SIGNAL_START				=	2;
+const guint SIGNAL_STOP					=	3;
+const guint SIGNAL_POPUP_ENABLE			=	4;
+const guint SIGNAL_POPUP_DISABLE		=	5;
+const guint SIGNAL_POPUP_TOGGLE			=	6;
+const guint SIGNAL_POPUP_SHOW			=	7;
+const guint SIGNAL_POPUP_HIDE			=	8;
+const guint SIGNAL_POPUP_TOGGLEVISIBLE	=	9;
 
 const guint OPTGRP_GENERAL		=	1;
 const guint OPTGRP_APPLET		=	2;

@@ -126,6 +126,28 @@ Popup::~Popup (void)
 	g_mutex_lock (timer_mutex_);
 	g_mutex_unlock (timer_mutex_);
 	g_mutex_free (timer_mutex_);
+
+	// Free allocated memory
+	free_stored_strings ();
+}
+
+/**
+ *  Free all strings that have been stored for displaying the popup.
+ */
+void 
+Popup::free_stored_strings (void)
+{
+	GtkListStore *store;
+
+	// Get tree store and clear it
+	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (get ("treeview"))));
+	if (store)
+		gtk_list_store_clear (store);
+
+	// Free memory of strings displayed in popup previously
+	for (guint i=0; i<stored_strings_.size(); i++)
+		g_free (stored_strings_[i]);
+	stored_strings_.clear();
 }
 
 gint
@@ -226,28 +248,22 @@ Popup::create (gpointer callbackdata)
 
 
 /** 
- * Update popup list.
- *   Be careful that we're responsible for freeing memory of updated
- *   field within tree store. Easy solution is to collect every (gchar
- *   *) used in tree store and to free them next time we enter this
- *   function (saved_strings).
+ * Update popup's list of messages and create the widgets necassary
+ * for showing the popup.
+ *
+ * @return number of headers shown in the popup
  **/
-void
+guint 
 Popup::update (void)
 {
 	GtkListStore *store;
 	GtkTreeIter iter;
-	static std::vector <gchar *> saved_strings;
   
-	// Get tree store and clear it
-	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW ((get("treeview")))));
-	gtk_list_store_clear (store);
+	// Free stored strings and gtk list store
+	free_stored_strings ();
 
-	// Free memory of previous strings displayed in popup
-	for (guint i=0; i<saved_strings.size(); i++)
-		g_free (saved_strings[i]);
-
-	saved_strings.clear();
+	// Get list store
+	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (get ("treeview"))));
 
 	// Get headers to be displayed in the popup
 	std::vector<Header *> headers;
@@ -256,7 +272,7 @@ Popup::update (void)
 
 	// Sort headers
 	gboolean mb;
-	mb=Header::sort_headers(headers,biff_->value_string ("popup_sort_by"));
+	mb = Header::sort_headers (headers, biff_->value_string ("popup_sort_by"));
 
 	// Now we populate the list
 	std::vector<Header *>::iterator h = headers.begin();
@@ -271,19 +287,21 @@ Popup::update (void)
 
 		// Subject
 		gchar *subject = utf8_strndup ((*h)->subject().c_str(), std::max<guint> (size, biff_->value_uint ("popup_size_subject")));
-		saved_strings.push_back (subject);
 
 		// Date
 		gchar *date = utf8_strndup ((*h)->date().c_str(), std::max<guint> (size, biff_->value_uint ("popup_size_date")));
-		saved_strings.push_back (date);
 
 		// Sender
 		gchar *sender = utf8_strndup ((*h)->sender().c_str(), std::max<guint> (size, biff_->value_uint ("popup_size_sender")));
-		saved_strings.push_back (sender);
 
 		// Mail identifier
 		gchar *mailid = g_strdup ((*h)->mailid().c_str());
-		saved_strings.push_back (mailid);
+
+		// The strings have to be stored as long as the popup might be shown
+		stored_strings_.push_back (subject);
+		stored_strings_.push_back (date);
+		stored_strings_.push_back (sender);
+		stored_strings_.push_back (mailid);
 
 		std::stringstream s;
 		s << (*h)->position();
@@ -332,6 +350,8 @@ Popup::update (void)
 			gtk_tree_view_column_set_visible (column, false);
 		}
 	}
+
+	return headers.size();
 }
 
 /**
