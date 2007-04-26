@@ -77,12 +77,12 @@ protected:
 	/**
 	 * Access
 	 **/
-	void attach (GtkImage *image)		{_image = image;};
-	std::string filename (void)			{return _filename;};
-	guint original_width (void)			{return _original_width;};
-	guint original_height (void)		{return _original_height;};
-	guint scaled_width (void)			{return _scaled_width;};
-	guint scaled_height (void)			{return _scaled_height;};
+	void attach (GtkImage *image)		{_image = image;}
+	std::string filename (void)			{return _filename;}
+	guint original_width (void)			{return _original_width;}
+	guint original_height (void)		{return _original_height;}
+	guint scaled_width (void)			{return _scaled_width;}
+	guint scaled_height (void)			{return _scaled_height;}
 	
 
 	/**

@@ -59,7 +59,7 @@ public:
 	// ========================================================================
 	//  main
 	// ========================================================================
-	PanelApplet *panelapplet() {return (PANEL_APPLET (applet_));};
+	PanelApplet *panelapplet() {return (PANEL_APPLET (applet_));}
 	void dock (GtkWidget *applet);
 	gboolean update (gboolean init = false);
 	void show (std::string name = "dialog");

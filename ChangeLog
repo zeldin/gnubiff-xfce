@@ -31,6 +31,8 @@ Version 2.3.0
    - Feature: Showing/Hiding the popup via SIGUSR signals (thanks to Jonathan
         Hitchcock for providing a patch)
    - Bugfix: Accessing freed memory (when converting a wrong character set)
+   - Compatibility with gcc 4.3 (thanks to Martin Michlmayr for providing a
+        patch; this was debian bug #420969 for version 2.2.6)
 
 Version 2.2.7
  * Robert Sowada
@@ -39,6 +41,8 @@ Version 2.2.7
    - Backport of showing/hiding popup via signals feature (from
         gnubiff 2.3.0 CVS; thanks to Jonathan Hitchcock for providing a patch)
    - Bugfix: Pointer tests for being not NULL
+   - Compatibility with gcc 4.3 (thanks to Martin Michlmayr for providing a
+        patch; this was debian bug #420969)
 	
 Version 2.2.6		2007-04-09 18:37
  * Robert Sowada

@@ -130,7 +130,7 @@ protected:
 	 *
 	 *  @param option Pointer to the option that is changed.
 	 */
-	virtual void option_changed (Option *option) {};
+	virtual void option_changed (Option *option) {}
 	/**
 	 *  This function is called when an option is to be read that needs
 	 *  updating before. These options have to be marked by the OPTFLG_UPDATE
@@ -138,7 +138,7 @@ protected:
 	 *
 	 *  @param option Pointer to the option that is to be updated.
 	 */
-	virtual void option_update (Option *option) {};
+	virtual void option_update (Option *option) {}
 private:
 	/**
 	 *  Map of widgets and a set of boolean options. If all boolean

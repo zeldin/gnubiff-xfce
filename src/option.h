@@ -92,23 +92,23 @@ public:
 			guint flags = OPTFLG_NONE, OptionGUI gui = OPTGUI_NONE,
 			std::string gui_name = std::string(""));
 	/// Destructor.
-	virtual ~Option () {};
+	virtual ~Option () {}
 
-	virtual std::string type_string (void) {return "none";};
-	virtual std::string to_string (void) {return std::string("");};
-	virtual gboolean from_string (const std::string &value) {return false;};
-	virtual void set_gui (std::vector<GtkWidget *> &widgets) {};
-	virtual void get_gui (std::vector<GtkWidget *> &widgets) {};
+	virtual std::string type_string (void) {return "none";}
+	virtual std::string to_string (void) {return std::string("");}
+	virtual gboolean from_string (const std::string &value) {return false;}
+	virtual void set_gui (std::vector<GtkWidget *> &widgets) {}
+	virtual void get_gui (std::vector<GtkWidget *> &widgets) {}
 	/**
 	 *  Reset the option to the default value.
 	 *
 	 *  Remark: Instead of calling this function directly better call
 	 *  Options::reset(). This function handles flags like OPTFLG_CHANGE!
 	 */
-	virtual void reset (void) {};
-	virtual gboolean is_default (void) {return false;};
-	virtual std::string default_string (void) {return std::string("");};
-	virtual Option *copy (void) {return new Option(*this);};
+	virtual void reset (void) {}
+	virtual gboolean is_default (void) {return false;}
+	virtual std::string default_string (void) {return std::string("");}
+	virtual Option *copy (void) {return new Option(*this);}
 	std::string flags_string (std::string sep = std::string("; "));
 
 	/// Access function to Option::flags_
@@ -155,7 +155,7 @@ public:
 				 OptionGUI gui = OPTGUI_NONE,
 				 std::string gui_name = std::string(""));
 
-	std::string type_string (void) {return ((flags_ & OPTFLG_ID_INT_STRICT) ? "enum" : "unsigned int");};
+	std::string type_string (void) {return ((flags_ & OPTFLG_ID_INT_STRICT) ? "enum" : "unsigned int");}
 	std::string to_string (void);
 	std::string default_string (void);
 	gboolean from_string (const std::string &value);
@@ -163,13 +163,13 @@ public:
 	void set_gui (std::vector<GtkWidget *> &widgets);
 	void reset (void);
 	std::string allowed_ids (std::string sep = std::string(" "));
-	gboolean is_default (void) {return value_ == default_;};
-	Option *copy (void) {return new Option_UInt(*this);};
+	gboolean is_default (void) {return value_ == default_;}
+	Option *copy (void) {return new Option_UInt(*this);}
 
 	/// Access function to Option_UInt::value_
-	guint value (void) {return value_;};
+	guint value (void) {return value_;}
 	/// Access function to Option_UInt::value_
-	void value (guint val) {value_ = val;};
+	void value (guint val) {value_ = val;}
 
 	const std::string value_to_string (guint val);
 	guint string_to_value (const std::string &str);
@@ -192,17 +192,17 @@ public:
 				 const gchar *gui_sensitive[] = NULL,
 				 const gchar *gui_show[] = NULL);
 
-	Option *copy (void) {return new Option_Bool(*this);};
-	std::string type_string (void) {return "bool";};
+	Option *copy (void) {return new Option_Bool(*this);}
+	std::string type_string (void) {return "bool";}
 
 	/// Access function to Option_UInt::value_
-	gboolean value (void) {return (gboolean)value_;};
+	gboolean value (void) {return (gboolean)value_;}
 	/// Access function to Option_UInt::value_
-	void value (gboolean val) {value_ = (guint)val;};
+	void value (gboolean val) {value_ = (guint)val;}
 	/// Access function to Option_UInt::gui_sensitive_
-	void gui_sensitive (std::set<std::string> &gs) {gs = gui_sensitive_;};
+	void gui_sensitive (std::set<std::string> &gs) {gs = gui_sensitive_;}
 	/// Access function to Option_UInt::gui_sensitive_neg_
-	void gui_show (std::set<std::string> &gs) {gs = gui_show_;};
+	void gui_show (std::set<std::string> &gs) {gs = gui_show_;}
 private:
 	static const gchar *ids_[3];
 	static const guint ints_[3];
@@ -223,15 +223,15 @@ public:
 				   OptionGUI gui = OPTGUI_NONE,
 				   std::string gui_name = std::string(""));
 
-	std::string type_string (void) {return ((flags_ & OPTFLG_STRINGLIST) ? "list (strings)" : "string");};
+	std::string type_string (void) {return ((flags_ & OPTFLG_STRINGLIST) ? "list (strings)" : "string");}
 	std::string to_string (void);
 	std::string default_string (void);
 	gboolean from_string (const std::string &value);
 	void get_gui (std::vector<GtkWidget *> &widgets);
 	void set_gui (std::vector<GtkWidget *> &widgets);
 	void reset (void);
-	gboolean is_default (void) {return value_ == default_;};
-	Option *copy (void) {return new Option_String(*this);};
+	gboolean is_default (void) {return value_ == default_;}
+	Option *copy (void) {return new Option_String(*this);}
 
 	void set_values (const std::set<std::string> &values, gboolean empty=true);
 	void get_values (std::set<std::string> &values, gboolean empty = true);
@@ -240,9 +240,9 @@ public:
 					 gboolean empty = true);
 
 	/// Access function to Option_UInt::value_
-	std::string value (void) {return value_;};
+	std::string value (void) {return value_;}
 	/// Access function to Option_UInt::value_
-	void value (const std::string val) {from_string (val);};
+	void value (const std::string val) {from_string (val);}
 protected:
 	/// Value of the option
 	std::string value_;

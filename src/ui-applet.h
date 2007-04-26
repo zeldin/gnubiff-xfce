@@ -64,9 +64,9 @@ public:
 
 	/// @see AppletGUI::mailbox_to_be_replaced ()
 	virtual void mailbox_to_be_replaced (class Mailbox *from,
-										 class Mailbox *to) {};
+										 class Mailbox *to) {}
 	/// @see AppletGUI::get_password_for_mailbox ()
-	virtual void get_password_for_mailbox (class Mailbox *mb) {};
+	virtual void get_password_for_mailbox (class Mailbox *mb) {}
 	virtual gboolean can_monitor_mailboxes (void);
 	virtual class AppletGUI *appletgui_ptr (void);
 };

@@ -72,10 +72,10 @@ public:
 	/* frequent callbacks */
 	virtual gboolean on_delete	(GtkWidget *widget, GdkEvent *event);
 	virtual gboolean on_destroy	(GtkWidget *widget, GdkEvent *event);
-	virtual void	 on_ok		(GtkWidget *widget) {};
-	virtual void 	 on_apply	(GtkWidget *widget) {};
-	virtual void	 on_close	(GtkWidget *widget) {};
-	virtual void	 on_cancel	(GtkWidget *widget) {};
+	virtual void	 on_ok		(GtkWidget *widget) {}
+	virtual void 	 on_apply	(GtkWidget *widget) {}
+	virtual void	 on_close	(GtkWidget *widget) {}
+	virtual void	 on_cancel	(GtkWidget *widget) {}
 };
 
 /* "C" bindings */
