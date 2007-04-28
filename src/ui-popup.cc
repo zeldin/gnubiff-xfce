@@ -99,15 +99,42 @@ extern "C" {
 			unknown_internal_error ();
 	}
 	
-	void POPUP_on_select (GtkTreeSelection *selection,
-						  gpointer data)
+	void POPUP_on_select (GtkTreeSelection *selection, gpointer data)
 	{
 		if (data)
 			((Popup *) data)->on_select (selection);
 		else
 			unknown_internal_error ();
 	}
+
+	void POPUP_menu_message_delete (GtkWidget *widget, gpointer data)
+	{
+		if (data)
+			((Popup *) data)->delete_selected_message (true);
+		else
+			unknown_internal_error ();
+	}
+
+	void POPUP_menu_message_hide (GtkWidget *widget, gpointer data)
+	{
+		if (data)
+			((Popup *) data)->hide ();
+		else
+			unknown_internal_error ();
+	}
+
+	void POPUP_menu_message_undelete (GtkWidget *widget, gpointer data)
+	{
+		if (data)
+			((Popup *) data)->delete_selected_message (false);
+		else
+			unknown_internal_error ();
+	}
 }
+
+// ========================================================================
+//  base
+// ========================================================================
 
 Popup::Popup (Biff *biff) : GUI (GNUBIFF_DATADIR"/popup.glade")
 {
@@ -149,6 +176,10 @@ Popup::free_stored_strings (void)
 		g_free (stored_strings_[i]);
 	stored_strings_.clear();
 }
+
+// ========================================================================
+//  main
+// ========================================================================
 
 gint
 Popup::create (gpointer callbackdata)
@@ -258,7 +289,7 @@ Popup::update (void)
 {
 	GtkListStore *store;
 	GtkTreeIter iter;
-  
+
 	// Free stored strings and gtk list store
 	free_stored_strings ();
 
@@ -406,13 +437,76 @@ Popup::show (std::string name)
 	g_mutex_lock (timer_mutex_);
 	if (poptag_ > 0) 
 		g_source_remove (poptag_);
-	poptag_ = g_timeout_add (biff_->value_uint ("popup_delay")*1000,
+	poptag_ = g_timeout_add (biff_->value_uint ("popup_delay") * 1000,
 							 POPUP_on_popdown, this);
 	g_mutex_unlock (timer_mutex_);
 
 	if (tree_selection_)
 		gtk_tree_selection_unselect_all (tree_selection_);
 }
+
+// ========================================================================
+//  message context menu
+// ========================================================================
+
+/**
+ *  Show the context menu for a message.
+ *
+ *  @param  event  Event that led to showing the menu
+ *  @return        Boolean idicating success
+ */
+gboolean 
+Popup::show_message_context_menu (GdkEventButton *event)
+{
+	// Menu item: Undelete/Delete message
+	GtkWidget *menu_delete = get ("menu_message_delete");
+	GtkWidget *menu_undelete = get ("menu_message_undelete");
+	if (biff_->value_bool ("enable_message_deleting")) {
+		Mailbox *mb = biff_->get (selected_header_.mailbox_uin());
+		if (mb && mb->message_to_be_deleted (selected_header_.mailid())) {
+			gtk_widget_hide (menu_delete);
+			gtk_widget_show (menu_undelete);
+		}
+		else {
+			gtk_widget_hide (menu_undelete);
+			gtk_widget_show (menu_delete);
+		}
+	}
+	else {
+		gtk_widget_hide (menu_delete);
+		gtk_widget_hide (menu_undelete);
+	}
+
+	// Show the context menu
+	gtk_menu_popup (GTK_MENU(get("menu_message")), NULL, NULL, NULL, NULL,
+					(event != NULL) ? event->button : 0,
+					gdk_event_get_time ((GdkEvent*)event));
+
+	return true;
+}
+
+/**
+ *  Mark the selected message for deletion or remove this mark.
+ *
+ *  @param tbd  Boolean indicating whether the selected message should be
+ *              deleted (\"true\") or not
+ */
+void 
+Popup::delete_selected_message (gboolean tbd)
+{
+#ifdef DEBUG
+	g_message ("[%d] Marked message with id %s for deletion",
+			   selected_header_.mailbox_uin(),
+			   selected_header_.mailid().c_str());
+#endif
+	Mailbox *mb = biff_->get (selected_header_.mailbox_uin());
+	if (mb)
+		mb->message_to_be_deleted (selected_header_.mailid(), tbd);
+}
+
+// ========================================================================
+//  callbacks
+// ========================================================================
 
 gboolean
 Popup::on_delete (GtkWidget *widget, GdkEvent *event)
@@ -428,7 +522,14 @@ Popup::on_popdown (void)
 	return false;
 }
 
-gboolean
+/**
+ *  Callback function that is called if a button has been pressed on a message
+ *  in the popup.
+ *
+ *  @param  event Event that caused calling this function
+ *  @return       Always false
+ */
+gboolean 
 Popup::on_button_press (GdkEventButton *event)
 {
 	if (event->button == 1) {
@@ -441,12 +542,12 @@ Popup::on_button_press (GdkEventButton *event)
 		gtk_window_get_position (GTK_WINDOW (get("dialog")), &root_x, &root_y);
 		x_ = gint (event->x) + root_x;
 		y_ = gint (event->y) + root_y;
-
 	}	
-	else if (event->button == 2) {
-	}
-	else if (event->button == 3)
+	else if (event->button == 2)
 		hide ();
+	else if (event->button == 3)
+		show_message_context_menu (event);
+
 	return false;
 }
 

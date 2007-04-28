@@ -33,6 +33,9 @@ Version 2.3.0
    - Bugfix: Accessing freed memory (when converting a wrong character set)
    - Compatibility with gcc 4.3 (thanks to Martin Michlmayr for providing a
         patch; this was debian bug #420969 for version 2.2.6)
+   - Feature: Deleting messages (pop protocol; this is feature request #1074262
+        by LostYack and others including Bogdan Lisovich)
+   - Feature: Message context menu
 
 Version 2.2.7
  * Robert Sowada

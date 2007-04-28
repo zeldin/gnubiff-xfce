@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -39,7 +39,7 @@
 
 /**
  *  All the information about a specific mail needed by gnubiff. Headers are
- *  referred to by the mailid.
+ *  referred to by the message id {\em mailid_}.
  */
 class Header {
 public:
@@ -58,7 +58,7 @@ protected:
 	/// Date of the mail
 	std::string		date_;
 	/// Key for faster sorting by date
-	std::string date_collate_key_;
+	std::string		date_collate_key_;
 	/// Mailbox identifier
 	guint			mailbox_uin_;
 	/**
@@ -71,17 +71,17 @@ protected:
 	 *
 	 *  @see The mail identifier is calculated by the method Header::mailid().
 	 */
-	std::string mailid_;
+	std::string		mailid_;
 	/// Position in the mailbox
-	guint position_;
+	guint			position_;
 	/// Sender of the mail
-	std::string	sender_;
+	std::string		sender_;
 	/// Key for faster sorting by sender
-	std::string sender_collate_key_;
+	std::string		sender_collate_key_;
 	/// Subject of the mail
-	std::string	subject_;
+	std::string		subject_;
 	/// Key for faster sorting by subject
-	std::string subject_collate_key_;
+	std::string		subject_collate_key_;
 
 public:
 	bool operator == (const Header &other) const;

@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -90,6 +90,7 @@ public:
 	void fetch_mails (gboolean statusonly = false) throw (pop_err);
 
  protected:
+	void command_dele (guint msgnum) throw (pop_err);
 	void command_quit (void) throw (pop_err);
 	guint command_stat (void) throw (pop_err);
 	void command_top (std::vector<std::string> &, guint) throw (pop_err);

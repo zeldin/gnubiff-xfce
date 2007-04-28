@@ -83,6 +83,10 @@ protected:
 	void show (std::string name = "dialog");
 	void hide (std::string name = "dialog");
 
+	/* message context menu */
+	gboolean show_message_context_menu (GdkEventButton *event);
+	void delete_selected_message (gboolean tbd);
+
 	/* callbacks */
 	gboolean on_delete (GtkWidget *widget, GdkEvent *event);
 	gboolean on_popdown (void);

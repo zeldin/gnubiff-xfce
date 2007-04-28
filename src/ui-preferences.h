@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2004 Nicolas Rougier
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -62,25 +62,19 @@ protected:
 
 
 public:
-	/**
-	 * Base
-	 **/
+	/* Base */
 	Preferences (class Biff *biff);
 	~Preferences (void);
 	gint create (gpointer callbackdata);
 
-	/**
-	 * Main
-	 **/
+	/* Main */
 	void show (std::string name = "dialog");
 	void hide (std::string name = "dialog");
 	void synchronize (void);
 	void synchronize (class Mailbox *mailbox, GtkListStore *store, GtkTreeIter *iter);
 	void apply (void);
 
-	/**
-	 * Access   
-	 **/
+	/* Access */
 	class Properties *properties (void)		{return properties_;}
 	class Biff * biff (void) 				{return biff_;}
 	class Mailbox *added (void)				{return added_;}
@@ -92,9 +86,7 @@ public:
 			properties_->select (mailbox);
 	}
 
-	/**
-	 * Callbacks
-	 **/
+	/* Callbacks */
 	void on_add					(GtkWidget *widget);
 	void on_remove				(GtkWidget *widget);
 	void on_properties			(GtkWidget *widget);
@@ -109,9 +101,7 @@ public:
 	gboolean on_delete			(GtkWidget *widget,
 								 GdkEvent *event);
 
-	/**
-	 * Expert dialog
-	 **/
+	/* Expert dialog */
 	void expert_create (void);
 	void expert_add_option_list (void);
 	void expert_toggle_option (void);

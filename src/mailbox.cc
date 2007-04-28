@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -1010,6 +1010,7 @@ Mailbox::update_mailbox_status (void)
 	// Clear sets for next update
 	new_unread_.clear ();
 	new_seen_.clear ();
+	to_be_deleted_.clear ();
 }
 
 /**
@@ -1052,7 +1053,7 @@ Mailbox::set_status_mailbox_error (void)
  *                   otherwise
  */
 gboolean 
-Mailbox::new_mail(std::string &mailid)
+Mailbox::new_mail (std::string &mailid)
 {
 	// We have now seen this mail
 	new_seen_.insert (mailid);
@@ -1060,7 +1061,8 @@ Mailbox::new_mail(std::string &mailid)
 	// Mail shall not be displayed? -> no need to fetch and parse it
 	if (hidden_.find (mailid) != hidden_.end ()) {
 #ifdef DEBUG
-		g_message ("[%d] Ignore mail with id \"%s\"", uin(), mailid.c_str ());
+		g_message ("[%d] Ignore message with id \"%s\"", uin(),
+				   mailid.c_str ());
 #endif
 		return true;
 	}
@@ -1074,7 +1076,8 @@ Mailbox::new_mail(std::string &mailid)
 	new_unread_[mailid].position (new_unread_.size());
 
 #ifdef DEBUG
-	g_message ("[%d] Already read mail with id \"%s\"", uin(), mailid.c_str());
+	g_message ("[%d] Already read message with id \"%s\"", uin(),
+			   mailid.c_str());
 #endif
 	return true;
 }
@@ -1141,6 +1144,49 @@ Mailbox::get_message_headers (std::vector<Header *> &headers,
 		i++;
 	}
 
+	g_mutex_unlock (mutex_);
+}
+
+/**
+ *  Determine whether a message (given by the unique message
+ *  identifier) is to be deleted or not.
+ *
+ *  @param  mailid  unique message identifier
+ *  @return         \"true\" if message is to be deleted
+ */
+gboolean 
+Mailbox::message_to_be_deleted (std::string mailid)
+{
+	gboolean ok;
+
+	g_mutex_lock (mutex_);
+	ok = to_be_deleted_.find (mailid) != to_be_deleted_.end ();
+	g_mutex_unlock (mutex_);
+
+	return ok;
+}
+
+/**
+ *  Decide whether a certain message (given by the unique message
+ *  identifier) is to be deleted or not.
+ *
+ *  @param  mailid  unique message identifier
+ *  @param  tbd     \"true\" if the message is to be deleted, \"false\"
+ *                  otherwise
+ */
+void 
+Mailbox::message_to_be_deleted (std::string mailid, gboolean tbd)
+{
+	std::set<std::string>::iterator it;
+
+	g_mutex_lock (mutex_);
+	if (tbd)
+		to_be_deleted_.insert (mailid);
+	else {
+		it = to_be_deleted_.find (mailid);
+		if (it != to_be_deleted_.end ())
+			to_be_deleted_.erase (it);
+	}
 	g_mutex_unlock (mutex_);
 }
 

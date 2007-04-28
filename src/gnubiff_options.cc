@@ -273,6 +273,13 @@ Gnubiff_Options::add_options_general (gboolean deprecated)
 		"Directory in which to look for certificates when building the "
 		"certificate chain.",
 								   "/etc/ssl/certs/"));
+	// ENABLE_MESSAGE_DELETING
+	add_option (new Option_Bool ("enable_message_deleting", OPTGRP_GENERAL,
+		"Shall it be possible to delete messages from gnubiff? If this "
+		"option is set to \"true\" an additional menu item will be available "
+		"in the message's context menu that allows deleting of this message. "
+		"The messages will be deleted the next time the server is connected.",
+								 false));
 	// EXPERT_SHOW_TAB
 	const static gchar *s5[] = {"expert_vbox", NULL};
 	add_option (new Option_Bool ("expert_show_tab", OPTGRP_GENERAL,

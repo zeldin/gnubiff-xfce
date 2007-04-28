@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -23,9 +23,9 @@
 // Revision date : $Date$
 // Author(s)     : Nicolas Rougier, Robert Sowada
 // Short         : 
-//
+// 
 // This file is part of gnubiff.
-//
+// 
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 // ========================================================================
 
@@ -74,8 +74,8 @@ Pop::~Pop (void)
 //  main
 // ========================================================================	
 /**
- * Make a note to start monitoring in a new thread. If there is already a note
- * or if we are in idle state nothing is done.
+ * Make a note to start monitoring in a new thread. If there is
+ * already a note or if we are in idle state nothing is done.
  *
  * @param delay Time (in seconds) to wait before the new thread will be
  *              created. If {\em delay} is zero (this is the default) the
@@ -195,27 +195,33 @@ Pop::fetch_mails (gboolean statusonly) throw (pop_err)
 	if (num == total)
 		command_uidl (total, msg_uid);
 
-	// Fetch mails
+	// Fetch messages
 	std::vector<std::string> mail;
 	std::string uid;
 	for (guint i=0; i< num; i++) {
 		// UIDL
-		if (msg_uid.empty())
-			uid = command_uidl (i+start);
+		if (msg_uid.empty ())
+			uid = command_uidl (i + start);
 		else
-			uid = msg_uid[i+start];
+			uid = msg_uid[i + start];
+
+		// Shall the message be deleted?
+		if (message_to_be_deleted (uid)) {
+			command_dele (start + i);
+			continue;
+		}
 
 		if (statusonly)
 			continue;
 
-		// Check if mail is already known
+		// Check if the message is already known
 		if (new_mail (uid))
 			continue;
 
 		// TOP
 		command_top (mail, start + i);
 
-		// Parse mail
+		// Parse message
 		parse (mail, uid);
 	}
 }
@@ -257,6 +263,28 @@ Pop::connect (void) throw (pop_err)
 	// Open socket
 	if (!socket_->open (address(), port(), authentication(), certificate(), 3))
 		throw pop_socket_err();
+}
+
+/**
+ * Sending the POP3 command "DELE" to delete a message on the server.
+ *
+ * @param  msgnum      Message number of the mail in question
+ * @exception pop_command_err
+ *                     This exception is thrown if there is an error in the
+ *                     server's response.
+ * @exception pop_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+void 
+Pop::command_dele (guint msgnum) throw (pop_err)
+{
+	std::string line;
+	std::stringstream ss;
+
+ 	ss << "DELE " << msgnum;
+ 	// Get header and first lines of mail
+ 	sendline (ss.str ());
+ 	readline (line, false); // +OK response to DELE
 }
 
 /**

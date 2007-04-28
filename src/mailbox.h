@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2006 Nicolas Rougier, 2004-2006 Robert Sowada
+// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -91,18 +91,23 @@ protected:
 	 *  the updated is completed successfully. */
 	std::map<std::string, Header> new_unread_;
 
-	/// Set of gnubiff mail ids of those mails that won't be displayed
+	/// Set of gnubiff message ids of those mails that won't be
+	/// displayed
 	std::set<std::string>		hidden_;
 
-	/** Set of gnubiff mail ids of those mails that have already been seen by
-	 *  gnubiff during the last update */
+	/** Set of gnubiff message ids of those mails that have already
+	 *  been seen by gnubiff during the last update */
 	std::set<std::string>		seen_;
 
-	/** Set of gnubiff mail ids of those mails that have already been seen by
-	 *  gnubiff during the present update. These ids will be transfered to
-	 *  Mailbox::seen_ once the update is completed successfully. */
+	/** Set of gnubiff message ids of those mails that have already
+	 *  been seen by gnubiff during the present update. These ids will
+	 *  be transfered to Mailbox::seen_ once the update is completed
+	 *  successfully. */
 	std::set<std::string>		new_seen_;
 
+	/** Set of gnubiff message ids of those mails that are to be
+		deleted the next time the mailbox is accessed. */
+	std::set<std::string>		to_be_deleted_;
 public:
 	// ========================================================================
 	//  base
@@ -166,6 +171,8 @@ public:
 	void get_message_headers (std::vector<Header *> &headers,
 							  gboolean use_max_num = false, guint max_num = 0,
 							  gboolean empty = false);
+	gboolean message_to_be_deleted (std::string mailid);
+	void message_to_be_deleted (std::string mailid, gboolean tbd);
 
 	// ========================================================================
 	//  filtering
