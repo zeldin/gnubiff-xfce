@@ -36,6 +36,8 @@ Version 2.3.0
    - Feature: Deleting messages (pop protocol; this is feature request #1074262
         by LostYack and others including Bogdan Lisovich)
    - Feature: Message context menu
+   - Feature: New options for popup/applet appearance in taskbar (thanks to
+        Jonathan Hitchcock for providing a patch)
 
 Version 2.2.7
  * Robert Sowada
@@ -46,6 +48,8 @@ Version 2.2.7
    - Bugfix: Pointer tests for being not NULL
    - Compatibility with gcc 4.3 (thanks to Martin Michlmayr for providing a
         patch; this was debian bug #420969)
+   - Backport of options for popup/applet appearance in taskbar (thanks to
+        Jonathan Hitchcock for providing a patch)
 	
 Version 2.2.6		2007-04-09 18:37
  * Robert Sowada
