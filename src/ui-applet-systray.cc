@@ -60,6 +60,9 @@ AppletSystray::AppletSystray (Biff *biff) : AppletGtk (biff, this)
 	gtk_tooltips_set_tip (applet_tips, GTK_WIDGET (trayicon_), "", "");
 	tooltip_widget_ = GTK_WIDGET (trayicon_);
 
+	// We don't want a visible frame in the system tray
+	gtk_frame_set_shadow_type (GTK_FRAME (get ("frame")), GTK_SHADOW_NONE);
+
 	// We want to reuse the widgets for AppletGtk. So we have to change the
 	// parent from the top level window to the system tray icon
 	GtkWidget *eventbox = GTK_WIDGET (get ("event"));

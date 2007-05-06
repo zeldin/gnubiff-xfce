@@ -38,6 +38,8 @@ Version 2.3.0
    - Feature: Message context menu
    - Feature: New options for popup/applet appearance in taskbar (thanks to
         Jonathan Hitchcock for providing a patch)
+   - Bugfix: Remove frame in system tray (thanks to Eugene Ossintsev for
+        reporting this bug)
 
 Version 2.2.7
  * Robert Sowada
@@ -48,8 +50,10 @@ Version 2.2.7
    - Bugfix: Pointer tests for being not NULL
    - Compatibility with gcc 4.3 (thanks to Martin Michlmayr for providing a
         patch; this was debian bug #420969)
-   - Backport of options for popup/applet appearance in taskbar (thanks to
-        Jonathan Hitchcock for providing a patch)
+   - Backport of options for popup/applet appearance in taskbar (from
+        gnubiff 2.3.0 CVS; thanks to Jonathan Hitchcock for providing a patch)
+   - Backport of system tray frame removal bugfix (from gnubiff 2.3.0 CVS;
+        thanks to Eugene Ossintsev for reporting this bug)
 	
 Version 2.2.6		2007-04-09 18:37
  * Robert Sowada
