@@ -40,6 +40,8 @@ Version 2.3.0
         Jonathan Hitchcock for providing a patch)
    - Bugfix: Remove frame in system tray (thanks to Eugene Ossintsev for
         reporting this bug)
+   - Added Jonathan Hitchcock, Martin Michlmayr, Eugene Ossintsev,
+        Bogdan Lisovich and Jonathan Velleuer to contributors
 
 Version 2.2.7
  * Robert Sowada
@@ -54,7 +56,9 @@ Version 2.2.7
         gnubiff 2.3.0 CVS; thanks to Jonathan Hitchcock for providing a patch)
    - Backport of system tray frame removal bugfix (from gnubiff 2.3.0 CVS;
         thanks to Eugene Ossintsev for reporting this bug)
-	
+   - Added Jonathan Hitchcock, Martin Michlmayr and Eugene Ossintsev to
+        contributors
+
 Version 2.2.6		2007-04-09 18:37
  * Robert Sowada
    - Changed version to 2.2.6
