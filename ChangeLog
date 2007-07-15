@@ -43,7 +43,11 @@ Version 2.3.0
    - Added Jonathan Hitchcock, Martin Michlmayr, Eugene Ossintsev,
         Bogdan Lisovich and Jonathan Velleuer to contributors
 
-Version 2.2.7
+Version 2.2.8
+ * Robert Sowada
+   - Changed version to 2.2.8
+	
+Version 2.2.7		2007-07-15 21:20
  * Robert Sowada
    - Changed version to 2.2.7
    - Backport of signal code cleanup (from gnubiff 2.3.0 CVS)
