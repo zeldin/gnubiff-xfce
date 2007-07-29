@@ -1,20 +1,20 @@
 # Vietnamese translation for GNUBiff.
-# Copyright © 2006 Free Software Foundation, Inc.
-# Clytie Siddall <clytie@riverland.net.au>, 2005-2006.
+# Copyright © 2007 Free Software Foundation, Inc.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2007.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: gnubiff 2.2.0\n"
+"Project-Id-Version: gnubiff 2.2.7\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-01-28 18:32+0100\n"
-"PO-Revision-Date: 2006-07-12 17:59+0930\n"
+"POT-Creation-Date: 2007-07-15 21:09+0200\n"
+"PO-Revision-Date: 2007-07-26 18:51+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.6b36\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: LocFactoryEditor 1.7b1\n"
 
 #: src/decoding.cc:91
 #, c-format
@@ -32,7 +32,7 @@ msgstr "[Không thể chuyển đổi bộ ký tự từ « %s » sang « utf-8 
 
 #: src/gnubiff.cc:92
 msgid "Start gnome applet from command line"
-msgstr "Khởi chạy tiểu dụng gnome từ dòng lệnh"
+msgstr "Khởi chạy tiểu dụng GNOME từ dòng lệnh"
 
 #: src/gnubiff.cc:99
 msgid "Configuration file to use"
@@ -91,33 +91,28 @@ msgstr "Mọi tùy chọn đã được chuyển đổi."
 
 #: src/biff.cc:655
 #, c-format
-msgid ""
-"Successfully converted some options. The following options must be updated "
-"manually: %s."
-msgstr ""
-"Một số tùy chọn đã được chuyển đổi. Phải tự cập nhật những tùy chọn theo "
-"đây: %s."
+msgid "Successfully converted some options. The following options must be updated manually: %s."
+msgstr "Một số tùy chọn đã được chuyển đổi. Phải tự cập nhật những tùy chọn theo đây: %s."
 
-#: src/biff.cc:798
+#: src/biff.cc:806
 #, c-format
 msgid "Cannot open your configuration file (%s)"
 msgstr "Không thể mở tập tin cấu hình (%s) của bạn"
 
-#: src/biff.cc:814
+#: src/biff.cc:821
 msgid "Cannot create XML parser for config file"
 msgstr "Không thể tao trình phân tách XML cho tập tin cấu hình"
 
-#: src/biff.cc:831
+#: src/biff.cc:838
 #, c-format
 msgid "Found no mailbox definition in your configuration file (%s)"
-msgstr ""
-"Không tìm thấy lời xác định hộp thư trong tập tin cấu hình (%s) của bạn"
+msgstr "Không tìm thấy lời xác định hộp thư trong tập tin cấu hình (%s) của bạn"
 
-#: src/biff.cc:878
+#: src/biff.cc:885
 msgid "Illegal parameter format in config file"
 msgstr "Gặp dạng thức tham số bất hợp lệ trong tập tin cấu hình"
 
-#: src/biff.cc:907
+#: src/biff.cc:914
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Chưa ghi rõ giao thức cho hộp thư %d"
@@ -172,6 +167,9 @@ msgid ""
 "Regular expression: %s\n"
 "Error message: %s"
 msgstr ""
+"Gặp lỗi khi biên dịch biểu thức chính quy.\n"
+"Biểu thức chính quy: %s\n"
+"Thông điệp lỗi: %s"
 
 #: src/header.cc:149
 #, c-format
@@ -231,8 +229,7 @@ msgstr "[%d] Không nhận được đáp ứng từ %s qua cổng %d"
 #: src/imap4.cc:969
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
-msgstr ""
-"[%d] Máy phục vụ không gởi đáp ứng hay lời xác nhận « %s » không có thể"
+msgstr "[%d] Máy phục vụ không gởi đáp ứng hay lời xác nhận « %s » không có thể"
 
 #: src/imap4.cc:1022
 #, c-format
@@ -276,17 +273,12 @@ msgstr "[%d] Chưa nhận đáp ứng dương từ máy phục vụ POP3"
 
 #: src/apop.cc:103
 #, c-format
-msgid ""
-"[%d] Your pop server does not seem to accept apop protocol (no timestamp "
-"provided)"
-msgstr ""
-"[%d] Hình như máy phục vụ POP của bạn không chấp nhận giao thức APOP (không "
-"ghi giờ)"
+msgid "[%d] Your pop server does not seem to accept apop protocol (no timestamp provided)"
+msgstr "[%d] Hình như máy phục vụ POP của bạn không chấp nhận giao thức APOP (không ghi giờ)"
 
 #: src/apop.cc:124
 #, c-format
-msgid ""
-"[%d] Problem with crypto that should have been detected at configure time"
+msgid "[%d] Problem with crypto that should have been detected at configure time"
 msgstr "[%d] Gặp khó với mật mã thuật mà không đươc phát hiện vào lúc cấu hình"
 
 #: src/options.cc:561
@@ -302,11 +294,9 @@ msgstr "Không thể đặt tùy chọn « %s » thành « %s »"
 #: src/options.cc:722 src/gui.cc:274
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
-msgstr ""
-"Không tìm thấy ô điều khiển đã xác định (« %s ») bên trong cấu trúc XML (« %"
-"s »)"
+msgstr "Không tìm thấy ô điều khiển đã xác định (« %s ») bên trong cấu trúc XML (« %s »)"
 
-#: src/gnubiff_options.cc:138
+#: src/gnubiff_options.cc:142
 msgid "no mail"
 msgstr "không có thư mới"
 
@@ -348,7 +338,7 @@ msgstr " lỗi"
 msgid " checking..."
 msgstr " đang kiểm tra..."
 
-#: src/ui-preferences.cc:269 src/ui-popup.cc:163
+#: src/ui-preferences.cc:269 src/ui-popup.cc:185
 msgid "Mailbox"
 msgstr "Hôp thư"
 
@@ -380,7 +370,7 @@ msgstr "Giá trị"
 msgid "_Start"
 msgstr "_Chạy"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:3459
+#: src/ui-preferences.cc:617 ui/preferences.glade:3516
 msgid "_Stop"
 msgstr "_Ngừng"
 
@@ -400,12 +390,8 @@ msgstr "Không thể kiểm chứng %s là nơi Mạng đáng tin.\n"
 
 #: src/ui-certificate.cc:76
 #, c-format
-msgid ""
-"Either site's certificate is incomplete or you're connected to a site "
-"pretending to be %s, possibly to obtain your password"
-msgstr ""
-"Hoặc chứng nhận của nơi Mạng này chưa hoàn thành, hoặc bạn đã kết nối đến "
-"một nơi khác làm ra vẻ là %s, có lẽ để lấy mật khẩu của bạn"
+msgid "Either site's certificate is incomplete or you're connected to a site pretending to be %s, possibly to obtain your password"
+msgstr "Hoặc chứng nhận của nơi Mạng này chưa hoàn thành, hoặc bạn đã kết nối đến một nơi khác làm ra vẻ là %s, có lẽ để lấy mật khẩu của bạn"
 
 #: src/ui-properties.cc:125 src/ui-properties.cc:152
 msgid "Autodetect"
@@ -435,27 +421,25 @@ msgstr "Duyệt tìm tập tin hay thư mục"
 msgid "Browse for a certificate file"
 msgstr "Duyệt tìm tập tin chứng nhận"
 
-#: src/ui-popup.cc:175
+#: src/ui-popup.cc:197
 msgid "From"
 msgstr "Từ"
 
-#: src/ui-popup.cc:181
+#: src/ui-popup.cc:203
 msgid "Subject"
 msgstr "Chủ đề"
 
-#: src/ui-popup.cc:187
+#: src/ui-popup.cc:209
 msgid "Date"
 msgstr "Ngày"
 
 #: src/support.cc:323
 msgid ""
-"You just found an unknown internal error. Please send a detailed bug report "
-"to \"gnubiff-bugs@lists.sourceforge.net\".\n"
+"You just found an unknown internal error. Please send a detailed bug report to \"gnubiff-bugs@lists.sourceforge.net\".\n"
 "\n"
 "Additional information:\n"
 msgstr ""
-"Bạn mới tìm một lỗi nội bộ chưa được biết. Vui lòng gởi báo cáo lỗi chi tiết "
-"cho <gnubiff-bugs@lists.sourceforge.net>.\n"
+"Bạn mới tìm một lỗi nội bộ chưa được biết. Vui lòng gởi báo cáo lỗi chi tiết cho <gnubiff-bugs@lists.sourceforge.net>.\n"
 "\n"
 "Thông tin thêm:\n"
 
@@ -508,34 +492,20 @@ msgid ""
 "Gnubiff is part of the GNU project.\n"
 "It is released under the aegis of GNU.\n"
 "\n"
-"This program is free software; you can redistribute it and/or modify it "
-"under the terms of the GNU General Public License as published by the Free "
-"Software Foundation; either version 2 of the License, or (at your option) "
-"any later version.\n"
+"This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.\n"
 "\n"
-"This program is distributed in the hope that it will be useful, but WITHOUT "
-"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
-"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
-"more details.\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n"
 "\n"
-"You should have received a copy of the GNU General Public License along with "
-"this program; if not, write to the Free Software Foundation, Inc., 51 "
-"Franklin St, Fifth Floor, Boston, MA 02110, USA.\n"
+"You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA.\n"
 msgstr ""
 "Gnubiff thuộc về dự án GNU.\n"
 "Nó được phát hành dưới sự che chở của GNU.\n"
 "\n"
-"Chương trình này là phần mềm tự do : bạn có thể phân phối lại nó và/hay sửa "
-"đổi nó với điều kiện của Quyền Công Chung GNU như được xuất bởi Tổ chức Phần "
-"mềm Tự do, hoặc phiên bản 2 của Quyèn này, hoặc (tùy chọn) bất kỳ phiên bản "
-"mới hơn.\n"
+"Chương trình này là phần mềm tự do : bạn có thể phân phối lại nó và/hay sửa đổi nó với điều kiện của Quyền Công Chung GNU như được xuất bởi Tổ chức Phần mềm Tự do, hoặc phiên bản 2 của Quyèn này, hoặc (tùy chọn) bất kỳ phiên bản mới hơn.\n"
 "\n"
-"Chương trình này được phân phối vì mong muốn nó có ích, nhưng mà không có sự "
-"đảm bảo nào; thậm chí không có khả năng thương mại hay cho một mục đích "
-"riêng nào đó. Xem Quyền Công Chung GNU để tìm chi tiết.\n"
+"Chương trình này được phân phối vì mong muốn nó có ích, nhưng mà không có sự đảm bảo nào; thậm chí không có khả năng thương mại hay cho một mục đích riêng nào đó. Xem Quyền Công Chung GNU để tìm chi tiết.\n"
 "\n"
-"Bạn nên đã nhận một bản sao của Quyền Công Chung GNU cùng với chương trình "
-"này; nếu không thì hãy viết thư cho Tổ chức Phần mềm Tự do :\n"
+"Bạn nên đã nhận một bản sao của Quyền Công Chung GNU cùng với chương trình này; nếu không thì hãy viết thư cho Tổ chức Phần mềm Tự do :\n"
 "Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor,\n"
 "MA 02110-1301, USA (Mỹ).\n"
@@ -597,12 +567,8 @@ msgid "_Browse..."
 msgstr "_Duyệt..."
 
 #: ui/preferences.glade:600 ui/preferences.glade:665
-msgid ""
-"Text to display (%d and %D is the number of new messages, %d is zero "
-"padded). Pango markup may be used."
-msgstr ""
-"Đoạn cần hiển thị (%d và %D là số thư mới, %d đã đệm số không). Có thể sử "
-"dụng mã định dạng Pango."
+msgid "Text to display (%d and %D is the number of new messages, %d is zero padded). Pango markup may be used."
+msgstr "Đoạn cần hiển thị (%d và %D là số thư mới, %d đã đệm số không). Có thể sử dụng mã định dạng Pango."
 
 #: ui/preferences.glade:646
 msgid "B_rowse..."
@@ -749,12 +715,8 @@ msgid "_Edit options in expert mode"
 msgstr "_Hiệu chỉnh tùy chọn trong chế độ cấp cao"
 
 #: ui/preferences.glade:1643
-msgid ""
-"Whether to show the expert tab. Note: Disabling this option can only be "
-"reversed by editing the config file manually!"
-msgstr ""
-"Bật/tắt hiển thị thanh nhỏ cấp cao. Ghi chú : sau khi tắt tùy chọn này, có "
-"thể bật lại chỉ bằng cách tự hiệu chỉnh tập tin cấu hình !"
+msgid "Whether to show the expert tab. Note: Disabling this option can only be reversed by editing the config file manually!"
+msgstr "Bật/tắt hiển thị thanh nhỏ cấp cao. Ghi chú : sau khi tắt tùy chọn này, có thể bật lại chỉ bằng cách tự hiệu chỉnh tập tin cấu hình !"
 
 #: ui/preferences.glade:1645
 msgid "_Show expert tab"
@@ -762,18 +724,11 @@ msgstr "_Hiện thanh cấp cao"
 
 #: ui/preferences.glade:1667
 msgid ""
-"The editing dialog for all options that gnubiff uses internally can be "
-"enabled here. So it is possible to change the value of options for which no "
-"gui widgets are provided. A short description for each option is provided.\n"
-"<b>Warning:</b> Changing these options may cause gnubiff to act not properly "
-"or result in security problems."
+"The editing dialog for all options that gnubiff uses internally can be enabled here. So it is possible to change the value of options for which no gui widgets are provided. A short description for each option is provided.\n"
+"<b>Warning:</b> Changing these options may cause gnubiff to act not properly or result in security problems."
 msgstr ""
-"Ở đây có thể bật hộp thoại hiệu chỉnh các tùy chọn nội bộ của gnubiff. Vì "
-"vậy có thể thay đổi giá trị của tùy chọn không được điều khiển bởi ô điều "
-"khiển giao diện người dùng đồ họa. Mô tả ngắn về mỗi tùy chọn đã được cung "
-"cấp.\n"
-"<b>Cảnh báo :</b> việc thay đổi những tùy chọn này có thể gây ra gnubiff "
-"hoạt động không đúng, hoặc gây ra vấn đề bảo mật."
+"Ở đây có thể bật hộp thoại hiệu chỉnh các tùy chọn nội bộ của gnubiff. Vì vậy có thể thay đổi giá trị của tùy chọn không được điều khiển bởi ô điều khiển giao diện người dùng đồ họa. Mô tả ngắn về mỗi tùy chọn đã được cung cấp.\n"
+"<b>Cảnh báo :</b> việc thay đổi những tùy chọn này có thể gây ra gnubiff hoạt động không đúng, hoặc gây ra vấn đề bảo mật."
 
 #: ui/preferences.glade:1766
 msgid "List all options."
@@ -784,19 +739,12 @@ msgid "String to be searched for."
 msgstr "Chuỗi cần tìm kiếm."
 
 #: ui/preferences.glade:1806
-msgid ""
-"Search for those (displayed) options that contain the string in the text "
-"entry."
-msgstr ""
-"Tìm kiếm những tùy chọn (đã hiển thị) chứa chuỗi nảu trong mục nhập đoạn."
+msgid "Search for those (displayed) options that contain the string in the text entry."
+msgstr "Tìm kiếm những tùy chọn (đã hiển thị) chứa chuỗi nảu trong mục nhập đoạn."
 
 #: ui/preferences.glade:1840
-msgid ""
-"List of options, their type and current values. To edit an option "
-"doubleclick on its value."
-msgstr ""
-"Danh sách các tùy chọn, kiểu và giá trị hiện thời của chúng. Để hiệu chỉnh "
-"tùy chọn nào, hãy nhắp đôi vào giá trị của nó."
+msgid "List of options, their type and current values. To edit an option doubleclick on its value."
+msgstr "Danh sách các tùy chọn, kiểu và giá trị hiện thời của chúng. Để hiệu chỉnh tùy chọn nào, hãy nhắp đôi vào giá trị của nó."
 
 #: ui/preferences.glade:1915
 msgid "Expert"
@@ -812,15 +760,11 @@ msgstr ""
 
 #: ui/preferences.glade:2205
 msgid ""
-"<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
-"devel@lists.sourceforge.net</span>.</small>\n"
-"<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
-"bugs@lists.sourceforge.net</span>.</small>"
+"<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-devel@lists.sourceforge.net</span>.</small>\n"
+"<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-bugs@lists.sourceforge.net</span>.</small>"
 msgstr ""
-"<small>Có thể liên lạc với nhà phát triển Gnubiff trong hộp thư chung <span "
-"foreground=\"blue\">gnubiff-devel@lists.sourceforge.net</span>.</small>\n"
-"<small>Vui lòng báo cáo lỗi cho <span foreground=\"blue\">gnubiff-bugs@lists."
-"sourceforge.net</span></small>"
+"<small>Có thể liên lạc với nhà phát triển Gnubiff trong hộp thư chung <span foreground=\"blue\">gnubiff-devel@lists.sourceforge.net</span>.</small>\n"
+"<small>Vui lòng báo cáo lỗi cho <span foreground=\"blue\">gnubiff-bugs@lists.sourceforge.net</span></small>"
 
 #: ui/preferences.glade:2245
 msgid "Developers"
@@ -831,19 +775,14 @@ msgid "Maintainers"
 msgstr "Nhà duy trì"
 
 #: ui/preferences.glade:2429
-msgid ""
-"<small>Here is a list of those people, which translated gnubiff into "
-"different languages (translators of previous versions are marked with an "
-"asterisk):</small>"
-msgstr ""
-"<small>Đây là danh sách những người đã dịch gnubiff sang ngôn ngữ khác "
-"(người đã dịch phiên bản trước có nhãn dấu sao *):</small>"
+msgid "<small>Here is a list of those people, which translated gnubiff into different languages (translators of previous versions are marked with an asterisk):</small>"
+msgstr "<small>Đây là danh sách những người đã dịch gnubiff sang ngôn ngữ khác (người đã dịch phiên bản trước có nhãn dấu sao *):</small>"
 
-#: ui/preferences.glade:3239
+#: ui/preferences.glade:3296
 msgid "Translators"
 msgstr "Dịch giả"
 
-#: ui/preferences.glade:3269
+#: ui/preferences.glade:3326
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -857,23 +796,23 @@ msgstr ""
 "  • tạo mã nguồn thật\n"
 "Đây là danh sách những người này:</small>"
 
-#: ui/preferences.glade:3340
+#: ui/preferences.glade:3397
 msgid "Contributors"
 msgstr "Người đóng góp"
 
-#: ui/preferences.glade:3376
+#: ui/preferences.glade:3433
 msgid "Credits"
 msgstr "Công trạng"
 
-#: ui/preferences.glade:3515
+#: ui/preferences.glade:3572
 msgid "Set to default value"
 msgstr "Đặt về gia trị mặc định"
 
-#: ui/preferences.glade:3536
+#: ui/preferences.glade:3593
 msgid "Toggle option"
 msgstr "Bật/tắt tùy chọn"
 
-#: ui/preferences.glade:3557
+#: ui/preferences.glade:3614
 msgid "Edit option"
 msgstr "Sửa tùy chọn"
 
@@ -966,12 +905,8 @@ msgid "seconds"
 msgstr "giây"
 
 #: ui/properties.glade:739 ui/properties.glade:765
-msgid ""
-"The amount of time to wait between mail checks or between retries when "
-"connection is lost"
-msgstr ""
-"Thời gian giữa hai lần kiểm tra có thư mới, hay giữa hai lần thử lại khi kết "
-"nối bị ngắt"
+msgid "The amount of time to wait between mail checks or between retries when connection is lost"
+msgstr "Thời gian giữa hai lần kiểm tra có thư mới, hay giữa hai lần thử lại khi kết nối bị ngắt"
 
 #: ui/properties.glade:791
 msgid "Dela_y:"
