@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2007-01-28 18:32+0100\n"
+"POT-Creation-Date: 2007-09-08 12:52+0200\n"
 "PO-Revision-Date: 2006-10-28 18:15-0200\n"
 "Last-Translator: Gunther Furtado <gunzera0@yahoo.com.br>\n"
 "Language-Team: l10n portuguese <debian-l10n-portuguese@lists.debian.org>\n"
@@ -19,21 +19,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "pt_BR utf-8\n"
 
-#: src/decoding.cc:91
+#: src/decoding.cc:92
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[A codificação \"%s\" desta mensagem não pode ser decodificada]"
 
-#: src/decoding.cc:134 src/decoding.cc:141 src/decoding.cc:146
+#: src/decoding.cc:135 src/decoding.cc:142 src/decoding.cc:147
 msgid "[Cannot decode this header line]"
 msgstr "[Não é possível decodificar esta linha de cabeçalho]"
 
-#: src/decoding.cc:705
+#: src/decoding.cc:741
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
 "[Não é possível converter os conjuntos de caracteres \n"
 "(de \"%s\" para \"utf-8\")]"
+
+#: src/decoding.cc:755
+msgid "[Stripped non-ASCII characters from message]"
+msgstr ""
 
 #: src/gnubiff.cc:92
 msgid "Start gnome applet from command line"
@@ -71,30 +75,30 @@ msgstr "Opções gerais de linha de comando:"
 msgid "Options for debugging:"
 msgstr "Opções para depuração:"
 
-#: src/biff.cc:125
+#: src/biff.cc:126
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Arquivo de configuração (%s) não encontrado!"
 
-#: src/biff.cc:598
+#: src/biff.cc:599
 #, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr "Arquivo de configuração carregado a partir da nova versão \"%s\"."
 
-#: src/biff.cc:606
+#: src/biff.cc:607
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Arquivo de configuração carregado a partir da antiga versão \"%s\"."
 
-#: src/biff.cc:608
+#: src/biff.cc:609
 msgid "Trying to convert all options."
 msgstr "Tentando converter todas opções."
 
-#: src/biff.cc:652
+#: src/biff.cc:653
 msgid "Successfully converted all options."
 msgstr "Todas opções convertidas com sucesso."
 
-#: src/biff.cc:655
+#: src/biff.cc:656
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -103,27 +107,33 @@ msgstr ""
 "Algumas opções convertidas com sucesso. As seguintes opções devem ser "
 "atualizadas manualmente: %s."
 
-#: src/biff.cc:798
-#, c-format
-msgid "Cannot open your configuration file (%s)"
+#: src/biff.cc:797
+#, fuzzy, c-format
+msgid "Configuration file \"%s\" is a directory"
+msgstr "Arquivo de configuração a utilizar"
+
+#: src/biff.cc:807
+#, fuzzy, c-format
+msgid "Cannot open your configuration file \"%s\""
 msgstr "Não é possível abrir seu arquivo de configuração (%s)"
 
-#: src/biff.cc:814
-msgid "Cannot create XML parser for config file"
+#: src/biff.cc:823
+#, fuzzy
+msgid "Cannot create XML parser for parsing configuration file"
 msgstr "Não é possível criar analizador XML para o arquivo de configuração"
 
-#: src/biff.cc:831
-#, c-format
-msgid "Found no mailbox definition in your configuration file (%s)"
+#: src/biff.cc:841
+#, fuzzy, c-format
+msgid "Found no mailbox definition in your configuration file \"%s\""
 msgstr ""
 "Não foi encontrada definição de caixa de correio \n"
 "em seu arquivo de configuração (%s)"
 
-#: src/biff.cc:878
+#: src/biff.cc:888
 msgid "Illegal parameter format in config file"
 msgstr "Formato de parâmetro ilegal no arquivo de configuração"
 
-#: src/biff.cc:907
+#: src/biff.cc:917
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Nenhum protocolo especificado para a caixa de correio %d"
@@ -177,7 +187,7 @@ msgstr ""
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Esta mensagem têm um tipo de conteúdo não suportado: \"%s/%s\"]"
 
-#: src/mailbox.cc:1208
+#: src/mailbox.cc:1254
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"
@@ -189,8 +199,8 @@ msgstr ""
 "Mensagem de erro: %s"
 
 #: src/header.cc:149
-#, c-format
-msgid "Can't sort mails by \"%s\""
+#, fuzzy, c-format
+msgid "Can't sort messages by \"%s\""
 msgstr "Não é possível ordenar mensagens por \"%s\""
 
 #: src/socket.cc:125 src/socket.cc:154 src/socket.cc:182 src/socket.cc:190
@@ -282,12 +292,12 @@ msgstr "Não é possível abrir o diretório de novas mensagens (%s)"
 msgid "[%d] Empty password"
 msgstr "[%d] Senha vazia"
 
-#: src/pop.cc:511
+#: src/pop.cc:539
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Mensagem de erro do servidor POP3:%s"
 
-#: src/pop.cc:518
+#: src/pop.cc:546
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Não foi recebida resposta positiva do servidor POP3"
@@ -326,7 +336,7 @@ msgstr ""
 "Não é possível encontrar o dispositivo especificado (\"%s\") \n"
 "dentro da estrutura xml (\"%s\")"
 
-#: src/gnubiff_options.cc:138
+#: src/gnubiff_options.cc:146
 msgid "no mail"
 msgstr "sem mensagens"
 
@@ -368,7 +378,7 @@ msgstr " erro"
 msgid " checking..."
 msgstr " checando..."
 
-#: src/ui-preferences.cc:269 src/ui-popup.cc:163
+#: src/ui-preferences.cc:269 src/ui-popup.cc:216
 msgid "Mailbox"
 msgstr "Caixa de correio"
 
@@ -400,7 +410,7 @@ msgstr "Valor"
 msgid "_Start"
 msgstr "Começar (_S)"
 
-#: src/ui-preferences.cc:617 ui/preferences.glade:3459
+#: src/ui-preferences.cc:617 ui/preferences.glade:2410
 msgid "_Stop"
 msgstr "Parar (_S)"
 
@@ -457,15 +467,15 @@ msgstr "Procurar por um arquivo ou diretório"
 msgid "Browse for a certificate file"
 msgstr "Procurar por um arquivo de certificado"
 
-#: src/ui-popup.cc:175
+#: src/ui-popup.cc:228
 msgid "From"
 msgstr "De"
 
-#: src/ui-popup.cc:181
+#: src/ui-popup.cc:234
 msgid "Subject"
 msgstr "Assunto"
 
-#: src/ui-popup.cc:187
+#: src/ui-popup.cc:240
 msgid "Date"
 msgstr "Data"
 
@@ -485,7 +495,7 @@ msgstr ""
 msgid "Info"
 msgstr "Sobre"
 
-#: src/GNOME_gnubiffApplet.xml.h:2 ui/applet-gtk.glade:131
+#: src/GNOME_gnubiffApplet.xml.h:2 ui/applet-gtk.glade:79
 msgid "Mark mailboxes read"
 msgstr "Marcar caixas de correio como lidas"
 
@@ -501,48 +511,48 @@ msgstr "Executar o comando"
 msgid "Mail notification program"
 msgstr "Programa de aviso de novas mensagens"
 
-#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade:8
+#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade:7
 msgid "gnubiff"
 msgstr "gnubiff"
 
-#: ui/applet-gtk.glade:7
+#: ui/applet-gtk.glade:6
 msgid "tooltip"
 msgstr "dica"
 
-#: ui/applet-gtk.glade:110
+#: ui/applet-gtk.glade:64
 msgid "Start command"
 msgstr "Iniciar comando"
 
-#: ui/applet-gtk.glade:152
+#: ui/applet-gtk.glade:94
 msgid "About"
 msgstr "Sobre"
 
-#: ui/applet-gtk.glade:179
+#: ui/applet-gtk.glade:114
 msgid "_Quit"
 msgstr "Sair (_Q)"
 
-#: ui/applet-gtk.glade:203
+#: ui/applet-gtk.glade:132
 msgid "Gnubiff is a mail notification program."
 msgstr "Gnubiff é um programa de aviso de novas mensagens."
 
-#: ui/applet-gtk.glade:204
+#: ui/applet-gtk.glade:134
+#, fuzzy
 msgid ""
 "Gnubiff is part of the GNU project.\n"
 "It is released under the aegis of GNU.\n"
 "\n"
-"This program is free software; you can redistribute it and/or modify it "
+"This program is free software: you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
-"Software Foundation; either version 2 of the License, or (at your option) "
+"Software Foundation, either version 3 of the License, or (at your option) "
 "any later version.\n"
 "\n"
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
-"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details.\n"
 "\n"
 "You should have received a copy of the GNU General Public License along with "
-"this program; if not, write to the Free Software Foundation, Inc., 51 "
-"Franklin St, Fifth Floor, Boston, MA 02110, USA.\n"
+"this program.  If not, see http://www.gnu.org/licenses/."
 msgstr ""
 "Gnubiff faz parte do projeto GNU.\n"
 "Ele é distribuído sob os auspícios do GNU.\n"
@@ -561,63 +571,152 @@ msgstr ""
 "programa, se não, escreva para a Fundação do Software Livre (FSF) Inc., 51 "
 "Franklin St, Fifth Floor, Boston, MA 02110, USA.\n"
 
-#: ui/preferences.glade:7
+#: ui/preferences.glade:6
 msgid "gnubiff preferences"
 msgstr "Preferências do gnubiff"
 
-#: ui/preferences.glade:132
-msgid "When _double-clicked:"
-msgstr "Opção de realizar um clique-_duplo:"
-
-#: ui/preferences.glade:154
-msgid "<b>General</b>"
-msgstr "<b>Geral</b>"
-
-#: ui/preferences.glade:194
-msgid "<b>Mailboxes</b>"
-msgstr "<b>Caixas de correio</b>"
-
-#: ui/preferences.glade:236
-msgid "<b>Commands</b>"
-msgstr "<b>Comandos</b>"
-
-#: ui/preferences.glade:330
-msgid "When _new mail:"
-msgstr "Quando chegar uma _nova mensagem:"
-
-#: ui/preferences.glade:352
-msgid "The command to run when new mail arrives"
-msgstr "Comando a executar quando chegarem novas mensagens"
-
-#: ui/preferences.glade:374
-msgid "The command to run when the icon is double-clicked"
-msgstr "Comando a executar quando o ícone recebe um clique-duplo"
-
-#: ui/preferences.glade:432
+#: ui/preferences.glade:49
 msgid "_Restrict collected mail to"
 msgstr "_Restringir mensagens coletadas a"
 
-#: ui/preferences.glade:470
-msgid "mail(s)"
-msgstr "mensagem(ns)"
+#: ui/preferences.glade:75
+msgid "messages"
+msgstr ""
 
-#: ui/preferences.glade:512
+#: ui/preferences.glade:106
+msgid "The command to run when the icon is double-clicked"
+msgstr "Comando a executar quando o ícone recebe um clique-duplo"
+
+#: ui/preferences.glade:121
+msgid "The command to run when new mail arrives"
+msgstr "Comando a executar quando chegarem novas mensagens"
+
+#: ui/preferences.glade:136
+msgid "When _new mail:"
+msgstr "Quando chegar uma _nova mensagem:"
+
+#: ui/preferences.glade:197
+msgid "<b>Commands</b>"
+msgstr "<b>Comandos</b>"
+
+#: ui/preferences.glade:217
+msgid "<b>Mailboxes</b>"
+msgstr "<b>Caixas de correio</b>"
+
+#: ui/preferences.glade:234
+msgid "<b>General</b>"
+msgstr "<b>Geral</b>"
+
+#: ui/preferences.glade:247
+msgid "When _double-clicked:"
+msgstr "Opção de realizar um clique-_duplo:"
+
+#: ui/preferences.glade:319
 msgid "Mailboxes"
 msgstr "Caixas de correio"
 
-#: ui/preferences.glade:557 ui/preferences.glade:622
-msgid "Image filename"
-msgstr "Nome do arquivo de imagem"
+#: ui/preferences.glade:348 ui/preferences.glade:987
+#, fuzzy
+msgid "Whether to appear on all desktops"
+msgstr "Opção de mostrar um texto"
 
-#: ui/preferences.glade:579 ui/preferences.glade:644
-msgid "Browse for an image file"
-msgstr "Buscar um arquivo de imagem"
+#: ui/preferences.glade:349 ui/preferences.glade:988
+msgid "Be _sticky"
+msgstr ""
 
-#: ui/preferences.glade:581 ui/properties.glade:295
-msgid "_Browse..."
-msgstr "Navegar... (_B)"
+#: ui/preferences.glade:415 ui/preferences.glade:968
+#, fuzzy
+msgid "Whether to be always kept above all other windows"
+msgstr "Opção de exibir a janela popup"
 
-#: ui/preferences.glade:600 ui/preferences.glade:665
+#: ui/preferences.glade:416 ui/preferences.glade:969
+msgid "_Keep above"
+msgstr ""
+
+#: ui/preferences.glade:434 ui/preferences.glade:781 ui/preferences.glade:836
+#: ui/preferences.glade:1247
+#, fuzzy
+msgid "Whether to appear in pagers"
+msgstr "Opção de exibir uma imagem"
+
+#: ui/preferences.glade:435 ui/preferences.glade:837
+msgid "Appear in _pagers"
+msgstr ""
+
+#: ui/preferences.glade:452 ui/preferences.glade:872
+msgid "Whether to use window manager decoration"
+msgstr "Opção de usar a decoração do gerenciador de janelas"
+
+#: ui/preferences.glade:453 ui/preferences.glade:873
+msgid "Use _decoration"
+msgstr "Usar _decoração"
+
+#: ui/preferences.glade:470 ui/preferences.glade:854
+msgid "The font to use to display information"
+msgstr "Fonte a usar para mostrar informação"
+
+#: ui/preferences.glade:487 ui/preferences.glade:890
+msgid "_Font:"
+msgstr "_Fonte:"
+
+#: ui/preferences.glade:504 ui/preferences.glade:952
+#, fuzzy
+msgid "<b>Behavior</b>"
+msgstr "<b>Cabeçalhos</b>"
+
+#: ui/preferences.glade:523
+msgid "<b>When no mail</b>"
+msgstr "<b>Opção quando não houver mensagens</b>"
+
+#: ui/preferences.glade:544
+msgid "<b>When new mail</b>"
+msgstr "<b>Opção quando houver nova(s) mensagem(ns)</b>"
+
+#: ui/preferences.glade:561 ui/preferences.glade:1025
+msgid "<b>Layout</b>"
+msgstr "<b>Layout</b>"
+
+#: ui/preferences.glade:574
+msgid "Whether to display an image"
+msgstr "Opção de exibir uma imagem"
+
+#: ui/preferences.glade:575
+msgid "Show i_mage:"
+msgstr "Mostrar i_magem:"
+
+#: ui/preferences.glade:593 ui/preferences.glade:631
+msgid "Whether to display a text"
+msgstr "Opção de mostrar um texto"
+
+#: ui/preferences.glade:594
+msgid "Show t_ext:"
+msgstr "Mostrar t_exto:"
+
+#: ui/preferences.glade:612
+msgid "Whether to show an image"
+msgstr "Opção de mostrar uma imagem"
+
+#: ui/preferences.glade:613
+msgid "Show _image:"
+msgstr "Mostrar _imagem:"
+
+#: ui/preferences.glade:632
+msgid "Show _text:"
+msgstr "Mostrar _texto:"
+
+#: ui/preferences.glade:650 ui/preferences.glade:1038
+msgid "Whether to use geometry"
+msgstr "Opção de usar geometria"
+
+#: ui/preferences.glade:651 ui/preferences.glade:1039
+msgid "Use _geometry:"
+msgstr "Usar _geometria:"
+
+#: ui/preferences.glade:669
+msgid "Applet geometry"
+msgstr "Geometria do miniaplicativo"
+
+#: ui/preferences.glade:684 ui/preferences.glade:732
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
 "padded). Pango markup may be used."
@@ -625,164 +724,98 @@ msgstr ""
 "Texto a ser exibido (%d e %D é o número de novas mensagens, %d é completado "
 "com zeros à esquerda). Marcação Pango poderá ser usada."
 
-#: ui/preferences.glade:646
+#: ui/preferences.glade:699 ui/preferences.glade:747
+msgid "Browse for an image file"
+msgstr "Buscar um arquivo de imagem"
+
+#: ui/preferences.glade:700
 msgid "B_rowse..."
 msgstr "Navega_r..."
 
-#: ui/preferences.glade:687
-msgid "Applet geometry"
-msgstr "Geometria do miniaplicativo"
+#: ui/preferences.glade:717 ui/preferences.glade:765
+msgid "Image filename"
+msgstr "Nome do arquivo de imagem"
 
-#: ui/preferences.glade:709 ui/preferences.glade:1317
-msgid "Whether to use geometry"
-msgstr "Opção de usar geometria"
+#: ui/preferences.glade:748 ui/properties.glade:295
+msgid "_Browse..."
+msgstr "Navegar... (_B)"
 
-#: ui/preferences.glade:711 ui/preferences.glade:1319
-msgid "Use _geometry:"
-msgstr "Usar _geometria:"
+#: ui/preferences.glade:782 ui/preferences.glade:1248
+msgid "Appear in _taskbar"
+msgstr ""
 
-#: ui/preferences.glade:733 ui/preferences.glade:781
-msgid "Whether to display a text"
-msgstr "Opção de mostrar um texto"
-
-#: ui/preferences.glade:735
-msgid "Show _text:"
-msgstr "Mostrar _texto:"
-
-#: ui/preferences.glade:757
-msgid "Whether to show an image"
-msgstr "Opção de mostrar uma imagem"
-
-#: ui/preferences.glade:759
-msgid "Show _image:"
-msgstr "Mostrar _imagem:"
-
-#: ui/preferences.glade:783
-msgid "Show t_ext:"
-msgstr "Mostrar t_exto:"
-
-#: ui/preferences.glade:805
-msgid "Whether to display an image"
-msgstr "Opção de exibir uma imagem"
-
-#: ui/preferences.glade:807
-msgid "Show i_mage:"
-msgstr "Mostrar i_magem:"
-
-#: ui/preferences.glade:829 ui/preferences.glade:1365
-msgid "<b>Layout</b>"
-msgstr "<b>Layout</b>"
-
-#: ui/preferences.glade:869
-msgid "<b>When new mail</b>"
-msgstr "<b>Opção quando houver nova(s) mensagem(ns)</b>"
-
-#: ui/preferences.glade:911
-msgid "<b>When no mail</b>"
-msgstr "<b>Opção quando não houver mensagens</b>"
-
-#: ui/preferences.glade:941 ui/preferences.glade:1288
-msgid "_Font:"
-msgstr "_Fonte:"
-
-#: ui/preferences.glade:970 ui/preferences.glade:1434
-msgid "The font to use to display information"
-msgstr "Fonte a usar para mostrar informação"
-
-#: ui/preferences.glade:990 ui/preferences.glade:1455
-msgid "Whether to use window manager decoration"
-msgstr "Opção de usar a decoração do gerenciador de janelas"
-
-#: ui/preferences.glade:992 ui/preferences.glade:1457
-msgid "Use _decoration"
-msgstr "Usar _decoração"
-
-#: ui/preferences.glade:1050
-msgid "Applet or Biff"
+#: ui/preferences.glade:806
+#, fuzzy
+msgid "Applet"
 msgstr "Miniaplicativo ou Biff"
 
-#: ui/preferences.glade:1095
-msgid "second(s)"
-msgstr "segundo(s)"
-
-#: ui/preferences.glade:1122
-msgid "Time to display popup window"
-msgstr "Tempo de exibição da janela popup"
-
-#: ui/preferences.glade:1145
-msgid "Popup geometry"
-msgstr "Geometria da janela popup"
-
-#: ui/preferences.glade:1167
-msgid "Whether to use format for header"
-msgstr "Opção de usar formato para os cabeçalhos"
-
-#: ui/preferences.glade:1169
-msgid "_Format:"
-msgstr "_Formato:"
-
-#: ui/preferences.glade:1191
-msgid "[sender max size]:[subject max size]:[date max size]"
-msgstr "[tamanho máx remetente]:[tamanho máx assunto]:[tamanho máx data]"
-
-#: ui/preferences.glade:1213
-msgid "Whether to restrict number of displayed headers"
-msgstr "Opção de restringir o número de cabeçalhos exibidos"
-
-#: ui/preferences.glade:1215
-msgid "_Restrict number to"
-msgstr "_Restringir número a"
-
-#: ui/preferences.glade:1237
-msgid "Maximum number of headers to display"
-msgstr "Número máximo de cabeçalhos a exibir"
-
-#: ui/preferences.glade:1260
-msgid "header(s)"
-msgstr "cabeçalho(s)"
-
-#: ui/preferences.glade:1341
+#: ui/preferences.glade:907
 msgid "Whether to display the popup window"
 msgstr "Opção de exibir a janela popup"
 
-#: ui/preferences.glade:1343
+#: ui/preferences.glade:908
 msgid "_Display for"
 msgstr "Exibir por (_d)"
 
-#: ui/preferences.glade:1405
+#: ui/preferences.glade:1009
 msgid "<b>Headers</b>"
 msgstr "<b>Cabeçalhos</b>"
 
-#: ui/preferences.glade:1534 ui/popup.glade:7
+#: ui/preferences.glade:1057
+#, fuzzy
+msgid "headers"
+msgstr "cabeçalho(s)"
+
+#: ui/preferences.glade:1072
+msgid "Maximum number of headers to display"
+msgstr "Número máximo de cabeçalhos a exibir"
+
+#: ui/preferences.glade:1089
+msgid "Whether to restrict number of displayed headers"
+msgstr "Opção de restringir o número de cabeçalhos exibidos"
+
+#: ui/preferences.glade:1090
+msgid "_Restrict number to"
+msgstr "_Restringir número a"
+
+#: ui/preferences.glade:1108
+msgid "[sender max size]:[subject max size]:[date max size]"
+msgstr "[tamanho máx remetente]:[tamanho máx assunto]:[tamanho máx data]"
+
+#: ui/preferences.glade:1123
+msgid "Whether to use format for header"
+msgstr "Opção de usar formato para os cabeçalhos"
+
+#: ui/preferences.glade:1124
+msgid "_Format:"
+msgstr "_Formato:"
+
+#: ui/preferences.glade:1142
+msgid "Popup geometry"
+msgstr "Geometria da janela popup"
+
+#: ui/preferences.glade:1157
+msgid "Time to display popup window"
+msgstr "Tempo de exibição da janela popup"
+
+#: ui/preferences.glade:1174 ui/properties.glade:716
+msgid "seconds"
+msgstr "segundos"
+
+#: ui/preferences.glade:1189
+msgid "Whether to accept keyboard focus"
+msgstr ""
+
+#: ui/preferences.glade:1190
+#, fuzzy
+msgid "_Accept focus"
+msgstr "Aceitar"
+
+#: ui/preferences.glade:1272 ui/popup.glade:6
 msgid "Popup"
 msgstr "Janela popup"
 
-#: ui/preferences.glade:1591
-msgid "<b>Expert editing mode</b>"
-msgstr "<b>Modo avançado de edição</b>"
-
-#: ui/preferences.glade:1619
-msgid "Whether options can be edited in expert mode"
-msgstr "Opção de editar opções no modo avançado"
-
-#: ui/preferences.glade:1621
-msgid "_Edit options in expert mode"
-msgstr "_Editar opções no modo avançado"
-
-#: ui/preferences.glade:1643
-msgid ""
-"Whether to show the expert tab. Note: Disabling this option can only be "
-"reversed by editing the config file manually!"
-msgstr ""
-"Opção de exibir a aba avançada. Nota: A desativação desta opção só pode "
-"ser \n"
-"revertida através da edição manual do arquivo de configuração!"
-
-#: ui/preferences.glade:1645
-msgid "_Show expert tab"
-msgstr "Mo_strar aba de edição avançada"
-
-#: ui/preferences.glade:1667
+#: ui/preferences.glade:1319
 msgid ""
 "The editing dialog for all options that gnubiff uses internally can be "
 "enabled here. So it is possible to change the value of options for which no "
@@ -797,22 +830,47 @@ msgstr ""
 "<b>Alerta:</b> Alterar estas opções pode fazer com que o gnubiff aja de "
 "maneira imprópria ou que problemas de segurança apareçam."
 
-#: ui/preferences.glade:1766
+#: ui/preferences.glade:1337
+msgid ""
+"Whether to show the expert tab. Note: Disabling this option can only be "
+"reversed by editing the config file manually!"
+msgstr ""
+"Opção de exibir a aba avançada. Nota: A desativação desta opção só pode "
+"ser \n"
+"revertida através da edição manual do arquivo de configuração!"
+
+#: ui/preferences.glade:1338
+msgid "_Show expert tab"
+msgstr "Mo_strar aba de edição avançada"
+
+#: ui/preferences.glade:1357
+msgid "Whether options can be edited in expert mode"
+msgstr "Opção de editar opções no modo avançado"
+
+#: ui/preferences.glade:1358
+msgid "_Edit options in expert mode"
+msgstr "_Editar opções no modo avançado"
+
+#: ui/preferences.glade:1376
+msgid "<b>Expert editing mode</b>"
+msgstr "<b>Modo avançado de edição</b>"
+
+#: ui/preferences.glade:1410
 msgid "List all options."
 msgstr "Listar todas as opções."
 
-#: ui/preferences.glade:1784
+#: ui/preferences.glade:1425
 msgid "String to be searched for."
 msgstr "Linha a ser procurada."
 
-#: ui/preferences.glade:1806
+#: ui/preferences.glade:1437
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr ""
 "Procurar pelas opções (exibidas) que contenham a string na entrada de texto."
 
-#: ui/preferences.glade:1840
+#: ui/preferences.glade:1465
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
@@ -820,11 +878,11 @@ msgstr ""
 "Lista de opções, por tipo e valores atuais. Para editar uma opção dê um "
 "duplo clique no seu valor."
 
-#: ui/preferences.glade:1915
+#: ui/preferences.glade:1511
 msgid "Expert"
 msgstr "Avançado"
 
-#: ui/preferences.glade:2003
+#: ui/preferences.glade:1552
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
@@ -832,7 +890,7 @@ msgstr ""
 "<small> Este programa é parte do projeto GNU,\n"
 " Publicado sob os auspícios do GNU.</small>"
 
-#: ui/preferences.glade:2205
+#: ui/preferences.glade:1618
 msgid ""
 "<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
 "devel@lists.sourceforge.net</span>.</small>\n"
@@ -846,15 +904,15 @@ msgstr ""
 "<span foreground=\"blue\">gnubiff-bugs@lists.sourceforge.net</span>. \n"
 "</small>"
 
-#: ui/preferences.glade:2245
+#: ui/preferences.glade:1690
 msgid "Developers"
 msgstr "Desenvolvedores"
 
-#: ui/preferences.glade:2394
+#: ui/preferences.glade:1771
 msgid "Maintainers"
 msgstr "Mantenedores"
 
-#: ui/preferences.glade:2429
+#: ui/preferences.glade:1791
 msgid ""
 "<small>Here is a list of those people, which translated gnubiff into "
 "different languages (translators of previous versions are marked with an "
@@ -864,11 +922,11 @@ msgstr ""
 "diversos idiomas (tradutores de versões anteriores estãomarcados com um "
 "asterisco):</small>"
 
-#: ui/preferences.glade:3239
+#: ui/preferences.glade:2278
 msgid "Translators"
 msgstr "Tradutores"
 
-#: ui/preferences.glade:3269
+#: ui/preferences.glade:2296
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -882,23 +940,23 @@ msgstr ""
 "  - enviando código\n"
 "Aqui está uma lista destas pessoas:</small>"
 
-#: ui/preferences.glade:3340
+#: ui/preferences.glade:2340
 msgid "Contributors"
 msgstr "Colaboradores"
 
-#: ui/preferences.glade:3376
+#: ui/preferences.glade:2364
 msgid "Credits"
 msgstr "Créditos"
 
-#: ui/preferences.glade:3515
+#: ui/preferences.glade:2452
 msgid "Set to default value"
 msgstr "Retornar ao valor padrão"
 
-#: ui/preferences.glade:3536
+#: ui/preferences.glade:2467
 msgid "Toggle option"
 msgstr "Alternar opção"
 
-#: ui/preferences.glade:3557
+#: ui/preferences.glade:2482
 msgid "Edit option"
 msgstr "Editar opção"
 
@@ -985,10 +1043,6 @@ msgstr "Cer_tificado:"
 #: ui/properties.glade:692
 msgid "minutes"
 msgstr "minutos"
-
-#: ui/properties.glade:716
-msgid "seconds"
-msgstr "segundos"
 
 #: ui/properties.glade:739 ui/properties.glade:765
 msgid ""
@@ -1086,18 +1140,36 @@ msgstr "Detalhes do certificado"
 msgid "Accept"
 msgstr "Aceitar"
 
-#: ui/popup.glade:61
+#: ui/popup.glade:41
 msgid "mail content"
 msgstr "conteúdo da mensagem"
 
-#: ui/popup.glade:116
+#: ui/popup.glade:74
 msgid "<small><b>From</b></small>"
 msgstr "<small><b>De</b></small>"
 
-#: ui/popup.glade:140
+#: ui/popup.glade:86
 msgid "<small><b>Subject</b></small>"
 msgstr "<small><b>Assunto</b></small>"
 
-#: ui/popup.glade:164
+#: ui/popup.glade:100
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Data</b></small>"
+
+#: ui/popup.glade:186
+msgid "Hide popup"
+msgstr ""
+
+#: ui/popup.glade:200
+msgid "Delete this message"
+msgstr ""
+
+#: ui/popup.glade:216
+msgid "Undelete this message"
+msgstr ""
+
+#~ msgid "mail(s)"
+#~ msgstr "mensagem(ns)"
+
+#~ msgid "second(s)"
+#~ msgstr "segundo(s)"
