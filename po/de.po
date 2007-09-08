@@ -1,8 +1,8 @@
-# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
+# Copyright (C) 2003-2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnubiff package.
 # German translation of gnubiff
 # Roland Stigge <stigge@antcom.de>, 2003.
-# Robert Sowada <sowadart@gmx.de>, 2004, 2005.
+# Robert Sowada <sowadart@gmx.de>, 2004-2007.
 #
 msgid ""
 msgstr ""
