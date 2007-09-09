@@ -5,6 +5,13 @@ Copyright (C) 2000-2007 Nicolas Rougier <Nicolas.Rougier@loria.fr>,
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.2.8
+This is a minor feature release. Changes:
+ * Upgraded license to GPL version 3
+ * Updated Swedish translation (thanks to Daniel Nylander)
+ * Updated Vietnamese translation (thanks to Clytie Siddall)
+ * Updated German translation
+
 Version 2.2.7
 This is a minor feature release. Changes:
  * Showing/Hiding popup via SIGUSR signals
