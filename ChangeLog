@@ -44,7 +44,8 @@ Version 2.3.0
         Bogdan Lisovich and Jonathan Velleuer to contributors
    - Updated Vietnamese translation (thanks to Clytie Siddall)
    - Upgraded license to GPL version 3
-   - Updated German translation	
+   - Updated German translation
+   - Updated intltool (to version 0.36.0) files
 
 Version 2.2.8		2007-09-09 18:45
  * Robert Sowada
