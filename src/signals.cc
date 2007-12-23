@@ -127,25 +127,25 @@ Signals::signal_handler (int signum)
 	case SIGNAL_STOP:
 		biff_->stop_monitoring ();
 		break;
-	case SIGNAL_POPUP_ENABLE:
-		if (appletgui)
-			appletgui->enable_popup (true);
-		break;
 	case SIGNAL_POPUP_DISABLE:
 		if (appletgui)
 			appletgui->enable_popup (false);
 		break;
-	case SIGNAL_POPUP_TOGGLE:
+	case SIGNAL_POPUP_ENABLE:
 		if (appletgui)
-			appletgui->enable_popup (!biff_->value_bool ("use_popup"));
+			appletgui->enable_popup (true);
+		break;
+	case SIGNAL_POPUP_HIDE:
+		if (appletgui)
+			appletgui->hide_dialog_popup ();
 		break;
 	case SIGNAL_POPUP_SHOW:
 		if (appletgui)
 			appletgui->show_dialog_popup ();
 		break;
-	case SIGNAL_POPUP_HIDE:
+	case SIGNAL_POPUP_TOGGLE:
 		if (appletgui)
-			appletgui->hide_dialog_popup ();
+			appletgui->enable_popup (!biff_->value_bool ("use_popup"));
 		break;
 	case SIGNAL_POPUP_TOGGLEVISIBLE:
 		if (appletgui) {
@@ -154,5 +154,9 @@ Signals::signal_handler (int signum)
 			else
 				appletgui->show_dialog_popup ();
 		}
+		break;
+	case SIGNAL_STATUS_TO_STDOUT:
+		g_print (biff_->applet()->get_mailbox_status_text().c_str());
+		break;
 	}
 }

@@ -371,11 +371,13 @@ Gnubiff_Options::add_options_general (gboolean deprecated)
 							   SIGNAL_STOP, SIGNAL_POPUP_ENABLE,
 							   SIGNAL_POPUP_DISABLE, SIGNAL_POPUP_TOGGLE,
 							   SIGNAL_POPUP_SHOW, SIGNAL_POPUP_HIDE,
-							   SIGNAL_POPUP_TOGGLEVISIBLE, 0};
+							   SIGNAL_POPUP_TOGGLEVISIBLE,
+							   SIGNAL_STATUS_TO_STDOUT, 0};
 	const static gchar *s7[] = {"none", "mark_as_read", "start", "stop",
 								"popup_enable", "popup_disable",
 								"popup_toggle",	"popup_show", "popup_hide",
-								"popup_togglevisible", NULL};
+								"popup_togglevisible",
+								"status_to_stdout", NULL};
 	add_option (new Option_UInt ("signal_sigusr1", OPTGRP_GENERAL,
 		"Action to be executed if the signal SIGUSR1 is caught by gnubiff. "
 		"\nPossible actions are ignoring the signal (\"none\"), marking all "
@@ -384,7 +386,9 @@ Gnubiff_Options::add_options_general (gboolean deprecated)
         "the popup (\"popup_enable\" and \"popup_disable\"), "
 		"toggling the popup enabled status (\"popup_toggle\"), showing and "
 		"hiding the popup (\"popup_show\" and \"popup_hide\"), or toggling "
-		"the popup's visibility (\"popup_togglevisible\")",
+		"the popup's visibility (\"popup_togglevisible\"). Furthermore "
+		"it's possible to print the status of the mailboxes to stdout "
+		"(\"status_to_stdout\").",
 								 SIGNAL_MARK_AS_READ,
 								 OPTFLG_ID_INT_STRICT, i7, s7));
 	// SIGNAL_SIGUSR2

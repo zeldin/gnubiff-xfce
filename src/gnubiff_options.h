@@ -83,6 +83,7 @@ const guint SIGNAL_POPUP_TOGGLE			=	6;
 const guint SIGNAL_POPUP_SHOW			=	7;
 const guint SIGNAL_POPUP_HIDE			=	8;
 const guint SIGNAL_POPUP_TOGGLEVISIBLE	=	9;
+const guint SIGNAL_STATUS_TO_STDOUT		=	10;
 
 const guint OPTGRP_GENERAL		=	1;
 const guint OPTGRP_APPLET		=	2;

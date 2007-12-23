@@ -46,6 +46,7 @@ Version 2.3.0
    - Upgraded license to GPL version 3
    - Updated German translation
    - Updated intltool (to version 0.36.0) files
+   - Feature: Printing mailbox status to stdout via SIGUSR signals
 
 Version 2.2.9
  * Robert Sowada
