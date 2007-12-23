@@ -156,7 +156,7 @@ Signals::signal_handler (int signum)
 		}
 		break;
 	case SIGNAL_STATUS_TO_STDOUT:
-		g_print (biff_->applet()->get_mailbox_status_text().c_str());
+		g_print ("%s", biff_->applet()->get_mailbox_status_text().c_str());
 		break;
 	}
 }
