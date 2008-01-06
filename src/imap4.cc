@@ -262,13 +262,17 @@ Imap4::connect (void) throw (imap_err)
 	readline (line);
 
 	// CAPABILITY
-	command_capability (true);
+	command_capability (true, authentication() == AUTH_TLS);
+	
+	// STARTTLS
+	if (authentication() == AUTH_TLS)
+		command_starttls ();
 
 	// LOGIN
-	command_login();
+	command_login ();
 
 	// SELECT
-	command_select();
+	command_select ();
 }
 
 /**
@@ -369,6 +373,7 @@ Imap4::idle (void) throw (imap_err)
  * The command "CAPABILITY" is sent to the server to get the supported
  * capabilities. Currently gnubiff recognizes the following capabilities:
  * \begin{itemize}
+ *    \item STARTTLS: Server supports TLS encryption.
  *    \item IDLE: If the server has the IDLE capability, gnubiff uses the
  *          IDLE command instead of polling.
  *    \item LOGINDISABLED: The server wants us not to login.
@@ -381,6 +386,11 @@ Imap4::idle (void) throw (imap_err)
  * 
  * @param     check_rc Whether to check the response codes first. The default
  *                     is false.
+ * @param     ignore_logindisabled
+ *                     Whether the LOGINDISABLED capability should be ignored.
+ *                     This is necessary because some servers disable login
+ *                     before the STARTTLS command has been issued. The default
+ *                     is false.
  * @exception imap_command_err
  *                     This exception is thrown when we get an unexpected
  *                     response.
@@ -390,9 +400,11 @@ Imap4::idle (void) throw (imap_err)
  *                     This exception is thrown if a network error occurs.
  */
 void 
-Imap4::command_capability (gboolean check_rc) throw (imap_err)
+Imap4::command_capability (gboolean check_rc, gboolean ignore_logindisabled)
+							throw (imap_err)
 {
 	std::string line;
+	gboolean    command_sent = false;
 
 	// Check for CAPABILITY response code
 	if (check_rc)
@@ -403,28 +415,37 @@ Imap4::command_capability (gboolean check_rc) throw (imap_err)
 	if (line.size() == 0) {
 		// Sending the command
 		sendline ("CAPABILITY");
+		command_sent = true;
 
 		// Wait for "* CAPABILITY" untagged response
 		waitfor_untaggedresponse (0, "CAPABILITY");
-		line = " " + last_untagged_response_cont_ + " ";
+		line = last_untagged_response_cont_;
+		line = " " + line.substr (0, line.size()-1) + " "; // trailing '\r'
 
 		// Getting the acknowledgment
 		waitfor_ack();
 	}
 
 	// Looking for supported capabilities
+	// Check for idle support
 	idleable_ = use_idle () && (line.find (" IDLE ") != std::string::npos);
 
-
-	if (line.find (" LOGINDISABLED ") != std::string::npos) {
+	// Check if the server doesn't want us to login
+	if (   line.find (" LOGINDISABLED ") != std::string::npos
+		&& !ignore_logindisabled) {
 		command_logout();
 		throw imap_nologin_err();
 	}
 
+	// Check for STARTTLS support
+	can_starttls_ = (line.find (" STARTTLS ") != std::string::npos);
+
 	// If we checked only the response code and didn't find all the
 	// capabilities we are looking for (currently only IDLE), we send the
 	// CAPABILITY command, maybe the server sends additional capabilities
-	if (((idleable_ == false) && use_idle()) && check_rc)
+	if ((   (!idleable_ && use_idle())
+			|| (!can_starttls_ && authentication() == AUTH_TLS))
+		&& check_rc && !command_sent)
 		command_capability (false);
 }
 
@@ -869,6 +890,34 @@ Imap4::command_searchnotseen (void) throw (imap_err)
 	waitfor_ack();
 
 	return buffer;
+}
+
+/**
+ * Sending the IMAP command "STARTTLS" to the server.
+ *
+ * @exception imap_nologin_err
+ *                     This exception is thrown when the server doesn't support
+ *                     the STARTTLS command
+ * @exception imap_socket_err
+ *                     This exception is thrown if a network error occurs.
+ */
+void 
+Imap4::command_starttls (void) throw (imap_err)
+{
+	if (can_starttls_) {
+		sendline ("STARTTLS");
+		// Getting the acknowledgment
+		waitfor_ack();
+		// TLS negotations starts immediately after response
+		if (!socket_->starttls (certificate()))
+			throw imap_socket_err();
+	} else {
+		command_logout();
+		throw imap_nologin_err();
+	}
+
+	// CAPABILITY (see (RFC 3501 6.2.1.))
+	command_capability ();
 }
 
 /**

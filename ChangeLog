@@ -47,6 +47,11 @@ Version 2.3.0
    - Updated German translation
    - Updated intltool (to version 0.36.0) files
    - Feature: Printing mailbox status to stdout via SIGUSR signals
+   - Feature: TLS support for IMAP4 (thanks to Ryan Hayle for providing a
+              patch)
+   - Bugfix: The last capability sent by an IMAP4 server was ignored
+   - Bugfix: The capability command when using IMAP4 was sometimes sent twice
+   - Added Ryan Hayle to contributors
 
 Version 2.2.9
  * Robert Sowada

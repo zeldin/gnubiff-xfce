@@ -267,6 +267,72 @@ Socket::open (std::string hostname,
 	return 1;
 }
 
+gint
+Socket::starttls (std::string certificate)
+{
+#ifdef HAVE_LIBSSL
+	char *err_buf;
+	
+	err_buf = (char*) malloc (120);
+	
+	context_ = SSL_CTX_new (TLSv1_client_method());
+
+		if (certificate_.size() > 0) {
+			const gchar *capath = mailbox_->biff()->value_gchar ("dir_certificates");
+			if (*capath == '\0')
+				capath = NULL;
+			if (!SSL_CTX_load_verify_locations (context_, certificate_.c_str(),
+												capath)) {
+				g_warning(_("[%d] Failed to load certificate (%s) for %s"),
+						  uin_, certificate_.c_str(), hostname_.c_str());
+				::close (sd_);
+				sd_ = SD_CLOSE;
+				return 0;
+			}
+			SSL_CTX_set_verify (context_, SSL_VERIFY_PEER, NULL);
+		}
+		else
+			SSL_CTX_set_verify (context_, SSL_VERIFY_NONE, NULL);
+
+		ssl_ = SSL_new (context_);
+		if ((!ssl_) || (SSL_set_fd (ssl_, sd_) == 0)) {
+			::close (sd_);
+			sd_ = SD_CLOSE;
+			g_warning (_("[%d] Unable to set file descriptor: %s"), uin_,
+					   hostname_.c_str());
+			return 0;
+		}
+
+		if (SSL_connect (ssl_) != 1) {
+			ERR_error_string(ERR_get_error(), err_buf);
+			SSL_free (ssl_);
+			ssl_ = NULL;
+			::close (sd_);
+			sd_ = SD_CLOSE;
+			g_warning (_("[%d] Unable to negotiate TLS connection: %s"), uin_, err_buf);
+			return 0;
+		}
+
+		if ((certificate_.size() > 0) && (SSL_get_verify_result(ssl_) != X509_V_OK)) {
+			g_static_mutex_lock (&ui_cert_mutex_);
+			ui_cert_->select (this);
+			g_static_mutex_unlock (&ui_cert_mutex_);
+			if (!bypass_certificate_) {
+				SSL_free (ssl_);
+				ssl_ = NULL;
+				::close (sd_);
+				sd_ = SD_CLOSE;
+				g_warning (_("[%d] Cannot identify remote host (%s on port %d)"), uin_, hostname_.c_str(), port_);
+			}
+		}
+
+	use_ssl_ = true;
+	
+#endif
+	status_ = SOCKET_STATUS_OK;
+	return 1;
+}
+
 /**
  *  Close the socket.
  */

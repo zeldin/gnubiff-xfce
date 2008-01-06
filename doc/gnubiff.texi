@@ -270,6 +270,7 @@ Various contributors:@*
 @item Greg Fenton
 @item Byron Foster
 @item Grzegorz Gotawski
+@item Ryan Hayle
 @item Jonathan Hitchcock
 @item Samuel Hym
 @item Satou Kazuhito

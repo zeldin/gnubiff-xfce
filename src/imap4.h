@@ -47,6 +47,9 @@ class Imap4 : public Mailbox {
 	/// Does the server support the IDLE capability?
 	gboolean					idleable_;
 
+	/// Does the server support STARTTLS?
+	gboolean					can_starttls_;
+
 	/// Is the server currently idled?
 	gboolean					idled_;
 
@@ -137,6 +140,7 @@ class Imap4 : public Mailbox {
 	 *     \item The server doesn't want us to login (via the LOGINDISABLED
 	 *           capability)
 	 *     \item The user doesn't provide a password
+	 *     \item The user wants TLS but the server doesn't support TLS
 	 *  \end{itemize} */
 	class imap_nologin_err : public imap_err {};
 
@@ -159,7 +163,8 @@ class Imap4 : public Mailbox {
 	gboolean parse_bodystructure (std::string, class PartInfo &,
 								  gboolean toplevel=true);
 	gboolean parse_bodystructure_parameters (std::string, class PartInfo &);
-	void command_capability (gboolean check_rc = false) throw (imap_err);
+	void command_capability (gboolean check_rc = false,
+							 gboolean ignore_logindisabled = false) throw (imap_err);
 	void command_fetchbody (guint, class PartInfo &,
 							std::vector<std::string> &) throw (imap_err);
 	PartInfo command_fetchbodystructure (guint) throw (imap_err);
@@ -170,6 +175,7 @@ class Imap4 : public Mailbox {
 	void command_logout (void) throw (imap_err);
 	std::set<guint> command_searchnotseen (void) throw (imap_err);
 	void command_select (void) throw (imap_err);
+	void command_starttls (void) throw (imap_err);
 	void waitfor_ack (std::string msg=std::string(""),
 					  gint num = 0) throw (imap_err);
 	gboolean waitfor_ack_untaggedresponse (std::string,

@@ -231,6 +231,7 @@ Mailbox::standard_port (guint protocol, guint auth, gboolean strict)
 			return 993;
 		return ((protocol == PROTOCOL_POP3) ? 995 : 0);
 	case AUTH_USER_PASS:
+	case AUTH_TLS:
 		if (protocol == PROTOCOL_IMAP4)
 			return 143;
 		return ((protocol == PROTOCOL_POP3) ? 110 : 0);

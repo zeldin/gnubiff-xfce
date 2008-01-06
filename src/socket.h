@@ -91,6 +91,7 @@ public:
 				guint authentication = AUTH_SSL,
 				std::string certificate = "",
 				guint timeout = 5);
+	gint starttls (std::string certificate = "");
 	void close (void);
 	gint write (std::string line, gboolean print = true);
 	gint read  (std::string &line,
