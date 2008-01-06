@@ -56,6 +56,10 @@ Version 2.3.0
 Version 2.2.9
  * Robert Sowada
    - Changed version to 2.2.9
+   - Bugfix: The last capability sent by an IMAP4 server was ignored (backport
+        from 2.3.0 CVS)
+   - Bugfix: The capability command when using IMAP4 was sometimes sent twice
+	(backport from 2.3.0 CVS)
 
 Version 2.2.8		2007-09-09 18:45
  * Robert Sowada
