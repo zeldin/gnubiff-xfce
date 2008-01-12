@@ -48,10 +48,13 @@ Version 2.3.0
    - Updated intltool (to version 0.36.0) files
    - Feature: Printing mailbox status to stdout via SIGUSR signals
    - Feature: TLS support for IMAP4 (thanks to Ryan Hayle for providing a
-              patch)
+        patch)
    - Bugfix: The last capability sent by an IMAP4 server was ignored
    - Bugfix: The capability command when using IMAP4 was sometimes sent twice
    - Added Ryan Hayle to contributors
+   - Bugfix: Infinite loop when using system tray without image or without
+        system tray (this bug was reported by Marcelo and Iulian Tocu as
+        #1824666)
 
 Version 2.2.9
  * Robert Sowada
@@ -60,6 +63,9 @@ Version 2.2.9
         from 2.3.0 CVS)
    - Bugfix: The capability command when using IMAP4 was sometimes sent twice
 	(backport from 2.3.0 CVS)
+   - Bugfix: Infinite loop when using system tray without image or without
+        system tray (this bug was reported by Marcelo and Iulian Tocu as
+        #1824666; backport from 2.3.0 CVS)
 
 Version 2.2.8		2007-09-09 18:45
  * Robert Sowada
