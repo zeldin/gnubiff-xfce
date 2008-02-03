@@ -57,7 +57,7 @@ Version 2.3.0
         #1824666)
    - Updated README/Info dialog (OpenSSL exception in license)
 
-Version 2.2.9
+Version 2.2.9		2008-02-03 17:48
  * Robert Sowada
    - Changed version to 2.2.9
    - Bugfix: The last capability sent by an IMAP4 server was ignored (backport
@@ -68,6 +68,7 @@ Version 2.2.9
         system tray (this bug was reported by Marcelo and Iulian Tocu as
         #1824666; backport from 2.3.0 CVS)
    - Updated README/Info dialog (OpenSSL exception in license)
+   - Updated German translation
 
 Version 2.2.8		2007-09-09 18:45
  * Robert Sowada
