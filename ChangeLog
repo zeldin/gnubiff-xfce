@@ -57,6 +57,10 @@ Version 2.3.0
         #1824666)
    - Updated README/Info dialog (OpenSSL exception in license)
 
+Version 2.2.10
+ * Robert Sowada
+   - Changed version to 2.2.10
+
 Version 2.2.9		2008-02-03 17:48
  * Robert Sowada
    - Changed version to 2.2.9
