@@ -45,7 +45,7 @@ Version 2.3.0
    - Updated Vietnamese translation (thanks to Clytie Siddall)
    - Upgraded license to GPL version 3
    - Updated German translation
-   - Updated intltool (to version 0.36.0) files
+   - Updated intltool (to version 0.37.0) files
    - Feature: Printing mailbox status to stdout via SIGUSR signals
    - Feature: TLS support for IMAP4 (thanks to Ryan Hayle for providing a
         patch)
