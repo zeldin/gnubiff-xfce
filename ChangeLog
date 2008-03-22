@@ -56,10 +56,14 @@ Version 2.3.0
         system tray (this bug was reported by Marcelo and Iulian Tocu as
         #1824666)
    - Updated README/Info dialog (OpenSSL exception in license)
+   - Updated Dutch translation (thanks to Erwin Poeze)
+   - Added Erwin Poeze to contributors
 
 Version 2.2.10
  * Robert Sowada
    - Changed version to 2.2.10
+   - Updated Dutch translation (thanks to Erwin Poeze)
+   - Added Erwin Poeze to contributors
 
 Version 2.2.9		2008-02-03 17:48
  * Robert Sowada

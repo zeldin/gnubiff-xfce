@@ -240,6 +240,7 @@ Translators:@*
 @item Gunther Furtado (pt_BR)
 @item Nicols Lichtmaler (es)
 @item Daniel Nylander (sv)
+@item Erwin Poeze (nl)
 @item Michel Robitaille (fr)
 @item Nicolas Rougier (fr)
 @item Clytie Siddall (vi)
