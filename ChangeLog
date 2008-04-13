@@ -62,6 +62,7 @@ Version 2.3.0
         Jan Outrata for providing a patch; this was debian bug #472080)
    - Feature: Substituted getaddrinfo for deprecated gethostbyname; now IPv6
         should be possible
+   - Added Jan Outrata to contributors
 
 Version 2.2.10
  * Robert Sowada
@@ -70,6 +71,7 @@ Version 2.2.10
    - Added Erwin Poeze to contributors
    - Bugfix: Handling of message sequence numbers when using IMAP4 (thanks to
         Jan Outrata for providing a patch; this was debian bug #472080)
+   - Added Jan Outrata to contributors
 
 Version 2.2.9		2008-02-03 17:48
  * Robert Sowada

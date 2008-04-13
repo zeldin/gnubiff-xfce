@@ -291,7 +291,8 @@ Various contributors:@*
 @item Sophie Morel
 @item David Mosberger
 @item Neil Muller
-@item Eugene Ossintsev 
+@item Eugene Ossintsev
+@item Jan Outrata
 @item Josh Parsons
 @item Pete Phillips
 @item Christian Probst
