@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+// Copyright (c) 2000-2008 Nicolas Rougier, 2004-2008 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -162,6 +162,56 @@ Decoding::decode_headerline (const std::string &line)
 }
 
 /**
+ * Search for next '?' character as a sub-function for
+ * parse_encoded_word.  If this is successful true is returned and
+ * {\em iter} contains the position of the last '?' character. If this
+ * is not successful false is returned and {\em iter} is undetermined.
+ *
+ * @param  line       One (unfolded) message header line
+ * @param  pos        Position of the encoded word in the line.
+ * @param  iter       Current position of iterator in the line.
+ * @param  searchLast Indicates if it search the last encoded-text and "?=".
+ *                    The default value is false.
+ * @return            Boolean indicating success
+ *
+ * @see RFC 2047 section 2
+*/
+gboolean 
+Decoding::parse_encoded_word_search (const std::string &line,
+									 const std::string::size_type &pos,
+									 std::string::size_type &iter,
+									 gboolean searchLast)
+{
+	const std::string::size_type len = line.size();
+	const std::string::size_type maxlen = 75; // see RFC 2047 section 2
+
+	// For especials: see RFC 2047 section 2. '=' omitted because it's
+	// used by the 'Q'-encoding
+	// "charset" and "encoding" can't have especials while
+	// "encoded-text" can have some specials characters
+	const std::string especials = "()<>@,;:\"/[]?. ";
+	const std::string especials_ec = "? ";
+
+	// Special characters used depending whether charset, encoding or encoded
+	// text is parsed
+	std::string esp;
+	if(searchLast)
+		esp = especials_ec;
+	else
+		esp = especials;
+
+	while (iter < len && iter-pos < maxlen && !g_ascii_iscntrl(line[iter])
+		   && esp.find(line[iter]) == std::string::npos)
+		iter++;
+
+	if (iter >= len || iter-pos >= maxlen || line[iter] != '?'
+		|| (line[iter+1] != '=' && searchLast))
+		return false;
+
+	return true;
+}
+
+/**
  *  Parse one encoded word in a message header.
  *  If this is successful true is returned and {\em charset} contains the
  *  charset, {\em encoding} the encoding, {\em text} the encoded text and
@@ -190,46 +240,32 @@ Decoding::parse_encoded_word (const std::string &line, std::string &charset,
 							  std::string &encoding, std::string &text,
 							  std::string::size_type &pos)
 {
-	std::string::size_type i = pos, i1, i2, len = line.size();
-	const std::string::size_type maxlen = 75; // see RFC 2047 section 2
-	// For especials: see RFC 2047 section 2. '=' omitted because it's used by
-	// the 'Q'-encoding
-	const std::string especials = "()<>@,;:\"/[]?. ";
+	std::string::size_type	i = pos, i1, i2;
 
 	// Test for "=?"
-	if ((i+1 >= len) || (line[i] != '=') || (line[i+1] != '?'))
+	if ((i+1 >= line.size()) || (line[i] != '=') || (line[i+1] != '?'))
 		return false;
 	i += 2;
 
 	// Search next "?"
-	while ((i < len) && (i-pos < maxlen) && (!g_ascii_iscntrl (line[i]))
-		   && (especials.find(line[i]) == std::string::npos))
-		i++;
-	if ((i >= len) || (i-pos >= maxlen) || (line[i] != '?'))
-		return false;
+	if (!parse_encoded_word_search(line, pos, i))
+		return false; 
 	i1 = i++;
 
 	// Store charset
 	charset = ascii_strdown (line.substr (pos+2, i1-2-pos));
 
 	// Search next "?"
-	while ((i < len) && (i-pos < maxlen) && (!g_ascii_iscntrl (line[i]))
-		   && (especials.find(line[i]) == std::string::npos))
-		i++;
-	if ((i >= len) || (i-pos >= maxlen) || (line[i] != '?'))
-		return false;
+	if (!parse_encoded_word_search(line, pos, i))
+		return false; 
 	i2 = i++;
 
 	// Store encoding
 	encoding = ascii_strdown (line.substr (i1+1, i2-1-i1));
 
 	// Search terminating "?="
-	while ((i+1 < len) && (i+1-pos < maxlen) && (!g_ascii_iscntrl (line[i]))
-		   && (especials.find(line[i]) == std::string::npos))
-		i++;
-	if ((i+1 >= len) || (i+1-pos >= maxlen) || (line[i] != '?')
-		|| (line[i+1] != '='))
-		return false;
+	if (!parse_encoded_word_search(line, pos, i, true))
+		return false; 
 
 	// Store text and update position
 	text = line.substr (i2+1, i-1-i2);

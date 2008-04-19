@@ -59,10 +59,13 @@ Version 2.3.0
    - Updated Dutch translation (thanks to Erwin Poeze)
    - Added Erwin Poeze to contributors
    - Bugfix: Handling of message sequence numbers when using IMAP4 (thanks to
-        Jan Outrata for providing a patch; this was debian bug #472080)
+        Jan Outrata for providing a patch; this is debian bug #472080)
    - Feature: Substituted getaddrinfo for deprecated gethostbyname; now IPv6
         should be possible
    - Added Jan Outrata to contributors
+   - Bugfix: Not all RFC2047 compliant header lines were parsed correctly
+        (thanks to Andre Klitzing for reporting the bug as #1924467 and for
+        providing a patch; this is ubuntu bug #204640)
 
 Version 2.2.10
  * Robert Sowada
@@ -72,6 +75,9 @@ Version 2.2.10
    - Bugfix: Handling of message sequence numbers when using IMAP4 (thanks to
         Jan Outrata for providing a patch; this was debian bug #472080)
    - Added Jan Outrata to contributors
+   - Bugfix: Not all RFC2047 compliant header lines were parsed correctly
+        (thanks to Andre Klitzing for reporting the bug as #1924467 and for
+        providing a patch; this is ubuntu bug #204640)
 
 Version 2.2.9		2008-02-03 17:48
  * Robert Sowada

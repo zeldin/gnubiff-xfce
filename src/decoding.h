@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+// Copyright (c) 2000-2008 Nicolas Rougier, 2004-2008 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -60,6 +60,10 @@ protected:
 						  std::string::size_type bodypos = 0,
 						  gboolean skip_header = true);
 	std::string decode_headerline (const std::string &line);
+	gboolean parse_encoded_word_search (const std::string &line,
+										const std::string::size_type &pos,
+										std::string::size_type &iter,
+										gboolean searchLast = false);
 	gboolean parse_encoded_word (const std::string &line, std::string &charset,
 								 std::string &encoding, std::string &text,
 								 std::string::size_type &pos);
