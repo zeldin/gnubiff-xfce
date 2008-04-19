@@ -277,6 +277,7 @@ Various contributors:@*
 @item Satou Kazuhito
 @item Chris Kemp
 @item Earl Killian
+@item Andre Klitzing
 @item Marc-Jano Knopp
 @item Paul Kuliniewicz
 @item Jean-Yves Lefort

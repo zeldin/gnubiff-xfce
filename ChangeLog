@@ -69,6 +69,7 @@ Version 2.3.0
    - Bugfix: Message header fieldnames should be parsed case insensitive
         (thanks to Andre Klitzing for reporting the bug as #1924465 and for
         providing a patch; this is ubuntu bug #204642)
+   - Added Andre Klitzing to contributors
 
 Version 2.2.10
  * Robert Sowada
@@ -83,7 +84,8 @@ Version 2.2.10
         providing a patch; this is ubuntu bug #204640)
    - Bugfix: Message header fieldnames should be parsed case insensitive
         (thanks to Andre Klitzing for reporting the bug as #1924465 and for
-        providing a patch; this is ubuntu bug #204642)	
+        providing a patch; this is ubuntu bug #204642)
+   - Added Andre Klitzing to contributors
 
 Version 2.2.9		2008-02-03 17:48
  * Robert Sowada
