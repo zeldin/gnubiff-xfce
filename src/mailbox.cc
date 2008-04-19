@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+// Copyright (c) 2000-2008 Nicolas Rougier, 2004-2008 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -667,27 +667,32 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		// Sender, Subject, Date:
 		// There should be a whitespace (space or tab) after "From:",
 		// "Subject:" or "Date:"
+		// Message header fieldnames should be parsed case insensitive
+		// (see RFC 2822 1.2.2 and RFC 5234 2.3)
 
 		// Sender
-		if ((line.find ("From:") == 0) && (line.size() > 6)) {
+		if ((g_ascii_strncasecmp(line.c_str(), "From:", 5) == 0)
+			&& (line.size() > 6)) {
 			h.sender (decode_headerline (line.substr (6)));
 			continue;
 		}
 
 		// Subject
-		if ((line.find ("Subject:") == 0) && (line.size() > 9)) {
+		if ((g_ascii_strncasecmp(line.c_str(), "Subject:", 8) == 0)
+			&& (line.size() > 9)) {
 			h.subject (decode_headerline (line.substr (9)));
 			continue;
 		}
 
 		// Date
-		if ((line.find ("Date:") == 0) && (line.size() > 6)) {
+		if ((g_ascii_strncasecmp(line.c_str(), "Date:", 5) == 0)
+			&& (line.size() > 6)) {
 			h.date (decode_headerline (line.substr (6)));
 			continue;
 		}
 
 		// Content Type
-		if (line.find ("Content-Type:") == 0) {
+		if (g_ascii_strncasecmp(line.c_str(), "Content-Type:", 13) == 0) {
 			if (!parse_contenttype (line, partinfo)) {
 				h.error (_("[Cannot parse content type header line]"));
 #ifdef DEBUG
@@ -699,7 +704,8 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 		}
 
 		// Content Transfer Encoding (see RFC 2045 6.)
-		if (line.find ("Content-Transfer-Encoding:") == 0) {
+		if (g_ascii_strncasecmp(line.c_str(),
+								"Content-Transfer-Encoding:", 26) == 0) {
 			// size of "Content-Transfer-Encoding:" is 26
 			std::string::size_type cte_pos = 26;
 
@@ -860,9 +866,7 @@ Mailbox::parse_contenttype (std::string line, class PartInfo &partinfo)
 	// Non alphanumeric characters allowed in tokens
 	const static std::string token_ok = "!#$%&'*+-._`{|}~";
 
-	// Test, if we really have a content type line
-	if (line.find ("Content-Type:") != 0)
-		return false;
+	// Line begins with "Content-Type:", this has to be tested before
 	line = line.substr (13);
 
 	// Initialize
@@ -1112,7 +1116,7 @@ Mailbox::find_mail (std::string mailid, Header &mail)
  *  {\em empty} is true, the vector will be emptied before adding vectors.
  *
  *  @param  headers      Vector of headers to which the headers will be added.
- *  @þaram  use_max_num  If true only a limited amount of headers will be
+ *  @param  use_max_num  If true only a limited amount of headers will be
  *                       added (the default is false).
  *  @param  max_num      If {\em use_max_num} is true, this is the maximum
  *                       number of headers to be added (the default is 0).
