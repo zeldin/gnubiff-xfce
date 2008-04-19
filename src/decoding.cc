@@ -791,7 +791,7 @@ Decoding::charset_to_utf8 (std::string text, std::string charset,
 		return g_strdup ((gchar *)text_ascii.c_str ());
 	}
 
-	// The text couldn't converted at all, so an error message is returned
+	// The text couldn't be converted at all, so an error message is returned
 	return err;
 }
 
