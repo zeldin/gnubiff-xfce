@@ -71,6 +71,10 @@ Version 2.3.0
         providing a patch; this is ubuntu bug #204642)
    - Added Andre Klitzing to contributors
 
+Version 2.2.11
+ * Robert Sowada
+   - Changed version to 2.2.11
+
 Version 2.2.10
  * Robert Sowada
    - Changed version to 2.2.10
