@@ -442,13 +442,22 @@ Socket::read (std::string &line, gboolean print, gboolean check)
 		return status_;
 
 #ifdef DEBUG
-	if (print)
-		if (status_ == SOCKET_TIMEOUT)
-			g_message ("[%d] RECV TIMEOUT(%s:%d)", uin_, hostname_.c_str(), port_);
-		else if (status_ == SOCKET_STATUS_OK)
-			g_message ("[%d] RECV(%s:%d): %s", uin_, hostname_.c_str(), port_, line.c_str());
-		else
-			g_message ("[%d] RECV ERROR(%s:%d): %s", uin_, hostname_.c_str(), port_, strerror(status));
+	if (print) {
+		switch (status_) {
+		case SOCKET_TIMEOUT:
+			g_message ("[%d] RECV TIMEOUT(%s:%d)", uin_, hostname_.c_str(),
+					   port_);
+			break;
+		case SOCKET_STATUS_OK:
+			g_message ("[%d] RECV(%s:%d): %s", uin_, hostname_.c_str(), port_,
+					   line.c_str());
+			break;
+		default:
+			g_message ("[%d] RECV ERROR(%s:%d): %s", uin_, hostname_.c_str(),
+					   port_, strerror(status));
+			break;
+		}
+	}
 #endif
 	if (status_ == SOCKET_STATUS_ERROR) {
 		g_warning (_("[%d] Unable to read from %s on port %d"), uin_, hostname_.c_str(), port_);

@@ -70,10 +70,14 @@ Version 2.3.0
         (thanks to Andre Klitzing for reporting the bug as #1924465 and for
         providing a patch; this is ubuntu bug #204642)
    - Added Andre Klitzing to contributors
+   - Fixed some gcc 4.3 warnings (thanks to Andre Klitzing for providing a
+        patch)
 
 Version 2.2.11
  * Robert Sowada
    - Changed version to 2.2.11
+   - Fixed some gcc 4.3 warnings (thanks to Andre Klitzing for providing a
+        patch)
 
 Version 2.2.10
  * Robert Sowada

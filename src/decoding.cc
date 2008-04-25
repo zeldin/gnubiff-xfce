@@ -397,19 +397,21 @@ Decoding::decode_base64 (const std::string &todec)
 			|| (index_64[(int)todec[pos+1]]<0))
 			return std::string("");
 		result += (gchar)((BASE64(pos) << 2) | (BASE64(pos+1) >> 4));
-		if (todec[pos+2] == '=')
+		if (todec[pos+2] == '=') {
 			if ((todec[pos+3]=='=') && (pos+4==len) && (!(BASE64(pos+1)&15)))
 				return result;
 			else
 				return std::string("");
+		}
 		if (index_64[(int)todec[pos+2]]<0)
 			return std::string("");
 		result += (gchar)(((BASE64(pos+1) & 0xf) << 4) | (BASE64(pos+2) >> 2));
-		if (todec[pos+3] == '=')
+		if (todec[pos+3] == '=') {
 			if ((pos+4 == len) && (!(BASE64(pos+2)&3)))
 				return result;
 			else
 				return std::string("");
+		}
 		if (index_64[(int)todec[pos+3]]<0)
 			return std::string("");
 		result += (gchar)(((BASE64(pos+2) & 0x3) << 6) | BASE64(pos+3));
