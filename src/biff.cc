@@ -519,7 +519,7 @@ Biff::option_changed (Option *option)
 	// POPUP_FORMAT
 	if (option->name() == "popup_format") {
 		std::vector<guint> vec;
-		((Option_String *)option)->get_vector (vec, ':');
+		(static_cast<Option_String *>(option))->get_vector (vec, ':');
 		if (vec.size() < 3)
 			return;
 		value ("popup_size_sender", std::min<guint> (vec[0], 255), false);
@@ -544,7 +544,7 @@ Biff::option_changed (Option *option)
 
 	// UI_MODE
 	if (option->name() == "ui_mode") {
-		value ("gtk_mode", ((Option_UInt *)option)->value() == MODE_GTK);
+		value ("gtk_mode", (static_cast<Option_UInt *>(option))->value() == MODE_GTK);
 		return;
 	}
 

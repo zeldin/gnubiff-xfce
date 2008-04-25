@@ -592,7 +592,7 @@ Preferences::on_close (GtkWidget *widget)
 	biff_->save ();
 
 	// Hide the preferences dialog
-	((AppletGUI *)biff_->applet())->hide_dialog_preferences();
+	(static_cast<AppletGUI *>(biff_->applet()))->hide_dialog_preferences();
 }
 
 
@@ -602,9 +602,9 @@ Preferences::on_stop (GtkWidget *widget)
 	GtkWidget *child = gtk_bin_get_child (GTK_BIN(get("stop")));
 	child  = gtk_bin_get_child (GTK_BIN(child));
 	GList *list = gtk_container_get_children (GTK_CONTAINER (child));
-	GtkWidget *image = (GtkWidget *) list->data;
+	GtkWidget *image = static_cast<GtkWidget *>(list->data);
 	list = list->next;
-	GtkWidget *label = (GtkWidget *) list->data;
+	GtkWidget *label = static_cast<GtkWidget *>(list->data);
 	if (biff_->value_uint ("check_mode") == AUTOMATIC_CHECK) {
 		gtk_label_set_markup (GTK_LABEL (label), _("_Start"));
 		gtk_label_set_use_underline(GTK_LABEL (label), true);
@@ -644,7 +644,7 @@ gboolean
 Preferences::on_destroy (GtkWidget *widget, GdkEvent *event)
 {
 	// Hide the preferences dialog
-	((AppletGUI *)biff_->applet())->hide_dialog_preferences();
+	(static_cast<AppletGUI *>(biff_->applet()))->hide_dialog_preferences();
 
 	return true;
 }
@@ -661,7 +661,7 @@ gboolean
 Preferences::on_delete (GtkWidget *widget, GdkEvent *event)
 {
 	// Hide the preferences dialog
-	((AppletGUI *)biff_->applet())->hide_dialog_preferences();
+	(static_cast<AppletGUI *>(biff_->applet()))->hide_dialog_preferences();
 
 	return true;
 }
@@ -869,7 +869,7 @@ Preferences::expert_on_selection (GtkTreeSelection *selection)
 	gtk_text_buffer_insert (tb, &iter, option->default_string().c_str(), -1);
 	if (option->type () == OPTTYPE_UINT) {
 		gtk_text_buffer_insert (tb, &iter, "\n\nAllowed values: ", -1);
-		tmpstr = ((Option_UInt *)option)->allowed_ids (", ");
+		tmpstr = (static_cast<Option_UInt *>(option))->allowed_ids (", ");
 		tmp = tmpstr.c_str ();
 		gtk_text_buffer_insert (tb, &iter, tmp, -1);
 		if (!(option->flags () & OPTFLG_ID_INT_STRICT)) {
@@ -1015,7 +1015,7 @@ Preferences::expert_toggle_option (void)
 
 	// Update GUI
 	synchronize ();
-	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == (Mailbox *)opts))
+	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == static_cast<Mailbox *>(opts)))
 		properties_->update_view ();
 }
 
@@ -1041,7 +1041,7 @@ Preferences::expert_set_selected_option (const gchar *new_text)
 
 	// Update GUI
 	synchronize ();
-	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == (Mailbox *)opts))
+	if ((option->group() == OPTGRP_MAILBOX) && (selected_ == static_cast<Mailbox *>(opts)))
 		properties_->update_view ();
 }
 

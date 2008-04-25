@@ -120,7 +120,7 @@ AppletGUI::get_image_size (std::string widget_image, guint &width,
 
 	// Get animation
 	GtkImageAnimation *anim;
-	anim = (GtkImageAnimation *) g_object_get_data (widget, "_animation_");
+	anim = static_cast<GtkImageAnimation *>( g_object_get_data (widget, "_animation_") );
 	if (!anim)
 		return false;
 
@@ -153,7 +153,7 @@ AppletGUI::resize_image (std::string widget_image, guint max_width,
 
 	// Get animation
 	GtkImageAnimation *anim;
-	anim = (GtkImageAnimation *) g_object_get_data (widget, "_animation_");
+	anim = static_cast<GtkImageAnimation *>( g_object_get_data (widget, "_animation_") );
 	if (!anim)
 		return false;
 
@@ -460,8 +460,8 @@ AppletGUI::update (gboolean init, std::string widget_image,
 	if (widget_image != "") {
 		GtkImageAnimation *anim;
 		widget = get (widget_image.c_str ());
-		anim = (GtkImageAnimation *) g_object_get_data (G_OBJECT (widget),
-														"_animation_");
+		anim = static_cast<GtkImageAnimation *>( g_object_get_data (G_OBJECT (widget),
+												"_animation_") );
 
 		// Determine image
 		std::string image;

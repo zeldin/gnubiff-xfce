@@ -47,7 +47,7 @@ enum {
 enum { COL_EXP_ID, COL_EXP_NAME, COL_EXP_GROUPNAME, COL_EXP_TYPE,
 	   COL_EXP_VALUE, COL_EXP_NAME_ITALIC, COL_EXP_EDITABLE, COL_EXP_N};
 
-#define PREFERENCES(x)	((Preferences *)(x))
+#define PREFERENCES(x)	(static_cast<Preferences *>(x))
 
 
 class Preferences : public GUI {

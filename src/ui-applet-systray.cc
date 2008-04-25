@@ -140,7 +140,7 @@ AppletSystray::signal_size_allocate (GtkWidget *widget,
 									 GtkAllocation *allocation, gpointer data)
 {
 	if (data)
-		((AppletSystray *) data)->resize (allocation->width,
+		(static_cast<AppletSystray *>(data))->resize (allocation->width,
 										  allocation->height);
 	else
 		unknown_internal_error ();

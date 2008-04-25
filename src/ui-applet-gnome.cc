@@ -48,7 +48,7 @@ extern "C" {
 								gpointer data)
 	{
 		if (data)
-			((AppletGnome *) data)->tooltip_update ();
+			(static_cast<AppletGnome *>(data))->tooltip_update ();
 		else
 			unknown_internal_error ();
 	}
@@ -60,8 +60,8 @@ extern "C" {
 		if (!data)
 			unknown_internal_error ();
 		else
-		  	if (!((AppletGnome *) data)->calculate_size (allocation))
-				((AppletGnome *) data)->update ();
+		  	if (!(static_cast<AppletGnome *>(data))->calculate_size (allocation))
+				(static_cast<AppletGnome *>(data))->update ();
 	}
 
 	void APPLET_GNOME_on_change_background (GtkWidget *widget,
@@ -71,7 +71,7 @@ extern "C" {
 											gpointer data)
 	{
  		if (data)
- 			((AppletGnome *) data)->update ();
+ 			(static_cast<AppletGnome *>(data))->update ();
  		else
  			unknown_internal_error ();
 	}
@@ -81,7 +81,7 @@ extern "C" {
 										   gpointer data)
 	{
 		if (data)
-			return ((AppletGnome *) data)->on_button_press (event);
+			return (static_cast<AppletGnome *>(data))->on_button_press (event);
 		else
 			unknown_internal_error ();
 		return false;
@@ -92,7 +92,7 @@ extern "C" {
 										  const gchar *verbname)
 	{
 		if (data)
-			((AppletGnome *) data)->show_dialog_preferences ();
+			(static_cast<AppletGnome *>(data))->show_dialog_preferences ();
 		else
 			unknown_internal_error ();
 	}
@@ -102,7 +102,7 @@ extern "C" {
 									   const gchar *verbname)
 	{
 		if (data)
-			((AppletGnome *) data)->execute_command ("double_command",
+			(static_cast<AppletGnome *>(data))->execute_command ("double_command",
 													 "use_double_command");
 		else
 			unknown_internal_error ();
@@ -113,7 +113,7 @@ extern "C" {
 										 const gchar *verbname)
 	{
 		if (data)
-			((AppletGnome *) data)->mark_messages_as_read ();
+			(static_cast<AppletGnome *>(data))->mark_messages_as_read ();
 		else
 			unknown_internal_error ();
 	}
@@ -123,7 +123,7 @@ extern "C" {
 									const gchar *verbname)
 	{
 		if (data)
-			((AppletGnome *) data)->show_dialog_about ();
+			(static_cast<AppletGnome *>(data))->show_dialog_about ();
 		else
 			unknown_internal_error ();
 	}
@@ -131,7 +131,7 @@ extern "C" {
 	gboolean APPLET_GNOME_reconnect (gpointer data)
 	{
 		if (data) {
-			g_signal_connect (G_OBJECT (((AppletGnome *)data)->panelapplet()),
+			g_signal_connect (G_OBJECT ((static_cast<AppletGnome *>(data))->panelapplet()),
 							  "change_background",
 							  GTK_SIGNAL_FUNC (APPLET_GNOME_on_change_background),
 							  data);
@@ -366,7 +366,7 @@ AppletGnome::gnubiff_applet_factory (PanelApplet *applet, const gchar *iid,
 	  return true;
 
 	Biff *biff = new Biff (MODE_GNOME);
-	AppletGnome *biffapplet = (AppletGnome *)biff->applet();
+	AppletGnome *biffapplet = static_cast<AppletGnome *>( biff->applet() );
 	biffapplet->dock ((GtkWidget *) applet);
 	biffapplet->start (false);
 	return true;

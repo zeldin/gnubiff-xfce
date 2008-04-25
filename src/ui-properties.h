@@ -40,7 +40,7 @@ const gint	TYPE_LOCAL				=	PROTOCOL_FILE;
 const gint	TYPE_POP				=	PROTOCOL_POP3;
 const gint	TYPE_IMAP				=	PROTOCOL_IMAP4;
 
-#define PROPERTIES(x)	((Properties *)(x))
+#define PROPERTIES(x)	(static_cast<Properties *>(x))
 
 
 class Properties : public GUI {

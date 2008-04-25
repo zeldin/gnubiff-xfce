@@ -44,7 +44,7 @@
 #include "header.h"
 
 
-#define BIFF(x)		((Biff *)(x))
+#define BIFF(x)		(static_cast<Biff *>(x))
 
 
 class Biff : public Gnubiff_Options {

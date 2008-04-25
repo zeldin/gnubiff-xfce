@@ -57,7 +57,7 @@ struct less_pair_first : public std::binary_function<std::pair<std::string,Heade
 	}
 };
 
-#define MAILBOX(x)					((Mailbox *)(x))
+#define MAILBOX(x)					(static_cast<Mailbox *>(x))
 
 /**
  * Generic mailbox intended as base for implementing mailboxes for a specific

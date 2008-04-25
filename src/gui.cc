@@ -50,7 +50,7 @@ extern "C" {
 								  gpointer data)
 	{
 		if (data)
-			return ((GUI *)data)->on_delete (widget, event);
+			return (static_cast<GUI *>(data))->on_delete (widget, event);
 		else
 			unknown_internal_error ();
 		return false;
@@ -61,7 +61,7 @@ extern "C" {
 								   gpointer data)
 	{
 		if (data)
-			return ((GUI *)data)->on_destroy (widget, event);
+			return (static_cast<GUI *>(data))->on_destroy (widget, event);
 		else
 			unknown_internal_error ();
 		return false;
@@ -72,7 +72,7 @@ extern "C" {
 					gpointer data)
 	{
 		if (data)
-			((GUI *)data)->on_ok (widget);
+			(static_cast<GUI *>(data))->on_ok (widget);
 		else
 			unknown_internal_error ();
 	}
@@ -81,7 +81,7 @@ extern "C" {
 						 gpointer data)
 	{
 		if (data)
-			((GUI *)data)->on_apply (widget);
+			(static_cast<GUI *>(data))->on_apply (widget);
 		else
 			unknown_internal_error ();
 	}
@@ -90,7 +90,7 @@ extern "C" {
 					   gpointer data)
 	{
 		if (data)
-			((GUI *)data)->on_close (widget);
+			(static_cast<GUI *>(data))->on_close (widget);
 		else
 			unknown_internal_error ();
 	}
@@ -99,7 +99,7 @@ extern "C" {
 						gpointer data)
 	{
 		if (data)
-			((GUI *)data)->on_cancel (widget);
+			(static_cast<GUI *>(data))->on_cancel (widget);
 		else
 			unknown_internal_error ();
 	}

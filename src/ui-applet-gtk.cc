@@ -49,7 +49,7 @@ extern "C" {
 							  gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->tooltip_update ();
+			(static_cast<AppletGtk *>(data))->tooltip_update ();
 		else
 			unknown_internal_error ();
 	}
@@ -59,7 +59,7 @@ extern "C" {
 										 gpointer data)
 	{
 		if (data)
-			return ((AppletGtk *) data)->on_button_press (event);
+			return (static_cast<AppletGtk *>(data))->on_button_press (event);
 		else
 			unknown_internal_error ();
 		return false;
@@ -69,7 +69,7 @@ extern "C" {
 									 gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->execute_command ("double_command",
+			(static_cast<AppletGtk *>(data))->execute_command ("double_command",
 												   "use_double_command");
 		else
 			unknown_internal_error ();
@@ -79,7 +79,7 @@ extern "C" {
 								  gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->mark_messages_as_read ();
+			(static_cast<AppletGtk *>(data))->mark_messages_as_read ();
 		else
 			unknown_internal_error ();
 	}
@@ -87,7 +87,7 @@ extern "C" {
 	void APPLET_GTK_on_menu_preferences (GtkWidget *widget, gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->show_dialog_preferences ();
+			(static_cast<AppletGtk *>(data))->show_dialog_preferences ();
 		else
 			unknown_internal_error ();
 	}
@@ -95,7 +95,7 @@ extern "C" {
 	void APPLET_GTK_on_menu_about (GtkWidget *widget, gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->show_dialog_about ();
+			(static_cast<AppletGtk *>(data))->show_dialog_about ();
 		else
 			unknown_internal_error ();
 	}
@@ -104,7 +104,7 @@ extern "C" {
 								  gpointer data)
 	{
 		if (data)
-			((AppletGtk *) data)->on_menu_quit ();
+			(static_cast<AppletGtk *>(data))->on_menu_quit ();
 		else
 			unknown_internal_error ();
 	}

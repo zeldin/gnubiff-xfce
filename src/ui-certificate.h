@@ -41,7 +41,7 @@
 
 #include "gui.h"
 
-#define CERTIFICATE(x)	((Certificate *)(x))
+#define CERTIFICATE(x)	(static_cast<Certificate *>(x))
 
 
 class Certificate : public GUI {

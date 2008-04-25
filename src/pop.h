@@ -33,7 +33,7 @@
 #include "mailbox.h"
 #include <set>
 
-#define POP(x)					((Pop *)(x))
+#define POP(x)					(static_cast<Pop *>(x))
 
 /**
  * Mailbox for the POP3 and APOP protocols. This serves only as a base for

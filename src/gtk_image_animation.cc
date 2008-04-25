@@ -38,7 +38,7 @@ extern "C" {
 	gboolean GTK_IMAGE_ANIMATION_timeout (gpointer data)
 	{
 		if (data)
-			return ((GtkImageAnimation *) data)->timeout ();
+			return (static_cast<GtkImageAnimation *>(data))->timeout ();
 		unknown_internal_error ();
 		return false;
 	}
@@ -48,7 +48,7 @@ extern "C" {
 											gpointer data)
 	{
 		if (data)
-			return ((GtkImageAnimation *) data)->on_delete ();
+			return (static_cast<GtkImageAnimation *>(data))->on_delete ();
 		unknown_internal_error ();
 		return false;
 	}
@@ -58,7 +58,7 @@ extern "C" {
 											 gpointer data)
 	{
 		if (data)
-			return ((GtkImageAnimation *) data)->on_destroy ();
+			return (static_cast<GtkImageAnimation *>(data))->on_destroy ();
 		unknown_internal_error ();
 		return false;
 	}
@@ -67,7 +67,7 @@ extern "C" {
 									  gpointer data)
 	{
 		if (data)
-			((GtkImageAnimation *) data)->on_hide ();
+			(static_cast<GtkImageAnimation *>(data))->on_hide ();
 		else
 			unknown_internal_error ();
 	}
@@ -76,7 +76,7 @@ extern "C" {
 									  gpointer data)
 	{
 		if (data)
-			((GtkImageAnimation *) data)->on_show ();
+			(static_cast<GtkImageAnimation *>(data))->on_show ();
 		else
 			unknown_internal_error ();
 	}

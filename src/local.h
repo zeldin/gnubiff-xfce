@@ -43,7 +43,7 @@ const gboolean use_fam = 1;
 const gboolean use_fam = 0;
 #endif
 
-#define LOCAL(x)					((Local *)(x))
+#define LOCAL(x)					(static_cast<Local *>(x))
 
 /**
  *  Base class for all local mailbox protocols.

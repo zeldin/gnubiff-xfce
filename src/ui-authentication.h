@@ -32,7 +32,7 @@
 
 #include "gui.h"
 
-#define AUTHENTICATION(x)	((Authentication *)(x))
+#define AUTHENTICATION(x)	(static_cast<Authentication *>(x))
 
 
 class Authentication : public GUI {

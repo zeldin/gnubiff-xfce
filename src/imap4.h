@@ -33,7 +33,7 @@
 #include "mailbox.h"
 #include "socket.h"
 
-#define IMAP4(x)				((Imap4 *)(x))
+#define IMAP4(x)				(static_cast<Imap4 *>(x))
 
 /**
  * Mailbox for the IMAP4 protocol. 

@@ -184,7 +184,7 @@ gboolean
 Options::value (const std::string &name, gboolean value,
 				gboolean respect_change)
 {
-	Option_Bool *option = (Option_Bool *) find_option (name, OPTTYPE_BOOL);
+	Option_Bool *option = static_cast<Option_Bool *>( find_option (name, OPTTYPE_BOOL) );
 	if (option) {
 		option->value (value);
 		if ((option->flags() & OPTFLG_CHANGE) && respect_change)
@@ -208,7 +208,7 @@ gboolean
 Options::value (const std::string &name, std::string value,
 				gboolean respect_change)
 {
-	Option_String *option=(Option_String *) find_option (name, OPTTYPE_STRING);
+	Option_String *option=static_cast<Option_String *>( find_option (name, OPTTYPE_STRING) );
 	if (option) {
 		option->value (value);
 		if ((option->flags() & OPTFLG_CHANGE) && respect_change)
@@ -231,7 +231,7 @@ Options::value (const std::string &name, std::string value,
 gboolean 
 Options::value (const std::string &name, guint value, gboolean respect_change)
 {
-	Option_UInt *option = (Option_UInt *) find_option (name, OPTTYPE_UINT);
+	Option_UInt *option = static_cast<Option_UInt *>( find_option (name, OPTTYPE_UINT) );
 	if (option) {
 		option->value (value);
 		if ((option->flags() & OPTFLG_CHANGE) && respect_change)
@@ -253,7 +253,7 @@ Options::value (const std::string &name, guint value, gboolean respect_change)
 gboolean 
 Options::value_bool (const std::string &name, gboolean respect_update)
 {
-	Option_Bool *option = (Option_Bool *) find_option (name, OPTTYPE_BOOL);
+	Option_Bool *option = static_cast<Option_Bool *>( find_option (name, OPTTYPE_BOOL) );
 	if (!option)
 		return false;
 	if ((option->flags() & OPTFLG_UPDATE) && respect_update)
@@ -275,7 +275,7 @@ Options::value_bool (const std::string &name, gboolean respect_update)
 std::string 
 Options::value_string (const std::string &name, gboolean respect_update)
 {
-	Option_String *option=(Option_String *) find_option (name, OPTTYPE_STRING);
+	Option_String *option=static_cast<Option_String *>( find_option (name, OPTTYPE_STRING) );
 	if (!option)
 		return std::string("");
 	if ((option->flags() & OPTFLG_UPDATE) && respect_update)
@@ -314,7 +314,7 @@ Options::value_gchar (const std::string &name, gboolean respect_update)
 guint 
 Options::value_uint (const std::string &name, gboolean respect_update)
 {
-	Option_UInt *option = (Option_UInt *) find_option (name, OPTTYPE_UINT);
+	Option_UInt *option = static_cast<Option_UInt *>( find_option (name, OPTTYPE_UINT) );
 	if (!option)
 		return 0;
 	if ((option->flags() & OPTFLG_UPDATE) && respect_update)
@@ -345,7 +345,7 @@ Options::set_values (const std::string &name,
 					 const std::set<std::string> &values, gboolean empty,
 					 gboolean respect_change)
 {
-	Option_String *option=(Option_String *) find_option (name, OPTTYPE_STRING);
+	Option_String *option=static_cast<Option_String *>( find_option (name, OPTTYPE_STRING) );
 	if (option) {
 		option->set_values (values, empty);
 		if ((option->flags() & OPTFLG_CHANGE) && respect_change)
@@ -377,7 +377,7 @@ gboolean
 Options::get_values (const std::string &name, std::set<std::string> &var,
 					 gboolean empty, gboolean respect_update)
 {
-	Option_String *option=(Option_String *) find_option (name, OPTTYPE_STRING);
+	Option_String *option=static_cast<Option_String *>( find_option (name, OPTTYPE_STRING) );
 	if (!option)
 		return false;
 	if ((option->flags() & OPTFLG_UPDATE) && respect_update)
@@ -408,7 +408,7 @@ gboolean
 Options::get_values (const std::string &name, std::vector<std::string> &var,
 					 gboolean empty, gboolean respect_update)
 {
-	Option_String *option=(Option_String *) find_option (name, OPTTYPE_STRING);
+	Option_String *option=static_cast<Option_String *>( find_option (name, OPTTYPE_STRING) );
 	if (!option)
 		return false;
 	if ((option->flags() & OPTFLG_UPDATE) && respect_update)
@@ -430,7 +430,7 @@ Options::get_values (const std::string &name, std::vector<std::string> &var,
 const std::string 
 Options::value_to_string (const std::string &name, guint val)
 {
-	Option_UInt *option = (Option_UInt *) find_option (name, OPTTYPE_UINT);
+	Option_UInt *option = static_cast<Option_UInt *>( find_option (name, OPTTYPE_UINT) );
 	if (!option)
 		return std::string("");
 	return option->value_to_string (val);
@@ -450,7 +450,7 @@ Options::value_to_string (const std::string &name, guint val)
 guint 
 Options::string_to_value (const std::string &name, const std::string &str)
 {
-	Option_UInt *option = (Option_UInt *) find_option (name, OPTTYPE_UINT);
+	Option_UInt *option = static_cast<Option_UInt *>( find_option (name, OPTTYPE_UINT) );
 	if (!option)
 		return 0;
 	return option->string_to_value (str);
@@ -654,13 +654,13 @@ Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 			if (option->gui() == OPTGUI_TOGGLE)
 				ok=gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widgets[0]));
 			else
-				ok = ((Option_Bool *)option)->value ();
+				ok = (static_cast<Option_Bool *>(option))->value ();
 			// Get widgets to be set sensitive/shown/hidden
 			std::set<std::string> gs;
 			if (whattodo & OPTSGUI_SENSITIVE)
-				((Option_Bool *)option)->gui_sensitive (gs);
+				(static_cast<Option_Bool *>(option))->gui_sensitive (gs);
 			else
-				((Option_Bool *)option)->gui_show (gs);
+				(static_cast<Option_Bool *>(option))->gui_show (gs);
 			// Change widgets
 			std::set<std::string>::iterator it = gs.begin ();
 			while (it != gs.end ()) {
