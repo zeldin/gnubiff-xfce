@@ -74,6 +74,7 @@ Version 2.3.0
         patch)
    - Changed some C style casts to C++ style static casts (thanks to Andre
         Klitzing for providing a patch)
+   - Fixed some gcc 4.3 problems (thanks to ChristenDoc for providing a patch)
 
 Version 2.2.11
  * Robert Sowada
@@ -82,6 +83,7 @@ Version 2.2.11
         patch)
    - Changed some C style casts to C++ style static casts (thanks to Andre
         Klitzing for providing a patch)
+   - Fixed some gcc 4.3 problems (thanks to ChristenDoc for providing a patch)
 
 Version 2.2.10
  * Robert Sowada

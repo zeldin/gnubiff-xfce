@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+// Copyright (c) 2000-2008 Nicolas Rougier, 2004-2008 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -31,6 +31,7 @@
 
 #include <gtk/gtk.h>
 #include <popt.h>
+#include <stdlib.h>
 
 #ifdef USE_GNOME
 #	include <gnome.h>
