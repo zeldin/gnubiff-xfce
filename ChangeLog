@@ -73,7 +73,7 @@ Version 2.3.0
    - Fixed some gcc 4.3 warnings (thanks to Andre Klitzing for providing a
         patch)
    - Changed some C style casts to C++ style static casts (thanks to Andre
-        Klitzing for providing a patch)
+        Klitzing for providing patches)
    - Fixed some gcc 4.3 problems (thanks to ChristenDoc for providing a patch)
 
 Version 2.2.11
@@ -82,7 +82,7 @@ Version 2.2.11
    - Fixed some gcc 4.3 warnings (thanks to Andre Klitzing for providing a
         patch)
    - Changed some C style casts to C++ style static casts (thanks to Andre
-        Klitzing for providing a patch)
+        Klitzing for providing patches)
    - Fixed some gcc 4.3 problems (thanks to ChristenDoc for providing a patch)
 
 Version 2.2.10

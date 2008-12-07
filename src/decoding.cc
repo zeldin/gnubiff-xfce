@@ -873,7 +873,7 @@ std::string
 Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 {
 #ifdef HAVE_AES
-	unsigned char *phraseptr = (unsigned char *)passphrase.c_str ();
+	const unsigned char *phraseptr = reinterpret_cast<const unsigned char *>(passphrase.c_str ());
 	guint phraselen = passphrase.size();
 
 	// Check Passphrase
@@ -907,7 +907,7 @@ Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 	}
 
 	// Free memory
-	std::string result_str = std::string ((char *)result);
+	std::string result_str = std::string (reinterpret_cast<char *>(result));
 	delete (bin);
 	delete (result);
 
@@ -934,8 +934,8 @@ Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
 {
 #ifdef HAVE_AES
 	const char hex[] = "0123456789ABCDEF";
-	unsigned char *dataptr = (unsigned char *)data.c_str ();
-	unsigned char *phraseptr = (unsigned char *)passphrase.c_str ();
+	const unsigned char *dataptr = reinterpret_cast<const unsigned char *>(data.c_str ());
+	const unsigned char *phraseptr = reinterpret_cast<const unsigned char *>(passphrase.c_str ());
 	guint phraselen = passphrase.size();
 
 	// Check Passphrase
@@ -966,7 +966,7 @@ Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
 	}
 
 	// Free memory
-	std::string result_str = std::string ((char *)result, 2*size);
+	std::string result_str = std::string (reinterpret_cast<char *>(result), 2*size);
 	delete (result);
 
 	return result_str;
