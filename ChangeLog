@@ -12,7 +12,7 @@ Version 2.3.0
    - Added Sebastian Breier to contributors
    - Port (from gnubiff 2.2.5 CVS) of bugfix for determining initial image size
    - Added Felipe Csaszar to contributors
-   - Changed copyright years to 2007
+   - Changed copyright years to 2008
    - Updated Swedish translation (thanks to Daniel Nylander)
    - Added Daniel Nylander to contributors
    - Feature: Better handling of messages with a false character set in the
@@ -45,7 +45,7 @@ Version 2.3.0
    - Updated Vietnamese translation (thanks to Clytie Siddall)
    - Upgraded license to GPL version 3
    - Updated German translation
-   - Updated intltool (to version 0.37.0) files
+   - Updated intltool (to version 0.37.1) files
    - Feature: Printing mailbox status to stdout via SIGUSR signals
    - Feature: TLS support for IMAP4 (thanks to Ryan Hayle for providing a
         patch)

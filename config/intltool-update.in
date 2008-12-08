@@ -30,7 +30,7 @@
 
 ## Release information
 my $PROGRAM = "intltool-update";
-my $VERSION = "0.37.0";
+my $VERSION = "0.37.1";
 my $PACKAGE = "intltool";
 
 ## Loaded modules
