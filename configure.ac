@@ -1,5 +1,5 @@
 # gnubiff -- a mail notification program
-# Copyright (C) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+# Copyright (C) 2000-2009 Nicolas Rougier, 2004-2009 Robert Sowada
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -73,14 +73,6 @@ AC_PROG_MAKE_SET
 ######################################################################
 #                         Checks for libraries                       #
 ######################################################################
-dnl LIBPOPT (for parsing options)
-AC_CHECK_LIB([popt],[main], ,
-	AC_MSG_ERROR([
-	Cannot find popt library
-	Please consider installing it before installing gnubiff
-	])
-)
-
 dnl From pkg.m4:
 dnl # Note that if there is a possibility the first call to
 dnl # PKG_CHECK_MODULES might not happen, you should be sure to

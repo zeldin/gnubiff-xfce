@@ -1,7 +1,7 @@
 gnubiff -- History of visible changes.
 
-Copyright (C) 2000-2008 Nicolas Rougier <Nicolas.Rougier@loria.fr> and
-              2004-2008 Robert Sowada <sowadart@gmx.de>.
+Copyright (C) 2000-2009 Nicolas Rougier <Nicolas.Rougier@loria.fr> and
+              2004-2009 Robert Sowada <sowadart@gmx.de>.
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
@@ -75,6 +75,8 @@ Version 2.3.0
    - Changed some C style casts to C++ style static casts (thanks to Andre
         Klitzing for providing patches)
    - Fixed some gcc 4.3 problems (thanks to ChristenDoc for providing a patch)
+   - Using glib functions for parsing command line options instead of popt
+        library
 
 Version 2.2.11
  * Robert Sowada
@@ -85,7 +87,7 @@ Version 2.2.11
         Klitzing for providing patches)
    - Fixed some gcc 4.3 problems (thanks to ChristenDoc for providing a patch)
 
-Version 2.2.10
+Version 2.2.10		2008-04-20 11:09
  * Robert Sowada
    - Changed version to 2.2.10
    - Updated Dutch translation (thanks to Erwin Poeze)

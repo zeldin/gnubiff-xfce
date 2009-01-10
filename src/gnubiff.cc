@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2008 Nicolas Rougier, 2004-2008 Robert Sowada
+// Copyright (c) 2000-2009 Nicolas Rougier, 2004-2009 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -29,8 +29,8 @@
 
 #include "support.h"
 
+#include <glib.h>
 #include <gtk/gtk.h>
-#include <popt.h>
 #include <stdlib.h>
 
 #ifdef USE_GNOME
@@ -75,61 +75,54 @@ int main (int argc, char **argv) {
 	//
 	// Parse Options
 	//
-	GMainLoop*  gmainloop = NULL;
-	poptContext poptcon;
-	guint ui_mode = MODE_GTK;
-	int status;
-	char *config_file = 0;
-	int no_configure = false, print_version = false, no_gui = false;
-	int systemtray = false;
+	GMainLoop	*gmainloop = NULL;
+	GError		*gerror = NULL;
+	guint		ui_mode = MODE_GTK;
+	int			status;
+	char		*config_file = 0;
+	int			no_configure = false, print_version = false, no_gui = false;
+	int			systemtray = false;
 #if defined DEBUG && defined USE_GNOME
-	int debug_applet=false;
+	int			debug_applet=false;
 
-   	static struct poptOption options_debug[] =
+	static GOptionEntry options_debug[] =
 	{
-	   	{"applet",'\0', POPT_ARG_NONE,   &debug_applet,  0,
+		{"applet",'\0', 0, G_OPTION_ARG_NONE, &debug_applet,
 		 N_("Start gnome applet from command line"), NULL},
-		POPT_TABLEEND
+        {NULL}
 	};
 #endif
-	static struct poptOption options_general[] =
+	static GOptionEntry options_general[] =
 	{
-	   	{"config",      'c' , POPT_ARG_STRING, &config_file,   0,
-		 N_("Configuration file to use"),  N_("file")},
-		{"noconfigure", 'n' , POPT_ARG_NONE,   &no_configure,  0,
+		{"config", 'c', 0, G_OPTION_ARG_FILENAME, &config_file,
+		 N_("Configuration file to use"), N_("file")},
+		{"noconfigure", 'n', 0, G_OPTION_ARG_NONE, &no_configure,
 		 N_("Skip the configuration process"), NULL},
-		{"nogui",		'\0', POPT_ARG_NONE,   &no_gui,		   0,
+		{"nogui", '\0', 0, G_OPTION_ARG_NONE, &no_gui,
 		 N_("Start gnubiff without GUI"), NULL},
-		{"systemtray",	'\0', POPT_ARG_NONE,   &systemtray,	   0,
+		{"systemtray", '\0', 0, G_OPTION_ARG_NONE, &systemtray,
 		 N_("Put gnubiff's icon into the system tray"), NULL},
-		{"version",     'v' , POPT_ARG_NONE,   &print_version, 0,
+		{"version", 'v', 0, G_OPTION_ARG_NONE, &print_version,
 		 N_("Print version information and exit"), NULL},
-		POPT_TABLEEND
-	};
-	static struct poptOption options[] =
-	{
-	   	{NULL, '\0', POPT_ARG_INCLUDE_TABLE, &options_general, 0,
-		 N_("General command line options:"), NULL },
-#if defined DEBUG && defined USE_GNOME
-		{NULL, '\0', POPT_ARG_INCLUDE_TABLE, &options_debug, 0,
-		 N_("Options for debugging:"), NULL },
-#endif
-		POPT_AUTOHELP
-		POPT_TABLEEND
+        {NULL}
 	};
 
 	// Parse command line
-	poptcon = poptGetContext ("gnubiff", argc,  (const char **) argv,
-							  options, 0);
-	while ((status = poptGetNextOpt(poptcon)) >= 0);
-	if (status < -1) {
-		fprintf (stderr, "%s: %s\n\n",
-				 poptBadOption (poptcon, POPT_BADOPTION_NOALIAS),
-				 poptStrerror (status));
-		poptPrintHelp (poptcon, stderr, 0);
-		exit (1);
+	GOptionContext *optcon = g_option_context_new ("");
+	g_option_context_add_main_entries (optcon, options_general,
+									   GETTEXT_PACKAGE);
+#if defined DEBUG && defined USE_GNOME
+	GOptionGroup *optgrp_dbg;
+	optgrp_dbg = g_option_group_new ("debug", _("Options for debugging:"),
+									 _("Show debugging options"), NULL, NULL);
+	g_option_group_add_entries (optgrp_dbg, options_debug);
+	g_option_context_add_group (optcon, optgrp_dbg);
+#endif
+	g_option_context_add_group (optcon, gtk_get_option_group (true));
+	if (!g_option_context_parse (optcon, &argc, &argv, &gerror)) {
+		g_warning (_("Cannot parse command line options: %s"),gerror->message);
+		exit (EXIT_FAILURE);
 	}
-	poptGetNextOpt(poptcon);
 
 	// Decide which frontend to use
 	if (no_gui) {
