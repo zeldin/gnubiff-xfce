@@ -78,7 +78,7 @@ Version 2.3.0
    - Using glib functions for parsing command line options instead of popt
         library
    - Bugfix: Only get filtered messages once (thanks to Frederik Vanderstraeten
-        for reporting this bug)
+        for reporting this bug as #2140306)
    - Added Frederik Vanderstraeten to contributors
 
 Version 2.2.11
@@ -90,7 +90,7 @@ Version 2.2.11
         Klitzing for providing patches)
    - Fixed some gcc 4.3 problems (thanks to ChristenDoc for providing a patch)
    - Bugfix: Only get filtered messages once (thanks to Frederik Vanderstraeten
-        for reporting this bug)	
+        for reporting this bug as #2140306)	
    - Added Frederik Vanderstraeten to contributors
 	
 Version 2.2.10		2008-04-20 11:09
