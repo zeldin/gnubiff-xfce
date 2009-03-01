@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2008 Nicolas Rougier, 2004-2008 Robert Sowada
+// Copyright (c) 2000-2009 Nicolas Rougier, 2004-2009 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -839,8 +839,12 @@ void Mailbox::parse (std::vector<std::string> &mail, std::string uid,
 #ifdef DEBUG
 		g_message ("[%d] Parsed message with id \"%s\"", uin(),
 				   h.mailid().c_str ());
+#endif
 	}
 	else {
+		// Store filtered messages so that they are fetched next time
+		hidden_.insert (h.mailid());
+#ifdef DEBUG
 		g_message ("[%d] Parsed and discarded message with id \"%s\"", uin(),
 				   h.mailid().c_str ());
 #endif
@@ -1070,11 +1074,11 @@ Mailbox::new_mail (std::string &mailid)
 		return true;
 	}
 
-	// Mail unknown?
+	// Message unknown?
 	if (unread_.find (mailid) == unread_.end ())
 		return false;
 
-	// Insert known mail into new unread mail map
+	// Insert known message into new unread mail map
 	new_unread_[mailid] = unread_[mailid];
 	new_unread_[mailid].position (new_unread_.size());
 

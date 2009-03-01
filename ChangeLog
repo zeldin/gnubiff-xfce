@@ -77,6 +77,8 @@ Version 2.3.0
    - Fixed some gcc 4.3 problems (thanks to ChristenDoc for providing a patch)
    - Using glib functions for parsing command line options instead of popt
         library
+   - Bugfix: Only get filtered messages once (thanks to Frederik Vanderstraeten
+        for reporting this bug)
 
 Version 2.2.11
  * Robert Sowada
@@ -86,6 +88,8 @@ Version 2.2.11
    - Changed some C style casts to C++ style static casts (thanks to Andre
         Klitzing for providing patches)
    - Fixed some gcc 4.3 problems (thanks to ChristenDoc for providing a patch)
+   - Bugfix: Only get filtered messages once (thanks to Frederik Vanderstraeten
+        for reporting this bug)	
 
 Version 2.2.10		2008-04-20 11:09
  * Robert Sowada
