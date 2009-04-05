@@ -1,9 +1,20 @@
 gnubiff -- History of visible changes.
 
-Copyright (C) 2000-2008 Nicolas Rougier <Nicolas.Rougier@loria.fr>,
-              2004-2008 Robert Sowada <sowadart@gmx.de>
+Copyright (C) 2000-2009 Nicolas Rougier <Nicolas.Rougier@loria.fr>,
+              2004-2009 Robert Sowada <sowadart@gmx.de>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
+
+Version 2.2.11
+This is a minor bugfix release. Changes:
+ * Fixed some compiler warnings/problems
+ * Fixed a bug when filtering messages
+
+Version 2.2.10
+This is a minor bugfix release. Changes:
+ * Fixed a bug when using IMAP4
+ * Fixed some message header parsing bugs
+ * Updated Dutch translation (thanks to Erwin Poeze)
 
 Version 2.2.9
 This is a minor bugfix release. Changes:

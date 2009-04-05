@@ -81,7 +81,11 @@ Version 2.3.0
         for reporting this bug as #2140306)
    - Added Frederik Vanderstraeten to contributors
 
-Version 2.2.11
+Version 2.2.12
+ * Robert Sowada
+   - Changed version to 2.2.12
+	
+Version 2.2.11		2009-04-05 18:14
  * Robert Sowada
    - Changed version to 2.2.11
    - Fixed some gcc 4.3 warnings (thanks to Andre Klitzing for providing a
