@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2008-02-03 17:41+0100\n"
+"POT-Creation-Date: 2009-04-05 18:14+0200\n"
 "PO-Revision-Date: 2006-03-27 11:59+0200\n"
 "Last-Translator: Rougier <rougier@loria.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -17,89 +17,96 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/decoding.cc:90
+#: ../src/decoding.cc:90
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[L'encodage \"%s\" ne peut être décodé]"
 
-#: src/decoding.cc:133 src/decoding.cc:140 src/decoding.cc:145
+#: ../src/decoding.cc:136 ../src/decoding.cc:143 ../src/decoding.cc:148
 msgid "[Cannot decode this header line]"
 msgstr "[Impossible de décoder cette ligne]"
 
-#: src/decoding.cc:739
+#. Create error message
+#: ../src/decoding.cc:780
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
 "[Impossible de convertir le jeu de caractères (fr \"%s\" vers \"utf-8\")]"
 
-#: src/decoding.cc:753
+#: ../src/decoding.cc:794
 msgid "[Stripped non-ASCII characters from message]"
 msgstr ""
 
-#: src/gnubiff.cc:90
+#: ../src/gnubiff.cc:91
 msgid "Start gnome applet from command line"
 msgstr "Démarrer l'applet gnome depuis la ligne de commande"
 
-#: src/gnubiff.cc:97
+#: ../src/gnubiff.cc:98
 msgid "Configuration file to use"
 msgstr "Fichier de configuration à utiliser "
 
-#: src/gnubiff.cc:97
+#: ../src/gnubiff.cc:98
 msgid "file"
 msgstr "fichier"
 
-#: src/gnubiff.cc:99
+#: ../src/gnubiff.cc:100
 msgid "Skip the configuration process"
 msgstr "Passer l'étape de configuration"
 
-#: src/gnubiff.cc:101
+#: ../src/gnubiff.cc:102
 msgid "Start gnubiff without GUI"
 msgstr "Démarrer gnubiff sans l'interface"
 
-#: src/gnubiff.cc:103
+#: ../src/gnubiff.cc:104
 msgid "Put gnubiff's icon into the system tray"
 msgstr "Placer l'icône de gnubiff dans le panneau système"
 
-#: src/gnubiff.cc:105
+#: ../src/gnubiff.cc:106
 msgid "Print version information and exit"
 msgstr "Afficher la version et sortir"
 
-#: src/gnubiff.cc:111
-msgid "General command line options:"
-msgstr "Options de la ligne de commande"
-
-#: src/gnubiff.cc:114
+#: ../src/gnubiff.cc:116
 msgid "Options for debugging:"
 msgstr "Options de déboggage"
 
-#: src/biff.cc:124
+#: ../src/gnubiff.cc:117
+msgid "Show debugging options"
+msgstr ""
+
+#: ../src/gnubiff.cc:123
+#, fuzzy, c-format
+msgid "Cannot parse command line options: %s"
+msgstr "Options de la ligne de commande"
+
+#: ../src/biff.cc:124
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Fichier de configuration (%s) non trouvé"
 
-#: src/biff.cc:597
+#: ../src/biff.cc:597
 #, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr ""
 "Chargement du fichier de configuration à partir d'une nouvelle version de "
 "gnubiff \"%s\"."
 
-#: src/biff.cc:605
+#. Config file belongs to an older version of gnubiff
+#: ../src/biff.cc:605
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 "Chargement du fichier de configuration à partir d'une vieille version de "
 "gnubiff \"%s\""
 
-#: src/biff.cc:607
+#: ../src/biff.cc:607
 msgid "Trying to convert all options."
 msgstr "Tentative de conversion des options"
 
-#: src/biff.cc:651
+#: ../src/biff.cc:651
 msgid "Successfully converted all options."
 msgstr "Tentative de conversion réussie"
 
-#: src/biff.cc:654
+#: ../src/biff.cc:654
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -108,81 +115,82 @@ msgstr ""
 "Tentative de conversion réussie pour quelques options. Les options suivantes "
 "doivent être manuellement converties: %s "
 
-#: src/biff.cc:795
+#: ../src/biff.cc:795
 #, fuzzy, c-format
 msgid "Configuration file \"%s\" is a directory"
 msgstr "Fichier de configuration à utiliser "
 
-#: src/biff.cc:805
+#: ../src/biff.cc:805
 #, fuzzy, c-format
 msgid "Cannot open your configuration file \"%s\""
 msgstr "Impossible d'ouvrir votre fichier de configuration (%s)"
 
-#: src/biff.cc:821
+#: ../src/biff.cc:821
 #, fuzzy
 msgid "Cannot create XML parser for parsing configuration file"
 msgstr "Impossible de créer le parser XML pour le fichier de configuration"
 
-#: src/biff.cc:839
+#: ../src/biff.cc:839
 #, fuzzy, c-format
 msgid "Found no mailbox definition in your configuration file \"%s\""
 msgstr ""
 "Votre fichier de configuration n'as pas de définition de boîte aux lettres (%"
 "s)"
 
-#: src/biff.cc:886
+#: ../src/biff.cc:886
 msgid "Illegal parameter format in config file"
 msgstr "Format de paramètre illégal dans le fichier de configuration"
 
-#: src/biff.cc:915
+#: ../src/biff.cc:915
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Pas de protocole spécifié pour la boîte aux lettres %d"
 
-#: src/mailbox.cc:143
+#: ../src/mailbox.cc:143
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Impossible de créer le thread: %s"
 
-#: src/mailbox.cc:316
+#: ../src/mailbox.cc:316
 #, c-format
 msgid "mailbox %d"
 msgstr "Boîte aux lettres %d"
 
-#: src/mailbox.cc:641
+#. Insert default values
+#: ../src/mailbox.cc:641
 msgid "<no date>"
 msgstr "<Pas de date>"
 
-#: src/mailbox.cc:642
+#: ../src/mailbox.cc:642
 msgid "<no sender>"
 msgstr "<Pas d'expéditeur>"
 
-#: src/mailbox.cc:643
+#: ../src/mailbox.cc:643
 msgid "<no subject>"
 msgstr "<Pas de sujet>"
 
-#: src/mailbox.cc:692
+#: ../src/mailbox.cc:697
 msgid "[Cannot parse content type header line]"
 msgstr "[Impossible de décoder le type de la ligne d'entête]"
 
-#: src/mailbox.cc:713
+#: ../src/mailbox.cc:719
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Impossible de décoder le code de la ligne d'entête]"
 
-#: src/mailbox.cc:754
+#: ../src/mailbox.cc:760
 msgid "[Malformed multipart message]"
 msgstr "[Message multi-parties mal formé]"
 
-#: src/mailbox.cc:762
+#: ../src/mailbox.cc:768
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Impossible de trouver la première partie du message]"
 
-#: src/mailbox.cc:808
+#: ../src/mailbox.cc:814
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Ce message possède un contenu de type non supporté: \"%s/%s\"]"
 
-#: src/mailbox.cc:1253
+#: ../src/mailbox.cc:1261
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"
@@ -190,118 +198,122 @@ msgid ""
 "Error message: %s"
 msgstr ""
 
-#: src/header.cc:147
+#. Otherwise: Ignore it and print error message
+#: ../src/header.cc:147
 #, fuzzy, c-format
 msgid "Can't sort messages by \"%s\""
 msgstr "Impossible de trier les mails avec \"%s\""
 
-#: src/socket.cc:123 src/socket.cc:152 src/socket.cc:180 src/socket.cc:188
-#: src/socket.cc:196 src/socket.cc:208 src/socket.cc:238 src/socket.cc:247
+#: ../src/socket.cc:128 ../src/socket.cc:187 ../src/socket.cc:219
+#: ../src/socket.cc:228
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Impossible de se connecter à %s via le port %d"
 
-#: src/socket.cc:223 src/socket.cc:286
+#: ../src/socket.cc:204 ../src/socket.cc:267
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Impossible de charger le certificat (%s) pour %s"
 
-#: src/socket.cc:260 src/socket.cc:325
+#: ../src/socket.cc:241 ../src/socket.cc:306
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Impossible d'identifier l'hôte (%s sur le port %d)"
 
-#: src/socket.cc:301
+#: ../src/socket.cc:282
 #, fuzzy, c-format
 msgid "[%d] Unable to set file descriptor: %s"
 msgstr "[%d] Impossible de créer le thread: %s"
 
-#: src/socket.cc:312
+#: ../src/socket.cc:293
 #, fuzzy, c-format
 msgid "[%d] Unable to negotiate TLS connection: %s"
 msgstr "[%d] Impossible de créer le thread: %s"
 
-#: src/socket.cc:411
+#: ../src/socket.cc:392
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Impossible d'écrire à %s sur le port %d"
 
-#: src/socket.cc:473
+#: ../src/socket.cc:463
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Impossible de lire depuis %s sur le port %d"
 
-#: src/socket.cc:495
+#: ../src/socket.cc:485
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "Impossible de régler le délai sur la socket: %s"
 
-#: src/file.cc:97
+#: ../src/file.cc:97
 #, c-format
 msgid "Cannot open %s."
 msgstr "Impossible d'ouvrir %s"
 
-#: src/imap4.cc:478
+#: ../src/imap4.cc:478
 msgid "[This message has no part with a supported content type]"
 msgstr "[Ce message de possède pas de partie avec un contenu lisible]"
 
-#: src/imap4.cc:841
+#: ../src/imap4.cc:841
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Impossible de sélectionner le répertoire %s sur l'hôte %s"
 
-#: src/imap4.cc:957
+#: ../src/imap4.cc:957
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Impossible de serrer la main à %s sur le port %d"
 
-#: src/imap4.cc:1016
+#: ../src/imap4.cc:1016
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 "[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\" ni l'acquitement."
 
-#: src/imap4.cc:1069
+#: ../src/imap4.cc:1069
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Le serveur n'a pas envoyé la réponse non taggée \"%s\""
 
-#: src/imap4.cc:1625
+#. see RFC 3501 7.1.5
+#: ../src/imap4.cc:1625
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Le serveur a fermé immédiatement la connexion: %s"
 
-#: src/imap4.cc:1630
+#. see RFC 3501 7.1.3
+#: ../src/imap4.cc:1630
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Erreur interne sur le serveur ou alors erreur inconnue: %s"
 
-#: src/imap4.cc:1635
+#. see RFC 3501 7.1.2
+#: ../src/imap4.cc:1635
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Mise en garde du serveur: %s"
 
-#: src/maildir.cc:81
+#: ../src/maildir.cc:81
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Inpossible d'ouvrir le répertoire (%s)"
 
-#: src/pop.cc:150
+#: ../src/pop.cc:150
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Mot de passe vide"
 
-#: src/pop.cc:537
+#: ../src/pop.cc:537
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Message d'erreur du serveur POP3: %s"
 
-#: src/pop.cc:544
+#: ../src/pop.cc:544
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Aucune réponse positive du serveur POP3"
 
-#: src/apop.cc:101
+#: ../src/apop.cc:101
 #, c-format
 msgid ""
 "[%d] Your pop server does not seem to accept apop protocol (no timestamp "
@@ -309,7 +321,7 @@ msgid ""
 msgstr ""
 "[%d] Votre serveur ne semble pas accepter le protocol apop (pas de tampon)"
 
-#: src/apop.cc:122
+#: ../src/apop.cc:122
 #, c-format
 msgid ""
 "[%d] Problem with crypto that should have been detected at configure time"
@@ -317,28 +329,28 @@ msgstr ""
 "[%d] Problème de cryptographie qui aurait du être détecté durant la "
 "configuration"
 
-#: src/options.cc:559
+#: ../src/options.cc:559
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr "Option inconnue \"%s\""
 
-#: src/options.cc:566
+#: ../src/options.cc:566
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Impossible de mettre l'option \"%s\" à \"%s\""
 
-#: src/options.cc:720 src/gui.cc:272
+#: ../src/options.cc:720 ../src/gui.cc:273
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr ""
 "Impossible de trouver le widget spécifié (\"%s\") dans la structure xml (\"%s"
 "\")"
 
-#: src/gnubiff_options.cc:144
+#: ../src/gnubiff_options.cc:144
 msgid "no mail"
 msgstr "Aucun courrier"
 
-#: src/gui.cc:194
+#: ../src/gui.cc:195
 #, c-format
 msgid ""
 "Cannot build the interface.\n"
@@ -354,80 +366,87 @@ msgstr ""
 "Chemin: %s\n"
 "Assurez vous que gnubiff a été installé correctement"
 
-#: src/gui.cc:380
+#: ../src/gui.cc:381
 msgid "GUI_connect requires working gmodule"
 msgstr "GUI_connect requiert la librairie gmodule"
 
-#: src/gui.cc:387
+#: ../src/gui.cc:388
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr "Handler '%s' non trouvé."
 
-#: src/ui-applet.cc:215
+#: ../src/ui-applet.cc:147
+#, fuzzy, c-format
+msgid "Cannot execute command \"%s\"."
+msgstr "Impossible d'ouvrir %s"
+
+#: ../src/ui-applet.cc:217
 msgid " unknown"
 msgstr "inconnu"
 
-#: src/ui-applet.cc:220
+#: ../src/ui-applet.cc:222
 msgid " error"
 msgstr "erreur"
 
-#: src/ui-applet.cc:229
+#: ../src/ui-applet.cc:231
 msgid " checking..."
 msgstr " consultation..."
 
-#: src/ui-preferences.cc:267 src/ui-popup.cc:214
+#: ../src/ui-preferences.cc:267 ../src/ui-popup.cc:214
 msgid "Mailbox"
 msgstr "Boîte aux lettres"
 
-#: src/ui-preferences.cc:281 src/ui-preferences.cc:363
+#. Column: TYPE
+#: ../src/ui-preferences.cc:281 ../src/ui-preferences.cc:363
 msgid "Type"
 msgstr "Type"
 
-#: src/ui-preferences.cc:300
+#: ../src/ui-preferences.cc:300
 msgid "Status"
 msgstr "Status"
 
-#: src/ui-preferences.cc:315
+#: ../src/ui-preferences.cc:315
 msgid "Security"
 msgstr "Sécurité"
 
-#: src/ui-preferences.cc:327 src/ui-preferences.cc:686
+#. Selection label
+#: ../src/ui-preferences.cc:327 ../src/ui-preferences.cc:686
 msgid "No mailbox selected"
 msgstr "Pas de boîte aux lettres séléctionnée"
 
-#: src/ui-preferences.cc:355
+#: ../src/ui-preferences.cc:355
 msgid "Option"
 msgstr "Option"
 
-#: src/ui-preferences.cc:373
+#: ../src/ui-preferences.cc:373
 msgid "Value"
 msgstr "Valeur"
 
-#: src/ui-preferences.cc:609
+#: ../src/ui-preferences.cc:609
 msgid "_Start"
 msgstr "_Démarrer"
 
-#: src/ui-preferences.cc:615 ui/preferences.glade:2423
+#: ../src/ui-preferences.cc:615 ../ui/preferences.glade.h:87
 msgid "_Stop"
 msgstr "_Stopper"
 
-#: src/ui-preferences.cc:626 src/ui-preferences.cc:633
+#: ../src/ui-preferences.cc:626 ../src/ui-preferences.cc:633
 msgid "Browse for a new mail image"
 msgstr "Chercher le fichier image"
 
-#: src/ui-authentication.cc:86
+#: ../src/ui-authentication.cc:86
 #, c-format
 msgid "Please enter your username and password for mailbox '%s'"
 msgstr ""
 "Entrez votre nom de login et votre mot de passe pour la boîte aux lettres '%"
 "s'"
 
-#: src/ui-certificate.cc:73
+#: ../src/ui-certificate.cc:73
 #, c-format
 msgid "Unable to verify the identity of %s as a trusted site.\n"
 msgstr "Impossible de vérifier que l'hôte %s est sûr.\n"
 
-#: src/ui-certificate.cc:74
+#: ../src/ui-certificate.cc:74
 #, c-format
 msgid ""
 "Either site's certificate is incomplete or you're connected to a site "
@@ -437,47 +456,48 @@ msgstr ""
 "prétendant être %s vraisemblablement pour essayer d'obtenir votre mot de "
 "passe"
 
-#: src/ui-properties.cc:123 src/ui-properties.cc:150
+#: ../src/ui-properties.cc:123 ../src/ui-properties.cc:150
 msgid "Autodetect"
 msgstr "Autodetection"
 
-#: src/ui-properties.cc:124
+#: ../src/ui-properties.cc:124
 msgid "File or Folder"
 msgstr "Fichier ou Répertoire"
 
-#: src/ui-properties.cc:152
+#: ../src/ui-properties.cc:152
 msgid "User/Pass"
 msgstr "Utilisateur/Mot de Passe"
 
-#: src/ui-properties.cc:154
+#: ../src/ui-properties.cc:154
 msgid "Encrypted User/Pass (apop)"
 msgstr "Utilisateur/Mot de pass encrypté (apop)"
 
-#: src/ui-properties.cc:158
+#: ../src/ui-properties.cc:158
 msgid "SSL with certificate"
 msgstr "SSL avec certificat"
 
-#: src/ui-properties.cc:324
+#: ../src/ui-properties.cc:324
 msgid "Browse for a file or folder"
 msgstr "Chercher une fichier ou un répertoire"
 
-#: src/ui-properties.cc:330 ui/properties.glade:616
+#: ../src/ui-properties.cc:330 ../ui/properties.glade.h:5
 msgid "Browse for a certificate file"
 msgstr "Chercher un certificat"
 
-#: src/ui-popup.cc:226
+#: ../src/ui-popup.cc:226
 msgid "From"
 msgstr "De"
 
-#: src/ui-popup.cc:232
+#: ../src/ui-popup.cc:232
 msgid "Subject"
 msgstr "Sujet"
 
-#: src/ui-popup.cc:238
+#: ../src/ui-popup.cc:238
 msgid "Date"
 msgstr "Date"
 
-#: src/support.cc:321
+#. Create error message
+#: ../src/support.cc:321
 msgid ""
 "You just found an unknown internal error. Please send a detailed bug report "
 "to \"gnubiff-bugs@lists.sourceforge.net\".\n"
@@ -489,51 +509,40 @@ msgstr ""
 "\n"
 "Information additionelle:\n"
 
-#: src/GNOME_gnubiffApplet.xml.h:1
+#: ../src/GNOME_gnubiffApplet.xml.h:1
 msgid "Info"
 msgstr "info"
 
-#: src/GNOME_gnubiffApplet.xml.h:2 ui/applet-gtk.glade:79
+#: ../src/GNOME_gnubiffApplet.xml.h:2 ../ui/applet-gtk.glade.h:14
 msgid "Mark mailboxes read"
 msgstr "Marquer le courrier comme étant lu"
 
-#: src/GNOME_gnubiffApplet.xml.h:3
+#: ../src/GNOME_gnubiffApplet.xml.h:3
 msgid "Preferences..."
 msgstr "Préférences..."
 
-#: src/GNOME_gnubiffApplet.xml.h:4
+#: ../src/GNOME_gnubiffApplet.xml.h:4
 msgid "Run command"
 msgstr "Exécuter la commande"
 
-#: src/GNOME_gnubiffApplet.server.in.h:1
+#: ../src/GNOME_gnubiffApplet.server.in.h:1
 msgid "Mail notification program"
 msgstr "Programme de notification de courrier"
 
-#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade:7
+#: ../src/GNOME_gnubiffApplet.server.in.h:2 ../ui/applet-gtk.glade.h:17
 msgid "gnubiff"
 msgstr "gnubiff"
 
-#: ui/applet-gtk.glade:6
-msgid "tooltip"
-msgstr "truc"
-
-#: ui/applet-gtk.glade:64
-msgid "Start command"
-msgstr "Exécuter la commande"
-
-#: ui/applet-gtk.glade:94
+#: ../ui/applet-gtk.glade.h:1
 msgid "About"
 msgstr "A propos"
 
-#: ui/applet-gtk.glade:114
-msgid "_Quit"
-msgstr "_Quitter"
-
-#: ui/applet-gtk.glade:131
+#: ../ui/applet-gtk.glade.h:2
 msgid "Gnubiff is a mail notification program."
 msgstr "Gnubiff est un programme de notification de courrier"
 
-#: ui/applet-gtk.glade:133
+#. See http://www.gnu.org/licenses/translations.html
+#: ../ui/applet-gtk.glade.h:4
 #, fuzzy
 msgid ""
 "Gnubiff is part of the GNU project.\n"
@@ -573,315 +582,56 @@ msgstr ""
 "Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, États-"
 "Unis.\n"
 
-#: ui/preferences.glade:6
-msgid "gnubiff preferences"
-msgstr "gnubiff préferences"
+#: ../ui/applet-gtk.glade.h:15
+msgid "Start command"
+msgstr "Exécuter la commande"
 
-#: ui/preferences.glade:49
-msgid "_Restrict collected mail to"
-msgstr "_Restreindre le nombre de mail collectés à"
+#: ../ui/applet-gtk.glade.h:16
+msgid "_Quit"
+msgstr "_Quitter"
 
-#: ui/preferences.glade:76
-msgid "messages"
-msgstr ""
+#: ../ui/applet-gtk.glade.h:18
+msgid "tooltip"
+msgstr "truc"
 
-#: ui/preferences.glade:107
-msgid "The command to run when the icon is double-clicked"
-msgstr "Commande à exécuter pour un double-click"
-
-#: ui/preferences.glade:122
-msgid "The command to run when new mail arrives"
-msgstr "Commande à exécuter lorsqu'il y des nouveaux courriers"
-
-#: ui/preferences.glade:137
-msgid "When _new mail:"
-msgstr "_Nouveau courrier:"
-
-#: ui/preferences.glade:199
-msgid "<b>Commands</b>"
-msgstr "<b>Commandes</b>"
-
-#: ui/preferences.glade:219
-msgid "<b>Mailboxes</b>"
-msgstr "Boîtes aux lettres"
-
-#: ui/preferences.glade:236
-msgid "<b>General</b>"
-msgstr "<b>Général</b>"
-
-#: ui/preferences.glade:249
-msgid "When _double-clicked:"
-msgstr "En cas de _double-click"
-
-#: ui/preferences.glade:322
-msgid "Mailboxes"
-msgstr "Boîtes aux lettres"
-
-#: ui/preferences.glade:350 ui/preferences.glade:1005
-#, fuzzy
-msgid "Whether to appear on all desktops"
-msgstr "Afficher un texte ou non"
-
-#: ui/preferences.glade:351 ui/preferences.glade:1006
-msgid "Be _sticky"
-msgstr ""
-
-#: ui/preferences.glade:418 ui/preferences.glade:985
-#, fuzzy
-msgid "Whether to be always kept above all other windows"
-msgstr "Afficher la fenêtre des entêtes ou non"
-
-#: ui/preferences.glade:419 ui/preferences.glade:986
-msgid "_Keep above"
-msgstr ""
-
-#: ui/preferences.glade:438 ui/preferences.glade:795 ui/preferences.glade:849
-#: ui/preferences.glade:1270
-#, fuzzy
-msgid "Whether to appear in pagers"
-msgstr "Afficher une image ou non"
-
-#: ui/preferences.glade:439 ui/preferences.glade:850
-msgid "Appear in _pagers"
-msgstr ""
-
-#: ui/preferences.glade:457 ui/preferences.glade:887
-msgid "Whether to use window manager decoration"
-msgstr "Fenêtre des entêtes décorée ou non"
-
-#: ui/preferences.glade:458 ui/preferences.glade:888
-msgid "Use _decoration"
-msgstr "Utiliser la _décoration"
-
-#: ui/preferences.glade:476 ui/preferences.glade:868
-msgid "The font to use to display information"
-msgstr "Fonte à utiliser"
-
-#: ui/preferences.glade:494 ui/preferences.glade:906
-msgid "_Font:"
-msgstr "_Fonte:"
-
-#: ui/preferences.glade:511 ui/preferences.glade:969
+#: ../ui/preferences.glade.h:1
 #, fuzzy
 msgid "<b>Behavior</b>"
 msgstr "<b>Entêtes</b>"
 
-#: ui/preferences.glade:530
-msgid "<b>When no mail</b>"
-msgstr "<b>Absence de courrier</b>"
+#: ../ui/preferences.glade.h:2
+msgid "<b>Commands</b>"
+msgstr "<b>Commandes</b>"
 
-#: ui/preferences.glade:551
-msgid "<b>When new mail</b>"
-msgstr "<b>Si nouveau courrier</b>"
-
-#: ui/preferences.glade:568 ui/preferences.glade:1044
-msgid "<b>Layout</b>"
-msgstr "<b>Aspect</b>"
-
-#: ui/preferences.glade:581
-msgid "Whether to display an image"
-msgstr "Afficher une image ou non"
-
-#: ui/preferences.glade:582
-msgid "Show i_mage:"
-msgstr "Afficher l'i_mage"
-
-#: ui/preferences.glade:601 ui/preferences.glade:641
-msgid "Whether to display a text"
-msgstr "Afficher un texte ou non"
-
-#: ui/preferences.glade:602
-msgid "Show t_ext:"
-msgstr "Afficher le t_exte"
-
-#: ui/preferences.glade:621
-msgid "Whether to show an image"
-msgstr "Afficher une image ou non"
-
-#: ui/preferences.glade:622
-msgid "Show _image:"
-msgstr "Afficher l'_image"
-
-#: ui/preferences.glade:642
-msgid "Show _text:"
-msgstr "Afficher le _texte"
-
-#: ui/preferences.glade:661 ui/preferences.glade:1057
-msgid "Whether to use geometry"
-msgstr "Utiliser la géométrie ou non"
-
-#: ui/preferences.glade:662 ui/preferences.glade:1058
-msgid "Use _geometry:"
-msgstr "Utiliser la _géométrie"
-
-#: ui/preferences.glade:681
-msgid "Applet geometry"
-msgstr "Géométrie de l'applet"
-
-#: ui/preferences.glade:696 ui/preferences.glade:745
-msgid ""
-"Text to display (%d and %D is the number of new messages, %d is zero "
-"padded). Pango markup may be used."
-msgstr ""
-"Texte à afficher (%d et %D sont les nombres de nouveaux courriers, %d est "
-"justifié avec des zéros). Le marquage type Pango peut être utilisé."
-
-#: ui/preferences.glade:711 ui/preferences.glade:760
-msgid "Browse for an image file"
-msgstr "Chercher une image"
-
-#: ui/preferences.glade:712
-msgid "B_rowse..."
-msgstr "Che_rcher..."
-
-#: ui/preferences.glade:730 ui/preferences.glade:779
-msgid "Image filename"
-msgstr "Image"
-
-#: ui/preferences.glade:761 ui/properties.glade:295
-msgid "_Browse..."
-msgstr "_Chercher..."
-
-#: ui/preferences.glade:796 ui/preferences.glade:1271
-msgid "Appear in _taskbar"
-msgstr ""
-
-#: ui/preferences.glade:820
-msgid "Applet"
-msgstr "Applet"
-
-#: ui/preferences.glade:923
-msgid "Whether to display the popup window"
-msgstr "Afficher la fenêtre des entêtes ou non"
-
-#: ui/preferences.glade:924
-msgid "_Display for"
-msgstr "_Affichage"
-
-#: ui/preferences.glade:1028
-msgid "<b>Headers</b>"
-msgstr "<b>Entêtes</b>"
-
-#: ui/preferences.glade:1077
-#, fuzzy
-msgid "headers"
-msgstr "entête(s)"
-
-#: ui/preferences.glade:1092
-msgid "Maximum number of headers to display"
-msgstr "Nombre maximum de courriers à afficher"
-
-#: ui/preferences.glade:1109
-msgid "Whether to restrict number of displayed headers"
-msgstr "Restreindre le nombre d'entêtes ou non"
-
-#: ui/preferences.glade:1110
-msgid "_Restrict number to"
-msgstr "_Restreindre le nombre à"
-
-#: ui/preferences.glade:1129
-msgid "[sender max size]:[subject max size]:[date max size]"
-msgstr ""
-"[taille max champs expéditeur]:[taille max champs sujet]:[taille max champs "
-"date]"
-
-#: ui/preferences.glade:1144
-msgid "Whether to use format for header"
-msgstr "Utiliser un format d'entêtes ou non"
-
-#: ui/preferences.glade:1145
-msgid "_Format:"
-msgstr "_Format:"
-
-#: ui/preferences.glade:1164
-msgid "Popup geometry"
-msgstr "Géométrie du popup"
-
-#: ui/preferences.glade:1179
-msgid "Time to display popup window"
-msgstr "Durée d'affichage de la fenêtre popup"
-
-#: ui/preferences.glade:1196 ui/properties.glade:716
-msgid "seconds"
-msgstr "secondes"
-
-#: ui/preferences.glade:1211
-msgid "Whether to accept keyboard focus"
-msgstr ""
-
-#: ui/preferences.glade:1212
-#, fuzzy
-msgid "_Accept focus"
-msgstr "Accepter"
-
-#: ui/preferences.glade:1295 ui/popup.glade:6
-msgid "Popup"
-msgstr "Popup"
-
-#: ui/preferences.glade:1341
-msgid ""
-"The editing dialog for all options that gnubiff uses internally can be "
-"enabled here. So it is possible to change the value of options for which no "
-"gui widgets are provided. A short description for each option is provided.\n"
-"<b>Warning:</b> Changing these options may cause gnubiff to act not properly "
-"or result in security problems."
-msgstr ""
-"L'éditeur d'options que gnubiff utilise de façon interne peut être activé "
-"ici de façon à pouvoir changer certaines options \"cachées\". Une coure "
-"description de chaque option est fournie. <b>Attention</b>Changer ces "
-"options peut provoquer des erreurs ou bien des problèmes de sécurité."
-
-#: ui/preferences.glade:1359
-msgid ""
-"Whether to show the expert tab. Note: Disabling this option can only be "
-"reversed by editing the config file manually!"
-msgstr ""
-"Afficher le mode expert. Note: Enlever ce mode ne peut se fait qu'en éditant "
-"le fichier de configuration manuellement."
-
-#: ui/preferences.glade:1360
-msgid "_Show expert tab"
-msgstr "_Afficher le mode expert"
-
-#: ui/preferences.glade:1380
-msgid "Whether options can be edited in expert mode"
-msgstr "Est ce que les options peuvent êtreéditées en mode expert"
-
-#: ui/preferences.glade:1381
-msgid "_Edit options in expert mode"
-msgstr "_Editer les options en mode expert"
-
-#: ui/preferences.glade:1400
+#: ../ui/preferences.glade.h:3
 msgid "<b>Expert editing mode</b>"
 msgstr "<b>Mode éditeur expert</b>"
 
-#: ui/preferences.glade:1434
-msgid "List all options."
-msgstr "Liste des options"
+#: ../ui/preferences.glade.h:4
+msgid "<b>General</b>"
+msgstr "<b>Général</b>"
 
-#: ui/preferences.glade:1450
-msgid "String to be searched for."
-msgstr "Chaîne à chercher."
+#: ../ui/preferences.glade.h:5
+msgid "<b>Headers</b>"
+msgstr "<b>Entêtes</b>"
 
-#: ui/preferences.glade:1462
-msgid ""
-"Search for those (displayed) options that contain the string in the text "
-"entry."
-msgstr "Recherche les options contenant la chaîne spécifiée."
+#: ../ui/preferences.glade.h:6
+msgid "<b>Layout</b>"
+msgstr "<b>Aspect</b>"
 
-#: ui/preferences.glade:1491
-msgid ""
-"List of options, their type and current values. To edit an option "
-"doubleclick on its value."
-msgstr ""
-"Liste des options,  types et valeurs courantes. Pour éditer une option, "
-"double-cliquez sur sa valeur."
+#: ../ui/preferences.glade.h:7
+msgid "<b>Mailboxes</b>"
+msgstr "Boîtes aux lettres"
 
-#: ui/preferences.glade:1536
-msgid "Expert"
-msgstr "Expert"
+#: ../ui/preferences.glade.h:8
+msgid "<b>When new mail</b>"
+msgstr "<b>Si nouveau courrier</b>"
 
-#: ui/preferences.glade:1576
+#: ../ui/preferences.glade.h:9
+msgid "<b>When no mail</b>"
+msgstr "<b>Absence de courrier</b>"
+
+#: ../ui/preferences.glade.h:10
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
@@ -889,7 +639,7 @@ msgstr ""
 "<small>Ce programme fait partie du projet GNU\n"
 "il est distribué sous l'égide de GNU.</small>"
 
-#: ui/preferences.glade:1642
+#: ../ui/preferences.glade.h:12
 msgid ""
 "<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
 "devel@lists.sourceforge.net</span>.</small>\n"
@@ -901,15 +651,7 @@ msgstr ""
 "Les bogues doivent etre reportés à <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 
-#: ui/preferences.glade:1711
-msgid "Developers"
-msgstr "Développeurs"
-
-#: ui/preferences.glade:1790
-msgid "Maintainers"
-msgstr "Mainteneurs"
-
-#: ui/preferences.glade:1809
+#: ../ui/preferences.glade.h:14
 msgid ""
 "<small>Here is a list of those people, which translated gnubiff into "
 "different languages (translators of previous versions are marked with an "
@@ -919,11 +661,7 @@ msgstr ""
 "gnubiff dans les différents langages (les traducteurs des versions "
 "précédentes sont marqués d'un astérisque):</small>"
 
-#: ui/preferences.glade:2295
-msgid "Translators"
-msgstr "Traducteurs"
-
-#: ui/preferences.glade:2312
+#: ../ui/preferences.glade.h:15
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -937,232 +675,516 @@ msgstr ""
 "  - soumettant du code\n"
 "Voici une liste de ces personnes:</small>"
 
-#: ui/preferences.glade:2355
+#: ../ui/preferences.glade.h:20
+msgid "Appear in _pagers"
+msgstr ""
+
+#: ../ui/preferences.glade.h:21
+msgid "Appear in _taskbar"
+msgstr ""
+
+#: ../ui/preferences.glade.h:22
+msgid "Applet"
+msgstr "Applet"
+
+#: ../ui/preferences.glade.h:23
+msgid "Applet geometry"
+msgstr "Géométrie de l'applet"
+
+#: ../ui/preferences.glade.h:24
+msgid "B_rowse..."
+msgstr "Che_rcher..."
+
+#: ../ui/preferences.glade.h:25
+msgid "Be _sticky"
+msgstr ""
+
+#: ../ui/preferences.glade.h:26
+msgid "Browse for an image file"
+msgstr "Chercher une image"
+
+#: ../ui/preferences.glade.h:27
 msgid "Contributors"
 msgstr "Contributeurs"
 
-#: ui/preferences.glade:2377
+#: ../ui/preferences.glade.h:28
 msgid "Credits"
 msgstr "Remerciements"
 
-#: ui/preferences.glade:2466
-msgid "Set to default value"
-msgstr "Mettre la valeur par défaut"
+#: ../ui/preferences.glade.h:29
+msgid "Developers"
+msgstr "Développeurs"
 
-#: ui/preferences.glade:2481
-msgid "Toggle option"
-msgstr "Basculer l'option"
-
-#: ui/preferences.glade:2496
+#: ../ui/preferences.glade.h:30
 msgid "Edit option"
 msgstr "Editer l'option"
 
-#: ui/properties.glade:7
-msgid "Mailbox properties"
-msgstr "Propriété de la boîte aux lettres"
+#: ../ui/preferences.glade.h:31
+msgid "Expert"
+msgstr "Expert"
 
-#: ui/properties.glade:52
-msgid "_Name:"
-msgstr "_Nom:"
+#: ../ui/preferences.glade.h:32
+msgid "Image filename"
+msgstr "Image"
 
-#: ui/properties.glade:77
+#: ../ui/preferences.glade.h:33
+msgid "List all options."
+msgstr "Liste des options"
+
+#: ../ui/preferences.glade.h:34
+msgid ""
+"List of options, their type and current values. To edit an option "
+"doubleclick on its value."
+msgstr ""
+"Liste des options,  types et valeurs courantes. Pour éditer une option, "
+"double-cliquez sur sa valeur."
+
+#: ../ui/preferences.glade.h:35
+msgid "Mailboxes"
+msgstr "Boîtes aux lettres"
+
+#: ../ui/preferences.glade.h:36
+msgid "Maintainers"
+msgstr "Mainteneurs"
+
+#: ../ui/preferences.glade.h:37
+msgid "Maximum number of headers to display"
+msgstr "Nombre maximum de courriers à afficher"
+
+#: ../ui/preferences.glade.h:38 ../ui/popup.glade.h:6
+msgid "Popup"
+msgstr "Popup"
+
+#: ../ui/preferences.glade.h:39
+msgid "Popup geometry"
+msgstr "Géométrie du popup"
+
+#: ../ui/preferences.glade.h:40
+msgid ""
+"Search for those (displayed) options that contain the string in the text "
+"entry."
+msgstr "Recherche les options contenant la chaîne spécifiée."
+
+#: ../ui/preferences.glade.h:41
+msgid "Set to default value"
+msgstr "Mettre la valeur par défaut"
+
+#: ../ui/preferences.glade.h:42
+msgid "Show _image:"
+msgstr "Afficher l'_image"
+
+#: ../ui/preferences.glade.h:43
+msgid "Show _text:"
+msgstr "Afficher le _texte"
+
+#: ../ui/preferences.glade.h:44
+msgid "Show i_mage:"
+msgstr "Afficher l'i_mage"
+
+#: ../ui/preferences.glade.h:45
+msgid "Show t_ext:"
+msgstr "Afficher le t_exte"
+
+#: ../ui/preferences.glade.h:46
+msgid "String to be searched for."
+msgstr "Chaîne à chercher."
+
+#: ../ui/preferences.glade.h:48
+#, no-c-format
+msgid ""
+"Text to display (%d and %D is the number of new messages, %d is zero "
+"padded). Pango markup may be used."
+msgstr ""
+"Texte à afficher (%d et %D sont les nombres de nouveaux courriers, %d est "
+"justifié avec des zéros). Le marquage type Pango peut être utilisé."
+
+#: ../ui/preferences.glade.h:49
+msgid "The command to run when new mail arrives"
+msgstr "Commande à exécuter lorsqu'il y des nouveaux courriers"
+
+#: ../ui/preferences.glade.h:50
+msgid "The command to run when the icon is double-clicked"
+msgstr "Commande à exécuter pour un double-click"
+
+#. The option's descriptions are in English only! This may be included in a translation of this text.
+#: ../ui/preferences.glade.h:52
+msgid ""
+"The editing dialog for all options that gnubiff uses internally can be "
+"enabled here. So it is possible to change the value of options for which no "
+"gui widgets are provided. A short description for each option is provided.\n"
+"<b>Warning:</b> Changing these options may cause gnubiff to act not properly "
+"or result in security problems."
+msgstr ""
+"L'éditeur d'options que gnubiff utilise de façon interne peut être activé "
+"ici de façon à pouvoir changer certaines options \"cachées\". Une coure "
+"description de chaque option est fournie. <b>Attention</b>Changer ces "
+"options peut provoquer des erreurs ou bien des problèmes de sécurité."
+
+#: ../ui/preferences.glade.h:54
+msgid "The font to use to display information"
+msgstr "Fonte à utiliser"
+
+#: ../ui/preferences.glade.h:55
+msgid "Time to display popup window"
+msgstr "Durée d'affichage de la fenêtre popup"
+
+#: ../ui/preferences.glade.h:56
+msgid "Toggle option"
+msgstr "Basculer l'option"
+
+#: ../ui/preferences.glade.h:57
+msgid "Translators"
+msgstr "Traducteurs"
+
+#: ../ui/preferences.glade.h:58
+msgid "Use _decoration"
+msgstr "Utiliser la _décoration"
+
+#: ../ui/preferences.glade.h:59
+msgid "Use _geometry:"
+msgstr "Utiliser la _géométrie"
+
+#: ../ui/preferences.glade.h:60
+msgid "When _double-clicked:"
+msgstr "En cas de _double-click"
+
+#: ../ui/preferences.glade.h:61
+msgid "When _new mail:"
+msgstr "_Nouveau courrier:"
+
+#: ../ui/preferences.glade.h:62
+msgid "Whether options can be edited in expert mode"
+msgstr "Est ce que les options peuvent êtreéditées en mode expert"
+
+#: ../ui/preferences.glade.h:63
+msgid "Whether to accept keyboard focus"
+msgstr ""
+
+#: ../ui/preferences.glade.h:64
+#, fuzzy
+msgid "Whether to appear in pagers"
+msgstr "Afficher une image ou non"
+
+#: ../ui/preferences.glade.h:65
+#, fuzzy
+msgid "Whether to appear on all desktops"
+msgstr "Afficher un texte ou non"
+
+#: ../ui/preferences.glade.h:66
+#, fuzzy
+msgid "Whether to be always kept above all other windows"
+msgstr "Afficher la fenêtre des entêtes ou non"
+
+#: ../ui/preferences.glade.h:67
+msgid "Whether to display a text"
+msgstr "Afficher un texte ou non"
+
+#: ../ui/preferences.glade.h:68
+msgid "Whether to display an image"
+msgstr "Afficher une image ou non"
+
+#: ../ui/preferences.glade.h:69
+msgid "Whether to display the popup window"
+msgstr "Afficher la fenêtre des entêtes ou non"
+
+#: ../ui/preferences.glade.h:70
+msgid "Whether to restrict number of displayed headers"
+msgstr "Restreindre le nombre d'entêtes ou non"
+
+#: ../ui/preferences.glade.h:71
+msgid "Whether to show an image"
+msgstr "Afficher une image ou non"
+
+#: ../ui/preferences.glade.h:72
+msgid ""
+"Whether to show the expert tab. Note: Disabling this option can only be "
+"reversed by editing the config file manually!"
+msgstr ""
+"Afficher le mode expert. Note: Enlever ce mode ne peut se fait qu'en éditant "
+"le fichier de configuration manuellement."
+
+#: ../ui/preferences.glade.h:73
+msgid "Whether to use format for header"
+msgstr "Utiliser un format d'entêtes ou non"
+
+#: ../ui/preferences.glade.h:74
+msgid "Whether to use geometry"
+msgstr "Utiliser la géométrie ou non"
+
+#: ../ui/preferences.glade.h:75
+msgid "Whether to use window manager decoration"
+msgstr "Fenêtre des entêtes décorée ou non"
+
+#: ../ui/preferences.glade.h:76
+msgid "[sender max size]:[subject max size]:[date max size]"
+msgstr ""
+"[taille max champs expéditeur]:[taille max champs sujet]:[taille max champs "
+"date]"
+
+#: ../ui/preferences.glade.h:77
+#, fuzzy
+msgid "_Accept focus"
+msgstr "Accepter"
+
+#: ../ui/preferences.glade.h:78 ../ui/properties.glade.h:21
+msgid "_Browse..."
+msgstr "_Chercher..."
+
+#: ../ui/preferences.glade.h:79
+msgid "_Display for"
+msgstr "_Affichage"
+
+#: ../ui/preferences.glade.h:80
+msgid "_Edit options in expert mode"
+msgstr "_Editer les options en mode expert"
+
+#: ../ui/preferences.glade.h:81
+msgid "_Font:"
+msgstr "_Fonte:"
+
+#: ../ui/preferences.glade.h:82
+msgid "_Format:"
+msgstr "_Format:"
+
+#: ../ui/preferences.glade.h:83
+msgid "_Keep above"
+msgstr ""
+
+#: ../ui/preferences.glade.h:84
+msgid "_Restrict collected mail to"
+msgstr "_Restreindre le nombre de mail collectés à"
+
+#: ../ui/preferences.glade.h:85
+msgid "_Restrict number to"
+msgstr "_Restreindre le nombre à"
+
+#: ../ui/preferences.glade.h:86
+msgid "_Show expert tab"
+msgstr "_Afficher le mode expert"
+
+#: ../ui/preferences.glade.h:88
+msgid "gnubiff preferences"
+msgstr "gnubiff préferences"
+
+#: ../ui/preferences.glade.h:89
+#, fuzzy
+msgid "headers"
+msgstr "entête(s)"
+
+#: ../ui/preferences.glade.h:90
+msgid "messages"
+msgstr ""
+
+#: ../ui/preferences.glade.h:91 ../ui/properties.glade.h:31
+msgid "seconds"
+msgstr "secondes"
+
+#: ../ui/properties.glade.h:1
+msgid "<b>_Details</b>"
+msgstr "<b>_Détails</b>"
+
+#: ../ui/properties.glade.h:2
 msgid "A_ddress:"
 msgstr "A_dresse:"
 
-#: ui/properties.glade:102
-msgid "Name of the mailbox"
-msgstr "Nom de la boîte aux lettres"
-
-#: ui/properties.glade:124
-msgid "_Type:"
-msgstr "_Type:"
-
-#: ui/properties.glade:174 ui/authentication.glade:52
-msgid "_Username:"
-msgstr "_Utilisateur:"
-
-#: ui/properties.glade:199
-msgid "Your username on the mail server"
-msgstr "Votre nom d'utilisateur sur le serveur"
-
-#: ui/properties.glade:221 ui/authentication.glade:77
-msgid "_Password:"
-msgstr "Mot de _passe"
-
-#: ui/properties.glade:246
-msgid "Your password on the mail server"
-msgstr "Votre mot de passe sur le seveur"
-
-#: ui/properties.glade:274
-msgid "file or folder or hostname"
-msgstr "fichier ou répertoire ou hôte"
-
-#: ui/properties.glade:367
-msgid "Connection:"
-msgstr "Connexion:"
-
-#: ui/properties.glade:391
-msgid "Connection port to connect to server"
-msgstr "Port de connexion au serveur"
-
-#: ui/properties.glade:414
-msgid "Standard connection port"
-msgstr "Port de connexion standard"
-
-#: ui/properties.glade:416
-msgid "stan_dard"
-msgstr "stan_dard"
-
-#: ui/properties.glade:437
-msgid "Other connection port"
-msgstr "Autre port de connexion"
-
-#: ui/properties.glade:439
-msgid "_other"
-msgstr "_autre:"
-
-#: ui/properties.glade:540
+#: ../ui/properties.glade.h:3
 msgid "Aut_hentication:"
 msgstr "Aut_hentification:"
 
-#: ui/properties.glade:594
-msgid "Certificate filename"
-msgstr "Fichier certificat"
-
-#: ui/properties.glade:618
+#: ../ui/properties.glade.h:4
 msgid "Bro_wse..."
 msgstr "Che_rcher..."
 
-#: ui/properties.glade:637
+#: ../ui/properties.glade.h:6
 msgid "Cer_tificate:"
 msgstr "Cer_tificat:"
 
-#: ui/properties.glade:692
-msgid "minutes"
-msgstr "minutes"
+#: ../ui/properties.glade.h:7
+msgid "Certificate filename"
+msgstr "Fichier certificat"
 
-#: ui/properties.glade:739 ui/properties.glade:765
+#: ../ui/properties.glade.h:8
+msgid "Connection port to connect to server"
+msgstr "Port de connexion au serveur"
+
+#: ../ui/properties.glade.h:9
+msgid "Connection:"
+msgstr "Connexion:"
+
+#: ../ui/properties.glade.h:10
+msgid "Dela_y:"
+msgstr "Déla_i:"
+
+#: ../ui/properties.glade.h:11
+msgid "Mailbox folder"
+msgstr "Répertoire de boîtes aux lettres"
+
+#: ../ui/properties.glade.h:12
+msgid "Mailbox properties"
+msgstr "Propriété de la boîte aux lettres"
+
+#: ../ui/properties.glade.h:13
+msgid "Name of the mailbox"
+msgstr "Nom de la boîte aux lettres"
+
+#: ../ui/properties.glade.h:14
+msgid "Other connection port"
+msgstr "Autre port de connexion"
+
+#: ../ui/properties.glade.h:15
+msgid "Other mailbox folder"
+msgstr "Autre répertoire"
+
+#: ../ui/properties.glade.h:16
+msgid "Standard connection port"
+msgstr "Port de connexion standard"
+
+#: ../ui/properties.glade.h:17
+msgid "Standard mailbox folder"
+msgstr "Répertoire standard"
+
+#: ../ui/properties.glade.h:18
 msgid ""
 "The amount of time to wait between mail checks or between retries when "
 "connection is lost"
 msgstr ""
 "Durée d'attente entre deux vérifications ou deux tentatives en cas d'échec"
 
-#: ui/properties.glade:791
-msgid "Dela_y:"
-msgstr "Déla_i:"
+#: ../ui/properties.glade.h:19
+msgid "Your password on the mail server"
+msgstr "Votre mot de passe sur le seveur"
 
-#: ui/properties.glade:846
+#: ../ui/properties.glade.h:20
+msgid "Your username on the mail server"
+msgstr "Votre nom d'utilisateur sur le serveur"
+
+#: ../ui/properties.glade.h:22
 msgid "_Mailbox:"
 msgstr "_Boîte aux lettres:"
 
-#: ui/properties.glade:871
-msgid "Mailbox folder"
-msgstr "Répertoire de boîtes aux lettres"
+#: ../ui/properties.glade.h:23
+msgid "_Name:"
+msgstr "_Nom:"
 
-#: ui/properties.glade:893
-msgid "Other mailbox folder"
-msgstr "Autre répertoire"
+#: ../ui/properties.glade.h:24 ../ui/authentication.glade.h:4
+msgid "_Password:"
+msgstr "Mot de _passe"
 
-#: ui/properties.glade:895
+#: ../ui/properties.glade.h:25
+msgid "_Type:"
+msgstr "_Type:"
+
+#: ../ui/properties.glade.h:26 ../ui/authentication.glade.h:5
+msgid "_Username:"
+msgstr "_Utilisateur:"
+
+#: ../ui/properties.glade.h:27
+msgid "_other"
+msgstr "_autre:"
+
+#: ../ui/properties.glade.h:28
+msgid "file or folder or hostname"
+msgstr "fichier ou répertoire ou hôte"
+
+#: ../ui/properties.glade.h:29
+msgid "minutes"
+msgstr "minutes"
+
+#: ../ui/properties.glade.h:30
 msgid "othe_r"
 msgstr "autre"
 
-#: ui/properties.glade:916
-msgid "Standard mailbox folder"
-msgstr "Répertoire standard"
+#: ../ui/properties.glade.h:32
+msgid "stan_dard"
+msgstr "stan_dard"
 
-#: ui/properties.glade:918
+#: ../ui/properties.glade.h:33
 msgid "stand_ard"
 msgstr "stand_ard"
 
-#: ui/properties.glade:951
-msgid "<b>_Details</b>"
-msgstr "<b>_Détails</b>"
-
-#: ui/authentication.glade:7
+#: ../ui/authentication.glade.h:1
 msgid "Authentication"
 msgstr "Authentification"
 
-#: ui/authentication.glade:102
-msgid "Your username on the server"
-msgstr "Votre nom d'utilisateur sur le serveur"
-
-#: ui/authentication.glade:124
+#: ../ui/authentication.glade.h:2
 msgid "Your password on the server"
 msgstr "Votre mot de passe sur le seveur"
 
-#: ui/certificate.glade:7
-msgid "Cannot certify server"
-msgstr "Ompossible de certifier le serveur"
+#: ../ui/authentication.glade.h:3
+msgid "Your username on the server"
+msgstr "Votre nom d'utilisateur sur le serveur"
 
-#: ui/certificate.glade:130
-msgid "Common Name"
-msgstr "Nom commun"
-
-#: ui/certificate.glade:154
-msgid "Organization"
-msgstr "Organisation"
-
-#: ui/certificate.glade:178
-msgid "Organization Unit"
-msgstr "Unité de l'organisation"
-
-#: ui/certificate.glade:275
-msgid "<b>Issued To</b>"
-msgstr "<b>Fait pour</b>"
-
-#: ui/certificate.glade:394
+#: ../ui/certificate.glade.h:1
 msgid "<b>Address</b>"
 msgstr "<b>Adresse</b>"
 
-#: ui/certificate.glade:418
-msgid "Country"
-msgstr "Pays"
+#: ../ui/certificate.glade.h:2
+msgid "<b>Issued To</b>"
+msgstr "<b>Fait pour</b>"
 
-#: ui/certificate.glade:442
-msgid "Locality"
-msgstr "Ville"
-
-#: ui/certificate.glade:540
-msgid "State or Province"
-msgstr "Etat ou Province"
-
-#: ui/certificate.glade:570
-msgid "Certificate details"
-msgstr "Détails du certificat"
-
-#: ui/certificate.glade:668
+#: ../ui/certificate.glade.h:3
 msgid "Accept"
 msgstr "Accepter"
 
-#: ui/popup.glade:41
-msgid "mail content"
-msgstr "contenu du mèl"
+#: ../ui/certificate.glade.h:4
+msgid "Cannot certify server"
+msgstr "Ompossible de certifier le serveur"
 
-#: ui/popup.glade:74
-msgid "<small><b>From</b></small>"
-msgstr "<small><b>De</b></small>"
+#: ../ui/certificate.glade.h:5
+msgid "Certificate details"
+msgstr "Détails du certificat"
 
-#: ui/popup.glade:86
-msgid "<small><b>Subject</b></small>"
-msgstr "<small><b>Sujet</b></small>"
+#: ../ui/certificate.glade.h:6
+msgid "Common Name"
+msgstr "Nom commun"
 
-#: ui/popup.glade:100
+#: ../ui/certificate.glade.h:7
+msgid "Country"
+msgstr "Pays"
+
+#: ../ui/certificate.glade.h:8
+msgid "Locality"
+msgstr "Ville"
+
+#: ../ui/certificate.glade.h:9
+msgid "Organization"
+msgstr "Organisation"
+
+#: ../ui/certificate.glade.h:10
+msgid "Organization Unit"
+msgstr "Unité de l'organisation"
+
+#: ../ui/certificate.glade.h:11
+msgid "State or Province"
+msgstr "Etat ou Province"
+
+#: ../ui/popup.glade.h:1
 msgid "<small><b>Date</b></small>"
 msgstr "<small><b>Date</b></small>"
 
-#: ui/popup.glade:186
-msgid "Hide popup"
-msgstr ""
+#: ../ui/popup.glade.h:2
+msgid "<small><b>From</b></small>"
+msgstr "<small><b>De</b></small>"
 
-#: ui/popup.glade:200
+#: ../ui/popup.glade.h:3
+msgid "<small><b>Subject</b></small>"
+msgstr "<small><b>Sujet</b></small>"
+
+#: ../ui/popup.glade.h:4
 msgid "Delete this message"
 msgstr ""
 
-#: ui/popup.glade:216
+#: ../ui/popup.glade.h:5
+msgid "Hide popup"
+msgstr ""
+
+#: ../ui/popup.glade.h:7
 msgid "Undelete this message"
 msgstr ""
+
+#: ../ui/popup.glade.h:8
+msgid "mail content"
+msgstr "contenu du mèl"
 
 #~ msgid "mail(s)"
 #~ msgstr "mèl(s)"
