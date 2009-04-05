@@ -84,6 +84,7 @@ Version 2.3.0
 Version 2.2.12
  * Robert Sowada
    - Changed version to 2.2.12
+   - Bugfix: Format string problem
 	
 Version 2.2.11		2009-04-05 18:14
  * Robert Sowada
