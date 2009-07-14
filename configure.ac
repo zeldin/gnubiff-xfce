@@ -174,19 +174,21 @@ AM_GNU_GETTEXT([external])
 #                           GNOME support                            #
 ######################################################################
 if test "$OPT_USEGNOME" = "yes"; then
-  PKG_CHECK_MODULES(GNOME_PANEL_DEP,libpanelapplet-2.0, [
-	AC_SUBST(GNOME_PANEL_DEP_CFLAGS)
-	AC_SUBST(GNOME_PANEL_DEP_LIBS)
-	AH_TEMPLATE([USE_GNOME])
-	AC_DEFINE(USE_GNOME)
-	AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
+	PKG_CHECK_MODULES(GNOME_DEP, [
+	    libpanelapplet-2.0
+    	libgnomeui-2.0
+    	], [
+		AC_SUBST(GNOME_DEP_CFLAGS)
+		AC_SUBST(GNOME_DEP_LIBS)
+		AH_TEMPLATE([USE_GNOME])
+		AC_DEFINE(USE_GNOME)
+		AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
+		])
 	if test "x$GCONFTOOL" = "xno"; then
 	   AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
 	fi
-  ], OPT_USEGNOME="no")
 fi
 AM_CONDITIONAL(USE_GNOME, test $OPT_USEGNOME = yes, Define to 1 if you want to have GNOME support)
-
 
 
 ######################################################################

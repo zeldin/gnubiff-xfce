@@ -1,7 +1,7 @@
 INCLUDES = \
 	$(FAM_CFLAGS) \
 	$(GNUBIFF_DEP_CFLAGS)							\
-	$(GNOME_PANEL_DEP_CFLAGS)						\
+	$(GNOME_DEP_CFLAGS)						\
 	-DGNUBIFF_LOCALEDIR=\""$(datadir)/locale"\"		\
 	-DGNUBIFF_DATADIR=\""$(pkgdatadir)"\"			\
 	-DGNUBIFF_ICONDIR=\""$(datadir)/pixmaps"\"		\
@@ -93,7 +93,7 @@ ui_DATA			=
 ##
 if USE_GNOME
 gnubiff_SOURCES += $(gnome_sources)
-gnubiff_LDADD   += $(GNOME_PANEL_DEP_LIBS)
+gnubiff_LDADD   += $(GNOME_DEP_LIBS)
 server_in_files += GNOME_gnubiffApplet.server.in
 server_DATA     += $(server_in_files:.server.in=.server)
 ui_DATA			+= GNOME_gnubiffApplet.xml

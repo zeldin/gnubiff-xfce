@@ -80,11 +80,15 @@ Version 2.3.0
    - Bugfix: Only get filtered messages once (thanks to Frederik Vanderstraeten
         for reporting this bug as #2140306)
    - Added Frederik Vanderstraeten to contributors
+   - Bugfix: Check for libgnomeui added in configure (see support request
+        #2805290 by Jleuleu and debian bug #536955 by Lucas Nussbaum)
 
 Version 2.2.12
  * Robert Sowada
    - Changed version to 2.2.12
    - Bugfix: Format string problem
+   - Bugfix: Check for libgnomeui added in configure (see support request
+        #2805290 by Jleuleu and debian bug #536955 by Lucas Nussbaum)
 	
 Version 2.2.11		2009-04-05 18:14
  * Robert Sowada
