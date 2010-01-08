@@ -1,7 +1,7 @@
 gnubiff -- History of visible changes.
 
-Copyright (C) 2000-2009 Nicolas Rougier <Nicolas.Rougier@loria.fr> and
-              2004-2009 Robert Sowada <sowadart@gmx.de>.
+Copyright (C) 2000-2010 Nicolas Rougier <Nicolas.Rougier@loria.fr> and
+              2004-2010 Robert Sowada <sowadart@gmx.de>.
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
@@ -82,6 +82,7 @@ Version 2.3.0
    - Added Frederik Vanderstraeten to contributors
    - Bugfix: Check for libgnomeui added in configure (see support request
         #2805290 by Jleuleu and debian bug #536955 by Lucas Nussbaum)
+   - Added .desktop file (thanks to Fabian Affolter)
 
 Version 2.2.12
  * Robert Sowada
@@ -89,6 +90,7 @@ Version 2.2.12
    - Bugfix: Format string problem
    - Bugfix: Check for libgnomeui added in configure (see support request
         #2805290 by Jleuleu and debian bug #536955 by Lucas Nussbaum)
+   - Added .desktop file (thanks to Fabian Affolter)
 	
 Version 2.2.11		2009-04-05 18:14
  * Robert Sowada
