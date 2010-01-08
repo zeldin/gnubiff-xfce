@@ -1588,8 +1588,8 @@
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
                                 <property name="yalign">1</property>
-                                <property name="label">&lt;small&gt; © 2000-2009 Nicolas Rougier
- © 2004-2009 Robert Sowada&lt;/small&gt;</property>
+                                <property name="label">&lt;small&gt; © 2000-2010 Nicolas Rougier
+ © 2004-2010 Robert Sowada&lt;/small&gt;</property>
                                 <property name="use_markup">True</property>
                               </widget>
                               <packing>
