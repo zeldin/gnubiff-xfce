@@ -83,6 +83,7 @@ Version 2.3.0
    - Bugfix: Check for libgnomeui added in configure (see support request
         #2805290 by Jleuleu and debian bug #536955 by Lucas Nussbaum)
    - Added .desktop file (thanks to Fabian Affolter)
+   - Added Fabian Affolter to contributors
 
 Version 2.2.12
  * Robert Sowada
@@ -91,6 +92,7 @@ Version 2.2.12
    - Bugfix: Check for libgnomeui added in configure (see support request
         #2805290 by Jleuleu and debian bug #536955 by Lucas Nussbaum)
    - Added .desktop file (thanks to Fabian Affolter)
+   - Added Fabian Affolter to contributors
 	
 Version 2.2.11		2009-04-05 18:14
  * Robert Sowada
