@@ -1,9 +1,14 @@
 gnubiff -- History of visible changes.
 
-Copyright (C) 2000-2009 Nicolas Rougier <Nicolas.Rougier@loria.fr>,
-              2004-2009 Robert Sowada <sowadart@gmx.de>
+Copyright (C) 2000-2010 Nicolas Rougier <Nicolas.Rougier@loria.fr>,
+              2004-2010 Robert Sowada <sowadart@gmx.de>
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
+
+Version 2.2.12
+This is a minor bugfix release. Changes:
+ * Fixed some compiler warnings/problems
+ * Added .desktop file (thanks to Fabian Affolter)
 
 Version 2.2.11
 This is a minor bugfix release. Changes:

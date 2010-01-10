@@ -85,7 +85,7 @@ Version 2.3.0
    - Added .desktop file (thanks to Fabian Affolter)
    - Added Fabian Affolter to contributors
 
-Version 2.2.12
+Version 2.2.12		2010-01-10 13:21
  * Robert Sowada
    - Changed version to 2.2.12
    - Bugfix: Format string problem
