@@ -6,4 +6,4 @@ desktop_DATA     = $(desktop_in_files:.desktop.in=.desktop)
 uidir            = $(pkgdatadir)
 dist_ui_DATA     = $(wildcard *.glade)
 
-EXTRA_DIST       = $(wildcard *.gladep)
+EXTRA_DIST       = $(wildcard *.gladep) gnubiff.desktop.in
