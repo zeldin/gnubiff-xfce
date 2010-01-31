@@ -1,15 +1,15 @@
 # Swedish translation of gnubiff
-# Copyright (C) 2003, 2007 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2007, 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnubiff package.
-# Daniel Nylander <po@danielnylander.se>, 2007.
+# Daniel Nylander <po@danielnylander.se>, 2007, 2009.
 # David Smeringe <david.smeringe@telia.com>, 2004, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnubiff 2.2.7\n"
+"Project-Id-Version: gnubiff 2.2.11\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2009-04-05 18:14+0200\n"
-"PO-Revision-Date: 2007-07-26 17:43+0100\n"
+"POT-Creation-Date: 2010-01-31 20:43+0100\n"
+"PO-Revision-Date: 2009-07-06 20:05+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -537,7 +537,6 @@ msgstr "Gnubiff är ett meddelandenotiferingsprogram."
 
 #. See http://www.gnu.org/licenses/translations.html
 #: ../ui/applet-gtk.glade.h:4
-#, fuzzy
 msgid ""
 "Gnubiff is part of the GNU project.\n"
 "It is released under the aegis of GNU.\n"
@@ -563,7 +562,7 @@ msgstr ""
 "\n"
 "Det här programmet är fri programvara; du kan distribuera det och/eller "
 "ändra det under villkoren för GNU General Public License som publicerats av "
-"Free Software Foundation; antingen version 2 av licensen, eller (enligt dig) "
+"Free Software Foundation; antingen version 3 av licensen, eller (enligt dig) "
 "någon senare version.\n"
 "\n"
 "Det här programmet distribueras i hopp om att det ska vara användbart, men "
@@ -572,8 +571,10 @@ msgstr ""
 "för mer information.\n"
 "\n"
 "Du bör ha fått en kopia av GNU General Public License tillsammans med det "
-"här programmet; om inte, skriv till Free Software Foundation, Inc., 51 "
-"Franklin St, Fifth Floor, Boston, MA 02110, USA.\n"
+"här programmet; om inte, se http://www.gnu.org/licenses/.\n"
+"\n"
+"Se filen README för undantag till GNU General Public License för "
+"distribution av gnubiff länked till biblioteket OpenSSL."
 
 #: ../ui/applet-gtk.glade.h:15
 msgid "Start command"

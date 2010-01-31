@@ -1,16 +1,16 @@
 # translation of gnubiff-2.2.7.po to Nederlands
 # Dutch translation of gnubiff.
-# Copyright (C) 2003, 2004, 2008 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2004, 2008, 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnubiff package.
 # Elros Cyriatan <cyriatan@fastmail.fm>, 2003, 2004.
 #
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnubiff-2.2.7\n"
+"Project-Id-Version: gnubiff-2.2.11\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2009-04-05 18:14+0200\n"
-"PO-Revision-Date: 2008-01-29 07:48+0100\n"
+"POT-Creation-Date: 2010-01-31 20:43+0100\n"
+"PO-Revision-Date: 2009-05-03 21:03+0100\n"
 "Last-Translator: Erwin Poeze <erwin.poeze@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -540,7 +540,6 @@ msgstr "Gnubiff is een postmeldingsprogramma"
 
 #. See http://www.gnu.org/licenses/translations.html
 #: ../ui/applet-gtk.glade.h:4
-#, fuzzy
 msgid ""
 "Gnubiff is part of the GNU project.\n"
 "It is released under the aegis of GNU.\n"
@@ -565,13 +564,18 @@ msgstr ""
 "Het is vrijgegeven onder de bescherming van GNU.\n"
 "\n"
 "Dit programma is vrije software, u kunt het herdistribueren en/of aanpassen, "
+"onder de voorwaarden van de Free Software Foundation licentieversie 3 of - "
+"naar uw voorkeur - iedere nieuwere versie.\n"
+"Dit programma wordt gedistribueerd in de hoop dat het nuttig zal blijken, "
 "maar ZONDER ENIGE GARANTIE, zonder zelfs de impliciete garantie van "
 "VERKOOPBAARHEID of GESCHIKTHEID VOOR EEN BEPAALD DOEL. Zie de GNU General "
 "Public License voor meer details.\n"
 "\n"
 "U moet een kopie van de GNU General Public License bij dit programma "
-"ontvangen hebben, zo niet, schrijf dan naar de Free Software Foundation, "
-"Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA.\n"
+"ontvangen hebben, zo niet kijk dan op http://www.gnu.org/licenses/.\n"
+"\n"
+"Een uitzondering op de GNU General Public License voor het distribueren van "
+"gnubiff gekoppeld met de OpenSSL-bibliotheek vindt u in het README-bestand."
 
 #: ../ui/applet-gtk.glade.h:15
 msgid "Start command"

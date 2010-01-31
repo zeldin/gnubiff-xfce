@@ -239,6 +239,7 @@ Translators:@*
 @item Stefano Fabri (it)
 @item Gunther Furtado (pt_BR)
 @item Nicols Lichtmaler (es)
+@item Arif E. Nugroho (id)
 @item Daniel Nylander (sv)
 @item Erwin Poeze (nl)
 @item Michel Robitaille (fr)

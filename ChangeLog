@@ -84,10 +84,15 @@ Version 2.3.0
         #2805290 by Jleuleu and debian bug #536955 by Lucas Nussbaum)
    - Added .desktop file (thanks to Fabian Affolter)
    - Added Fabian Affolter to contributors
+   - Added Indonesian translation (thanks to Arif E. Nugroho)
 
 Version 2.2.13
  * Robert Sowada
    - Changed version to 2.2.13
+   - Updated Vietnamese translation (thanks to Clytie Siddall)
+   - Updated Dutch translation (thanks to Erwin Poeze)
+   - Updated Swedish translation (thanks to Daniel Nylander)
+   - Added Indonesian translation (thanks to Arif E. Nugroho)
 	
 Version 2.2.12		2010-01-10 13:21
  * Robert Sowada
