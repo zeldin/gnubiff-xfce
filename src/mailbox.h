@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2009 Nicolas Rougier, 2004-2009 Robert Sowada
+// Copyright (c) 2000-2010 Nicolas Rougier, 2004-2010 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -56,8 +56,6 @@ struct less_pair_first : public std::binary_function<std::pair<std::string,Heade
 	  return x.first < y.first;
 	}
 };
-
-#define MAILBOX(x)					(static_cast<Mailbox *>(x))
 
 /**
  * Generic mailbox intended as base for implementing mailboxes for a specific
