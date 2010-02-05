@@ -87,6 +87,7 @@ Version 2.3.0
    - Added Indonesian translation (thanks to Arif E. Nugroho)
    - Bugfix: Race Condition when resetting polling timer (bug was reported
         several times (including #2079358 by Ryan Hayle and Bilal Hawa)
+   - Added Bilal Hawa to contributors
 
 Version 2.2.13
  * Robert Sowada
@@ -97,6 +98,8 @@ Version 2.2.13
    - Added Indonesian translation (thanks to Arif E. Nugroho)
    - Bugfix: Race Condition when resetting polling timer (bug was reported
         several times (including #2079358 by Ryan Hayle and Bilal Hawa)
+   - Added Bilal Hawa to contributors
+   - Added Ryan Hayle to contributors
 
 Version 2.2.12		2010-01-10 13:21
  * Robert Sowada

@@ -273,6 +273,7 @@ Various contributors:@*
 @item Greg Fenton
 @item Byron Foster
 @item Grzegorz Gotawski
+@item Bilal Hawa
 @item Ryan Hayle
 @item Jonathan Hitchcock
 @item Samuel Hym
