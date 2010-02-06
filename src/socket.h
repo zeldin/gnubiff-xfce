@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2008 Nicolas Rougier, 2004-2008 Robert Sowada
+// Copyright (c) 2000-2010 Nicolas Rougier, 2004-2010 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -73,6 +73,7 @@ protected:
 	gint				sd_;
 	gint				status_;
 
+	gboolean connect (guint timeout);
 
 public:
 	/**

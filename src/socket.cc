@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2008 Nicolas Rougier, 2004-2008 Robert Sowada
+// Copyright (c) 2000-2010 Nicolas Rougier, 2004-2010 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -89,49 +89,38 @@ Socket::~Socket (void)
 		close();
 }	
 
-gint
-Socket::open (std::string hostname,
-			  gushort port,
-			  guint authentication,
-			  std::string certificate,
-			  guint timeout)
+/**
+ * Determine the IP addresses of the given host and port and establish
+ * a connection to one of them.
+ *
+ * @param timeout timeout
+ * @result        boolean indicating success
+ */
+gboolean 
+Socket::connect (guint timeout)
 {
 	struct addrinfo		hints, *result, *rptr;
 	int					i;
 	std::stringstream	service;
 
-	hostname_ = hostname;
-	port_ = port;
-	if ((authentication == AUTH_SSL) || (authentication == AUTH_CERTIFICATE))
-		use_ssl_ = true;
-	certificate_ = certificate;
-
-	// Get options' values to avoid periodic lookups
-	prevdos_line_length_=mailbox_->biff()->value_uint ("prevdos_line_length");
-
-	// Default status before trying to connect
-	status_ = SOCKET_STATUS_ERROR;
-
-#ifdef DEBUG
-	g_message ("[%d] OPEN %s:%d", uin_, hostname_.c_str(), port_);
-#endif
-
 	// Get address info
-	service << port;
-	memset(&hints, 0, sizeof(struct addrinfo));
+	service << port_;
+	memset (&hints, 0, sizeof(struct addrinfo));
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = 0;
 	hints.ai_protocol = 0;
-	i = getaddrinfo (hostname.c_str(), service.str().c_str(), &hints, &result);
+	i = getaddrinfo (hostname_.c_str(), service.str().c_str(), &hints,
+					 &result);
 	if (i != 0) {
 		g_warning (_("[%d] Unable to connect to %s on port %d"), uin_,
 				   hostname_.c_str(), port_);
 #ifdef debug
-		g_message ("[%d] Call to getaddrinfo fails", uin_);
+		g_message ("[%d] Call to getaddrinfo fails: %s", uin_,
+				   gai_strerror(i));
 #endif
 		sd_ = SD_CLOSE;
-		return 0;
+		return false;
 	}
 
 	// Try all returned addresses
@@ -149,7 +138,7 @@ Socket::open (std::string hostname,
 		}
 
 		// Try to connect
-		i = connect (sd_, rptr->ai_addr, rptr->ai_addrlen);
+		i = ::connect (sd_, rptr->ai_addr, rptr->ai_addrlen);
 		if (i != -1)
 			break;
 
@@ -174,7 +163,6 @@ Socket::open (std::string hostname,
 				}
 			}
 		}
-
 		// Cannot connect, so close socket
 		::close (sd_);
 	}
@@ -190,8 +178,34 @@ Socket::open (std::string hostname,
 		g_message ("[%d] Cannot connect to any address", uin_);
 #endif
 		sd_ = SD_CLOSE;
-		return 0;
+		return false;
 	}
+
+	return true;
+}
+
+gint 
+Socket::open (std::string hostname, gushort port, guint authentication,
+			  std::string certificate, guint timeout)
+{
+	hostname_ = hostname;
+	port_ = port;
+	if ((authentication == AUTH_SSL) || (authentication == AUTH_CERTIFICATE))
+		use_ssl_ = true;
+	certificate_ = certificate;
+
+	// Get options' values to avoid periodic lookups
+	prevdos_line_length_=mailbox_->biff()->value_uint ("prevdos_line_length");
+
+	// Default status before trying to connect
+	status_ = SOCKET_STATUS_ERROR;
+
+	// Connect to host on given port
+#ifdef DEBUG
+	g_message ("[%d] OPEN %s:%d", uin_, hostname_.c_str(), port_);
+#endif
+	if (!connect (timeout))
+		return 0;
 
 #ifdef HAVE_LIBSSL
 	if (use_ssl_) {
@@ -290,7 +304,8 @@ Socket::starttls (std::string certificate)
 			ssl_ = NULL;
 			::close (sd_);
 			sd_ = SD_CLOSE;
-			g_warning (_("[%d] Unable to negotiate TLS connection: %s"), uin_, err_buf);
+			g_warning (_("[%d] Unable to negotiate TLS connection: %s"), uin_,
+					   err_buf);
 			return 0;
 		}
 
