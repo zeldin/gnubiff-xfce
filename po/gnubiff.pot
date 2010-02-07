@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2010-01-31 20:43+0100\n"
+"POT-Creation-Date: 2010-02-07 17:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,43 +35,43 @@ msgstr ""
 msgid "[Stripped non-ASCII characters from message]"
 msgstr ""
 
-#: ../src/gnubiff.cc:91
+#: ../src/gnubiff.cc:90
 msgid "Start gnome applet from command line"
 msgstr ""
 
-#: ../src/gnubiff.cc:98
+#: ../src/gnubiff.cc:97
 msgid "Configuration file to use"
 msgstr ""
 
-#: ../src/gnubiff.cc:98
+#: ../src/gnubiff.cc:97
 msgid "file"
 msgstr ""
 
-#: ../src/gnubiff.cc:100
+#: ../src/gnubiff.cc:99
 msgid "Skip the configuration process"
 msgstr ""
 
-#: ../src/gnubiff.cc:102
+#: ../src/gnubiff.cc:101
 msgid "Start gnubiff without GUI"
 msgstr ""
 
-#: ../src/gnubiff.cc:104
+#: ../src/gnubiff.cc:103
 msgid "Put gnubiff's icon into the system tray"
 msgstr ""
 
-#: ../src/gnubiff.cc:106
+#: ../src/gnubiff.cc:105
 msgid "Print version information and exit"
 msgstr ""
 
-#: ../src/gnubiff.cc:116
+#: ../src/gnubiff.cc:115
 msgid "Options for debugging:"
 msgstr ""
 
-#: ../src/gnubiff.cc:117
+#: ../src/gnubiff.cc:116
 msgid "Show debugging options"
 msgstr ""
 
-#: ../src/gnubiff.cc:123
+#: ../src/gnubiff.cc:122
 #, c-format
 msgid "Cannot parse command line options: %s"
 msgstr ""
@@ -135,51 +135,51 @@ msgstr ""
 msgid "No protocol specified for mailbox %d"
 msgstr ""
 
-#: ../src/mailbox.cc:143
+#: ../src/mailbox.cc:146
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: ../src/mailbox.cc:316
+#: ../src/mailbox.cc:320
 #, c-format
 msgid "mailbox %d"
 msgstr ""
 
 #. Insert default values
-#: ../src/mailbox.cc:641
+#: ../src/mailbox.cc:645
 msgid "<no date>"
 msgstr ""
 
-#: ../src/mailbox.cc:642
+#: ../src/mailbox.cc:646
 msgid "<no sender>"
 msgstr ""
 
-#: ../src/mailbox.cc:643
+#: ../src/mailbox.cc:647
 msgid "<no subject>"
 msgstr ""
 
-#: ../src/mailbox.cc:697
+#: ../src/mailbox.cc:701
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:719
+#: ../src/mailbox.cc:723
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:760
+#: ../src/mailbox.cc:764
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: ../src/mailbox.cc:768
+#: ../src/mailbox.cc:772
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: ../src/mailbox.cc:814
+#: ../src/mailbox.cc:818
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr ""
 
-#: ../src/mailbox.cc:1261
+#: ../src/mailbox.cc:1265
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"
@@ -193,43 +193,43 @@ msgstr ""
 msgid "Can't sort messages by \"%s\""
 msgstr ""
 
-#: ../src/socket.cc:128 ../src/socket.cc:187 ../src/socket.cc:219
-#: ../src/socket.cc:228
+#: ../src/socket.cc:116 ../src/socket.cc:175 ../src/socket.cc:233
+#: ../src/socket.cc:242
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr ""
 
-#: ../src/socket.cc:204 ../src/socket.cc:267
+#: ../src/socket.cc:218 ../src/socket.cc:281
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr ""
 
-#: ../src/socket.cc:241 ../src/socket.cc:306
+#: ../src/socket.cc:255 ../src/socket.cc:321
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr ""
 
-#: ../src/socket.cc:282
+#: ../src/socket.cc:296
 #, c-format
 msgid "[%d] Unable to set file descriptor: %s"
 msgstr ""
 
-#: ../src/socket.cc:293
+#: ../src/socket.cc:307
 #, c-format
 msgid "[%d] Unable to negotiate TLS connection: %s"
 msgstr ""
 
-#: ../src/socket.cc:392
+#: ../src/socket.cc:407
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr ""
 
-#: ../src/socket.cc:463
+#: ../src/socket.cc:478
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr ""
 
-#: ../src/socket.cc:485
+#: ../src/socket.cc:500
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr ""

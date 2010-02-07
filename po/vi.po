@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.2.11\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2010-02-01 23:49+0100\n"
+"POT-Creation-Date: 2010-02-07 17:01+0100\n"
 "PO-Revision-Date: 2009-05-12 23:16+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -36,43 +36,43 @@ msgstr "[Không thể chuyển đổi bộ ký tự từ « %s » sang « utf-8 
 msgid "[Stripped non-ASCII characters from message]"
 msgstr ""
 
-#: ../src/gnubiff.cc:91
+#: ../src/gnubiff.cc:90
 msgid "Start gnome applet from command line"
 msgstr "Khởi chạy tiểu dụng GNOME từ dòng lệnh"
 
-#: ../src/gnubiff.cc:98
+#: ../src/gnubiff.cc:97
 msgid "Configuration file to use"
 msgstr "Tập tin cấu hình cần dùng"
 
-#: ../src/gnubiff.cc:98
+#: ../src/gnubiff.cc:97
 msgid "file"
 msgstr "tập tin"
 
-#: ../src/gnubiff.cc:100
+#: ../src/gnubiff.cc:99
 msgid "Skip the configuration process"
 msgstr "Bỏ qua tiến trình cấu hình"
 
-#: ../src/gnubiff.cc:102
+#: ../src/gnubiff.cc:101
 msgid "Start gnubiff without GUI"
 msgstr "Khởi chạy gnubiff không có giao diện người dùng đồ họa"
 
-#: ../src/gnubiff.cc:104
+#: ../src/gnubiff.cc:103
 msgid "Put gnubiff's icon into the system tray"
 msgstr "Để biểu tượng của gnubiff trên khay hệ thống"
 
-#: ../src/gnubiff.cc:106
+#: ../src/gnubiff.cc:105
 msgid "Print version information and exit"
 msgstr "In ra thông tin phiên bản rồi thoát"
 
-#: ../src/gnubiff.cc:116
+#: ../src/gnubiff.cc:115
 msgid "Options for debugging:"
 msgstr "Tùy chọn gỡ lỗi:"
 
-#: ../src/gnubiff.cc:117
+#: ../src/gnubiff.cc:116
 msgid "Show debugging options"
 msgstr ""
 
-#: ../src/gnubiff.cc:123
+#: ../src/gnubiff.cc:122
 #, fuzzy, c-format
 msgid "Cannot parse command line options: %s"
 msgstr "Các tùy chọn dòng lệnh chung:"
@@ -140,51 +140,51 @@ msgstr "Gặp dạng thức tham số bất hợp lệ trong tập tin cấu hì
 msgid "No protocol specified for mailbox %d"
 msgstr "Chưa ghi rõ giao thức cho hộp thư %d"
 
-#: ../src/mailbox.cc:143
+#: ../src/mailbox.cc:146
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Không thể tạo nhánh: %s"
 
-#: ../src/mailbox.cc:316
+#: ../src/mailbox.cc:320
 #, c-format
 msgid "mailbox %d"
 msgstr "hộp thư %d"
 
 #. Insert default values
-#: ../src/mailbox.cc:641
+#: ../src/mailbox.cc:645
 msgid "<no date>"
 msgstr "<không có ngày>"
 
-#: ../src/mailbox.cc:642
+#: ../src/mailbox.cc:646
 msgid "<no sender>"
 msgstr "<không có người gởi>"
 
-#: ../src/mailbox.cc:643
+#: ../src/mailbox.cc:647
 msgid "<no subject>"
 msgstr "<không có chủ đề>"
 
-#: ../src/mailbox.cc:697
+#: ../src/mailbox.cc:701
 msgid "[Cannot parse content type header line]"
 msgstr "[Không thể phân tách dòng đầu kiểu nội dụng]"
 
-#: ../src/mailbox.cc:719
+#: ../src/mailbox.cc:723
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Không thể phân tách dòng đầu bảng mã truyền nội dụng]"
 
-#: ../src/mailbox.cc:760
+#: ../src/mailbox.cc:764
 msgid "[Malformed multipart message]"
 msgstr "[Thư đa phần dạng sai]"
 
-#: ../src/mailbox.cc:768
+#: ../src/mailbox.cc:772
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Không tìm thấy đầu của phân thứ nhất trong thư đa phần]"
 
-#: ../src/mailbox.cc:814
+#: ../src/mailbox.cc:818
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Thư này có kiểu nội dụng không được hỗ trợ: « %s/%s »]"
 
-#: ../src/mailbox.cc:1261
+#: ../src/mailbox.cc:1265
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"
@@ -201,43 +201,43 @@ msgstr ""
 msgid "Can't sort messages by \"%s\""
 msgstr "Không thể sắp xếp thư theo « %s »"
 
-#: ../src/socket.cc:128 ../src/socket.cc:187 ../src/socket.cc:219
-#: ../src/socket.cc:228
+#: ../src/socket.cc:116 ../src/socket.cc:175 ../src/socket.cc:233
+#: ../src/socket.cc:242
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Không thể kết nối đến %s qua cổng %d"
 
-#: ../src/socket.cc:204 ../src/socket.cc:267
+#: ../src/socket.cc:218 ../src/socket.cc:281
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Việc tải chứng nhận (%s) cho %s bị lỗi"
 
-#: ../src/socket.cc:241 ../src/socket.cc:306
+#: ../src/socket.cc:255 ../src/socket.cc:321
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Không thể nhận diện máy ở xa (%s qua cổng %d)"
 
-#: ../src/socket.cc:282
+#: ../src/socket.cc:296
 #, fuzzy, c-format
 msgid "[%d] Unable to set file descriptor: %s"
 msgstr "[%d] Không thể tạo nhánh: %s"
 
-#: ../src/socket.cc:293
+#: ../src/socket.cc:307
 #, fuzzy, c-format
 msgid "[%d] Unable to negotiate TLS connection: %s"
 msgstr "[%d] Không thể tạo nhánh: %s"
 
-#: ../src/socket.cc:392
+#: ../src/socket.cc:407
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Không thể ghi vào %s qua cổng %d"
 
-#: ../src/socket.cc:463
+#: ../src/socket.cc:478
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Không thể đọc từ %s qua cổng %d"
 
-#: ../src/socket.cc:485
+#: ../src/socket.cc:500
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "Không thể đặt thời hạn đọc trên ổ cắm: %s"

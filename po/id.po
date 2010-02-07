@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubiff 2.2.11\n"
 "Report-Msgid-Bugs-To: gnubiff-bugs@lists.sourceforge.net\n"
-"POT-Creation-Date: 2009-04-05 18:19+0200\n"
+"POT-Creation-Date: 2010-02-07 17:01+0100\n"
 "PO-Revision-Date: 2009-11-26 10:00+0700\n"
 "Last-Translator: Arif E. Nugroho <arif_endro@yahoo.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -15,151 +15,175 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/decoding.cc:89
+#: ../src/decoding.cc:90
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Pengkodean \"%s\" dari surat ini tidak dapat diartikan]"
 
-#: src/decoding.cc:135 src/decoding.cc:142 src/decoding.cc:147
+#: ../src/decoding.cc:136 ../src/decoding.cc:143 ../src/decoding.cc:148
 msgid "[Cannot decode this header line]"
 msgstr "[Tidak dapat mengartikan baris kepala ini]"
 
-#: src/decoding.cc:744
+#. Create error message
+#: ../src/decoding.cc:780
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Tidak dapat mengubah karakter set (dari \"%s\" ke \"utf-8\")]"
 
-#: src/gnubiff.cc:91
+#: ../src/decoding.cc:794
+msgid "[Stripped non-ASCII characters from message]"
+msgstr ""
+
+#: ../src/gnubiff.cc:90
 msgid "Start gnome applet from command line"
 msgstr "Mulai aplet gnome dari baris perintah"
 
-#: src/gnubiff.cc:98
+#: ../src/gnubiff.cc:97
 msgid "Configuration file to use"
 msgstr "Berkas konfigurasi yang akan digunakan"
 
-#: src/gnubiff.cc:98
+#: ../src/gnubiff.cc:97
 msgid "file"
 msgstr "berkas"
 
-#: src/gnubiff.cc:100
+#: ../src/gnubiff.cc:99
 msgid "Skip the configuration process"
 msgstr "Lewatkan proses konfigurasi"
 
-#: src/gnubiff.cc:102
+#: ../src/gnubiff.cc:101
 msgid "Start gnubiff without GUI"
 msgstr "Awali gnubiff tanpa GUI"
 
-#: src/gnubiff.cc:104
+#: ../src/gnubiff.cc:103
 msgid "Put gnubiff's icon into the system tray"
 msgstr "Tempatkan icon gnubiff kedalam keranjang sistem"
 
-#: src/gnubiff.cc:106
+#: ../src/gnubiff.cc:105
 msgid "Print version information and exit"
 msgstr "Tampilkan informasi versi dan keluar"
 
-#: src/gnubiff.cc:112
-msgid "General command line options:"
-msgstr "Pilihan umum baris perintah:"
-
-#: src/gnubiff.cc:115
+#: ../src/gnubiff.cc:115
 msgid "Options for debugging:"
 msgstr "Pilihan untuk penelusuran:"
 
-#: src/biff.cc:123
+#: ../src/gnubiff.cc:116
+msgid "Show debugging options"
+msgstr ""
+
+#: ../src/gnubiff.cc:122
+#, fuzzy, c-format
+msgid "Cannot parse command line options: %s"
+msgstr "Pilihan umum baris perintah:"
+
+#: ../src/biff.cc:124
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Berkas konfigurasi (%s) tidak ditemukan!"
 
-#: src/biff.cc:596
+#: ../src/biff.cc:597
 #, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr "Memuat berkas konfigurasi dari versi gnubiff yang lebih baru \"%s\"."
 
-#: src/biff.cc:604
+#. Config file belongs to an older version of gnubiff
+#: ../src/biff.cc:605
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Memuat berkas konfigurasi dari versi gnubiff lama \"%s\"."
 
-#: src/biff.cc:606
+#: ../src/biff.cc:607
 msgid "Trying to convert all options."
 msgstr "Mencoba mengubah seluruh pilihan."
 
-#: src/biff.cc:650
+#: ../src/biff.cc:651
 msgid "Successfully converted all options."
 msgstr "Sukses mengubah seluruh pilihan."
 
-#: src/biff.cc:653
+#: ../src/biff.cc:654
 #, c-format
-msgid "Successfully converted some options. The following options must be updated manually: %s."
-msgstr "Sukses mengubah beberapa pilihan. Pilihan berikut harus diperbarui secara manual: %s."
+msgid ""
+"Successfully converted some options. The following options must be updated "
+"manually: %s."
+msgstr ""
+"Sukses mengubah beberapa pilihan. Pilihan berikut harus diperbarui secara "
+"manual: %s."
 
-#: src/biff.cc:804
-#, c-format
-msgid "Cannot open your configuration file (%s)"
+#: ../src/biff.cc:795
+#, fuzzy, c-format
+msgid "Configuration file \"%s\" is a directory"
+msgstr "Berkas konfigurasi yang akan digunakan"
+
+#: ../src/biff.cc:805
+#, fuzzy, c-format
+msgid "Cannot open your configuration file \"%s\""
 msgstr "Tidak dapat membuka berkas konfigurasi anda (%s)"
 
-#: src/biff.cc:819
-msgid "Cannot create XML parser for config file"
+#: ../src/biff.cc:821
+#, fuzzy
+msgid "Cannot create XML parser for parsing configuration file"
 msgstr "Tidak dapat membuat parser XML untuk berkas konfigurasi"
 
-#: src/biff.cc:836
-#, c-format
-msgid "Found no mailbox definition in your configuration file (%s)"
-msgstr "Tidak ditemukan definisi kotak surat dalam berkas konfigurasi anda (%s)"
+#: ../src/biff.cc:839
+#, fuzzy, c-format
+msgid "Found no mailbox definition in your configuration file \"%s\""
+msgstr ""
+"Tidak ditemukan definisi kotak surat dalam berkas konfigurasi anda (%s)"
 
-#: src/biff.cc:883
+#: ../src/biff.cc:886
 msgid "Illegal parameter format in config file"
 msgstr "Format parameter tidak legal dalam berkas konfigurasi"
 
-#: src/biff.cc:912
+#: ../src/biff.cc:915
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Tidak dispesifikasikan protokol untuk kotak surat %d"
 
-#: src/mailbox.cc:143
+#: ../src/mailbox.cc:146
 #, c-format
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Tidak dapat membuat thread: %s"
 
-#: src/mailbox.cc:315
+#: ../src/mailbox.cc:320
 #, c-format
 msgid "mailbox %d"
 msgstr "kotak surat %d"
 
-#: src/mailbox.cc:640
+#. Insert default values
+#: ../src/mailbox.cc:645
 msgid "<no date>"
 msgstr "<tidak ada tanggal>"
 
-#: src/mailbox.cc:641
+#: ../src/mailbox.cc:646
 msgid "<no sender>"
 msgstr "<tidak ada pengirim>"
 
-#: src/mailbox.cc:642
+#: ../src/mailbox.cc:647
 msgid "<no subject>"
 msgstr "<tidak ada subjek>"
 
-#: src/mailbox.cc:696
+#: ../src/mailbox.cc:701
 msgid "[Cannot parse content type header line]"
 msgstr "[Tidak dapat mengambil baris kepala tipe isi]"
 
-#: src/mailbox.cc:718
+#: ../src/mailbox.cc:723
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Tidak dapat mengambil baris kepala pengkodean pengiriman]"
 
-#: src/mailbox.cc:759
+#: ../src/mailbox.cc:764
 msgid "[Malformed multipart message]"
 msgstr "[Pesan banyak bagian salah format]"
 
-#: src/mailbox.cc:767
+#: ../src/mailbox.cc:772
 msgid "[Can't find first part's beginning in the multipart message]"
-msgstr "[TIdak dapat menemukan bagian pertama berawal dalam pesan banyak bagian]"
+msgstr ""
+"[TIdak dapat menemukan bagian pertama berawal dalam pesan banyak bagian]"
 
-#: src/mailbox.cc:813
+#: ../src/mailbox.cc:818
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Pesan ini memiliki tipe isi yang tidak didukung: \"%s/%s\"]"
 
-#: src/mailbox.cc:1215
+#: ../src/mailbox.cc:1265
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"
@@ -170,136 +194,160 @@ msgstr ""
 "Ekspresi umum: %s\n"
 "Pesan kesalahan: %s"
 
-#: src/header.cc:147
-#, c-format
-msgid "Can't sort mails by \"%s\""
+#. Otherwise: Ignore it and print error message
+#: ../src/header.cc:147
+#, fuzzy, c-format
+msgid "Can't sort messages by \"%s\""
 msgstr "Tidak dapat mengurutkan surat berdasarkan \"%s\""
 
-#: src/socket.cc:123 src/socket.cc:152 src/socket.cc:180 src/socket.cc:189
-#: src/socket.cc:198 src/socket.cc:211 src/socket.cc:241 src/socket.cc:250
+#: ../src/socket.cc:116 ../src/socket.cc:175 ../src/socket.cc:233
+#: ../src/socket.cc:242
 #, c-format
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Tidak dapat menghubungi ke %s di port %d"
 
-#: src/socket.cc:226
+#: ../src/socket.cc:218 ../src/socket.cc:281
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Gagal memuat sertifikat (%s) untuk %s"
 
-#: src/socket.cc:263
+#: ../src/socket.cc:255 ../src/socket.cc:321
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Tidak dapat mengidentifikasikan remote host (%s di port %d)"
 
-#: src/socket.cc:348
+#: ../src/socket.cc:296
+#, fuzzy, c-format
+msgid "[%d] Unable to set file descriptor: %s"
+msgstr "[%d] Tidak dapat membuat thread: %s"
+
+#: ../src/socket.cc:307
+#, fuzzy, c-format
+msgid "[%d] Unable to negotiate TLS connection: %s"
+msgstr "[%d] Tidak dapat membuat thread: %s"
+
+#: ../src/socket.cc:407
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Tidak dapat menulis ke %s di port %d"
 
-#: src/socket.cc:419
+#: ../src/socket.cc:478
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Tidak dapat membaca dari %s di port %d"
 
-#: src/socket.cc:442
+#: ../src/socket.cc:500
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "Tidak dapat menset batas waktu pembacaan di soket: %s"
 
-#: src/file.cc:97
+#: ../src/file.cc:97
 #, c-format
 msgid "Cannot open %s."
 msgstr "Tidak dapat membuka %s."
 
-#: src/imap4.cc:459
+#: ../src/imap4.cc:478
 msgid "[This message has no part with a supported content type]"
 msgstr "[Pesan ini tidak memiliki bagian dengan tipe isi yang didukung]"
 
-#: src/imap4.cc:822
+#: ../src/imap4.cc:841
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Tidak dapat memilih folder %s di host %s"
 
-#: src/imap4.cc:910
+#: ../src/imap4.cc:957
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Tidak dapat memperoleh persetujuan dari %s di port %d"
 
-#: src/imap4.cc:969
+#: ../src/imap4.cc:1016
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
-msgstr "[%d] Server tidak mengirimkan balasan \"%s\" tidak bertanda atau persetujuan"
+msgstr ""
+"[%d] Server tidak mengirimkan balasan \"%s\" tidak bertanda atau persetujuan"
 
-#: src/imap4.cc:1022
+#: ../src/imap4.cc:1069
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Server tidak mengirimkan balasan \"%s\" tidak bertanda"
 
-#: src/imap4.cc:1578
+#. see RFC 3501 7.1.5
+#: ../src/imap4.cc:1625
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Server menutup koneksi secara langsung:%s"
 
-#: src/imap4.cc:1583
+#. see RFC 3501 7.1.3
+#: ../src/imap4.cc:1630
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Kegagalan internal server atau kesalahan tidak diketahui:%s"
 
-#: src/imap4.cc:1588
+#. see RFC 3501 7.1.2
+#: ../src/imap4.cc:1635
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Peringatan dari server:%s"
 
-#: src/maildir.cc:81
+#: ../src/maildir.cc:81
 #, c-format
 msgid "Cannot open new mail directory (%s)"
 msgstr "Tidak dapat membuka direktori surat baru (%s)"
 
-#: src/pop.cc:150
+#: ../src/pop.cc:150
 #, c-format
 msgid "[%d] Empty password"
 msgstr "[%d] Kata sandi kosong"
 
-#: src/pop.cc:509
+#: ../src/pop.cc:537
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Pesan error dari server POP3:%s"
 
-#: src/pop.cc:516
+#: ../src/pop.cc:544
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Tidak mendapatkan balasan positif dari server POP3"
 
-#: src/apop.cc:101
+#: ../src/apop.cc:101
 #, c-format
-msgid "[%d] Your pop server does not seem to accept apop protocol (no timestamp provided)"
-msgstr "[%d] Pop server anda kelihatannya tidak menerima protokol apop (tidak ada tanda waktu yang disediakan)"
+msgid ""
+"[%d] Your pop server does not seem to accept apop protocol (no timestamp "
+"provided)"
+msgstr ""
+"[%d] Pop server anda kelihatannya tidak menerima protokol apop (tidak ada "
+"tanda waktu yang disediakan)"
 
-#: src/apop.cc:122
+#: ../src/apop.cc:122
 #, c-format
-msgid "[%d] Problem with crypto that should have been detected at configure time"
-msgstr "[%d] Masalah dengan crypto yang seharusnya terdeteksi pada waktu mengkonfigurasi"
+msgid ""
+"[%d] Problem with crypto that should have been detected at configure time"
+msgstr ""
+"[%d] Masalah dengan crypto yang seharusnya terdeteksi pada waktu "
+"mengkonfigurasi"
 
-#: src/options.cc:559
+#: ../src/options.cc:559
 #, c-format
 msgid "Unknown option \"%s\""
 msgstr "Pilihan \"%s\" tidak diketahui"
 
-#: src/options.cc:566
+#: ../src/options.cc:566
 #, c-format
 msgid "Cannot set option \"%s\" to \"%s\""
 msgstr "Tidak dapat menset pilihan \"%s\" ke \"%s\""
 
-#: src/options.cc:720 src/gui.cc:273
+#: ../src/options.cc:720 ../src/gui.cc:273
 #, c-format
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
-msgstr "Tidak dapat menemukan widget yang dispesifikasikan (\"%s\") dalam struktur xml (\"%s\")"
+msgstr ""
+"Tidak dapat menemukan widget yang dispesifikasikan (\"%s\") dalam struktur "
+"xml (\"%s\")"
 
-#: src/gnubiff_options.cc:140
+#: ../src/gnubiff_options.cc:144
 msgid "no mail"
 msgstr "tidak ada surat"
 
-#: src/gui.cc:195
+#: ../src/gui.cc:195
 #, c-format
 msgid ""
 "Cannot build the interface.\n"
@@ -316,441 +364,272 @@ msgstr ""
 "\n"
 "Mohon pastikan paket telah terpasang dengan benar."
 
-#: src/gui.cc:381
+#: ../src/gui.cc:381
 msgid "GUI_connect requires working gmodule"
 msgstr "GUI_connect membutuhkan gmodule bekerja dengan baik"
 
-#: src/gui.cc:388
+#: ../src/gui.cc:388
 #, c-format
 msgid "Could not find signal handler '%s'."
 msgstr "Tidak dapat menemukan pengendali sinyal '%s'."
 
-#: src/ui-applet.cc:217
+#: ../src/ui-applet.cc:147
+#, fuzzy, c-format
+msgid "Cannot execute command \"%s\"."
+msgstr "Tidak dapat membuka %s."
+
+#: ../src/ui-applet.cc:217
 msgid " unknown"
 msgstr " tidak diketahui"
 
-#: src/ui-applet.cc:222
+#: ../src/ui-applet.cc:222
 msgid " error"
 msgstr " kesalahan"
 
-#: src/ui-applet.cc:231
+#: ../src/ui-applet.cc:231
 msgid " checking..."
 msgstr " memeriksa..."
 
-#: src/ui-preferences.cc:267 src/ui-popup.cc:183
+#: ../src/ui-preferences.cc:267 ../src/ui-popup.cc:214
 msgid "Mailbox"
 msgstr "Kotak surat"
 
-#: src/ui-preferences.cc:281 src/ui-preferences.cc:363
+#. Column: TYPE
+#: ../src/ui-preferences.cc:281 ../src/ui-preferences.cc:363
 msgid "Type"
 msgstr "Tipe"
 
-#: src/ui-preferences.cc:300
+#: ../src/ui-preferences.cc:300
 msgid "Status"
 msgstr "Keadaan"
 
-#: src/ui-preferences.cc:315
+#: ../src/ui-preferences.cc:315
 msgid "Security"
 msgstr "Keamanan"
 
-#: src/ui-preferences.cc:327 src/ui-preferences.cc:686
+#. Selection label
+#: ../src/ui-preferences.cc:327 ../src/ui-preferences.cc:686
 msgid "No mailbox selected"
 msgstr "Tidak ada kotak surat yang dipilih"
 
-#: src/ui-preferences.cc:355
+#: ../src/ui-preferences.cc:355
 msgid "Option"
 msgstr "Pilihan"
 
-#: src/ui-preferences.cc:373
+#: ../src/ui-preferences.cc:373
 msgid "Value"
 msgstr "Nilai"
 
-#: src/ui-preferences.cc:609
+#: ../src/ui-preferences.cc:609
 msgid "_Start"
 msgstr "_Mulai"
 
-#: src/ui-preferences.cc:615 ui/preferences.glade:2176
+#: ../src/ui-preferences.cc:615 ../ui/preferences.glade.h:87
 msgid "_Stop"
 msgstr "_Henti"
 
-#: src/ui-preferences.cc:626 src/ui-preferences.cc:633
+#: ../src/ui-preferences.cc:626 ../src/ui-preferences.cc:633
 msgid "Browse for a new mail image"
 msgstr "Telusuri untuk gambar surat baru"
 
-#: src/ui-authentication.cc:86
+#: ../src/ui-authentication.cc:86
 #, c-format
 msgid "Please enter your username and password for mailbox '%s'"
 msgstr "Mohon masukan nama pengguna dan kata sandi anda untuk kotak surat '%s'"
 
-#: src/ui-certificate.cc:73
+#: ../src/ui-certificate.cc:73
 #, c-format
 msgid "Unable to verify the identity of %s as a trusted site.\n"
-msgstr "Tidak dapat memverifikasi identitas dari %s sebagai situs yang dipercaya.\n"
+msgstr ""
+"Tidak dapat memverifikasi identitas dari %s sebagai situs yang dipercaya.\n"
 
-#: src/ui-certificate.cc:74
+#: ../src/ui-certificate.cc:74
 #, c-format
-msgid "Either site's certificate is incomplete or you're connected to a site pretending to be %s, possibly to obtain your password"
-msgstr "Baik sertifikat situs yang tidak lengkap atau anda terhubung ke sebuah situs yang menyamar sebagai %s, mungkin untuk memperoleh kata sandi anda"
+msgid ""
+"Either site's certificate is incomplete or you're connected to a site "
+"pretending to be %s, possibly to obtain your password"
+msgstr ""
+"Baik sertifikat situs yang tidak lengkap atau anda terhubung ke sebuah situs "
+"yang menyamar sebagai %s, mungkin untuk memperoleh kata sandi anda"
 
-#: src/ui-properties.cc:123 src/ui-properties.cc:150
+#: ../src/ui-properties.cc:123 ../src/ui-properties.cc:150
 msgid "Autodetect"
 msgstr "Otomatis terdeteksi"
 
-#: src/ui-properties.cc:124
+#: ../src/ui-properties.cc:124
 msgid "File or Folder"
 msgstr "Berkas atau Folder"
 
-#: src/ui-properties.cc:152
+#: ../src/ui-properties.cc:152
 msgid "User/Pass"
 msgstr "Nama pengguna/Kata sandi"
 
-#: src/ui-properties.cc:154
+#: ../src/ui-properties.cc:154
 msgid "Encrypted User/Pass (apop)"
 msgstr "Nama pengguna/Kata sandi terenkripsi (apop)"
 
-#: src/ui-properties.cc:158
+#: ../src/ui-properties.cc:158
 msgid "SSL with certificate"
 msgstr "SSL dengan sertifikat"
 
-#: src/ui-properties.cc:317
+#: ../src/ui-properties.cc:324
 msgid "Browse for a file or folder"
 msgstr "Browse untuk sebuah berkas atau folder"
 
-#: src/ui-properties.cc:323 ui/properties.glade:616
+#: ../src/ui-properties.cc:330 ../ui/properties.glade.h:5
 msgid "Browse for a certificate file"
 msgstr "Browse untuk sebuah berkas sertifikat"
 
-#: src/ui-popup.cc:195
+#: ../src/ui-popup.cc:226
 msgid "From"
 msgstr "Dari"
 
-#: src/ui-popup.cc:201
+#: ../src/ui-popup.cc:232
 msgid "Subject"
 msgstr "Subjek"
 
-#: src/ui-popup.cc:207
+#: ../src/ui-popup.cc:238
 msgid "Date"
 msgstr "Tanggal"
 
-#: src/support.cc:321
+#. Create error message
+#: ../src/support.cc:321
 msgid ""
-"You just found an unknown internal error. Please send a detailed bug report to \"gnubiff-bugs@lists.sourceforge.net\".\n"
+"You just found an unknown internal error. Please send a detailed bug report "
+"to \"gnubiff-bugs@lists.sourceforge.net\".\n"
 "\n"
 "Additional information:\n"
 msgstr ""
-"Anda telah menemukan sebuah kesalah internal yang tidak diketahui. Mohon kirimkan laporan lengkap bug ke \"gnubiff-bugs@lists.sourceforge.net\".\n"
+"Anda telah menemukan sebuah kesalah internal yang tidak diketahui. Mohon "
+"kirimkan laporan lengkap bug ke \"gnubiff-bugs@lists.sourceforge.net\".\n"
 "\n"
 "Informasi lebih lanjut:\n"
 
-#: src/GNOME_gnubiffApplet.xml.h:1
+#: ../src/GNOME_gnubiffApplet.xml.h:1
 msgid "Info"
 msgstr "Informasi"
 
-#: src/GNOME_gnubiffApplet.xml.h:2 ui/applet-gtk.glade:79
+#: ../src/GNOME_gnubiffApplet.xml.h:2 ../ui/applet-gtk.glade.h:14
 msgid "Mark mailboxes read"
 msgstr "Tandai kotak surat terbaca"
 
-#: src/GNOME_gnubiffApplet.xml.h:3
+#: ../src/GNOME_gnubiffApplet.xml.h:3
 msgid "Preferences..."
 msgstr "Kesukaan..."
 
-#: src/GNOME_gnubiffApplet.xml.h:4
+#: ../src/GNOME_gnubiffApplet.xml.h:4
 msgid "Run command"
 msgstr "Jalankan perintah"
 
-#: src/GNOME_gnubiffApplet.server.in.h:1
+#: ../src/GNOME_gnubiffApplet.server.in.h:1
 msgid "Mail notification program"
 msgstr "Aplikasi notifikasi surat"
 
-#: src/GNOME_gnubiffApplet.server.in.h:2 ui/applet-gtk.glade:7
+#: ../src/GNOME_gnubiffApplet.server.in.h:2 ../ui/applet-gtk.glade.h:17
 msgid "gnubiff"
 msgstr "gnubiff"
 
-#: ui/applet-gtk.glade:6
-msgid "tooltip"
-msgstr "tooltip"
-
-#: ui/applet-gtk.glade:64
-msgid "Start command"
-msgstr "Jalankan perintah"
-
-#: ui/applet-gtk.glade:94
+#: ../ui/applet-gtk.glade.h:1
 msgid "About"
 msgstr "Tentang"
 
-#: ui/applet-gtk.glade:114
-msgid "_Quit"
-msgstr "_Keluar"
-
-#: ui/applet-gtk.glade:131
+#: ../ui/applet-gtk.glade.h:2
 msgid "Gnubiff is a mail notification program."
 msgstr "Gnubiff adalah sebuah aplikasi untuk memberitahu datangnya surat."
 
-#: ui/applet-gtk.glade:133
+#. See http://www.gnu.org/licenses/translations.html
+#: ../ui/applet-gtk.glade.h:4
 msgid ""
 "Gnubiff is part of the GNU project.\n"
 "It is released under the aegis of GNU.\n"
 "\n"
-"This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n"
+"This program is free software: you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation, either version 3 of the License, or (at your option) "
+"any later version.\n"
 "\n"
-"This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
 "\n"
-"You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program.  If not, see http://www.gnu.org/licenses/.\n"
 "\n"
-"For an exception to the GNU General Public License for distributing gnubiff linked to the OpenSSL library see the README file."
+"For an exception to the GNU General Public License for distributing gnubiff "
+"linked to the OpenSSL library see the README file."
 msgstr ""
 "Gnubiff adalah bagian dari projek GNU.\n"
 "Aplikasi ini dikeluarkan dibawah aegis dari GNU.\n"
 "\n"
-"Aplikasi ini adalah piranti lunak bebas; anda dapat meredistribusikannya dan/atau memodifikasinya dibawah persetujuan dari GNU General Public License seperti yang dipublikasikan oleh Free Software Foundation baik versi 3 dari Lisensi, atau (menurut pilihan anda) versi apapun selanjutnya.\n"
+"Aplikasi ini adalah piranti lunak bebas; anda dapat meredistribusikannya dan/"
+"atau memodifikasinya dibawah persetujuan dari GNU General Public License "
+"seperti yang dipublikasikan oleh Free Software Foundation baik versi 3 dari "
+"Lisensi, atau (menurut pilihan anda) versi apapun selanjutnya.\n"
 "\n"
-"Aplikasi ini didistribusikan dengan harapan akan berguna, tetapi TANPA GARANSI APAPUN; bahkan tanpa adanya garansi untuk bisa DIPERDAGANGKAN atau KESESUAIAN UNTUK TUJUAN TERTENTU. Lihat GNU General Public License untuk keterangan lebih lengkap.\n"
+"Aplikasi ini didistribusikan dengan harapan akan berguna, tetapi TANPA "
+"GARANSI APAPUN; bahkan tanpa adanya garansi untuk bisa DIPERDAGANGKAN atau "
+"KESESUAIAN UNTUK TUJUAN TERTENTU. Lihat GNU General Public License untuk "
+"keterangan lebih lengkap.\n"
 "\n"
-"Anda seharusnya telah menerima sebuah salinan dari GNU General Public License bersamaan dengan aplikasi ini. Jika tidak, lihat http://www.gnu.org/licenses/.\n"
+"Anda seharusnya telah menerima sebuah salinan dari GNU General Public "
+"License bersamaan dengan aplikasi ini. Jika tidak, lihat http://www.gnu.org/"
+"licenses/.\n"
 "\n"
-"Untuk sebuah pengecualian ke GNU General Public License untuk pendistribusian gnubiff yang dihubungkan ke perpustakaan OpenSSL lihat berkas README."
+"Untuk sebuah pengecualian ke GNU General Public License untuk "
+"pendistribusian gnubiff yang dihubungkan ke perpustakaan OpenSSL lihat "
+"berkas README."
 
-#: ui/preferences.glade:6
-msgid "gnubiff preferences"
-msgstr "kesukaan gnubiff"
+#: ../ui/applet-gtk.glade.h:15
+msgid "Start command"
+msgstr "Jalankan perintah"
 
-#: ui/preferences.glade:49
-msgid "_Restrict collected mail to"
-msgstr "_Batasi pengumpulan surat ke"
+#: ../ui/applet-gtk.glade.h:16
+msgid "_Quit"
+msgstr "_Keluar"
 
-#: ui/preferences.glade:76
-msgid "mail(s)"
-msgstr "surat"
+#: ../ui/applet-gtk.glade.h:18
+msgid "tooltip"
+msgstr "tooltip"
 
-#: ui/preferences.glade:107
-msgid "The command to run when the icon is double-clicked"
-msgstr "Perintah yang dijalankan ketika icon di klik dua kali"
+#: ../ui/preferences.glade.h:1
+#, fuzzy
+msgid "<b>Behavior</b>"
+msgstr "<b>Kepala</b>"
 
-#: ui/preferences.glade:122
-msgid "The command to run when new mail arrives"
-msgstr "Perintah yang dijalankan ketika surat baru datang"
-
-#: ui/preferences.glade:137
-msgid "When _new mail:"
-msgstr "Ketika surat _baru:"
-
-#: ui/preferences.glade:199
+#: ../ui/preferences.glade.h:2
 msgid "<b>Commands</b>"
 msgstr "<b>Perintah</b>"
 
-#: ui/preferences.glade:219
-msgid "<b>Mailboxes</b>"
-msgstr "<b>Kotak surat</b>"
-
-#: ui/preferences.glade:236
-msgid "<b>General</b>"
-msgstr "<b>Umum</b>"
-
-#: ui/preferences.glade:249
-msgid "When _double-clicked:"
-msgstr "Ketika diklik _dua kali:"
-
-#: ui/preferences.glade:322
-msgid "Mailboxes"
-msgstr "Kotak surat"
-
-#: ui/preferences.glade:367 ui/preferences.glade:751
-msgid "Whether to use window manager decoration"
-msgstr "Baik menggunakan manajer dekorasi jendela"
-
-#: ui/preferences.glade:368 ui/preferences.glade:752
-msgid "Use _decoration"
-msgstr "Gunakan _dekorasi"
-
-#: ui/preferences.glade:386 ui/preferences.glade:770
-msgid "The font to use to display information"
-msgstr "Bentuk huruf yang digunakan untuk menampilkan informasi"
-
-#: ui/preferences.glade:403 ui/preferences.glade:860
-msgid "_Font:"
-msgstr "_Bentuk huruf:"
-
-#: ui/preferences.glade:424
-msgid "<b>When no mail</b>"
-msgstr "<b>Ketika tidak ada surat</b>"
-
-#: ui/preferences.glade:445
-msgid "<b>When new mail</b>"
-msgstr "<b>Ketika ada surat baru</b>"
-
-#: ui/preferences.glade:462 ui/preferences.glade:807
-msgid "<b>Layout</b>"
-msgstr "<b>Layout</b>"
-
-#: ui/preferences.glade:475
-msgid "Whether to display an image"
-msgstr "Apakah menampilkan sebuah gambar"
-
-#: ui/preferences.glade:476
-msgid "Show i_mage:"
-msgstr "Tampilkan ga_mbar:"
-
-#: ui/preferences.glade:495 ui/preferences.glade:535
-msgid "Whether to display a text"
-msgstr "Apakah menampilkan sebuah teks"
-
-#: ui/preferences.glade:496
-msgid "Show t_ext:"
-msgstr "Tampilkan t_eks:"
-
-#: ui/preferences.glade:515
-msgid "Whether to show an image"
-msgstr "Apakah menampilkan sebuah gambar"
-
-#: ui/preferences.glade:516
-msgid "Show _image:"
-msgstr "Tampilkan _gambar:"
-
-#: ui/preferences.glade:536
-msgid "Show _text:"
-msgstr "Tampilkan _teks:"
-
-#: ui/preferences.glade:555 ui/preferences.glade:840
-msgid "Whether to use geometry"
-msgstr "Untuk menggunakan geometri"
-
-#: ui/preferences.glade:556 ui/preferences.glade:841
-msgid "Use _geometry:"
-msgstr "Gunakan _geometri:"
-
-#: ui/preferences.glade:575
-msgid "Applet geometry"
-msgstr "Aplet geometri"
-
-#: ui/preferences.glade:590 ui/preferences.glade:639
-msgid "Text to display (%d and %D is the number of new messages, %d is zero padded). Pango markup may be used."
-msgstr "Teks untuk menampilkan (%d dan %D adalah jumlah dari pesan baru, %d diisi dengan nol). Pango markup mungkin telah digunakan."
-
-#: ui/preferences.glade:605 ui/preferences.glade:654
-msgid "Browse for an image file"
-msgstr "Browse untuk sebuah berkas gambar"
-
-#: ui/preferences.glade:606
-msgid "B_rowse..."
-msgstr "Telusu_ri..."
-
-#: ui/preferences.glade:624 ui/preferences.glade:673
-msgid "Image filename"
-msgstr "Nama berkas gambar"
-
-#: ui/preferences.glade:655 ui/properties.glade:295
-msgid "_Browse..."
-msgstr "_Telusuri..."
-
-#: ui/preferences.glade:694
-msgid "Applet or Biff"
-msgstr "Aplet untuk Biff"
-
-#: ui/preferences.glade:791
-msgid "<b>Headers</b>"
-msgstr "<b>Kepala</b>"
-
-#: ui/preferences.glade:820
-msgid "Whether to display the popup window"
-msgstr "Apakah akan menampilkan jendela popup"
-
-#: ui/preferences.glade:821
-msgid "_Display for"
-msgstr "_Tampilkan untuk"
-
-#: ui/preferences.glade:877
-msgid "header(s)"
-msgstr "kepala"
-
-#: ui/preferences.glade:892
-msgid "Maximum number of headers to display"
-msgstr "Jumlah maksimal dari kepala untuk ditampilkan"
-
-#: ui/preferences.glade:909
-msgid "Whether to restrict number of displayed headers"
-msgstr "Apakah membatasi jumlah dari kepala yang ditampilkan"
-
-#: ui/preferences.glade:910
-msgid "_Restrict number to"
-msgstr "_Batasi jumlah ke"
-
-#: ui/preferences.glade:929
-msgid "[sender max size]:[subject max size]:[date max size]"
-msgstr "[ukuran maksimal pengirim]:[ukuran maksimal subjek]:[ukuran maksimal tanggal]"
-
-#: ui/preferences.glade:944
-msgid "Whether to use format for header"
-msgstr "Apakah menggunakan format untuk kepala"
-
-#: ui/preferences.glade:945
-msgid "_Format:"
-msgstr "_Format:"
-
-#: ui/preferences.glade:964
-msgid "Popup geometry"
-msgstr "Popup geometri"
-
-#: ui/preferences.glade:979
-msgid "Time to display popup window"
-msgstr "Waktu untuk menampilkan jendela popup"
-
-#: ui/preferences.glade:996
-msgid "second(s)"
-msgstr "detik"
-
-#: ui/preferences.glade:1016 ui/popup.glade:7
-msgid "Popup"
-msgstr "Popup"
-
-#: ui/preferences.glade:1062
-msgid ""
-"The editing dialog for all options that gnubiff uses internally can be enabled here. So it is possible to change the value of options for which no gui widgets are provided. A short description for each option is provided.\n"
-"<b>Warning:</b> Changing these options may cause gnubiff to act not properly or result in security problems."
-msgstr ""
-"Dialog pengubahan untuk seluruh pilihan yang digunakan oleh gnubiff secara internal dapat diaktifkan disini. Jadi ini memungkinkan untuk mengubah nilai dari pilihan dimana tidak ada widget gui yang disediakan. Sebuah deskripsi singkat untuk setiap pilihan disediakan.\n"
-"<b>Peringatan:</b> Pengubahan pilihan ini mungkin menyebabkan gnubiff untuk beraksi tidak sesuai atau menghasilkan masalah keamanan."
-
-#: ui/preferences.glade:1080
-msgid "Whether to show the expert tab. Note: Disabling this option can only be reversed by editing the config file manually!"
-msgstr "Apakah menampilkan bagian ahli. Catatan: menonaktifkan pilihan ini hanya dapat dikembalikan dengan mengubah berkas konfigurasi secara manual!"
-
-#: ui/preferences.glade:1081
-msgid "_Show expert tab"
-msgstr "_Tampilkan bagian untuk ahli"
-
-#: ui/preferences.glade:1101
-msgid "Whether options can be edited in expert mode"
-msgstr "Apakah pilihan dapat diubah dalam mode ahli"
-
-#: ui/preferences.glade:1102
-msgid "_Edit options in expert mode"
-msgstr "Pilihan _Ubah dalam mode ahli"
-
-#: ui/preferences.glade:1121
+#: ../ui/preferences.glade.h:3
 msgid "<b>Expert editing mode</b>"
 msgstr "<b>Mode pengubahan ahli</b>"
 
-#: ui/preferences.glade:1155
-msgid "List all options."
-msgstr "Tampilkan seluruh pilihan."
+#: ../ui/preferences.glade.h:4
+msgid "<b>General</b>"
+msgstr "<b>Umum</b>"
 
-#: ui/preferences.glade:1171
-msgid "String to be searched for."
-msgstr "Kata yang akan dicari."
+#: ../ui/preferences.glade.h:5
+msgid "<b>Headers</b>"
+msgstr "<b>Kepala</b>"
 
-#: ui/preferences.glade:1183
-msgid "Search for those (displayed) options that contain the string in the text entry."
-msgstr "Cari untuk pilihan (yang ditampilkan) yang berisi kata dalam masukan kata."
+#: ../ui/preferences.glade.h:6
+msgid "<b>Layout</b>"
+msgstr "<b>Layout</b>"
 
-#: ui/preferences.glade:1212
-msgid "List of options, their type and current values. To edit an option doubleclick on its value."
-msgstr "Daftar dari pilihan, tipenya dan nilai sekarang. Untuk mengubah sebuah pilihan klik dua kali di nilainya."
+#: ../ui/preferences.glade.h:7
+msgid "<b>Mailboxes</b>"
+msgstr "<b>Kotak surat</b>"
 
-#: ui/preferences.glade:1257
-msgid "Expert"
-msgstr "Ahli"
+#: ../ui/preferences.glade.h:8
+msgid "<b>When new mail</b>"
+msgstr "<b>Ketika ada surat baru</b>"
 
-#: ui/preferences.glade:1297
+#: ../ui/preferences.glade.h:9
+msgid "<b>When no mail</b>"
+msgstr "<b>Ketika tidak ada surat</b>"
+
+#: ../ui/preferences.glade.h:10
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
@@ -758,31 +637,29 @@ msgstr ""
 "<small> Gnubiff adalah bagian dari projek GNU.\n"
 " Aplikasi ini dikeluarkan dibawah aegis dari GNU.</small>"
 
-#: ui/preferences.glade:1363
+#: ../ui/preferences.glade.h:12
 msgid ""
-"<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-devel@lists.sourceforge.net</span>.</small>\n"
-"<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-bugs@lists.sourceforge.net</span>.</small>"
+"<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
+"devel@lists.sourceforge.net</span>.</small>\n"
+"<small>Bugs should be reported to <span foreground=\"blue\">gnubiff-"
+"bugs@lists.sourceforge.net</span>.</small>"
 msgstr ""
-"<small>Pengembang dapat dihubungi melalui <span foreground=\"blue\">gnubiff-devel@lists.sourceforge.net</span>.</small>\n"
-"<small>Bugs seharusnya dilaporkan ke <span foreground=\"blue\">gnubif-bugs@lists.sourceforge.net</span>.</small>"
+"<small>Pengembang dapat dihubungi melalui <span foreground=\"blue\">gnubiff-"
+"devel@lists.sourceforge.net</span>.</small>\n"
+"<small>Bugs seharusnya dilaporkan ke <span foreground=\"blue\">gnubif-"
+"bugs@lists.sourceforge.net</span>.</small>"
 
-#: ui/preferences.glade:1432
-msgid "Developers"
-msgstr "Pengembang"
+#: ../ui/preferences.glade.h:14
+msgid ""
+"<small>Here is a list of those people, which translated gnubiff into "
+"different languages (translators of previous versions are marked with an "
+"asterisk):</small>"
+msgstr ""
+"<small>Berikut adalah daftar dari orang orang tersebut, yang telah "
+"menerjemahkan gnubiff kedalam bahasa bahasa yang berbeda (penerjemah dari "
+"versi sebelumnya ditandai dengan sebuah bintang):</small>"
 
-#: ui/preferences.glade:1511
-msgid "Maintainers"
-msgstr "Penjaga"
-
-#: ui/preferences.glade:1530
-msgid "<small>Here is a list of those people, which translated gnubiff into different languages (translators of previous versions are marked with an asterisk):</small>"
-msgstr "<small>Berikut adalah daftar dari orang orang tersebut, yang telah menerjemahkan gnubiff kedalam bahasa bahasa yang berbeda (penerjemah dari versi sebelumnya ditandai dengan sebuah bintang):</small>"
-
-#: ui/preferences.glade:2048
-msgid "Translators"
-msgstr "Penerjemah"
-
-#: ui/preferences.glade:2065
+#: ../ui/preferences.glade.h:15
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -796,218 +673,523 @@ msgstr ""
 "  - mengirimkan kode sebenarnya\n"
 "Berikut adalah daftar dari orang orang ini:</small>"
 
-#: ui/preferences.glade:2108
+#: ../ui/preferences.glade.h:20
+msgid "Appear in _pagers"
+msgstr ""
+
+#: ../ui/preferences.glade.h:21
+msgid "Appear in _taskbar"
+msgstr ""
+
+#: ../ui/preferences.glade.h:22
+#, fuzzy
+msgid "Applet"
+msgstr "Aplet untuk Biff"
+
+#: ../ui/preferences.glade.h:23
+msgid "Applet geometry"
+msgstr "Aplet geometri"
+
+#: ../ui/preferences.glade.h:24
+msgid "B_rowse..."
+msgstr "Telusu_ri..."
+
+#: ../ui/preferences.glade.h:25
+msgid "Be _sticky"
+msgstr ""
+
+#: ../ui/preferences.glade.h:26
+msgid "Browse for an image file"
+msgstr "Browse untuk sebuah berkas gambar"
+
+#: ../ui/preferences.glade.h:27
 msgid "Contributors"
 msgstr "Pengkontribusi"
 
-#: ui/preferences.glade:2130
+#: ../ui/preferences.glade.h:28
 msgid "Credits"
 msgstr "Kredit"
 
-#: ui/preferences.glade:2219
-msgid "Set to default value"
-msgstr "Set nilai baku ke"
+#: ../ui/preferences.glade.h:29
+msgid "Developers"
+msgstr "Pengembang"
 
-#: ui/preferences.glade:2234
-msgid "Toggle option"
-msgstr "Ganti pilihan"
-
-#: ui/preferences.glade:2249
+#: ../ui/preferences.glade.h:30
 msgid "Edit option"
 msgstr "Ubah pilihan"
 
-#: ui/properties.glade:7
-msgid "Mailbox properties"
-msgstr "Properti kotak surat"
+#: ../ui/preferences.glade.h:31
+msgid "Expert"
+msgstr "Ahli"
 
-#: ui/properties.glade:52
-msgid "_Name:"
-msgstr "_Nama:"
+#: ../ui/preferences.glade.h:32
+msgid "Image filename"
+msgstr "Nama berkas gambar"
 
-#: ui/properties.glade:77
-msgid "A_ddress:"
-msgstr "_Alamat:"
+#: ../ui/preferences.glade.h:33
+msgid "List all options."
+msgstr "Tampilkan seluruh pilihan."
 
-#: ui/properties.glade:102
-msgid "Name of the mailbox"
-msgstr "Nama dari kotak surat"
+#: ../ui/preferences.glade.h:34
+msgid ""
+"List of options, their type and current values. To edit an option "
+"doubleclick on its value."
+msgstr ""
+"Daftar dari pilihan, tipenya dan nilai sekarang. Untuk mengubah sebuah "
+"pilihan klik dua kali di nilainya."
 
-#: ui/properties.glade:124
-msgid "_Type:"
-msgstr "_Tipe:"
+#: ../ui/preferences.glade.h:35
+msgid "Mailboxes"
+msgstr "Kotak surat"
 
-#: ui/properties.glade:174 ui/authentication.glade:52
-msgid "_Username:"
-msgstr "_Nama pengguna:"
+#: ../ui/preferences.glade.h:36
+msgid "Maintainers"
+msgstr "Penjaga"
 
-#: ui/properties.glade:199
-msgid "Your username on the mail server"
-msgstr "Nama pengguna anda di kotak surat"
+#: ../ui/preferences.glade.h:37
+msgid "Maximum number of headers to display"
+msgstr "Jumlah maksimal dari kepala untuk ditampilkan"
 
-#: ui/properties.glade:221 ui/authentication.glade:77
-msgid "_Password:"
-msgstr "_Kata sandi:"
+#: ../ui/preferences.glade.h:38 ../ui/popup.glade.h:6
+msgid "Popup"
+msgstr "Popup"
 
-#: ui/properties.glade:246
-msgid "Your password on the mail server"
-msgstr "Kata sandi anda di server surat"
+#: ../ui/preferences.glade.h:39
+msgid "Popup geometry"
+msgstr "Popup geometri"
 
-#: ui/properties.glade:274
-msgid "file or folder or hostname"
-msgstr "berkas atau folder atau nama host"
+#: ../ui/preferences.glade.h:40
+msgid ""
+"Search for those (displayed) options that contain the string in the text "
+"entry."
+msgstr ""
+"Cari untuk pilihan (yang ditampilkan) yang berisi kata dalam masukan kata."
 
-#: ui/properties.glade:367
-msgid "Connection:"
-msgstr "Koneksi:"
+#: ../ui/preferences.glade.h:41
+msgid "Set to default value"
+msgstr "Set nilai baku ke"
 
-#: ui/properties.glade:391
-msgid "Connection port to connect to server"
-msgstr "Port koneksi untuk menghubungi ke server"
+#: ../ui/preferences.glade.h:42
+msgid "Show _image:"
+msgstr "Tampilkan _gambar:"
 
-#: ui/properties.glade:414
-msgid "Standard connection port"
-msgstr "Port koneksi baku"
+#: ../ui/preferences.glade.h:43
+msgid "Show _text:"
+msgstr "Tampilkan _teks:"
 
-#: ui/properties.glade:416
-msgid "stan_dard"
-msgstr "ba_ku"
+#: ../ui/preferences.glade.h:44
+msgid "Show i_mage:"
+msgstr "Tampilkan ga_mbar:"
 
-#: ui/properties.glade:437
-msgid "Other connection port"
-msgstr "Koneksi port lain"
+#: ../ui/preferences.glade.h:45
+msgid "Show t_ext:"
+msgstr "Tampilkan t_eks:"
 
-#: ui/properties.glade:439
-msgid "_other"
-msgstr "lain"
+#: ../ui/preferences.glade.h:46
+msgid "String to be searched for."
+msgstr "Kata yang akan dicari."
 
-#: ui/properties.glade:540
-msgid "Aut_hentication:"
-msgstr "Otentifikasi:"
+#: ../ui/preferences.glade.h:48
+#, no-c-format
+msgid ""
+"Text to display (%d and %D is the number of new messages, %d is zero "
+"padded). Pango markup may be used."
+msgstr ""
+"Teks untuk menampilkan (%d dan %D adalah jumlah dari pesan baru, %d diisi "
+"dengan nol). Pango markup mungkin telah digunakan."
 
-#: ui/properties.glade:594
-msgid "Certificate filename"
-msgstr "Nama berkas sertifikat"
+#: ../ui/preferences.glade.h:49
+msgid "The command to run when new mail arrives"
+msgstr "Perintah yang dijalankan ketika surat baru datang"
 
-#: ui/properties.glade:618
-msgid "Bro_wse..."
-msgstr "Telusuri..."
+#: ../ui/preferences.glade.h:50
+msgid "The command to run when the icon is double-clicked"
+msgstr "Perintah yang dijalankan ketika icon di klik dua kali"
 
-#: ui/properties.glade:637
-msgid "Cer_tificate:"
-msgstr "Ser_tifikat:"
+#. The option's descriptions are in English only! This may be included in a translation of this text.
+#: ../ui/preferences.glade.h:52
+msgid ""
+"The editing dialog for all options that gnubiff uses internally can be "
+"enabled here. So it is possible to change the value of options for which no "
+"gui widgets are provided. A short description for each option is provided.\n"
+"<b>Warning:</b> Changing these options may cause gnubiff to act not properly "
+"or result in security problems."
+msgstr ""
+"Dialog pengubahan untuk seluruh pilihan yang digunakan oleh gnubiff secara "
+"internal dapat diaktifkan disini. Jadi ini memungkinkan untuk mengubah nilai "
+"dari pilihan dimana tidak ada widget gui yang disediakan. Sebuah deskripsi "
+"singkat untuk setiap pilihan disediakan.\n"
+"<b>Peringatan:</b> Pengubahan pilihan ini mungkin menyebabkan gnubiff untuk "
+"beraksi tidak sesuai atau menghasilkan masalah keamanan."
 
-#: ui/properties.glade:692
-msgid "minutes"
-msgstr "menit"
+#: ../ui/preferences.glade.h:54
+msgid "The font to use to display information"
+msgstr "Bentuk huruf yang digunakan untuk menampilkan informasi"
 
-#: ui/properties.glade:716
+#: ../ui/preferences.glade.h:55
+msgid "Time to display popup window"
+msgstr "Waktu untuk menampilkan jendela popup"
+
+#: ../ui/preferences.glade.h:56
+msgid "Toggle option"
+msgstr "Ganti pilihan"
+
+#: ../ui/preferences.glade.h:57
+msgid "Translators"
+msgstr "Penerjemah"
+
+#: ../ui/preferences.glade.h:58
+msgid "Use _decoration"
+msgstr "Gunakan _dekorasi"
+
+#: ../ui/preferences.glade.h:59
+msgid "Use _geometry:"
+msgstr "Gunakan _geometri:"
+
+#: ../ui/preferences.glade.h:60
+msgid "When _double-clicked:"
+msgstr "Ketika diklik _dua kali:"
+
+#: ../ui/preferences.glade.h:61
+msgid "When _new mail:"
+msgstr "Ketika surat _baru:"
+
+#: ../ui/preferences.glade.h:62
+msgid "Whether options can be edited in expert mode"
+msgstr "Apakah pilihan dapat diubah dalam mode ahli"
+
+#: ../ui/preferences.glade.h:63
+msgid "Whether to accept keyboard focus"
+msgstr ""
+
+#: ../ui/preferences.glade.h:64
+#, fuzzy
+msgid "Whether to appear in pagers"
+msgstr "Apakah menampilkan sebuah gambar"
+
+#: ../ui/preferences.glade.h:65
+#, fuzzy
+msgid "Whether to appear on all desktops"
+msgstr "Apakah menampilkan sebuah teks"
+
+#: ../ui/preferences.glade.h:66
+#, fuzzy
+msgid "Whether to be always kept above all other windows"
+msgstr "Apakah akan menampilkan jendela popup"
+
+#: ../ui/preferences.glade.h:67
+msgid "Whether to display a text"
+msgstr "Apakah menampilkan sebuah teks"
+
+#: ../ui/preferences.glade.h:68
+msgid "Whether to display an image"
+msgstr "Apakah menampilkan sebuah gambar"
+
+#: ../ui/preferences.glade.h:69
+msgid "Whether to display the popup window"
+msgstr "Apakah akan menampilkan jendela popup"
+
+#: ../ui/preferences.glade.h:70
+msgid "Whether to restrict number of displayed headers"
+msgstr "Apakah membatasi jumlah dari kepala yang ditampilkan"
+
+#: ../ui/preferences.glade.h:71
+msgid "Whether to show an image"
+msgstr "Apakah menampilkan sebuah gambar"
+
+#: ../ui/preferences.glade.h:72
+msgid ""
+"Whether to show the expert tab. Note: Disabling this option can only be "
+"reversed by editing the config file manually!"
+msgstr ""
+"Apakah menampilkan bagian ahli. Catatan: menonaktifkan pilihan ini hanya "
+"dapat dikembalikan dengan mengubah berkas konfigurasi secara manual!"
+
+#: ../ui/preferences.glade.h:73
+msgid "Whether to use format for header"
+msgstr "Apakah menggunakan format untuk kepala"
+
+#: ../ui/preferences.glade.h:74
+msgid "Whether to use geometry"
+msgstr "Untuk menggunakan geometri"
+
+#: ../ui/preferences.glade.h:75
+msgid "Whether to use window manager decoration"
+msgstr "Baik menggunakan manajer dekorasi jendela"
+
+#: ../ui/preferences.glade.h:76
+msgid "[sender max size]:[subject max size]:[date max size]"
+msgstr ""
+"[ukuran maksimal pengirim]:[ukuran maksimal subjek]:[ukuran maksimal tanggal]"
+
+#: ../ui/preferences.glade.h:77
+#, fuzzy
+msgid "_Accept focus"
+msgstr "Terima"
+
+#: ../ui/preferences.glade.h:78 ../ui/properties.glade.h:21
+msgid "_Browse..."
+msgstr "_Telusuri..."
+
+#: ../ui/preferences.glade.h:79
+msgid "_Display for"
+msgstr "_Tampilkan untuk"
+
+#: ../ui/preferences.glade.h:80
+msgid "_Edit options in expert mode"
+msgstr "Pilihan _Ubah dalam mode ahli"
+
+#: ../ui/preferences.glade.h:81
+msgid "_Font:"
+msgstr "_Bentuk huruf:"
+
+#: ../ui/preferences.glade.h:82
+msgid "_Format:"
+msgstr "_Format:"
+
+#: ../ui/preferences.glade.h:83
+msgid "_Keep above"
+msgstr ""
+
+#: ../ui/preferences.glade.h:84
+msgid "_Restrict collected mail to"
+msgstr "_Batasi pengumpulan surat ke"
+
+#: ../ui/preferences.glade.h:85
+msgid "_Restrict number to"
+msgstr "_Batasi jumlah ke"
+
+#: ../ui/preferences.glade.h:86
+msgid "_Show expert tab"
+msgstr "_Tampilkan bagian untuk ahli"
+
+#: ../ui/preferences.glade.h:88
+msgid "gnubiff preferences"
+msgstr "kesukaan gnubiff"
+
+#: ../ui/preferences.glade.h:89
+#, fuzzy
+msgid "headers"
+msgstr "kepala"
+
+#: ../ui/preferences.glade.h:90
+msgid "messages"
+msgstr ""
+
+#: ../ui/preferences.glade.h:91 ../ui/properties.glade.h:31
 msgid "seconds"
 msgstr "detik"
 
-#: ui/properties.glade:739 ui/properties.glade:765
-msgid "The amount of time to wait between mail checks or between retries when connection is lost"
-msgstr "Waktu yang dibutuhkan untuk menunggu diantara pemeriksaan surat atau diantara percobaan ketika koneksi hilang"
-
-#: ui/properties.glade:791
-msgid "Dela_y:"
-msgstr "Tunda:"
-
-#: ui/properties.glade:846
-msgid "_Mailbox:"
-msgstr "Kotak surat:"
-
-#: ui/properties.glade:871
-msgid "Mailbox folder"
-msgstr "Folder kotak surat"
-
-#: ui/properties.glade:893
-msgid "Other mailbox folder"
-msgstr "Folder kotak surat lain"
-
-#: ui/properties.glade:895
-msgid "othe_r"
-msgstr "lain"
-
-#: ui/properties.glade:916
-msgid "Standard mailbox folder"
-msgstr "Folder kotak surat baku"
-
-#: ui/properties.glade:918
-msgid "stand_ard"
-msgstr "b_aku"
-
-#: ui/properties.glade:951
+#: ../ui/properties.glade.h:1
 msgid "<b>_Details</b>"
 msgstr "<b>_Detil</b>"
 
-#: ui/authentication.glade:7
+#: ../ui/properties.glade.h:2
+msgid "A_ddress:"
+msgstr "_Alamat:"
+
+#: ../ui/properties.glade.h:3
+msgid "Aut_hentication:"
+msgstr "Otentifikasi:"
+
+#: ../ui/properties.glade.h:4
+msgid "Bro_wse..."
+msgstr "Telusuri..."
+
+#: ../ui/properties.glade.h:6
+msgid "Cer_tificate:"
+msgstr "Ser_tifikat:"
+
+#: ../ui/properties.glade.h:7
+msgid "Certificate filename"
+msgstr "Nama berkas sertifikat"
+
+#: ../ui/properties.glade.h:8
+msgid "Connection port to connect to server"
+msgstr "Port koneksi untuk menghubungi ke server"
+
+#: ../ui/properties.glade.h:9
+msgid "Connection:"
+msgstr "Koneksi:"
+
+#: ../ui/properties.glade.h:10
+msgid "Dela_y:"
+msgstr "Tunda:"
+
+#: ../ui/properties.glade.h:11
+msgid "Mailbox folder"
+msgstr "Folder kotak surat"
+
+#: ../ui/properties.glade.h:12
+msgid "Mailbox properties"
+msgstr "Properti kotak surat"
+
+#: ../ui/properties.glade.h:13
+msgid "Name of the mailbox"
+msgstr "Nama dari kotak surat"
+
+#: ../ui/properties.glade.h:14
+msgid "Other connection port"
+msgstr "Koneksi port lain"
+
+#: ../ui/properties.glade.h:15
+msgid "Other mailbox folder"
+msgstr "Folder kotak surat lain"
+
+#: ../ui/properties.glade.h:16
+msgid "Standard connection port"
+msgstr "Port koneksi baku"
+
+#: ../ui/properties.glade.h:17
+msgid "Standard mailbox folder"
+msgstr "Folder kotak surat baku"
+
+#: ../ui/properties.glade.h:18
+msgid ""
+"The amount of time to wait between mail checks or between retries when "
+"connection is lost"
+msgstr ""
+"Waktu yang dibutuhkan untuk menunggu diantara pemeriksaan surat atau "
+"diantara percobaan ketika koneksi hilang"
+
+#: ../ui/properties.glade.h:19
+msgid "Your password on the mail server"
+msgstr "Kata sandi anda di server surat"
+
+#: ../ui/properties.glade.h:20
+msgid "Your username on the mail server"
+msgstr "Nama pengguna anda di kotak surat"
+
+#: ../ui/properties.glade.h:22
+msgid "_Mailbox:"
+msgstr "Kotak surat:"
+
+#: ../ui/properties.glade.h:23
+msgid "_Name:"
+msgstr "_Nama:"
+
+#: ../ui/properties.glade.h:24 ../ui/authentication.glade.h:4
+msgid "_Password:"
+msgstr "_Kata sandi:"
+
+#: ../ui/properties.glade.h:25
+msgid "_Type:"
+msgstr "_Tipe:"
+
+#: ../ui/properties.glade.h:26 ../ui/authentication.glade.h:5
+msgid "_Username:"
+msgstr "_Nama pengguna:"
+
+#: ../ui/properties.glade.h:27
+msgid "_other"
+msgstr "lain"
+
+#: ../ui/properties.glade.h:28
+msgid "file or folder or hostname"
+msgstr "berkas atau folder atau nama host"
+
+#: ../ui/properties.glade.h:29
+msgid "minutes"
+msgstr "menit"
+
+#: ../ui/properties.glade.h:30
+msgid "othe_r"
+msgstr "lain"
+
+#: ../ui/properties.glade.h:32
+msgid "stan_dard"
+msgstr "ba_ku"
+
+#: ../ui/properties.glade.h:33
+msgid "stand_ard"
+msgstr "b_aku"
+
+#: ../ui/authentication.glade.h:1
 msgid "Authentication"
 msgstr "Otentifikasi"
 
-#: ui/authentication.glade:102
-msgid "Your username on the server"
-msgstr "Nama pengguna ada di server"
-
-#: ui/authentication.glade:124
+#: ../ui/authentication.glade.h:2
 msgid "Your password on the server"
 msgstr "Kata sandi anda di server"
 
-#: ui/certificate.glade:7
-msgid "Cannot certify server"
-msgstr "Tidak dapat memastikan server"
+#: ../ui/authentication.glade.h:3
+msgid "Your username on the server"
+msgstr "Nama pengguna ada di server"
 
-#: ui/certificate.glade:130
-msgid "Common Name"
-msgstr "Nama Umum"
-
-#: ui/certificate.glade:154
-msgid "Organization"
-msgstr "Organisasi"
-
-#: ui/certificate.glade:178
-msgid "Organization Unit"
-msgstr "Satuan Organisasi"
-
-#: ui/certificate.glade:275
-msgid "<b>Issued To</b>"
-msgstr "<b>Diberikan Ke<b>"
-
-#: ui/certificate.glade:394
+#: ../ui/certificate.glade.h:1
 msgid "<b>Address</b>"
 msgstr "<b>Alamat</b>"
 
-#: ui/certificate.glade:418
-msgid "Country"
-msgstr "Negara"
+#: ../ui/certificate.glade.h:2
+msgid "<b>Issued To</b>"
+msgstr "<b>Diberikan Ke<b>"
 
-#: ui/certificate.glade:442
-msgid "Locality"
-msgstr "Lokalitas"
-
-#: ui/certificate.glade:540
-msgid "State or Province"
-msgstr "State atau Propinsi"
-
-#: ui/certificate.glade:570
-msgid "Certificate details"
-msgstr "Sertifikat detil"
-
-#: ui/certificate.glade:668
+#: ../ui/certificate.glade.h:3
 msgid "Accept"
 msgstr "Terima"
 
-#: ui/popup.glade:61
-msgid "mail content"
-msgstr "isi surat"
+#: ../ui/certificate.glade.h:4
+msgid "Cannot certify server"
+msgstr "Tidak dapat memastikan server"
 
-#: ui/popup.glade:116
+#: ../ui/certificate.glade.h:5
+msgid "Certificate details"
+msgstr "Sertifikat detil"
+
+#: ../ui/certificate.glade.h:6
+msgid "Common Name"
+msgstr "Nama Umum"
+
+#: ../ui/certificate.glade.h:7
+msgid "Country"
+msgstr "Negara"
+
+#: ../ui/certificate.glade.h:8
+msgid "Locality"
+msgstr "Lokalitas"
+
+#: ../ui/certificate.glade.h:9
+msgid "Organization"
+msgstr "Organisasi"
+
+#: ../ui/certificate.glade.h:10
+msgid "Organization Unit"
+msgstr "Satuan Organisasi"
+
+#: ../ui/certificate.glade.h:11
+msgid "State or Province"
+msgstr "State atau Propinsi"
+
+#: ../ui/popup.glade.h:1
+msgid "<small><b>Date</b></small>"
+msgstr "<small><b>Tanggal</b></small>"
+
+#: ../ui/popup.glade.h:2
 msgid "<small><b>From</b></small>"
 msgstr "<small><b>Dari</b></small>"
 
-#: ui/popup.glade:140
+#: ../ui/popup.glade.h:3
 msgid "<small><b>Subject</b></small>"
 msgstr "<small><b>Subjek</b></small>"
 
-#: ui/popup.glade:164
-msgid "<small><b>Date</b></small>"
-msgstr "<small><b>Tanggal</b></small>"
+#: ../ui/popup.glade.h:4
+msgid "Delete this message"
+msgstr ""
+
+#: ../ui/popup.glade.h:5
+msgid "Hide popup"
+msgstr ""
+
+#: ../ui/popup.glade.h:7
+msgid "Undelete this message"
+msgstr ""
+
+#: ../ui/popup.glade.h:8
+msgid "mail content"
+msgstr "isi surat"
+
+#~ msgid "mail(s)"
+#~ msgstr "surat"
+
+#~ msgid "second(s)"
+#~ msgstr "detik"
