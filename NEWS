@@ -5,6 +5,15 @@ Copyright (C) 2000-2010 Nicolas Rougier <Nicolas.Rougier@loria.fr>,
 See the end for copying conditions.
 Please send gnubiff bug reports to gnubiff-bugs@lists.sourceforge.net
 
+Version 2.2.13
+This is a minor feature release. Changes:
+ * Updated Vietnamese translation (thanks to Clytie Siddall)
+ * Updated Dutch translation (thanks to Erwin Poeze)
+ * Updated Swedish translation (thanks to Daniel Nylander)
+ * Added Indonesian translation (thanks to Arif E. Nugroho)
+ * Fixed a bug (restarting looking for mail after connection failures)
+ * Support for IPv6
+
 Version 2.2.12
 This is a minor bugfix release. Changes:
  * Fixed some compiler warnings/problems
