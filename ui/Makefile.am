@@ -7,3 +7,5 @@ uidir            = $(pkgdatadir)
 dist_ui_DATA     = $(wildcard *.glade)
 
 EXTRA_DIST       = $(wildcard *.gladep) gnubiff.desktop.in
+
+CLEANFILES	= $(desktop_DATA)
