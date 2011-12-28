@@ -126,8 +126,8 @@
   </widget>
   <widget class="GtkAboutDialog" id="gnubiffabout">
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
-    <property name="copyright">© 2000-2010 Nicolas Rougier
-© 2004-2010 Robert Sowada</property>
+    <property name="copyright">© 2000-2011 Nicolas Rougier
+© 2004-2011 Robert Sowada</property>
     <property name="comments" translatable="yes">Gnubiff is a mail notification program.</property>
     <property name="website">http://gnubiff.sourceforge.net/</property>
     <property name="license" translatable="yes" comments="See http://www.gnu.org/licenses/translations.html">Gnubiff is part of the GNU project.

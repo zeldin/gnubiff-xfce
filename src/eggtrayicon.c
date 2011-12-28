@@ -284,7 +284,7 @@ egg_tray_icon_send_manager_message (EggTrayIcon *icon,
   ev.window = window;
   ev.message_type = icon->system_tray_opcode_atom;
   ev.format = 32;
-  ev.data.l[0] = gdk_x11_get_server_time (GTK_WIDGET (icon)->window);
+  ev.data.l[0] = gdk_x11_get_server_time (gtk_widget_get_window (GTK_WIDGET (icon)));
   ev.data.l[1] = message;
   ev.data.l[2] = data1;
   ev.data.l[3] = data2;
@@ -341,7 +341,7 @@ egg_tray_icon_update_manager_window (EggTrayIcon *icon,
       
       gdk_window_add_filter (gdkwin, egg_tray_icon_manager_filter, icon);
 
-      if (dock_if_realized && GTK_WIDGET_REALIZED (icon))
+      if (dock_if_realized && gtk_widget_get_realized ((struct GtkWidget *)icon))
 	egg_tray_icon_send_dock_request (icon);
 
       egg_tray_icon_get_orientation_property (icon);

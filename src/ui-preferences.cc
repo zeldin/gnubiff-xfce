@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+// Copyright (c) 2000-2011 Nicolas Rougier, 2004-2011 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -297,7 +297,9 @@ Preferences::create (gpointer callbackdata)
 	gtk_tree_view_column_set_sort_column_id(column, COLUMN_STATUS_STOCK_ID);
 	gtk_tree_view_append_column (view, column);
 	GtkTooltips *tooltips = gtk_tooltips_new ();
-	gtk_tooltips_set_tip (tooltips, image->parent->parent->parent, _("Status"), "");
+	gtk_tooltips_set_tip (tooltips,
+                          (GtkWidget *)(gdk_window_get_parent (gdk_window_get_parent (gtk_widget_get_parent_window (image)))),
+                          _("Status"), "");
 	gtk_tooltips_enable (tooltips);
 
 	column = gtk_tree_view_column_new_with_attributes ("",
@@ -312,7 +314,9 @@ Preferences::create (gpointer callbackdata)
 	gtk_tree_view_append_column (view, column);
 
 	tooltips = gtk_tooltips_new ();
-	gtk_tooltips_set_tip (tooltips, image->parent->parent->parent, _("Security"), "");
+	gtk_tooltips_set_tip (tooltips,
+                          (GtkWidget *)(gdk_window_get_parent (gdk_window_get_parent (gtk_widget_get_parent_window (image)))),
+                          _("Security"), "");
 	gtk_tooltips_enable (tooltips);
 
 

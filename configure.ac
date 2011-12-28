@@ -1,5 +1,5 @@
 # gnubiff -- a mail notification program
-# Copyright (C) 2000-2010 Nicolas Rougier, 2004-2010 Robert Sowada
+# Copyright (C) 2000-2011 Nicolas Rougier, 2004-2011 Robert Sowada
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -110,7 +110,7 @@ AC_CHECK_LIB(ssl, AES_encrypt, AC_DEFINE_UNQUOTED(HAVE_AES, 1,
 	AC_CHECK_LIB(crypto, AES_encrypt, AC_DEFINE_UNQUOTED(HAVE_AES, 1))])
 
 dnl GLIB, GTK, ...
-GTK_REQUIRED="gtk+-2.0 >= 2.6"
+GTK_REQUIRED="gtk+-2.0 >= 2.18"
 GDK_PIXBUF_REQUIRED="gdk-pixbuf-2.0 >= 2.4"
 GMODULE_REQUIRED="gmodule-2.0 >= 2.4"
 LIBGLADE_REQUIRED="libglade-2.0 >= 2.3"
@@ -177,7 +177,7 @@ AM_GNU_GETTEXT([external])
 ######################################################################
 if test "$OPT_USEGNOME" = "yes"; then
 	PKG_CHECK_MODULES(GNOME_DEP, [
-	    libpanelapplet-2.0
+	    libpanelapplet-4.0
     	libgnomeui-2.0
     	], [
 		AC_SUBST(GNOME_DEP_CFLAGS)

@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+// Copyright (c) 2000-2011 Nicolas Rougier, 2004-2011 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -532,7 +532,7 @@ void
 Properties::details_view (gboolean visible)
 {
 	if (visible) {
-		if (!GTK_WIDGET_VISIBLE (get("details_expander"))) {
+		if (!gtk_widget_get_visible (get("details_expander"))) {
 			gtk_widget_show (get("details_expander"));
 			gtk_size_group_add_widget (group_, get ("connection"));
 			gtk_size_group_add_widget (group_, get ("authentication"));
@@ -542,7 +542,7 @@ Properties::details_view (gboolean visible)
 		}
 	}
 	else {
-		if (GTK_WIDGET_VISIBLE (get("details_expander"))) {
+		if (gtk_widget_get_visible (get("details_expander"))) {
 			gtk_widget_hide (get("details_expander"));
 			gtk_size_group_remove_widget (group_, get ("connection"));
 			gtk_size_group_remove_widget (group_, get ("authentication"));
