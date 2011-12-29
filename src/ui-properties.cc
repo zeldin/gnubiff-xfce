@@ -588,7 +588,7 @@ Properties::auth_view (gboolean visible)
 #endif
 	}
 
-    gtk_combo_box_set_active (GTK_COMBO_BOX (auth_cbox_) ,selected_auth_);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (auth_cbox_), auth);
 	certificate_view (auth == AUTH_CERTIFICATE || auth == AUTH_TLS);
 	selected_auth_ = auth;
 }
