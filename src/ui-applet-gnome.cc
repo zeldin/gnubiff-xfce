@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+// Copyright (c) 2000-2011 Nicolas Rougier, 2004-2011 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -64,17 +64,17 @@ extern "C" {
 				(static_cast<AppletGnome *>(data))->update ();
 	}
 
-	void APPLET_GNOME_on_change_background (GtkWidget *widget,
-											PanelAppletBackgroundType type,
-											GdkColor *color,
-											GdkPixmap *pixmap,
-											gpointer data)
-	{
- 		if (data)
- 			(static_cast<AppletGnome *>(data))->update ();
- 		else
- 			unknown_internal_error ();
-	}
+// 	void APPLET_GNOME_on_change_background (GtkWidget *widget,
+// 											PanelAppletBackgroundType type,
+// 											GdkColor *color,
+// 											GdkPixmap *pixmap,
+// 											gpointer data)
+// 	{
+//  		if (data)
+//  			(static_cast<AppletGnome *>(data))->update ();
+//  		else
+//  			unknown_internal_error ();
+// 	}
 
 	gboolean APPLET_GNOME_on_button_press (GtkWidget *widget,
 										   GdkEventButton *event,
@@ -87,66 +87,61 @@ extern "C" {
 		return false;
 	}
 
-	void APPLET_GNOME_on_menu_properties (BonoboUIComponent *uic,
-										  gpointer data,
-										  const gchar *verbname)
+	static void APPLET_GNOME_on_menu_properties (GtkAction *action,
+                                                 AppletGnome *data)
 	{
 		if (data)
-			(static_cast<AppletGnome *>(data))->show_dialog_preferences ();
+			data->show_dialog_preferences ();
 		else
 			unknown_internal_error ();
 	}
 
-	void APPLET_GNOME_on_menu_command (BonoboUIComponent *uic,
-									   gpointer data,
-									   const gchar *verbname)
+	void APPLET_GNOME_on_menu_command (GtkAction *action,
+                                       AppletGnome *data)
 	{
 		if (data)
-			(static_cast<AppletGnome *>(data))->execute_command ("double_command",
-													 "use_double_command");
+			data->execute_command ("double_command", "use_double_command");
 		else
 			unknown_internal_error ();
 	}
 
-	void APPLET_GNOME_on_menu_mail_read (BonoboUIComponent *uic,
-										 gpointer data,
-										 const gchar *verbname)
+	void APPLET_GNOME_on_menu_mail_read (GtkAction *action,
+                                         AppletGnome *data)
 	{
 		if (data)
-			(static_cast<AppletGnome *>(data))->mark_messages_as_read ();
+			data->mark_messages_as_read ();
 		else
 			unknown_internal_error ();
 	}
 
-	void APPLET_GNOME_on_menu_info (BonoboUIComponent *uic,
-									gpointer data,
-									const gchar *verbname)
+	void APPLET_GNOME_on_menu_info (GtkAction *action,
+                                    AppletGnome *data)
 	{
 		if (data)
-			(static_cast<AppletGnome *>(data))->show_dialog_about ();
+			data->show_dialog_about ();
 		else
 			unknown_internal_error ();
 	}
 
-	gboolean APPLET_GNOME_reconnect (gpointer data)
-	{
-		if (data) {
-			g_signal_connect (G_OBJECT ((static_cast<AppletGnome *>(data))->panelapplet()),
-							  "change_background",
-							  GTK_SIGNAL_FUNC (APPLET_GNOME_on_change_background),
-							  data);
-		}
-		else
-			unknown_internal_error ();
-		return false;
-	}
+// 	gboolean APPLET_GNOME_reconnect (gpointer data)
+// 	{
+// 		if (data) {
+// 			g_signal_connect (G_OBJECT ((static_cast<AppletGnome *>(data))->panelapplet()),
+// 							  "change_background",
+// 							  GTK_SIGNAL_FUNC (APPLET_GNOME_on_change_background),
+// 							  data);
+// 		}
+// 		else
+// 			unknown_internal_error ();
+// 		return false;
+// 	}
 }
 
 // ========================================================================
 //  base
 // ========================================================================
 
-AppletGnome::AppletGnome (Biff *biff) : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade", this)
+AppletGnome::AppletGnome (Biff *biff) : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.ui", this)
 {
 }
 
@@ -194,19 +189,19 @@ void
 AppletGnome::dock (GtkWidget *applet)
 {
 	// Create the applet's menu
-	static const BonoboUIVerb gnubiffMenuVerbs [] = {
-		BONOBO_UI_VERB ("Props",   APPLET_GNOME_on_menu_properties),
-		BONOBO_UI_VERB ("MailApp", APPLET_GNOME_on_menu_command),
-		BONOBO_UI_VERB ("MailRead", APPLET_GNOME_on_menu_mail_read),
-		BONOBO_UI_VERB ("Info", APPLET_GNOME_on_menu_info),
-		BONOBO_UI_VERB_END
-	};
-	panel_applet_setup_menu_from_file (PANEL_APPLET (applet),
-									   NULL,
-									   GNUBIFF_UIDIR"/GNOME_gnubiffApplet.xml",
-									   NULL,
-									   gnubiffMenuVerbs,
-									   this);
+    static const GtkActionEntry gnubiff_menu_actions [] = {
+        { "Props",    GTK_STOCK_PROPERTIES, N_("_Preferences..."), NULL, NULL, G_CALLBACK (APPLET_GNOME_on_menu_properties) },
+        { "MailApp",  GTK_STOCK_PROPERTIES, N_("_Run command"), NULL, NULL, G_CALLBACK (APPLET_GNOME_on_menu_command) },
+        { "MailRead", GTK_STOCK_PROPERTIES, N_("_Mark mailboxes read"), NULL, NULL, G_CALLBACK (APPLET_GNOME_on_menu_mail_read) },
+        { "Info",     GTK_STOCK_ABOUT,      N_("_Info"), NULL, NULL, G_CALLBACK (APPLET_GNOME_on_menu_info) }
+    };
+    GtkActionGroup * action_group = gtk_action_group_new ("ShowDesktop Applet Actions");
+    gtk_action_group_set_translation_domain (action_group, GETTEXT_PACKAGE);
+    gtk_action_group_add_actions (action_group, gnubiff_menu_actions, G_N_ELEMENTS (gnubiff_menu_actions), this);
+    gchar *ui_path = g_build_filename (GNUBIFF_UIDIR, "GNOME_gnubiffApplet.xml", NULL);
+    panel_applet_setup_menu_from_file (PANEL_APPLET (applet), ui_path, action_group);
+    g_free (ui_path);
+    g_object_unref (action_group);
 
 	// We need the PANEL_APPLET_EXPAND_MINOR for getting the correct size of
 	// the gnome panel via the "size_allocate" signal
@@ -217,19 +212,17 @@ AppletGnome::dock (GtkWidget *applet)
 	gtk_container_set_border_width (GTK_CONTAINER (applet), 0);
 
 	// Tooltips
-	GtkTooltips *applet_tips = gtk_tooltips_new ();
-	gtk_tooltips_set_tip (applet_tips, applet, "", "");
-	tooltip_widget_ = applet;
+    gtk_widget_set_tooltip_text (applet, "");
 
 	// Connect callback functions to the applet's signals
 	g_signal_connect (G_OBJECT (applet), "enter_notify_event",
-					  GTK_SIGNAL_FUNC (APPLET_GNOME_on_enter), this);
+					  G_CALLBACK (APPLET_GNOME_on_enter), this);
 	g_signal_connect (G_OBJECT (applet), "size_allocate",
-					  GTK_SIGNAL_FUNC (APPLET_GNOME_on_size_allocate), this);
-	g_signal_connect (G_OBJECT (applet), "change_background",
-					  GTK_SIGNAL_FUNC (APPLET_GNOME_on_change_background), this);
+					  G_CALLBACK (APPLET_GNOME_on_size_allocate), this);
+// 	g_signal_connect (G_OBJECT (applet), "change_background",
+// 					  G_CALLBACK (APPLET_GNOME_on_change_background), this);
 	g_signal_connect (G_OBJECT (applet), "button_press_event",
-					  GTK_SIGNAL_FUNC (APPLET_GNOME_on_button_press), this);
+					  G_CALLBACK (APPLET_GNOME_on_button_press), this);
 
 	applet_ = applet;
 }
@@ -245,27 +238,27 @@ AppletGnome::update (gboolean init)
 	gboolean newmail = AppletGUI::update (init, "image", "unread", "fixed");
 
 	// Background
-	PanelAppletBackgroundType type;
-	GdkColor color;
-	GdkPixmap *pixmap = NULL;
-	type = panel_applet_get_background (PANEL_APPLET (applet_), &color,
-										&pixmap);
-	if (pixmap && G_IS_OBJECT(pixmap)) {		
-		GtkStyle* style = gtk_style_copy (gtk_widget_get_style (applet_));
-		style->bg_pixmap[0] = pixmap;
-		gtk_widget_set_style (applet_, style);
-		gtk_widget_set_style (get("fixed"), style);
-		g_object_unref (style);
-	}
-	else {
-		if (type == PANEL_NO_BACKGROUND) {
-			GtkRcStyle *rc_style = gtk_rc_style_new ();
-			gtk_widget_modify_style (applet_, rc_style);
-			gtk_rc_style_unref (rc_style);
-		}
-		else
-			gtk_widget_modify_bg (get("applet_"), GTK_STATE_NORMAL, &color);
-	}
+// 	PanelAppletBackgroundType type;
+// 	GdkColor color;
+// 	GdkPixmap *pixmap = NULL;
+// 	type = panel_applet_get_background (PANEL_APPLET (applet_), &color,
+// 										&pixmap);
+// 	if (pixmap && G_IS_OBJECT(pixmap)) {		
+// 		GtkStyle* style = gtk_style_copy (gtk_widget_get_style (applet_));
+// 		style->bg_pixmap[0] = pixmap;
+// 		gtk_widget_set_style (applet_, style);
+// 		gtk_widget_set_style (get("fixed"), style);
+// 		g_object_unref (style);
+// 	}
+// 	else {
+// 		if (type == PANEL_NO_BACKGROUND) {
+// 			GtkRcStyle *rc_style = gtk_rc_style_new ();
+// 			gtk_widget_modify_style (applet_, rc_style);
+// 			gtk_rc_style_unref (rc_style);
+// 		}
+// 		else
+// 			gtk_widget_modify_bg (get("applet_"), GTK_STATE_NORMAL, &color);
+// 	}
 
 	g_mutex_unlock (update_mutex_);
 
@@ -362,7 +355,7 @@ gboolean
 AppletGnome::gnubiff_applet_factory (PanelApplet *applet, const gchar *iid,
 									 gpointer data)
 {
-	if (strcmp (iid, "OAFIID:GNOME_gnubiffApplet"))
+	if (strcmp (iid, "GnubiffApplet"))
 	  return true;
 
 	Biff *biff = new Biff (MODE_GNOME);

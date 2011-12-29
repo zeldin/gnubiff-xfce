@@ -35,14 +35,14 @@
 #endif
 #include <string>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 #include "support.h"
 
 
 class GUI : public Support {
 
 protected:
-	GladeXML *		xml_;		// interface description using XML/glade-2 file
+/// interface description using XML-GTKBuilder file
+	GtkBuilder      *gtkbuilder_;
 	std::string		filename_;	// name of the interface file
 
 public:

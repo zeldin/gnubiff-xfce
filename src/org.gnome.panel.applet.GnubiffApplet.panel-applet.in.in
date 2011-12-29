@@ -1,0 +1,10 @@
+[Applet Factory]
+Id=GnubiffApplet_Factory
+Name=Gnubiff Applet Factory
+Description=gnubiff Applet Factory
+
+[GnubiffApplet]
+_Name=gnubiff
+_Description=Mail notification program
+Icon=@PKGDATADIR@/gnubiff.png
+BonoboId=OAFIID:GNOME_gnubiffApplet_Factory

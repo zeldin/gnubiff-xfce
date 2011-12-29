@@ -110,24 +110,17 @@ AC_CHECK_LIB(ssl, AES_encrypt, AC_DEFINE_UNQUOTED(HAVE_AES, 1,
 	AC_CHECK_LIB(crypto, AES_encrypt, AC_DEFINE_UNQUOTED(HAVE_AES, 1))])
 
 dnl GLIB, GTK, ...
-GTK_REQUIRED="gtk+-2.0 >= 2.18"
-GDK_PIXBUF_REQUIRED="gdk-pixbuf-2.0 >= 2.4"
-GMODULE_REQUIRED="gmodule-2.0 >= 2.4"
-LIBGLADE_REQUIRED="libglade-2.0 >= 2.3"
-GTHREAD="gthread-2.0 >= 2.4"
+GTK_REQUIRED="gtk+-3.0 >= 3.0.0"
+GMODULE_REQUIRED="gmodule-export-2.0 >= 2.4"
 X11="xproto x11"
 PKG_CHECK_MODULES(GNUBIFF_DEP, 
 [
 	$GTK_REQUIRED
-	$GDK_PIXBUF_REQUIRED
 	$GMODULE_REQUIRED
-	$LIBGLADE_REQUIRED
-	$GTHREAD
 	$X11
 ])
 AC_SUBST(GNUBIFF_DEP_CFLAGS)
 AC_SUBST(GNUBIFF_DEP_LIBS)
-
 
 ######################################################################
 #                     Checks for header files                        #
@@ -178,7 +171,6 @@ AM_GNU_GETTEXT([external])
 if test "$OPT_USEGNOME" = "yes"; then
 	PKG_CHECK_MODULES(GNOME_DEP, [
 	    libpanelapplet-4.0
-    	libgnomeui-2.0
     	], [
 		AC_SUBST(GNOME_DEP_CFLAGS)
 		AC_SUBST(GNOME_DEP_LIBS)
@@ -283,20 +275,20 @@ fi
 echo " FAM support     : $OPT_USEFAM"
 
 echo " Gnome support   : $OPT_USEGNOME"
-if test "$OPT_USEGNOME" = "yes"; then
-  if test "$prefix" != "`pkg-config libpanelapplet-2.0 --variable=prefix`"; then
-    echo "  NOTE: The installation directory for gnubiff is currently set to"
-    echo "        \"$prefix\","
-    echo "        the default installation directory for gnome panel applications is"
-    echo "        \""`pkg-config libpanelapplet-2.0 --variable=prefix`"\"."
-    echo "        It may be necessary to add the path"
-    echo "        \"$prefix/lib/bonobo/servers/\""
-    echo "        to the file \"/etc/bonobo-activation/bonobo-activation-config.xml\""
-    echo "        (root privileges needed) or to execute"
-    echo "        \"activation-client --add-path=$prefix/lib/bonobo/servers/\""
-    echo "        (no root privileges needed) before gnubiff can be added to the panel."
-  fi
-fi
+#if test "$OPT_USEGNOME" = "yes"; then
+#  if test "$prefix" != "`$PKG_CONFIG --variable=libpanel_applet_dir libpanelapplet-4.0`"; then
+#    echo "  NOTE: The installation directory for gnubiff is currently set to"
+#    echo "        \"$prefix\","
+#    echo "        the default installation directory for gnome panel applications is"
+#    echo "        \""`pkg-config libpanelapplet-2.0 --variable=prefix`"\"."
+#    echo "        It may be necessary to add the path"
+#    echo "        \"$prefix/lib/bonobo/servers/\""
+#    echo "        to the file \"/etc/bonobo-activation/bonobo-activation-config.xml\""
+#    echo "        (root privileges needed) or to execute"
+#    echo "        \"activation-client --add-path=$prefix/lib/bonobo/servers/\""
+#    echo "        (no root privileges needed) before gnubiff can be added to the panel."
+#  fi
+#fi
 
 echo " Expert tab      : $expert"
 

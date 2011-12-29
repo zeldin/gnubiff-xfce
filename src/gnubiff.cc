@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2010 Nicolas Rougier, 2004-2010 Robert Sowada
+// Copyright (c) 2000-2011 Nicolas Rougier, 2004-2011 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -34,7 +34,6 @@
 #include <stdlib.h>
 
 #ifdef USE_GNOME
-#	include <gnome.h>
 #	include <panel-applet.h>
 #	include "ui-applet-gnome.h"
 #endif
@@ -64,14 +63,6 @@ int main (int argc, char **argv) {
 	g_thread_init (NULL);
 	gdk_threads_init ();
 
-#ifdef USE_GNOME
-	// Test for presence of "--oaf-ior-fd" option to determine if gnubiff is
-	// started in gnome panel mode
- 	for (gint i=0; i<argc; i++)
-		if (std::string(argv[i]).find("--oaf-ior-fd")==0)
-			return mainGNOME (argc, argv);
-#endif
-
 	//
 	// Parse Options
 	//
@@ -81,7 +72,7 @@ int main (int argc, char **argv) {
 	char		*config_file = 0;
 	int			no_configure = false, print_version = false, no_gui = false;
 	int			systemtray = false;
-#if defined DEBUG && defined USE_GNOME
+#if defined USE_GNOME
 	int			debug_applet=false;
 
 	static GOptionEntry options_debug[] =
@@ -110,7 +101,7 @@ int main (int argc, char **argv) {
 	GOptionContext *optcon = g_option_context_new ("");
 	g_option_context_add_main_entries (optcon, options_general,
 									   GETTEXT_PACKAGE);
-#if defined DEBUG && defined USE_GNOME
+#if defined USE_GNOME
 	GOptionGroup *optgrp_dbg;
 	optgrp_dbg = g_option_group_new ("debug", _("Options for debugging:"),
 									 _("Show debugging options"), NULL, NULL);
@@ -131,16 +122,16 @@ int main (int argc, char **argv) {
 	if (systemtray)
 		ui_mode = MODE_SYSTEMTRAY;
 
-#if defined DEBUG && defined USE_GNOME
-	if (debug_applet)
-		return mainGNOME (argc, argv);
-#endif
-	
 	// Initialization of Glib and (if needed) GTK
 	if (no_gui)
 		gmainloop = g_main_loop_new (NULL, true);
 	else
 		gtk_init (&argc, &argv);
+
+#if defined USE_GNOME
+	if (debug_applet)
+		return mainGNOME (argc, argv);
+#endif
 
 	// Print version information if requested and exit
 	if (print_version) {
@@ -181,15 +172,7 @@ int main (int argc, char **argv) {
 #ifdef USE_GNOME
 
 int mainGNOME (int argc, char **argv) {
-#if defined(PREFIX) && defined(SYSCONFDIR) && defined(DATADIR) && defined(LIBDIR)
-	gnome_program_init ("gnubiff", "0", LIBGNOMEUI_MODULE, argc, argv,
-						GNOME_PROGRAM_STANDARD_PROPERTIES, NULL);
-#else
-	gnome_program_init ("gnubiff", "0", LIBGNOMEUI_MODULE, argc, argv,
-						GNOME_PARAM_NONE);
-#endif
-
-	panel_applet_factory_main ("OAFIID:GNOME_gnubiffApplet_Factory",
+	panel_applet_factory_main ("GnubiffApplet_Factory",
 							   PANEL_TYPE_APPLET,
 							   AppletGnome::gnubiff_applet_factory, 0);
 

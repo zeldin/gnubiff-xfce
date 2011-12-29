@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2008 Nicolas Rougier, 2004-2008 Robert Sowada
+// Copyright (c) 2000-2011 Nicolas Rougier, 2004-2011 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -29,7 +29,6 @@
 
 #include "support.h"
 
-#include <glade/glade.h>
 #include <gmodule.h>
 #include <stdlib.h>
 #include "gtk_image_animation.h"
@@ -164,48 +163,33 @@ extern "C" {
 
 GUI::GUI (std::string filename)
 {
-	filename_ = filename;
-	xml_ = 0;
+	filename_   = filename;
+	gtkbuilder_ = NULL;
 }
 
 GUI::~GUI (void)
 {
-	if (xml_)
-		g_object_unref (G_OBJECT(xml_));
+	if (gtkbuilder_)
+		g_object_unref (G_OBJECT(gtkbuilder_));
+    gtkbuilder_ = NULL;
 }
 
 gint
 GUI::create (gpointer callbackdata)
 {
-	if (xml_)
+	if (gtkbuilder_)
 		return true;
 
-	xml_ = glade_xml_new (filename_.c_str(), NULL, NULL);
+	GError* error = NULL;
+	gtkbuilder_ = gtk_builder_new ();
+	if (!gtk_builder_add_from_file (gtkbuilder_, filename_.c_str(), &error))
+	{
+		g_warning (_("Couldn't load builder file \"%s\": %s"), filename_.c_str(), error->message);
+        g_error_free (error);
+        exit (EXIT_FAILURE);
+    }
 
-	if (!xml_) {
-		// Here we've got a problem: either interface file was not found or
-		// there's a real problem with construction.
-		gchar *basename = g_path_get_basename (filename_.c_str());
-		gchar *path = g_path_get_dirname (filename_.c_str());
-		GtkWidget *dialog =
-			gtk_message_dialog_new (NULL,
-									GTK_DIALOG_MODAL,
-									GTK_MESSAGE_ERROR,
-									GTK_BUTTONS_OK,
-									_("Cannot build the interface.\n\n" \
-									  "Name: %s\nPath: %s\n\n"\
-									  "Please make sure package has been installed correctly."),
-									basename, path);
-		gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-		gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-		gtk_dialog_run (GTK_DIALOG (dialog));
-		gtk_widget_destroy (dialog);
-		g_free (basename);
-		g_free (path);
-		exit (1);
-	}
-
-	glade_xml_signal_autoconnect_full (xml_, GUI_connect, callbackdata);
+    gtk_builder_connect_signals (gtkbuilder_, callbackdata);
 	create_insert_version ();
 	return true;
 }
@@ -231,7 +215,7 @@ GUI::create_insert_version (void)
 	while (widgets[i] != NULL) {
 		// Don't use GUI::get() because we don't want warning messages if
 		// the widget doesn't exist
-		GtkLabel *label = GTK_LABEL(glade_xml_get_widget (xml_, widgets[i++]));
+		GtkLabel *label = GTK_LABEL (gtk_builder_get_object (gtkbuilder_, widgets[i++]));
 		if (!label)
 			continue;
 		// Substitute
@@ -244,7 +228,7 @@ GUI::create_insert_version (void)
 
 	// About dialog
 	GtkAboutDialog *about;
-	about = GTK_ABOUT_DIALOG (glade_xml_get_widget (xml_, "gnubiffabout"));
+	about = GTK_ABOUT_DIALOG (gtk_builder_get_object (gtkbuilder_, "gnubiffabout"));
 	if (about) {
 		std::string newtext = substitute ("%v %c", chars, toinsert);
 		gtk_about_dialog_set_version (about, newtext.c_str ());
@@ -254,21 +238,22 @@ GUI::create_insert_version (void)
 void
 GUI::show (std::string name)
 {
-	if (xml_)
+	if (gtkbuilder_)
 		gtk_widget_show (get(name));
 }
 
 void
 GUI::hide (std::string name)
 {
-	if (xml_)
+	if (gtkbuilder_)
 		gtk_widget_hide (get (name));
 }
 
 GtkWidget *
 GUI::get (std::string name)
 {
-	GtkWidget *widget = glade_xml_get_widget (xml_, static_cast<const gchar *>(name.c_str() ));
+	GtkWidget *widget = GTK_WIDGET (gtk_builder_get_object (gtkbuilder_, static_cast<const gchar *>(name.c_str())));
+    
 	if (!widget)
 		g_warning (_("Cannot find the specified widget (\"%s\")"
 					 " within xml structure (\"%s\")"), name.c_str(),
@@ -364,7 +349,7 @@ GUI::on_destroy (GtkWidget *widget,
 	return true;
 }
 
-void
+/*void
 GUI_connect (const gchar *handler_name,
 			 GObject *object,
 			 const gchar *signal_name,
@@ -388,7 +373,7 @@ GUI_connect (const gchar *handler_name,
 		g_warning(_("Could not find signal handler '%s'."), handler_name);
 	else
 		g_signal_connect (object, signal_name, GTK_SIGNAL_FUNC(func), user_data);
-}
+}*/
 
 void
 GUI_update_preview (GtkWidget *widget,

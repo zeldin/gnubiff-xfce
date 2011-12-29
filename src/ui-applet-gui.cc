@@ -707,8 +707,7 @@ AppletGUI::tooltip_update (void)
 	std::string text = get_mailbox_status_text ();
 
 	// Put text in tooltip
-	GtkTooltipsData *data = gtk_tooltips_data_get (tooltip_widget_);
-	gtk_tooltips_set_tip (data->tooltips, tooltip_widget_, text.c_str(), "");
+    gtk_widget_set_tooltip_text (tooltip_widget_, text.c_str());
 }
 
 

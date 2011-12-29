@@ -8,7 +8,7 @@ INCLUDES = \
 	-DGNUBIFF_UIDIR=\""$(datadir)/gnome-2.0/ui"\"	\
 	-DREAL_DATADIR=\""$(datadir)"\"					\
 	-D_GNU_SOURCE									\
-	-Wall -ansi -pedantic
+	-Wall -ansi -pedantic -export-dynamic
 
 bin_PROGRAMS = gnubiff
 
@@ -77,41 +77,47 @@ gnubiff$(EXEEXT): $(gnubiff_OBJECTS) $(gnubiff_DEPENDENCIES)
 ## End of section to be commented in case of compilation problem
 
 
-
-gnubiff_SOURCES = $(common_sources)
-
-gnubiff_LDADD = $(INTLLIBS) $(GNUBIFF_DEP_LIBS) $(FAM_LIBS)
-
-serverdir       = $(libdir)/bonobo/servers
-server_in_files = 
-server_DATA     = 
-uidir			= $(datadir)/gnome-2.0/ui
-ui_DATA			= 
+gnubiff_SOURCES      = $(common_sources)
+gnubiff_LDADD        = $(INTLLIBS) $(GNUBIFF_DEP_LIBS) $(FAM_LIBS)
+panelappletdir       = `pkg-config --variable=libpanel_applet_dir libpanelapplet-4.0`
+panelapplet_in_files =
+panelapplet_DATA     =
+servicedir           = /usr/share/dbus-1/services
+service_in_files     = 
+service_DATA         =
+uidir			     = $(datadir)/gnome-2.0/ui
+ui_DATA              = 
 
 ##
 ## Additional files and directories for the gnome panel frontend
 ##
 if USE_GNOME
-gnubiff_SOURCES += $(gnome_sources)
-gnubiff_LDADD   += $(GNOME_DEP_LIBS)
-server_in_files += GNOME_gnubiffApplet.server.in
-server_DATA     += $(server_in_files:.server.in=.server)
-ui_DATA			+= GNOME_gnubiffApplet.xml
+gnubiff_SOURCES      += $(gnome_sources)
+gnubiff_LDADD        += $(GNOME_DEP_LIBS)
+panelapplet_in_files += org.gnome.panel.applet.GnubiffApplet.panel-applet.in
+panelapplet_DATA     += $(panelapplet_in_files:.panel-applet.in=.panel-applet)
+ui_DATA		         += GNOME_gnubiffApplet.xml
+service_in_files     += org.gnome.panel.applet.GnubiffApplet_Factory.service.in
+service_DATA         += $(service_in_files:.service.in=.service)
 endif
 
-# xxx.server.in.in -> xxx.server  (for the gnome panel)
-$(server_in_files): $(server_in_files:.server.in=.server.in.in)
-	sed -e "s|\@bindir\@|$(bindir)|" \
-	    -e "s|\@pkgdatadir\@|$(pkgdatadir)|" $< > $@
+$(panelapplet_in_files): $(panelapplet_in_files:.panel-applet.in=.panel-applet.in.in)
+	sed -e "s|\@BINDIR\@|$(bindir)|" \
+	    -e "s|\@PKGDATADIR\@|$(pkgdatadir)|" $< > $@
 
-@INTLTOOL_SERVER_RULE@
+# Following rule should be provided by intltool (INTLTOOL_PANEL_APPLET_RULE)
+%.panel-applet: %.panel-applet.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
+
+org.gnome.panel.applet.GnubiffApplet_Factory.service: $(service_in_files)
+	sed -e "s|\@BINDIR\@|$(bindir)|" $< > $@
 
 ##
 ## Files not yet (or not always) covered that must be included when creating
 ## a package for distribution
 ##
 EXTRA_DIST = \
-	GNOME_gnubiffApplet.server.in.in	\
+	org.gnome.panel.applet.GnubiffApplet_Factory.service.in \
+	org.gnome.panel.applet.GnubiffApplet.panel-applet.in.in	\
 	GNOME_gnubiffApplet.xml				\
 	gnubiff.schemas						\
 	$(gnome_sources)
@@ -120,5 +126,7 @@ EXTRA_DIST = \
 ## Created files to be deleted when executing "make distclean"
 ##
 DISTCLEANFILES = \
-	GNOME_gnubiffApplet.server			\
-	GNOME_gnubiffApplet.server.in
+	org.gnome.panel.applet.GnubiffApplet.panel-applet.in \
+	org.gnome.panel.applet.GnubiffApplet.panel-applet \
+	org.gnome.panel.applet.GnubiffApplet_Factory.service
+

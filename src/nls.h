@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+// Copyright (c) 2000-2011 Nicolas Rougier, 2004-2011 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -35,12 +35,8 @@
 #endif
 
 #ifdef ENABLE_NLS
-#  include<libintl.h>
-#  ifndef USE_GNOME
-#    define _(String) dgettext(GETTEXT_PACKAGE,String)
-#  else
-#    include <gnome.h>
-#  endif
+#  include <libintl.h>
+#  define _(String) dgettext(GETTEXT_PACKAGE,String)
 #  ifdef gettext_noop
 #    define N_(String) gettext_noop(String)
 #  else

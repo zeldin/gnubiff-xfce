@@ -35,7 +35,7 @@
 #include "socket.h"
 
 
-Certificate::Certificate (void) : GUI (GNUBIFF_DATADIR"/certificate.glade")
+Certificate::Certificate (void) : GUI (GNUBIFF_DATADIR"/certificate.ui")
 {
 #ifdef HAVE_LIBSSL
 	socket_ = 0;
@@ -51,8 +51,10 @@ Certificate::~Certificate (void)
 		hide ();
 		gtk_widget_destroy (widget);
 	}
-	if (GTK_IS_OBJECT (xml_))
-		g_object_unref (xml_);
+
+	if (gtkbuilder_)
+		g_object_unref (G_OBJECT(gtkbuilder_));
+    gtkbuilder_ = NULL;
 }
 
 void
@@ -67,7 +69,7 @@ Certificate::select (Socket *socket)
 void
 Certificate::show (std::string name)
 {
-	if (!xml_)
+	if (!gtkbuilder_)
 		create(this);
 
 	gchar *text1 = g_strdup_printf (_("Unable to verify the identity of %s as a trusted site.\n"), socket_->hostname().c_str());

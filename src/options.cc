@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+// Copyright (c) 2000-2011 Nicolas Rougier, 2004-2011 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -578,13 +578,13 @@ Options::from_strings (guint groups, std::map<std::string,std::string> &map)
 /**
  *  Update GUI widgets for a group of options.
  *
- *  @param  whattodo Actions to be done
- *  @param  groups   Groups from which all options are taken
- *  @param  xml      GladeXML information of the GUI
- *  @param  filename Filename of the glade file for the GUI
+ *  @param  whattodo   Actions to be done
+ *  @param  groups     Groups from which all options are taken
+ *  @param  gtkbuilder GTKBuilder information of the GUI
+ *  @param  filename   Filename of the glade file for the GUI
  */
 void 
-Options::update_gui (OptionsGUI whattodo, guint groups, GladeXML *xml,
+Options::update_gui (OptionsGUI whattodo, guint groups, GtkBuilder *gtkbuilder,
 					 const std::string filename)
 {
 	iterator opt = options_.begin ();
@@ -593,7 +593,7 @@ Options::update_gui (OptionsGUI whattodo, guint groups, GladeXML *xml,
 		opt++;
 		if (!option || !(groups & option->group ()))
 			continue;
-		update_gui (whattodo, option, xml, filename);
+		update_gui (whattodo, option, gtkbuilder, filename);
 	}
 }
 
@@ -610,13 +610,13 @@ Options::update_gui (OptionsGUI whattodo, guint groups, GladeXML *xml,
  *  OPTSGUI_UPDATE is short for OPTSGUI_SET, OPTSGUI_SENSITIVE and
  *  OPTSGUI_SHOW.
  *
- *  @param  whattodo Actions to be done
- *  @param  option   Option for which the update is done
- *  @param  xml      GladeXML information of the GUI
- *  @param  filename Filename of the glade file for the GUI
+ *  @param  whattodo   Actions to be done
+ *  @param  option     Option for which the update is done
+ *  @param  gtkbuilder GTKBuilder information of the GUI
+ *  @param  filename   Filename of the glade file for the GUI
  */
 void 
-Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
+Options::update_gui (OptionsGUI whattodo, Option *option, GtkBuilder *gtkbuilder,
 					 const std::string filename)
 {
 	if (!option)
@@ -628,7 +628,7 @@ Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 	std::string gui_name;
 	std::vector<GtkWidget *> widgets;
 	while (ss >> gui_name)
-		widgets.push_back (get_widget (gui_name.c_str(), xml, file));
+		widgets.push_back (get_widget (gui_name.c_str(), gtkbuilder, file));
 	if (!widgets.size())
 		return;
 
@@ -642,8 +642,8 @@ Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 		option->set_gui (widgets);
 
 	if ((whattodo & OPTSGUI_SENSITIVE) && (whattodo & OPTSGUI_SHOW)) {
-		update_gui (OPTSGUI_SENSITIVE, option, xml, filename);
-		update_gui (OPTSGUI_SHOW, option, xml, filename);
+		update_gui (OPTSGUI_SENSITIVE, option, gtkbuilder, filename);
+		update_gui (OPTSGUI_SHOW, option, gtkbuilder, filename);
 		whattodo=(OptionsGUI) (whattodo & ~(OPTSGUI_SENSITIVE | OPTSGUI_SHOW));
 	}
 
@@ -671,7 +671,7 @@ Options::update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
 					wid_ok = !ok;
 					name = name.substr (1);
 				}
-				GtkWidget *other = get_widget (name.c_str(), xml, file);
+				GtkWidget *other = get_widget (name.c_str(), gtkbuilder, file);
 				it++;
 				if (!other)
 					continue;
@@ -711,11 +711,11 @@ Options::group_name (guint group)
 }
 
 GtkWidget * 
-Options::get_widget (const gchar *name, GladeXML *xml, const gchar *filename)
+Options::get_widget (const gchar *name, GtkBuilder *gtkbuilder, const gchar *filename)
 {
 	if ((!name) || (!*name))
 		return NULL;
-	GtkWidget *widget = glade_xml_get_widget (xml, name);
+	GtkWidget *widget = GTK_WIDGET (gtk_builder_get_object (gtkbuilder, name));
 	if (!widget)
 		g_warning (_("Cannot find the specified widget (\"%s\")"
 					 " within xml structure (\"%s\")"), name, filename);

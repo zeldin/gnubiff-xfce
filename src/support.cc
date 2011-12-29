@@ -341,8 +341,9 @@ Support::unknown_internal_error_ (const gchar *file, guint line,
 	ss <<                     "." << glib_micro_version << " (dyn),  ";
 	ss <<                     GLIB_MAJOR_VERSION << "." << GLIB_MINOR_VERSION;
 	ss <<                     "." << GLIB_MICRO_VERSION << " (stat)\n";
-	ss << "gtk         : " << gtk_major_version << "." << gtk_minor_version;
-	ss <<                     "." << gtk_micro_version << " (dyn),  ";
+	ss << "gtk         : " << gtk_get_major_version () << ".";
+    ss <<                     gtk_get_minor_version () << ".";
+    ss <<                     gtk_get_micro_version () << " (dyn),  ";
 	ss <<                     GTK_MAJOR_VERSION << "." << GTK_MINOR_VERSION;
 	ss <<                     "." << GTK_MICRO_VERSION << " (stat)\n";
 

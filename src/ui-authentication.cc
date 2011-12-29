@@ -1,6 +1,6 @@
 // ========================================================================
 // gnubiff -- a mail notification program
-// Copyright (c) 2000-2007 Nicolas Rougier, 2004-2007 Robert Sowada
+// Copyright (c) 2000-2011 Nicolas Rougier, 2004-2011 Robert Sowada
 //
 // This program is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -35,7 +35,7 @@
 #include "mailbox.h"
 
 
-Authentication::Authentication (void) : GUI (GNUBIFF_DATADIR"/authentication.glade")
+Authentication::Authentication (void) : GUI (GNUBIFF_DATADIR"/authentication.ui")
 {
 	mailbox_ = 0;
 	access_mutex_ = g_mutex_new ();
@@ -48,8 +48,10 @@ Authentication::~Authentication (void)
 		hide ();
 		gtk_widget_destroy (widget);
 	}
-	if (GTK_IS_OBJECT (xml_))
-		g_object_unref (xml_);
+
+	if (gtkbuilder_)
+		g_object_unref (G_OBJECT(gtkbuilder_));
+    gtkbuilder_ = NULL;
 }
 
 void
@@ -65,7 +67,7 @@ Authentication::select (Mailbox *mailbox)
 void
 Authentication::show (std::string name)
 {
-	if (!xml_)
+	if (!gtkbuilder_)
 		create(this);
 
 	// Try to identify mailbox by:

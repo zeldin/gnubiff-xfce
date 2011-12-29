@@ -89,6 +89,7 @@ Version 2.3.0
         several times (including #2079358 by Ryan Hayle and Bilal Hawa)
    - Added Bilal Hawa to contributors
    - Migrated deprecated GtkOptionMenu to GtkComboBoxText
+   - Migrated to GTK3 and Gnome3
 
 Version 2.2.14
  * Robert Sowada

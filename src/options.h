@@ -33,7 +33,6 @@
 #ifdef HAVE_CONFIG_H
 #   include <config.h>
 #endif
-#include <glade/glade.h>
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <map>
@@ -93,10 +92,10 @@ public:
 	gboolean from_strings (guint groups,
 						   std::map<std::string,std::string> &map);
 
-	void update_gui (GladeXML *xml, const std::string filename);
-	void update_gui (OptionsGUI whattodo, guint groups, GladeXML *xml,
+	void update_gui (GtkBuilder *gtkbuilder, const std::string filename);
+	void update_gui (OptionsGUI whattodo, guint groups, GtkBuilder *gtkbuilder,
 					 const std::string filename);
-	void update_gui (OptionsGUI whattodo, Option *option, GladeXML *xml,
+	void update_gui (OptionsGUI whattodo, Option *option, GtkBuilder *gtkbuilder,
 					 const std::string filename);
 
 	std::string group_help (guint group);
@@ -117,7 +116,7 @@ protected:
 	/// Stored groups
 	std::map<guint, Option_Group *> groups_;
 
-	GtkWidget *get_widget (const gchar *name, GladeXML *xml,
+	GtkWidget *get_widget (const gchar *name, GtkBuilder *gtkbuilder,
 						   const gchar *filename);
 	void store_widgets (const std::string name,const std::set<std::string> &gs,
 						std::map<std::string, std::set<std::string> > &map);

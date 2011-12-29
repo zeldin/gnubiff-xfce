@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.gnome.panel.applet.GnubiffApplet_Factory
+Exec=@BINDIR@/gnubiff --applet

@@ -30,7 +30,6 @@
 #ifndef __APPLET_GNOME_H__
 #define __APPLET_GNOME_H__
 
-#include <gnome.h>
 #include <panel-applet.h>
 #include <panel-applet-gconf.h>
 #include "ui-applet-gui.h"

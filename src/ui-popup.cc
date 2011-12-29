@@ -134,7 +134,7 @@ extern "C" {
 //  base
 // ========================================================================
 
-Popup::Popup (Biff *biff) : GUI (GNUBIFF_DATADIR"/popup.glade")
+Popup::Popup (Biff *biff) : GUI (GNUBIFF_DATADIR"/popup.ui")
 {
 	biff_ = biff;
 	poptag_ = 0;

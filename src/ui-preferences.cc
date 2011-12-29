@@ -127,7 +127,7 @@ extern "C" {
 	}
 
 	void PREFERENCES_on_Notebook_switch_page (GtkNotebook *widget,
-											  GtkNotebookPage *page,
+											  GtkWidget *page,
 											  gint page_num, gpointer data)
 	{
 		if (data) {
@@ -224,7 +224,7 @@ extern "C" {
 	}
 }
 
-Preferences::Preferences (Biff *biff) : GUI (GNUBIFF_DATADIR"/preferences.glade")
+Preferences::Preferences (Biff *biff) : GUI (GNUBIFF_DATADIR"/preferences.ui")
 {
 	biff_ = biff;
 	properties_ = new Properties (this);
@@ -296,11 +296,8 @@ Preferences::create (gpointer callbackdata)
 	gtk_tree_view_column_set_resizable(column, FALSE);
 	gtk_tree_view_column_set_sort_column_id(column, COLUMN_STATUS_STOCK_ID);
 	gtk_tree_view_append_column (view, column);
-	GtkTooltips *tooltips = gtk_tooltips_new ();
-	gtk_tooltips_set_tip (tooltips,
-                          (GtkWidget *)(gdk_window_get_parent (gdk_window_get_parent (gtk_widget_get_parent_window (image)))),
-                          _("Status"), "");
-	gtk_tooltips_enable (tooltips);
+    gtk_widget_set_tooltip_text ((GtkWidget *)(gdk_window_get_parent (gdk_window_get_parent (gtk_widget_get_parent_window (image)))),
+                                 _("Status"));
 
 	column = gtk_tree_view_column_new_with_attributes ("",
 													   gtk_cell_renderer_pixbuf_new (),
@@ -313,12 +310,9 @@ Preferences::create (gpointer callbackdata)
 	gtk_tree_view_column_set_sort_column_id (column, COLUMN_SECURITY_STOCK_ID);
 	gtk_tree_view_append_column (view, column);
 
-	tooltips = gtk_tooltips_new ();
-	gtk_tooltips_set_tip (tooltips,
-                          (GtkWidget *)(gdk_window_get_parent (gdk_window_get_parent (gtk_widget_get_parent_window (image)))),
-                          _("Security"), "");
-	gtk_tooltips_enable (tooltips);
 
+    gtk_widget_set_tooltip_text ((GtkWidget *)(gdk_window_get_parent (gdk_window_get_parent (gtk_widget_get_parent_window (image)))),
+                                 _("Security"));
 
 	gtk_tree_view_set_search_column (view, COLUMN_MAILBOX);
   
@@ -407,8 +401,8 @@ Preferences::expert_create (void)
 void 
 Preferences::show (std::string name)
 {
-	// Is glade file okay?
-	if (!xml_)
+	// Is GTKBuilder file okay?
+	if (!gtkbuilder_)
 		return;
 
 	// Update all widgets and texts in the dialog
@@ -425,8 +419,8 @@ Preferences::show (std::string name)
 void 
 Preferences::hide (std::string name)
 {
-	// Is the glade file okay?
-	if (!xml_)
+	// Is GTKBuilder file okay?
+	if (!gtkbuilder_)
 		return;
 
 	// Hide the properties dialog
@@ -507,7 +501,7 @@ Preferences::synchronize (void)
 	}
 
 	// Insert the values of the options into the GUI widgets
-	biff_->update_gui (OPTSGUI_UPDATE, OPTGRP_ALL, xml_, filename_);
+	biff_->update_gui (OPTSGUI_UPDATE, OPTGRP_ALL, gtkbuilder_, filename_);
 
 	// Expert dialog
 	if (biff_->value_bool ("expert_show_tab"))
@@ -530,7 +524,7 @@ void
 Preferences::apply (void)
 {
 	// Retrieve all values of the options from the GUI elements
-	biff_->update_gui (OPTSGUI_GET, OPTGRP_ALL, xml_, filename_);
+	biff_->update_gui (OPTSGUI_GET, OPTGRP_ALL, gtkbuilder_, filename_);
 }
 
 void
@@ -699,14 +693,14 @@ Preferences::on_check_changed (GtkWidget *widget)
 	// Need to update "expert_edit_options" option immediately
 	if (std::string(gtk_widget_get_name(widget))=="expert_edit_options_check"){
 		biff_->update_gui (OPTSGUI_GET,
-						   biff_->find_option ("expert_edit_options"), xml_,
+						   biff_->find_option ("expert_edit_options"), gtkbuilder_,
 						   filename_);
 		synchronize ();
 	}
 	// Disable and enable certain GUI elements depending on values of some
 	// options
 	biff_->update_gui (OptionsGUI (OPTSGUI_SENSITIVE | OPTSGUI_SHOW),
-					   OPTGRP_ALL, xml_, filename_);
+					   OPTGRP_ALL, gtkbuilder_, filename_);
 }
 
 /**

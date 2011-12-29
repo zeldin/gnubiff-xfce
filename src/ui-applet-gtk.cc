@@ -119,7 +119,7 @@ extern "C" {
  *  @param  biff  Pointer to gnubiff's biff
  */
 AppletGtk::AppletGtk (Biff *biff)
-		  : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade", this)
+		  : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.ui", this)
 {
 	tooltip_widget_ = GTK_WIDGET (get ("dialog"));
 }
@@ -131,7 +131,7 @@ AppletGtk::AppletGtk (Biff *biff)
  *  @param  applet Pointer to the applet itself
  */
 AppletGtk::AppletGtk (class Biff *biff, class Applet *applet)
-		  : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.glade", applet)
+		  : AppletGUI (biff, GNUBIFF_DATADIR"/applet-gtk.ui", applet)
 {
 }
 
