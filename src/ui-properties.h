@@ -48,11 +48,8 @@ class Properties : public GUI {
 protected:
 	class Preferences *	preferences_;
 	class Mailbox	*	mailbox_;
-    GtkComboBox         *type_cbox_;
-	GtkUIManager *		type_manager_;
-	GtkWidget *			type_menu_;
-	GtkUIManager *		auth_manager_;
-	GtkWidget *			auth_menu_;
+    GtkComboBoxText     *auth_cbox_;
+    GtkComboBoxText     *type_cbox_;
 	GtkSizeGroup *		group_;
 
 	gint				selected_type_;
@@ -96,7 +93,7 @@ public:
 	void on_port					(GtkWidget *widget);
 	void on_mailbox					(GtkWidget *widget);
 	void on_type_changed			(void);
-	void on_auth_changed			(GtkAction *action);
+	void on_auth_changed			(void);
 	void on_browse_address			(GtkWidget *widget);
 	void on_browse_certificate		(GtkWidget *widget);
 	void on_ok						(GtkWidget *widget);

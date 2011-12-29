@@ -61,16 +61,16 @@ extern "C" {
 		PROPERTIES(data)->on_mailbox (widget);
 	}
 
-	void PROPERTIES_on_type_changed (GtkComboBox *cbox,
+	void PROPERTIES_on_type_changed (GtkComboBoxText *cbox,
 									 gpointer   data)
 	{
 		PROPERTIES(data)->on_type_changed ();
 	}
 
-	void PROPERTIES_on_auth_changed (GtkAction *action,
+	void PROPERTIES_on_auth_changed (GtkComboBoxText *cbox,
 									 gpointer   data)
 	{
-		PROPERTIES(data)->on_auth_changed (action);
+		PROPERTIES(data)->on_auth_changed ();
 	}
 
 	void PROPERTIES_on_browse_address (GtkWidget *widget,
@@ -119,11 +119,11 @@ Properties::create (gpointer callbackdata)
 	gtk_size_group_add_widget (group_, get ("mailbox"));
 
     // Type menu
-    type_cbox_ = GTK_COMBO_BOX (gtk_combo_box_new_text ());
-    gtk_combo_box_append_text (type_cbox_, _("Autodetect"));
-    gtk_combo_box_append_text (type_cbox_, _("File or Folder"));
-    gtk_combo_box_append_text (type_cbox_, "Pop");
-    gtk_combo_box_append_text (type_cbox_, "Imap");
+    type_cbox_ = GTK_COMBO_BOX_TEXT (gtk_combo_box_text_new ());
+    gtk_combo_box_text_append_text (type_cbox_, _("Autodetect"));
+    gtk_combo_box_text_append_text (type_cbox_, _("File or Folder"));
+    gtk_combo_box_text_append_text (type_cbox_, "Pop");
+    gtk_combo_box_text_append_text (type_cbox_, "Imap");
 	gtk_container_add (GTK_CONTAINER (get("type_container")),
                        GTK_WIDGET (type_cbox_));
 	gtk_widget_show (GTK_WIDGET (type_cbox_));
@@ -131,40 +131,18 @@ Properties::create (gpointer callbackdata)
                       G_CALLBACK (PROPERTIES_on_type_changed), this);
 
 	// Authentication menu
-	GtkActionEntry auth_entries[] = {
-		{ "Autodetect",		GTK_STOCK_DIALOG_QUESTION, _("Autodetect"),
-		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)},
-		{ "UserPass",		GTK_STOCK_DIALOG_WARNING, _("User/Pass"),
-		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)},
-		{ "Apop",			GTK_STOCK_DIALOG_AUTHENTICATION, _("Encrypted User/Pass (apop)"),
-		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)},
-		{ "SSL",			GTK_STOCK_DIALOG_AUTHENTICATION, "SSL",
-		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)},
-		{ "Certificate",	GTK_STOCK_DIALOG_AUTHENTICATION, _("SSL with certificate"),
-		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)},
-		{ "TLS",			GTK_STOCK_DIALOG_AUTHENTICATION, "TLS",
-		  0, 0, G_CALLBACK(PROPERTIES_on_auth_changed)}
-	};
-	static const char *auth_ui_description =
-		"<ui>"
-		"  <popup name='Auth'>"
-		"    <menuitem action='Autodetect'/>"
-		"    <menuitem action='UserPass'/>"
-		"    <menuitem action='Apop'/>"
-		"    <menuitem action='SSL'/>"
-		"    <menuitem action='Certificate'/>"
-		"    <menuitem action='TLS'/>"
-		"  </popup>"
-		"</ui>";
-	GtkActionGroup *action_group = gtk_action_group_new ("actions");
-	gtk_action_group_add_actions (action_group, auth_entries, G_N_ELEMENTS (auth_entries), this);
-	auth_manager_ = gtk_ui_manager_new ();
-	gtk_ui_manager_insert_action_group (auth_manager_, action_group, 0);
-	gtk_ui_manager_add_ui_from_string (auth_manager_, auth_ui_description, -1, 0);
-	auth_menu_ = gtk_option_menu_new ();
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (auth_menu_), gtk_ui_manager_get_widget (auth_manager_, "/Auth"));
-	gtk_container_add (GTK_CONTAINER(get("auth_container")), auth_menu_);
-	gtk_widget_show (auth_menu_);
+    auth_cbox_ = GTK_COMBO_BOX_TEXT (gtk_combo_box_text_new ());
+    gtk_combo_box_text_append_text (auth_cbox_, _("Autodetect"));
+    gtk_combo_box_text_append_text (auth_cbox_, _("User/Pass"));
+    gtk_combo_box_text_append_text (auth_cbox_, _("Encrypted User/Pass (apop)"));
+    gtk_combo_box_text_append_text (auth_cbox_, "SSL");
+    gtk_combo_box_text_append_text (auth_cbox_, _("SSL with certificate"));
+    gtk_combo_box_text_append_text (auth_cbox_, "TLS");
+	gtk_container_add (GTK_CONTAINER (get("auth_container")),
+                       GTK_WIDGET (auth_cbox_));
+	gtk_widget_show (GTK_WIDGET (auth_cbox_));
+    g_signal_connect (G_OBJECT (auth_cbox_), "changed",
+                      G_CALLBACK (PROPERTIES_on_auth_changed), this);
 
 	return result;
 }
@@ -227,7 +205,7 @@ Properties::on_mailbox (GtkWidget *widget)
 void 
 Properties::on_type_changed (void)
 {
-	selected_type_ = gtk_combo_box_get_active (type_cbox_);
+    selected_type_ = gtk_combo_box_get_active (GTK_COMBO_BOX (type_cbox_));
 
     switch (selected_type_) {
     case TYPE_AUTODETECT:
@@ -263,39 +241,25 @@ Properties::on_type_changed (void)
     }
 }
 
-void
-Properties::on_auth_changed (GtkAction *action)
+void 
+Properties::on_auth_changed (void)
 {
-	std::string auth = gtk_action_get_name (action);
+    selected_auth_ = gtk_combo_box_get_active (GTK_COMBO_BOX (auth_cbox_));
 
-	if (auth == "Autodetect") {
-		selected_auth_ = AUTH_AUTODETECT;
-		certificate_view (false);
-	}
-	else if (auth == "UserPass") {
-		selected_auth_ = AUTH_USER_PASS;
-		certificate_view (false);
-	}
-	else if (auth == "Apop") {
-		selected_auth_ = AUTH_APOP;
-		certificate_view (false);
-	}
-	else if (auth == "SSL") {
-		selected_auth_ = AUTH_SSL;
-		certificate_view (false);
-	}
-	else if (auth == "Certificate") {
-		selected_auth_ = AUTH_CERTIFICATE;
-		certificate_view (true);
-	}
-	else if (auth == "TLS") {
-		selected_auth_ = AUTH_TLS;
-		certificate_view (true);
-	}
-	else {
-		selected_auth_ = AUTH_AUTODETECT;
-		certificate_view (false);
-	}
+    switch (selected_auth_) {
+    case AUTH_CERTIFICATE:
+    case AUTH_TLS:
+        certificate_view (true);
+        break;
+    case AUTH_APOP:
+    case AUTH_AUTODETECT:
+    case AUTH_SSL:
+    case AUTH_USER_PASS:
+    default:
+        certificate_view (false);
+        break;
+    }
+
 	// Maybe the standard port has changed: Update the displayed connection
 	// details
 	connection_view (true);
@@ -491,7 +455,7 @@ Properties::type_view (void)
 
 	connection_view (true);
 
-    gtk_combo_box_set_active (type_cbox_ ,selected_type_);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (type_cbox_) ,selected_type_);
 }
 
 void
@@ -571,22 +535,22 @@ Properties::auth_view (gboolean visible)
 		return;
 	}
 
-#ifdef HAVE_CRYPTO
-	if (selected_type_ == TYPE_POP)
-		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/Apop"), true);
-	else
-		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/Apop"), false);
-#else
-		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/Apop"), false);
-#endif
+// #ifdef HAVE_CRYPTO
+// 	if (selected_type_ == TYPE_POP)
+// 		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/Apop"), true);
+// 	else
+// 		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/Apop"), false);
+// #else
+// 		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/Apop"), false);
+// #endif
 
-#ifdef HAVE_LIBSSL
-		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/SSL"), true);
-		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/Certificate"), true);
-#else
-		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/SSL"), false);
-		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/Certificate"), false);
-#endif
+// #ifdef HAVE_LIBSSL
+// 		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/SSL"), true);
+// 		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/Certificate"), true);
+// #else
+// 		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/SSL"), false);
+// 		gtk_widget_set_sensitive (gtk_ui_manager_get_widget (auth_manager_, "/Auth/Certificate"), false);
+// #endif
 
 	
 	// Get authentication method
@@ -624,7 +588,7 @@ Properties::auth_view (gboolean visible)
 #endif
 	}
 
-	gtk_option_menu_set_history (GTK_OPTION_MENU (auth_menu_), auth);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (auth_cbox_) ,selected_auth_);
 	certificate_view (auth == AUTH_CERTIFICATE || auth == AUTH_TLS);
 	selected_auth_ = auth;
 }
