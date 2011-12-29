@@ -61,10 +61,10 @@ extern "C" {
 		PROPERTIES(data)->on_mailbox (widget);
 	}
 
-	void PROPERTIES_on_type_changed (GtkAction *action,
+	void PROPERTIES_on_type_changed (GtkComboBox *cbox,
 									 gpointer   data)
 	{
-		PROPERTIES(data)->on_type_changed (action);
+		PROPERTIES(data)->on_type_changed ();
 	}
 
 	void PROPERTIES_on_auth_changed (GtkAction *action,
@@ -118,32 +118,17 @@ Properties::create (gpointer callbackdata)
 	gtk_size_group_add_widget (group_, get ("delay"));
 	gtk_size_group_add_widget (group_, get ("mailbox"));
 
-	// Type menu
-	GtkActionEntry type_entries[] = {
-		{ "Autodetect", GTK_STOCK_DIALOG_QUESTION, _("Autodetect"),     0, "Autodetect type",   G_CALLBACK(PROPERTIES_on_type_changed)},
-		{ "File",       GTK_STOCK_HOME,            _("File or Folder"), 0, "File, Mh, Maildir", G_CALLBACK(PROPERTIES_on_type_changed)},
-		{ "Pop",        GTK_STOCK_NETWORK,         "Pop",               0, "Pop3 or Apop",      G_CALLBACK(PROPERTIES_on_type_changed)},
-		{ "Imap",       GTK_STOCK_NETWORK,         "Imap",              0, "Imap4",             G_CALLBACK(PROPERTIES_on_type_changed)}
-	};
-	static const char *type_ui_description =
-		"<ui>"
-		"  <popup name='Type'>"
-		"    <menuitem action='Autodetect'/>"
-		"    <menuitem action='File'/>"
-		"    <menuitem action='Pop'/>"
-		"    <menuitem action='Imap'/>"
-		"  </popup>"
-		"</ui>";
-	GtkActionGroup *action_group = gtk_action_group_new ("actions");
-	gtk_action_group_add_actions (action_group, type_entries, G_N_ELEMENTS (type_entries), this);
-	type_manager_ = gtk_ui_manager_new ();
-	gtk_ui_manager_insert_action_group (type_manager_, action_group, 0);
-	gtk_ui_manager_add_ui_from_string (type_manager_, type_ui_description, -1, 0);
-	type_menu_ = gtk_option_menu_new ();
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (type_menu_), gtk_ui_manager_get_widget (type_manager_, "/Type"));
-	gtk_container_add (GTK_CONTAINER(get("type_container")), type_menu_);
-	gtk_widget_show (type_menu_);
-
+    // Type menu
+    type_cbox_ = GTK_COMBO_BOX (gtk_combo_box_new_text ());
+    gtk_combo_box_append_text (type_cbox_, _("Autodetect"));
+    gtk_combo_box_append_text (type_cbox_, _("File or Folder"));
+    gtk_combo_box_append_text (type_cbox_, "Pop");
+    gtk_combo_box_append_text (type_cbox_, "Imap");
+	gtk_container_add (GTK_CONTAINER (get("type_container")),
+                       GTK_WIDGET (type_cbox_));
+	gtk_widget_show (GTK_WIDGET (type_cbox_));
+    g_signal_connect (G_OBJECT (type_cbox_), "changed",
+                      G_CALLBACK (PROPERTIES_on_type_changed), this);
 
 	// Authentication menu
 	GtkActionEntry auth_entries[] = {
@@ -171,7 +156,7 @@ Properties::create (gpointer callbackdata)
 		"    <menuitem action='TLS'/>"
 		"  </popup>"
 		"</ui>";
-	action_group = gtk_action_group_new ("actions");
+	GtkActionGroup *action_group = gtk_action_group_new ("actions");
 	gtk_action_group_add_actions (action_group, auth_entries, G_N_ELEMENTS (auth_entries), this);
 	auth_manager_ = gtk_ui_manager_new ();
 	gtk_ui_manager_insert_action_group (auth_manager_, action_group, 0);
@@ -239,45 +224,43 @@ Properties::on_mailbox (GtkWidget *widget)
 		gtk_widget_set_sensitive (get("mailbox_entry"), true);
 }
 
-void
-Properties::on_type_changed (GtkAction *action)
+void 
+Properties::on_type_changed (void)
 {
-	std::string type = gtk_action_get_name (action);
+	selected_type_ = gtk_combo_box_get_active (type_cbox_);
 
-	if (type == "Autodetect") {
-		gtk_widget_set_sensitive (get("browse_address"), true);
-		selected_type_ = TYPE_AUTODETECT;
-		identity_view (false);
-		details_view (false);
-	}
-	else if (type == "File") {
-		gtk_widget_set_sensitive (get("browse_address"), true);
-		selected_type_ = TYPE_LOCAL;
-		identity_view (false);
-		details_view (false);
-	}
-	else if (type == "Pop") {
-		gtk_widget_set_sensitive (get("browse_address"), false);
-		selected_type_ = TYPE_POP;
-		identity_view (true);
-		details_view (true);
-		auth_view (true);
-		connection_view (true);
-		certificate_view (false);
-		mailbox_view (false);
-		delay_view (true);
-	}
-	else if (type == "Imap") {
-		gtk_widget_set_sensitive (get("browse_address"), false);
-		selected_type_ = TYPE_IMAP;
-		identity_view (true);
-		details_view (true);
-		auth_view (true);
-		connection_view (true);
-		certificate_view (false);
-		mailbox_view (true);
-		delay_view (true);
-	}
+    switch (selected_type_) {
+    case TYPE_AUTODETECT:
+ 		gtk_widget_set_sensitive (get ("browse_address"), true);
+ 		identity_view (false);
+ 		details_view (false);
+        break;
+    case TYPE_LOCAL:
+ 		gtk_widget_set_sensitive (get("browse_address"), true);
+ 		identity_view (false);
+ 		details_view (false);
+        break;
+    case TYPE_POP:
+ 		gtk_widget_set_sensitive (get("browse_address"), false);
+ 		identity_view (true);
+ 		details_view (true);
+ 		auth_view (true);
+ 		connection_view (true);
+ 		certificate_view (false);
+ 		mailbox_view (false);
+ 		delay_view (true);
+        break;
+    case TYPE_IMAP:
+ 		gtk_widget_set_sensitive (get("browse_address"), false);
+ 		identity_view (true);
+ 		details_view (true);
+ 		auth_view (true);
+ 		connection_view (true);
+ 		certificate_view (false);
+ 		mailbox_view (true);
+ 		delay_view (true);
+        break;
+    }
 }
 
 void
@@ -508,7 +491,7 @@ Properties::type_view (void)
 
 	connection_view (true);
 
-	gtk_option_menu_set_history (GTK_OPTION_MENU (type_menu_), selected_type_);
+    gtk_combo_box_set_active (type_cbox_ ,selected_type_);
 }
 
 void

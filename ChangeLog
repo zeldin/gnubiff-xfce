@@ -88,6 +88,7 @@ Version 2.3.0
    - Bugfix: Race Condition when resetting polling timer (bug was reported
         several times (including #2079358 by Ryan Hayle and Bilal Hawa)
    - Added Bilal Hawa to contributors
+   - Migrated deprecated GtkOptionMenu to GtkComboBox
 
 Version 2.2.14
  * Robert Sowada
