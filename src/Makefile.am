@@ -79,14 +79,6 @@ gnubiff$(EXEEXT): $(gnubiff_OBJECTS) $(gnubiff_DEPENDENCIES)
 
 gnubiff_SOURCES      = $(common_sources)
 gnubiff_LDADD        = $(INTLLIBS) $(GNUBIFF_DEP_LIBS) $(FAM_LIBS)
-panelappletdir       = `pkg-config --variable=libpanel_applet_dir libpanelapplet-4.0`
-panelapplet_in_files =
-panelapplet_DATA     =
-servicedir           = /usr/share/dbus-1/services
-service_in_files     = 
-service_DATA         =
-uidir			     = $(datadir)/gnome-2.0/ui
-ui_DATA              = 
 
 ##
 ## Additional files and directories for the gnome panel frontend
@@ -94,11 +86,14 @@ ui_DATA              =
 if USE_GNOME
 gnubiff_SOURCES      += $(gnome_sources)
 gnubiff_LDADD        += $(GNOME_DEP_LIBS)
-panelapplet_in_files += org.gnome.panel.applet.GnubiffApplet.panel-applet.in
-panelapplet_DATA     += $(panelapplet_in_files:.panel-applet.in=.panel-applet)
-ui_DATA		         += GNOME_gnubiffApplet.xml
-service_in_files     += org.gnome.panel.applet.GnubiffApplet_Factory.service.in
-service_DATA         += $(service_in_files:.service.in=.service)
+panelappletdir       = `pkg-config --variable=libpanel_applet_dir libpanelapplet-4.0`
+panelapplet_in_files = org.gnome.panel.applet.GnubiffApplet.panel-applet.in
+panelapplet_DATA     = $(panelapplet_in_files:.panel-applet.in=.panel-applet)
+uidir			     = $(datadir)/gnome-2.0/ui
+ui_DATA		         = GNOME_gnubiffApplet.xml
+servicedir           = /usr/share/dbus-1/services
+service_in_files     = org.gnome.panel.applet.GnubiffApplet_Factory.service.in
+service_DATA         = $(service_in_files:.service.in=.service)
 endif
 
 $(panelapplet_in_files): $(panelapplet_in_files:.panel-applet.in=.panel-applet.in.in)
