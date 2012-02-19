@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!--*- mode: xml -*-->
+<interface>
+  <object class="GtkUIManager" id="uimanager1">
+    <child>
+      <object class="GtkActionGroup" id="actiongroup1">
+        <child>
+          <object class="GtkAction" id="menu_preferences">
+            <property name="stock_id">gtk-preferences</property>
+            <property name="name">menu_preferences</property>
+            <signal handler="APPLET_GTK_on_menu_preferences" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menu_start_command">
+            <property name="stock_id">gtk-execute</property>
+            <property name="name">menu_start_command</property>
+            <property name="label" translatable="yes">Start command</property>
+            <signal handler="APPLET_GTK_on_menu_command" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menu_mark_mails">
+            <property name="stock_id">gtk-remove</property>
+            <property name="name">menu_mark_mails</property>
+            <property name="label" translatable="yes">Mark mailboxes read</property>
+            <signal handler="APPLET_GTK_on_menu_mark" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menu_about">
+            <property name="stock_id">gtk-dialog-info</property>
+            <property name="name">menu_about</property>
+            <property name="label" translatable="yes">About</property>
+            <signal handler="APPLET_GTK_on_menu_about" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menu_quit">
+            <property name="stock_id">gtk-quit</property>
+            <property name="name">menu_quit</property>
+            <property name="label" translatable="yes">_Quit</property>
+            <signal handler="APPLET_GTK_on_menu_quit" name="activate"/>
+          </object>
+        </child>
+      </object>
+    </child>
+    <ui>
+      <popup name="menu">
+        <menuitem action="menu_preferences"/>
+        <menuitem action="menu_start_command"/>
+        <menuitem action="menu_mark_mails"/>
+        <menuitem action="menu_about"/>
+        <separator/>
+        <menuitem action="menu_quit"/>
+      </popup>
+    </ui>
+  </object>
+  <object class="GtkWindow" id="dialog">
+    <property name="tooltip-text" translatable="yes">tooltip</property>
+    <property name="title" translatable="yes">gnubiff</property>
+    <property name="resizable">False</property>
+    <property name="icon">gnubiff.png</property>
+    <signal handler="APPLET_GTK_on_enter" name="enter_notify_event"/>
+    <signal handler="gtk_main_quit" name="delete_event"/>
+    <signal handler="gtk_main_quit" name="destroy_event"/>
+    <child>
+      <object class="GtkEventBox" id="event">
+        <property name="visible">True</property>
+        <signal handler="APPLET_GTK_on_button_press" name="button_press_event"/>
+        <child>
+          <object class="GtkFrame" id="frame">
+            <property name="visible">True</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">GTK_SHADOW_ETCHED_OUT</property>
+            <child>
+              <object class="GtkFixed" id="fixed">
+                <property name="width_request">64</property>
+                <property name="height_request">64</property>
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkImage" id="image">
+                    <property name="width_request">64</property>
+                    <property name="height_request">64</property>
+                    <property name="visible">True</property>
+                    <property name="pixbuf">tux-awake.png</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="unread">
+                    <property name="width_request">64</property>
+                    <property name="height_request">64</property>
+                    <property name="visible">True</property>
+                    <property name="yalign">1</property>
+                    <property name="label">00/00</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMenu" constructor="uimanager1" id="menu">
+    
+    
+    
+    
+    
+    
+  </object>
+  <object class="GtkAboutDialog" id="gnubiffabout">
+    <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
+    <property name="copyright">&#xA9; 2000-2011 Nicolas Rougier
+&#xA9; 2004-2011 Robert Sowada</property>
+    <property name="comments" translatable="yes">Gnubiff is a mail notification program.</property>
+    <property name="website">http://gnubiff.sourceforge.net/</property>
+    <property comments="See http://www.gnu.org/licenses/translations.html" name="license" translatable="yes">Gnubiff is part of the GNU project.
+It is released under the aegis of GNU.
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
+
+For an exception to the GNU General Public License for distributing gnubiff linked to the OpenSSL library see the README file.</property>
+    <property name="logo">tux-big.png</property>
+    <property name="wrap_license">True</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox1">
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area1">
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">GTK_PACK_END</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
