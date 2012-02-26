@@ -91,9 +91,19 @@ Version 2.3.0
    - Migrated deprecated GtkOptionMenu to GtkComboBoxText
    - Migrated to GTK3 and Gnome3
 
-Version 2.2.14
+Version 2.2.15
+ * Robert Sowada
+   - Changed version to 2.2.15
+   - Added missing ui-files
+   - Fixed format-string-bug
+   - Fixed false error message
+	
+Version 2.2.14		2012-01-29 18:39
  * Robert Sowada
    - Changed version to 2.2.14
+   - Several fixes so that gnubiff compiles with recent versions of gtk
+   - Migrated deprecated GtkOptionMenu to GtkComboBoxText
+   - Migrated to GTK3 and Gnome3
 
 Version 2.2.13		2010-02-07 13:56
  * Robert Sowada

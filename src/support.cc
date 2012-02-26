@@ -348,5 +348,5 @@ Support::unknown_internal_error_ (const gchar *file, guint line,
 	ss <<                     "." << GTK_MICRO_VERSION << " (stat)\n";
 
 	// Print error message
-	g_warning (ss.str().c_str());
+	g_warning ("%s", ss.str().c_str());
 }
