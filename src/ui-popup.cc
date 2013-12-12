@@ -417,6 +417,8 @@ Popup::show (std::string name)
 	gtk_window_set_accept_focus (dialog,
 								 biff_->value_bool ("popup_accept_focus"));
 	gtk_window_set_focus_on_map (dialog, false);
+	gtk_widget_hide (GTK_WIDGET (dialog));
+	gtk_widget_unrealize (GTK_WIDGET (dialog));
 	gtk_widget_show (GTK_WIDGET (dialog));
 //	gtk_window_present (dialog);
 
