@@ -121,6 +121,7 @@ PKG_CHECK_MODULES(GNUBIFF_DEP,
 ])
 AC_SUBST(GNUBIFF_DEP_CFLAGS)
 AC_SUBST(GNUBIFF_DEP_LIBS)
+AC_CHECK_LIB(gthread-2.0, g_thread_init)
 
 ######################################################################
 #                     Checks for header files                        #
