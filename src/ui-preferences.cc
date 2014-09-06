@@ -296,8 +296,8 @@ Preferences::create (gpointer callbackdata)
 	gtk_tree_view_column_set_resizable(column, FALSE);
 	gtk_tree_view_column_set_sort_column_id(column, COLUMN_STATUS_STOCK_ID);
 	gtk_tree_view_append_column (view, column);
-    gtk_widget_set_tooltip_text ((GtkWidget *)(gdk_window_get_parent (gdk_window_get_parent (gtk_widget_get_parent_window (image)))),
-                                 _("Status"));
+	gtk_widget_set_tooltip_text (gtk_widget_get_parent (gtk_widget_get_parent (gtk_widget_get_parent (GTK_WIDGET (image)))),
+				     _("Status"));
 
 	column = gtk_tree_view_column_new_with_attributes ("",
 													   gtk_cell_renderer_pixbuf_new (),
@@ -311,8 +311,8 @@ Preferences::create (gpointer callbackdata)
 	gtk_tree_view_append_column (view, column);
 
 
-    gtk_widget_set_tooltip_text ((GtkWidget *)(gdk_window_get_parent (gdk_window_get_parent (gtk_widget_get_parent_window (image)))),
-                                 _("Security"));
+	gtk_widget_set_tooltip_text (gtk_widget_get_parent (gtk_widget_get_parent (gtk_widget_get_parent (GTK_WIDGET (image)))),
+				     _("Security"));
 
 	gtk_tree_view_set_search_column (view, COLUMN_MAILBOX);
   
