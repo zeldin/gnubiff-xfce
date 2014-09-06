@@ -33,6 +33,7 @@
 #include <stdlib.h>
 #include "gtk_image_animation.h"
 #include "gui.h"
+#include "callbacks.h"
 
 
 /**
@@ -189,6 +190,7 @@ GUI::create (gpointer callbackdata)
         exit (EXIT_FAILURE);
     }
 
+        gtk_builder_add_callback_symbols (gtkbuilder_, ALL_CALLBACKS, NULL);
     gtk_builder_connect_signals (gtkbuilder_, callbackdata);
 	create_insert_version ();
 	return true;

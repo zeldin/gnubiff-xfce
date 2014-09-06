@@ -54,7 +54,9 @@ common_sources = \
 	\
 	signals.cc				signals.h				\
 	\
-	eggtrayicon.c			eggtrayicon.h
+	eggtrayicon.c			eggtrayicon.h					\
+	\
+	callbacks.h
 
 
 ## In case of compilation problem, just comment next lines
