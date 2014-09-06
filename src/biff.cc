@@ -40,6 +40,10 @@
 #  include "ui-applet-gnome.h"
 #endif
 
+#ifdef USE_XFCE4
+#  include "ui-applet-xfce4.h"
+#endif
+
 #include "apop.h"
 #include "biff.h"
 #include "file.h"
@@ -137,6 +141,11 @@ Biff::Biff (guint ui_mode, std::string filename)
 #ifdef USE_GNOME
 	case MODE_GNOME:
 		applet_ = new AppletGnome (this);
+		break;
+#endif
+#ifdef USE_XFCE4
+	case MODE_XFCE4:
+		applet_ = new AppletXfce4 (this);
 		break;
 #endif
 	case MODE_GTK:

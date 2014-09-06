@@ -13,6 +13,10 @@ bin_PROGRAMS = gnubiff
 gnome_sources =  \
 	ui-applet-gnome.cc 		ui-applet-gnome.h
 
+xfce4_sources =  \
+	ui-applet-xfce4.cc 		ui-applet-xfce4.h \
+	xfce4-plugin-register.c
+
 main_sources = \
 	gnubiff.cc
 
@@ -112,6 +116,46 @@ org.gnome.panel.applet.GnubiffApplet_Factory.service: $(service_in_files)
 	sed -e "s|\@BINDIR\@|$(bindir)|" $< > $@
 
 ##
+## Additional files and directories for the xfce4 panel frontend
+##
+if USE_XFCE4
+plugindir = $(libdir)/xfce4/panel/plugins
+
+plugin_LTLIBRARIES = libgnubiff.la
+
+libgnubiff_la_SOURCES =		\
+	$(common_sources)	\
+	$(xfce4_sources)
+
+libgnubiff_la_CPPFLAGS =	\
+	$(XFCE4_DEP_CFLAGS)	\
+	$(INCLUDES)		\
+	-UUSE_GNOME -DUSE_XFCE4
+
+libgnubiff_la_LIBADD =		\
+	$(XFCE4_DEP_LIBS)	\
+	$(gnubiff_LDADD)
+
+libgnubiff_la_LDFLAGS =		\
+        -avoid-version \
+        -module \
+        -no-undefined \
+        -export-symbols-regex '^xfce_panel_module_(preinit|init|construct)' \
+	$(gnubiff_LDLFAGS)
+
+#
+# Desktop file
+#
+desktopdir = $(datadir)/xfce4/panel/plugins
+desktop_in_files = gnubiff.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+@INTLTOOL_DESKTOP_RULE@
+
+CLEANFILES = $(desktop_DATA)
+
+endif
+
+##
 ## Files not yet (or not always) covered that must be included when creating
 ## a package for distribution
 ##
@@ -120,7 +164,7 @@ EXTRA_DIST = \
 	org.gnome.panel.applet.GnubiffApplet.panel-applet.in.in	\
 	GNOME_gnubiffApplet.xml				\
 	gnubiff.schemas						\
-	$(gnome_sources)
+	$(gnome_sources) $(desktop_in_files)
 
 ##
 ## Created files to be deleted when executing "make distclean"

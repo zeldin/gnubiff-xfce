@@ -13,3 +13,9 @@ gnomedir = $(datadir)/pixmaps
 dist_gnome_DATA = \
 		gnubiff.png
 endif
+
+if USE_XFCE4
+xfce4dir = $(datadir)/icons
+dist_xfce4_DATA = \
+	gnubiff.png
+endif

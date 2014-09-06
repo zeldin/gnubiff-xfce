@@ -57,6 +57,9 @@ AC_ARG_ENABLE(fam,
 AC_ARG_ENABLE(gnome,
               [  --disable-gnome         disable the use of gnome (default: enable)],
               OPT_USEGNOME="$enableval", OPT_USEGNOME="yes")
+AC_ARG_ENABLE(xfce4,
+              [  --disable-xfce4         disable the use of xfce4 (default: enable)],
+              OPT_USEXFCE4="$enableval", OPT_USEXFCE4="yes")
 
 
 
@@ -69,6 +72,12 @@ AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
+
+######################################################################
+#                         Initialize libtools                        #
+######################################################################
+LT_PREREQ([2.2.6])
+LT_INIT([disable-static])
 
 ######################################################################
 #                         Checks for libraries                       #
@@ -185,6 +194,22 @@ AM_CONDITIONAL(USE_GNOME, test $OPT_USEGNOME = yes, Define to 1 if you want to h
 
 
 ######################################################################
+#                           XFCE4 support                            #
+######################################################################
+if test "$OPT_USEXFCE4" = "yes"; then
+	PKG_CHECK_MODULES(XFCE4_DEP, [
+		libxfce4util-1.0 >= 4.10.0
+		libxfce4ui-2 >= 4.10.0
+		libxfce4panel-2.0 >= 4.10.0
+	], [
+		AC_SUBST(XFCE4_DEP_CFLAGS)
+		AC_SUBST(XFCE4_DEP_LIBS)
+		])
+fi
+AM_CONDITIONAL(USE_XFCE4, test $OPT_USEXFCE4 = yes, Define to 1 if you want to have Xfce4 support)
+
+
+######################################################################
 #                        Save password option                        #
 ######################################################################
 AC_ARG_WITH(password,
@@ -288,6 +313,8 @@ echo " Gnome support   : $OPT_USEGNOME"
 #    echo "        (no root privileges needed) before gnubiff can be added to the panel."
 #  fi
 #fi
+
+echo " Xfce4 support   : $OPT_USEXFCE4"
 
 echo " Expert tab      : $expert"
 

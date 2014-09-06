@@ -47,6 +47,7 @@ const guint	MODE_GTK			=	0;
 const guint	MODE_GNOME			=	1;
 const guint MODE_NOGUI			=   2;
 const guint MODE_SYSTEMTRAY		=   3;
+const guint	MODE_XFCE4			=	4;
 
 const guint	PROTOCOL_NONE		=	0;
 const guint	PROTOCOL_FILE		=	1;
