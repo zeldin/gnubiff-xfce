@@ -1,7 +1,5 @@
 INCLUDES = \
 	$(FAM_CFLAGS) \
-	$(GNUBIFF_DEP_CFLAGS)							\
-	$(GNOME_DEP_CFLAGS)						\
 	-DGNUBIFF_LOCALEDIR=\""$(datadir)/locale"\"		\
 	-DGNUBIFF_DATADIR=\""$(pkgdatadir)"\"			\
 	-DGNUBIFF_ICONDIR=\""$(datadir)/pixmaps"\"		\
@@ -15,8 +13,10 @@ bin_PROGRAMS = gnubiff
 gnome_sources =  \
 	ui-applet-gnome.cc 		ui-applet-gnome.h
 
+main_sources = \
+	gnubiff.cc
+
 common_sources = \
-	gnubiff.cc										\
 	biff.cc					biff.h					\
 	\
 	mailbox.cc				mailbox.h				\
@@ -77,13 +77,16 @@ gnubiff$(EXEEXT): $(gnubiff_OBJECTS) $(gnubiff_DEPENDENCIES)
 ## End of section to be commented in case of compilation problem
 
 
-gnubiff_SOURCES      = $(common_sources)
+gnubiff_SOURCES      = $(main_sources) $(common_sources)
 gnubiff_LDADD        = $(INTLLIBS) $(GNUBIFF_DEP_LIBS) $(FAM_LIBS)
+gnubiff_CPPFLAGS     = $(GNUBIFF_DEP_CFLAGS)
 
 ##
 ## Additional files and directories for the gnome panel frontend
 ##
 if USE_GNOME
+INCLUDES             += -DUSE_GNOME
+gnubiff_CPPFLAGS     += $(GNOME_DEP_CFLAGS)
 gnubiff_SOURCES      += $(gnome_sources)
 gnubiff_LDADD        += $(GNOME_DEP_LIBS)
 panelappletdir       = `pkg-config --variable=libpanel_applet_dir libpanelapplet-4.0`

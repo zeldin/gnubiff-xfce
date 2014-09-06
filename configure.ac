@@ -175,8 +175,6 @@ if test "$OPT_USEGNOME" = "yes"; then
     	], [
 		AC_SUBST(GNOME_DEP_CFLAGS)
 		AC_SUBST(GNOME_DEP_LIBS)
-		AH_TEMPLATE([USE_GNOME])
-		AC_DEFINE(USE_GNOME)
 		AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
 		])
 	if test "x$GCONFTOOL" = "xno"; then
