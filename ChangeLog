@@ -90,7 +90,17 @@ Version 2.3.0
    - Added Bilal Hawa to contributors
    - Migrated deprecated GtkOptionMenu to GtkComboBoxText
    - Migrated to GTK3 and Gnome3
-
+   - Added eo translation (thanks to Felipe Castro)
+   - Added fi translation (thanks to Jorma Karvonen)
+   - Added sr translation (thanks to Miroslav Nikolic)
+	
+Version 2.2.16
+ * Robert Sowada
+   - Updated all translations
+   - Added eo translation (thanks to Felipe Castro)
+   - Added fi translation (thanks to Jorma Karvonen)
+   - Added sr translation (thanks to Miroslav Nikolic)
+	
 Version 2.2.15
  * Robert Sowada
    - Changed version to 2.2.15
