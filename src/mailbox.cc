@@ -1266,7 +1266,7 @@ Mailbox::filter_add (std::vector<std::string> &regex_strs)
 					 "Regular expression: %s\n"
 					 "Error message: %s"),
 				   regex_strs[i].substr(pos+1, len-pos-1).c_str(), buffer);
-		delete buffer;
+		delete[] buffer;
 	}
 
 	return okay;

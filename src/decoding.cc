@@ -885,11 +885,16 @@ Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 	if ((size == 0) || (size%16 != 0))
 		return std::string ("");
 	unsigned char *bin = new unsigned char[size+1];
-	if (!bin)
+	if (!bin){
+		delete[] bin;
 		return std::string ("");
+	}
 	unsigned char *result = new unsigned char[size+1];
-	if (!result)
+	if (!result){
+		delete[] bin;
+		delete[] result;
 		return std::string ("");
+	}
 
 	// ASCII to Binary
 	for (guint i = 0; i < size; i++)
@@ -908,8 +913,8 @@ Decoding::decrypt_aes (const std::string &passphrase, const std::string &data)
 
 	// Free memory
 	std::string result_str = std::string (reinterpret_cast<char *>(result));
-	delete (bin);
-	delete (result);
+	delete[] bin;
+	delete[] result;
 
 	return result_str;
 #else
@@ -948,6 +953,7 @@ Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
 		return std::string ("");
 	unsigned char *result = new unsigned char[2*size];
 	if (!result)
+		delete[] result;
 		return std::string ("");
 
 	// Encrypt via AES
@@ -967,7 +973,7 @@ Decoding::encrypt_aes (const std::string &passphrase, const std::string &data)
 
 	// Free memory
 	std::string result_str = std::string (reinterpret_cast<char *>(result), 2*size);
-	delete (result);
+	delete[] result;
 
 	return result_str;
 #else

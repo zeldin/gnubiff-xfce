@@ -282,6 +282,7 @@ Socket::starttls (std::string certificate)
 						  uin_, certificate_.c_str(), hostname_.c_str());
 				::close (sd_);
 				sd_ = SD_CLOSE;
+				free(err_buf);
 				return 0;
 			}
 			SSL_CTX_set_verify (context_, SSL_VERIFY_PEER, NULL);
@@ -295,6 +296,7 @@ Socket::starttls (std::string certificate)
 			sd_ = SD_CLOSE;
 			g_warning (_("[%d] Unable to set file descriptor: %s"), uin_,
 					   hostname_.c_str());
+			free(err_buf);
 			return 0;
 		}
 
@@ -307,6 +309,7 @@ Socket::starttls (std::string certificate)
 			g_warning (_("[%d] Unable to negotiate TLS connection: %s"), uin_,
 					   err_buf);
 			return 0;
+			free(err_buf);
 		}
 
 		if ((certificate_.size() > 0) && (SSL_get_verify_result(ssl_) != X509_V_OK)) {
@@ -326,6 +329,7 @@ Socket::starttls (std::string certificate)
 	
 #endif
 	status_ = SOCKET_STATUS_OK;
+	free(err_buf);
 	return 1;
 }
 
