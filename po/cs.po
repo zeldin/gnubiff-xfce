@@ -16,91 +16,81 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/decoding.cc:90
+#: ../src/decoding.cc:89
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr "[Kódování znaků \"%s\" v této zprávě nemůže být překódováno]"
 
-#: ../src/decoding.cc:136 ../src/decoding.cc:143 ../src/decoding.cc:148
+#: ../src/decoding.cc:135 ../src/decoding.cc:142 ../src/decoding.cc:147
 msgid "[Cannot decode this header line]"
 msgstr "[Nemohu překódovat tuto hlavičku]"
 
-#. Create error message
-#: ../src/decoding.cc:780
+#: ../src/decoding.cc:744
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr "[Nemohu převést znakové sady (z \"%s\" do \"utf-8\")]"
 
-#: ../src/decoding.cc:794
-msgid "[Stripped non-ASCII characters from message]"
-msgstr ""
-
-#: ../src/gnubiff.cc:90
+#: ../src/gnubiff.cc:91
 msgid "Start gnome applet from command line"
 msgstr "Spustit applet gnome z příkazové řádky"
 
-#: ../src/gnubiff.cc:97
+#: ../src/gnubiff.cc:98
 msgid "Configuration file to use"
 msgstr "Který konfigurační soubor použít"
 
-#: ../src/gnubiff.cc:97
+#: ../src/gnubiff.cc:98
 msgid "file"
 msgstr "soubor"
 
-#: ../src/gnubiff.cc:99
+#: ../src/gnubiff.cc:100
 msgid "Skip the configuration process"
 msgstr "Přeskočit konfiguraci"
 
-#: ../src/gnubiff.cc:101
+#: ../src/gnubiff.cc:102
 msgid "Start gnubiff without GUI"
 msgstr ""
 
-#: ../src/gnubiff.cc:103
+#: ../src/gnubiff.cc:104
 msgid "Put gnubiff's icon into the system tray"
 msgstr ""
 
-#: ../src/gnubiff.cc:105
+#: ../src/gnubiff.cc:106
 msgid "Print version information and exit"
 msgstr "Zobrazit informaci o verzi a skončit"
+
+#: ../src/gnubiff.cc:112
+msgid "General command line options:"
+msgstr "Obecné volby pro příkazovou řádku:"
 
 #: ../src/gnubiff.cc:115
 msgid "Options for debugging:"
 msgstr "Volby pro ladění"
 
-#: ../src/gnubiff.cc:116
-msgid "Show debugging options"
-msgstr ""
-
-#: ../src/gnubiff.cc:122
-#, fuzzy, c-format
-msgid "Cannot parse command line options: %s"
-msgstr "Obecné volby pro příkazovou řádku:"
-
-#: ../src/biff.cc:124
+#: ../src/biff.cc:123
 #, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "Konfigurační soubor (%s) nebyl nalezen!"
 
-#: ../src/biff.cc:597
+#: ../src/biff.cc:596
 #, fuzzy, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr "Načten konfigurační soubor ze staré verze gnubiff \"%s\"."
 
 #. Config file belongs to an older version of gnubiff
-#: ../src/biff.cc:605
+#: ../src/biff.cc:604
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr "Načten konfigurační soubor ze staré verze gnubiff \"%s\"."
 
-#: ../src/biff.cc:607
+#: ../src/biff.cc:606
 msgid "Trying to convert all options."
 msgstr "Zkouším převést všechna nastavení."
 
-#: ../src/biff.cc:651
+#: ../src/biff.cc:650
 msgid "Successfully converted all options."
 msgstr "Úspěšně se podařilo konvertovat všechna nastavení"
 
-#: ../src/biff.cc:654
+#: ../src/biff.cc:653
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
@@ -109,32 +99,26 @@ msgstr ""
 "Úspěšně jsem konvertoval některá nastavení. Následující nastavení musí být "
 "upraveny ručně: %s"
 
-#: ../src/biff.cc:795
-#, fuzzy, c-format
-msgid "Configuration file \"%s\" is a directory"
-msgstr "Který konfigurační soubor použít"
-
-#: ../src/biff.cc:805
-#, fuzzy, c-format
-msgid "Cannot open your configuration file \"%s\""
+#: ../src/biff.cc:804
+#, c-format
+msgid "Cannot open your configuration file (%s)"
 msgstr "Nemohu otevřít Váš konfigurační soubor (%s)"
 
-#: ../src/biff.cc:821
-#, fuzzy
-msgid "Cannot create XML parser for parsing configuration file"
+#: ../src/biff.cc:819
+msgid "Cannot create XML parser for config file"
 msgstr "Nemohu vytvořit XML parser pro konfigurační soubor"
 
-#: ../src/biff.cc:839
-#, fuzzy, c-format
-msgid "Found no mailbox definition in your configuration file \"%s\""
+#: ../src/biff.cc:836
+#, c-format
+msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr ""
 "Ve vašem konfiguračním souboru (%s) nebyly nalezeny žádné definice schránek"
 
-#: ../src/biff.cc:886
+#: ../src/biff.cc:883
 msgid "Illegal parameter format in config file"
 msgstr "Neplatný formát parametru v konfiguračním souboru"
 
-#: ../src/biff.cc:915
+#: ../src/biff.cc:912
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr "Pro schránku %d nebyl určen žádný protokol"
@@ -144,46 +128,46 @@ msgstr "Pro schránku %d nebyl určen žádný protokol"
 msgid "[%d] Unable to create thread: %s"
 msgstr "[%d] Nemohu vytvořit vlákno: %s"
 
-#: ../src/mailbox.cc:320
+#: ../src/mailbox.cc:319
 #, c-format
 msgid "mailbox %d"
 msgstr "schránka %d"
 
 #. Insert default values
-#: ../src/mailbox.cc:645
+#: ../src/mailbox.cc:644
 msgid "<no date>"
 msgstr "<žádné datum>"
 
-#: ../src/mailbox.cc:646
+#: ../src/mailbox.cc:645
 msgid "<no sender>"
 msgstr "<žádný odesílatel>"
 
-#: ../src/mailbox.cc:647
+#: ../src/mailbox.cc:646
 msgid "<no subject>"
 msgstr "<žádný předmět>"
 
-#: ../src/mailbox.cc:701
+#: ../src/mailbox.cc:700
 msgid "[Cannot parse content type header line]"
 msgstr "[Nemohu parsovat hlavičku určující typ obsahu]"
 
-#: ../src/mailbox.cc:723
+#: ../src/mailbox.cc:722
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr "[Nemohu parsovat obsah hlavičky určující kódování obsahu]"
 
-#: ../src/mailbox.cc:764
+#: ../src/mailbox.cc:763
 msgid "[Malformed multipart message]"
 msgstr "[Špatně formátovaný mail z více částí]"
 
-#: ../src/mailbox.cc:772
+#: ../src/mailbox.cc:771
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr "[Nemohu nalézt začátek první části ve zprávě složené z více částí]"
 
-#: ../src/mailbox.cc:818
+#: ../src/mailbox.cc:817
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr "[Tato zpráva má nepodporovaný typ obsahu: \"%s/%s\"]"
 
-#: ../src/mailbox.cc:1265
+#: ../src/mailbox.cc:1219
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"
@@ -193,8 +177,8 @@ msgstr ""
 
 #. Otherwise: Ignore it and print error message
 #: ../src/header.cc:147
-#, fuzzy, c-format
-msgid "Can't sort messages by \"%s\""
+#, c-format
+msgid "Can't sort mails by \"%s\""
 msgstr "Nemohu třídit poštu podle \"%s\""
 
 #: ../src/socket.cc:116 ../src/socket.cc:175 ../src/socket.cc:233
@@ -203,37 +187,27 @@ msgstr "Nemohu třídit poštu podle \"%s\""
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr "[%d] Nemohu se připojit k %s na portu %d"
 
-#: ../src/socket.cc:218 ../src/socket.cc:281
+#: ../src/socket.cc:218
 #, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "[%d] Načtení certifikátu (%s) pro %s selhalo"
 
-#: ../src/socket.cc:255 ../src/socket.cc:321
+#: ../src/socket.cc:255
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr "[%d] Nemohu identifikovat vzdáleného hostitele (%s na portu %d)"
 
-#: ../src/socket.cc:296
-#, fuzzy, c-format
-msgid "[%d] Unable to set file descriptor: %s"
-msgstr "[%d] Nemohu vytvořit vlákno: %s"
-
-#: ../src/socket.cc:307
-#, fuzzy, c-format
-msgid "[%d] Unable to negotiate TLS connection: %s"
-msgstr "[%d] Nemohu vytvořit vlákno: %s"
-
-#: ../src/socket.cc:407
+#: ../src/socket.cc:340
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr "[%d] Není možné zapisovat na %s na portu %d"
 
-#: ../src/socket.cc:478
+#: ../src/socket.cc:411
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr "[%d] Není možné číst z %s na portu %d"
 
-#: ../src/socket.cc:500
+#: ../src/socket.cc:434
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr "Nemohu nastavit timeout čtení ze socketu: %s"
@@ -243,44 +217,44 @@ msgstr "Nemohu nastavit timeout čtení ze socketu: %s"
 msgid "Cannot open %s."
 msgstr "Nemohu otevřít %s."
 
-#: ../src/imap4.cc:478
+#: ../src/imap4.cc:459
 msgid "[This message has no part with a supported content type]"
 msgstr "[Tato zpráva nemá žádnou část obsahující podporovaný typ obsahu]"
 
-#: ../src/imap4.cc:841
+#: ../src/imap4.cc:822
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr "[%d] Nebylo možné vybrat složku %s na serveru %s"
 
-#: ../src/imap4.cc:957
+#: ../src/imap4.cc:910
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr "[%d] Nebylo možné získat potvrzení od %s na portu %d"
 
-#: ../src/imap4.cc:1016
+#: ../src/imap4.cc:969
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr "[%d] Server neodeslal neoznačkovanou \"%s\" odpověď nebo potvrzení"
 
-#: ../src/imap4.cc:1069
+#: ../src/imap4.cc:1022
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr "[%d] Server neodeslal neoznačkovanou %s odpověď"
 
 #. see RFC 3501 7.1.5
-#: ../src/imap4.cc:1625
+#: ../src/imap4.cc:1578
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr "[%d] Server okamžitě ukončil spojení: %s"
 
 #. see RFC 3501 7.1.3
-#: ../src/imap4.cc:1630
+#: ../src/imap4.cc:1583
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr "[%d] Vnitřní chyba serveru nebo neznámá chyba:%s"
 
 #. see RFC 3501 7.1.2
-#: ../src/imap4.cc:1635
+#: ../src/imap4.cc:1588
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr "[%d] Varování ze serveru:%s"
@@ -295,12 +269,12 @@ msgstr "Nemohu otevřít adresář s novou poštou (%s)"
 msgid "[%d] Empty password"
 msgstr "[%d] Prázdné heslo"
 
-#: ../src/pop.cc:537
+#: ../src/pop.cc:509
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr "[%d] Chybová hláška od POP3 server:%s"
 
-#: ../src/pop.cc:544
+#: ../src/pop.cc:516
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr "[%d] Neobdržel jsem kladnou odpověď od POP3 serveru"
@@ -335,7 +309,7 @@ msgstr "Nemohu odeslat volbu \"%s\" do \"%s\""
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Nemohu nalézt widget (\"%s\") uvnitř xml struktury (\"%s\")"
 
-#: ../src/gnubiff_options.cc:144
+#: ../src/gnubiff_options.cc:140
 msgid "no mail"
 msgstr "žádné zprávy"
 
@@ -365,11 +339,6 @@ msgstr "GUI_connect vyžaduje funkční gmodule"
 msgid "Could not find signal handler '%s'."
 msgstr "Nemohu nalézt handly signálu '%s'."
 
-#: ../src/ui-applet.cc:147
-#, fuzzy, c-format
-msgid "Cannot execute command \"%s\"."
-msgstr "Nemohu otevřít %s."
-
 #: ../src/ui-applet.cc:217
 msgid " unknown"
 msgstr " neznámý"
@@ -382,7 +351,7 @@ msgstr " chyba"
 msgid " checking..."
 msgstr " kontroluji..."
 
-#: ../src/ui-preferences.cc:267 ../src/ui-popup.cc:214
+#: ../src/ui-preferences.cc:267 ../src/ui-popup.cc:183
 msgid "Mailbox"
 msgstr "Poštovní schránka"
 
@@ -416,7 +385,7 @@ msgstr "Hodnota"
 msgid "_Start"
 msgstr "_Start"
 
-#: ../src/ui-preferences.cc:615 ../ui/preferences.glade.h:87
+#: ../src/ui-preferences.cc:615 ../ui/preferences.glade.h:77
 msgid "_Stop"
 msgstr "_Stop"
 
@@ -463,23 +432,23 @@ msgstr "Šifrované Jméno/Heslo (apop)"
 msgid "SSL with certificate"
 msgstr "SSL s certifikátem"
 
-#: ../src/ui-properties.cc:324
+#: ../src/ui-properties.cc:317
 msgid "Browse for a file or folder"
 msgstr "Vyhledat soubor nebo složku"
 
-#: ../src/ui-properties.cc:330 ../ui/properties.glade.h:5
+#: ../src/ui-properties.cc:323 ../ui/properties.glade.h:5
 msgid "Browse for a certificate file"
 msgstr "Vyhledat soubor s certifikátem"
 
-#: ../src/ui-popup.cc:226
+#: ../src/ui-popup.cc:195
 msgid "From"
 msgstr "Od"
 
-#: ../src/ui-popup.cc:232
+#: ../src/ui-popup.cc:201
 msgid "Subject"
 msgstr "Předmět"
 
-#: ../src/ui-popup.cc:238
+#: ../src/ui-popup.cc:207
 msgid "Date"
 msgstr "Datum"
 
@@ -529,7 +498,7 @@ msgstr "O programu"
 msgid "Gnubiff is a mail notification program."
 msgstr "Program oznamující poštu"
 
-#. See http://www.gnu.org/licenses/translations.html
+#. See http://www.gnu.org /licenses/translations.html
 #: ../ui/applet-gtk.glade.h:4
 msgid ""
 "Gnubiff is part of the GNU project.\n"
@@ -565,43 +534,38 @@ msgid "tooltip"
 msgstr "bublinová nápověda"
 
 #: ../ui/preferences.glade.h:1
-#, fuzzy
-msgid "<b>Behavior</b>"
-msgstr "<b>Hlavičky</b>"
-
-#: ../ui/preferences.glade.h:2
 msgid "<b>Commands</b>"
 msgstr "<b>Příkazy</b>"
 
-#: ../ui/preferences.glade.h:3
+#: ../ui/preferences.glade.h:2
 msgid "<b>Expert editing mode</b>"
 msgstr "<b>Režim expertního nastavení</b>"
 
-#: ../ui/preferences.glade.h:4
+#: ../ui/preferences.glade.h:3
 msgid "<b>General</b>"
 msgstr "<b>Obecné</b>"
 
-#: ../ui/preferences.glade.h:5
+#: ../ui/preferences.glade.h:4
 msgid "<b>Headers</b>"
 msgstr "<b>Hlavičky</b>"
 
-#: ../ui/preferences.glade.h:6
+#: ../ui/preferences.glade.h:5
 msgid "<b>Layout</b>"
 msgstr "<b>Rozvržení</b>"
 
-#: ../ui/preferences.glade.h:7
+#: ../ui/preferences.glade.h:6
 msgid "<b>Mailboxes</b>"
 msgstr "<b>Schránky</b>"
 
-#: ../ui/preferences.glade.h:8
+#: ../ui/preferences.glade.h:7
 msgid "<b>When new mail</b>"
 msgstr "<b>Při nové poště</b>"
 
-#: ../ui/preferences.glade.h:9
+#: ../ui/preferences.glade.h:8
 msgid "<b>When no mail</b>"
 msgstr "<b>Při žádné poště</b>"
 
-#: ../ui/preferences.glade.h:10
+#: ../ui/preferences.glade.h:9
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
@@ -609,7 +573,7 @@ msgstr ""
 "<small> Gnubiff je součástí projektu GNU.\n"
 " Je vydáván pod záštitou GNU.</small>"
 
-#: ../ui/preferences.glade.h:12
+#: ../ui/preferences.glade.h:11
 #, fuzzy
 msgid ""
 "<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
@@ -620,14 +584,14 @@ msgstr ""
 "<small>Chyby mohou být oznamovány na <span foreground=\"blue\">gnubiff-"
 "bugs@lists.sourceforge.net</span></small>"
 
-#: ../ui/preferences.glade.h:14
+#: ../ui/preferences.glade.h:13
 msgid ""
 "<small>Here is a list of those people, which translated gnubiff into "
 "different languages (translators of previous versions are marked with an "
 "asterisk):</small>"
 msgstr ""
 
-#: ../ui/preferences.glade.h:15
+#: ../ui/preferences.glade.h:14
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -641,63 +605,51 @@ msgstr ""
 "  - zasíláním aktuálního kódu\n"
 "Tady je seznam těchto lidí:</small>"
 
-#: ../ui/preferences.glade.h:20
-msgid "Appear in _pagers"
-msgstr ""
-
-#: ../ui/preferences.glade.h:21
-msgid "Appear in _taskbar"
-msgstr ""
-
-#: ../ui/preferences.glade.h:22
-msgid "Applet"
-msgstr "Applet"
-
-#: ../ui/preferences.glade.h:23
+#: ../ui/preferences.glade.h:19
 msgid "Applet geometry"
 msgstr "Rozměry appletu"
 
-#: ../ui/preferences.glade.h:24
+#: ../ui/preferences.glade.h:20
+msgid "Applet or Biff"
+msgstr "Applet nebo Okno"
+
+#: ../ui/preferences.glade.h:21
 msgid "B_rowse..."
 msgstr "P_rocházet:"
 
-#: ../ui/preferences.glade.h:25
-msgid "Be _sticky"
-msgstr ""
-
-#: ../ui/preferences.glade.h:26
+#: ../ui/preferences.glade.h:22
 msgid "Browse for an image file"
 msgstr "Vyhledat soubor s obrázkem"
 
-#: ../ui/preferences.glade.h:27
+#: ../ui/preferences.glade.h:23
 msgid "Contributors"
 msgstr "Přispěvatelé"
 
-#: ../ui/preferences.glade.h:28
+#: ../ui/preferences.glade.h:24
 msgid "Credits"
 msgstr "Kredity"
 
-#: ../ui/preferences.glade.h:29
+#: ../ui/preferences.glade.h:25
 msgid "Developers"
 msgstr "Vývojáři"
 
-#: ../ui/preferences.glade.h:30
+#: ../ui/preferences.glade.h:26
 msgid "Edit option"
 msgstr "Upravit volbu"
 
-#: ../ui/preferences.glade.h:31
+#: ../ui/preferences.glade.h:27
 msgid "Expert"
 msgstr "Expert"
 
-#: ../ui/preferences.glade.h:32
+#: ../ui/preferences.glade.h:28
 msgid "Image filename"
 msgstr "Jméno souboru s obrázkem"
 
-#: ../ui/preferences.glade.h:33
+#: ../ui/preferences.glade.h:29
 msgid "List all options."
 msgstr "Zobrazit všechny možnosti."
 
-#: ../ui/preferences.glade.h:34
+#: ../ui/preferences.glade.h:30
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
@@ -705,73 +657,73 @@ msgstr ""
 "Seznam voleb, jejich typ a současná hodnota. Volbu upravíte dvojklikem na "
 "její hodnotu."
 
-#: ../ui/preferences.glade.h:35
+#: ../ui/preferences.glade.h:31
 msgid "Mailboxes"
 msgstr "Poštovní schránky"
 
-#: ../ui/preferences.glade.h:36
+#: ../ui/preferences.glade.h:32
 msgid "Maintainers"
 msgstr "Údržba"
 
-#: ../ui/preferences.glade.h:37
+#: ../ui/preferences.glade.h:33
 msgid "Maximum number of headers to display"
 msgstr "Maximální počet hlaviček k zobrazení"
 
-#: ../ui/preferences.glade.h:38 ../ui/popup.glade.h:6
+#: ../ui/preferences.glade.h:34 ../ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Vyskakovací okno"
 
-#: ../ui/preferences.glade.h:39
+#: ../ui/preferences.glade.h:35
 msgid "Popup geometry"
 msgstr "Geometrie vyskakovacího okna"
 
-#: ../ui/preferences.glade.h:40
+#: ../ui/preferences.glade.h:36
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr "Vyhledat ty (zobrazené) volby, obsahující řetězec v textovém záznamu"
 
-#: ../ui/preferences.glade.h:41
+#: ../ui/preferences.glade.h:37
 msgid "Set to default value"
 msgstr "Nastavit na výchozí hodnotu"
 
-#: ../ui/preferences.glade.h:42
+#: ../ui/preferences.glade.h:38
 msgid "Show _image:"
 msgstr "Ukázat obrázek:"
 
-#: ../ui/preferences.glade.h:43
+#: ../ui/preferences.glade.h:39
 msgid "Show _text:"
 msgstr "Ukázat _text:"
 
-#: ../ui/preferences.glade.h:44
+#: ../ui/preferences.glade.h:40
 msgid "Show i_mage:"
 msgstr "Ukázat obrázek:"
 
-#: ../ui/preferences.glade.h:45
+#: ../ui/preferences.glade.h:41
 msgid "Show t_ext:"
 msgstr "Ukázat t_ext:"
 
-#: ../ui/preferences.glade.h:46
+#: ../ui/preferences.glade.h:42
 msgid "String to be searched for."
 msgstr "Hledaný řetězec."
 
-#: ../ui/preferences.glade.h:48
+#: ../ui/preferences.glade.h:44
 #, fuzzy, no-c-format
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
 "padded). Pango markup may be used."
 msgstr "Zobrazený text (%d je počet nových zpráv)"
 
-#: ../ui/preferences.glade.h:49
+#: ../ui/preferences.glade.h:45
 msgid "The command to run when new mail arrives"
 msgstr "Příkaz, který se má spustit když příjde nová pošta"
 
-#: ../ui/preferences.glade.h:50
+#: ../ui/preferences.glade.h:46
 msgid "The command to run when the icon is double-clicked"
 msgstr "Příkaz, který se má spustit po dvojitém kliknutí na ikonu"
 
 #. The option's descriptions are in English only! This may be included in a translation of this text.
-#: ../ui/preferences.glade.h:52
+#: ../ui/preferences.glade.h:48
 msgid ""
 "The editing dialog for all options that gnubiff uses internally can be "
 "enabled here. So it is possible to change the value of options for which no "
@@ -785,82 +737,63 @@ msgstr ""
 "<b>Varování:</b> Změnou těchto nastavení se může gnubiff začít chovat "
 "nepředvídatelně nebo vytvářet bezpečnostní rizika."
 
-#: ../ui/preferences.glade.h:54
+#: ../ui/preferences.glade.h:50
 msgid "The font to use to display information"
 msgstr "Písmo jakým se zobrazí informace"
 
-#: ../ui/preferences.glade.h:55
+#: ../ui/preferences.glade.h:51
 msgid "Time to display popup window"
 msgstr "Čas zobrazení vyskakovacího okna"
 
-#: ../ui/preferences.glade.h:56
+#: ../ui/preferences.glade.h:52
 msgid "Toggle option"
 msgstr "Přepnout volbu"
 
-#: ../ui/preferences.glade.h:57
+#: ../ui/preferences.glade.h:53
 msgid "Translators"
 msgstr "Překladatelé"
 
-#: ../ui/preferences.glade.h:58
+#: ../ui/preferences.glade.h:54
 msgid "Use _decoration"
 msgstr "Použít _dekoraci"
 
-#: ../ui/preferences.glade.h:59
+#: ../ui/preferences.glade.h:55
 msgid "Use _geometry:"
 msgstr "Použít _geometrii:"
 
-#: ../ui/preferences.glade.h:60
+#: ../ui/preferences.glade.h:56
 msgid "When _double-clicked:"
 msgstr "Po _dvoj-kliknutí:"
 
-#: ../ui/preferences.glade.h:61
+#: ../ui/preferences.glade.h:57
 msgid "When _new mail:"
 msgstr "Při _nové poště:"
 
-#: ../ui/preferences.glade.h:62
+#: ../ui/preferences.glade.h:58
 msgid "Whether options can be edited in expert mode"
 msgstr "Zda mají být nastavení upravována v expertním módu."
 
-#: ../ui/preferences.glade.h:63
-msgid "Whether to accept keyboard focus"
-msgstr ""
-
-#: ../ui/preferences.glade.h:64
-#, fuzzy
-msgid "Whether to appear in pagers"
-msgstr "Zda zobrazit obrázek"
-
-#: ../ui/preferences.glade.h:65
-#, fuzzy
-msgid "Whether to appear on all desktops"
-msgstr "Zda zobrazit text"
-
-#: ../ui/preferences.glade.h:66
-#, fuzzy
-msgid "Whether to be always kept above all other windows"
-msgstr "Zda zobrazit vyskakovací okno"
-
-#: ../ui/preferences.glade.h:67
+#: ../ui/preferences.glade.h:59
 msgid "Whether to display a text"
 msgstr "Zda zobrazit text"
 
-#: ../ui/preferences.glade.h:68
+#: ../ui/preferences.glade.h:60
 msgid "Whether to display an image"
 msgstr "Zda zobrazit obrázek"
 
-#: ../ui/preferences.glade.h:69
+#: ../ui/preferences.glade.h:61
 msgid "Whether to display the popup window"
 msgstr "Zda zobrazit vyskakovací okno"
 
-#: ../ui/preferences.glade.h:70
+#: ../ui/preferences.glade.h:62
 msgid "Whether to restrict number of displayed headers"
 msgstr "Zda omezit počet zobrazených hlaviček"
 
-#: ../ui/preferences.glade.h:71
+#: ../ui/preferences.glade.h:63
 msgid "Whether to show an image"
 msgstr "Zda zobrazit obrázek"
 
-#: ../ui/preferences.glade.h:72
+#: ../ui/preferences.glade.h:64
 msgid ""
 "Whether to show the expert tab. Note: Disabling this option can only be "
 "reversed by editing the config file manually!"
@@ -868,80 +801,70 @@ msgstr ""
 "Zda ukázat záložku \"Expertní volby\". Poznámka: Vypnutí této volby je možné "
 "zvrátit pouze ruční úpravou konfiguračního souboru!"
 
-#: ../ui/preferences.glade.h:73
+#: ../ui/preferences.glade.h:65
 msgid "Whether to use format for header"
 msgstr "Zda formátovat hlavičku"
 
-#: ../ui/preferences.glade.h:74
+#: ../ui/preferences.glade.h:66
 msgid "Whether to use geometry"
 msgstr "Zda použít geometrii"
 
-#: ../ui/preferences.glade.h:75
+#: ../ui/preferences.glade.h:67
 msgid "Whether to use window manager decoration"
 msgstr "Zda použít dekoraci správce oken"
 
-#: ../ui/preferences.glade.h:76
+#: ../ui/preferences.glade.h:68
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 "[odesílatel max. velikost]:[předmět max. velikost]:[datum max. velikost]"
 
-#: ../ui/preferences.glade.h:77
-#, fuzzy
-msgid "_Accept focus"
-msgstr "Akceptovat"
-
-#: ../ui/preferences.glade.h:78 ../ui/properties.glade.h:21
+#: ../ui/preferences.glade.h:69 ../ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr "Procházet:"
 
-#: ../ui/preferences.glade.h:79
+#: ../ui/preferences.glade.h:70
 msgid "_Display for"
 msgstr "Zobrazit pro"
 
-#: ../ui/preferences.glade.h:80
+#: ../ui/preferences.glade.h:71
 msgid "_Edit options in expert mode"
 msgstr "Upravit volby v expertním módu"
 
-#: ../ui/preferences.glade.h:81
+#: ../ui/preferences.glade.h:72
 msgid "_Font:"
 msgstr "_Písmo:"
 
-#: ../ui/preferences.glade.h:82
+#: ../ui/preferences.glade.h:73
 msgid "_Format:"
 msgstr "_Formát:"
 
-#: ../ui/preferences.glade.h:83
-msgid "_Keep above"
-msgstr ""
-
-#: ../ui/preferences.glade.h:84
+#: ../ui/preferences.glade.h:74
 msgid "_Restrict collected mail to"
 msgstr "Omezit shromážděnou poštu na"
 
-#: ../ui/preferences.glade.h:85
+#: ../ui/preferences.glade.h:75
 msgid "_Restrict number to"
 msgstr "Omezit počet na"
 
-#: ../ui/preferences.glade.h:86
+#: ../ui/preferences.glade.h:76
 msgid "_Show expert tab"
 msgstr "Ukázat záložku pro experty"
 
-#: ../ui/preferences.glade.h:88
+#: ../ui/preferences.glade.h:78
 msgid "gnubiff preferences"
 msgstr "nastavení gnubiff"
 
-#: ../ui/preferences.glade.h:89
-#, fuzzy
-msgid "headers"
+#: ../ui/preferences.glade.h:79
+msgid "header(s)"
 msgstr "hlavička(y)"
 
-#: ../ui/preferences.glade.h:90
-msgid "messages"
-msgstr ""
+#: ../ui/preferences.glade.h:80
+msgid "mail(s)"
+msgstr "e-mail(y)"
 
-#: ../ui/preferences.glade.h:91 ../ui/properties.glade.h:31
-msgid "seconds"
-msgstr "sekund"
+#: ../ui/preferences.glade.h:81
+msgid "second(s)"
+msgstr "sekund(a/y)"
 
 #: ../ui/properties.glade.h:1
 msgid "<b>_Details</b>"
@@ -1059,6 +982,10 @@ msgstr "minut"
 msgid "othe_r"
 msgstr "jiné"
 
+#: ../ui/properties.glade.h:31
+msgid "seconds"
+msgstr "sekund"
+
 #: ../ui/properties.glade.h:32
 msgid "stan_dard"
 msgstr "stan_dard"
@@ -1135,30 +1062,9 @@ msgstr "<small><b>Od</b></small>"
 msgid "<small><b>Subject</b></small>"
 msgstr "<small><b>Předmět</b></small>"
 
-#: ../ui/popup.glade.h:4
-msgid "Delete this message"
-msgstr ""
-
 #: ../ui/popup.glade.h:5
-msgid "Hide popup"
-msgstr ""
-
-#: ../ui/popup.glade.h:7
-msgid "Undelete this message"
-msgstr ""
-
-#: ../ui/popup.glade.h:8
 msgid "mail content"
 msgstr "obsah e-mailu"
-
-#~ msgid "mail(s)"
-#~ msgstr "e-mail(y)"
-
-#~ msgid "Applet or Biff"
-#~ msgstr "Applet nebo Okno"
-
-#~ msgid "second(s)"
-#~ msgstr "sekund(a/y)"
 
 #~ msgid "About gnubiff"
 #~ msgstr "O gnubiff"
@@ -1171,6 +1077,9 @@ msgstr "obsah e-mailu"
 
 #~ msgid "No mail"
 #~ msgstr "Žádné zprávy"
+
+#~ msgid "Applet"
+#~ msgstr "Applet"
 
 #~ msgid "00"
 #~ msgstr "00"

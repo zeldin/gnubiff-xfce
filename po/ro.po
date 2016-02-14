@@ -15,124 +15,109 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/decoding.cc:90
+#: ../src/decoding.cc:89
 #, c-format
 msgid "[The encoding \"%s\" of this mail can't be decoded]"
 msgstr ""
 
-#: ../src/decoding.cc:136 ../src/decoding.cc:143 ../src/decoding.cc:148
+#: ../src/decoding.cc:135 ../src/decoding.cc:142 ../src/decoding.cc:147
 msgid "[Cannot decode this header line]"
 msgstr ""
 
-#. Create error message
-#: ../src/decoding.cc:780
+#: ../src/decoding.cc:744
 #, c-format
 msgid "[Cannot convert character sets (from \"%s\" to \"utf-8\")]"
 msgstr ""
 
-#: ../src/decoding.cc:794
-msgid "[Stripped non-ASCII characters from message]"
-msgstr ""
-
-#: ../src/gnubiff.cc:90
+#: ../src/gnubiff.cc:91
 msgid "Start gnome applet from command line"
 msgstr ""
 
-#: ../src/gnubiff.cc:97
+#: ../src/gnubiff.cc:98
 #, fuzzy
 msgid "Configuration file to use"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: ../src/gnubiff.cc:97
+#: ../src/gnubiff.cc:98
 msgid "file"
 msgstr "fiºier"
 
-#: ../src/gnubiff.cc:99
+#: ../src/gnubiff.cc:100
 #, fuzzy
 msgid "Skip the configuration process"
 msgstr "omitere a procesului de configurare"
 
-#: ../src/gnubiff.cc:101
+#: ../src/gnubiff.cc:102
 msgid "Start gnubiff without GUI"
 msgstr ""
 
-#: ../src/gnubiff.cc:103
+#: ../src/gnubiff.cc:104
 msgid "Put gnubiff's icon into the system tray"
 msgstr ""
 
-#: ../src/gnubiff.cc:105
+#: ../src/gnubiff.cc:106
 msgid "Print version information and exit"
+msgstr ""
+
+#: ../src/gnubiff.cc:112
+msgid "General command line options:"
 msgstr ""
 
 #: ../src/gnubiff.cc:115
 msgid "Options for debugging:"
 msgstr ""
 
-#: ../src/gnubiff.cc:116
-msgid "Show debugging options"
-msgstr ""
-
-#: ../src/gnubiff.cc:122
-#, fuzzy, c-format
-msgid "Cannot parse command line options: %s"
-msgstr "Nu pot recupera listingurile de id-uri unice: %s\n"
-
-#: ../src/biff.cc:124
+#: ../src/biff.cc:123
 #, fuzzy, c-format
 msgid "Configuration file (%s) not found!"
 msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
 
-#: ../src/biff.cc:597
+#: ../src/biff.cc:596
 #, c-format
 msgid "Loaded config file from newer gnubiff version \"%s\"."
 msgstr ""
 
 #. Config file belongs to an older version of gnubiff
-#: ../src/biff.cc:605
+#: ../src/biff.cc:604
 #, c-format
 msgid "Loaded config file from old gnubiff version \"%s\"."
 msgstr ""
 
-#: ../src/biff.cc:607
+#: ../src/biff.cc:606
 msgid "Trying to convert all options."
 msgstr ""
 
-#: ../src/biff.cc:651
+#: ../src/biff.cc:650
 msgid "Successfully converted all options."
 msgstr ""
 
-#: ../src/biff.cc:654
+#: ../src/biff.cc:653
 #, c-format
 msgid ""
 "Successfully converted some options. The following options must be updated "
 "manually: %s."
 msgstr ""
 
-#: ../src/biff.cc:795
+#: ../src/biff.cc:804
 #, fuzzy, c-format
-msgid "Configuration file \"%s\" is a directory"
-msgstr "fiºierul de configurare gbiff2 ce va fi folosit"
-
-#: ../src/biff.cc:805
-#, fuzzy, c-format
-msgid "Cannot open your configuration file \"%s\""
+msgid "Cannot open your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: ../src/biff.cc:821
+#: ../src/biff.cc:819
 #, fuzzy
-msgid "Cannot create XML parser for parsing configuration file"
+msgid "Cannot create XML parser for config file"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: ../src/biff.cc:839
+#: ../src/biff.cc:836
 #, fuzzy, c-format
-msgid "Found no mailbox definition in your configuration file \"%s\""
+msgid "Found no mailbox definition in your configuration file (%s)"
 msgstr "Nu se poate încãrca fiºierul de configurare (%s).\n"
 
-#: ../src/biff.cc:886
+#: ../src/biff.cc:883
 msgid "Illegal parameter format in config file"
 msgstr ""
 
-#: ../src/biff.cc:915
+#: ../src/biff.cc:912
 #, c-format
 msgid "No protocol specified for mailbox %d"
 msgstr ""
@@ -142,47 +127,47 @@ msgstr ""
 msgid "[%d] Unable to create thread: %s"
 msgstr ""
 
-#: ../src/mailbox.cc:320
+#: ../src/mailbox.cc:319
 #, fuzzy, c-format
 msgid "mailbox %d"
 msgstr "Nici un mail"
 
 #. Insert default values
-#: ../src/mailbox.cc:645
+#: ../src/mailbox.cc:644
 msgid "<no date>"
 msgstr ""
 
-#: ../src/mailbox.cc:646
+#: ../src/mailbox.cc:645
 msgid "<no sender>"
 msgstr ""
 
-#: ../src/mailbox.cc:647
+#: ../src/mailbox.cc:646
 #, fuzzy
 msgid "<no subject>"
 msgstr "Subiect"
 
-#: ../src/mailbox.cc:701
+#: ../src/mailbox.cc:700
 msgid "[Cannot parse content type header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:723
+#: ../src/mailbox.cc:722
 msgid "[Cannot parse content transfer encoding header line]"
 msgstr ""
 
-#: ../src/mailbox.cc:764
+#: ../src/mailbox.cc:763
 msgid "[Malformed multipart message]"
 msgstr ""
 
-#: ../src/mailbox.cc:772
+#: ../src/mailbox.cc:771
 msgid "[Can't find first part's beginning in the multipart message]"
 msgstr ""
 
-#: ../src/mailbox.cc:818
+#: ../src/mailbox.cc:817
 #, c-format
 msgid "[This message has an unsupported content type: \"%s/%s\"]"
 msgstr ""
 
-#: ../src/mailbox.cc:1265
+#: ../src/mailbox.cc:1219
 #, c-format
 msgid ""
 "Error when compiling a regular expression.\n"
@@ -192,9 +177,9 @@ msgstr ""
 
 #. Otherwise: Ignore it and print error message
 #: ../src/header.cc:147
-#, fuzzy, c-format
-msgid "Can't sort messages by \"%s\""
-msgstr "Nu pot gãsi numãrul de mesaj: %s\n"
+#, c-format
+msgid "Can't sort mails by \"%s\""
+msgstr ""
 
 #: ../src/socket.cc:116 ../src/socket.cc:175 ../src/socket.cc:233
 #: ../src/socket.cc:242
@@ -202,37 +187,27 @@ msgstr "Nu pot gãsi numãrul de mesaj: %s\n"
 msgid "[%d] Unable to connect to %s on port %d"
 msgstr ""
 
-#: ../src/socket.cc:218 ../src/socket.cc:281
+#: ../src/socket.cc:218
 #, fuzzy, c-format
 msgid "[%d] Failed to load certificate (%s) for %s"
 msgstr "Nu mã pot conecta la server.\n"
 
-#: ../src/socket.cc:255 ../src/socket.cc:321
+#: ../src/socket.cc:255
 #, c-format
 msgid "[%d] Cannot identify remote host (%s on port %d)"
 msgstr ""
 
-#: ../src/socket.cc:296
-#, c-format
-msgid "[%d] Unable to set file descriptor: %s"
-msgstr ""
-
-#: ../src/socket.cc:307
-#, c-format
-msgid "[%d] Unable to negotiate TLS connection: %s"
-msgstr ""
-
-#: ../src/socket.cc:407
+#: ../src/socket.cc:340
 #, c-format
 msgid "[%d] Unable to write to %s on port %d"
 msgstr ""
 
-#: ../src/socket.cc:478
+#: ../src/socket.cc:411
 #, c-format
 msgid "[%d] Unable to read from %s on port %d"
 msgstr ""
 
-#: ../src/socket.cc:500
+#: ../src/socket.cc:434
 #, c-format
 msgid "Could not set read timeout on socket: %s"
 msgstr ""
@@ -242,44 +217,44 @@ msgstr ""
 msgid "Cannot open %s."
 msgstr "Nu se poate deschide maildir (%s).\n"
 
-#: ../src/imap4.cc:478
+#: ../src/imap4.cc:459
 msgid "[This message has no part with a supported content type]"
 msgstr ""
 
-#: ../src/imap4.cc:841
+#: ../src/imap4.cc:822
 #, c-format
 msgid "[%d] Unable to select folder %s on host %s"
 msgstr ""
 
-#: ../src/imap4.cc:957
+#: ../src/imap4.cc:910
 #, c-format
 msgid "[%d] Unable to get acknowledgment from %s on port %d"
 msgstr ""
 
-#: ../src/imap4.cc:1016
+#: ../src/imap4.cc:969
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response or acknowledgment"
 msgstr ""
 
-#: ../src/imap4.cc:1069
+#: ../src/imap4.cc:1022
 #, c-format
 msgid "[%d] Server doesn't send untagged \"%s\" response"
 msgstr ""
 
 #. see RFC 3501 7.1.5
-#: ../src/imap4.cc:1625
+#: ../src/imap4.cc:1578
 #, c-format
 msgid "[%d] Server closes connection immediately:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.3
-#: ../src/imap4.cc:1630
+#: ../src/imap4.cc:1583
 #, c-format
 msgid "[%d] Internal server failure or unknown error:%s"
 msgstr ""
 
 #. see RFC 3501 7.1.2
-#: ../src/imap4.cc:1635
+#: ../src/imap4.cc:1588
 #, c-format
 msgid "[%d] Warning from server:%s"
 msgstr ""
@@ -294,12 +269,12 @@ msgstr "Nu se poate deschide maildir (%s).\n"
 msgid "[%d] Empty password"
 msgstr ""
 
-#: ../src/pop.cc:537
+#: ../src/pop.cc:509
 #, c-format
 msgid "[%d] Error message from POP3 server:%s"
 msgstr ""
 
-#: ../src/pop.cc:544
+#: ../src/pop.cc:516
 #, c-format
 msgid "[%d] Did not get a positive response from POP3 server"
 msgstr ""
@@ -332,7 +307,7 @@ msgstr ""
 msgid "Cannot find the specified widget (\"%s\") within xml structure (\"%s\")"
 msgstr "Nu am putut gãsi widgetul specificat (\"%s\") în structura de tree xml"
 
-#: ../src/gnubiff_options.cc:144
+#: ../src/gnubiff_options.cc:140
 #, fuzzy
 msgid "no mail"
 msgstr "Nici un mail"
@@ -359,11 +334,6 @@ msgstr ""
 msgid "Could not find signal handler '%s'."
 msgstr "Nu am putut gãsi semnalul '%s'."
 
-#: ../src/ui-applet.cc:147
-#, fuzzy, c-format
-msgid "Cannot execute command \"%s\"."
-msgstr "Nu se poate deschide maildir \"%s\" (%s).\n"
-
 #: ../src/ui-applet.cc:217
 msgid " unknown"
 msgstr ""
@@ -376,7 +346,7 @@ msgstr ""
 msgid " checking..."
 msgstr ""
 
-#: ../src/ui-preferences.cc:267 ../src/ui-popup.cc:214
+#: ../src/ui-preferences.cc:267 ../src/ui-popup.cc:183
 msgid "Mailbox"
 msgstr "Mailbox"
 
@@ -412,7 +382,7 @@ msgstr "Volum:"
 msgid "_Start"
 msgstr ""
 
-#: ../src/ui-preferences.cc:615 ../ui/preferences.glade.h:87
+#: ../src/ui-preferences.cc:615 ../ui/preferences.glade.h:77
 msgid "_Stop"
 msgstr ""
 
@@ -460,25 +430,25 @@ msgstr ""
 msgid "SSL with certificate"
 msgstr "Rãsfoire(browse) dupã fiºier"
 
-#: ../src/ui-properties.cc:324
+#: ../src/ui-properties.cc:317
 #, fuzzy
 msgid "Browse for a file or folder"
 msgstr "Rãsfoire(browse) dupã fiºier"
 
-#: ../src/ui-properties.cc:330 ../ui/properties.glade.h:5
+#: ../src/ui-properties.cc:323 ../ui/properties.glade.h:5
 #, fuzzy
 msgid "Browse for a certificate file"
 msgstr "Rãsfoire(browse) dupã fiºier"
 
-#: ../src/ui-popup.cc:226
+#: ../src/ui-popup.cc:195
 msgid "From"
 msgstr "De la"
 
-#: ../src/ui-popup.cc:232
+#: ../src/ui-popup.cc:201
 msgid "Subject"
 msgstr "Subiect"
 
-#: ../src/ui-popup.cc:238
+#: ../src/ui-popup.cc:207
 msgid "Date"
 msgstr "Data"
 
@@ -526,7 +496,7 @@ msgstr ""
 msgid "Gnubiff is a mail notification program."
 msgstr ""
 
-#. See http://www.gnu.org/licenses/translations.html
+#. See http://www.gnu.org /licenses/translations.html
 #: ../ui/applet-gtk.glade.h:4
 msgid ""
 "Gnubiff is part of the GNU project.\n"
@@ -564,55 +534,50 @@ msgstr ""
 
 #: ../ui/preferences.glade.h:1
 #, fuzzy
-msgid "<b>Behavior</b>"
-msgstr "Mailbox"
-
-#: ../ui/preferences.glade.h:2
-#, fuzzy
 msgid "<b>Commands</b>"
 msgstr "Mailbox"
 
-#: ../ui/preferences.glade.h:3
+#: ../ui/preferences.glade.h:2
 msgid "<b>Expert editing mode</b>"
 msgstr ""
 
-#: ../ui/preferences.glade.h:4
+#: ../ui/preferences.glade.h:3
 #, fuzzy
 msgid "<b>General</b>"
 msgstr "Mailbox"
 
-#: ../ui/preferences.glade.h:5
+#: ../ui/preferences.glade.h:4
 #, fuzzy
 msgid "<b>Headers</b>"
 msgstr "Mailbox"
 
-#: ../ui/preferences.glade.h:6
+#: ../ui/preferences.glade.h:5
 #, fuzzy
 msgid "<b>Layout</b>"
 msgstr "Aplicaþie mail "
 
-#: ../ui/preferences.glade.h:7
+#: ../ui/preferences.glade.h:6
 #, fuzzy
 msgid "<b>Mailboxes</b>"
 msgstr "Mailbox"
 
-#: ../ui/preferences.glade.h:8
+#: ../ui/preferences.glade.h:7
 #, fuzzy
 msgid "<b>When new mail</b>"
 msgstr "Mailbox"
 
-#: ../ui/preferences.glade.h:9
+#: ../ui/preferences.glade.h:8
 #, fuzzy
 msgid "<b>When no mail</b>"
 msgstr "Mailbox"
 
-#: ../ui/preferences.glade.h:10
+#: ../ui/preferences.glade.h:9
 msgid ""
 "<small> Gnubiff is part of the GNU project.\n"
 " It is released under the aegis of GNU.</small>"
 msgstr ""
 
-#: ../ui/preferences.glade.h:12
+#: ../ui/preferences.glade.h:11
 msgid ""
 "<small>Developers can be contacted via <span foreground=\"blue\">gnubiff-"
 "devel@lists.sourceforge.net</span>.</small>\n"
@@ -620,14 +585,14 @@ msgid ""
 "bugs@lists.sourceforge.net</span>.</small>"
 msgstr ""
 
-#: ../ui/preferences.glade.h:14
+#: ../ui/preferences.glade.h:13
 msgid ""
 "<small>Here is a list of those people, which translated gnubiff into "
 "different languages (translators of previous versions are marked with an "
 "asterisk):</small>"
 msgstr ""
 
-#: ../ui/preferences.glade.h:15
+#: ../ui/preferences.glade.h:14
 msgid ""
 "<small>Many people have further contributed to gnubiff by\n"
 "  - reporting problems\n"
@@ -636,148 +601,136 @@ msgid ""
 "Here is a list of these people:</small>"
 msgstr ""
 
-#: ../ui/preferences.glade.h:20
-msgid "Appear in _pagers"
-msgstr ""
-
-#: ../ui/preferences.glade.h:21
-msgid "Appear in _taskbar"
-msgstr ""
-
-#: ../ui/preferences.glade.h:22
-msgid "Applet"
-msgstr "Applet"
-
-#: ../ui/preferences.glade.h:23
+#: ../ui/preferences.glade.h:19
 #, fuzzy
 msgid "Applet geometry"
 msgstr "Geometrie "
 
-#: ../ui/preferences.glade.h:24
+#: ../ui/preferences.glade.h:20
+#, fuzzy
+msgid "Applet or Biff"
+msgstr "Applet"
+
+#: ../ui/preferences.glade.h:21
 msgid "B_rowse..."
 msgstr ""
 
-#: ../ui/preferences.glade.h:25
-#, fuzzy
-msgid "Be _sticky"
-msgstr "Persistent(Sticky)"
-
-#: ../ui/preferences.glade.h:26
+#: ../ui/preferences.glade.h:22
 #, fuzzy
 msgid "Browse for an image file"
 msgstr "Rãsfoire(browse) dupã fiºier"
 
-#: ../ui/preferences.glade.h:27
+#: ../ui/preferences.glade.h:23
 msgid "Contributors"
 msgstr ""
 
-#: ../ui/preferences.glade.h:28
+#: ../ui/preferences.glade.h:24
 msgid "Credits"
 msgstr "Credite"
 
-#: ../ui/preferences.glade.h:29
+#: ../ui/preferences.glade.h:25
 msgid "Developers"
 msgstr ""
 
-#: ../ui/preferences.glade.h:30
+#: ../ui/preferences.glade.h:26
 msgid "Edit option"
 msgstr ""
 
-#: ../ui/preferences.glade.h:31
+#: ../ui/preferences.glade.h:27
 msgid "Expert"
 msgstr ""
 
-#: ../ui/preferences.glade.h:32
+#: ../ui/preferences.glade.h:28
 msgid "Image filename"
 msgstr ""
 
-#: ../ui/preferences.glade.h:33
+#: ../ui/preferences.glade.h:29
 msgid "List all options."
 msgstr ""
 
-#: ../ui/preferences.glade.h:34
+#: ../ui/preferences.glade.h:30
 msgid ""
 "List of options, their type and current values. To edit an option "
 "doubleclick on its value."
 msgstr ""
 
-#: ../ui/preferences.glade.h:35
+#: ../ui/preferences.glade.h:31
 #, fuzzy
 msgid "Mailboxes"
 msgstr "Mailbox"
 
-#: ../ui/preferences.glade.h:36
+#: ../ui/preferences.glade.h:32
 msgid "Maintainers"
 msgstr ""
 
-#: ../ui/preferences.glade.h:37
+#: ../ui/preferences.glade.h:33
 #, fuzzy
 msgid "Maximum number of headers to display"
 msgstr ""
 "Titlul mailboxului care va fi afiºat în panelul gnome ºi fereastra de popup"
 
-#: ../ui/preferences.glade.h:38 ../ui/popup.glade.h:6
+#: ../ui/preferences.glade.h:34 ../ui/popup.glade.h:4
 msgid "Popup"
 msgstr "Popup"
 
-#: ../ui/preferences.glade.h:39
+#: ../ui/preferences.glade.h:35
 #, fuzzy
 msgid "Popup geometry"
 msgstr "Geometrie "
 
-#: ../ui/preferences.glade.h:40
+#: ../ui/preferences.glade.h:36
 msgid ""
 "Search for those (displayed) options that contain the string in the text "
 "entry."
 msgstr ""
 
-#: ../ui/preferences.glade.h:41
+#: ../ui/preferences.glade.h:37
 msgid "Set to default value"
 msgstr ""
 
-#: ../ui/preferences.glade.h:42
+#: ../ui/preferences.glade.h:38
 #, fuzzy
 msgid "Show _image:"
 msgstr "Afiºeazã titlu"
 
-#: ../ui/preferences.glade.h:43
+#: ../ui/preferences.glade.h:39
 #, fuzzy
 msgid "Show _text:"
 msgstr "Afiºeazã titlu"
 
-#: ../ui/preferences.glade.h:44
+#: ../ui/preferences.glade.h:40
 #, fuzzy
 msgid "Show i_mage:"
 msgstr "Afiºeazã titlu"
 
-#: ../ui/preferences.glade.h:45
+#: ../ui/preferences.glade.h:41
 #, fuzzy
 msgid "Show t_ext:"
 msgstr "Afiºeazã titlu"
 
-#: ../ui/preferences.glade.h:46
+#: ../ui/preferences.glade.h:42
 #, fuzzy
 msgid "String to be searched for."
 msgstr "Font pentru corpul popup-ului"
 
-#: ../ui/preferences.glade.h:48
+#: ../ui/preferences.glade.h:44
 #, no-c-format
 msgid ""
 "Text to display (%d and %D is the number of new messages, %d is zero "
 "padded). Pango markup may be used."
 msgstr ""
 
-#: ../ui/preferences.glade.h:49
+#: ../ui/preferences.glade.h:45
 #, fuzzy
 msgid "The command to run when new mail arrives"
 msgstr "Sunet de cântat când a venit mail nou"
 
-#: ../ui/preferences.glade.h:50
+#: ../ui/preferences.glade.h:46
 msgid "The command to run when the icon is double-clicked"
 msgstr ""
 
 #. The option's descriptions are in English only! This may be included in a translation of this text.
-#: ../ui/preferences.glade.h:52
+#: ../ui/preferences.glade.h:48
 msgid ""
 "The editing dialog for all options that gnubiff uses internally can be "
 "enabled here. So it is possible to change the value of options for which no "
@@ -786,170 +739,143 @@ msgid ""
 "or result in security problems."
 msgstr ""
 
-#: ../ui/preferences.glade.h:54
+#: ../ui/preferences.glade.h:50
 msgid "The font to use to display information"
 msgstr ""
 
-#: ../ui/preferences.glade.h:55
+#: ../ui/preferences.glade.h:51
 #, fuzzy
 msgid "Time to display popup window"
 msgstr "Duratã de afiºare a popup-ului (secunde):"
 
-#: ../ui/preferences.glade.h:56
+#: ../ui/preferences.glade.h:52
 msgid "Toggle option"
 msgstr ""
 
-#: ../ui/preferences.glade.h:57
+#: ../ui/preferences.glade.h:53
 msgid "Translators"
 msgstr ""
 
-#: ../ui/preferences.glade.h:58
+#: ../ui/preferences.glade.h:54
 msgid "Use _decoration"
 msgstr ""
 
-#: ../ui/preferences.glade.h:59
+#: ../ui/preferences.glade.h:55
 #, fuzzy
 msgid "Use _geometry:"
 msgstr "Geometrie "
 
-#: ../ui/preferences.glade.h:60
+#: ../ui/preferences.glade.h:56
 msgid "When _double-clicked:"
 msgstr ""
 
-#: ../ui/preferences.glade.h:61
+#: ../ui/preferences.glade.h:57
 #, fuzzy
 msgid "When _new mail:"
 msgstr "Sunete când vine mail nou"
 
-#: ../ui/preferences.glade.h:62
+#: ../ui/preferences.glade.h:58
 msgid "Whether options can be edited in expert mode"
 msgstr ""
 
-#: ../ui/preferences.glade.h:63
-msgid "Whether to accept keyboard focus"
-msgstr ""
-
-#: ../ui/preferences.glade.h:64
-#, fuzzy
-msgid "Whether to appear in pagers"
-msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
-
-#: ../ui/preferences.glade.h:65
-#, fuzzy
-msgid "Whether to appear on all desktops"
-msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
-
-#: ../ui/preferences.glade.h:66
-#, fuzzy
-msgid "Whether to be always kept above all other windows"
-msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
-
-#: ../ui/preferences.glade.h:67
+#: ../ui/preferences.glade.h:59
 #, fuzzy
 msgid "Whether to display a text"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ../ui/preferences.glade.h:68
+#: ../ui/preferences.glade.h:60
 #, fuzzy
 msgid "Whether to display an image"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ../ui/preferences.glade.h:69
+#: ../ui/preferences.glade.h:61
 #, fuzzy
 msgid "Whether to display the popup window"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ../ui/preferences.glade.h:70
+#: ../ui/preferences.glade.h:62
 msgid "Whether to restrict number of displayed headers"
 msgstr ""
 
-#: ../ui/preferences.glade.h:71
+#: ../ui/preferences.glade.h:63
 #, fuzzy
 msgid "Whether to show an image"
 msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
 
-#: ../ui/preferences.glade.h:72
+#: ../ui/preferences.glade.h:64
 msgid ""
 "Whether to show the expert tab. Note: Disabling this option can only be "
 "reversed by editing the config file manually!"
 msgstr ""
 
-#: ../ui/preferences.glade.h:73
+#: ../ui/preferences.glade.h:65
 #, fuzzy
 msgid "Whether to use format for header"
 msgstr "Geometrie "
 
-#: ../ui/preferences.glade.h:74
+#: ../ui/preferences.glade.h:66
 #, fuzzy
 msgid "Whether to use geometry"
 msgstr "Geometrie "
 
-#: ../ui/preferences.glade.h:75
+#: ../ui/preferences.glade.h:67
 msgid "Whether to use window manager decoration"
 msgstr ""
 
-#: ../ui/preferences.glade.h:76
+#: ../ui/preferences.glade.h:68
 msgid "[sender max size]:[subject max size]:[date max size]"
 msgstr ""
 
-#: ../ui/preferences.glade.h:77
-msgid "_Accept focus"
-msgstr ""
-
-#: ../ui/preferences.glade.h:78 ../ui/properties.glade.h:21
+#: ../ui/preferences.glade.h:69 ../ui/properties.glade.h:21
 msgid "_Browse..."
 msgstr ""
 
-#: ../ui/preferences.glade.h:79
+#: ../ui/preferences.glade.h:70
 #, fuzzy
 msgid "_Display for"
 msgstr "Afiºeazã data în headere sau nu"
 
-#: ../ui/preferences.glade.h:80
+#: ../ui/preferences.glade.h:71
 msgid "_Edit options in expert mode"
 msgstr ""
 
-#: ../ui/preferences.glade.h:81
+#: ../ui/preferences.glade.h:72
 #, fuzzy
 msgid "_Font:"
 msgstr "Fonturi "
 
-#: ../ui/preferences.glade.h:82
+#: ../ui/preferences.glade.h:73
 #, fuzzy
 msgid "_Format:"
 msgstr "De la"
 
-#: ../ui/preferences.glade.h:83
-msgid "_Keep above"
-msgstr ""
-
-#: ../ui/preferences.glade.h:84
+#: ../ui/preferences.glade.h:74
 msgid "_Restrict collected mail to"
 msgstr ""
 
-#: ../ui/preferences.glade.h:85
+#: ../ui/preferences.glade.h:75
 msgid "_Restrict number to"
 msgstr ""
 
-#: ../ui/preferences.glade.h:86
+#: ../ui/preferences.glade.h:76
 msgid "_Show expert tab"
 msgstr ""
 
-#: ../ui/preferences.glade.h:88
+#: ../ui/preferences.glade.h:78
 msgid "gnubiff preferences"
 msgstr ""
 
-#: ../ui/preferences.glade.h:89
-#, fuzzy
-msgid "headers"
-msgstr "Suspendare"
-
-#: ../ui/preferences.glade.h:90
-msgid "messages"
+#: ../ui/preferences.glade.h:79
+msgid "header(s)"
 msgstr ""
 
-#: ../ui/preferences.glade.h:91 ../ui/properties.glade.h:31
-msgid "seconds"
+#: ../ui/preferences.glade.h:80
+#, fuzzy
+msgid "mail(s)"
+msgstr "Nici un mail"
+
+#: ../ui/preferences.glade.h:81
+msgid "second(s)"
 msgstr ""
 
 #: ../ui/properties.glade.h:1
@@ -1079,6 +1005,10 @@ msgstr ""
 msgid "othe_r"
 msgstr ""
 
+#: ../ui/properties.glade.h:31
+msgid "seconds"
+msgstr ""
+
 #: ../ui/properties.glade.h:32
 msgid "stan_dard"
 msgstr ""
@@ -1160,30 +1090,9 @@ msgstr "Adresã / nume fiºier:"
 msgid "<small><b>Subject</b></small>"
 msgstr "Adresã / nume fiºier:"
 
-#: ../ui/popup.glade.h:4
-msgid "Delete this message"
-msgstr ""
-
 #: ../ui/popup.glade.h:5
-#, fuzzy
-msgid "Hide popup"
-msgstr "Afiºeazã popup"
-
-#: ../ui/popup.glade.h:7
-msgid "Undelete this message"
-msgstr ""
-
-#: ../ui/popup.glade.h:8
 msgid "mail content"
 msgstr ""
-
-#, fuzzy
-#~ msgid "mail(s)"
-#~ msgstr "Nici un mail"
-
-#, fuzzy
-#~ msgid "Applet or Biff"
-#~ msgstr "Applet"
 
 #, fuzzy
 #~ msgid "New mail"
@@ -1193,6 +1102,9 @@ msgstr ""
 #~ msgid "No mail"
 #~ msgstr "Nici un mail"
 
+#~ msgid "Applet"
+#~ msgstr "Applet"
+
 #, fuzzy
 #~ msgid "Cannot find new mail directory (%s)"
 #~ msgstr "Nu se poate deschide maildir (%s).\n"
@@ -1200,6 +1112,14 @@ msgstr ""
 #, fuzzy
 #~ msgid "Unknown error while parsing config file"
 #~ msgstr "Probleme în închiderea fiºierului de configurare (%s).\n"
+
+#, fuzzy
+#~ msgid "Whether the window shall appear in pagers"
+#~ msgstr "Afiºeazã fereastra de popup pentru POPTIME secunde"
+
+#, fuzzy
+#~ msgid "_Be sticky"
+#~ msgstr "Persistent(Sticky)"
 
 #, fuzzy
 #~ msgid "date"
@@ -1617,6 +1537,10 @@ msgstr ""
 #~ msgstr "Mãsurare a timpului(Timing)"
 
 #, fuzzy
+#~ msgid "Use popup"
+#~ msgstr "Afiºeazã popup"
+
+#, fuzzy
 #~ msgid "User mail account name "
 #~ msgstr "Nume cont utilizator"
 
@@ -1691,6 +1615,10 @@ msgstr ""
 #~ msgid "<small>Match any of the rules</small>"
 #~ msgstr "Adresã / nume fiºier:"
 
+#, fuzzy
+#~ msgid "Sender"
+#~ msgstr "Suspendare"
+
 #~ msgid "Mailbox addressing information "
 #~ msgstr "Informaþie de adresare mailbox "
 
@@ -1710,6 +1638,9 @@ msgstr ""
 #~ msgid "Problem while closing %s mailfile (%s).\n"
 #~ msgstr "Problemã apãrutã în timpul închiderii fiºierului de mail %s (%s).\n"
 
+#~ msgid "Cannot open maildir \"%s\" (%s).\n"
+#~ msgstr "Nu se poate deschide maildir \"%s\" (%s).\n"
+
 #~ msgid "Cannot open MH sequences file : %s (%s).\n"
 #~ msgstr "Nu se poate deschide fiºierul de secvenþe MH : %s (%s).\n"
 
@@ -1724,6 +1655,12 @@ msgstr ""
 
 #~ msgid "Cannot authenticate user: %s\n"
 #~ msgstr "Nu pot autentifica utilizatorul: %s\n"
+
+#~ msgid "Cannot retrieve unique-id listings: %s\n"
+#~ msgstr "Nu pot recupera listingurile de id-uri unice: %s\n"
+
+#~ msgid "Cannot get message number: %s\n"
+#~ msgstr "Nu pot gãsi numãrul de mesaj: %s\n"
 
 #~ msgid "Entering IMAP4_checkmail\n"
 #~ msgstr "Se intrã în IMAP4_checkmail\n"
