@@ -210,7 +210,8 @@ Socket::open (std::string hostname, gushort port, guint authentication,
 #ifdef HAVE_LIBSSL
 	if (use_ssl_) {
 		if (certificate_.size() > 0) {
-			const gchar *capath = mailbox_->biff()->value_gchar ("dir_certificates");
+			std::string capath_str = mailbox_->biff()->value_string ("dir_certificates");
+			const gchar *capath = capath_str.c_str();
 			if (*capath == '\0')
 				capath = NULL;
 			if (!SSL_CTX_load_verify_locations (context_, certificate_.c_str(),
@@ -273,7 +274,8 @@ Socket::starttls (std::string certificate)
 	context_ = SSL_CTX_new (TLSv1_client_method());
 
 		if (certificate_.size() > 0) {
-			const gchar *capath = mailbox_->biff()->value_gchar ("dir_certificates");
+			std::string capath_str = mailbox_->biff()->value_string ("dir_certificates");
+			const gchar *capath = capath_str.c_str();
 			if (*capath == '\0')
 				capath = NULL;
 			if (!SSL_CTX_load_verify_locations (context_, certificate_.c_str(),

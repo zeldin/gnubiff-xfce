@@ -115,14 +115,14 @@ Biff::Biff (guint ui_mode, std::string filename)
 	// Does the configuration file exist?
 	std::ifstream file;
 
-	file.open (value_gchar ("config_file"));
+	file.open (value_string ("config_file").c_str());
 	if (file.is_open ()) {
 		file.close ();
 		load ();
 	}
 	else {
 		g_warning (_("Configuration file (%s) not found!"),
-				   value_gchar ("config_file"));
+				   value_string ("config_file").c_str());
 		mailbox_.push_back (new Mailbox (this));
 	}
 	value ("config_file_loaded", true);
@@ -769,7 +769,8 @@ Biff::save (void)
 	save_endblock();
 
 	// Write Configuration to file
-	int fd = open (value_gchar ("config_file"), O_WRONLY | O_CREAT | O_TRUNC,
+	int fd = open (value_string ("config_file").c_str(),
+				   O_WRONLY | O_CREAT | O_TRUNC,
 				   S_IRUSR | S_IWUSR);
 	if (fd == -1)
 	    return false;
@@ -790,7 +791,8 @@ Biff::load (void)
 	mailbox_.clear ();
 
 	// Is the configuration file a directory?
-	const gchar *config_file = value_gchar ("config_file");
+	std::string config_file_str = value_string ("config_file");
+	const gchar *config_file = config_file_str.c_str();
 	if (g_file_test (config_file, G_FILE_TEST_IS_DIR)) {
 		g_warning (_("Configuration file \"%s\" is a directory"), config_file);
 		return false;

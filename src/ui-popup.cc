@@ -361,7 +361,7 @@ Popup::update (void)
 	// Update fonts
 	GtkWidget *treeview = get("treeview");
 	PangoFontDescription *font;
-	font = pango_font_description_from_string (biff_->value_gchar ("popup_font"));
+	font = pango_font_description_from_string (biff_->value_string ("popup_font").c_str());
 	gtk_widget_modify_font (treeview, font);
 	pango_font_description_free (font);
 
@@ -425,7 +425,7 @@ Popup::show (std::string name)
 	
 	if (biff_->value_bool ("popup_use_geometry"))
 		gtk_window_parse_geometry (dialog,
-								   biff_->value_gchar ("popup_geometry"));
+								   biff_->value_string ("popup_geometry").c_str());
 	if (biff_->value_bool ("popup_be_sticky"))
 		gtk_window_stick (dialog);
 	else

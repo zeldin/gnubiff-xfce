@@ -187,7 +187,7 @@ AppletGtk::show (std::string name)
 
 	if (biff_->value_bool ("applet_use_geometry"))
 		gtk_window_parse_geometry (dialog,
-								   biff_->value_gchar ("applet_geometry"));
+								   biff_->value_string ("applet_geometry").c_str());
 	if (biff_->value_bool ("applet_be_sticky"))
 		gtk_window_stick (dialog);
 	else
