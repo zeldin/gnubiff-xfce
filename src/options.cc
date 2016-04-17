@@ -284,24 +284,6 @@ Options::value_string (const std::string &name, gboolean respect_update)
 }
 
 /**
- *  Get the value of the string option {\em name} as a pointer to a
- *  character array.  This function handles the OPTFLG_UPDATE flag, so use
- *  this function instead of getting the value directly.
- *
- *  @param  name           Name of the option to be obtained
- *  @param  respect_update Shall the OPTFLG_UPDATE flag be respected (the
- *                         default is true)?
- *  @return                Value of the option or a pointer to an empty string
- *                         if there is an error
- */
-const gchar *
-Options::value_gchar (const std::string &name, gboolean respect_update)
-{
-	return value_string(name, respect_update).c_str();
-}
-
-
-/**
  *  Get the value of the unsigned integer option {\em name}.  This function
  *  handles the OPTFLG_UPDATE flag, so use this function instead of getting
  *  the value directly.

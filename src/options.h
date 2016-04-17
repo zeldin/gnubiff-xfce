@@ -69,8 +69,6 @@ public:
 						 gboolean respect_update = true);
 	std::string value_string (const std::string &name,
 							  gboolean respect_update = true);
-	const gchar * value_gchar (const std::string &name,
-							   gboolean respect_update = true);
 	guint value_uint (const std::string &name, gboolean respect_update = true);
 	gboolean set_values (const std::string &name,
 						 const std::set<std::string> &values,

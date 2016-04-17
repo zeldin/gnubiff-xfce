@@ -104,7 +104,7 @@ Mailbox::~Mailbox (void)
 	g_mutex_unlock (mutex_);
 
 	// Free all mutexes
-	g_mutex_unlock (mutex_);
+	g_mutex_free (mutex_);
 	g_mutex_lock (monitor_mutex_);
 	g_mutex_unlock (monitor_mutex_);
 	g_mutex_free (monitor_mutex_);
